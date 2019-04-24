@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\Core\Routing\CurrentRouteMatch;
 use Drupal\openy_campaign\Entity\Winner;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -29,16 +30,27 @@ class WinnersCalculateForm extends FormBase {
   protected $entityTypeManager;
 
   /**
-   * CalcBlockForm constructor.
+   * @var \Drupal\Core\Routing\CurrentRouteMatch
+   */
+  protected $routeMatch;
+
+  /**
+   * WinnersCalculateForm constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager.
+   * @param \Drupal\Core\Routing\CurrentRouteMatch $routeMatch
    */
-  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(
+    RendererInterface $renderer,
+    EntityTypeManagerInterface $entityTypeManager,
+    CurrentRouteMatch $routeMatch
+  ) {
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
+    $this->routeMatch = $routeMatch;
   }
 
   /**
@@ -47,7 +59,8 @@ class WinnersCalculateForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('current_route_match')
     );
   }
 
@@ -75,7 +88,7 @@ class WinnersCalculateForm extends FormBase {
     ];
 
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = \Drupal::routeMatch()->getParameter('node');
+    $campaign = $this->routeMatch->getParameter('node');
     $activitiesVoc = $campaign->field_campaign_fitness_category->target_id;
     if (!empty($form_state->getValue('field_campaign_fitness_category'))) {
       $activitiesVoc = $form_state->getValue('field_campaign_fitness_category')[0]['target_id'];
@@ -97,7 +110,7 @@ class WinnersCalculateForm extends FormBase {
     // Get all enabled activities list.
     $activitiesOptions = openy_campaign_get_enabled_activities($campaign);
 
-    $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions) ? TRUE : FALSE;
+    $enableVisitsGoal = in_array('field_prgf_activity_visits', $activitiesOptions);
     $form['generate']['visits_goal'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Run Visit Goal Random Drawing'),
@@ -170,7 +183,7 @@ class WinnersCalculateForm extends FormBase {
     }
 
     // Define should we calculate winners for Visits goal.
-    $isVisitsGoal = !empty($form_state->getValue('visits_goal')) ? TRUE : FALSE;
+    $isVisitsGoal = !empty($form_state->getValue('visits_goal'));
 
     $operations = [
       [[get_class($this), 'deleteWinners'], [$campaignId, $isVisitsGoal]],

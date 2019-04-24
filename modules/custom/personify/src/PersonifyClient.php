@@ -10,8 +10,13 @@ use Drupal\Core\Site\Settings;
  */
 class PersonifyClient implements CRMClientInterface {
 
+  /** @var string Personify API endpoint */
   protected $endpoint;
+
+  /** @var string Personify API username */
   protected $username;
+
+  /** @var string Personify API password */
   protected $password;
 
   /**

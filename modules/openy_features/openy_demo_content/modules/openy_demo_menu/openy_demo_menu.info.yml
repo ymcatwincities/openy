@@ -1,8 +1,9 @@
-name: 'OpenY Demo Menu'
-description: 'OpenY Demo Menu.'
+name: Open Y Demo Menu
+description: Stores migration group for demo menu migrations.
 type: module
 core: 8.x
-package: OpenY
+version: 8.x-1.0
+package: Open Y
 dependencies:
   - migrate
   - migrate_plus

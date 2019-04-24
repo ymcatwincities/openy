@@ -16,7 +16,9 @@ class OpenyRepeatServiceProvider extends ServiceProviderBase {
   public function alter(ContainerBuilder $container) {
     // Overrides session_instance.manager class so we do not generate
     // session instances but instead use new repeat entity.
-    $definition = $container->getDefinition('session_instance.manager');
-    $definition->setClass('Drupal\openy_repeat\RepeatManager');
+    if ($container->has('session_instance.manager')) {
+      $definition = $container->getDefinition('session_instance.manager');
+      $definition->setClass('Drupal\openy_repeat\RepeatManager');
+    }
   }
 }

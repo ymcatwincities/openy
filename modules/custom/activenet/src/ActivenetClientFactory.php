@@ -37,9 +37,18 @@ class ActivenetClientFactory implements ActivenetClientFactoryInterface {
     $settings = $this->configFactory->get('activenet.settings');
     $config = [
       'base_uri' => $settings->get('base_uri'),
-      'headers'  => ['Accept' => 'application/json'],
+      'headers'  => [
+        'Accept' => 'application/json',
+        'page_info' => '{"total_records_per_page":200}',
+      ],
     ];
-    return new ActivenetClient($config);
+    $api_config = [
+      'base_uri' => $settings->get('base_uri'),
+      'api_key' => $settings->get('api_key'),
+    ];
+    $client = new ActivenetClient($config);
+    $client->setApi($api_config);
+    return $client;
   }
 
 }

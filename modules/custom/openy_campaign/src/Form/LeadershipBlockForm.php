@@ -97,7 +97,7 @@ class LeadershipBlockForm extends FormBase {
       // Get current user branch.
       if (MemberCampaign::isLoggedIn($campaignId)) {
         $userData = MemberCampaign::getMemberCampaignData($campaignId);
-        $member = Member::load($userData['member_id']);
+        $member = $this->entityTypeManager->getStorage('openy_campaign_member')->load($userData['member_id']);
         $selectedBranch = $member->getBranchId();
       }
     }
@@ -210,20 +210,22 @@ class LeadershipBlockForm extends FormBase {
    */
   private function getBranches($campaignId) {
     $locations = [];
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
 
-    $query = $this->entityTypeManager->getStorage('node')->getQuery();
+    $query = $nodeStorage->getQuery();
     $nids = $query->condition('type', 'branch')
       ->condition('status', '1')
       ->sort('title', 'ASC')
       ->execute();
-    $branches = $this->entityTypeManager->getStorage('node')->loadMultiple($nids);
+    $branches = $nodeStorage->loadMultiple($nids);
 
     // Get list of branches related to the Campaign.
     $campaign = NULL;
     $campaignBranches = [];
     if (!empty($campaignId)) {
       /** @var \Drupal\node\Entity\Node $campaign Campaign node. */
-      $campaign = $this->entityTypeManager->getStorage('node')->load($campaignId);
+      $campaign = $nodeStorage->load($campaignId);
       $branchesField = $campaign->get('field_campaign_branch_target')->getValue();
       foreach ($branchesField as $branchItem) {
         $campaignBranches[] = $branchItem['target_id'];
@@ -252,7 +254,7 @@ class LeadershipBlockForm extends FormBase {
     $categories = [];
 
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaign = Node::load($campaignId);
+    $campaign = $this->entityTypeManager->getStorage('taxonomy_vocabulary')->load($campaignId);
 
     /** @var \Drupal\taxonomy\Entity\Vocabulary $vocabulary */
     $vocabulary = $campaign->field_campaign_fitness_category->entity;
@@ -280,11 +282,13 @@ class LeadershipBlockForm extends FormBase {
     $activities = [];
 
     $categories = $this->getCategories($campaignId);
+    /** @var \Drupal\taxonomy\TermStorageInterface $termStorage */
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
 
     foreach (array_keys($categories) as $categoryId) {
-      $topTerm = Term::load($categoryId);
+      $topTerm = $termStorage->load($categoryId);
 
-      $terms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($topTerm->getVocabularyId(), $categoryId, 1, TRUE);
+      $terms = $termStorage->loadTree($topTerm->getVocabularyId(), $categoryId, 1, TRUE);
       /** @var \Drupal\taxonomy\Entity\Term $term */
       foreach ($terms as $term) {
         if (!$term->field_enable_activities_counter->value) {

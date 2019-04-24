@@ -83,7 +83,7 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'openy-campaign-winners',
     ],
-    // Winners block text.
+    // Leadership block.
     'openy_campaign_leadership' => [
       'variables' => [
         'leaders' => [],
@@ -101,7 +101,6 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
       'variables' => [
         'goal' => NULL,
         'current' => NULL,
-        'title' => NULL,
         'goal_message' => NULL,
         'trackActvDesc' => NULL,
         'enActvCounter' => NULL,
@@ -114,7 +113,8 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
     'openy_campaign_games' => [
       'variables' => [
         'form' => NULL,
-        'campaign' => NULL
+        'campaign' => NULL,
+        'game_type' => NULL,
       ],
       'template' => 'openy-campaign-games',
       'render element' => 'form',
@@ -151,6 +151,25 @@ function openy_campaign_theme($existing, $type, $theme, $path) {
         'messageTitle' => NULL,
       ],
       'template' => 'games/flip-cards',
+    ],
+
+
+    // Instant Game: Spin the wheel.
+    'openy_campaign_game_spin_the_wheel' => [
+      'variables' => [
+        'link' => NULL,
+        'result' => NULL,
+        'title' => NULL,
+        'description' => NULL,
+        'coverImagePath' => NULL,
+        'isWinner' => NULL,
+        'message' => NULL,
+        'messageTitle' => NULL,
+        'isUnplayedGamesExist' => NULL,
+        'nextGameUrl' => NULL,
+        'campaignUrl' => NULL
+      ],
+      'template' => 'games/spin_the_wheel',
     ],
 
     // Scorecard.
@@ -261,7 +280,8 @@ function openy_campaign_tokens($type, $tokens, array $data, array $options, Bubb
         if (!empty($campaign) && MemberCampaign::isLoggedIn($campaign->id())) {
           $userData = MemberCampaign::getMemberCampaignData($campaign->id());
           $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
-          $memberCampaign = MemberCampaign::load($memberCampaignID);
+          /** @var MemberCampaign $memberCampaign */
+          $memberCampaign = \Drupal::entityTypeManager()->getStorage('openy_campaign_member_campaign')->load($memberCampaignID);
           if (!empty($memberCampaign)) {
             $goal = (int) $memberCampaign->getGoal();
           }
@@ -451,7 +471,7 @@ function openy_campaign_preprocess_paragraph(&$variables) {
             $renderBlock['goal_block']['#enActvCounter'] = 0;
             break;
 
-          // Show Activity count. It will be displayed with enActvCounter = 1
+          // Show Activity count. It will be displayed with enActvCounter = 1.
           case 'field_enable_activities_counter':
             $userData = MemberCampaign::getMemberCampaignData($campaign->id());
             $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
@@ -478,8 +498,7 @@ function openy_campaign_preprocess_paragraph(&$variables) {
  */
 function openy_campaign_node_presave(Node $node) {
   if ($node->bundle() == 'campaign') {
-    // Add 'Enable Activities Counter' checkbox
-    // to the terms of the selected vocabulary.
+    // Add 'Enable Activities Counter' checkbox to the terms of the selected vocabulary.
     $enableActivitiesCounter = $node->field_enable_activities_counter->value;
     $activitiesVocabulary = $node->field_campaign_fitness_category->target_id;
 
@@ -591,25 +610,20 @@ function openy_campaign_entity_type_build(array &$entity_types) {
 }
 
 /**
- * Implements hook_entity_type_build().
+ * Implements hook_node_view_alter().
  */
 function openy_campaign_node_view_alter(array &$build, Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display) {
   // Disable caching for the Campaign's pages.
   if (in_array($entity->bundle(), ['campaign', 'campaign_page'])) {
     $build['#cache']['max-age'] = CAMPAIGN_CACHE_TIME;
-    \Drupal::service('page_cache_kill_switch')->trigger();
   }
 }
 
 /**
  * Implements hook_form_FORM_ID_alter().
- *
- * Forbid editing some Member entity fields from admin panel.
- *
- * @param $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
 function openy_campaign_form_openy_campaign_member_edit_form_alter(&$form, FormStateInterface $form_state) {
+  // Forbid editing some Member entity fields from admin panel.
   $readonlyFields = [
     'membership_id',
     'personify_id',
@@ -654,7 +668,7 @@ function openy_campaign_form_views_exposed_form_alter(&$form, FormStateInterface
     $form['campaign']['#options'] = $options;
     $form['campaign']['#default_value'] = $default;
 
-    $form['#action'] = '/members-list';
+    $form['#action'] = base_path() . 'members-list';
   }
 }
 
@@ -764,7 +778,7 @@ function openy_campaign_form_node_campaign_page_delete_form_alter(&$form, &$form
   /** @var \Drupal\Core\Entity\EntityStorageInterface $entityStorage */
   $entityStorage = \Drupal::entityTypeManager()->getStorage('node');
   /** @var \Drupal\Core\Entity\Query\QueryInterface $nodeQuery */
-  $nodeQuery = \Drupal::entityQuery('node');
+  $nodeQuery = $entityStorage->getQuery();
 
   // Check if Campaign page is referenced in any Campaign.
   $landingQuery = $nodeQuery
@@ -797,7 +811,6 @@ function openy_campaign_form_node_campaign_page_delete_form_alter(&$form, &$form
   }
 }
 
-
 /**
  * Render admin block with Campaign menu links.
  *
@@ -824,7 +837,8 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
     $campaign = $form_state->getFormObject()->getEntity();
     foreach ($campaign->get('field_campaign_pages')->getValue() as $item) {
       if (!empty($item)) {
-        $campaignPage = Node::load($item['target_id']);
+        /** @var Node $campaignPage */
+        $campaignPage = \Drupal::entityTypeManager()->getStorage('node')->load($item['target_id']);
         if ($campaignPage) {
           $campaignPages[$campaignPage->id()] = $campaignPage->getTitle();
         }
@@ -870,7 +884,8 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
 
       $page = NULL;
       if (!empty($linksRow['page'])) {
-        $page = Node::load($linksRow['page'][0]['target_id']);
+        /** @var Node $page */
+        $page = \Drupal::entityTypeManager()->getStorage('node')->load($linksRow['page'][0]['target_id']);
       }
 
       $menuBlock['links'][$row]['page'] = [
@@ -921,7 +936,6 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
   }
 }
 
-
 /**
  * Save campaign menu links.
  *
@@ -960,7 +974,8 @@ function openy_campaign_campaign_menu_field_submit(&$form, FormStateInterface $f
       if (empty($id)) {
         continue;
       }
-      $campaignPage = Node::load($id);
+      /** @var Node $campaignPage */
+      $campaignPage = \Drupal::entityTypeManager()->getStorage('node')->load($id);
       if ($campaignPage->hasField('field_campaign_parent')) {
         $campaignPage->set('field_campaign_parent', $campaign);
         $campaignPage->save();
@@ -992,7 +1007,6 @@ function openy_campaign_campaign_menu_field_submit(&$form, FormStateInterface $f
     }
   }
 }
-
 
 /**
  * Preprocess System Branding block variables.

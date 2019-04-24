@@ -37,7 +37,7 @@ class GroupexFormCacheSettingsForm extends FormBase {
   }
 
   /**
-   * Defines the settings form for Groupex Form Cache entities.
+   * Defines the settings form for GroupEx Pro Form Cache entities.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
@@ -48,7 +48,7 @@ class GroupexFormCacheSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['GroupexFormCache_settings']['#markup'] = 'Settings form for Groupex Form Cache entities. Manage field settings here.';
+    $form['GroupexFormCache_settings']['#markup'] = 'Settings form for GroupEx Pro Form Cache entities. Manage field settings here.';
     return $form;
   }
 

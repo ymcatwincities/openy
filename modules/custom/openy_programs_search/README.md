@@ -1,4 +1,4 @@
-# OpenY Programs Search
+# Open Y Programs Search
 
 Provides configurable programs search paragraph.
 

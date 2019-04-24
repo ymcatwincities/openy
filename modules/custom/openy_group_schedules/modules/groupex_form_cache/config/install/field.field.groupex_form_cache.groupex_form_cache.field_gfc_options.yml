@@ -11,7 +11,7 @@ field_name: field_gfc_options
 entity_type: groupex_form_cache
 bundle: groupex_form_cache
 label: Options
-description: 'Sorted and serialized array of Groupex request options.'
+description: 'Sorted and serialized array of GroupEx Pro request options.'
 required: true
 translatable: true
 default_value: {  }

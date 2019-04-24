@@ -5,8 +5,7 @@ dependencies:
     - system.menu.footer-menu-right
   module:
     - system
-  theme:
-    - openy_carnation
+    - openy_menu_footer
 id: openy_carnation_footermenuright
 theme: openy_carnation
 region: footer_menus

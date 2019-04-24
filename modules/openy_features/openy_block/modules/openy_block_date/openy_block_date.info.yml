@@ -1,6 +1,6 @@
-name: 'OpenY Date Block'
-description: 'Implements OpenY Date Block.'
-package: OpenY
+name: Open Y Block Date
+description: Implements a custom block to display content based on date and time (before, between, after).
+package: Open Y
 type: module
 core: 8.x
 dependencies:

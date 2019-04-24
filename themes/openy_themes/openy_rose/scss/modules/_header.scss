@@ -490,6 +490,20 @@
 
 }
 
+.viewport {
+  .top-navs.affix {
+    .nav-global > .container {
+      > .row {
+        min-height: 41px;
+        .header-content {
+          top: 0;
+          min-height: 41px;
+        }
+      }
+    }
+  }
+}
+
 .toolbar-fixed {
   &.toolbar-horizontal {
     .viewport,
@@ -501,6 +515,7 @@
       .viewport,
       .top-navs {
         margin-top: 79px;
+        z-index: 10;
       }
     }
   }

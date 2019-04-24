@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Classes Listing'
-description: 'OpenY Paragraph Classes Listing.'
+name: Open Y Paragraph Classes Listing
+description: Provides a dynamic paragraph that renders class listing grouped by activity for selected/specified branch.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - node

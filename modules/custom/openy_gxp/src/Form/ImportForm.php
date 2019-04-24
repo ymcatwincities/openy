@@ -48,7 +48,9 @@ class ImportForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = \Drupal::configFactory()->get('openy_gxp.settings');
 
-    $operations = [];
+    $operations = [
+      ['Drupal\openy_gxp\Form\ImportForm::rollbackMigrations', []]
+    ];
     foreach (explode("\n", $config->get('locations')) as $row) {
       list($gxpLocationId, $locationName) = explode(',', $row);
       $gxpLocationId = (int) $gxpLocationId;
@@ -72,6 +74,15 @@ class ImportForm extends FormBase {
     );
 
     batch_set($batch);
+  }
+
+  /**
+   * Rollback all imported programs.
+   */
+  public static function rollbackMigrations() {
+    $migration = \Drupal::service('plugin.manager.migration')->createInstance('gxp_offerings_import');
+    $executable = new MigrateExecutable($migration, new MigrateMessage());
+    $executable->rollback();
   }
 
   /**
@@ -101,6 +112,10 @@ class ImportForm extends FormBase {
     }
 
     foreach ($programsResponse as $row) {
+      if (empty($row['title'])) {
+        continue;
+      }
+
       $startDate = (new \DateTime($row['start_date']))->format('Y-m-d');
       $endDate = (new \DateTime($row['end_date']))->format('Y-m-d');
 
@@ -115,6 +130,9 @@ class ImportForm extends FormBase {
           ];
         }
       }
+
+      $register_url = isset($row['reservation_id']) && !empty($row['reservation_id']) ? 'https://www.groupexpro.com/gxp/reservations/start/index/' . $row['reservation_id'] : '';
+      $register_button_text = !empty($register_url) ? (string) t('Sign Up') : '';
 
       $newRow = [
         'class_id' => $row['class_id'],
@@ -137,6 +155,8 @@ class ImportForm extends FormBase {
           'start_date' => $startDate,
           'end_date' => $endDate,
         ]),
+        'register_url' => $register_url,
+        'register_button_text' => $register_button_text,
         // Add unique ID as class_id is not.
         'unique_id' => md5(serialize($row)),
       ];
@@ -188,6 +208,13 @@ class ImportForm extends FormBase {
       drupal_set_message(t('File @file does not exist. Please check script that builds CSV file for import.', ['@file' => $filePath]), 'error');
       return;
     }
+
+    $config = \Drupal::configFactory()->get('openy_gxp.settings');
+    \Drupal::logger('openy_gxp')->info('Start migrating location @file, @url', [
+      '@file' => $filePath,
+      '@url' => 'https://www.groupexpro.com/gxp/api/' . 'openy/view/' . $config->get('client_id') . '/' . $gxpLocationId,
+    ]);
+
     $source['path'] = $filePath;
     $migration->set('source', $source);
 

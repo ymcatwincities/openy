@@ -1,8 +1,8 @@
-name: 'OpenY Node Campaign'
-description: 'OpenY node Campaign'
+name: Open Y Node Campaign
+description: Provides a Campaign content type and related configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
 dependencies:
   - better_exposed_filters
   - block

@@ -1,5 +1,6 @@
 daxko.admin:
   title: 'Daxko settings'
-  parent: system.admin_config_services
+  description: 'Configure Daxko service API version 1 settings'
+  parent: openy_system.openy_integrations_daxko
   route_name: daxko.settings
   weight: 100

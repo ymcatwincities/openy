@@ -43,7 +43,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $settings = $field_definition->getSettings();
-    $target_type_info = \Drupal::entityManager()->getDefinition($settings['target_type']);
+    $target_type_info = \Drupal::entityTypeManager()->getDefinition($settings['target_type']);
 
     // Add our properties.
     $properties['target_id'] = DataReferenceTargetDefinition::create('integer')
@@ -56,7 +56,7 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
 
     $properties['entity'] = DataReferenceDefinition::create('entity')
       ->setLabel($target_type_info->getLabel())
-      ->setDescription(new TranslatableMarkup('The referenced entity'))
+      ->setDescription(t('The referenced entity'))
       // The entity object is computed out of the entity ID.
       ->setComputed(TRUE)
       ->setReadOnly(FALSE)
@@ -75,11 +75,11 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
     $target_type = $field_definition->getSetting('target_type');
-    $target_type_info = \Drupal::entityManager()->getDefinition($target_type);
+    $target_type_info = \Drupal::entityTypeManager()->getDefinition($target_type);
 
     $columns = [
       'target_id' => [
-        'description' => 'The ID of the target entity.',
+        'description' => t('The ID of the target entity.'),
         'type' => 'int',
         // If the target entities act as bundles for another entity type,
         // their IDs should not exceed the maximum length for bundles.
@@ -111,8 +111,8 @@ class EntityReferenceWithText extends EntityReferenceItem implements FieldItemIn
 
     $elements['target_type'] = [
       '#type' => 'select',
-      '#title' => t('Type of item to reference'),
-      '#options' => \Drupal::entityManager()->getEntityTypeLabels(TRUE),
+      '#title' => $this->t('Type of item to reference'),
+      '#options' => \Drupal::entityTypeManager()->getEntityTypeLabels(TRUE),
       '#default_value' => $this->getSetting('target_type'),
       '#required' => TRUE,
       '#disabled' => $has_data,

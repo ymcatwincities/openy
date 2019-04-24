@@ -5,3 +5,21 @@ services:
   daxko.client.factory:
     class: Drupal\daxko\DaxkoClientFactory
     arguments: ['@config.factory']
+  logger.channel.daxko_data_wrapper:
+    parent: logger.channel_base
+    arguments: ['daxko_data_wrapper']
+  daxko.data_wrapper:
+    class: Drupal\daxko\DaxkoDataWrapper
+    arguments:
+      - '@entity.query'
+      - '@renderer'
+      - '@entity.manager'
+      - '@daxko.client'
+      - '@cache.data'
+      - '@openy_mappings.repository'
+      - '@openy_mappings.location_repository'
+      - '@openy_mappings.membership_type_repository'
+      - '@logger.channel.daxko_data_wrapper'
+      - '@config.factory'
+    tags:
+      - { name: "openy_data_service", priority: 100 }

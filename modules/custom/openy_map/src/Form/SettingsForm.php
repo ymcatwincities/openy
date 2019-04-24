@@ -95,7 +95,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'inline_template',
       '#template' => '<p>Please find Google Maps keys here {{ link }}</p>',
       '#context' => [
-        'link' => Link::createFromRoute('Geolocation settings', 'geolocation.settings'),
+        'link' => Link::createFromRoute('Geolocation settings', 'geolocation_google_maps.settings'),
       ],
     ];
 
@@ -164,20 +164,20 @@ class SettingsForm extends ConfigFormBase {
       if (is_dir($themePath)) {
         $themeFiles = scandir($themePath);
         foreach ($themeFiles as $themeFile) {
-          $path = $themePath . '/' . $themeFile;
-          if (is_dir($path)) {
+          $relative_path = $themePath . '/' . $themeFile;
+          if (is_dir($relative_path)) {
             continue;
           }
-          $path = file_create_url($path);
-          $fileOptions[$path] = '<img src="' . $path . '" />';
+          $path = file_create_url($relative_path);
+          $fileOptions[$relative_path] = '<img src="' . $path . '" />';
         }
       }
       $openYMapPath = drupal_get_path('module', 'openy_map') . '/img';
       foreach (scandir($openYMapPath) as $imgFile) {
-        $path = $openYMapPath . '/' . $imgFile;
-        if (!in_array($imgFile, $themeFiles) && !is_dir($path)) {
-          $path = file_create_url($path);
-          $fileOptions[$path] = '<img src="' . $path . '" />';
+        $relative_path = $openYMapPath . '/' . $imgFile;
+        if (!in_array($imgFile, $themeFiles) && !is_dir($relative_path)) {
+          $path = file_create_url($relative_path);
+          $fileOptions[$relative_path] = '<img src="' . $path . '" />';
         }
       }
 
@@ -217,7 +217,7 @@ class SettingsForm extends ConfigFormBase {
           '#title' => $this->t('Locations Map icon'),
           '#default_value' => !empty($config->get('type_icons')[$id]) ? $config->get('type_icons')[$id] : array_keys($fileOptions)[0],
           '#options' => $fileOptions,
-          '#description' => $this->t('Choose content type map icon. To redefine icons add file in <b>{default_theme}/img/location_icons</b> directory in active default theme'),
+          '#description' => $this->t('Choose content type map icon. To redefine icons add file in <b>{default_theme}/img/locations_icons</b> directory in active default theme'),
           '#required' => TRUE,
           '#multiple' => FALSE,
           '#suffix' => '</div>',

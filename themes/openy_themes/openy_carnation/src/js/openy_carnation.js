@@ -1,6 +1,6 @@
 /**
  * @file
- * OpenY Carnation JS.
+ * Open Y Carnation JS.
  */
 (function ($) {
 
@@ -60,7 +60,7 @@
    */
   Drupal.behaviors.openyMoveHeaderAlerts = {
     attach: function (context, settings) {
-      var headerAlerts = $('#block-openy-carnation-views-block-alerts-header-alerts', context);
+      var headerAlerts = $('.block-openy-carnation-views-block-alerts-header-alerts', context);
       var subHeaderFilters = $('.banner-cta', context);
 
       if (headerAlerts.length && subHeaderFilters.length) {

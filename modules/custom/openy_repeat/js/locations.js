@@ -6,27 +6,33 @@
     attach: function (context, settings) {
 
       $(window).once('openy-load-selected-locations').on('load', function() {
-        $('.schedule-locations__item input', context).each(function () {
+        $('.openy-card__item input', context).each(function () {
           if ($(this).is(':checked')) {
-            $(this).parent('label').attr('class', 'selected');
+            $(this).parents('.openy-card__item').addClass('selected');
           }
         });
         toggleSubmit(context);
       });
 
       // Toggle active class on location item.
-      $('.schedule-locations__item input', context).once('openy-selected-locations').on('change', function() {
-        if(!$(this).parent().hasClass('selected')) {
-          $(this).parent('label').attr('class', 'selected');
+      $('.openy-card__item input', context).once('openy-selected-locations').on('change', function() {
+        if(!$(this).parents('.openy-card__item').hasClass('selected')) {
+          $(this).parents('.openy-card__item').addClass('selected');
         }
         else {
-          $(this).parent().removeClass('selected');
+          $(this).parents('.openy-card__item').removeClass('selected');
         }
         toggleSubmit(context);
       });
 
       // Attach location arguments to url on submit.
       $('.js-submit-locations', context).once('openy-submit-locations').click(function() {
+        if ($(this).hasClass('disabled')) {
+          if ($(this).parent().find('.error').length === 0) {
+            $(this).before('<div class="error">' + Drupal.t('Please choose the location') + '</div>');
+          }
+          return false;
+        }
         var chkArray = [];
         $(".js-locations-row .js-location-box").each(function() {
           if ($(this).is(':checked')) {
@@ -43,8 +49,12 @@
 
   // Toggle disable the submit button.
   var toggleSubmit = function(context) {
-    if($('.schedule-locations__item label.selected').length > 0) {
-      $('.js-submit-locations', context).removeClass('disabled');
+    if($('.openy-card__item.selected label').length > 0) {
+      $('.js-submit-locations', context)
+        .removeClass('disabled')
+        .parent()
+        .find('.error')
+        .remove();
     } else {
       $('.js-submit-locations', context).addClass('disabled');
     }

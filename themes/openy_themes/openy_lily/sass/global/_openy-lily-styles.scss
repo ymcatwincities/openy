@@ -556,7 +556,7 @@ p.legend {
     }
   }
   .ui-dialog-content {
-    padding: 0px 30px 10px;
+    padding: 20px 30px 10px;
     .landing-header {
       display: none;
     }
@@ -888,4 +888,9 @@ body .ajax-progress-throbber {
 .internal-template.node--type-article #carousel .even-heights .active.item {
   min-height: 300px;
   max-height: 500px;
+}
+
+.program-header .content .image img { 
+  max-width: none; 
+  float: right; 
 }

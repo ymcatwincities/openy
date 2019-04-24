@@ -1,10 +1,13 @@
 openy_gxp.import:
-  title: 'Sync GroupExPro'
-  parent: system.admin_content
+  title: 'Sync GroupEx Pro data'
+  description: 'Import GroupEx Pro data'
+  parent: openy_system.openy_integrations_groupexpro
   route_name: openy_gxp.import
+  weight: 130
 
 openy_gxp.admin:
-  title: 'GroupExPro settings'
-  parent: system.admin_config_services
+  title: 'GroupEx Pro settings'
+  description: 'Configure GroupEx Pro settings'
+  parent: openy_system.openy_integrations_groupexpro
   route_name: openy_gxp.settings
   weight: 100

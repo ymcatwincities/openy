@@ -1,5 +1,5 @@
 daxko.settings:
-  path: '/admin/config/services/daxko'
+  path: '/admin/openy/integrations/daxko/daxko'
   defaults:
     _form: '\Drupal\daxko\Form\SettingsForm'
     _title: 'Daxko settings'

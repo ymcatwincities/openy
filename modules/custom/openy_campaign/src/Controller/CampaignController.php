@@ -78,7 +78,7 @@ class CampaignController extends ControllerBase {
    */
   public function showWinners(NodeInterface $node) {
     $winnersList = views_embed_view('campaign_winners', 'campaign_winners_page', $node->id());
-    $winnersCalculateForm = \Drupal::formBuilder()->getForm(WinnersCalculateForm::class, $node->id());
+    $winnersCalculateForm = $this->formBuilder()->getForm(WinnersCalculateForm::class, $node->id());
 
     $build = [
       'view' => $winnersList,

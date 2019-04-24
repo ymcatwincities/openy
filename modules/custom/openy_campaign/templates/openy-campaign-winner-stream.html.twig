@@ -1,3 +1,16 @@
+{#
+/**
+ * @file
+ * Theme implementation for Winners Stream to show on Campaign and landing pages.
+ *
+ * Available variables
+ * - winners: Array of winners groupped by type.
+ * - colors: Get colors pallete from current Campaign node 'field_campaign_palette' field.
+ *
+ * @ingroup themeable
+ */
+#}
+
 {% if winners is not empty %}
 <div id="campaign-winner-stream" style="background-color: {{ colors.maindark }};">
     <div class="wrapper">

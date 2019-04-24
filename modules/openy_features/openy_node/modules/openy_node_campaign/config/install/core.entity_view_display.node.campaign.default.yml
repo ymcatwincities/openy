@@ -10,8 +10,10 @@ dependencies:
     - field.field.node.campaign.field_campaign_expected_visits
     - field.field.node.campaign.field_campaign_fitness_category
     - field.field.node.campaign.field_campaign_game_description
+    - field.field.node.campaign.field_campaign_game_one_time_win
     - field.field.node.campaign.field_campaign_game_short_info
     - field.field.node.campaign.field_campaign_game_title
+    - field.field.node.campaign.field_campaign_game_type
     - field.field.node.campaign.field_campaign_image
     - field.field.node.campaign.field_campaign_membership_u_t
     - field.field.node.campaign.field_campaign_menu
@@ -26,6 +28,7 @@ dependencies:
     - field.field.node.campaign.field_campaign_registration_goal
     - field.field.node.campaign.field_campaign_start_date
     - field.field.node.campaign.field_campaign_stream_type
+    - field.field.node.campaign.field_campaign_technical_name
     - field.field.node.campaign.field_campaign_timezone
     - field.field.node.campaign.field_campaign_utilization_goal
     - field.field.node.campaign.field_campaign_winners_prizes
@@ -51,6 +54,7 @@ dependencies:
     - field.field.node.campaign.field_token_check_back_date
     - field.field.node.campaign.field_token_login_link_text
     - field.field.node.campaign.field_token_register_link_text
+    - field.field.node.campaign.field_tracking_actv_goal_desc
     - field.field.node.campaign.field_utilization_activities
     - field.field.node.campaign.field_ways_to_earn_entries
     - node.type.campaign
@@ -123,6 +127,16 @@ content:
     third_party_settings: {  }
     type: text_default
     region: content
+  field_campaign_game_one_time_win:
+    weight: 148
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
   field_campaign_game_short_info:
     weight: 139
     label: above
@@ -137,6 +151,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_campaign_game_type:
+    weight: 147
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
     region: content
   field_campaign_image:
     weight: 37
@@ -218,6 +239,14 @@ content:
       timezone_override: ''
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_campaign_technical_name:
+    weight: 146
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
     region: content
   field_campaign_timezone:
     weight: 143
@@ -389,6 +418,13 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_tracking_actv_goal_desc:
+    weight: 145
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_ways_to_earn_entries:
     weight: 134

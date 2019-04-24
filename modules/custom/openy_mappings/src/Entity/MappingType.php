@@ -31,11 +31,11 @@ use Drupal\openy_mappings\MappingTypeInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/mappings/mapping_type/{mapping_type}",
- *     "add-form" = "/admin/structure/mappings/mapping_type/add",
- *     "edit-form" = "/admin/structure/mappings/mapping_type/{mapping_type}/edit",
- *     "delete-form" = "/admin/structure/mappings/mapping_type/{mapping_type}/delete",
- *     "collection" = "/admin/structure/mappings/mapping_type"
+ *     "canonical" = "/admin/openy/settings/mappings/mapping_type/{mapping_type}",
+ *     "add-form" = "/admin/openy/settings/mappings/mapping_type/add",
+ *     "edit-form" = "/admin/openy/settings/mappings/mapping_type/{mapping_type}/edit",
+ *     "delete-form" = "/admin/openy/settings/mappings/mapping_type/{mapping_type}/delete",
+ *     "collection" = "/admin/openy/settings/mappings/mapping_type"
  *   }
  * )
  */

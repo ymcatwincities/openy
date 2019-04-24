@@ -7,7 +7,7 @@ use Drupal\node\Entity\Node;
 use Drupal\openy_group_schedules\GroupexScheduleFetcher;
 
 /**
- * Implements Groupex Location Refine Form.
+ * Implements GroupEx Pro Location Refine Form.
  */
 class GroupexFormLocationRefine extends GroupexFormBase {
 

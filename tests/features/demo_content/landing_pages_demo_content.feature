@@ -20,12 +20,12 @@ Feature: Landing pages demo content
     And I should see the link "Blog"
     And I should see the link "Give"
     And I should see the link "About the YMCA"
-    And I should see the link "OpenY"
+    And I should see the link "Open Y"
 
-  Scenario: See demo landing page OpenY
+  Scenario: See demo landing page Open Y
     Given I go to "/admin/content?title=Openy&type=landing_page&status=All&langcode=All"
-    And I click "OpenY"
-    And I should see "OpenY Distribution"
+    And I click "Open Y"
+    And I should see "Open Y Distribution"
     And I should see "EXPLORE THE OPEN Y!"
     And I should see "What's happening at the Y?"
     And I should see "Volunteers needed!"

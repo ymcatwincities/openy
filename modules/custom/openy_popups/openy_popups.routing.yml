@@ -17,7 +17,7 @@ openy_popups.class_branch:
    js: 'nojs|ajax'
 
 openy_popups.settings:
-  path: '/admin/config/content/location-popup'
+  path: '/admin/openy/settings/location-popup'
   defaults:
     _form: '\Drupal\openy_popups\Form\SettingsForm'
     _title: 'Popups settings'

@@ -1,5 +1,5 @@
 @openy @api
-Feature: OpenY main pages
+Feature: Open Y main pages
 
   Scenario: Check homepage is available
     When I go to "/"

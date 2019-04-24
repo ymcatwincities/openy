@@ -4,7 +4,7 @@ dependencies:
   module:
     - menu_ui
 id: openy-menu-overview
-label: 'OpenY Menu Overview'
+label: 'Open Y Menu Overview'
 module: openy_menu
 routes:
   - route_name: entity.menu.collection

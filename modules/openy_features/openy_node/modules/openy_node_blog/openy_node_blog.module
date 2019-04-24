@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Main file for the OpenY Node Blog module.
+ * Main file for the Open Y Node Blog module.
  */
 
 use Drupal\Core\Form\FormStateInterface;

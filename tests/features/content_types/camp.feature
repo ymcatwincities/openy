@@ -13,7 +13,7 @@ Feature: Camp Content type
       | field_prgf_image       | image_01             | image_01             | image_01             |
       | field_prgf_description | BEHAT DESCRIPTION 01 | BEHAT DESCRIPTION 02 | BEHAT DESCRIPTION 03 |
       | field_prgf_link:uri    | http://openymca.org  | http://openymca.org  | http://openymca.org  |
-      | :title                 | Read about OpenY     | Read about OpenY     | Read about OpenY     |
+      | :title                 | Read about Open Y     | Read about Open Y     | Read about Open Y     |
     And I create large camp content:
       | KEY                                 | behat_camp         |
       | title                               | BEHAT CAMP         |

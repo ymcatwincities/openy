@@ -1,2 +1,2 @@
-## OpenY Tests
-Contains the OpenY tests.
+## Open Y Tests
+Contains the Open Y tests.

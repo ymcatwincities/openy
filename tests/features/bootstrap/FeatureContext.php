@@ -2,7 +2,7 @@
 
 /**
  * @file
- * FeatureContent for OpenY project.
+ * FeatureContent for Open Y project.
  */
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;

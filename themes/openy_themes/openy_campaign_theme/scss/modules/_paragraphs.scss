@@ -8,7 +8,6 @@
   }
 }
 
-
 // Campaign Winners prgf type.
 .paragraph--type--campaign-winners {
   .winners-branches-select {
@@ -176,8 +175,7 @@
   }
 }
 
-
-// General paragraph columns styles
+// General paragraph columns styles.
 .block-description--wrapper {
   .block-description--text {
     vertical-align: top;
@@ -238,7 +236,7 @@
   }
 }
 
-// Specific styles for the "Campaign" node type
+// Specific styles for the "Campaign" node type.
 .page-node-type-campaign {
   .columns .paragraph-container {
     @include breakpoint($screen-phone) {
@@ -250,7 +248,7 @@
   }
 }
 
-// Specific styles for the "Campaign page" node type
+// Specific styles for the "Campaign page" node type.
 .page-node-type-campaign-page,
 .path-campaign-game {
   .paragraph-background-container {
@@ -271,7 +269,6 @@
   }
 }
 
-
 .paragraph-1c-wrapper {
   .paragraph-container {
     margin: 0 auto;
@@ -280,7 +277,6 @@
     }
   }
 }
-
 
 .paragraph-2c-wrapper .block-description--text {
   @include breakpoint($screen-phone) {
@@ -303,7 +299,7 @@
   }
 }
 
-// Campaign Info Blocks paragraph type
+// Campaign Info Blocks paragraph type.
 .paragraph--campaign-info-blocks {
   .columns {
     display: inline-block;

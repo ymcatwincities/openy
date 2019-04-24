@@ -12,7 +12,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *
  * @FieldType(
  *   id = "openy_custom_hours",
- *   label = @Translation("OpenY Custom Hours"),
+ *   label = @Translation("Open Y Custom Hours"),
  *   description = @Translation("Stores OpenY custom hours."),
  *   default_widget = "openy_custom_hours_default",
  *   default_formatter = "openy_custom_hours_default"

@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Camp module file.
+ * Open Y Camp module file.
  */
 
 use Drupal\node\NodeInterface;
