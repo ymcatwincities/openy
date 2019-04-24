@@ -130,7 +130,7 @@
         {
             "type": "package",
             "package": {
-                "name": "grt-youtube-popup",
+                "name": "grt107/grt-youtube-popup",
                 "version": "1.0.0",
                 "type": "drupal-library",
                 "source": {
@@ -177,11 +177,11 @@
     },
     "extra": {
         "installer-paths": {
-            "../../../../docroot/core": ["type:drupal-core"],
-            "../../../../docroot/modules/contrib/{$name}": ["type:drupal-module"],
-            "../../../../docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "../../../../docroot/themes/contrib/{$name}": ["type:drupal-theme"],
-            "../../../../docroot/libraries/{$name}": ["type:drupal-library"]
+            "docroot/core": ["type:drupal-core"],
+            "docroot/modules/contrib/{$name}": ["type:drupal-module"],
+            "docroot/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "docroot/themes/contrib/{$name}": ["type:drupal-theme"],
+            "docroot/libraries/{$name}": ["type:drupal-library"]
         },
         "patches": {
             "drupal/simple_menu_icons": {
@@ -258,7 +258,7 @@
         "library-ckeditor/panelbutton": "4.7.0",
         "library-ckeditor/colorbutton": "4.7.0",
         "library-smonetti/btbutton": "1.0.1",
-        "grt-youtube-popup": "^1.0",
+        "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
