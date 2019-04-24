@@ -278,7 +278,7 @@
         "npm-asset/slick-carousel": "^1.8",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
-        "vuejs/vue": "^2.5",
+        "vuejs/vue": "2.5.17",
         "vuejs/vue-router": "3.0.1"
     }
 }
