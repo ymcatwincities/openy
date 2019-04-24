@@ -17,12 +17,12 @@ openy_repeat:
 openy_repeat.vue:
   version: 0.1
   js:
-    /libraries/vue/dist/vue.js: {}
+    js/vue/vue.js: {}
 
 openy_repeat.vue_router:
   version: 0.1
   js:
-    /libraries/vue-router/dist/vue-router.js: {}
+    js/vue/vue-router.js: {}
 
 openy_repeat.vue.table:
   version: 0.1
