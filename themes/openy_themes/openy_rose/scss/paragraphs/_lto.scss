@@ -1,7 +1,11 @@
 .paragraph--type--lto {
   background-color: $dark-blue;
   padding: 20px 0;
-  margin: -20px 0 40px;
+  width: 100%;
+
+  .container {
+    max-width: 100%;
+  }
 
   .field-lto-title {
     @include cachet();
@@ -50,13 +54,16 @@
     font-size: 18px;
     padding: 0;
     width: 100%;
-    border: 1px solid white;
     a {
       display: block;
       padding: 12px;
       color: white;
       @include cachet-medium();
       text-transform: uppercase;
+    }
+
+    .field-lto-link {
+      border: 1px solid white;
     }
   }
 

@@ -4,7 +4,7 @@ dependencies:
   module:
     - taxonomy
 id: openy-taxonomy-overview
-label: 'OpenY Taxonomy Overview'
+label: 'Open Y Taxonomy Overview'
 module: openy_taxonomy
 routes:
   - route_name: entity.taxonomy_vocabulary.collection

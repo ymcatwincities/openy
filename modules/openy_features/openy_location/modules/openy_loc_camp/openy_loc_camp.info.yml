@@ -1,9 +1,9 @@
-name: 'OpenY Camp'
-description: 'OpenY Camp.'
+name: Open Y Camp
+description: Provides a Camp content type and related configuration.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - address
   - entity_reference_revisions

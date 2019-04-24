@@ -7,9 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 
 /**
- * Provides a form for deleting a ymca_retention_member entities.
- *
- * @ingroup ymca_retention_member
+ * Provides a form for deleting a openy_campaign_member entities.
  */
 class DeleteAllMembersForm extends ConfirmFormBase {
 

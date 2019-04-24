@@ -69,7 +69,7 @@ class SessionInstanceHtmlRouteProvider extends AdminHtmlRouteProvider {
    */
   protected function getSettingsFormRoute(EntityTypeInterface $entity_type) {
     if (!$entity_type->getBundleEntityType()) {
-      $route = new Route("/admin/structure/{$entity_type->id()}/settings");
+      $route = new Route("/admin/openy/settings/{$entity_type->id()}/settings");
       $route
         ->setDefaults([
           '_form' => 'Drupal\openy_session_instance\Form\SessionInstanceSettingsForm',

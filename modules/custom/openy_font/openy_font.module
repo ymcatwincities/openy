@@ -17,7 +17,7 @@ function openy_font_help($route_name, RouteMatchInterface $route_match) {
     case 'help.page.openy_font':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('OpenY Font settings module.') . '</p>';
+      $output .= '<p>' . t('Open Y Font settings module.') . '</p>';
       return $output;
 
     default:

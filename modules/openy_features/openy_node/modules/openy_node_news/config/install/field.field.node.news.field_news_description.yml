@@ -16,7 +16,7 @@ field_name: field_news_description
 entity_type: node
 bundle: news
 label: Description
-description: ''
+description: 'Textarea for the description/body with WYSIWYG, without summary.'
 required: false
 translatable: true
 default_value: {  }

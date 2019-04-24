@@ -6,9 +6,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
-use Drupal\node\Entity\Node;
-use Drupal\openy_campaign\Entity\MemberCampaign;
-use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\Entity\MemberCampaignActivity;
 
@@ -32,7 +29,7 @@ class ActivityTrackingModalForm extends FormBase {
   protected $entityTypeManager;
 
   /**
-   * CalcBlockForm constructor.
+   * ActivityTrackingModalForm constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
@@ -65,13 +62,19 @@ class ActivityTrackingModalForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $date = NULL, $memberCampaignId = NULL, $topTermId = NULL) {
+    /** @var \Drupal\taxonomy\TermStorageInterface $termStorage */
+    $termStorage = $this->entityTypeManager->getStorage('taxonomy_term');
+    $memberCampaignStorage = $this->entityTypeManager->getStorage('openy_campaign_member_campaign');
+    /** @var \Drupal\node\NodeStorage $nodeStorage */
+    $nodeStorage = $this->entityTypeManager->getStorage('node');
+    $memberCampaignActivityStorage = $this->entityTypeManager->getStorage('openy_campaign_memb_camp_actv');
 
-    $term = Term::load($topTermId);
+    $term = $termStorage->load($topTermId);
     $childTerms = $this->entityTypeManager->getStorage("taxonomy_term")->loadTree($term->getVocabularyId(), $topTermId, 1, TRUE);
 
-    $memberCampaign = MemberCampaign::load($memberCampaignId);
+    $memberCampaign = $memberCampaignStorage->load($memberCampaignId);
     $campaignId = $memberCampaign->getCampaign()->id();
-    $campaign = Node::load($campaignId);
+    $campaign = $nodeStorage->load($campaignId);
     $enableActivitiesCounter = $campaign->field_enable_activities_counter->value;
 
     $form['#prefix'] = '<div class="activity_tracking_form_wrapper">';
@@ -97,7 +100,7 @@ class ActivityTrackingModalForm extends FormBase {
     $dateObject = new \DateTime($date);
     $existingActivitiesIds = MemberCampaignActivity::getExistingActivities($memberCampaignId, $dateObject, array_keys($options));
 
-    $existingActivitiesEntities = $this->entityTypeManager->getStorage('openy_campaign_memb_camp_actv')->loadMultiple($existingActivitiesIds);
+    $existingActivitiesEntities = $memberCampaignActivityStorage->loadMultiple($existingActivitiesIds);
     $default_values = [];
     $activity_count_values = [];
     /** @var \Drupal\openy_campaign\Entity\MemberCampaignActivity $activity */

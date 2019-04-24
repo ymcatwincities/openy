@@ -4,7 +4,7 @@ dependencies:
   module:
     - taxonomy
 id: openy-taxonomy-term
-label: 'OpenY Taxonomy term'
+label: 'Open Y Taxonomy term'
 module: openy_taxonomy
 routes:
   - route_name: entity.taxonomy_term.add_form

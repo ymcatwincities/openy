@@ -30,7 +30,7 @@ function openy_txnm_color_update_8002() {
 }
 
 /**
- * Update OpenY color taxonomy feature configs.
+ * Update Open Y color taxonomy feature configs.
  */
 function openy_txnm_color_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_txnm_color') . '/config/install/';

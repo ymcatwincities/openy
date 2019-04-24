@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\user\EntityOwnerInterface;
 
 /**
- * Provides an interface for defining Groupex Form Cache entities.
+ * Provides an interface for defining GroupEx Pro Form Cache entities.
  *
  * @ingroup groupex_form_cache
  */
@@ -16,61 +16,61 @@ interface GroupexFormCacheInterface extends ContentEntityInterface, EntityChange
   // Add get/set methods for your configuration properties here.
 
   /**
-   * Gets the Groupex Form Cache name.
+   * Gets the GroupEx Pro Form Cache name.
    *
    * @return string
-   *   Name of the Groupex Form Cache.
+   *   Name of the GroupEx Pro Form Cache.
    */
   public function getName();
 
   /**
-   * Sets the Groupex Form Cache name.
+   * Sets the GroupEx Pro Form Cache name.
    *
    * @param string $name
-   *   The Groupex Form Cache name.
+   *   The GroupEx Pro Form Cache name.
    *
    * @return \Drupal\groupex_form_cache\GroupexFormCacheInterface
-   *   The called Groupex Form Cache entity.
+   *   The called GroupEx Pro Form Cache entity.
    */
   public function setName($name);
 
   /**
-   * Gets the Groupex Form Cache creation timestamp.
+   * Gets the GroupEx Pro Form Cache creation timestamp.
    *
    * @return int
-   *   Creation timestamp of the Groupex Form Cache.
+   *   Creation timestamp of the GroupEx Pro Form Cache.
    */
   public function getCreatedTime();
 
   /**
-   * Sets the Groupex Form Cache creation timestamp.
+   * Sets the GroupEx Pro Form Cache creation timestamp.
    *
    * @param int $timestamp
-   *   The Groupex Form Cache creation timestamp.
+   *   The GroupEx Pro Form Cache creation timestamp.
    *
    * @return \Drupal\groupex_form_cache\GroupexFormCacheInterface
-   *   The called Groupex Form Cache entity.
+   *   The called GroupEx Pro Form Cache entity.
    */
   public function setCreatedTime($timestamp);
 
   /**
-   * Returns the Groupex Form Cache published status indicator.
+   * Returns the GroupEx Pro Form Cache published status indicator.
    *
-   * Unpublished Groupex Form Cache are only visible to restricted users.
+   * Unpublished GroupEx Pro Form Cache are only visible to restricted users.
    *
    * @return bool
-   *   TRUE if the Groupex Form Cache is published.
+   *   TRUE if the GroupEx Pro Form Cache is published.
    */
   public function isPublished();
 
   /**
-   * Sets the published status of a Groupex Form Cache.
+   * Sets the published status of a GroupEx Pro Form Cache.
    *
    * @param bool $published
-   *   TRUE to set this Groupex Form Cache to published, FALSE to set it to unpublished.
+   *   TRUE to set this GroupEx Pro Form Cache to published, FALSE to set it to unpublished.
    *
    * @return \Drupal\groupex_form_cache\GroupexFormCacheInterface
-   *   The called Groupex Form Cache entity.
+   *   The called GroupEx Pro Form Cache entity.
    */
   public function setPublished($published);
 

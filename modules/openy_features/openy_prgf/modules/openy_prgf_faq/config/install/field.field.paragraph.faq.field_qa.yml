@@ -4,8 +4,6 @@ dependencies:
   config:
     - field.storage.paragraph.field_qa
     - paragraphs.paragraphs_type.faq
-  module:
-    - openy_prgf_faq
 id: paragraph.faq.field_qa
 field_name: field_qa
 entity_type: paragraph

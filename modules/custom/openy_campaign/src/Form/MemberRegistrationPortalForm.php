@@ -148,7 +148,7 @@ class MemberRegistrationPortalForm extends FormBase {
     $step_value = $form_state->getValue('step');
 
     // Determine step of the form - which screen to show.
-    // 1 - select Campaign and enter Member ID;
+    // 1 - select Campaign and enter Member ID.
     // 2 - confirm email address from Personify or change it. Register member.
     if ($step_value) {
       $step = $step_value;

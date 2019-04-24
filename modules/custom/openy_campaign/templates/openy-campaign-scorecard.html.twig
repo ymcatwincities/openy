@@ -1,3 +1,15 @@
+{#
+/**
+ * @file
+ * Theme implementation for Campaign Scorecard table.
+ *
+ * Available variables
+ * - result: Array with all data prepared in Campaign Scorecard service.
+ *
+ * @ingroup themeable
+ */
+#}
+
 <div class="campaign-scorecard">
   {% if result.empty is not defined or result.empty|length == 0 %}
   <table>

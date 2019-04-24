@@ -4,7 +4,7 @@ dependencies:
   module:
     - openy_node
 id: openy-landing-page-add
-label: 'OpenY Node landing page add'
+label: 'Open Y Node landing page add'
 module: openy_node
 routes:
   -

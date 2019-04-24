@@ -4,7 +4,7 @@ dependencies:
   module:
     - openy_node
 id: openy-node-overview
-label: 'OpenY Node Overview'
+label: 'Open Y Node Overview'
 module: openy_node
 routes:
   -

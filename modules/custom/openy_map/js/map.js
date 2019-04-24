@@ -26,7 +26,9 @@
       // Marker designating the center point.
       search_center_marker: null,
       // Geocoder.
-      geocoder: typeof google.maps !== 'undefined' ? new google.maps.Geocoder() : {},
+      geocoder: function() {
+        return typeof google.maps !== 'undefined' ? new google.maps.Geocoder() : {};
+      },
 
       // Checks if the provider library object has loaded
       libraryIsLoaded: function () {
@@ -189,7 +191,7 @@
           }
         };
 
-        this.geocoder.geocode({
+        this.geocoder().geocode({
           'address': q
         }, $.proxy(f, this));
       },
@@ -286,7 +288,7 @@
         this.map.setZoom(14);
         if (position.coords.accuracy <= 15840) { // 3 miles.
 
-          this.geocoder.geocode({
+          this.geocoder().geocode({
               'latLng': this.search_center_point
             },
             $.proxy(
@@ -567,7 +569,7 @@
             var tag_filter_html = '<label class="btn btn-default" for="tag_' + tag + '">';
             tag_filter_html += '<input autocomplete="off" id="tag_' + tag + '" class="tag_' + tag + '" type="checkbox" value="' + tag + '" ' + filter_checked + '/>' + tag;
             for (var i = 0; i < this.tags[tag].marker_icons.length; i++) {
-              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '"/>';
+              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '" aria-hidden="true" />';
             }
             tag_filter_html += '</label>';
             tag_filters_html += tag_filter_html;
@@ -912,7 +914,7 @@
       init_map: function () {
         this.map = L.map(this.map_el[0]).setView([51.505, -0.09], 13);
         L.tileLayer(this.baseLayer.tilePattern, this.baseLayer.options).addTo(this.map);
-
+        this.map.scrollWheelZoom.disable();
         this.init_map_center();
       },
 
@@ -1356,7 +1358,7 @@
             var tag_filter_html = '<label class="btn btn-default" for="tag_' + tag + '">';
             tag_filter_html += '<input autocomplete="off" id="tag_' + tag + '" class="tag_' + tag + '" type="checkbox" value="' + tag + '" ' + filter_checked + '/>' + tag;
             for (var i = 0; i < this.tags[tag].marker_icons.length; i++) {
-              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '"/>';
+              tag_filter_html += '<img class="tag_icon inline-hidden-sm" src="' + this.tags[tag].marker_icons[i] + '" aria-hidden="true" />';
             }
             tag_filter_html += '</label>';
             tag_filters_html += tag_filter_html;
@@ -1405,7 +1407,9 @@
 
         // If the location list is empty, don't adjust the map at all.
         if (locations.length === 0) {
-          this.map.setView(this.search_center_point);
+          if (this.search_center_point !== null) {
+            this.map.setView(this.search_center_point);
+          }
           return;
         }
 
@@ -1542,6 +1546,10 @@
 
   Drupal.behaviors.openyMap = {
     attach: function (context, settings) {
+      if (typeof settings.openyMap === 'undefined' || typeof settings.openyMapSettings === 'undefined') {
+        return;
+      }
+
       var data = settings.openyMap;
       var map;
 

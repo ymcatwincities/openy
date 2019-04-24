@@ -1,16 +1,16 @@
 <div class="calc-summary">
   <div class="selected-branch calc-summary-col">
-    <h4>{{ 'Your selected branch:'|t }}</h4>
+    <h2 class="h4">{{ 'Your selected branch:'|t }}</h2>
     <div class="selected-branch-map">{{ map }}</div>
     <div>{{ result.location }}</div>
   </div>
   <div class="selected-membership calc-summary-col">
-  <h4>{{ 'Your selected membership:'|t }}</h4>
+    <h2 class="h4">{{ 'Your selected membership:'|t }}</h2>
     {% if result.price %}
       <a href="#" class="card" data-id="{{ key }}">
         {{ result.membership }}
         <div class="price">
-          <h4>{{ 'Membership price:'|t }}</h4>
+          <h3 class="h4">{{ 'Membership price:'|t }}</h3>
           <div class="monthly_rate">${{ result.price.monthly_rate }}
             /{{ 'month'|t }}</div>
           <div>+

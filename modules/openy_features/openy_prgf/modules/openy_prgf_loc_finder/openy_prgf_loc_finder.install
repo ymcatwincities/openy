@@ -2,7 +2,7 @@
 
 /**
  * @file
- * OpenY Paragraph Location Finder install file.
+ * Open Y Paragraph Location Finder install file.
  */
 
 /**
@@ -35,23 +35,7 @@ function openy_prgf_loc_finder_update_8001() {
  * Update title in blocks view.
  */
 function openy_prgf_loc_finder_update_8002() {
-  $config_dir = drupal_get_path('module', 'openy_prgf_loc_finder') . '/config/install/';
-  // Update multiple configurations.
-  $configs = [
-    'views.view.locations' =>[
-      'display.default.display_options.header.area_text_custom.content',
-      'display.locations_branches_block.display_options.header.area_text_custom.content',
-      'display.locations_facilities_block.display_options.header.area_text_custom.content',
-    ],
-  ];
-
-  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
-  foreach ($configs as $config_name => $params) {
-    $config = $config_dir . $config_name . '.yml';
-    foreach ($params as $param) {
-      $config_updater->update($config, $config_name, $param);
-    }
-  }
+  // Update is empty due to moving view to openy_map module. Block in view fully updated there.
 }
 
 /**

@@ -5,11 +5,11 @@ namespace Drupal\openy_gtranslate\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 
 /**
- * Provides a 'OpenY Google Translate' block.
+ * Provides a 'Open Y Google Translate' block.
  *
  * @Block(
  *   id = "openy_gtranslate_block",
- *   admin_label = @Translation("OpenY Google Translate"),
+ *   admin_label = @Translation("Open Y Google Translate"),
  *   category = @Translation("OpenY"),
  * )
  */

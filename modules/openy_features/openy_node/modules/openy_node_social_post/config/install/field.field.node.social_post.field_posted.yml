@@ -5,7 +5,6 @@ dependencies:
     - field.storage.node.field_posted
     - node.type.social_post
   module:
-    - datalayer
     - datetime
 id: node.social_post.field_posted
 field_name: field_posted

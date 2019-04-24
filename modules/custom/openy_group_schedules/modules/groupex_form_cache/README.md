@@ -1,6 +1,6 @@
-# Groupex Form Cache
+# GroupEx Pro Form Cache
 
-  * Implements cache for Groupex form
+  * Implements cache for GroupEx Pro form
   * Implements cache warmer
   
 ## How to run the warmer

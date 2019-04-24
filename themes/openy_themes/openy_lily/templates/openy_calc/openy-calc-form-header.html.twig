@@ -10,7 +10,7 @@
         {% endfor %}
         {% for step in steps %}
           <li{% if step.number == active_step %} class="active"{% endif %}>
-            <a href="#step{{ step.number }}" data-toggle="tab" data-step="{{ step.number }}">
+            <a href="#step{{ step.number }}" data-toggle="tab" data-step="{{ step.number }}" {% if step.number == active_step %}aria-label="{{ 'current step is'|t }} {{ step.title }}"{% endif %}>
               <span class="nav-pills__text">{{ step.number }}. {{ step.title }}</span></a>
           </li>
         {% endfor %}

@@ -1,0 +1,130 @@
+dependencies:
+  module:
+    - file
+  enforced:
+    module:
+      - openy_demo_ncategory
+id: openy_demo_ncategory_file
+migration_tags: { }
+migration_group: openy_demo_ncategory
+label: 'Import demo program category files'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: active_older_adults
+      name: active_older_adults.jpg
+    -
+      id: cooking_and_crafts
+      name: cooking_and_crafts.jpg
+    -
+      id: drop-in_swim
+      name: drop-in_swim.jpg
+    -
+      id: family_activities
+      name: family_activities.jpg
+    -
+      id: group_exercise_classes
+      name: group_exercise_classes.jpg
+    -
+      id: health_and_fitness_for_kids_and_teens
+      name: health_and_fitness_for_kids_and_teens.jpg
+    -
+      id: kids_university_and_enrichment_classes
+      name: kids_university_and_enrichment_classes.jpg
+    -
+      id: kids_zone_activity_centers
+      name: kids_zone_activity_centers.jpg
+    -
+      id: personal_training
+      name: personal_training.jpg
+    -
+      id: programs_for_health
+      name: programs_for_health.jpg
+    -
+      id: recreation
+      name: recreation.jpg
+    -
+      id: small_group_and_specialty_training
+      name: small_group_and_specialty_training.jpg
+    -
+      id: sports
+      name: sports.jpg
+    -
+      id: swim_lessons
+      name: swim_lessons.jpg
+    -
+      id: swim_team
+      name: swim_team.jpg
+    -
+      id: weight_loss
+      name: weight_loss.jpg
+    -
+      id: bold_and_gold
+      name: bold_and_gold.jpg
+    -
+      id: before_and_after_school_child_care
+      name: before_and_after_school_child_care.jpg
+    -
+      id: earth_service_corps
+      name: earth_service_corps.jpg
+    -
+      id: academic_success
+      name: academic_success.jpg
+    -
+      id: day_camps
+      name: day_camps.jpg
+    -
+      id: preschool
+      name: preschool.jpg
+  ids:
+    id:
+      type: string
+  constants:
+    source_relative_path: assets/images
+    uri_file: 'public:/'
+    module: openy_demo_ncategory
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  module_path:
+    plugin: module_path
+    source: constants/module
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - '@module_path'
+        - constants/source_relative_path
+        - name
+    -
+      plugin: urlencode
+  uri_file:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/uri_file
+        - name
+    -
+      plugin: urlencode
+  filename: name
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - '@uri_file'
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: 'entity:file'
+migration_dependencies:
+  required: {  }
+  optional: {  }

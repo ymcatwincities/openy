@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script installs OpenY on DigitalOcean Drupal instance.
+# This script installs Open Y on DigitalOcean Drupal instance.
 # How to run: bash <(curl -s https://raw.githubusercontent.com/ymcatwincities/openy/8.x-1.x/build/openy-digital-ocean.sh)
 
 # Colors.
@@ -40,7 +40,7 @@ printf "${Green}Updading nginx virtual hosts...${Color_Off}\n"
 sudo sed -i "s/html\/drupal/openy\/docroot/g" /etc/nginx/sites-enabled/drupal
 sudo service nginx restart
 
-printf "${Green}Installing OpenY...${Color_Off}\n"
+printf "${Green}Installing Open Y...${Color_Off}\n"
 composer create-project ymcatwincities/openy-project:8.1.x-dev /var/www/openy --no-interaction
 cp /var/www/html/drupal/sites/default/settings.php /var/www/openy/docroot/sites/default/settings.php
 mkdir /var/www/openy/docroot/sites/default/files
@@ -51,4 +51,4 @@ MYSQL="$(drush sql-connect -r /var/www/openy/docroot)"
 $MYSQL -e "drop database drupal; create database drupal;"
 IP="$(ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/')"
 
-printf "\n${Green}Open http://$IP/core/install.php to proceed with OpenY installation.${Color_Off}\n"
+printf "\n${Green}Open http://$IP/core/install.php to proceed with Open Y installation.${Color_Off}\n"

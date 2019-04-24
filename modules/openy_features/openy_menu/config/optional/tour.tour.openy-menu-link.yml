@@ -4,7 +4,7 @@ dependencies:
   module:
     - menu_ui
 id: openy-menu-link
-label: 'OpenY Menu Link'
+label: 'Open Y Menu Link'
 module: openy_menu
 routes:
   - route_name: entity.menu.add_link_form

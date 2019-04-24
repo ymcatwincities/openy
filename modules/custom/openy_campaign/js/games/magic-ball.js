@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Instant games: magic ball.
+ */
+
 (function ($, Drupal, drupalSettings) {
 
   'use strict';

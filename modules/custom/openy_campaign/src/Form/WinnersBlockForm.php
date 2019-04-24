@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_campaign\Form;
 
+use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
@@ -28,16 +29,27 @@ class WinnersBlockForm extends FormBase {
   protected $entityTypeManager;
 
   /**
-   * CalcBlockForm constructor.
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
+   * WinnersBlockForm constructor.
    *
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
+   * @param \Drupal\Core\Database\Connection $connection
    */
-  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(
+    RendererInterface $renderer,
+    EntityTypeManagerInterface $entity_type_manager,
+    Connection $connection
+  ) {
     $this->renderer = $renderer;
     $this->entityTypeManager = $entity_type_manager;
+    $this->connection = $connection;
   }
 
   /**
@@ -46,7 +58,8 @@ class WinnersBlockForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('renderer'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('database')
     );
   }
 
@@ -226,9 +239,8 @@ class WinnersBlockForm extends FormBase {
    * @return array
    */
   private function getCampaignWinners($campaignId, $branchId) {
-    $connection = \Drupal::service('database');
     /** @var \Drupal\Core\Database\Query\Select $query */
-    $query = $connection->select('openy_campaign_winner', 'w');
+    $query = $this->connection->select('openy_campaign_winner', 'w');
     $query->join('openy_campaign_member_campaign', 'mc', 'mc.id = w.member_campaign');
     $query->condition('mc.campaign', $campaignId);
     $query->join('openy_campaign_member', 'm', 'm.id = mc.member');

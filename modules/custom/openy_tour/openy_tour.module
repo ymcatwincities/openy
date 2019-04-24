@@ -14,7 +14,7 @@ use Drupal\Core\Asset\AttachedAssetsInterface;
  */
 function openy_tour_token_info() {
   $info['tokens']['openy_tour']['click'] = [
-    'name' => t('OpenY Tour Click'),
+    'name' => t('Open Y Tour Click'),
     'description' => t('Provides a token which replaced by button with target selector to click.'),
   ];
   return $info;

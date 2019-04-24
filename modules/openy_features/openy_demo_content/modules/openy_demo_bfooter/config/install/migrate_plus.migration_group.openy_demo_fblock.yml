@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: openy_demo_fblock
-label: 'Block'
+label: 'Footer Block'
 description: 'Imports blocks that are being used in footer.'
 module: openy_demo_bfooter

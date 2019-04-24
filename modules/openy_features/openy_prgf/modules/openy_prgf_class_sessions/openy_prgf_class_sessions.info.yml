@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Class Sessions'
-description: 'OpenY Paragraph Class Sessions.'
+name: Open Y Paragraph Class Sessions
+description: Provides a dynamic paragraph that renders class session instances.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - field
   - openy_prgf

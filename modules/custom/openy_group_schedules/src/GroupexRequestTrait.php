@@ -31,7 +31,7 @@ trait GroupexRequestTrait {
   public static $dateFullFormat = 'l, F j, Y';
 
   /**
-   * Groupex ID garbage.
+   * GroupEx Pro ID garbage.
    *
    * @var string
    */

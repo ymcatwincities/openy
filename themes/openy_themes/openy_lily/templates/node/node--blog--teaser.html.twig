@@ -116,9 +116,9 @@ node.field_blog_style.value ? 'blog-' ~ node.field_blog_style.value|clean_class 
             </div>
           </div>
         {% endif %}
-        <h2 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
+        <h3 {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
           {{ label }}
-        </h2>
+        </h3>
         <p {% if ( node.field_blog_style.value == "color" ) %}{{ attributes.setAttribute('style', color) }}{% endif %}>
           {{ description|striptags }}
         </p>

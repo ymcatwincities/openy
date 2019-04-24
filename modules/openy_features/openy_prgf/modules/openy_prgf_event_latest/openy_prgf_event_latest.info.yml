@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Latest Event Posts'
-description: 'OpenY Paragraph Latest Event Posts'
+name: Open Y Paragraph Latest Event Posts
+description: Provides a dynamic paragraph that renders the latest event posts associated with a branch.
 type: module
 core: 8.x
-package: 'OpenY'
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - datalayer
   - field

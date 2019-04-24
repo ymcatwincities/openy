@@ -12,7 +12,7 @@
 
       &.with-icon {
         padding-left: 28px;
-        
+
         @include media-breakpoint-up(sm) {
           padding-left: 32px;
         }
@@ -163,9 +163,20 @@
   }
 }
 
+.block-description--3 {
+  .block-description--text {
+    > h2 {
+      border-bottom: none;
+    }
+  }
+}
+
 .block-description--wrapper--outline--top {
   .block-description--text {
     border-top: 1px solid $gray-500;
+    h2 {
+      border-bottom: 5px solid $pink;
+    }
   }
 
   &.paragraph-1c-wrapper {

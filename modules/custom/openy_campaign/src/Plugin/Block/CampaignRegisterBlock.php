@@ -110,7 +110,9 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
     /** @var \Drupal\node\Entity\Node $campaign */
     $campaign = $this->campaignMenuService->getCampaignNodeFromRoute();
 
-    $block['#cache']['max-age'] = 0;
+    $block['#cache'] = [
+      'max-age' => 3600,
+    ];
 
     if ($campaign instanceof Node !== TRUE) {
       return $block;
@@ -163,7 +165,7 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       '#campaign' => $campaign,
       '#activeRegistration' => $activeRegistration,
       '#cache' => [
-        'max-age' => 0,
+        'max-age' => CAMPAIGN_CACHE_TIME,
       ],
     ];
 

@@ -1,8 +1,8 @@
-If you need to prepare server for the OpenY instance, here below you should find all needed software to meet its requirements.
+If you need to prepare server for the Open Y instance, here below you should find all needed software to meet its requirements.
 
 ### List of requirements
 
-1. Ubuntu LTS (14 or 16) is preferred. CentOS is ok as well. Or even any other Linux distribution, but was not tested by OpenY team so far.
+1. Ubuntu LTS (14 or 16) is preferred. CentOS is ok as well. Or even any other Linux distribution, but was not tested by Open Y team so far.
 
 2. (Drupal 8 server requirements should be met)[https://www.drupal.org/docs/7/system-requirements/overview].
 
