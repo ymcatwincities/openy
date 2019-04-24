@@ -120,10 +120,10 @@
             "type": "package",
             "package": {
                 "name": "vuejs/vue-router",
-                "version": "3.0.1",
+                "version": "3.0.6",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "https://github.com/vuejs/vue-router/archive/v3.0.1.zip",
+                    "url": "https://github.com/vuejs/vue-router/archive/v3.0.6.zip",
                     "type": "zip"
                 }
             }
@@ -279,6 +279,6 @@
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
         "vuejs/vue": "2.5.17",
-        "vuejs/vue-router": "3.0.1"
+        "vuejs/vue-router": "3.0.6"
     }
 }
