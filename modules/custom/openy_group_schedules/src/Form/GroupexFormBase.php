@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
- * Implements Groupex form for location.
+ * Implements GroupEx Pro form for location.
  */
 abstract class GroupexFormBase extends FormBase {
 

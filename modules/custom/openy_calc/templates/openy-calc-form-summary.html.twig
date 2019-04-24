@@ -1,12 +1,12 @@
 <div class="calc-summary">
   <div class="row">
     <div class="col-md-6 col-sm-12 selected-branch calc-summary-col">
-      <h2>{{ 'Your selected branch'|t }}</h2>
+      <h2 class="h4">{{ 'Your selected branch'|t }}</h2>
       <div class="selected-branch-map">{{ map }}</div>
       <div>{{ result.location }}</div>
     </div>
     <div class="col-md-6 col-sm-12 selected-membership calc-summary-col">
-      <h2>{{ 'Your selected membership'|t }}</h2>
+      <h2 class="h4">{{ 'Your selected membership'|t }}</h2>
       <div>{{ result.membership }}</div>
       {% if result.price %}
         <div class="price">

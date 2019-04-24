@@ -6,7 +6,7 @@ use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Form controller for Groupex Form Cache edit forms.
+ * Form controller for GroupEx Pro Form Cache edit forms.
  *
  * @ingroup groupex_form_cache
  */
@@ -32,13 +32,13 @@ class GroupexFormCacheForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Groupex Form Cache.', [
+        drupal_set_message($this->t('Created the %label GroupEx Pro Form Cache.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Groupex Form Cache.', [
+        drupal_set_message($this->t('Saved the %label GroupEx Pro Form Cache.', [
           '%label' => $entity->label(),
         ]));
     }

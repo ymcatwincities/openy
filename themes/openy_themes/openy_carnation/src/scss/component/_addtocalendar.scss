@@ -30,9 +30,17 @@
   visibility: hidden;
   position: absolute;
   top: 100%;
-  right: 0;
+  left: 0;
   width: 170px;
   z-index: 900;
+  border: 1px solid #bababa;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #aaa;
+
+  @include media-breakpoint-up(md){
+    left: auto;
+    right: 0;
+  }
 }
 
 .atcb-list,
@@ -52,6 +60,11 @@
   text-decoration: none;
   outline: none;
   display: block;
+  padding: 3px 10px;
+
+  &:hover {
+    background-color: $gray-200;
+  }
 }
 
 .atcb-item.hover,
@@ -89,7 +102,7 @@
 .atc-style-blue .atcb-list,
 .atc-style-blue .atcb-item {
   background: $white;
-  color: #000;
+  color: $black;
 }
 
 .atc-style-blue .atcb-item,
@@ -103,7 +116,7 @@
 .atc-style-blue .atcb-item-link:hover,
 .atc-style-blue .atcb-item-link:active,
 .atc-style-blue .atcb-item-link:focus {
-  color: #000;
+  color: $black;
   font-family: "Verdana";
   font-size: 14px;
   text-decoration: none;

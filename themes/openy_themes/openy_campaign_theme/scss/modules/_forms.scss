@@ -325,7 +325,6 @@
     }
     .visits {
       display: none;
-      
       font-size: 18px;
     }
     span {
@@ -366,7 +365,6 @@
         width: 315px;
         border-radius: 10px;
         left: -105px;
-
 
         @include breakpoint($screen-phone) {
           width: 180px;
@@ -461,7 +459,6 @@
     top: 0px;
   }
 }
-
 
 #modal_openy_campaign_login_form {
   .campaign-link-collapsed {

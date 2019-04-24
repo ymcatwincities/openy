@@ -73,7 +73,7 @@ function openy_lily_preprocess_paragraph(&$variables) {
       if (empty($variables['content']['field_prgf_image'][0]['#media'])) {
         break;
       }
-      /* @var \Drupal\media_entity\Entity\Media $media */
+      /* @var \Drupal\media\Entity\Media $media */
       $media = $variables['content']['field_prgf_image'][0]['#media'];
       $media_entity = $media->getEntityTypeId();
       $media_bundle = $media->bundle();
@@ -392,7 +392,7 @@ function openy_lily_preprocess_page(&$variables) {
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
     $node = $variables['node'];
     /** @var Drupal\openy_loc_camp\CampService $service */
-    if ($service = \Drupal::service('openy_loc_camp.camp_service')) {
+    if (\Drupal::hasService('openy_loc_camp.camp_service') && $service = \Drupal::service('openy_loc_camp.camp_service')) {
       if ($service->nodeHasOrIsCamp($node)) {
         $variables['page_class'] = 'is-camp';
       }

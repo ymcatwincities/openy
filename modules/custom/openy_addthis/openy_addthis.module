@@ -25,7 +25,7 @@ function openy_addthis_form_node_form_alter(&$form, FormStateInterface $form_sta
   ];
   $form['addthis']['#group'] = 'addthis_settings';
 
-  // Set default value if node isn't have the addThis value.
+  // Set default value if node isn't have the AddThis value.
   $node = $form_state->getFormObject()->getEntity();
   if (!$node->id() || !$node->addthis->getValue()) {
     $form['addthis']['widget']['value']['#default_value'] = _openy_addthis_get_value($node);
@@ -42,7 +42,7 @@ function openy_addthis_entity_base_field_info(EntityTypeInterface $entity_type) 
   }
 
   $fields['addthis'] = BaseFieldDefinition::create('boolean')
-    ->setLabel(t('Enable addThis'))
+    ->setLabel(t('Enable AddThis'))
     ->setRevisionable(TRUE)
     ->setTranslatable(TRUE)
     ->setDefaultValue(FALSE)
@@ -65,13 +65,13 @@ function openy_addthis_entity_base_field_info(EntityTypeInterface $entity_type) 
 }
 
 /**
- * Get value for node addThis.
+ * Get value for node AddThis.
  *
  * @param object $node
  *   Node object.
  *
  * @return bool
- *   TRUE if addThis should be shown on the node and FALSE if should not.
+ *   TRUE if AddThis should be shown on the node and FALSE if should not.
  */
 function _openy_addthis_get_value($node) {
   $value = FALSE;
@@ -100,7 +100,7 @@ function openy_addthis_entity_view(array &$build, EntityInterface $entity, Entit
     return;
   }
 
-  // Check if addThis should be shown and if it should print it.
+  // Check if AddThis should be shown and if it should print it.
   $addthis_id = \Drupal::config('openy_addthis.settings')->get('public_id');
   if ($entity->getEntityTypeId() == 'node' && !_openy_addthis_get_value($entity) || !$addthis_id) {
     $build['addthis'][0]['#markup'] = '';

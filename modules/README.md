@@ -1,2 +1,2 @@
-## OpenY Modules
-Contains the OpenY modules.
+## Open Y Modules
+Contains the Open Y modules.

@@ -40,7 +40,8 @@
           height: auto;
           @include transition(all 0.5s ease);
           background-color: #F5F5F5 !important;
-          h2 {
+          h2,
+          h3 {
             color: #635f5f;
             font-weight: bold;
             margin-top: 8px;
@@ -112,7 +113,8 @@
   }
   &.blog-news,
   &.blog-color {
-    h2 {
+    h2,
+    h3 {
       font-size: 30px;
       margin-bottom: 10px;
     }
@@ -153,7 +155,8 @@
     @include cachet();
     margin-bottom: 10px;
   }
-  h2 {
+  h2,
+  h3 {
     margin-top: 0;
     a {
       font-size: 18px;

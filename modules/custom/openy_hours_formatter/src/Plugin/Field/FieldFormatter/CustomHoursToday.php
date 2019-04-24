@@ -4,13 +4,14 @@ namespace Drupal\openy_hours_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\openy_field_custom_hours\Plugin\Field\FieldFormatter\CustomHoursFormatterDefault;
+use Drupal\Component\Utility\Html;
 
 /**
  * Plugin implementation for openy_custom_hours formatter.
  *
  * @FieldFormatter(
  *   id = "openy_today_custom_hours",
- *   label = @Translation("OpenY Today's hours"),
+ *   label = @Translation("Open Y Today's hours"),
  *   field_types = {
  *     "openy_custom_hours"
  *   }
@@ -24,22 +25,25 @@ class CustomHoursToday extends CustomHoursFormatterDefault {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
     $lazy_hours = [];
+    $js_settings = [];
+
     foreach ($items as $delta => $item) {
       $groups = [];
       $rows = [];
       $label = '';
 
-      // Group days by their values.
+      // Group days by their values and populate JS hours settings.
       foreach ($item as $i_item) {
         // Do not process label. Store it name for later usage.
         $name = $i_item->getName();
         if ($name == 'hours_label') {
           $label = $i_item->getValue();
+          $js_key = str_ireplace('-', '_', Html::getClass($label));
           continue;
         }
 
         $day = str_replace('hours_', '', $name);
-        $value = $i_item->getValue() ? $i_item->getValue() : 'closed';
+        $value = $i_item->getValue() ? $i_item->getValue() : 'Closed';
         $lazy_hours[$day] = $value;
         if ($groups && end($groups)['value'] == $value) {
           $array_keys = array_keys($groups);
@@ -51,6 +55,11 @@ class CustomHoursToday extends CustomHoursFormatterDefault {
             'value' => $value,
             'days' => [$day],
           ];
+        }
+
+        // Populate JS hours.
+        if (stripos($name, 'hours_') === 0) {
+          $js_settings[$js_key][] = $value;
         }
       }
 
@@ -90,9 +99,17 @@ class CustomHoursToday extends CustomHoursFormatterDefault {
           'library' => [
             'openy_hours_formatter/openy_hours_formatter',
           ],
+          'drupalSettings' => [
+            'openy_hours_formatter' => [
+              'branch_hours' => $js_settings,
+              'tz' => \Drupal::config('system.date')->get('timezone')['default'],
+            ]
+          ]
         ],
       ];
     }
+
+
 
     return $elements;
   }

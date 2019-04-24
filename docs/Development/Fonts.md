@@ -1,10 +1,10 @@
 #Fonts
 
-The majority of the fonts used by the OpenY distribution are freely available, except for Cachet. 
+The majority of the fonts used by the Open Y distribution are freely available, except for Cachet. 
 
 Helvetica is used for paragraph text, with Verdana as a fallback. Page titles, headers, highlighted text, etc, use Cachet, with Ubuntu Condensed as a fallback.
 
-The font definitions in the distribution's main theme, OpenY Rose, are set to use Cachet, but fallback to Ubuntu Condensed if the font is not present.
+The font definitions in the distribution's main theme, Open Y Rose, are set to use Cachet, but fallback to Ubuntu Condensed if the font is not present.
 
     font-family: "Cachet W01 Bold", 'Ubuntu Condensed', sans-serif;
 
@@ -19,7 +19,7 @@ If you look at the openy_rose.libraries.yml file you can see Ubunutu Condensed i
           //fonts.googleapis.com/css?family=Ubuntu+Condensed:400,700: {}
 
 ## Cachet
-Cachet, specifically "Cachet W01 Medium", is part of the YMCA styleguide. It is a commercial font, and must be purchased for individual sites. It cannot be distributed as part of the OpenY distribution or hosted on Drupal.org.
+Cachet, specifically "Cachet W01 Medium", is part of the YMCA styleguide. It is a commercial font, and must be purchased for individual sites. It cannot be distributed as part of the Open Y distribution or hosted on Drupal.org.
 
 The font can be purchased from fonts.com, https://www.fonts.com/font/monotype/cachet/book .
 

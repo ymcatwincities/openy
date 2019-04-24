@@ -1,11 +1,13 @@
 entity.groupex_form_cache.collection:
-  title: 'Groupex Form Cache list'
+  title: GroupEx Pro Form Cache list
+  description: 'List GroupEx Pro Form Cache entities'
   route_name: entity.groupex_form_cache.collection
-  description: 'List Groupex Form Cache entities'
-  parent: system.admin_structure
-  weight: 100
+  parent: openy_system.openy_integrations_groupexpro
+  weight: 150
+
 groupex_form_cache.admin.structure.settings:
-  title: Groupex Form Cache settings
-  description: 'Configure Groupex Form Cache entities'
+  title: GroupEx Pro Form Cache settings
+  description: 'Configure GroupEx Pro Form Cache entities'
   route_name: groupex_form_cache.settings
-  parent: system.admin_structure
+  parent: openy_system.openy_integrations_groupexpro
+  weight: 140

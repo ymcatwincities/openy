@@ -1,13 +1,14 @@
-name: 'OpenY Paragraph Repeat Schedules Locations'
-description: 'Repeat Schedules Locations paragraph.'
+name: Open Y Paragraph Repeat Schedules Locations
+description: Provides a dynamic paragraph to render repeat schedules for locations.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
 dependencies:
   - field
   - node
   - openy_node_landing
   - openy_repeat
+  - openy_repeat_nodes
   - paragraphs
   - plugin
 version: 8.x-1.0

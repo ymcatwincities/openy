@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - openy_gxp
 id: gxp_offerings_import
 migration_tags: null
 migration_group: gxp
@@ -31,6 +34,10 @@ source:
     -
       times: 'Schedules (serialized times and dates when session runs)'
     -
+      register_url: 'URL to register for the class'
+    -
+      register_button_text: 'Text for the Register button.'
+    -
       id: 'Unique Id'
 process:
   title: title
@@ -58,6 +65,12 @@ process:
   field_session_instructor/value:
     plugin: get
     source: instructor
+  field_session_reg_link/uri:
+    plugin: get
+    source: register_url
+  field_session_reg_link/title:
+    plugin: get
+    source: register_button_text
   langcode:
     plugin: default_value
     source: language

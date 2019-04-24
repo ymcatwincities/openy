@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="http://www.openymca.org">
-    <img alt="react-router" src="https://www.ymcamn.org/themes/custom/ymca/img/ymca-logo.svg" width="144">
-  </a>
+ <!-- Will replace with new Open Y logo soon. <a href="http://www.openymca.org">
+    <img alt="Open Y Logo" src="" width="144">
+  </a> -->
 </p>
 
 <h3 align="center">
-  Open YMCA
+  Open Y
 </h3>
 <p align="center">
   http://openymca.org
@@ -26,9 +26,9 @@ The Open Y platform is a content management system that uses Drupal 8 functional
 # Demo
 You can always evaluate distribution by visiting demo website - http://sandbox.openymca.org. To get admin credentials to the sandbox - please [visit page for details](http://openymca.org/sandbox-details).
 
-![OpenY Sandbox](docs/assets/sandbox.gif "OpenY Demo")
+![Open Y Sandbox](docs/assets/sandbox.gif "Open Y Demo")
 
-*\* OpenY version 1.3.*
+*\* Open Y version 1.3.*
 
 # Installation
 
@@ -44,15 +44,18 @@ composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-i
 cd MY_PROJECT && composer update
 ```
 
-In order to properly install OpenY Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).
+In order to properly install Open Y Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).
 
 # Development
 For development environment please read documentation [openy-project](https://github.com/ymcatwincities/openy-project#development-environment).
 
 Other development information you can find at [docs/Development](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development).
 
+
 # Documentation
 - [Documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs)
 - [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
 - [Content structure](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Content%20structure)
 - [Technical documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development)
+- [Terms of Use](https://github.com/ymcatwincities/openy/wiki/Open-Y-Terms-of-Use)
+- [Participation Agreement](https://github.com/ymcatwincities/openy/wiki/Open-Y-Participant-Agreement)

@@ -87,7 +87,7 @@ class OpenyAddThisSettingsForm extends ConfigFormBase implements ContainerInject
     $form['bundles'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Content types'),
-      '#description' => $this->t('Select list of content types where addThis should be enabled by default.'),
+      '#description' => $this->t('Select list of content types where AddThis should be enabled by default.'),
       '#options' => $options,
       '#default_value' => $config->get('bundles') ?: [],
     ];

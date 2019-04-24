@@ -8,6 +8,8 @@ use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\Config\ConfigManager;
+use Drupal\migrate\Plugin\MigrationPluginManager;
 
 /**
  * Openy modules manager.
@@ -29,6 +31,20 @@ class OpenyModulesManager {
   protected $configFactory;
 
   /**
+   * Migration manager.
+   *
+   * @var \Drupal\Core\Config\ConfigManager
+   */
+  protected $configManager;
+
+  /**
+   * Migration manager.
+   *
+   * @var \Drupal\migrate\Plugin\MigrationPluginManager
+   */
+  protected $migrationManager;
+
+  /**
    * Configs prefixes that protected from manual deleting.
    *
    * This configs will be deleted with entity bundle removing automatically,
@@ -43,7 +59,7 @@ class OpenyModulesManager {
     'field.storage',
     'paragraphs.paragraphs_type',
     'node.type',
-    'media_entity.bundle',
+    'media.type',
     'taxonomy.vocabulary',
     'block_content.type',
   ];
@@ -68,11 +84,10 @@ class OpenyModulesManager {
       'config_entity_type' => 'paragraphs_type',
       'bundle_field' => 'type',
     ],
-    // TODO: fix media_entity info after switching to core media.
-    'media_entity' => [
-      'prefix' => 'media_entity.bundle',
-      'config_entity_type' => 'media_bundle',
-      'bundle_field' => 'type',
+    'media' => [
+      'prefix' => 'media.type',
+      'config_entity_type' => 'media_type',
+      'bundle_field' => 'bundle',
     ],
     'taxonomy_term' => [
       'prefix' => 'taxonomy.vocabulary',
@@ -94,9 +109,11 @@ class OpenyModulesManager {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, MigrationPluginManager $migration_manager, ConfigManager $config_manager) {
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
+    $this->migrationManager = $migration_manager;
+    $this->configManager = $config_manager;
   }
 
   /**
@@ -204,8 +221,8 @@ class OpenyModulesManager {
             ], RfcLogLevel::NOTICE);
             $operation_success = FALSE;
           }
-
-          if ($parent_type && $parent_id) {
+          // Check that parent entity type is not paragraph.
+          if ($parent_type && $parent_id && $parent_type != 'paragraph') {
             // Load parent entity after paragraph deleting and re-save.
             $storage = $this->entityTypeManager->getStorage($parent_type);
             $storage->resetCache([$parent_id]);
@@ -250,6 +267,38 @@ class OpenyModulesManager {
     return $operation_success;
   }
 
+
+  /**
+   * Destroy database migration data for migrations dependent from module.
+   *
+   * @param string $module_name
+   *   Module for destroy data.
+   *   Module should be added as enforced dependency in migration config.
+   */
+  public function destroyMigrationData($module_name) {
+    if (empty($module_name)) {
+      return;
+    }
+    // Get config entities that are dependent on module.
+    $dependencies = $this->configManager->findConfigEntityDependentsAsEntities('module', (array) $module_name);
+    // Create array of dependent migrations for module.
+    // That module should be listed in dependencies of migration config.
+    foreach ($dependencies as $dependency) {
+      /** @var \Drupal\migrate_plus\Entity\Migration $dependency */
+      if ($dependency->getEntityTypeId() == 'migration') {
+        $migration_list[] = $dependency->get('id');
+      }
+    }
+    if (!empty($migration_list)) {
+      $migrations = $this->migrationManager->createInstances($migration_list);
+      /** @var \Drupal\migrate\Plugin\Migration $migration */
+      foreach ($migrations as $migration) {
+        // Remove migration data in DB for this migration.
+        $migration->getIdMap()->destroy();
+      }
+    }
+  }
+
   /**
    * Helper function for ling generation.
    *
@@ -283,12 +332,10 @@ class OpenyModulesManager {
         break;
 
       case 'media':
-        // TODO: Replace url and route after switching to core media.
         $url = Url::fromUserInput('/admin/content/media');
         break;
 
-      case 'media_bundle':
-        // TODO: Replace url and route after switching to core media.
+      case 'media_type':
         $url = Url::fromUserInput("/admin/structure/media/manage/$bundle/delete");
         break;
 

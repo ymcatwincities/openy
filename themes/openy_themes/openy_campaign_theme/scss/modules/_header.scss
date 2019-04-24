@@ -107,7 +107,6 @@
   }
 }
 
-
 .sidebar .page-head__top-menu {
   a {
     height: 47px;
@@ -132,6 +131,29 @@
         padding-left: 15px;
       }
     }
+}
+
+.top-navs {
+  .page-head__logo {
+    top: 15px;
+    width: auto;
+    @include breakpoint($screen-phone) {
+      position: relative;
+    }
+    @include breakpoint($screen-sm) {
+      position: relative;
+    }
+    @include breakpoint($screen-md) {
+      position: absolute;
+    }
+    @include breakpoint($screen-lg-desktop) {
+      position: absolute;
+    }
+    img {
+      width: 50px;
+      height: auto;
+    }
+  }
 }
 
 .top-navs {

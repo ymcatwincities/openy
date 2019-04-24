@@ -1,19 +1,19 @@
 <?php
 /**
- * OpenY Robo commands.
+ * Open Y Robo commands.
  *
  * @see http://robo.li/
  */
 class RoboFile extends \Robo\Tasks {
   /**
-   * Create OpenY project https://github.com/ymcatwincities/openy-project without installation.
+   * Create Open Y project https://github.com/ymcatwincities/openy-project without installation.
    *
    * @param string $path
    *   Installation path that will be used to create "openy-project" folder.
    */
   function OpenyCreateProject($path) {
     $this->taskComposerCreateProject()
-      ->source('ymcatwincities/openy-project:8.1.x-development-dev')
+      ->source('ymcatwincities/openy-project:8.2.x-development-dev')
       ->target($path . '/openy-project')
       ->ansi(TRUE)
       ->noInstall(TRUE)
@@ -57,7 +57,7 @@ class RoboFile extends \Robo\Tasks {
   }
 
   /**
-   * Installs OpenY from fork as dependency.
+   * Installs Open Y from fork as dependency.
    *
    * @param string $path
    *   Installation path where "openy-project" is placed.

@@ -1,8 +1,8 @@
-name: 'OpenY Program Subcategory'
-description: 'OpenY Program Subcategory.'
+name: Open Y Node Program Subcategory
+description: Provides a Program Subcategory content type and related configuration.
 type: module
 core: 8.x
-package: OpenY
+package: Open Y
 version: 8.x-1.0
 dependencies:
   - blazy
@@ -14,7 +14,7 @@ dependencies:
   - field_group
   - focal_point
   - image
-  - media_entity
+  - drupal:media (>= 8.6)
   - menu_ui
   - metatag
   - node

@@ -1,9 +1,9 @@
-name: 'OpenY Paragraph Amenities'
-description: 'Provide a paragraph with a table view shows list of Branches.'
+name: Open Y Paragraph Amenities
+description: Provides a paragraph with a table view that shows list of branch amenities with filtering.
 type: module
 core: 8.x
-package: OpenY
-version: '8.x-1.0'
+package: Open Y
+version: 8.x-1.0
 dependencies:
   - better_exposed_filters
   - field

@@ -96,6 +96,13 @@ class MemberCampaignActivity extends ContentEntityBase implements MemberCampaign
     return $query->execute();
   }
 
+  /**
+   * Get an array of the activities tracked by user.
+   *
+   * @param $memberCampaignId
+   *
+   * @return array
+   */
   public static function getTrackedActivities($memberCampaignId) {
     $query = \Drupal::entityQuery('openy_campaign_memb_camp_actv')
       ->condition('member_campaign', $memberCampaignId)

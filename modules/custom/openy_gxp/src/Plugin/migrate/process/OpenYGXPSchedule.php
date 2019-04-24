@@ -24,8 +24,18 @@ class OpenYGXPSchedule extends ProcessPluginBase {
     $value = json_decode($value, TRUE);
 //    {"times":[{"start":"18:00","end":"20:00"}],"days":["Friday"],"start_date":"2018-02-16","end_date":"2018-02-16"}
 
-    $startDate = $value['start_date'] . 'T' . $value['times']['start'] . ':00';
-    $endDate = $value['end_date'] . 'T' . $value['times']['end'] . ':00';
+    // Convert to UTC timezone to save to database.
+    $siteTimezone = new \DateTimeZone(drupal_get_user_timezone());
+    $gmtTimezone = new \DateTimeZone('GMT');
+
+    $startTime = new \DateTime($value['start_date'] . ' ' . $value['times']['start'] . ':00', $siteTimezone);
+    $startTime->setTimezone($gmtTimezone);
+
+    $endTime = new \DateTime($value['end_date'] . ' ' . $value['times']['end'] . ':00', $siteTimezone);
+    $endTime->setTimezone($gmtTimezone);
+
+    $startDate = $startTime->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $endDate = $endTime->format(DATETIME_DATETIME_STORAGE_FORMAT);
 
     $days = [];
     foreach ($value['days'] as $day) {

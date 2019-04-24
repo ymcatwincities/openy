@@ -3,9 +3,15 @@
 <div class="navbar">
   <div class="navbar-inner">
     <ul class="nav nav-pills">
+      {% set active_step = 1 %}
+      {% for step in steps %}
+        {% if step.active %}
+          {% set active_step = step.number %}
+        {% endif %}
+      {% endfor %}
       {% for step in steps %}
       <li{% if step.active %} class="active"{% endif %}>
-        <div class="step-{{ step.number }}" data-toggle="tab" data-step="{{ step.number }}"><span class="nav-pills__text">{{ step.number }}. {{ step.title }}</span></div>
+        <div class="step-{{ step.number }}" data-toggle="tab" data-step="{{ step.number }}" {% if step.number == active_step %}aria-label="{{ 'current step is'|t }} {{ step.title }}"{% endif %}><span class="nav-pills__text">{{ step.number }}. {{ step.title }}</span></div>
       </li>
       {% endfor %}
     </ul>

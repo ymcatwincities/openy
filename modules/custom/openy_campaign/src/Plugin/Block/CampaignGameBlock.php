@@ -7,6 +7,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\openy_campaign\Entity\MemberCampaign;
 use Drupal\openy_campaign\Entity\MemberGame;
+use Drupal\openy_campaign\GameService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 
@@ -43,6 +44,13 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $campaignMenuService;
 
   /**
+   * The Game service.
+   *
+   * @var \Drupal\openy_campaign\GameService
+   */
+  protected $game_service;
+
+  /**
    * Constructs a new Block instance.
    *
    * @param array $configuration
@@ -54,11 +62,18 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   Form builder.
    */
-  public function __construct(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition, FormBuilderInterface $formBuilder, CampaignMenuServiceInterface $campaign_menu_service) {
+  public function __construct(ContainerInterface $container,
+    array $configuration, $plugin_id, $plugin_definition,
+    FormBuilderInterface $formBuilder,
+    CampaignMenuServiceInterface $campaign_menu_service,
+    GameService $game_service
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
+
     $this->formBuilder = $formBuilder;
     $this->container = $container;
     $this->campaignMenuService = $campaign_menu_service;
+    $this->game_service = $game_service;
   }
 
   /**
@@ -71,7 +86,8 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
       $plugin_id,
       $plugin_definition,
       $container->get('form_builder'),
-      $container->get('openy_campaign.campaign_menu_handler')
+      $container->get('openy_campaign.campaign_menu_handler'),
+      $container->get('openy_campaign.game_service')
     );
   }
 
@@ -82,14 +98,10 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
     $block = [];
 
     // The block is rendered for each user separately.
-    // We can't cache it.
-    $block['#cache']['max-age'] = 0;
-
-    // Get current member
-    // get current campaign
-    // check number of games available
-    // show form with button
-    // on submit, direct to game page.
+    // It should be invalidated when a new game chance is added.
+    $block['#cache'] = [
+      'max-age' => 3600,
+    ];
 
     // Get campaign node from current page.
     /** @var \Drupal\Node\Entity\Node $campaign */
@@ -100,29 +112,11 @@ class CampaignGameBlock extends BlockBase implements ContainerFactoryPluginInter
     }
 
     $block['#campaign'] = $campaign;
-
-    $userData = MemberCampaign::getMemberCampaignData($campaign->id());
-    $memberCampaignID = MemberCampaign::findMemberCampaign($userData['membership_id'], $campaign->id());
-
-    $entity_query_service = $this->container->get('entity.query');
-    $gameIds = $entity_query_service->get('openy_campaign_member_game')
-      ->condition('member', $memberCampaignID)
-      ->execute();
-
-    $games = MemberGame::loadMultiple($gameIds);
-    $unplayedGames = [];
-    foreach ($games as $game) {
-      if (!empty($game->result->value)) {
-        continue;
-      }
-
-      $unplayedGames[] = $game;
-    }
-
+    $block['#game_type'] = $campaign->field_campaign_game_type->value;
+    $unplayedGames = $this->game_service->getUnplayedGames($campaign);
     $block['#theme'] = 'openy_campaign_games';
     $block['#form'] = $this->formBuilder->getForm('Drupal\openy_campaign\Form\GameBlockForm', $unplayedGames);
     return $block;
-
   }
 
 }

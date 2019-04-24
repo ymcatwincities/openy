@@ -36,8 +36,8 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
     $options = $this->getOptions($items->getEntity());
 
     $header = [
-      'branch' => t('Branch'),
-      'target' => t('Total Members'),
+      'branch' => $this->t('Branch'),
+      'target' => $this->t('Total Members'),
     ];
 
     foreach ($options as $id => $option) {
@@ -53,7 +53,7 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
               $selectedValues[$id] : NULL,
               '#value' => !empty($selectedValues[$id]) ?
               $selectedValues[$id] : NULL,
-              '#placeholder' => t('Total Members'),
+              '#placeholder' => $this->t('Total Members'),
               '#name' => 'branch_target_for_' . $id,
               '#size' => 15,
             ],
@@ -76,7 +76,7 @@ class EntityReferenceWithTextWidget extends OptionsWidgetBase implements WidgetI
    */
   protected function getEmptyLabel() {
     if (!$this->required && !$this->multiple) {
-      return t('N/A');
+      return $this->t('N/A');
     }
   }
 

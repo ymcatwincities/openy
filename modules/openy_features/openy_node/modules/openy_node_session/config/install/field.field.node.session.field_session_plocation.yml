@@ -14,7 +14,7 @@ id: node.session.field_session_plocation
 field_name: field_session_plocation
 entity_type: node
 bundle: session
-label: Facility
+label: 'Physical Location'
 description: 'A reference field for selecting the facility.'
 required: false
 translatable: true

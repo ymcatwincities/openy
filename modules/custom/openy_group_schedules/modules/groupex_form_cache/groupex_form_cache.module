@@ -6,7 +6,7 @@
  */
 
 /**
- * Run Groupex Form cache warmer.
+ * Run GroupEx Pro Form cache warmer.
  *
  * @param int $lock_lifetime
  *   Lock lifetime. 7 hours by default.
@@ -39,7 +39,7 @@ function groupex_form_cache_reset_all() {
 }
 
 /**
- * Quick Groupex cache reset (using TRUNCATE).
+ * Quick GroupEx Pro cache reset (using TRUNCATE).
  */
 function groupex_form_cache_reset_all_quick() {
   \Drupal::service("groupex_form_cache.manager")->quickResetCache();

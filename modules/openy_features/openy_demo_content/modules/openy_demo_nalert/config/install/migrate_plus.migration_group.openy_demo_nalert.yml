@@ -2,6 +2,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: openy_demo_nalert
-label: 'Branch'
+label: 'Alert'
 description: 'Imports alert demo content.'
 module: openy_demo_nalert

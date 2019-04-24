@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.social_post.field_platform
     - field.field.node.social_post.field_post
     - field.field.node.social_post.field_posted
+    - field.field.node.social_post.field_social_feed_link
     - field.field.node.social_post.field_sp_image
     - image.style.thumbnail
     - node.type.social_post
@@ -159,4 +160,10 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+  url_redirects:
+    weight: 50
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_social_feed_link: true

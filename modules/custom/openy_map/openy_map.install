@@ -75,3 +75,24 @@ function openy_map_update_8002() {
   _openy_map_absolutize_config_icon_urls();
   _openy_map_set_default_location();
 }
+
+/**
+ * Remove obsolete displays in locations view.
+ */
+function openy_map_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_map') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'views.view.locations' =>[
+      'display',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
