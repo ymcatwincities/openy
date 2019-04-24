@@ -108,10 +108,10 @@
             "type": "package",
             "package": {
                 "name": "vuejs/vue",
-                "version": "2.5.17",
+                "version": "2.6.10",
                 "type": "drupal-library",
                 "dist": {
-                    "url": "https://github.com/vuejs/vue/archive/v2.5.17.zip",
+                    "url": "https://github.com/vuejs/vue/archive/v2.6.10.zip",
                     "type": "zip"
                 }
             }
@@ -278,7 +278,7 @@
         "npm-asset/slick-carousel": "^1.8",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
-        "vuejs/vue": "2.5.17",
+        "vuejs/vue": "2.6.10",
         "vuejs/vue-router": "3.0.6"
     }
 }
