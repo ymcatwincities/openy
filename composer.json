@@ -82,7 +82,7 @@
         {
             "type": "package",
             "package": {
-                "name": "grt-youtube-popup",
+                "name": "grt107/grt-youtube-popup",
                 "version": "1.0.0",
                 "type": "drupal-library",
                 "source": {
@@ -100,6 +100,30 @@
                 "type": "drupal-library",
                 "dist": {
                     "url": "https://github.com/AndreyMaximov/alphanum/archive/1.0.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "vuejs/vue",
+                "version": "2.6.10",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/vuejs/vue/archive/v2.6.10.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "vuejs/vue-router",
+                "version": "3.0.6",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/vuejs/vue-router/archive/v3.0.6.zip",
                     "type": "zip"
                 }
             }
@@ -210,7 +234,7 @@
         "library-ckeditor/colorbutton": "4.10.1",
         "library-smonetti/btbutton": "1.0.1",
         "library-davekoelle/alphanum": "1.0.0",
-        "grt-youtube-popup": "^1.0",
+        "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
@@ -253,6 +277,8 @@
         "npm-asset/blazy": "^1.8",
         "npm-asset/slick-carousel": "^1.8",
         "npm-asset/dropzone": "^5.5",
-        "npm-asset/jquery.easing": "^1.4"
+        "npm-asset/jquery.easing": "^1.4",
+        "vuejs/vue": "2.6.10",
+        "vuejs/vue-router": "3.0.6"
     }
 }
