@@ -142,7 +142,7 @@ class ChildcarePaymentHistoryForm extends FormBase {
       $results = $this->buildResults($values);
       $formatted_results = $this->formatResults($results);
 
-      $form['#prefix'] = '<div id="childcare-payment-history-form-wrapper"><div class="container"><div class="row"><div class="col-xs-12">';
+      $form['#prefix'] = '<div id="childcare-payment-history-form-wrapper" class="notranslate"><div class="container"><div class="row"><div class="col-xs-12">';
       $form['#suffix'] = '</div></div></div><div class="results clearfix">' . $formatted_results . '</div></div>';
 
       $form['start_date'] = [
