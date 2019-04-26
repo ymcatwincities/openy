@@ -57,6 +57,7 @@
         $(this).attr('href', href);
       });
 
+      $("body").find('#ui-datepicker-div').addClass('notranslate');
     }
   };
 
