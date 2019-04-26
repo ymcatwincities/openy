@@ -8,6 +8,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\migrate\MigrateExecutable;
 use Drupal\migrate\MigrateMessage;
 
+use Drupal\migrate_plus\Entity\MigrationInterface;
+
 use GuzzleHttp\Client;
 
 /**
@@ -83,6 +85,7 @@ class ImportForm extends FormBase {
     $migration = \Drupal::service('plugin.manager.migration')->createInstance('gxp_offerings_import');
     $executable = new MigrateExecutable($migration, new MigrateMessage());
     $executable->rollback();
+    $migration->setStatus(\Drupal\migrate\Plugin\MigrationInterface::STATUS_IDLE);
   }
 
   /**
@@ -220,6 +223,7 @@ class ImportForm extends FormBase {
 
     $executable = new MigrateExecutable($migration, new MigrateMessage());
     $executable->import();
+    $migration->setStatus(\Drupal\migrate\Plugin\MigrationInterface::STATUS_IDLE);
   }
 
 }
