@@ -1,5 +1,5 @@
 global-styling:
-  version: 0.1
+  version: 0.2
   css:
     base:
       css/vendor/bootstrap/bootstrap.css: {}
@@ -10,7 +10,7 @@ global-styling:
       css/print.css: { media: print }
   js:
     https://use.fontawesome.com/95fd5fcc01.js: { type: external, minified: true }
-    scripts/vendor/bootstrap.min.js: {}
+    https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js: {type: external, minified: true}
     scripts/vendor/iscroll/iscroll.js: {}
     scripts/openy_lily.js: {}
   dependencies:
