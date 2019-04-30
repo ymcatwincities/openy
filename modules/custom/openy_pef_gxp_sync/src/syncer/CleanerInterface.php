@@ -3,15 +3,15 @@
 namespace Drupal\openy_pef_gxp_sync\syncer;
 
 /**
- * Interface SaverInterface.
+ * Interface CleanerInterface.
  *
  * @package Drupal\openy_pef_gxp_sync\syncer
  */
-interface SaverInterface {
+interface CleanerInterface {
 
   /**
-   * Save items.
+   * Clean outdated data.
    */
-  public function save();
+  public function clean();
 
 }
