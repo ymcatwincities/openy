@@ -47,7 +47,11 @@
         </label>
         <div class="form-group-date collapse" aria-expanded="false">
           <div class="date" id="datepicker">
-            <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" />
+            {% if calendar_limit > 0 %}
+              <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" data-date-end-date="+{{ calendar_limit }}d" />
+            {% else %}
+              <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" />
+            {% endif %}
             <span class="input-group-addon hidden">
               <span class="fa fa-calendar" aria-hidden="true"></span>
             </span>
@@ -58,15 +62,15 @@
       {# location select list #}
       {% if locations is not empty %}
         <div class="form-group-wrapper">
-          <label for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="true" aria-controls="form-group-location">
+          <label for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="false" aria-controls="form-group-location">
             {{ 'Location'|t }}
             <i class="fa fa-minus minus" aria-hidden="true"></i>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
-          <div id="form-group-location" class="form-group-location collapse in" aria-expanded="true">
+          <div id="form-group-location" class="form-group-location" aria-expanded="true">
             <div class="checkboxes">
             {% for location in locations %}
-              {% set loc_checked = "t" %}
+              {% set loc_checked = "t collapse" %}
               {% if checked_locations is not empty and location in checked_locations %}
                 {% set loc_checked = "checked" %}
               {% endif %}
@@ -94,7 +98,7 @@
           <label for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button" class="expanded" aria-controls="form-group-category">
             {{ 'Category'|t }}
             <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
+            <i class="fa fa-minus plus" aria-hidden="true"></i>
           </label>
           <div id="form-group-category" class="form-group-category collapse in" aria-expanded="true">
             <div class="checkboxes">
