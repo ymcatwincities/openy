@@ -2,7 +2,7 @@ name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
-version: '8.x-2.0.8-dev'
+version: '8.x-2.0.9'
 distribution:
   name: Open Y
   install:
