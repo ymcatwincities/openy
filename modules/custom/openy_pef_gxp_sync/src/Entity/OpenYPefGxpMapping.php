@@ -2,8 +2,6 @@
 
 namespace Drupal\openy_pef_gxp_sync\Entity;
 
-use Drupal\Core\Annotation\Translation;
-use Drupal\Core\Entity\Annotation\ContentEntityType;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
@@ -15,6 +13,7 @@ use Drupal\Core\Field\BaseFieldDefinition;
  *   id = "openy_pef_gxp_mapping",
  *   label = @Translation("OpenY PEF GXP Mapping"),
  *   base_table = "openy_pef_gxp_mapping",
+ *   data_table = "openy_pef_gxp_mapping",
  *   entity_keys = {
  *     "id" = "id",
  *     "uuid" = "uuid"
@@ -49,46 +48,46 @@ class OpenYPefGxpMapping extends ContentEntityBase implements OpenYPefGxpMapping
         'type' => 'entity_reference_label',
       ])
       ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete'
+        'type' => 'entity_reference_autocomplete',
       ]);
 
-    $fields['hash'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('crc32 hash of source object'))
-      ->setDescription(t('Used to compare with source data object.'))
+    $fields['product_id'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Class ID'))
+      ->setDescription(t('Used to map source Class ID.'))
       ->setRequired(TRUE)
-      ->setSettings(array(
+      ->setSettings([
         'default_value' => '',
-        'max_length' => 10,
-      ))
-      ->setDisplayOptions('view', array(
+        'max_length' => 32,
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
         'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => 0,
-      ))
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['product_id'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Product ID'))
-      ->setDescription(t('Used to map source Product ID.'))
+    $fields['location_id'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Location ID'))
+      ->setDescription(t('Used to map source Location ID.'))
       ->setRequired(TRUE)
-      ->setSettings(array(
+      ->setSettings([
         'default_value' => '',
         'max_length' => 32,
-      ))
-      ->setDisplayOptions('view', array(
+      ])
+      ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => 0,
-      ))
-      ->setDisplayOptions('form', array(
+        'weight' => 1,
+      ])
+      ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => 0,
-      ))
+        'weight' => 1,
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
