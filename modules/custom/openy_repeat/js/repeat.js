@@ -323,6 +323,7 @@
             categories: this.categories.join(',')
           }});
       },
+
       toggleParentClass: function(event) {
 
           if (event.target.parentElement.classList.contains('skip-checked')) {
@@ -341,6 +342,7 @@
             event.target.parentElement.classList.remove('in');
           }
       },
+
       populatePopupL: function(index) {
         this.locationPopup = this.filteredTable[index].location_info;
       },
@@ -381,6 +383,7 @@
       this.showForwardArrow = checkShowForwardArrow(this.date);
 
       calculateColumns();
+
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
