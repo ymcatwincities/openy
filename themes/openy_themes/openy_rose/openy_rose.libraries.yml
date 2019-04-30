@@ -9,7 +9,7 @@ global-styling:
       css/colors.css: {}
   js:
     https://use.fontawesome.com/95fd5fcc01.js: { type: external, minified: true }
-    scripts/vendor/bootstrap.min.js: {}
+    https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js: {type: external, minified: true}
     scripts/vendor/iscroll/iscroll.js: {}
     scripts/jquery.matchHeight.js: {}
     scripts/openy_rose.js: {}
