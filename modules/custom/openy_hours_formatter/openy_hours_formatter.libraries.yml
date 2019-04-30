@@ -1,5 +1,5 @@
 openy_hours_formatter:
-  version: VERSION
+  version: 0.1
   js:
     js/openy_hours_formatter.js: {}
   dependencies:
