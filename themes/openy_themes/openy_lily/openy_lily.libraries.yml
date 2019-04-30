@@ -9,7 +9,7 @@ global-styling:
       css/colors.css: {}
       css/print.css: { media: print }
   js:
-    https://use.fontawesome.com/95fd5fcc01.js: { type: external, minified: true }
+    https://use.fontawesome.com/95fd5fcc01.js: {type: external, attributes: { defer: true, async: true} }
     https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js: {type: external, minified: true}
     scripts/vendor/iscroll/iscroll.js: {}
     scripts/openy_lily.js: {}
