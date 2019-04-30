@@ -74,6 +74,7 @@ class AlertItem extends Component {
                 href="#close"
                 className="site-alert__dismiss"
                 onClick={() => closeItem()}
+                aria-label="Close alert"
               >
                 <i className="fa fa-times" aria-hidden="true">
                   <span className="visually-hidden">
