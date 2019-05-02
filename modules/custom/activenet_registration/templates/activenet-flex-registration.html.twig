@@ -1,0 +1,14 @@
+{#
+Available variables
+  'name' => 'null',
+  'registration_url' => 'null', url to active communites registration link
+  'gender' => 'null',
+  'site_name' => 'null',
+#}
+
+<div{{ attributes }}>
+  <h4>{{ name }}</h4>
+  {{ site_name }}
+  {{ gender }}
+  {{ link('Register Now', registration_url) }}
+</div>

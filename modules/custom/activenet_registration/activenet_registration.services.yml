@@ -1,0 +1,12 @@
+services:
+  activenet_registration.cache:
+    class: Drupal\Core\Cache\CacheBackendInterface
+    factory: cache_factory:get
+    arguments: [activenet_registration]
+  activenet_registration.datastorage:
+    class: Drupal\activenet_registration\DataStorage
+    arguments: ['@activenet.client', '@activenet_registration.cache', '@config.factory']
+    tags:
+      -
+        name: openy_cron_service
+        periodicity: 60
