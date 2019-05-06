@@ -67,7 +67,7 @@ tips:
     id: media-tags-vocabulary
     plugin: text
     label: 'Media Tags'
-    body: 'In this vocabulary you can manage media tags that will allow you to structurize your media assets library. [openy_tour:click:.dropbutton-wrapper:last .dropbutton-arrow]'
+    body: 'In this vocabulary you can manage media tags that will allow you to structurize your media assets library.'
     weight: 8
     attributes:
       data-class: 'taxonomy-overview-vocabularies tr td:contains("Media Tags")'

@@ -22,7 +22,7 @@ tips:
     id: title
     plugin: text
     label: Title
-    body: 'Here a user can specify Landing Page title. [openy_tour:click:#edit-field-lp-layout]'
+    body: 'Here a user can specify Landing Page title.'
     location: bottom
     weight: 2
     attributes:
@@ -31,7 +31,7 @@ tips:
     id: layout
     plugin: text
     label: 'Layout Drop'
-    body: 'Here a user can decide the page layout one column full width, one or two columns or two columns with a sidebar. [openy_tour:click:.field--name-field-header-content]'
+    body: 'Here a user can decide the page layout one column full width, one or two columns or two columns with a sidebar.'
     location: bottom
     weight: 3
     attributes:
@@ -49,7 +49,7 @@ tips:
     id: microsites
     plugin: text
     label: 'Add Microsites Menu paragraph'
-    body: 'In Header area click on "Add Microsites Menu" [openy_tour:click:edit-field-header-content-add-more-add-more-button-microsites-menu]'
+    body: 'In Header area click on "Add Microsites Menu"'
     weight: 5
     location: bottom
     attributes:
@@ -66,7 +66,7 @@ tips:
     id: microsites-create-block
     plugin: text
     label: 'Add new custom block'
-    body: 'Press "Add new custom block" and fill all fields. [openy_tour:click:edit-field-header-content-0-subform-field-prgf-block-ref-actions-ief-add]'
+    body: 'Press "Add new custom block" and fill all fields.'
     weight: 7
     attributes:
       data-class: form-submit[value="Add new custom block"]

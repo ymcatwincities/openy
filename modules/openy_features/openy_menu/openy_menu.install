@@ -29,3 +29,69 @@ function openy_menu_update_8003() {
   $config .= 'tour.tour.openy-menu-overview.yml';
   $config_importer->update($config, 'tour.tour.openy-menu-overview', 'tips');
 }
+
+/**
+ * Update Menu management Tour.
+ */
+function openy_menu_update_8004() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_menu');
+  $config .= '/config/optional/';
+  $config .= 'tour.tour.openy-menu-management.yml';
+  $config_importer->update($config, 'tour.tour.openy-menu-management', 'tips');
+}
+
+/**
+ * Update Vocabulary overview Tour.
+ */
+function openy_menu_update_8005() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_taxonomy');
+  $config .= '/config/optional/';
+  $config .= 'tour.tour.openy-taxonomy-overview.yml';
+  $config_importer->update($config, 'tour.tour.openy-taxonomy-overview', 'tips');
+}
+
+/**
+ * Update Vocabulary Color Tour.
+ */
+function openy_menu_update_8006() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_taxonomy');
+  $config .= '/config/optional/';
+  $config .= 'tour.tour.openy-taxonomy-vocabulary.yml';
+  $config_importer->update($config, 'tour.tour.openy-taxonomy-vocabulary', 'tips');
+}
+
+/**
+ * Update Vocabulary Term Tour.
+ */
+function openy_menu_update_8007() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_taxonomy');
+  $config .= '/config/optional/';
+  $config .= 'tour.tour.openy-taxonomy-term.yml';
+  $config_importer->update($config, 'tour.tour.openy-taxonomy-term', 'tips');
+}
+
+/**
+ * Update Content Overview Tour.
+ */
+function openy_menu_update_8008() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node');
+  $config .= '/config/optional/';
+  $config .= 'tour.tour.openy-node-overview.yml';
+  $config_importer->update($config, 'tour.tour.openy-node-overview', 'tips');
+}
+
+/**
+ * Update Content Landing Page Add Tour.
+ */
+function openy_menu_update_8009() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node');
+  $config .= '/config/optional/';
+  $config .= 'tour.tour.openy-landing-page-add.yml';
+  $config_importer->update($config, 'tour.tour.openy-landing-page-add', 'tips');
+}
