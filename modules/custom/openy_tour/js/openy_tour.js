@@ -63,8 +63,24 @@
   };
 
   Drupal.openy_tour.focus_on_button = function () {
-    $(document).click(function(e){
+    $(document).click(function(e) {
       if ($('.joyride-next-tip').on('clicked')) {
+        if (this.activeElement.classList.contains('joyride-next-tip')) {
+          //console.dir(this.activeElement.parentElement.parentElement.classList);
+          let parentEl = this.activeElement.parentElement.parentElement.classList;
+          let activeTip = parentEl[parentEl.length - 1];
+          let precessedEl = '';
+          if (!$('#tour li.' +  activeTip).next().data('class')) {
+            precessedEl = $('#tour li.' +  activeTip).next().data('id');
+          }
+          else {
+            precessedEl = $('#tour li.' +  activeTip).next().data('class');
+          }
+          if ($('#' + precessedEl).length > 0) {
+            $('#' + precessedEl ).attr('open', true);
+            $('#' + precessedEl + ' summary').mousedown();
+          }
+        }
         $('.openy-click-button:visible').focus();
       }
     });
