@@ -30,7 +30,7 @@ tips:
     body: 'In this area you can re-order taxonomy terms. Select the icon and drag up and down to rearrange taxonomy terms.'
     weight: 3
     attributes:
-      data-id: 'taxonomy'
+      data-class: 'handle'
   save-vocabulary:
     id: save-vocabulary
     plugin: text

@@ -32,7 +32,7 @@ tips:
     location: top
     weight: 3
     attributes:
-      data-class: 'view-content thead'
+      data-class: 'views-field-title'
   filters:
     id: filters
     plugin: text
