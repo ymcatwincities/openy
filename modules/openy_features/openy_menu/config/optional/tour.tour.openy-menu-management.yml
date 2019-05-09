@@ -35,7 +35,7 @@ tips:
     id: menu-description
     plugin: text
     label: 'Administrative summary'
-    body: 'Enter a description of the menu items purpose here.'
+    body: 'Enter a description of the menu item purpose here.'
     weight: 4
     attributes:
       data-class: 'form-item-description'
@@ -43,15 +43,15 @@ tips:
     id: tool-drag-and-drop
     plugin: text
     label: 'Re-order menu'
-    body: 'In this area you can re-order menu items. Select the icon and move up and down to re-order menu items.'
+    body: 'In this area you can re-order menu items. Select the icon and drag it up and down to rearrange menu items.'
     weight: 5
     attributes:
-      data-id: 'menu-overview'
+      data-class: 'menu-enabled td'
   menu-enabled:
     id: Enable menu
     plugin: text
     label: 'Enable menu item'
-    body: 'Checkbox that toggles menu item on/off on the web site.'
+    body: 'Checkbox that displays/hides menu item on the web site. Check the box to display the menu item on your site.'
     weight: 6
     location: left
     attributes:
@@ -60,7 +60,7 @@ tips:
     id: menu-save
     plugin: text
     label: 'Save menu'
-    body: 'To commit any changes made on this page press the save button.'
+    body: 'To publish any changes made on this page, press the save button.'
     weight: 7
     location: top
     attributes:
