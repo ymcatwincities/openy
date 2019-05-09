@@ -66,7 +66,6 @@
     $(document).click(function(e) {
       if ($('.joyride-next-tip').on('clicked')) {
         if (this.activeElement.classList.contains('joyride-next-tip')) {
-          //console.dir(this.activeElement.parentElement.parentElement.classList);
           let parentEl = this.activeElement.parentElement.parentElement.classList;
           let activeTip = parentEl[parentEl.length - 1];
           let precessedEl = '';
