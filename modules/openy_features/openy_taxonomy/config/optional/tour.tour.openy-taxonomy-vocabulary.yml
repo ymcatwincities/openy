@@ -12,7 +12,7 @@ tips:
   vocabulary-overview:
     id: vocabulary-overview
     plugin: text
-    label: 'Overview'
+    label: 'Vocabulary Overview'
     body: 'This page allows administrators to manage taxonomy vocabulary.'
     weight: 1
   add-term:
@@ -27,15 +27,15 @@ tips:
     id: terms-re-order
     plugin: text
     label: 'Re-order taxonomy terms'
-    body: 'In this area you can re-order taxonomy terms. Select icon and move up and down to re-order taxonomy terms.'
+    body: 'In this area you can re-order taxonomy terms. Select the icon and drag up and down to rearrange taxonomy terms.'
     weight: 3
     attributes:
-      data-id: 'taxonomy'
+      data-class: 'handle'
   save-vocabulary:
     id: save-vocabulary
     plugin: text
     label: 'Save vocabulary'
-    body: 'To commit any changes made on this page press the save button.'
+    body: 'To publish any changes made on this page, press the save button.'
     weight: 4
     attributes:
       data-class: 'button--primary[value="Save"]'
