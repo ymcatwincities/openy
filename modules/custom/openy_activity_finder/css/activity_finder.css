@@ -227,20 +227,24 @@
   background-color: #fff;
   color: #0060ad;
   padding: 15px 25px;
+  min-height: 54px;
 }
 .schedule-dashboard__sidebar .tabs .checkbox-wrapper label {
   border: 2px solid #0060ad;
   background-color: #fff;
   color: #0060ad;
 }
-.activity-finder__wrapper .openy-card__item:not(.no-results) label:hover,
-.activity-finder__wrapper .openy-card__item.selected label,
-.activity-finder__wrapper .openy-card__item.selected:hover label,
-.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
-  color: white;
-  border-color: #0060ad;
-  background: #0060ad;
+.activity-finder__wrapper .openy-card__item label {
+  border-color: #0060ad !important;
 }
+.activity-finder__wrapper .openy-card__item.selected label,
+.openy-card__item.selected label,
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
+  color: white !important;
+  border-color: #0060ad !important;
+  background: #0060ad !important;
+}
+
 .activity-finder__wrapper .btn.skip {
   border: 2px solid #0060ad;
   background-color: #fff;
@@ -261,4 +265,9 @@
   min-width: 250px;
   font-size: 14px;
   width: auto;
+}
+@media screen and (max-width: 767px) {
+  .checkboxes > .checkbox-wrapper > .checkbox-wrapper {
+    margin-left: 16px;
+  }
 }

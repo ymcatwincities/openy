@@ -137,6 +137,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     }
     $data['groupedLocations'] = $locations;
 
+    $data['sort'] = isset($parameters['sort']) ? $parameters['sort'] : 'title__ASC';
+
     return $data;
   }
 
@@ -171,6 +173,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           $db_or_age = $query->createConditionGroup('OR');
           $db_or_age->addCondition('field_session_max_age', $age, '>');
           $db_or_age->addCondition('field_session_max_age', 0, '=');
+          $db_or_age->addCondition('field_session_max_age', NULL, '=');
           $db_and->addConditionGroup($db_or_age);
         }
         $db_or->addConditionGroup($db_and);
@@ -179,7 +182,14 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     }
 
     if (!empty($parameters['days'])) {
-      $days = explode(',', rawurldecode($parameters['days']));
+      $days_ids = explode(',', rawurldecode($parameters['days']));
+      // Convert ids to search value.
+      $days_info = $this->getDaysOfWeek();
+      foreach ($days_info as $i) {
+        if (in_array($i['value'], $days_ids)) {
+          $days[] = $i['search_value'];
+        }
+      }
       $query->addCondition('field_session_time_days', $days, 'IN');
     }
 
@@ -230,7 +240,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->sort('title', 'ASC');
     }
     else {
-      $sort = explode('_', $parameters['sort']);
+      $sort = explode('__', $parameters['sort']);
       $sort_by = $sort[0];
       $sort_mode = $sort[1];
       $query->sort($sort_by, $sort_mode);
@@ -287,6 +297,17 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $availability_note = t('Registration closed')->__toString();
       }
 
+      $class = $entity->field_session_class->entity;
+      $activity = $class->field_class_activity->entity;
+      $sub_category = $activity->field_activity_category->entity;
+      $learn_more = '';
+      if ($sub_category->hasField('field_learn_more')) {
+        $link = $sub_category->field_learn_more->getValue();
+        if (!empty($link[0]['uri'])) {
+          $learn_more = render($sub_category->field_learn_more->view())->__toString();
+        }
+      }
+
       $data[] = [
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
@@ -321,6 +342,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'spots_available' => !empty($entity->field_availability->value) ? $entity->field_availability->value . ' open spots' : '',
         'status' => $availability_status,
         'note' => $availability_note,
+        'learn_more' => !empty($learn_more) ? $learn_more : '',
       ];
     }
     return $data;
@@ -488,6 +510,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $nids = $this->entityQuery
         ->get('node')
         ->condition('type', ['branch', 'camp'], 'IN')
+        ->condition('status', 1)
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunked) {
@@ -572,31 +595,38 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     return [
       [
         'label' => 'Mon',
-        'value' => 'monday',
+        'search_value' => 'monday',
+        'value' => '1',
       ],
       [
         'label' => 'Tue',
-        'value' => 'tuesday',
+        'search_value' => 'tuesday',
+        'value' => '2',
       ],
       [
         'label' => 'Wed',
-        'value' => 'wednesday',
+        'search_value' => 'wednesday',
+        'value' => '3',
       ],
       [
         'label' => 'Thu',
-        'value' => 'thursday',
+        'search_value' => 'thursday',
+        'value' => '4',
       ],
       [
         'label' => 'Fri',
-        'value' => 'friday',
+        'search_value' => 'friday',
+        'value' => '5',
       ],
       [
         'label' => 'Sat',
-        'value' => 'saturday',
+        'search_value' => 'saturday',
+        'value' => '6',
       ],
       [
         'label' => 'Sun',
-        'value' => 'sunday',
+        'search_value' => 'sunday',
+        'value' => '7',
       ],
     ];
   }
@@ -646,6 +676,17 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $pages['pages'] = $range;
 
     return $pages;
+  }
+
+  public function getSortOptions() {
+    return [
+      'title__ASC' => 'Sort by Title (A-Z)',
+      'title__DESC' => 'Sort by Title (Z-A)',
+      'field_session_location__ASC' => 'Sort by Location (A-Z)',
+      'field_session_location__DESC' => 'Sort by Location (Z-A)',
+      'field_session_class__ASC' => 'Sort by Activity (A-Z)',
+      'field_session_class__DESC' => 'Sort by Activity (Z-A)',
+    ];
   }
 
 }
