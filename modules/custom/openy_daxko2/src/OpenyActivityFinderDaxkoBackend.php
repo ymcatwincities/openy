@@ -54,6 +54,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       'next' => '',
       'days' => '',
       'ages' => '',
+      'sort' => '',
     ];
 
     $access_token = $this->getDaxkoToken();
@@ -103,6 +104,14 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     if (isset($parameters['categories']) && !empty($parameters['categories'])) {
       $get['category_ids'] = $parameters['categories'];
     }
+
+    $get['sort'] = 'DESC__score';
+    if (!empty($parameters['sort'])) {
+      $get['sort'] = $parameters['sort'];
+    }
+    $sort = $get['sort'];
+    $get['sort'] = str_replace('ASC__', '+', $get['sort']);
+    $get['sort'] = str_replace('DESC__', '-', $get['sort']);
 
     // Include facets. We need locations for Activity Finder.
     $get['include_facets'] = TRUE;
@@ -298,6 +307,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       'pager' => $pager,
       'facets' => $facets,
       'groupedLocations' => $locations,
+      'sort' => $sort,
     ];
   }
 
@@ -674,6 +684,16 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     ];
 
     return $result;
+  }
+
+  public function getSortOptions() {
+    return [
+      'DESC__score' => 'Sort by Relevance',
+      'ASC__name' => 'Sort by Title (A-Z)',
+      'DESC__name' => 'Sort by Title (Z-A)',
+      'ASC__start_date' => 'Sort by Date (Soonest - Latest)',
+      'DESC__start_date' => 'Sort by Date (Latest - Soonest)',
+    ];
   }
 
 }

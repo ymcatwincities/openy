@@ -23,7 +23,14 @@
     },
     created: function() {
       this.checkboxes = JSON.parse(this.options);
-      this.checked = this.default.split(',');
+      if (typeof this.default !== 'undefined') {
+        this.checked = this.default.split(',').map(function (item) {
+          if (isNaN(item)) {
+            return item;
+          }
+          return +item;
+        });
+      }
       for (var i in this.checkboxes) {
         checkbox = this.checkboxes[i];
         if (typeof checkbox == 'object') {
@@ -55,6 +62,9 @@
         return string.replace(/^[0-9a-zA-Z]/g, '-');
       },
       getOption: function(data) {
+        if (!isNaN(data.value)) {
+          return data.value * 1;
+        }
         return data.value;
       },
       getLabel: function(data) {
@@ -81,7 +91,11 @@
         var foundChecked = false;
         var foundUnChecked = false;
         for (var i in this.dependencies[value]) {
-          if (this.checked.indexOf(this.dependencies[value][i]) != -1) {
+          var val = this.dependencies[value][i];
+          if (!isNaN(val)) {
+            val = +val;
+          }
+          if (this.checked.indexOf(val) != -1) {
             foundChecked = true;
           }
           else {
@@ -104,7 +118,6 @@
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
         }
-
         var removeValue = (this.groupStatus(value) == 'all' || this.groupStatus(value) == 'partial');
         for (var i in this.dependencies[value]) {
           var key = this.checked.indexOf(this.dependencies[value][i]);
@@ -113,11 +126,26 @@
           }
           // If we need to add and it was not checked yet.
           if (key == -1 && !removeValue) {
-            Vue.set(this.checked, this.checked.length, this.dependencies[value][i]);
+            var setVal = this.dependencies[value][i];
+            if (!isNaN(setVal)) {
+              setVal = +setVal;
+            }
+            Vue.set(this.checked, this.checked.length, setVal);
           }
           // If already checked but we need to uncheck.
           if (key != -1 && removeValue) {
-            Vue.set(this.checked, key, '');
+            for (let k = 0; k < this.dependencies[value].length; k++) {
+              for (let j = 0; j < this.checked.length; j++) {
+                if (this.checked[j] == this.dependencies[value][k]) {
+                  this.checked.splice(this.checked.indexOf(this.dependencies[value][k]), 1);
+                }
+                if (this.checked[j] == this.dependencies[value][k].toString()) {
+                  this.checked.splice(this.checked.indexOf(this.dependencies[value][k].toString()), 1);
+                }
+              }
+            }
+            // This was default setter. Let's leave this as comment. @todo remove after qa.
+            //Vue.set(this.checked, key, '');
           }
         }
       }
@@ -251,7 +279,7 @@
       categories: [],
       categoriesExcluded: [],
       categoriesLimit: [],
-      sort: 'title_ASC',
+      sort: '',
       moreInfoPopupLoading: false,
       runningClearAllFilters: false,
       afPageRef: '',
@@ -285,7 +313,8 @@
         location_phone: '',
         availability_status: '',
         availability_note: '',
-        link: ''
+        link: '',
+        learn_more: ''
       }
     },
     created: function() {
@@ -293,6 +322,9 @@
 
       if (typeof this.$route.query.locations != 'undefined') {
         var locationsGet = decodeURIComponent(this.$route.query.locations);
+        for (let i = 0; i < locationsGet.length; i++) {
+          locationsGet[i] = +locationsGet[i];
+        }
         if (locationsGet) {
           this.locations = locationsGet.split(',');
         }
@@ -300,6 +332,9 @@
 
       if (typeof this.$route.query.categories != 'undefined') {
         var categoriesGet = decodeURIComponent(this.$route.query.categories);
+        for (let i = 0; i < categoriesGet.length; i++) {
+          categoriesGet[i] = +categoriesGet[i];
+        }
         if (categoriesGet) {
           this.categories = categoriesGet.split(',');
         }
@@ -336,35 +371,35 @@
       component.$watch('locations', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
       component.$watch('categories', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue != oldValue) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
       component.$watch('ages', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
       component.$watch('days', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
       component.$watch('sort', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
@@ -374,9 +409,14 @@
         if (typeof array != 'array') {
           return array;
         }
-        return array.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+        return array.filter(function(word){ return word.length > 0 && word != 'undefined'; }).map(function (word) {
+          if (isNaN(word)) {
+            return word;
+          }
+          return +word;
+        });
       },
-      runAjaxRequest: function() {
+      runAjaxRequest: function(reset_pager = true) {
         var component = this;
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
@@ -406,14 +446,14 @@
         }
 
         var query = [],
-            cleanLocations = this.locations.filter(function(word){ return word; });
+        cleanLocations = this.locations.map(function(word){ return word; });
         if (cleanLocations.length > 0) {
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
         if (this.keywords.length > 0 && this.keywords != 'undefined') {
           query.push('keywords=' + encodeURIComponent(this.keywords));
         }
-        var cleanCategories = this.categories.filter(function(word){ return word; });
+        var cleanCategories = this.categories.map(function(word){ return word; });
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
@@ -426,7 +466,15 @@
           query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
         if (typeof this.current_page != 'undefined' && this.current_page > 0) {
-          //query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
+          // Undefined pager_info means it is Daxko.
+          if (typeof pager_info == 'undefined' && typeof this.pages[this.current_page] != 'undefined') {
+            query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
+          }
+
+          // Reset pager if any of filters has changed in order to load 1st page.
+          if (reset_pager === true) {
+            this.current_page = 1;
+          }
           query.push('page=' + encodeURIComponent(this.current_page));
         }
         if (typeof this.sort != 'undefined' && this.sort !== '') {
@@ -445,6 +493,7 @@
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
           component.no_results = data.count > 0 ? '0' : '1';
+          component.sort = data.sort;
 
           router.push({ query: {
             locations: cleanLocations.join(','),
@@ -468,16 +517,28 @@
       populatePopupLocation: function(index) {
         this.locationPopup = this.table[index].location_info;
       },
+      convertAdressField: function(adress) {
+        adress = adress.split(',').map(function(item) {return item.trim()});
+        let adress_out = adress[0] ? adress[0] : '';
+        adress_out += '<br />';
+        adress_out += adress[1] ? adress[1] : '';
+        adress_out += ', ';
+        adress_out += adress[2] ? adress[2] : '';
+        adress_out += ' ';
+        adress_out += adress[3] ? adress[3] : '';
+        return adress_out;
+      },
       populatePopupMoreInfo: function(index) {
         var component = this;
 
         // This means we already have all data so no need to run extra ajax call.
         if (component.table[index].availability_status.length != 0) {
+          let age_output = this.convertMonthesToYears(component.table[index].ages);
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
 
           component.moreInfoPopup.price = component.table[index].price;
-          component.moreInfoPopup.ages = component.table[index].ages;
+          component.moreInfoPopup.ages = age_output;
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
@@ -486,13 +547,15 @@
 
           component.moreInfoPopup.location_url = drupalSettings.path.baseUrl + 'node/' + component.table[index].location_info.nid;
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
-          component.moreInfoPopup.location_address = component.table[index].location_info.address;
+
+          component.moreInfoPopup.location_address = this.convertAdressField(component.table[index].location_info.address);
           component.moreInfoPopup.location_phone = component.table[index].location_info.phone;
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
+          component.moreInfoPopup.learn_more = component.table[index].learn_more;
 
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
@@ -533,7 +596,8 @@
           component.moreInfoPopup.description = component.table[index].description;
 
           component.moreInfoPopup.price = component.table[index].price;
-          component.moreInfoPopup.ages = component.table[index].ages;
+          let age_output = this.convertMonthesToYears(component.table[index].ages);
+          component.moreInfoPopup.ages = age_output;
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
@@ -554,6 +618,42 @@
           component.availabilityPopup.price = component.table[index].price;
         });
       },
+
+      convertMonthesToYears: function(ages) {
+        ages = ages.match(/\d+/g);
+        let ages_y = [];
+        for (let i = 0; i < ages.length; i++) {
+          if (ages[i] > 18) {
+            if (ages[i] % 12) {
+              ages_y[i] = (ages[i] / 12).toFixed(1);
+            }
+            else {
+              ages_y[i] = (ages[i] / 12).toFixed(0);
+            }
+            if (ages[i + 1] && ages[i + 1] == 0) {
+              ages_y[i] += Drupal.t('+ years');
+            }
+            if (ages[i + 1] && ages[i + 1] > 18 || !ages[i + 1]) {
+              if (i % 2 || (!ages[i + 1]) && !(i % 2)) {
+                ages_y[i] += Drupal.t(' years');
+              }
+            }
+          }
+          else if (ages[i] <= 18 && ages[i] != 0) {
+            ages_y[i] = ages[i];
+            if (ages[i + 1] && ages[i + 1] == 0) {
+              ages_y[i] += '+';
+            }
+            ages_y[i] += Drupal.formatPlural(ages_y[i], '1  month', '@count months');
+          }
+          else if (ages[i] == 0 && ages[i + 1]) {
+            ages_y[i] = ages[i];
+          }
+
+        }
+        let age_output = ages_y.join(' - ');
+        return age_output;
+      },
       clearFilters: function() {
         this.runningClearAllFilters = true;
         this.locations = [];
@@ -570,17 +670,17 @@
       loadPrevPage: function() {
         this.current_page--;
         this.table = [];
-        this.runAjaxRequest();
+        this.runAjaxRequest(false);
       },
       loadNextPage: function() {
         this.current_page++;
         this.table = [];
-        this.runAjaxRequest();
+        this.runAjaxRequest(false);
       },
       loadPageNumber: function(number) {
         this.current_page = number;
         this.table = [];
-        this.runAjaxRequest();
+        this.runAjaxRequest(false);
       }
     },
     delimiters: ["${","}"]

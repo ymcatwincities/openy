@@ -15,7 +15,7 @@
 
     {# start #}
     <div v-show="step === 0" class="activity-finder__step">
-      <div class="activity-finder__step_wrapper container">
+      <div class="activity-finder__step_wrapper">
         <div class="text-center">
           <h1 class="program-search__form--title">{{ 'Program Search'|t }}</h1>
           {% if not is_search_box_disabled %}
@@ -86,11 +86,11 @@
             </div>
           </div>
 
-          <div class="activity-finder__step_header--actions container">
+          <div class="activity-finder__step_header--actions">
             <div class="row">
               <div class="col-xs-12 col-sm-8">
-                <span v-if="checkedStep1Filters === ''">{{ 'To find programs, select whatever options apply to you (below)'|t }}</span>
-                <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep1Filters }</span>
+                <span v-if="filtersBreadcrumbs1 === ''">{{ 'To find programs, select whatever options apply to you (below)'|t }}</span>
+                <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ filtersBreadcrumbs1 }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
                 <button v-bind:disabled="isStep1NextDisabled" @click.prevent="next()" class="btn btn-primary btn-lg next btn-disabled">{{ 'Next'|t }}</button>
@@ -99,7 +99,7 @@
           </div>
         </div>
 
-        <div class="activity-finder__step_content container" v-if="!loading">
+        <div class="activity-finder__step_content" v-if="!loading">
           <div class="activity-finder__row row">
 
             {# Age #}
@@ -113,9 +113,9 @@
                   {% block af_col_1_row_class %}
                   <div class="col-xs-4 col-sm-6 col-md-4">
                   {% endblock %}
-                    <div class="openy-card__item">
+                    <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedAges, {{ age.value }}) }">
                       <label for="af-age-filter-{{ age.value }}" class="justify-content-center" data-mh="openy-card__item-label--ages">
-                        <input v-model="checkedAges" @change="toggleCardState" type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" class="d-none hidden">
+                        <input v-model="checkedAges" type="checkbox" value="{{ age.value }}" id="af-age-filter-{{ age.value }}" class="d-none hidden" />
                         {{- age.label -}}
                       </label>
                     </div>
@@ -136,9 +136,9 @@
                   {% block af_col_2_row_class %}
                   <div class="col-xs-4 col-sm-6 col-md-4">
                   {% endblock %}
-                    <div class="openy-card__item">
-                      <label for="af-day-filter-{{ day.value }}" class="justify-content-center" data-mh="openy-card__item-label--days">
-                        <input v-model="checkedDays" @change="toggleCardState" type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" class="d-none hidden">
+                  <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedDays, '{{ day.value }}') }">
+                    <label for="af-day-filter-{{ day.value }}" class="justify-content-center" data-mh="openy-card__item-label--days">
+                      <input v-model="checkedDays" type="checkbox" value="{{ day.value }}" id="af-day-filter-{{ day.value }}" class="d-none hidden" />
                         {{- day.label -}}
                       </label>
                     </div>
@@ -146,7 +146,7 @@
                 {% endfor %}
               </div>
             </div>
-            {# Day #}
+            {# / Day #}
 
             {# Program Type #}
             {% block af_col_3_class %}
@@ -156,9 +156,9 @@
 
               <div class="row">
                 <div class="col-sm-12" v-for="category in topLevelCategories">
-                  <div class="openy-card__item">
+                  <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedProgramTypes, category) }">
                     <label :for="'af-category-filter-' + category" data-mh="openy-card__item-label">
-                      <input v-model="checkedProgramTypes" @change="toggleCardState" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" name="program-types-radios" :value="category" :id="'af-category-filter-' + category" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %}>
+                      <input v-model="checkedProgramTypes" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" name="program-types-radios" :value="category" :id="'af-category-filter-' + category" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %} />
                       ${ category }
                     </label>
                   </div>
@@ -186,7 +186,7 @@
                     {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    <strong>${ table.count } {{ 'programs for:'|t }}</strong> ${ checkedStep2PrevFilters }
+                    <strong>${ table.count } {{ 'programs for:'|t }}</strong> ${ filtersBreadcrumbs1 }
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a v-bind:href="afResultsRef + step_2_query">{{ 'View All'|t }}</a>
                   </span>
@@ -198,11 +198,11 @@
             </div>
           </div>
 
-          <div class="activity-finder__step_header--actions container">
+          <div class="activity-finder__step_header--actions">
             <div class="row">
               <div class="col-xs-12 col-sm-8">
-                <span v-if="checkedStep2Filters === ''">{{ 'Narrow your results by selecting one or more activities (below)'|t }}</span>
-                <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep2Filters }</span>
+                <span v-if="filtersBreadcrumbs2 === ''">{{ 'Narrow your results by selecting one or more activities (below)'|t }}</span>
+                <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ filtersBreadcrumbs2 }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
                 <button @click.prevent="skip()" class="btn btn-primary skip btn-lg">{{ 'Skip'|t }}</button>
@@ -212,14 +212,14 @@
           </div>
         </div>
 
-        <div class="activity-finder__step_content container" v-if="!loading">
+        <div class="activity-finder__step_content" v-show="!loading">
           <div v-for="topLevelCategory in selectedCategories">
             <h3>${ topLevelCategory.label }</h3>
             <div class="row">
               <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
-                <div class="openy-card__item">
-                  <label :for="'af-filter-' + item.value" data-mh="openy-card__item-label">
-                    <input v-model="checkedCategories" @change="toggleCardState" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" :value="item.value" :id="'af-filter-' + item.value" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %}>
+                <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedCategories, item.value) }">
+                  <label :for="'af-filter-category-' + item.value" data-mh="openy-card__item-label">
+                    <input v-model="checkedCategories" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" :value="item.value" :data-label="item.label" :id="'af-filter-category-' + item.value" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %} name="activity-radios">
                     ${ item.label }
                   </label>
                 </div>
@@ -245,7 +245,7 @@
                     {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    <strong>${ table.count } {{ 'programs for:'|t }}</strong> ${ checkedStep3PrevFilters }
+                    <strong>${ table.count } {{ 'programs for:'|t }}</strong> ${ filtersBreadcrumbs1 }, ${ filtersBreadcrumbs2 }
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a v-bind:href="afResultsRef + step_3_query">{{ 'View Results'|t }}</a>
                   </span>
@@ -257,11 +257,11 @@
             </div>
           </div>
 
-          <div class="activity-finder__step_header--actions container">
+          <div class="activity-finder__step_header--actions">
             <div class="row">
               <div class="col-xs-12 col-sm-8">
-                <span v-if="checkedStep3Filters === ''">{{ 'Narrow your results further by selecting one or more locations (below)'|t }}</span>
-                <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ checkedStep3Filters }</span>
+                <span v-if="filtersBreadcrumbs3 === ''">{{ 'Narrow your results further by selecting one or more locations (below)'|t }}</span>
+                <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ filtersBreadcrumbs3 }</span>
               </div>
               <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
                 <button @click.prevent="skip()" class="btn btn-primary skip btn-lg">{{ 'Skip'|t }}</button>
@@ -271,7 +271,7 @@
           </div>
         </div>
 
-        <div id="locations-accordion-group" class="activity-finder__step_content container" v-if="!loading">
+        <div id="locations-accordion-group" class="activity-finder__step_content" v-if="!loading">
           {% for key, locationGroup in locations %}
             <div class="checkbox-group-wrapper">
 
@@ -300,10 +300,10 @@
                 <div class="row">
                   {% for location in locationGroup.value %}
                     <div class="col-xs-12 col-sm-6 col-md-4">
-                      <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0)}">
-                        <label for="af-filter-{{ location.value }}" class="has-subtext" data-mh="openy-card__item-label">
+                      <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0), 'selected': cardSelected(checkedLocations, '{{ location.value }}')}">
+                        <label for="af-filter-location-{{ location.value }}" class="has-subtext" data-mh="openy-card__item-label">
                           <i class="fa fa-map-marker"></i>
-                          <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" @change="toggleCardState" type="checkbox" value="{{ location.value }}" id="af-filter-{{ location.value }}" class="d-none hidden">
+                          <input v-if="locationCounter('{{ location.value }}') !== 0" v-model="checkedLocations" type="checkbox" value="{{ location.value }}" data-label="{{ location.label }}" id="af-filter-location-{{ location.value }}" class="d-none hidden">
                           <div class="d-flex flex-column">
                             <span>{{ location.label }}</span>
                             <small>${ locationCounter("{{ location.value }}") } {{ 'results'|t }}</small>
