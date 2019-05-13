@@ -14,9 +14,4 @@ interface SaverInterface {
    */
   public function save();
 
-  /**
-   * Remove orphaned items from database.
-   */
-  public function clean();
-
 }

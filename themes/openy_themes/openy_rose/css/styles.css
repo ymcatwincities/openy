@@ -7879,6 +7879,11 @@ article .node--view-mode-flexible-content h2 a span {
   justify-content: space-between;
 }
 
+.calendar-column .atcb-list.active {
+  visibility: visible !important;
+  display: block !important;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
@@ -8402,5 +8407,3 @@ input[type="checkbox"]:focus {
 .footer-alerts-list .slick__arrow {
   margin-top: -25px;
 }
-
-/*# sourceMappingURL=styles.css.map */

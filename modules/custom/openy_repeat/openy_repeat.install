@@ -13,3 +13,13 @@ function openy_repeat_update_8001() {
   $config->set('allow_unpublished_references', 0);
   $config->save();
 }
+
+/**
+ * Introduce config for calendar limit.
+ */
+function openy_repeat_update_8005() {
+  $configFactory = \Drupal::configFactory();
+  $config = $configFactory->getEditable('openy_repeat.settings');
+  $config->set('calendar_limit_days', 0);
+  $config->save();
+}

@@ -56,3 +56,8 @@ button.show-date-filter {
   border: none;
   padding: 0;
 }
+
+body.modal-open .top-navs .nav-wrapper,
+body.modal-open .top-navs .nav-global{
+  z-index: 200 !important;
+}
