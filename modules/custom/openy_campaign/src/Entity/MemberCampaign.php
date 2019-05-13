@@ -146,6 +146,52 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
       ->setLabel(t('Registration Type'))
       ->setDescription(t('The place where the individual was registered.'));
 
+    $fields['where_are_you_from'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Where Are You From?'))
+      ->setSettings(['target_type' => 'taxonomy_term'])
+      ->setSetting('handler', 'default')
+      ->setSetting('handler_settings', ['target_bundles' => ['where_are_you_from' => 'where_are_you_from']])
+      ->setDisplayOptions('view', [
+        'label'  => 'hidden',
+        'type'   => 'where_are_you_from',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type'     => 'entity_reference_autocomplete',
+        'weight'   => 5,
+        'settings' => [
+          'match_operator'    => 'CONTAINS',
+          'size'              => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder'       => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['where_are_you_from_specify'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Where Are You From - Specify'))
+      ->setSettings(['target_type' => 'node'])
+      ->setSetting('handler', 'default')
+      ->setSetting('handler_settings', ['target_bundles' => ['branch' => 'branch', 'facility' => 'facility']])
+      ->setDisplayOptions('view', [
+        'label'  => 'hidden',
+        'type'   => 'where_are_you_from_specify',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type'     => 'entity_reference_autocomplete',
+        'weight'   => 5,
+        'settings' => [
+          'match_operator'    => 'CONTAINS',
+          'size'              => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder'       => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     return $fields;
   }
 
@@ -213,6 +259,22 @@ class MemberCampaign extends ContentEntityBase implements MemberCampaignInterfac
    */
   public function setRegistrationType($registrationType) {
     $this->set('registration_type', $registrationType);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setWhereAreYouFrom($where_are_you_from) {
+    $this->set('where_are_you_from', $where_are_you_from);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setWhereAreYouFromSpecify($where_are_you_from_specify) {
+    $this->set('where_are_you_from_specify', $where_are_you_from_specify);
     return $this;
   }
 

@@ -24,3 +24,7 @@ services:
   openy_campaign.game_service:
     class: Drupal\openy_campaign\GameService
     arguments: ['@entity_type.manager']
+
+  openy_campaign.extended_registration:
+    class: Drupal\openy_campaign\CampaignExtendedRegistrationService
+    arguments: ['@entity_type.manager']

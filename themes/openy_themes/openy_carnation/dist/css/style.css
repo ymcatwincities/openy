@@ -13602,4 +13602,12 @@ p:last-child,
 .footer-alerts-list .slick__arrow {
   visibility: visible; }
 
+.slick-next:before,
+.slick-prev:before {
+  opacity: 1; }
+
+.header-alerts-list .slick__arrow,
+.footer-alerts-list .slick__arrow {
+  margin-top: -25px; }
+
 /*# sourceMappingURL=style.css.map */
