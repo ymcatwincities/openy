@@ -16,9 +16,6 @@
       step: 0,
       loading: false,
       isSearchSubmitDisabled: true,
-      isStep1NextDisabled: true,
-      isStep2NextDisabled: true,
-      isStep3NextDisabled: true,
       keywords: '',
       step_1_query: '',
       step_2_query: '',
@@ -44,15 +41,72 @@
       checkedProgramTypes: [],
       checkedCategories: [],
       checkedLocations: [],
-      checkedStep1Filters: '',
-      checkedStep1PrevFilters: '',
-      checkedStep2Filters: '',
-      checkedStep2PrevFilters: '',
-      checkedStep3Filters: '',
-      checkedStep3PrevFilters: '',
-      categories: {}
+      rebuildBreadcrumbs: 5,
+      categories: {},
+      daysMap: {
+        1: 'Mon',
+        2: 'Tue',
+        3: 'Wed',
+        4: 'Thu',
+        5: 'Fri',
+        6: 'Sat',
+        7: 'Sun',
+      }
     },
     methods: {
+    initializeFromGet: function() {
+      var component = this;
+      component.categories = drupalSettings.activityFinder.categories;
+
+        // @TODO Replace this with proper displaying the step.
+        if (typeof this.$route.query.step != 'undefined') {
+          var stepGet = decodeURIComponent(this.$route.query.step);
+          if (stepGet) {
+            var i;
+            for (i = 0; i < stepGet; i++) {
+              this.next(false);
+            }
+          }
+        }
+
+        component.runAjaxRequest();
+
+        if (typeof this.$route.query.ages != 'undefined') {
+          var checkedAgesGet = decodeURIComponent(this.$route.query.ages);
+          if (checkedAgesGet) {
+            this.checkedAges = checkedAgesGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.days != 'undefined') {
+          var checkedDaysGet = decodeURIComponent(this.$route.query.days);
+          if (checkedAgesGet) {
+            this.checkedDays = checkedDaysGet.split(',');
+          }
+        }
+
+        //@TODO needs to be adjusted for the case when program_types is an array (i.e. Solr backend).
+        if (typeof this.$route.query.program_types != 'undefined') {
+          var checkedProgramTypesGet = decodeURIComponent(this.$route.query.program_types);
+          if (checkedProgramTypesGet) {
+            this.checkedProgramTypes = checkedProgramTypesGet;
+          }
+        }
+
+        if (typeof this.$route.query.categories != 'undefined') {
+          var checkedCategoriesGet = decodeURIComponent(this.$route.query.categories);
+          if (checkedCategoriesGet) {
+            this.checkedCategories = checkedCategoriesGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.locations != 'undefined') {
+          var checkedLocationsGet = decodeURIComponent(this.$route.query.locations);
+          if (checkedLocationsGet) {
+            this.checkedLocations = checkedLocationsGet.split(',');
+          }
+        }
+      },
       toStep: function(s) {
         this.step = s;
         this.current_step = s;
@@ -71,7 +125,7 @@
       prev: function() {
         this.step--;
       },
-      next: function() {
+      next: function(run_ajax = true) {
         if (this.hideLocationStep == 1 && this.hideLocationStep == 1) {
           // Redirect to Search page.
           this.updateCategoriesParam();
@@ -79,7 +133,7 @@
           window.location.href = this.afResultsRef + window.location.search;
           return;
         }
-        if (this.step == 3) {
+        if (this.step == 3 && run_ajax) {
           // Redirect to Search page.
           window.location.href = this.afResultsRef + window.location.search;
         }
@@ -88,20 +142,19 @@
         if (this.step == 2 && this.hideProgramStep == 1) {
           this.current_step = 2;
           this.step = 3;
-          this.checkFilters(2);
         }
-        if (this.step == 2 && this.checkedProgramTypes.length === 0) {
+        if (this.step == 2 && this.cleanCheckedProgramTypes.length === 0) {
           this.current_step = 3;
           this.step = 3;
-          this.checkFilters(2);
         }
         if (this.step == 3 && this.hideLocationStep == 1) {
           this.current_step = 2;
           this.step = 3;
-          this.checkFilters(2);
         }
         this.updateStepsViewAll(this.step);
-        this.runAjaxRequest();
+        if (run_ajax) {
+          this.runAjaxRequest();
+        }
       },
       submitSearch: function() {
         // Redirect to Search page.
@@ -141,6 +194,7 @@
             component.step_3_query = window.location.search;
             break;
         }
+        window.scrollTo(0, 0);
       },
       // Populate Categories filter from selected top level Categories.
       updateCategoriesParam: function() {
@@ -157,114 +211,58 @@
       updateSearchQuery: function() {
         var component = this;
         router.push({ query: {
+          step: component.step,
           keywords: encodeURIComponent(component.keywords),
-          ages: encodeURIComponent(component.checkedAges),
-          program_types: encodeURIComponent(component.checkedProgramTypes),
-          categories: encodeURIComponent(component.checkedCategories),
-          days: encodeURIComponent(component.checkedDays),
-          locations: encodeURIComponent(component.checkedLocations)
+          ages: component.cleanCheckedAges.join(','),
+          program_types: component.cleanCheckedProgramTypes.join(','),
+          categories: component.cleanCheckedCategories.join(','),
+          days: component.cleanCheckedDays.join(','),
+          locations: component.cleanCheckedLocations.join(',')
         }});
       },
-      checkFilters: function(step) {
-        var component = this,
-            filters = [],
-            prevFilters = [];
-        switch (step) {
-          case 0:
-            component.isSearchSubmitDisabled = true;
-            if (component.keywords) {
-              component.isSearchSubmitDisabled = false;
+      matchHeight: function() {
+        maxHeight = [];
+        $('.activity-finder__step_content .row', document).each(function(index) {
+          cards = $(this).find('.openy-card__item label');
+          for (i = 0; i < cards.length; i++) {
+            card = cards[i];
+            if (!maxHeight[index] || $(card).height() > maxHeight[index]) {
+              maxHeight[index] = $(card).height();
             }
-          break;
-          // Step with selecting Age, Day of Week, Categories top level.
-          case 1:
-            component.checkedStep1Filters = '';
-            component.isStep1NextDisabled = true;
-            if (component.checkedAges.length > 0 ||
-              component.checkedDays.length > 0 ||
-              component.checkedProgramTypes.length > 0) {
+          }
+        });
+        $('.activity-finder__step_content .row', document).each(function(index) {
+          $(this).find('.openy-card__item label').height(maxHeight[index]);
+        });
 
-              component.isStep1NextDisabled = false;
-
-              // Map ids to titles.
-              for (key in component.checkedAges) {
-                if (typeof(component.checkedAges[key]) !== 'function' && $('#af-age-filter-' + component.checkedAges[key])) {
-                  filters.push($('#af-age-filter-' + component.checkedAges[key]).parent('label').text());
-                }
-              }
-
-              // Map ids to titles.
-              for (key in component.checkedDays) {
-                if (typeof(component.checkedDays[key]) !== 'function' && $('#af-day-filter-' + component.checkedDays[key])) {
-                  filters.push($('#af-day-filter-' + component.checkedDays[key]).parent('label').text());
-                }
-              }
-              // Depends on widget type radio or checkbox checkedProgramTypes contains string or object.
-              if (typeof component.checkedProgramTypes === 'string') {
-                component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes) : '';
-              }
-              else {
-                component.checkedProgramTypes.length > 0 ? filters.push(component.checkedProgramTypes.join(', ')) : '';
-              }
-              component.checkedStep1Filters = filters.join(', ');
-              component.checkedStep2PrevFilters = component.checkedStep1Filters;
-            }
-            break;
-          // Select Categories.
-          case 2:
-            component.checkedStep2Filters = '';
-            component.isStep2NextDisabled = true;
-            if (component.checkedCategories.length > 0) {
-              component.isStep2NextDisabled = false;
-              // Map ids to titles.
-              var checkedMapCategories = [];
-              // Depends on widget type radio or checkbox checkedCategories contains string or object.
-              if (typeof component.checkedCategories === 'string') {
-                if (typeof(component.checkedCategories) !== 'function' && $('input[value="' + component.checkedCategories + '"]').length !== 0) {
-                  checkedMapCategories.push($('input[value="' + component.checkedCategories + '"]').parent('label').text());
-                }
-              }
-              else {
-                for (key in component.checkedCategories) {
-                  if (typeof(component.checkedCategories[key]) !== 'function' && $('input[value="' + component.checkedCategories[key] + '"]').length !== 0) {
-                    checkedMapCategories.push($('input[value="' + component.checkedCategories[key] + '"]').parent('label').text());
-                  }
-                }
-              }
-              filters.push(checkedMapCategories.join(', '));
-              component.checkedStep2Filters = filters.join(', ');
-            }
-            component.checkedStep1Filters ? prevFilters.push(component.checkedStep1Filters) : '';
-            component.checkedStep2Filters ? prevFilters.push(component.checkedStep2Filters) : '';
-            component.checkedStep3PrevFilters = prevFilters.join(', ');
-            break;
-          // Select Locations.
-          case 3:
-            component.checkedStep3Filters = '';
-            component.isStep3NextDisabled = true;
-            if (component.checkedLocations.length > 0) {
-              component.isStep3NextDisabled = false;
-
-              // Map ids to titles.
-              var checkedMapLocations = [];
-              for (key in component.checkedLocations) {
-                if (typeof(component.checkedLocations[key]) !== 'function' && $('input[value="' + component.checkedLocations[key] + '"]').length !== 0) {
-                  checkedMapLocations.push($('input[value="' + component.checkedLocations[key]+'"]').parent('label').find('span').text());
-                }
-              }
-              filters.push(checkedMapLocations.join(', '));
-              component.checkedStep3Filters = filters.join(', ');
-            }
-            break;
-        }
       },
       runAjaxRequest: function() {
-        var component = this;
+        var component = this,
+          url = drupalSettings.path.baseUrl + 'af/get-data',
+          query = [];
 
-        var url = drupalSettings.path.baseUrl + 'af/get-data';
+        if (this.cleanCheckedAges.length > 0) {
+          query.push('ages=' + encodeURIComponent(this.cleanCheckedAges.join(',')));
+        }
 
-        if (window.location.search !== '') {
-          url += window.location.search;
+        if (this.cleanCheckedDays.length > 0) {
+          query.push('days=' + encodeURIComponent(this.cleanCheckedDays.join(',')));
+        }
+
+        if (this.cleanCheckedProgramTypes.length > 0) {
+          query.push('program_types=' + encodeURIComponent(this.cleanCheckedProgramTypes.join(',')));
+        }
+
+        if (this.cleanCheckedCategories.length > 0) {
+          query.push('categories=' + encodeURIComponent(this.cleanCheckedCategories.join(',')));
+        }
+
+        if (this.cleanCheckedLocations.length > 0) {
+          query.push('categories=' + encodeURIComponent(this.cleanCheckedLocations.join(',')));
+        }
+
+        if (query.length > 0) {
+          url += '?' + query.join('&');
         }
 
         component.loading = true;
@@ -294,34 +292,51 @@
         return $(".location-group-name:contains(" + e + ")").parents('.checkbox-group-wrapper').find('.selected').length;
         // get the number of selected locations.
       },
-      toggleCardState: function(e) {
-        var element = $(e.target),
-            deselect = element.data('deselect') ? element.data('deselect') : '';
-        if (element.attr('type') === 'radio') {
-          // Unselect all others radios in group.
-          $('input[name="' + element.attr('name') + '"]').parents('.openy-card__item').removeClass('selected');
-          element.parents('.openy-card__item').addClass('selected');
+      cardSelected: function(checkedValues, value) {
+        if (typeof value === 'undefined') {
+          return false;
         }
-        if (!element.parents('.openy-card__item').hasClass('selected')) {
-          // Unselect all others.
-          if (deselect) {
-            element.parents('.activity-finder__step_content').find('.openy-card__item').removeClass('selected');
-          }
-          element.parents('.openy-card__item').addClass('selected');
-        }
-        else {
-          if (deselect) {
-            // Remove value from radio. This is hardcoded for Categories only.
-            // If in the future we will need to have similar behavior for other
-            // group of radios we will need to pass variable name to this method.
-            this.checkedCategories = [];
-          }
-
-          element.parents('.openy-card__item').removeClass('selected');
-        }
+        value = value.toString();
+        return checkedValues.indexOf(value) != -1;
+      },
+      jsUcfirst: function(value) {
+        return value.charAt(0).toUpperCase() + value.slice(1);
       },
     },
     computed: {
+      cleanCheckedAges: function() {
+        return this.checkedAges.filter(function(word){ return word; });
+      },
+      cleanCheckedDays: function() {
+        return this.checkedDays.filter(function(word){ return word; });
+      },
+      cleanCheckedProgramTypes: function() {
+        var checkedProgramTypes = this.checkedProgramTypes;
+        if (typeof this.checkedProgramTypes == 'string') {
+          checkedProgramTypes = [ this.checkedProgramTypes ];
+        }
+        return checkedProgramTypes.filter(function(word){ return word; });
+      },
+      cleanCheckedCategories: function() {
+        var checkedCategories = this.checkedCategories;
+        if (typeof this.checkedCategories === 'string') {
+          checkedCategories = [this.checkedCategories];
+        }
+        return checkedCategories.filter(function(word){ return word; });
+      },
+      cleanCheckedLocations: function() {
+        return this.checkedLocations.filter(function(word){ return word; });
+      },
+      isStep1NextDisabled: function() {
+        return this.cleanCheckedAges.length === 0 && this.cleanCheckedDays.length === 0 && this.cleanCheckedProgramTypes.length === 0;
+      },
+      isStep2NextDisabled: function() {
+        return this.cleanCheckedCategories.length === 0;
+      },
+      isStep3NextDisabled: function() {
+        return this.cleanCheckedLocations.length === 0;
+      },
+
       locationCounters: function() {
         var counters = [];
         if (typeof this.table.facets.locations == 'undefined') {
@@ -350,48 +365,172 @@
           }
         }
         return selected;
+      },
+      filtersBreadcrumbs1: function() {
+        var filter = [];
+        for (key in this.cleanCheckedAges) {
+          var months = this.cleanCheckedAges[key];
+          var monthsStr = '';
+          if (months < 24) {
+            monthsStr = months + 'mo';
+          }
+          else {
+            monthsStr = months / 12 + 'y';
+          }
+          filter.push(monthsStr);
+        }
+
+        for (key in this.cleanCheckedDays) {
+          var day = this.cleanCheckedDays[key];
+          filter.push(this.daysMap[day]);
+        }
+
+        for (key in this.cleanCheckedProgramTypes) {
+          filter.push(this.cleanCheckedProgramTypes[key]);
+        }
+
+        // Need it here so breadcrumbs will be rebuild after DOM is rendered.
+        // see mounted() call.
+        this.rebuildBreadcrumbs;
+
+        return filter.join(', ');
+      },
+      filtersBreadcrumbs2: function() {
+        var filter = [];
+
+        for (key in this.cleanCheckedCategories) {
+          var label = $('#af-filter-category-' + this.cleanCheckedCategories[key]).data('label');
+          filter.push(label);
+        }
+
+        // Need it here so breadcrumbs will be rebuild after DOM is rendered.
+        // see mounted() call.
+        this.rebuildBreadcrumbs;
+
+        return filter.join(', ');
+      },
+      filtersBreadcrumbs3: function() {
+        var filter = [];
+
+        for (key in this.cleanCheckedLocations) {
+          var label = $('#af-filter-location-' + this.cleanCheckedLocations[key]).data('label');
+          filter.push(label);
+        }
+
+        // Need it here so breadcrumbs will be rebuild after DOM is rendered.
+        // see mounted() call.
+        this.rebuildBreadcrumbs;
+
+        return filter.join(', ');
       }
     },
     mounted: function() {
       var component = this;
-      component.categories = drupalSettings.activityFinder.categories;
-      component.runAjaxRequest();
-
+      component.initializeFromGet();
+      component.$watch('step', function(){
+        component.updateSearchQuery();
+      });
       component.$watch('keywords', function(){
         component.updateSearchQuery();
-        component.checkFilters(0);
       });
       component.$watch('checkedAges', function(){
         component.updateSearchQuery();
-        component.checkFilters(1);
       });
       component.$watch('checkedDays', function(){
         component.updateSearchQuery();
-        component.checkFilters(1);
       });
       component.$watch('checkedProgramTypes', function(){
         component.updateSearchQuery();
-        component.checkFilters(1);
       });
       component.$watch('checkedCategories', function(){
         component.updateSearchQuery();
-        component.checkFilters(2);
       });
       component.$watch('checkedLocations', function(){
         component.updateSearchQuery();
-        component.checkFilters(3);
       });
       // Get url from paragraph's field.
       component.afResultsRef = 'OpenY' in window ? window.OpenY.field_prgf_af_results_ref[0]['url'] : '';
       // Get 1/0 from paragraph's field.
-      component.hideProgramStep = $('.field-prgf-hide-program-categ').text();
+      component.hideProgramStep = 'OpenY' in window ? window.OpenY.field_prgf_hide_program_categ[0]['value'] : '';
       // Get 1/0 from paragraph's field.
-      component.hideLocationStep = $('.field-prgf-hide-loc-select-step').text();
+      component.hideLocationStep = 'OpenY' in window ? window.OpenY.field_prgf_hide_loc_select_step[0]['value'] : '';
       if (this.hideProgramStep == 1) {
         this.total_steps--;
       }
       if (this.hideLocationStep == 1) {
         this.total_steps--;
+      }
+
+      // We need to rebuild breadcrumbs because they depend on DOM structure
+      // and it is being rendered by javascript. Once it is rendered, we can
+      // run our jQuery queries to get labels from input elements.
+      var component = this;
+      setTimeout(function(){
+        component.rebuildBreadcrumbs = 1;
+      }, 200);
+    },
+    watch: {
+      // Call again the method if the route changes.
+      '$route': function() {
+
+        // If for some reason steps start increasing infinitely it simply hangs
+        // the browser. So we have a little protection here.
+        if (this.step > 5) {
+          console.log(this.step, 'FATAL');
+          return;
+        }
+
+        var stepGet = decodeURIComponent(this.$route.query.step);
+
+        // @TODO Make transition between step smoother so we do not need
+        // to run function next() multiple times.
+        if (stepGet != this.step) {
+          this.step = 0;
+          var i;
+          for (i = 0; i < stepGet; i++) {
+            this.next(false);
+          }
+        }
+
+        if (typeof this.$route.query.ages != 'undefined') {
+          var checkedAgesGet = decodeURIComponent(this.$route.query.ages);
+          if (JSON.stringify(checkedAgesGet.split(',')) != JSON.stringify(this.checkedAges)) {
+            this.checkedAges = checkedAgesGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.ages != 'undefined') {
+          var checkedDaysGet = decodeURIComponent(this.$route.query.days);
+          if (JSON.stringify(checkedDaysGet.split(',')) != JSON.stringify(this.checkedDays)) {
+            this.checkedDays = checkedDaysGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.program_types != 'undefined') {
+          var checkedProgramTypesGet = decodeURIComponent(this.$route.query.program_types);
+          if (JSON.stringify(checkedProgramTypesGet.split(',')) != JSON.stringify(this.checkedProgramTypes)) {
+            this.checkedProgramTypes = checkedProgramTypesGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.categories != 'undefined') {
+          var checkedCategoriesGet = decodeURIComponent(this.$route.query.categories);
+          if (JSON.stringify(checkedCategoriesGet.split(',')) != JSON.stringify(this.checkedCategories)) {
+            this.checkedCategories = checkedCategoriesGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.locations != 'undefined') {
+          var checkedLocationsGet = decodeURIComponent(this.$route.query.locations);
+          if (JSON.stringify(checkedLocationsGet.split(',')) != JSON.stringify(this.checkedLocations)) {
+            this.checkedLocations = checkedLocationsGet.split(',');
+          }
+        }
+      }
+    },
+    updated: function(){
+      if (this.step === 2) {
+        this.matchHeight();
       }
     },
     delimiters: ["${","}"]

@@ -28,7 +28,8 @@ function openy_activity_finder_theme() {
         'categories_type' => '',
         'ages' => [],
         'days' => [],
-        'is_search_box_disabled' => ''
+        'is_search_box_disabled' => '',
+        'sort_options' => [],
       ],
     ],
   ];

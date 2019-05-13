@@ -143,10 +143,13 @@
           <div class="vue-template">
 
             <div v-show="!loading" class="schedules-sort">
+              {% if sort_options is not empty %}
               <select v-model="sort" class="form-control form-select">
-                <option value="title_ASC">Sort by Title (A-Z)</option>
-                <option value="title_DESC">Sort by Title (Z-A)</option>
+                {% for key, item in sort_options %}
+                  <option value="{{ key }}">{{ item }}</option>
+                {% endfor %}
               </select>
+              {% endif %}
             </div>
 
             <div class="schedules-data clearfix">
@@ -217,22 +220,31 @@
             </div>
           </div>
           <div v-show="table.length > 0 && !loading" class="pager-wrapper">
-            <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
-            <div class="pager-controls">
-              <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPageNumber(1)" class="btn btn-primary">{{ '|<'|t }}</a>
-              <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ '<'|t }}</a>
+            <div v-if="typeof pager_info == 'undefined'">
+              <a v-if="(typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != '') || current_page > 1" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
+              <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ 'Next'|t }}</a>
+            </div>
+            <div v-else>
 
-              <ul v-if="pager_info.pages">
-                <li v-for="(item, index) in pager_info.pages" v-if="!(index >= current_page + 6 || index <= current_page - 6)">
-                  <a v-if="current_page != item" href="#" v-on:click.stop.prevent="loadPageNumber(item)">${ item }</a>
-                  <span v-else>
-                    ${ item }
-                  </span>
-                </li>
-              </ul>
+              <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
 
-              <a v-if="current_page < pager_info.total_pages" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ '>'|t }}</a>
-              <a v-if="current_page < pager_info.total_pages && typeof pager_info.total_pages != 'undefined'" href="#" v-on:click.stop.prevent="loadPageNumber(pager_info.total_pages)" class="btn btn-primary">{{ '>|'|t }}</a>
+              <div  v-if="pager_info.total_pages > 1" class="pager-controls">
+                <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPageNumber(1)" class="btn btn-primary">{{ '|<'|t }}</a>
+                <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ '<'|t }}</a>
+
+                <ul v-if="pager_info.pages">
+                  <li v-for="(item, index) in pager_info.pages" v-if="!(index >= current_page + 6 || index <= current_page - 6)">
+                    <a v-if="current_page != item" href="#" v-on:click.stop.prevent="loadPageNumber(item)">${ item }</a>
+                    <span v-else>
+                      ${ item }
+                    </span>
+                  </li>
+                </ul>
+
+                <a v-if="current_page < pager_info.total_pages" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ '>'|t }}</a>
+                <a v-if="current_page < pager_info.total_pages && typeof pager_info.total_pages != 'undefined'" href="#" v-on:click.stop.prevent="loadPageNumber(pager_info.total_pages)" class="btn btn-primary">{{ '>|'|t }}</a>
+              </div>
+
             </div>
           </div>
 
@@ -262,6 +274,7 @@
                       <div v-if="moreInfoPopup.gender.length > 0" class="col-md-6">
                         <div><strong>{{ 'Gender:'|t }}</strong>${ moreInfoPopup.gender }</div>
                       </div>
+                      <div v-html="moreInfoPopup.learn_more" v-if="moreInfoPopup.learn_more.length > 0" class="col-md-12"></div>
                     </div>
 
                   </div>
@@ -276,7 +289,7 @@
                       ${ moreInfoPopup.days }
                     </div>
                     <div v-if="moreInfoPopup.location_name.length > 0" class="location_name">
-                      <a v-bind:href="moreInfoPopup.location_url">${ moreInfoPopup.location_name }</a>
+                      <a v-bind:href="moreInfoPopup.location_url" target="_blank">${ moreInfoPopup.location_name }</a>
                     </div>
                     <div v-if="moreInfoPopup.location_address.length > 0" class="location_address">
                       <span v-html="moreInfoPopup.location_address"></span>
@@ -285,7 +298,9 @@
                       <strong>Phone:</strong> ${ moreInfoPopup.location_phone }
                     </div>
                     <div class="availability-wrapper">
-                      <div class="spots_available"><strong>There are ${ moreInfoPopup.spots_available }</strong></div>
+                      {% if moreInfoPopup.spots_available is not empty %}
+                        <div class="spots_available"><strong>There are ${ moreInfoPopup.spots_available }</strong></div>
+                      {% endif %}
                       <div v-if="moreInfoPopup.availability_note.length > 0" class="availability_note">
                         ${ moreInfoPopup.availability_note }
                       </div>
@@ -345,7 +360,7 @@
                 </div>
 
                 <div v-if="locationPopup.nid" class="schedule-dashboard__modal--footer">
-                  <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View location'|t }}</a>
+                  <a class="btn btn-lg btn-primary" target="_blank" v-bind:href="'node/' + locationPopup.nid">{{ 'View location'|t }}</a>
                 </div>
               </div>
             </div>
