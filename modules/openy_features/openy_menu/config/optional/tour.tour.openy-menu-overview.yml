@@ -27,7 +27,7 @@ tips:
     id: user-account-menu
     plugin: text
     label: 'User account menu block'
-    body: 'Do you see where it says "Home" and "Manage" at the very top of the page you are on right now? That is because you are logged in as an Open Y content editor. This is the block where we can make changes to the links and content that appear at the top of the page when Drupal / Open Y editors are logged in.'
+    body: 'Do you see where it says "Home" and "Manage" at the very top of the page you are on right now? That is because you are logged in as an Open Y content editor. This is the block where we can make changes to the links and content that appear at the top of the page when Drupal/Open Y editors are logged in.'
     weight: 3
     attributes:
       data-class: 'menu-label:contains("User account menu")'
@@ -51,7 +51,7 @@ tips:
     id: footer-menu-right
     plugin: text
     label: 'Footer menu right block'
-    body: 'This navigation block is for the right section of the footer of the default Open Y installation. The links for About, Give and Join, etc. are here when you first install Open Y. You can change these links, or remove them, by editing this Block. [openy_tour:click:.dropbutton-wrapper:first .dropbutton-arrow]'
+    body: 'This navigation block is for the right section of the footer of the default Open Y installation. The links for About, Give and Join, etc. are here when you first install Open Y. You can change these links, or remove them, by editing this Block.'
     weight: 6
     attributes:
       data-class: 'menu-label:contains("Footer menu right")'
