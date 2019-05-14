@@ -272,7 +272,6 @@
             component.step = component.$route.query.step * 1;
           }
         }).done(function() {
-          // We need to wait in order to affect the DOM after the tiles have been injected.
           component.loading = false;
         });
       },
