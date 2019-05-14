@@ -14,14 +14,14 @@ tips:
   theme-overview:
     id: theme-overview
     plugin: text
-    label: 'Overview'
-    body: 'This page allows administrators to customise the site appearance and select the necessary colour set or set custom colour schema.'
+    label: 'Color Overview'
+    body: 'This page allows administrators to customize the site appearance and select the necessary color set or set custom color schemes.'
     weight: 1
   theme-color-schema:
     id: theme-color-schema
     plugin: text
     label: 'Color schema'
-    body: 'Here is where you specify a branded colour schema for website.'
+    body: 'Here is where you specify a branded color scheme for website.'
     weight: 2
     location: top
     attributes:
@@ -30,7 +30,7 @@ tips:
     id: theme-preview
     plugin: text
     label: 'Preview'
-    body: 'Here is where you can see a preview of your new colour schema.'
+    body: 'Here is where you can see a preview of your new color scheme.'
     weight: 3
     location: top
     attributes:
@@ -57,7 +57,7 @@ tips:
      id: theme-save-settings
      plugin: text
      label: 'Save settings'
-     body: 'To commit any changes made on this page press the save button.'
+     body: 'To publish any changes made on this page, press the save button.'
      weight: 6
      location: top
      attributes:
