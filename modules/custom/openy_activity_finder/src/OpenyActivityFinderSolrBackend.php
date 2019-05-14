@@ -161,25 +161,14 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $db_or = $query->createConditionGroup('OR');
       foreach ($ages as $age) {
         $db_and = $query->createConditionGroup('AND');
-        // Specific case, user selected e.g. '16+'.
-        if (strpos($age, ' ')) {
-          $age = str_replace(' ', '', $age);
-          $db_and->addCondition('field_session_min_age', $age, '<=');
-          $db_or_age = $query->createConditionGroup('OR');
-          $db_or_age->addCondition('field_session_max_age', 0, '=');
-          $db_or_age->addCondition('field_session_max_age', NULL, '=');
-          $db_and->addConditionGroup($db_or_age);
-        }
-        else {
-          $db_and->addCondition('field_session_min_age', $age, '<=');
-          // You can see 0 as value for max_age (which means no limit for a person's max age).
-          // In order to include these results use OR condition.
-          $db_or_age = $query->createConditionGroup('OR');
-          $db_or_age->addCondition('field_session_max_age', $age, '>');
-          $db_or_age->addCondition('field_session_max_age', 0, '=');
-          $db_or_age->addCondition('field_session_max_age', NULL, '=');
-          $db_and->addConditionGroup($db_or_age);
-        }
+        $db_and->addCondition('field_session_min_age', $age, '<=');
+        // You can see 0 as value for max_age (which means no limit for a person's max age).
+        // In order to include these results use OR condition.
+        $db_or_age = $query->createConditionGroup('OR');
+        $db_or_age->addCondition('field_session_max_age', $age, '>=');
+        $db_or_age->addCondition('field_session_max_age', 0, '=');
+        $db_or_age->addCondition('field_session_max_age', NULL, '=');
+        $db_and->addConditionGroup($db_or_age);
         $db_or->addConditionGroup($db_and);
       }
       $query->addConditionGroup($db_or);
@@ -312,11 +301,6 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         }
       }
 
-      $ages = ((int) $entity->field_session_min_age->value)/12 . '-' . ((int) $entity->field_session_max_age->value)/12 . ' years';
-      if ($entity->field_session_max_age->value == 0) {
-        $ages = ((int) $entity->field_session_min_age->value)/12 . '+ years';
-      }
-
       $data[] = [
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
@@ -338,7 +322,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           ],
         ])->toString(),
         'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
-        'ages' => $ages,
+        'ages' => $this->convertData([$entity->field_session_min_age->value, $entity->field_session_max_age->value]),
         'gender' => !empty($entity->field_session_gender->value) ? $entity->field_session_gender->value : '',
         // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
         'location_id' => '',
@@ -704,6 +688,48 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       'field_session_class__ASC' => 'Sort by Activity (A-Z)',
       'field_session_class__DESC' => 'Sort by Activity (Z-A)',
     ];
+  }
+
+  /*
+   * Date months to years transformation.
+   */
+  public function convertData($ages = []) {
+    $ages_y = [];
+    for ($i = 0; $i < count($ages); $i++) {
+      if ($ages[$i] > 18) {
+        if ($ages[$i] % 12) {
+          $ages_y[$i] = number_format($ages[$i] / 12, 1, '.', '');
+        }
+        else {
+          $ages_y[$i] = number_format($ages[$i] / 12, 0, '.', '');;
+        }
+        if ($ages[$i + 1] && $ages[$i + 1] == 0) {
+          $ages_y[$i] .= t('+ years');
+        }
+        if ($ages[$i + 1] && $ages[$i + 1] > 18 || !$ages[$i + 1]) {
+          if ($i % 2 || (!$ages[$i + 1]) && !($i % 2)) {
+            $ages_y[$i] .= t(' years');
+          }
+        }
+      }
+      else {
+        if ($ages[$i] <= 18 && $ages[$i] != 0) {
+          //$ages_y[$i] = $ages[$i];
+          $plus = '';
+          if ($ages[$i + 1] && $ages[$i + 1] == 0) {
+            $plus = ' + ';
+          }
+          $ages_y[$i] = $ages[$i] . \Drupal::translation()->formatPlural($ages_y[$i], ' month', ' months' . $plus);
+        }
+        else {
+          if ($ages[$i] == 0 && $ages[$i + 1]) {
+            $ages_y[$i] = $ages[$i];
+          }
+        }
+      }
+    }
+    $age_output = implode($ages_y, ' - ');
+    return $age_output;
   }
 
 }
