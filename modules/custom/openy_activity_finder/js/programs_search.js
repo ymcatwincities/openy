@@ -144,8 +144,6 @@
                 }
               }
             }
-            // This was default setter. Let's leave this as comment. @todo remove after qa.
-            //Vue.set(this.checked, key, '');
           }
         }
       }
@@ -506,7 +504,6 @@
             sort: component.sort,
           }});
         }).done(function() {
-          // We need to wait in order to affect the DOM after the tiles have been injected.
           component.loading = false;
         });
       },
@@ -517,23 +514,21 @@
       populatePopupLocation: function(index) {
         this.locationPopup = this.table[index].location_info;
       },
-      convertAdressField: function(adress) {
-        adress = adress.split(',').map(function(item) {return item.trim()});
-        let adress_out = adress[0] ? adress[0] : '';
-        adress_out += '<br />';
-        adress_out += adress[1] ? adress[1] : '';
-        adress_out += ', ';
-        adress_out += adress[2] ? adress[2] : '';
-        adress_out += ' ';
-        adress_out += adress[3] ? adress[3] : '';
-        return adress_out;
+      convertAddressField: function(address) {
+        address = address.split(',').map(function(item) {return item.trim()});
+        let address_out = address[0] ? address[0] : '';
+        address_out += '<br />';
+        address_out += address[1] ? address[1] + ', ' : '';
+        address_out += address[2] ? address[2] + ' ': '';
+        address_out += address[3] ? address[3] : '';
+        return address_out;
       },
       populatePopupMoreInfo: function(index) {
         var component = this;
 
         // This means we already have all data so no need to run extra ajax call.
         if (component.table[index].availability_status.length != 0) {
-          let age_output = this.convertMonthesToYears(component.table[index].ages);
+          let age_output = component.table[index].ages;
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
 
@@ -548,7 +543,7 @@
           component.moreInfoPopup.location_url = drupalSettings.path.baseUrl + 'node/' + component.table[index].location_info.nid;
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
 
-          component.moreInfoPopup.location_address = this.convertAdressField(component.table[index].location_info.address);
+          component.moreInfoPopup.location_address = this.convertAddressField(component.table[index].location_info.address);
           component.moreInfoPopup.location_phone = component.table[index].location_info.phone;
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
@@ -596,7 +591,7 @@
           component.moreInfoPopup.description = component.table[index].description;
 
           component.moreInfoPopup.price = component.table[index].price;
-          let age_output = this.convertMonthesToYears(component.table[index].ages);
+          let age_output = component.table[index].ages;
           component.moreInfoPopup.ages = age_output;
           component.moreInfoPopup.gender = component.table[index].gender;
 
@@ -619,41 +614,6 @@
         });
       },
 
-      convertMonthesToYears: function(ages) {
-        ages = ages.match(/\d+/g);
-        let ages_y = [];
-        for (let i = 0; i < ages.length; i++) {
-          if (ages[i] > 18) {
-            if (ages[i] % 12) {
-              ages_y[i] = (ages[i] / 12).toFixed(1);
-            }
-            else {
-              ages_y[i] = (ages[i] / 12).toFixed(0);
-            }
-            if (ages[i + 1] && ages[i + 1] == 0) {
-              ages_y[i] += Drupal.t('+ years');
-            }
-            if (ages[i + 1] && ages[i + 1] > 18 || !ages[i + 1]) {
-              if (i % 2 || (!ages[i + 1]) && !(i % 2)) {
-                ages_y[i] += Drupal.t(' years');
-              }
-            }
-          }
-          else if (ages[i] <= 18 && ages[i] != 0) {
-            ages_y[i] = ages[i];
-            if (ages[i + 1] && ages[i + 1] == 0) {
-              ages_y[i] += '+';
-            }
-            ages_y[i] += Drupal.formatPlural(ages_y[i], '1  month', '@count months');
-          }
-          else if (ages[i] == 0 && ages[i + 1]) {
-            ages_y[i] = ages[i];
-          }
-
-        }
-        let age_output = ages_y.join(' - ');
-        return age_output;
-      },
       clearFilters: function() {
         this.runningClearAllFilters = true;
         this.locations = [];

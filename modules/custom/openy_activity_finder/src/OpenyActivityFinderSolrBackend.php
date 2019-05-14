@@ -162,9 +162,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       foreach ($ages as $age) {
         $db_and = $query->createConditionGroup('AND');
         // Specific case, user selected e.g. '16+'.
-        if (strpos($age, '+')) {
-          $age = str_replace('+', '', $age);
+        if (strpos($age, ' ')) {
+          $age = str_replace(' ', '', $age);
           $db_and->addCondition('field_session_min_age', $age, '<=');
+          $db_or_age = $query->createConditionGroup('OR');
+          $db_or_age->addCondition('field_session_max_age', 0, '=');
+          $db_or_age->addCondition('field_session_max_age', NULL, '=');
+          $db_and->addConditionGroup($db_or_age);
         }
         else {
           $db_and->addCondition('field_session_min_age', $age, '<=');
@@ -308,6 +312,11 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         }
       }
 
+      $ages = ((int) $entity->field_session_min_age->value)/12 . '-' . ((int) $entity->field_session_max_age->value)/12 . ' years';
+      if ($entity->field_session_max_age->value == 0) {
+        $ages = ((int) $entity->field_session_min_age->value)/12 . '+ years';
+      }
+
       $data[] = [
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
@@ -329,7 +338,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           ],
         ])->toString(),
         'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
-        'ages' => $entity->field_session_min_age->value . '-' . $entity->field_session_max_age->value . 'yrs',
+        'ages' => $ages,
         'gender' => !empty($entity->field_session_gender->value) ? $entity->field_session_gender->value : '',
         // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
         'location_id' => '',
@@ -517,12 +526,20 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $locations = $this->entityTypeManager->getStorage('node')->loadMultiple($chunked);
         if (!empty($locations)) {
           foreach ($locations as $location) {
-            $address = implode(', ', [
-              $location->field_location_address->address_line1,
-              $location->field_location_address->locality,
-              $location->field_location_address->administrative_area,
-              $location->field_location_address->postal_code,
-            ]);
+            $address = [];
+            if (!empty($location->field_location_address->address_line1))  {
+              array_push($address, $location->field_location_address->address_line1);
+            }
+            if (!empty($location->field_location_address->locality))  {
+              array_push($address, $location->field_location_address->locality);
+            }
+            if (!empty($location->field_location_address->administrative_area))  {
+              array_push($address, $location->field_location_address->administrative_area);
+            }
+            if (!empty($location->field_location_address->postal_code))  {
+              array_push($address, $location->field_location_address->postal_code);
+            }
+            $address = implode(', ', $address);
             $days = [];
             foreach ($location->field_branch_hours as $multi_hours) {
               $sub_hours = $multi_hours->getValue();
