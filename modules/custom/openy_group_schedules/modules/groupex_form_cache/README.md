@@ -21,6 +21,8 @@ or
 
 ## How to clear the only stale cache
 
+This is usually needed in crontab to execute daily for not overloading DB size with outdated data.
+
 ``\Drupal::service("groupex_form_cache.manager")->resetStaleCache(10, 86400);``
 
 ## How to clear the stale cache with Drush
