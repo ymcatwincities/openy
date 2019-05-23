@@ -22,7 +22,7 @@
           <form class="program-search__form" role="search">
             <label class="h3 mb-5" for="program-search__keywords">{{ 'How would you like to search for programs?'|t }}</label>
             <div class="row row-eq-height justify-content-center">
-              <div class="col-xs-12 col-md-8 d-flex">
+              <div class="col-12 col-xs-12 col-md-8 d-flex">
                 <input type="text" class="program-search__keywords" v-model="keywords" id="program-search__keywords" placeholder="{{ 'Search for programs on your terms ...'|t }}"/>
                 <button @click.prevent="submitSearch()" v-bind:disabled="isSearchSubmitDisabled" type="submit" class="btn btn-primary text-white rounded-0"/>
                 <i class="fa fa-search" aria-hidden="true"><span class="visually-hidden">{{ 'Submit'|t }}</span></i>
@@ -38,14 +38,14 @@
         <div class="actions">
           <div class="row row-eq-height justify-content-center">
 
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-12 col-xs-12 col-sm-6 col-md-4">
               <a @click.prevent="toStep(1)" class="openy-card__item openy-card__link" data-mh="openy-card__item-heading">
                 <span class="h4">{{ 'Activity Finder'|t }}</span>
                 <span class="openy-card__link--subtext">{{ 'Find exactly what you\'re looking for'|t }}</span>
               </a>
             </div>
 
-            <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="col-12 col-xs-12 col-sm-6 col-md-4">
               <a v-bind:href="afResultsRef" class="openy-card__item openy-card__link outlined" data-mh="openy-card__item-heading">
                 <span class="h4">{{ 'View all programs'|t }}</span>
                 <span class="openy-card__link--subtext" v-if="loading">
@@ -88,7 +88,7 @@
 
           <div class="activity-finder__step_header--actions">
             <div class="row">
-              <div class="col-xs-12 col-sm-8">
+              <div class="col-12 col-xs-12 col-sm-8">
                 <span v-if="filtersBreadcrumbs1 === ''">{{ 'To find programs, select whatever options apply to you (below)'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ filtersBreadcrumbs1 }</span>
               </div>
@@ -111,7 +111,7 @@
               <div class="row">
                 {% for age in ages %}
                   {% block af_col_1_row_class %}
-                  <div class="col-xs-4 col-sm-6 col-md-4">
+                  <div class="col col-4 col-xs-4 col-sm-6 col-md-4">
                   {% endblock %}
                     <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedAges, {{ age.value }}) }">
                       <label for="af-age-filter-{{ age.value }}" class="justify-content-center" data-mh="openy-card__item-label--ages">
@@ -134,7 +134,7 @@
               <div class="row">
                 {% for day in days %}
                   {% block af_col_2_row_class %}
-                  <div class="col-xs-4 col-sm-6 col-md-4">
+                  <div class="col col-4 col-xs-4 col-sm-6 col-md-4">
                   {% endblock %}
                   <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedDays, '{{ day.value }}') }">
                     <label for="af-day-filter-{{ day.value }}" class="justify-content-center" data-mh="openy-card__item-label--days">
@@ -150,7 +150,7 @@
 
             {# Program Type #}
             {% block af_col_3_class %}
-            <div class="activity-finder__col col-sm-4">
+            <div v-if="parseInt(hideProgramStep) == 0" class="activity-finder__col col-sm-4">
             {% endblock %}
               <h3>{{ 'Program Type'|t }}</h3>
 
@@ -200,7 +200,7 @@
 
           <div class="activity-finder__step_header--actions">
             <div class="row">
-              <div class="col-xs-12 col-sm-8">
+              <div class="col-12 col-xs-12 col-sm-8">
                 <span v-if="filtersBreadcrumbs2 === ''">{{ 'Narrow your results by selecting one or more activities (below)'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ filtersBreadcrumbs2 }</span>
               </div>
@@ -216,7 +216,7 @@
           <div v-for="topLevelCategory in selectedCategories">
             <h3>${ topLevelCategory.label }</h3>
             <div class="row">
-              <div v-for="(item, index) in topLevelCategory.value" class="col-xs-12 col-sm-6 col-md-4">
+              <div v-for="(item, index) in topLevelCategory.value" class="col-12 col-xs-12 col-sm-6 col-md-4">
                 <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedCategories, item.value) }">
                   <label :for="'af-filter-category-' + item.value" data-mh="openy-card__item-label">
                     <input v-model="checkedCategories" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" :value="item.value" :data-label="item.label" :id="'af-filter-category-' + item.value" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %} name="activity-radios">
@@ -259,7 +259,7 @@
 
           <div class="activity-finder__step_header--actions">
             <div class="row">
-              <div class="col-xs-12 col-sm-8">
+              <div class="col-12 col-xs-12 col-sm-8">
                 <span v-if="filtersBreadcrumbs3 === ''">{{ 'Narrow your results further by selecting one or more locations (below)'|t }}</span>
                 <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ filtersBreadcrumbs3 }</span>
               </div>
@@ -299,7 +299,7 @@
               {% endblock %}
                 <div class="row">
                   {% for location in locationGroup.value %}
-                    <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="col-12 col-xs-12 col-sm-6 col-md-4">
                       <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter('{{ location.value }}') === 0), 'selected': cardSelected(checkedLocations, '{{ location.value }}')}">
                         <label for="af-filter-location-{{ location.value }}" class="has-subtext" data-mh="openy-card__item-label">
                           <i class="fa fa-map-marker"></i>

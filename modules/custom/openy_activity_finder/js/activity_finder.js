@@ -24,7 +24,6 @@
       hideProgramStep: 0,
       hideLocationStep: 0,
       total_steps: 3,
-      current_step: 0,
       table: {
         count: 0,
         facets: {
@@ -54,9 +53,9 @@
       }
     },
     methods: {
-    initializeFromGet: function() {
-      var component = this;
-      component.categories = drupalSettings.activityFinder.categories;
+      initializeFromGet: function() {
+        var component = this;
+        component.categories = drupalSettings.activityFinder.categories;
 
         // @TODO Replace this with proper displaying the step.
         if (typeof this.$route.query.step != 'undefined') {
@@ -109,48 +108,90 @@
       },
       toStep: function(s) {
         this.step = s;
-        this.current_step = s;
         this.updateStepsViewAll(s);
       },
       skip: function() {
         if (this.step == 3) {
           // Redirect to Search page.
-          window.location.href = this.afResultsRef + window.location.search;
+          let redirectUrl = this.afResultsRef + window.location.search;
+          // Include all categories from checked program types if any.
+          var selectedCategories = this.getSelectedCategories();
+          if (selectedCategories.length > 0) {
+            selectedCategories = selectedCategories.join(',');
+            redirectUrl = redirectUrl.replace('categories=', 'categories=' + selectedCategories);
+          }
+          window.location.href = redirectUrl;
         }
         else {
-          this.step++;
-          this.current_step++;
+          this.next();
         }
       },
       prev: function() {
         this.step--;
       },
       next: function(run_ajax = true) {
-        if (this.hideLocationStep == 1 && this.hideLocationStep == 1) {
+        // Steps are:
+        // 1 -- age, day, program types
+        // 2 -- categories
+        // 3 -- locations
+
+        // If we hide both Categories and Location steps -- go to Results page.
+        if (this.hideLocationStep == 1 && this.hideProgramStep == 1) {
           // Redirect to Search page.
-          this.updateCategoriesParam();
-          this.updateSearchQuery();
-          window.location.href = this.afResultsRef + window.location.search;
-          return;
+          let redirectUrl = this.afResultsRef + window.location.search;
+          // Include all categories from checked program types if any.
+          if (this.cleanCheckedCategories.length == 0 && this.selectedCategories.length != 0) {
+            let selectedCategories = this.getSelectedCategories();
+            if (selectedCategories.length > 0) {
+              selectedCategories = selectedCategories.join(',');
+              redirectUrl = redirectUrl.replace('categories=', 'categories=' + selectedCategories);
+            }
+          }
+          window.location.href = redirectUrl;
         }
+
+        // We reached third step already. Next one is Results.
         if (this.step == 3 && run_ajax) {
           // Redirect to Search page.
-          window.location.href = this.afResultsRef + window.location.search;
+          let redirectUrl = this.afResultsRef + window.location.search;
+          // Include all categories from checked program types if any.
+          if (this.cleanCheckedCategories.length == 0 && this.selectedCategories.length != 0) {
+            let selectedCategories = this.getSelectedCategories();
+            if (selectedCategories.length > 0) {
+              selectedCategories = selectedCategories.join(',');
+              redirectUrl = redirectUrl.replace('categories=', 'categories=' + selectedCategories);
+            }
+          }
+          window.location.href = redirectUrl;
         }
+
+        // If we supposed to move to Locations step but it should be hidden -- redirect to Results.
+        if (this.step == 2 && this.hideLocationStep == 1) {
+          // Redirect to Search page.
+          let redirectUrl = this.afResultsRef + window.location.search;
+          // Include all categories from checked program types if any.
+          if (this.cleanCheckedCategories.length == 0 && this.selectedCategories.length != 0) {
+            let selectedCategories = this.getSelectedCategories();
+            if (selectedCategories.length > 0) {
+              selectedCategories = selectedCategories.join(',');
+              redirectUrl = redirectUrl.replace('categories=', 'categories=' + selectedCategories);
+            }
+          }
+          window.location.href = redirectUrl;
+        }
+
         this.step++;
-        this.current_step++;
+
+        // If we moved from first step and we hide Categories step -- redirect to Locations.
         if (this.step == 2 && this.hideProgramStep == 1) {
-          this.current_step = 2;
-          this.step = 3;
+          this.next(run_ajax);
         }
+
+        // If we didn't select any Program Types no need to show Categories. So skip the step.
         if (this.step == 2 && this.cleanCheckedProgramTypes.length === 0) {
-          this.current_step = 3;
-          this.step = 3;
+          this.next(run_ajax);
         }
-        if (this.step == 3 && this.hideLocationStep == 1) {
-          this.current_step = 2;
-          this.step = 3;
-        }
+
         this.updateStepsViewAll(this.step);
         if (run_ajax) {
           this.runAjaxRequest();
@@ -176,28 +217,40 @@
         this.runAjaxRequest();
       },
       updateStepsViewAll: function(step) {
-        var component = this;
+        var component = this,
+            selectedCategories = component.getSelectedCategories();
+
         switch (step) {
           case 1:
             component.step_1_query = window.location.search;
             break;
           case 2:
-
             component.step_2_query = window.location.search;
+            // Include all categories from checked program types if any.
+            if (selectedCategories.length > 0) {
+              selectedCategories = selectedCategories.join(',');
+              component.step_2_query = component.step_2_query.replace('categories=', 'categories=' + selectedCategories);
+            }
             break;
           case 3:
+            component.step_3_query = window.location.search;
             // If no Category was selected on Step 2.
-            if (this.checkedCategories.length == 0 && this.selectedCategories.length != 0) {
-              this.updateCategoriesParam();
+            if (this.cleanCheckedCategories.length == 0 && this.selectedCategories.length != 0) {
+              this.checkedCategories = this.getSelectedCategories();
+
+              // Include all categories from checked program types if any.
+              if (selectedCategories.length > 0) {
+                selectedCategories = selectedCategories.join(',');
+                component.step_3_query = component.step_3_query.replace('categories=', 'categories=' + selectedCategories);
+              }
             }
 
-            component.step_3_query = window.location.search;
             break;
         }
         window.scrollTo(0, 0);
       },
-      // Populate Categories filter from selected top level Categories.
-      updateCategoriesParam: function() {
+      // Returns categories from selected top level Categories.
+      getSelectedCategories: function() {
         var selectedCategories = [];
         for (i in this.selectedCategories) {
           for (j in this.selectedCategories[i].value) {
@@ -206,7 +259,7 @@
             }
           }
         }
-        this.checkedCategories = selectedCategories;
+        return selectedCategories;
       },
       updateSearchQuery: function() {
         var component = this;
@@ -258,7 +311,7 @@
         }
 
         if (this.cleanCheckedLocations.length > 0) {
-          query.push('categories=' + encodeURIComponent(this.cleanCheckedLocations.join(',')));
+          query.push('locations=' + encodeURIComponent(this.cleanCheckedLocations.join(',')));
         }
 
         if (query.length > 0) {
@@ -288,8 +341,19 @@
         return this.table.groupedLocations[key].count;
       },
       locationsSelected: function(e) {
-        return $(".location-group-name:contains(" + e + ")").parents('.checkbox-group-wrapper').find('.selected').length;
-        // get the number of selected locations.
+        // Check if locations from group are checked and return its counter.
+        let count = 0;
+        for (i in this.table.groupedLocations) {
+          if (this.table.groupedLocations[i].label === e) {
+            for (j in this.table.groupedLocations[i].value) {
+              let value = this.table.groupedLocations[i].value[j].value.toString();
+              if (this.checkedLocations.indexOf(value) != -1) {
+                count++;
+              }
+            }
+          }
+        }
+        return count;
       },
       cardSelected: function(checkedValues, value) {
         if (typeof value === 'undefined') {
@@ -464,8 +528,13 @@
       // and it is being rendered by javascript. Once it is rendered, we can
       // run our jQuery queries to get labels from input elements.
       var component = this;
-      setTimeout(function(){
-        component.rebuildBreadcrumbs = 1;
+
+      // Instead of fixed time we check if locations checkboxes got displayed.
+      var checkExist = setInterval(function() {
+        if ($('#locations-accordion-group input').length) {
+          component.rebuildBreadcrumbs = 1;
+          clearInterval(checkExist);
+        }
       }, 200);
     },
     watch: {

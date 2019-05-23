@@ -16,6 +16,7 @@
   display: flex;
   align-items: center;
   min-height: 60px;
+  padding: 0.75rem 0;
 }
 
 .activity-finder__step_header--progress-spacer {
