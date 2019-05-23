@@ -251,6 +251,15 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           $name = $row['name'];
         }
 
+        if (isset($row['restrictions']['genders']) && count($row['restrictions']['genders']) == 1) {
+          $gender = reset($row['restrictions']['genders']);
+          $gender = $gender['name'];
+        }
+
+        if (isset($row['restrictions']['age'])) {
+          $age = $row['restrictions']['age']['start'] . '-' . $row['restrictions']['age']['end'] . 'yrs';
+        }
+
         $result[] = [
           'nid' => '',
           'location' => $location_name,
@@ -269,6 +278,9 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           'link' => $register_link_with_tracking,
           'log_id' => $log_id,
           'spots_available' => '',
+          'learn_more' => '',
+          'gender' => isset($gender) ? $gender : '',
+          'ages' => isset($age) ? $age : '',
         ];
       }
     }
@@ -645,13 +657,11 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     // We show gender restrictions if there are any. So if value is both
     // male and female we do not need to show it as restriction.
-    $gender = '';
     if (isset($offeringResponse['restrictions']['genders']) && count($offeringResponse['restrictions']['genders']) == 1) {
       $gender = reset($offeringResponse['restrictions']['genders']);
       $gender = $gender['name'];
     }
 
-    $age = '';
     if (isset($offeringResponse['restrictions']['age'])) {
       $age = $offeringResponse['restrictions']['age']['start'] . '-' . $offeringResponse['restrictions']['age']['end'] . 'yrs';
     }
@@ -678,8 +688,8 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       'price' =>  implode('<br/>', $prices),
       'availability_status' =>  $availability_status,
       'availability_note' =>  $availability_note,
-      'gender' => $gender,
-      'ages' => $age,
+      'gender' => isset($gender) ? $gender : '',
+      'ages' => isset($age) ? $age : '',
       'link' =>  $register_link_with_tracking,
     ];
 

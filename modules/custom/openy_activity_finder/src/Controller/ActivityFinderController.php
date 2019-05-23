@@ -92,7 +92,7 @@ class ActivityFinderController extends ControllerBase {
     }
 
     $data = NULL;
-    if ($cache = $this->cacheBackend->get($cid)) {
+    if (FALSE && $cache = $this->cacheBackend->get($cid)) {
       $data = $cache->data;
     }
     else {
@@ -142,7 +142,7 @@ class ActivityFinderController extends ControllerBase {
     $parameters = $request->query->all();
     $cid = md5(json_encode($parameters));
     $data = NULL;
-    if ($cache = $this->cacheBackend->get($cid)) {
+    if (FALSE && $cache = $this->cacheBackend->get($cid)) {
       $data = $cache->data;
     }
     else {
