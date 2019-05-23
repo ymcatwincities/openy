@@ -512,6 +512,7 @@
         this.runAjaxRequest();
       },
       populatePopupLocation: function(index) {
+        this.table[index].location_info.address = this.convertAddressField(this.table[index].location_info.address);
         this.locationPopup = this.table[index].location_info;
       },
       convertAddressField: function(address) {
@@ -528,12 +529,11 @@
 
         // This means we already have all data so no need to run extra ajax call.
         if (component.table[index].availability_status.length != 0) {
-          let age_output = component.table[index].ages;
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
 
           component.moreInfoPopup.price = component.table[index].price;
-          component.moreInfoPopup.ages = age_output;
+          component.moreInfoPopup.ages = component.table[index].ages;
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
@@ -550,7 +550,7 @@
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
-          component.moreInfoPopup.learn_more = component.table[index].learn_more;
+          component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
 
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;

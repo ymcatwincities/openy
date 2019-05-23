@@ -31,6 +31,13 @@ class ActivityFinderSearchBlock extends BlockBase {
       '#days' => $backend->getDaysOfWeek(),
       '#is_search_box_disabled' => $config->get('disable_search_box'),
       '#sort_options' => $backend->getSortOptions(),
+      '#attached' => [
+        'drupalSettings' => [
+          'activityFinder' => [
+            'categories' => $backend->getCategories(),
+          ]
+        ]
+      ]
     ];
   }
 

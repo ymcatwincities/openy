@@ -176,7 +176,7 @@
                         </div>
                       </div>
                       <div class="info-wrapper col-sm-4">
-                        <a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a>
+                        <a class="schedule-dashboard__modal--location-link" role="button" href="#" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a>
                       </div>
                     </div>
                   </div>
@@ -198,7 +198,7 @@
                       </div>
                       </div>
                     <div v-if="item.price.length > 0" v-html="item.price" class="item-price"></div>
-                    <div v-else class="col-sm-3">
+                    <div v-else class="col-12 col-xs-12">
                       <span class="availability-note"><i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i></span>
                     </div>
                   </div>
@@ -226,20 +226,21 @@
             </div>
             <div v-else>
 
-              <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
 
               <div  v-if="pager_info.total_pages > 1" class="pager-controls">
                 <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPageNumber(1)" class="btn btn-primary">{{ '|<'|t }}</a>
                 <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ '<'|t }}</a>
 
-                <ul v-if="pager_info.pages">
+                <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
+
+                {#<ul v-if="pager_info.pages">
                   <li v-for="(item, index) in pager_info.pages" v-if="!(index >= current_page + 6 || index <= current_page - 6)">
                     <a v-if="current_page != item" href="#" v-on:click.stop.prevent="loadPageNumber(item)">${ item }</a>
                     <span v-else>
                       ${ item }
                     </span>
                   </li>
-                </ul>
+                </ul>#}
 
                 <a v-if="current_page < pager_info.total_pages" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ '>'|t }}</a>
                 <a v-if="current_page < pager_info.total_pages && typeof pager_info.total_pages != 'undefined'" href="#" v-on:click.stop.prevent="loadPageNumber(pager_info.total_pages)" class="btn btn-primary">{{ '>|'|t }}</a>
@@ -329,7 +330,7 @@
                 </div>
 
                 <div class="schedule-dashboard__modal--body row">
-                  <div class="col-xs-12">
+                  <div class="col-12 col-xs-12">
                     <h3>${ locationPopup.title }</h3>
                     <div class="address" v-html="locationPopup.address"></div>
                     <table class="info">
@@ -357,6 +358,7 @@
                         </tr>
                       </tbody>
                   </table>
+                  </div>
                 </div>
 
                 <div v-if="locationPopup.nid" class="schedule-dashboard__modal--footer">
@@ -380,7 +382,7 @@
                 </div>
 
                 <div class="schedule-dashboard__modal--body row">
-                  <div class="col-xs-12">
+                  <div class="col-12 col-xs-12">
                     <div class="spots-availability">${ availabilityPopup.note }</div>
                     <div v-if="availabilityPopup.status == 'open'">
                       <a :href="availabilityPopup.link" class="btn btn-primary" target="_blank">{{ 'Register'|t }}</a>
@@ -393,7 +395,6 @@
                 </div>
               </div>
 
-              </div>
             </div>
           </div>
 
