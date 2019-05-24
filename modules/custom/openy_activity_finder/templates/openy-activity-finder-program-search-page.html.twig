@@ -233,15 +233,6 @@
 
                 <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
 
-                {#<ul v-if="pager_info.pages">
-                  <li v-for="(item, index) in pager_info.pages" v-if="!(index >= current_page + 6 || index <= current_page - 6)">
-                    <a v-if="current_page != item" href="#" v-on:click.stop.prevent="loadPageNumber(item)">${ item }</a>
-                    <span v-else>
-                      ${ item }
-                    </span>
-                  </li>
-                </ul>#}
-
                 <a v-if="current_page < pager_info.total_pages" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ '>'|t }}</a>
                 <a v-if="current_page < pager_info.total_pages && typeof pager_info.total_pages != 'undefined'" href="#" v-on:click.stop.prevent="loadPageNumber(pager_info.total_pages)" class="btn btn-primary">{{ '>|'|t }}</a>
               </div>

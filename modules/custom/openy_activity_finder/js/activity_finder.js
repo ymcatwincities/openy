@@ -84,7 +84,6 @@
           }
         }
 
-        //@TODO needs to be adjusted for the case when program_types is an array (i.e. Solr backend).
         if (typeof this.$route.query.program_types != 'undefined') {
           var checkedProgramTypesGet = decodeURIComponent(this.$route.query.program_types);
           if (checkedProgramTypesGet) {

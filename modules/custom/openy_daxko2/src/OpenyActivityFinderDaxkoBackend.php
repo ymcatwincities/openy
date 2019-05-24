@@ -11,6 +11,11 @@ use Drupal\openy_activity_finder\OpenyActivityFinderBackend;
 class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
   /**
+   * Number of results per page.
+   */
+  const RESULTS_PER_PAGE = 25;
+
+  /**
    * Daxko configuration.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -28,6 +33,13 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   protected $cache;
 
   /**
+   * The http client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  protected $http;
+
+  /**
    * OpenyActivityFinderDaxkoBackend constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -36,12 +48,15 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    *   The config factory.
    * @param CacheBackendInterface $cache
    *   Cache default.
+   * @param \GuzzleHttp\Client $http
+   *   The http client.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache, Client $http) {
     parent::__construct($config_factory);
     $this->daxkoConfig = $config_factory->get('openy_daxko2.settings');
     $this->entityTypeManager = $entity_type_manager;
     $this->cache = $cache;
+    $this->http = $http;
   }
 
   /**
@@ -118,7 +133,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     $get['registration_type'] = 'online';
 
-    $get['limit'] = 25;
+    $get['limit'] = self::RESULTS_PER_PAGE;
 
     $time_start = microtime(true);
     $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
@@ -405,8 +420,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    */
   protected function getDaxkoToken() {
     $time_start = microtime(true);
-    $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
-    $response = $client->request('POST', 'partners/oauth2/token',
+    $response = $this->http->request('POST', $this->daxkoConfig->get('base_uri') . 'partners/oauth2/token',
       [
         'form_params' => [
           'client_id' => $this->daxkoConfig->get('user'),
@@ -579,8 +593,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $config = \Drupal::configFactory()->get('openy_daxko2.settings');
 
     $time_start = microtime(true);
-    $client = new Client(['base_uri' => $config->get('base_uri')]);
-    $response = $client->request('POST', 'partners/oauth2/token',
+    $response = $this->http->request('POST', $config->get('base_uri') . 'partners/oauth2/token',
       [
         'form_params' => [
           'client_id' => $config->get('user'),
@@ -700,11 +713,11 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
   public function getSortOptions() {
     return [
-      'DESC__score' => 'Sort by Relevance',
-      'ASC__name' => 'Sort by Title (A-Z)',
-      'DESC__name' => 'Sort by Title (Z-A)',
-      'ASC__start_date' => 'Sort by Date (Soonest - Latest)',
-      'DESC__start_date' => 'Sort by Date (Latest - Soonest)',
+      'DESC__score' => t('Sort by Relevance'),
+      'ASC__name' => t('Sort by Title (A-Z)'),
+      'DESC__name' => t('Sort by Title (Z-A)'),
+      'ASC__start_date' => t('Sort by Date (Soonest - Latest)'),
+      'DESC__start_date' => t('Sort by Date (Latest - Soonest)'),
     ];
   }
 
