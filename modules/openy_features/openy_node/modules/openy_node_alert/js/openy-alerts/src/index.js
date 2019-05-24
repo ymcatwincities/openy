@@ -33,6 +33,7 @@ if (typeof Drupal === 'undefined') {
 } else {
   Drupal.behaviors.openy_alerts_app = {
     attach: context => {
+      let header_placeholder = document.querySelector('#openy_alerts_header_placeholder');
       // Do not start on admin urls.
       if (
         location.pathname.substring(1).startsWith('admin') ||
@@ -53,12 +54,20 @@ if (typeof Drupal === 'undefined') {
       var e = document.createElement('div');
       e.innerHTML = '<div id="openy_alerts_app_header"></div>';
       while (e.firstChild) {
-        document
-          .getElementsByTagName('header')[0]
-          .parentNode.insertBefore(
-            e.firstChild,
-            document.getElementsByTagName('header')[0].nextSibling
+        if (header_placeholder) {
+          header_placeholder.appendChild(
+              e.firstChild,
+              document.getElementsByTagName('header')[0].nextSibling
           );
+        }
+        else {
+          document
+              .getElementsByTagName('header')[0]
+              .parentNode.insertBefore(
+              e.firstChild,
+              document.getElementsByTagName('header')[0].nextSibling
+          );
+        }
       }
       // Render our component.
       ReactDOM.render(
