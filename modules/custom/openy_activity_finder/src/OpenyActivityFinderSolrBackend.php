@@ -502,7 +502,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     else {
       $nids = $this->entityQuery
         ->get('node')
-        ->condition('type', ['branch', 'camp'], 'IN')
+        ->condition('type', ['branch', 'camp', 'facility'], 'IN')
         ->condition('status', 1)
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
@@ -681,12 +681,12 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
 
   public function getSortOptions() {
     return [
-      'title__ASC' => 'Sort by Title (A-Z)',
-      'title__DESC' => 'Sort by Title (Z-A)',
-      'field_session_location__ASC' => 'Sort by Location (A-Z)',
-      'field_session_location__DESC' => 'Sort by Location (Z-A)',
-      'field_session_class__ASC' => 'Sort by Activity (A-Z)',
-      'field_session_class__DESC' => 'Sort by Activity (Z-A)',
+      'title__ASC' => t('Sort by Title (A-Z)'),
+      'title__DESC' => t('Sort by Title (Z-A)'),
+      'field_session_location__ASC' => t('Sort by Location (A-Z)'),
+      'field_session_location__DESC' => t('Sort by Location (Z-A)'),
+      'field_session_class__ASC' => t('Sort by Activity (A-Z)'),
+      'field_session_class__DESC' => t('Sort by Activity (Z-A)'),
     ];
   }
 
