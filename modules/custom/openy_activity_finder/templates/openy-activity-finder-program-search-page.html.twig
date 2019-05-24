@@ -37,9 +37,10 @@
 
       {# sidebar > allows overriding in BS4 compatible themes (carnation), so it can utilize its native mobile breakpoints. #}
       {% block sidebar_wrapper %}
-      <div class="col-xs-12 col-sm-4 col-md-3 schedule-dashboard__sidebar">
+      <div class="col-xs-12 col-sm-12 col-md-3 schedule-dashboard__sidebar">
       {% endblock %}
         {# keywords #}
+        {% if not is_search_box_disabled %}
         <div class="form-group-wrapper schedule-dashboard__search--form">
           <input type="text" class="form-control col-md-9" v-model="keywords" @keyup.enter.prevent="runAjaxRequest()" placeholder="{{ 'Enter your keywords...'|t }}">
           <button class="btn btn-primary col-3 col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
@@ -49,15 +50,16 @@
             {% endblock %}
           </button>
         </div>
-        <div class="navbar navbar-default navbar-expand-md flex-md-column">
+        {% endif %}
+        <div class="navbar navbar-default navbar-expand-sm navbar-expand-md flex-sm-column flex-md-column">
           <div class="navbar-header w-100">
 
             <div class="navbar-controls">
-              <span class="navbar-controls__title hidden-xs"><strong>{{ 'Filters'|t }}</strong></span>
+              <span class="navbar-controls__title hidden-xs hidden-sm"><strong>{{ 'Filters'|t }}</strong></span>
               <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear all'|t }}</a>
             </div>
 
-            <div class="row hidden-sm hidden-md hidden-lg d-block d-md-none">
+            <div class="row hidden-md hidden-lg d-block d-md-none">
               {# mobile toggler button #}
               <div class="col col-xs-8">
                 <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
@@ -73,7 +75,7 @@
 
           </div>
 
-          <div id="schedules-filters" class="navbar-collapse collapse w-100 flex-column">
+          <div id="schedules-filters" class="collapse w-100 flex-column">
             {% block sidebar_filters %}
             <sidebar-filter
               ref="ages_filter"
@@ -133,12 +135,22 @@
 
       {# main table > allows overriding in BS4 compatible themes (carnation), so it can utilize its native mobile breakpoints. #}
       {% block maintable_wrapper %}
-      <div class="col-xs-12 col-sm-8 col-md-9 schedule-dashboard__content main-table">
+      <div class="col-xs-12 col-sm-12 col-md-9 schedule-dashboard__content main-table">
       {% endblock %}
 
         {# schedules table data #}
         <div>
           <div class="vue-template">
+
+            <div v-show="!loading" class="schedules-sort">
+              {% if sort_options is not empty %}
+              <select v-model="sort" class="form-control form-select">
+                {% for key, item in sort_options %}
+                  <option value="{{ key }}">{{ item }}</option>
+                {% endfor %}
+              </select>
+              {% endif %}
+            </div>
 
             <div class="schedules-data clearfix">
               <div v-show="loading" class="schedules-loading">
@@ -147,55 +159,85 @@
 
               <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row--alt clearfix" style="">
                 <div class="row">
-                  <div class="col-md-9">
-                    <a href="#" class="program-title" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info"><strong>${ item.name }</strong></a>
-                  </div>
-                  {# if we do not know if it is available #}
-                  <div v-if="item.availability_status.length == 0" class="col-md-3">
-                    <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="availability-status-btn btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
-                  </div>
-                  {# if we know that registration is available #}
-                  <div v-if="item.availability_status == 'open'" class="col-md-3">
-                    <a :href="item.link" target="_blank" class="register-btn btn btn-primary btn-block" style="margin-bottom: 10px;">{{ 'Register'|t }}</a>
-                    <div v-if="item.availability_note" class="availability-note">${ item.availability_note }</div>
-                    <div v-if="item.spots_available" class="spots-availability">${ item.spots_available }</div>
-                  </div>
-                  {# if we know that registration is NOT available #}
-                  <div v-if="item.availability_status == 'closed'" class="col-md-3">
-                    <span class="availability-note">${ item.availability_note }</span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-4">
-                    ${ item.dates }
-                  </div>
-                  <div class="col-md-3">
-                    <div v-for="(item, index) in item.schedule">
-                      <strong>${ item.time }</strong><br/>
-                      ${ item.days }
+                  <div class="col-sm-9">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <a href="#" class="program-title" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info">${ item.name }</a>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="info-wrapper col-sm-4">
+                        <span class="dates">${ item.dates }</span>
+                      </div>
+                      <div class="info-wrapper col-sm-4">
+                        <div v-for="(item, index) in item.schedule">
+                          <span class="time">${ item.time }</span><br/>
+                          <span class="days">${ item.days }</span>
+                        </div>
+                      </div>
+                      <div class="info-wrapper col-sm-4">
+                        <a class="schedule-dashboard__modal--location-link" role="button" href="#" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-md-2">
-                    <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
-                  </div>
-                  <div v-if="item.price.length > 0" v-html="item.price" class="col-md-3 item-price"></div>
-                  <div v-else class="col-md-3">
-                    <span class="availability-note"><i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i></span>
+                  <div class="col-sm-3">
+                    <div class="availability-wrapper">
+                      {# if we do not know if it is available #}
+                      <div v-if="item.availability_status.length == 0">
+                        <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="availability-status-btn btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
+                      </div>
+                      {# if we know that registration is available #}
+                      <div v-if="item.availability_status == 'open'">
+                        <a :href="item.link" target="_blank" class="register-btn btn btn-primary btn-block" style="margin-bottom: 10px;">{{ 'Register'|t }}</a>
+                        <div v-if="item.availability_note" class="availability-note">${ item.availability_note }</div>
+                        <div v-if="item.spots_available" class="spots-availability">${ item.spots_available }</div>
+                      </div>
+                      {# if we know that registration is NOT available #}
+                      <div v-if="item.availability_status == 'closed'">
+                        <span class="availability-note">${ item.availability_note }</span>
+                      </div>
+                      </div>
+                    <div v-if="item.price.length > 0" v-html="item.price" class="item-price"></div>
+                    <div v-else class="col-12 col-xs-12">
+                      <span class="availability-note"><i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i></span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div v-show="table.length == 0 && !loading" class="schedules-empty_results">
-                <i class="fa fa-exclamation-circle"></i>
-                <span>{{ 'Sorry, no results were found with your search criteria. Please try another selection.'|t }}</span>
+              <div v-show="table.length == 0 && !loading" class="af-schedules-empty_results">
+                <h2>{{ 'Oh no!'|t }}</h2>
+                <br/>
+                <p>{{ 'We\'re sorry, but no results meet your search criteria'|t }}</p>
+                <br/>
+                <br/>
+                <p><strong>{{ 'What criteria is most important to you?'|t }}</strong></p>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')">{{ 'Day'|t }}</a><br/>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('program')">{{ 'Program'|t }}</a><br/>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('location')">{{ 'Location'|t }}</a><br/>
               </div>
 
             </div>
           </div>
+          <div v-show="table.length > 0 && !loading" class="pager-wrapper">
+            <div v-if="typeof pager_info == 'undefined'">
+              <a v-if="(typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != '') || current_page > 1" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
+              <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ 'Next'|t }}</a>
+            </div>
+            <div v-else>
 
-          <div v-show="!loading" class="text-align-center">
-            <a v-if="(typeof pages[current_page - 1] != 'undefined' && pages[current_page - 1] != '') || current_page == 1" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ 'Prev'|t }}</a>
-            <a v-if="typeof pages[current_page + 1] != 'undefined' && pages[current_page + 1] != ''" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ 'Next'|t }}</a>
+
+              <div  v-if="pager_info.total_pages > 1" class="pager-controls">
+                <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPageNumber(1)" class="btn btn-primary">{{ '|<'|t }}</a>
+                <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ '<'|t }}</a>
+
+                <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
+
+                <a v-if="current_page < pager_info.total_pages" href="#" v-on:click.stop.prevent="loadNextPage()" class="btn btn-primary">{{ '>'|t }}</a>
+                <a v-if="current_page < pager_info.total_pages && typeof pager_info.total_pages != 'undefined'" href="#" v-on:click.stop.prevent="loadPageNumber(pager_info.total_pages)" class="btn btn-primary">{{ '>|'|t }}</a>
+              </div>
+
+            </div>
           </div>
 
           {# modal > program description info  #}
@@ -206,57 +248,60 @@
               </div>
               <div v-else class="modal-content" style="font-size: 80%;">
                 <div class="schedule-dashboard__modal--header">
+                  <h3>{{ "Program details"|t }}</h3>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-times" aria-hidden="true"></i>
                   </button>
                 </div>
 
                 <div class="schedule-dashboard__modal--body row">
-                  <div class="col-md-8 row">
+                  <div class="col-md-7 modal-info-main">
                     <h3>${ moreInfoPopup.name }</h3>
                     <p>${ moreInfoPopup.description }</p>
 
-                    <div v-if="moreInfoPopup.price.length > 0" class="col-md-12">
-                      <h5>{{ 'Pricing'|t }}</h5>
-                      <p v-html="moreInfoPopup.price"></p>
-                    </div>
-
-                    <div v-if="moreInfoPopup.ages.length > 0" class="col-md-12">
-                      <h5>{{ 'Ages'|t }}</h5>
-                      <p v-html="moreInfoPopup.ages"></p>
-                    </div>
-
-                    <div v-if="moreInfoPopup.gender.length > 0" class="col-md-12">
-                      <h5>{{ 'Gender'|t }}</h5>
-                      ${ moreInfoPopup.gender }
+                    <div class="row">
+                      <div v-if="moreInfoPopup.ages.length > 0" class="col-md-6">
+                        <div><strong>{{ 'Ages:'|t }}</strong>${ moreInfoPopup.ages }</div>
+                      </div>
+                      <div v-if="moreInfoPopup.gender.length > 0" class="col-md-6">
+                        <div><strong>{{ 'Gender:'|t }}</strong>${ moreInfoPopup.gender }</div>
+                      </div>
+                      <div v-html="moreInfoPopup.learn_more" v-if="moreInfoPopup.learn_more.length > 0" class="col-md-12"></div>
                     </div>
 
                   </div>
-                  <div class="col-md-4 row">
-                    <div v-if="moreInfoPopup.dates.length > 0" class="col-md-12">
+                  <div class="col-md-5 modal-info-sidebar">
+                    <div v-if="moreInfoPopup.dates.length > 0" class="dates">
                       ${ moreInfoPopup.dates }
                     </div>
-                    <div v-if="moreInfoPopup.times.length > 0" class="col-md-12">
+                    <div v-if="moreInfoPopup.times.length > 0" class="times">
                       ${ moreInfoPopup.times }
                     </div>
-                    <div v-if="moreInfoPopup.days.length > 0" class="col-md-12">
+                    <div v-if="moreInfoPopup.days.length > 0" class="days">
                       ${ moreInfoPopup.days }
                     </div>
-                    <div v-if="moreInfoPopup.location_name.length > 0" class="col-md-12" style="margin-top: 30px;">
-                      ${ moreInfoPopup.location_name }
+                    <div v-if="moreInfoPopup.location_name.length > 0" class="location_name">
+                      <a v-bind:href="moreInfoPopup.location_url" target="_blank">${ moreInfoPopup.location_name }</a>
                     </div>
-                    <div v-if="moreInfoPopup.location_address.length > 0" class="col-md-12">
+                    <div v-if="moreInfoPopup.location_address.length > 0" class="location_address">
                       <span v-html="moreInfoPopup.location_address"></span>
                     </div>
-                    <div v-if="moreInfoPopup.location_phone.length > 0" class="col-md-12">
-                      Phone: ${ moreInfoPopup.location_phone }
+                    <div v-if="moreInfoPopup.location_phone.length > 0" class="location_phone">
+                      <strong>Phone:</strong> ${ moreInfoPopup.location_phone }
                     </div>
-                    <div v-if="moreInfoPopup.availability_note.length > 0" class="col-md-12" style="margin-top: 30px;">
-                      ${ moreInfoPopup.availability_note }
-                    </div>
-                    <div v-if="moreInfoPopup.availability_status == 'open'" class="col-md-12">
-                      <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
-                      ${ moreInfoPopup.spots_available }
+                    <div class="availability-wrapper">
+                      {% if moreInfoPopup.spots_available is not empty %}
+                        <div class="spots_available"><strong>There are ${ moreInfoPopup.spots_available }</strong></div>
+                      {% endif %}
+                      <div v-if="moreInfoPopup.availability_note.length > 0" class="availability_note">
+                        ${ moreInfoPopup.availability_note }
+                      </div>
+                      <div v-if="moreInfoPopup.availability_status == 'open'" class="availability_status">
+                        <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
+                      </div>
+                      <div v-if="moreInfoPopup.price.length > 0" class="price">
+                        <span v-html="moreInfoPopup.price"></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -271,47 +316,44 @@
               <div class="modal-content">
 
                 <div class="schedule-dashboard__modal--header">
+                  <h3>{{ "Location details"|t }}</h3>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
                 </div>
 
-                <div class="schedule-dashboard__modal--body">
-                  <table class="table">
-                    <thead>
-                    <tr>
-                      <th colspan="2">
-                        <h4><strong>${ locationPopup.title }</strong></h4>
-                      </th>
-                    </tr>
-                    </thead>
-
-                    <tr>
-                      <td><label>{{ 'Address'|t }}</label></td>
-                      <td v-html="locationPopup.address"></td>
-                    </tr>
-                    <tr v-if="locationPopup.phone">
-                      <td><label>{{ 'Call'|t }}</label></td>
-                      <td><a v-bind:href="'tel:' + locationPopup.phone">${ locationPopup.phone }</a></td>
-                    </tr>
-                    <tr v-if="locationPopup.email">
-                      <td><label>{{ 'Email'|t }}</label></td>
-                      <td><a v-bind:href="'mailto:' + locationPopup.email">${ locationPopup.email }</a></td>
-                    </tr>
-                    <tr v-if="locationPopup.days.length > 0">
-                      <td><label>{{ 'Branch hours'|t }}</label></td>
-                      <td>
-                        <table class="table">
-                          <tr v-for="row in locationPopup.days">
-                            <td>${ row[0] }</td>
-                            <td>${ row[1] }</td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
+                <div class="schedule-dashboard__modal--body row">
+                  <div class="col-12 col-xs-12">
+                    <h3>${ locationPopup.title }</h3>
+                    <div class="address" v-html="locationPopup.address"></div>
+                    <table class="info">
+                      <tbody>
+                        <tr v-if="locationPopup.phone">
+                          <td><label>{{ 'Phone:'|t }}</label></td>
+                          <td><a v-bind:href="'tel:' + locationPopup.phone">${ locationPopup.phone }</a></td>
+                        </tr>
+                        <tr v-if="locationPopup.email">
+                          <td><label>{{ 'Email:'|t }}</label></td>
+                          <td><a v-bind:href="'mailto:' + locationPopup.email">${ locationPopup.email }</a></td>
+                        </tr>
+                        <tr v-if="locationPopup.days.length > 0">
+                          <td><label>{{ 'Hours:'|t }}</label></td>
+                          <td>
+                            <table class="table">
+                              <tbody>
+                                <tr v-for="row in locationPopup.days">
+                                  <td>${ row[0] }</td>
+                                  <td>${ row[1] }</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
                   </table>
+                  </div>
                 </div>
 
                 <div v-if="locationPopup.nid" class="schedule-dashboard__modal--footer">
-                  <a class="btn btn-lg btn-primary" v-bind:href="'node/' + locationPopup.nid">{{ 'View location'|t }}</a>
+                  <a class="btn btn-lg btn-primary" target="_blank" v-bind:href="'node/' + locationPopup.nid">{{ 'View location'|t }}</a>
                 </div>
               </div>
             </div>
@@ -326,22 +368,24 @@
               <div v-else class="modal-content">
 
                 <div class="schedule-dashboard__modal--header">
+                  <h3>{{ "Check availability"|t }}</h3>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
                 </div>
 
-                <div class="schedule-dashboard__modal--body">
-                  ${ availabilityPopup.note }
-
-                  <div v-if="availabilityPopup.status == 'open'">
-                    <a :href="availabilityPopup.link" class="btn btn-primary" target="_blank">{{ 'Register'|t }}</a>
-
-                    <div v-if="availabilityPopup.price.length > 0">
-                      <p v-html="availabilityPopup.price"></p>
+                <div class="schedule-dashboard__modal--body row">
+                  <div class="col-12 col-xs-12">
+                    <div class="spots-availability">${ availabilityPopup.note }</div>
+                    <div v-if="availabilityPopup.status == 'open'">
+                      <a :href="availabilityPopup.link" class="btn btn-primary" target="_blank">{{ 'Register'|t }}</a>
+                      <div v-if="availabilityPopup.price.length > 0" v-html="availabilityPopup.price" class="prices"></div>
+                    </div>
+                    <div v-else>
+                      <span class="btn btn-primary disabled">{{ 'Full'|t }}</span>
                     </div>
                   </div>
                 </div>
-
               </div>
+
             </div>
           </div>
 
