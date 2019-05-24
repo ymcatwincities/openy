@@ -20,6 +20,7 @@
 .program-search__keywords {
   padding: 10px;
   flex: 1;
+  border: 1px solid #ddd;
 }
 
 /* Activity Finder > Results */
