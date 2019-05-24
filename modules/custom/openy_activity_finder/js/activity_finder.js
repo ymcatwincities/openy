@@ -493,7 +493,8 @@
       component.$watch('step', function(){
         component.updateSearchQuery();
       });
-      component.$watch('keywords', function(){
+      component.$watch('keywords', function(newValue, oldValue){
+        component.isSearchSubmitDisabled = newValue === '' ?  true : false;
         component.updateSearchQuery();
       });
       component.$watch('checkedAges', function(){

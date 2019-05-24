@@ -118,6 +118,8 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     $get['registration_type'] = 'online';
 
+    $get['limit'] = 25;
+
     $time_start = microtime(true);
     $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
     $response = $client->request('GET', 'programs/offerings/search',
