@@ -67,6 +67,13 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('Provide ID of the Program Subcategory to exclude. You do not need to provide this if you use Daxko. Needed only for Solr backend.'),
     ];
 
+    $form['disable_search_box'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Disable Search Box'),
+      '#default_value' => $config->get('disable_search_box'),
+      '#description' => t('When checked hides search text box (both for Activity Finder and Results page).'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -82,6 +89,8 @@ class SettingsForm extends ConfigFormBase {
     $config->set('ages', $form_state->getValue('ages'))->save();
 
     $config->set('exclude', $form_state->getValue('exclude'))->save();
+
+    $config->set('disable_search_box', $form_state->getValue('disable_search_box'))->save();
 
     parent::submitForm($form, $form_state);
   }
