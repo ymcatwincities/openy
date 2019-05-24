@@ -19,4 +19,10 @@ interface OpenyActivityFinderBackendInterface {
    */
   public function getLocations();
 
+
+  /**
+   * Get list of all sort options.
+   */
+  public function getSortOptions();
+
 }
