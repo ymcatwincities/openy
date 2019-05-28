@@ -45,11 +45,12 @@
   ]
 %}
 {% set color = '#' ~ content.field_prgf_color['#items'].entity.field_color.value %}
+{% set media = paragraph.field_prgf_maybe_video.value ? content.field_prgf_video : content.field_prgf_image %}
 
 <div{{ attributes.addClass(classes) }} style="background-color: {{ color }}">
-  <div class="banner-image">
+  <div class="banner-image{% if paragraph.field_prgf_maybe_video.value %} video {% endif %}">
     <div class="banner-image-wrapper">
-      {{ content.field_prgf_image }}
+      {{ media }}
     </div>
   </div>
   <div class="container">

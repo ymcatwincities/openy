@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * OpenY Paragraph Banner module file.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Field\WidgetBase;
+
+/**
+ * Implements hook_field_widget_WIDGET_TYPE_form_alter().
+ */
+function openy_prgf_banner_field_widget_entity_reference_paragraphs_form_alter(&$element, FormStateInterface $form_state, $context) {
+  /** @var \Drupal\field\Entity\FieldConfig $field_definition */
+  $field_definition = $context['items']->getFieldDefinition();
+  $paragraph_entity_reference_field_name = $field_definition->getName();
+
+  $component_fields = [
+    'field_content',
+    'field_header_content',
+    'field_sidebar_content',
+    'field_bottom_content',
+  ];
+  if (in_array($paragraph_entity_reference_field_name, $component_fields)) {
+    /** @see \Drupal\paragraphs\Plugin\Field\FieldWidget\ParagraphsWidget::formElement() */
+    $widget_state = WidgetBase::getWidgetState($element['#field_parents'], $paragraph_entity_reference_field_name, $form_state);
+
+    /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+    $paragraph_instance = $widget_state['paragraphs'][$element['#delta']]['entity'];
+    $paragraph_type = $paragraph_instance->bundle();
+
+    // Determine which paragraph type is being embedded.
+    if ($paragraph_type == 'banner') {
+      $dependee_field_name = 'field_prgf_maybe_video';
+      $selector = sprintf(':input[name="%s[%d][subform][%s][value]"]', $paragraph_entity_reference_field_name, $element['#delta'], $dependee_field_name);
+      // Dependent fields.
+      $element['subform']['field_prgf_video']['#states'] = [
+        'visible' => [
+          $selector => ['checked' => TRUE],
+        ],
+      ];
+
+      $element['subform']['field_prgf_image']['#states'] = [
+        'visible' => [
+          $selector => ['checked' => FALSE],
+        ],
+      ];
+    }
+  }
+}
