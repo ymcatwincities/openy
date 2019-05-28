@@ -7,6 +7,8 @@ dependencies:
     - field.field.paragraph.banner.field_prgf_headline
     - field.field.paragraph.banner.field_prgf_image
     - field.field.paragraph.banner.field_prgf_link
+    - field.field.paragraph.banner.field_prgf_maybe_video
+    - field.field.paragraph.banner.field_prgf_video
     - paragraphs.paragraphs_type.banner
   module:
     - link
@@ -60,6 +62,25 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
+  field_prgf_maybe_video:
+    weight: 5
+    label: hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_prgf_video:
+    type: entity_reference_entity_view
+    weight: 6
+    label: hidden
+    settings:
+      view_mode: embedded_full
+      link: false
+    third_party_settings: {  }
     region: content
 hidden:
   created: true

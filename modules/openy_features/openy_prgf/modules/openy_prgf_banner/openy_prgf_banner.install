@@ -160,3 +160,40 @@ function openy_prgf_banner_update_8008() {
   \Drupal::service('openy_upgrade_tool.param_updater')
     ->update($config, $config_name, 'effects');
 }
+
+/**
+ * Update Open Y paragraph banner add video support.
+ */
+function openy_prgf_banner_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.paragraph.field_prgf_video',
+    'field.storage.paragraph.field_prgf_maybe_video',
+    'field.field.paragraph.banner.field_prgf_video',
+    'field.field.paragraph.banner.field_prgf_maybe_video',
+  ]);
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.banner.default' => [
+      'content',
+    ],
+    'core.entity_view_display.paragraph.banner.default' => [
+      'content',
+    ],
+    'paragraphs.paragraphs_type.banner' => [
+      'behavior_plugins',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
