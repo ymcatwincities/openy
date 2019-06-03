@@ -118,8 +118,26 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     // Set pager as current page number.
     $data['pager'] = isset($parameters['page']) && $data['count'] > self::TOTAL_RESULTS_PER_PAGE ? $parameters['page'] : 0;
 
+    // Get pager structure.
+    $data['pager_info'] = $this->getPages($data['count']);
+
     // Process results.
     $data['table'] = $this->processResults($results, $log_id);
+
+    $locations = $this->getLocations();
+    foreach ($locations as $key => $group) {
+      $locations[$key]['count'] = 0;
+      foreach ($group['value'] as $location) {
+        foreach ($data['facets']['locations'] as $fl) {
+          if ($fl['id'] == $location['value']) {
+            $locations[$key]['count'] += $fl['count'];
+          }
+        }
+      }
+    }
+    $data['groupedLocations'] = $locations;
+
+    $data['sort'] = isset($parameters['sort']) ? $parameters['sort'] : 'title__ASC';
 
     return $data;
   }
@@ -143,28 +161,28 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $db_or = $query->createConditionGroup('OR');
       foreach ($ages as $age) {
         $db_and = $query->createConditionGroup('AND');
-        // Specific case, user selected e.g. '16+'.
-        if (strpos($age, '+')) {
-          $age = str_replace('+', '', $age);
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-        }
-        // Specific case, user selected less than 18 months (6, 12, 18).
-        else if ($age <= 18) {
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-          $db_and->addCondition('field_session_min_age', $age + 6, '<');
-        }
-        else {
-          // Common case (1 year selection).
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-          $db_and->addCondition('field_session_min_age', $age + 12, '<');
-        }
+        $db_and->addCondition('field_session_min_age', $age, '<=');
+        // You can see 0 as value for max_age (which means no limit for a person's max age).
+        // In order to include these results use OR condition.
+        $db_or_age = $query->createConditionGroup('OR');
+        $db_or_age->addCondition('field_session_max_age', $age, '>=');
+        $db_or_age->addCondition('field_session_max_age', 0, '=');
+        $db_or_age->addCondition('field_session_max_age', NULL, '=');
+        $db_and->addConditionGroup($db_or_age);
         $db_or->addConditionGroup($db_and);
       }
       $query->addConditionGroup($db_or);
     }
 
     if (!empty($parameters['days'])) {
-      $days = explode(',', rawurldecode($parameters['days']));
+      $days_ids = explode(',', rawurldecode($parameters['days']));
+      // Convert ids to search value.
+      $days_info = $this->getDaysOfWeek();
+      foreach ($days_info as $i) {
+        if (in_array($i['value'], $days_ids)) {
+          $days[] = $i['search_value'];
+        }
+      }
       $query->addCondition('field_session_time_days', $days, 'IN');
     }
 
@@ -209,7 +227,18 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $_to = (self::TOTAL_RESULTS_PER_PAGE - 1) * $parameters['page'] + $parameters['page'];
       $query->range($_from, $_to);
     }
-    $query->sort('search_api_relevance', 'DESC');
+    // Set up default sort as relevance and expose if manual sort has been provided.
+    //$query->sort('search_api_relevance', 'DESC');
+    if (empty($parameters['sort'])) {
+      $query->sort('title', 'ASC');
+    }
+    else {
+      $sort = explode('__', $parameters['sort']);
+      $sort_by = $sort[0];
+      $sort_mode = $sort[1];
+      $query->sort($sort_by, $sort_mode);
+    }
+
     $server = $index->getServerInstance();
     if ($server->supportsFeature('search_api_facets')) {
       $filters = $this->getFilters();
@@ -238,17 +267,17 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $schedule_items = [];
       foreach ($dates as $date) {
         $_period = $date->field_session_time_date->getValue()[0];
-        $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value']));
-        $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value']));
+        $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value'] . 'Z'), $this->timezone);
+        $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value'] . 'Z'), $this->timezone);
         $days = [];
         foreach ($date->field_session_time_days->getValue() as $time_days) {
-          $days[] = ucfirst($time_days['value']);
+          $days[] = substr(ucfirst($time_days['value']), 0, 3);
         }
         $schedule_items[] = [
           'days' => implode(', ', $days),
           'time' => $_from->format('g:i') .'-'. $_to->format('g:i a'),
         ];
-        $full_dates = $_from->format('m/d/Y') . ' - ' . $_to->format('m/d/Y');
+        $full_dates = $_from->format('m/d/y') . ' - ' . $_to->format('m/d/y');
       }
 
       $availability_status = 'closed';
@@ -259,6 +288,17 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $availability_note = '';
       if ($availability_status == 'closed') {
         $availability_note = t('Registration closed')->__toString();
+      }
+
+      $class = $entity->field_session_class->entity;
+      $activity = $class->field_class_activity->entity;
+      $sub_category = $activity->field_activity_category->entity;
+      $learn_more = '';
+      if ($sub_category && $sub_category->hasField('field_learn_more')) {
+        $link = $sub_category->field_learn_more->getValue();
+        if (!empty($link[0]['uri'])) {
+          $learn_more = render($sub_category->field_learn_more->view())->__toString();
+        }
       }
 
       $data[] = [
@@ -282,7 +322,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           ],
         ])->toString(),
         'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
-        'ages' => $entity->field_session_min_age->value . '-' . $entity->field_session_max_age->value . 'yrs',
+        'ages' => $this->convertData([$entity->field_session_min_age->value, $entity->field_session_max_age->value]),
         'gender' => !empty($entity->field_session_gender->value) ? $entity->field_session_gender->value : '',
         // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
         'location_id' => '',
@@ -295,6 +335,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'spots_available' => !empty($entity->field_availability->value) ? $entity->field_availability->value . ' open spots' : '',
         'status' => $availability_status,
         'note' => $availability_note,
+        'learn_more' => !empty($learn_more) ? $learn_more : '',
       ];
     }
     return $data;
@@ -461,19 +502,28 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     else {
       $nids = $this->entityQuery
         ->get('node')
-        ->condition('type', ['branch', 'camp'], 'IN')
+        ->condition('type', ['branch', 'camp', 'facility'], 'IN')
+        ->condition('status', 1)
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunked) {
         $locations = $this->entityTypeManager->getStorage('node')->loadMultiple($chunked);
         if (!empty($locations)) {
           foreach ($locations as $location) {
-            $address = implode(', ', [
-              $location->field_location_address->address_line1,
-              $location->field_location_address->locality,
-              $location->field_location_address->administrative_area,
-              $location->field_location_address->postal_code,
-            ]);
+            $address = [];
+            if (!empty($location->field_location_address->address_line1))  {
+              array_push($address, $location->field_location_address->address_line1);
+            }
+            if (!empty($location->field_location_address->locality))  {
+              array_push($address, $location->field_location_address->locality);
+            }
+            if (!empty($location->field_location_address->administrative_area))  {
+              array_push($address, $location->field_location_address->administrative_area);
+            }
+            if (!empty($location->field_location_address->postal_code))  {
+              array_push($address, $location->field_location_address->postal_code);
+            }
+            $address = implode(', ', $address);
             $days = [];
             foreach ($location->field_branch_hours as $multi_hours) {
               $sub_hours = $multi_hours->getValue();
@@ -546,31 +596,38 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     return [
       [
         'label' => 'Mon',
-        'value' => 'monday',
+        'search_value' => 'monday',
+        'value' => '1',
       ],
       [
         'label' => 'Tue',
-        'value' => 'tuesday',
+        'search_value' => 'tuesday',
+        'value' => '2',
       ],
       [
         'label' => 'Wed',
-        'value' => 'wednesday',
+        'search_value' => 'wednesday',
+        'value' => '3',
       ],
       [
         'label' => 'Thu',
-        'value' => 'thursday',
+        'search_value' => 'thursday',
+        'value' => '4',
       ],
       [
         'label' => 'Fri',
-        'value' => 'friday',
+        'search_value' => 'friday',
+        'value' => '5',
       ],
       [
         'label' => 'Sat',
-        'value' => 'saturday',
+        'search_value' => 'saturday',
+        'value' => '6',
       ],
       [
         'label' => 'Sun',
-        'value' => 'sunday',
+        'search_value' => 'sunday',
+        'value' => '7',
       ],
     ];
   }
@@ -604,5 +661,75 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     return [];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getPages($count) {
+    $pages = [];
+    // Calculate number of pages.
+    $pages_count = $count / $this::TOTAL_RESULTS_PER_PAGE;
+    $pages_count = ceil($pages_count);
+    $pages['total_pages'] = $pages_count;
+    $range = range(1, $pages_count);
+    // Make array starts from 1 for better usage.
+    array_unshift($range, '');
+    unset($range[0]);
+    $pages['pages'] = $range;
+
+    return $pages;
+  }
+
+  public function getSortOptions() {
+    return [
+      'title__ASC' => t('Sort by Title (A-Z)'),
+      'title__DESC' => t('Sort by Title (Z-A)'),
+      'field_session_location__ASC' => t('Sort by Location (A-Z)'),
+      'field_session_location__DESC' => t('Sort by Location (Z-A)'),
+      'field_session_class__ASC' => t('Sort by Activity (A-Z)'),
+      'field_session_class__DESC' => t('Sort by Activity (Z-A)'),
+    ];
+  }
+
+  /*
+   * Date months to years transformation.
+   */
+  public function convertData($ages = []) {
+    $ages_y = [];
+    for ($i = 0; $i < count($ages); $i++) {
+      if ($ages[$i] > 18) {
+        if ($ages[$i] % 12) {
+          $ages_y[$i] = number_format($ages[$i] / 12, 1, '.', '');
+        }
+        else {
+          $ages_y[$i] = number_format($ages[$i] / 12, 0, '.', '');;
+        }
+        if ($ages[$i + 1] && $ages[$i + 1] == 0) {
+          $ages_y[$i] .= t('+ years');
+        }
+        if ($ages[$i + 1] && $ages[$i + 1] > 18 || !$ages[$i + 1]) {
+          if ($i % 2 || (!$ages[$i + 1]) && !($i % 2)) {
+            $ages_y[$i] .= t(' years');
+          }
+        }
+      }
+      else {
+        if ($ages[$i] <= 18 && $ages[$i] != 0) {
+          //$ages_y[$i] = $ages[$i];
+          $plus = '';
+          if ($ages[$i + 1] && $ages[$i + 1] == 0) {
+            $plus = ' + ';
+          }
+          $ages_y[$i] = $ages[$i] . \Drupal::translation()->formatPlural($ages_y[$i], ' month', ' months' . $plus);
+        }
+        else {
+          if ($ages[$i] == 0 && $ages[$i + 1]) {
+            $ages_y[$i] = $ages[$i];
+          }
+        }
+      }
+    }
+    $age_output = implode($ages_y, ' - ');
+    return $age_output;
+  }
 
 }

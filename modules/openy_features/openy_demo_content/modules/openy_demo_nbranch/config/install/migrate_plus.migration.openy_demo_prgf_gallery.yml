@@ -6,6 +6,7 @@ dependencies:
       - openy_demo_nbranch
 id: openy_demo_prgf_gallery
 migration_tags: {  }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nbranch
 label: 'Create Gallery paragraphs for branches'
 source:

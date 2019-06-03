@@ -6,6 +6,7 @@ dependencies:
         - openy_demo_nbranch
 id: openy_demo_nbranch_media_image
 migration_tags: { }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nbranch
 label: Import demo blog branch images
 source:

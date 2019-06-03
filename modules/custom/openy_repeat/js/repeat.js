@@ -1,9 +1,10 @@
 (function ($) {
+
   if (!$('.schedule-dashboard__wrapper').length) {
     return;
   }
 
-  if (window.OpenY.field_prgf_repeat_schedules_pref) {
+  if (window.OpenY.field_prgf_repeat_schedules_pref && window.OpenY.field_prgf_repeat_schedules_pref.length) {
     var locationPage = window.OpenY.field_prgf_repeat_schedules_pref[0] || '';
     if (locationPage) {
       $('.clear-all').attr('href', locationPage.url).removeClass('hidden');
@@ -11,7 +12,7 @@
   }
 
   // PDF link show/hidden.
-  if (window.OpenY.field_prgf_repeat_schedules_pdf) {
+  if (window.OpenY.field_prgf_repeat_schedules_pdf && window.OpenY.field_prgf_repeat_schedules_pdf.length) {
     var pdfLink = window.OpenY.field_prgf_repeat_schedules_pdf[0] || '';
     if (pdfLink) {
       $('.btn-schedule-pdf')
@@ -24,7 +25,6 @@
       .removeClass('hidden')
       .attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + window.location.search);
   }
-
 
   /* Check the settings of whether to display Instructor column or not */
   function displayInstructorOrNot() {
@@ -53,6 +53,19 @@
     }
   }
 
+  function checkShowForwardArrow(date) {
+    var limit = drupalSettings.openy_repeat.calendarLimitDays;
+    if (!limit) {
+      return true;
+    }
+
+    date = moment(new Date(date).toISOString());
+    var now = moment();
+    var diff = date.diff(now, 'days');
+
+    return diff < (limit - 1);
+  }
+
   Vue.config.devtools = true;
 
   var router = new VueRouter({
@@ -65,6 +78,7 @@
     el: '#app',
     router: router,
     data: {
+      showForwardArrow: true,
       table: [],
       date: '',
       room: [],
@@ -141,7 +155,9 @@
 
       var dateGet = this.$route.query.date;
       if (dateGet) {
-        this.date = new Date(dateGet).toISOString();
+        var date = new Date(dateGet);
+        date.setMinutes(date.getTimezoneOffset());
+        this.date = date.toISOString();
       }
       else {
         this.date = moment().toISOString();
@@ -224,7 +240,9 @@
         });
 
         availableClasses = Object.keys(availableClasses);
-        availableClasses.alphanumSort();
+        if (typeof availableClasses.alphanumSort !== 'undefined') {
+          availableClasses.alphanumSort();
+        }
         return availableClasses;
       },
       filteredTable: function() {
@@ -270,7 +288,7 @@
     methods: {
       runAjaxRequest: function() {
         var component = this;
-        var date = new Date(this.date).toISOString();
+        var date = moment(this.date).format('YYYY-MM-DD');
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
         url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
@@ -300,26 +318,32 @@
           $('.schedules-loading').addClass('hidden');
         });
 
-        var date = new Date(this.date).toISOString();
         router.push({ query: {
             date: date,
             locations: this.locations.join(','),
             categories: this.categories.join(',')
           }});
       },
+
       toggleParentClass: function(event) {
-        if (event.target.parentElement.classList.contains('skip-checked')) {
-          event.target.parentElement.classList.remove('skip-checked');
-          event.target.parentElement.classList.remove('collapse');
-          event.target.parentElement.classList.remove('in');
-          if (!event.target.parentElement.classList.contains('skip-t')) {
+
+          if (event.target.parentElement.classList.contains('skip-checked')) {
+            event.target.parentElement.classList.remove('skip-checked');
             event.target.parentElement.classList.add('skip-t');
+            if (!event.target.parentElement.classList.contains('skip-t')) {
+              event.target.parentElement.classList.add('skip-t');
+            }
           }
-        }
-        else {
-          event.target.parentElement.classList.toggle("skip-t");
-        }
+
+          else {
+            event.target.parentElement.classList.toggle("skip-t");
+            event.target.parentElement.classList.add('skip-checked');
+            event.target.parentElement.classList.remove('skip-t');
+            event.target.parentElement.classList.remove('collapse');
+            event.target.parentElement.classList.remove('in');
+          }
       },
+
       populatePopupL: function(index) {
         this.locationPopup = this.filteredTable[index].location_info;
       },
@@ -357,13 +381,17 @@
       }
     },
     updated: function() {
+      this.showForwardArrow = checkShowForwardArrow(this.date);
+
       calculateColumns();
+
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
-      // Additionally collect checked rooms filter options.
-      $('.btn-schedule-pdf-generate').on('click', function () {
+      // Consider moving out of 'updated' handler.
+      $('.btn-schedule-pdf-generate').off('click').on('click', function () {
         var rooms_checked = [],
+            classnames_checked = [],
             limit = [];
         $('.checkbox-room-wrapper input').each(function () {
           if ($(this).is(':checked')) {
@@ -371,6 +399,11 @@
           }
         });
         rooms_checked = rooms_checked.join(',');
+
+        $('.form-group-classname input:checked').each(function () {
+          classnames_checked.push(encodeURIComponent($(this).val()));
+        });
+
         var limitCategories = window.OpenY.field_prgf_repeat_schedule_categ || [];
         if (limitCategories && limitCategories.length > 0) {
           if (limitCategories.length == 1) {
@@ -384,6 +417,9 @@
         }
         limit = limit.join(',');
         var pdf_query = window.location.search + '&rooms=' + rooms_checked + '&limit=' + limit;
+        $(classnames_checked).each(function () {
+          pdf_query += '&cn[]=' + this;
+        });
         $('.btn-schedule-pdf-generate').attr('href', drupalSettings.path.baseUrl + 'schedules/get-pdf' + pdf_query);
       });
     },

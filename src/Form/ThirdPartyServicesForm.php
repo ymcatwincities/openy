@@ -72,7 +72,7 @@ class ThirdPartyServicesForm extends FormBase {
     // Google Maps API key.
     if (\Drupal::moduleHandler()->moduleExists('geolocation')) {
       // Get Google Maps API settings container.
-      $geo_loc_config = $this->configFactory->get('geolocation.settings');
+      $geo_loc_config = $this->configFactory->get('geolocation_google_maps.settings');
       $form['google_map_api_key'] = [
         '#type' => 'textfield',
         '#placeholder' => 'AIzaSyDIFPdDmDsBOFFZcmavCaAqHa3VNKkXLJc',
@@ -283,7 +283,7 @@ class ThirdPartyServicesForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Save Google Maps API Key.
     if (\Drupal::moduleHandler()->moduleExists('geolocation')) {
-      $geo_loc_config = $this->configFactory->getEditable('geolocation.settings');
+      $geo_loc_config = $this->configFactory->getEditable('geolocation_google_maps.settings');
       $geo_loc_config->set('google_map_api_key', $form_state->getValue('google_map_api_key'));
       $geo_loc_config->save();
     }

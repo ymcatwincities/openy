@@ -12,8 +12,7 @@
       padding-right: 10px;
     }
   }
-  .location-link,
-  .field-event-location {
+  .location-link {
     a:hover {
       text-decoration: underline !important;
     }
@@ -23,6 +22,16 @@
       font-size: 30px;
       padding-right: 10px;
       color: $purple;
+    }
+  }
+
+  .event-image {
+    min-height: 237px;
+    @media (max-width: $screen-lg) {
+      min-height: 190px;
+    }
+    @media (max-width: $screen-md) {
+      min-height: 247px;
     }
   }
 
@@ -115,6 +124,9 @@
     .field-event-image img {
       display: inline-block;
       //border-radius: 10px;
+      width: 100%;
+      max-width: 266px;
+      height: auto;
     }
     h2 {
       margin: 10px 0 5px;

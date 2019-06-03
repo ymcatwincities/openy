@@ -1,3 +1,4 @@
+uuid: 66abd84e-b230-4b82-a71c-6dd938affdf6
 langcode: en
 status: true
 dependencies:
@@ -17,7 +18,7 @@ content:
   field_prgf_af_results_ref:
     weight: 1
     label: hidden
-    settings: { }
+    settings: {  }
     third_party_settings: {  }
     type: openy_json
     region: content
@@ -28,6 +29,18 @@ content:
     third_party_settings: {  }
     type: plugin_block_built
     region: content
-hidden:
-  field_prgf_hide_loc_select_step: true
-  field_prgf_hide_program_categ: true
+  field_prgf_hide_loc_select_step:
+    type: openy_json
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_prgf_hide_program_categ:
+    type: openy_json
+    weight: 3
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

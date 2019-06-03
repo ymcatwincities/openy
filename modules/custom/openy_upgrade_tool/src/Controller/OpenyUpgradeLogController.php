@@ -3,7 +3,6 @@
 namespace Drupal\openy_upgrade_tool\Controller;
 
 use Drupal\Component\Utility\Xss;
-use Drupal\Core\Cache\Cache;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;

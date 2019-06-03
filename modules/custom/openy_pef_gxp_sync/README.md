@@ -1,6 +1,6 @@
 ### OpenY PEF GXP Sync
 
-Synchronizes Groupex schedules to PEF.
+Synchronizes GroupEx schedules to PEF.
 
 ### Quick start
 
@@ -11,11 +11,36 @@ Go to `/admin/openy/integrations/groupex-pro/gxp`.
 1. Set up your GroupExPro client id.
 2. Provide parent activity ID. Should be Group Exercises under Fitness.
 
-#### Setup production mode
+### How the syncer works
 
-By default the module operates in demo mode.
-While synchronisation in demo mode syncer proceeds the only first 5 class items for each found location.
+The syncer consists of the next steps:
 
-In order to switch production mode on set the next config:
+  1. Fetcher - fetches data from GroupEx API.
+  2. Wrapper - processes the data for saving (maps location ids, fixes title encoding problems, etc).
+  3. Wrapper - groups all items by Class ID and Location ID, calculates hashes.
+  4. Wrapper - prepares data to be removed (extra items in DB or changed hashes)
+  5. Wrapper - prepares data to be created (new items + changed hashes)
+  6. Cleaner - removes data to be removed.
+  7. Saver   - creates data to be created.
 
-    \Drupal::configFactory()->getEditable('openy_pef_gxp_sync.settings')->set('is_production', TRUE)->save(TRUE);
+### How the syncer works in details (for developers)
+
+#### Adding & Removing locations.
+
+1. If a location is removed in API it should be removed in DB.
+2. If a location is added in API it should be added (with classes) in DB.
+3. If a class is removed in API it should be removed in DB (with all class items);
+3. If a class is added in API it should be added in DB (with all class items);
+
+#### Updating classes.
+
+1. Each GroupEx class can have several class items (with the same class ID).
+2. We compare hashes for Location ID + Class ID + all class items inside (on unprocessed data!).
+3. If hash is changed we should remove all items belongs to this hash and create them again.
+
+### How to debug
+
+1. To emulate API data please use `FetcherDebuggerClass`. Just replace `@openy_pef_gxp_sync.fetcher` with
+`@openy_pef_gxp_sync.fetcher_debugger` to emulate API response.
+
+2. Use `DEBUG_MODE` constants inside classes to debug specific service.

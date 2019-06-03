@@ -4,6 +4,7 @@ namespace Drupal\openy_upgrade_tool;
 
 use Drupal\config\Form\ConfigSync;
 use Drupal\config\StorageReplaceDataWrapper;
+use Drupal\Core\Config\Config;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\ConfigImporter;
 use Drupal\Core\Config\ConfigImporterException;
@@ -98,6 +99,13 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
   protected $renderer;
 
   /**
+   * The renderer service.
+   *
+   * @var \Drupal\openy_upgrade_tool\ConfigEventIgnorePluginManager
+   */
+  protected $configEventIgnoreManager;
+
+  /**
    * The event dispatcher.
    *
    * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
@@ -168,6 +176,8 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    *   The config factory.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   The renderer service.
+   * @param \Drupal\openy_upgrade_tool\ConfigEventIgnorePluginManager $config_event_ignore_manager
+   *   The Config Event Ignore Plugin Manager.
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher used to notify subscribers of config import events.
    * @param \Drupal\Core\Lock\LockBackendInterface $lock
@@ -190,6 +200,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     ConfigManagerInterface $config_manager,
     ConfigFactoryInterface $config_factory,
     RendererInterface $renderer,
+    ConfigEventIgnorePluginManager $config_event_ignore_manager,
     EventDispatcherInterface $event_dispatcher,
     LockBackendInterface $lock,
     TypedConfigManagerInterface $typed_config,
@@ -203,6 +214,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     $this->entityTypeManager = $entity_type_manager;
     $this->configStorage = $config_storage;
     $this->renderer = $renderer;
+    $this->configEventIgnoreManager = $config_event_ignore_manager;
     // Services necessary for \Drupal\Core\Config\ConfigImporter.
     $this->eventDispatcher = $event_dispatcher;
     $this->configManager = $config_manager;
@@ -255,28 +267,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    */
   public function saveLoggerEntity($name, array $data, $message = NULL) {
     try {
-      if ($this->getLoggerEntityTypeName() == 'logger_entity') {
-        // TODO: Delete this, 'logger_entity' is deprecated.
-        // Load logger entity with this config name.
-        $entities = $this->getLoggerEntityStorage()->loadByProperties([
-          'type' => 'openy_config_upgrade_logs',
-          'name' => $name,
-        ]);
-        if (empty($entities)) {
-          // Create new logger entity for this config name if not exist.
-          $logger_entity = $this->getLoggerEntityStorage()->create([
-            'type' => 'openy_config_upgrade_logs',
-          ]);
-        }
-        else {
-          $logger_entity = array_shift($entities);
-        }
-        $logger_entity->setName($name);
-        $logger_entity->setData([$name]);
-        $logger_entity->save();
-        return $logger_entity->id();
-      }
-      else {
+      if ($this->getLoggerEntityTypeName() !== 'logger_entity') {
         // Load OpenyUpgradeLog entity with this config name.
         $entities = $this->getLoggerEntityStorage()->loadByProperties([
           'name' => $name,
@@ -303,8 +294,9 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     catch (\Exception $e) {
       $msg = 'Failed to save logger entity. Message: %msg';
       $this->logger->error($msg, ['%msg' => $e->getMessage()]);
-      return FALSE;
     }
+
+    return FALSE;
   }
 
   /**
@@ -448,8 +440,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    * {@inheritdoc}
    */
   public function validateConfigData($name, array &$data) {
-    $config_info = $this->featuresManager->getConfigType($name);
-    $config_type = $config_info['type'];
+    $config_type = $this->getConfigType($name);
     // Load original config.
     if ($config_type !== FeaturesManagerInterface::SYSTEM_SIMPLE_CONFIG) {
       $definition = $this->entityTypeManager->getDefinition($config_type);
@@ -522,6 +513,22 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getConfigType($name) {
+    $config_info = $this->featuresManager->getConfigType($name);
+    return $config_info['type'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function validateConfigDiff(Config $config) {
+    $config_type = $this->getConfigType($config->getName());
+    return $this->configEventIgnoreManager->validateChanges($config, $config_type);
+  }
+
+  /**
    * Set status TRUE to OpenyUpgradeLog item (Conflict resolved).
    *
    * @param string $openy_upgrade_log
@@ -585,4 +592,52 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     return new RedirectResponse($redirect_url);
   }
 
+  /**
+   * Get upgrade status (check the number of existing conflicts).
+   *
+   * @return bool
+   *   TRUE if unresolved conflicts do not exist.
+   */
+  public function getUpgradeStatus() {
+    $storage = $this->getLoggerEntityStorage();
+    $not_resolved_conflicts = (int) $storage->getQuery()
+      ->condition('status', 0)
+      ->count()
+      ->execute();
+
+    return $not_resolved_conflicts === 0;
+  }
+
+  /**
+   * Get upgrade status details for drupal status page.
+   *
+   * @return array
+   *   Upgrade status details.
+   *
+   * @see /admin/reports/status
+   */
+  public function getUpgradeStatusDetails() {
+    $storage = $this->getLoggerEntityStorage();
+    $total_count = (int) $storage->getQuery()
+      ->count()
+      ->execute();
+
+    if ($total_count === 0) {
+      return [
+        'resolved' => 0,
+        'conflicts' => 0,
+        'total' => 0,
+      ];
+    }
+
+    $conflicts = (int) $storage->getQuery()
+      ->condition('status', 0)
+      ->count()
+      ->execute();
+    return [
+      'resolved' => $total_count - $conflicts,
+      'conflicts' => $conflicts,
+      'total' => $total_count,
+    ];
+  }
 }

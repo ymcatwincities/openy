@@ -6,6 +6,7 @@ dependencies:
       - openy_demo_ncamp
 id: openy_demo_prgf_news_camp
 migration_tags: {  }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_ncamp
 label: 'Create latest news posts (camp) paragraph(s) for demo camp page nodes'
 migration_dependencies: {  }
