@@ -155,7 +155,9 @@
 
       var dateGet = this.$route.query.date;
       if (dateGet) {
-        this.date = new Date(dateGet).toISOString();
+        var date = new Date(dateGet);
+        date.setMinutes(date.getTimezoneOffset());
+        this.date = date.toISOString();
       }
       else {
         this.date = moment().toISOString();
@@ -286,7 +288,7 @@
     methods: {
       runAjaxRequest: function() {
         var component = this;
-        var date = new Date(this.date).toISOString();
+        var date = moment(this.date).format('YYYY-MM-DD');
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
         url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
@@ -316,7 +318,6 @@
           $('.schedules-loading').addClass('hidden');
         });
 
-        var date = new Date(this.date).toISOString();
         router.push({ query: {
             date: date,
             locations: this.locations.join(','),
