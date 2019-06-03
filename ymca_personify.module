@@ -10,6 +10,7 @@
  */
 function ymca_personify_page_attachments(array &$attachments) {
   $attachments['#attached']['library'][] = 'ymca_personify/personify';
+  $attachments['#attached']['library'][] = 'ymca_personify/childcare';
 }
 
 /**

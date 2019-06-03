@@ -6,6 +6,12 @@ personify:
     - core/drupal
     - core/jquery.cookie
 
+childcare:
+  version: 0.1
+  css:
+    theme:
+      css/childcare.css: {}
+
 personify.childcare:
   version: 1.x
   js:
