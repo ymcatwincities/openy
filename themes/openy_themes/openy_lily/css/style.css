@@ -2192,6 +2192,7 @@ body {
 
 .paragraph--type--openy-prgf-mbrshp-calc {
   padding: 20px 0;
+  overflow: hidden;
 }
 
 .paragraph--type--classes-listing-filters {
@@ -12017,7 +12018,7 @@ p.legend {
   display: none;
 }
 .ui-widget.ui-dialog .ui-dialog-content {
-  padding: 0px 30px 10px;
+  padding: 20px 30px 10px;
 }
 .ui-widget.ui-dialog .ui-dialog-content .landing-header {
   display: none;

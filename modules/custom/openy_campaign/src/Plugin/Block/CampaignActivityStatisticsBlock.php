@@ -13,6 +13,7 @@ use Drupal\openy_campaign\Entity\MemberCheckin;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Database\Connection;
 
 /**
  * Provides a 'Activity Tracking' block.
@@ -52,6 +53,13 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
   protected $time;
 
   /**
+   * The Database service.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
    * Constructs a new Block instance.
    *
    * @param array $configuration
@@ -65,6 +73,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    * @param \Drupal\openy_campaign\CampaignMenuServiceInterface $campaign_menu_service
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    * @param \Drupal\Component\Datetime\TimeInterface $time
+   * @param \Drupal\Core\Database\Connection $connection
    */
   public function __construct(
     array $configuration,
@@ -73,13 +82,15 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     FormBuilderInterface $formBuilder,
     CampaignMenuServiceInterface $campaign_menu_service,
     EntityTypeManagerInterface $entity_type_manager,
-    TimeInterface $time
+    TimeInterface $time,
+    Connection $connection
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->formBuilder = $formBuilder;
     $this->campaignMenuService = $campaign_menu_service;
     $this->entityTypeManager = $entity_type_manager;
     $this->time = $time;
+    $this->connection = $connection;
   }
 
   /**
@@ -93,7 +104,8 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
       $container->get('form_builder'),
       $container->get('openy_campaign.campaign_menu_handler'),
       $container->get('entity_type.manager'),
-      $container->get('datetime.time')
+      $container->get('datetime.time'),
+      $container->get('database')
     );
   }
 
@@ -246,6 +258,18 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     ];
 
     $block['#activities'] = $activities;
+
+    $enabled_activities = openy_campaign_get_enabled_activities($campaign);
+    $global_campaign = in_array('field_prgf_campaign_global_goal', $enabled_activities);
+    if ($global_campaign) {
+      $current = $this->getUserProgress($campaignId, $memberCampaignId);
+      $global_goal = $campaign->field_campaign_global_goal->value;
+      $block['#progress'] = [
+        'current' => $current,
+        'goal' => $global_goal,
+        'percent' => round(100 * $current / $global_goal),
+      ];
+    }
     $block['#theme'] = 'openy_campaign_activity_block';
 
     $block['#attached'] = [
@@ -255,6 +279,36 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     ];
 
     return $block;
+  }
+
+  /**
+   * Get all leaders of current Campaign by branch and activity.
+   *
+   * @param $campaign_id
+   * @param $member_campaign_id
+   *
+   * @return array
+   */
+  private function getUserProgress($campaign_id, $member_campaign_id) {
+    /** @var \Drupal\Core\Database\Query\Select $query */
+    $query = $this->connection->select('openy_campaign_memb_camp_actv', 'mca');
+    $query->join('openy_campaign_member_campaign', 'mc', 'mc.id = mca.member_campaign');
+    $query->join('openy_campaign_member', 'm', 'm.id = mc.member');
+
+    $query->condition('mc.campaign', $campaign_id);
+    $query->condition('mc.id', $member_campaign_id);
+
+    $query->groupBy('mc.id');
+
+    $query->leftJoin('taxonomy_term__field_global_goal_activity_worth', 'aw', 'aw.entity_id = mca.activity');
+    $query->addExpression('SUM(aw.field_global_goal_activity_worth_value)', 'total');
+    $query->having('SUM(aw.field_global_goal_activity_worth_value) > 0');
+
+    $query->orderBy('total', 'DESC');
+
+    $total = $query->execute()->fetchField();
+
+    return floatval($total);
   }
 
 }

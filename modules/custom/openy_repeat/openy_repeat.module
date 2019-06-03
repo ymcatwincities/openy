@@ -9,6 +9,8 @@
  * Implements hook_theme().
  */
 function openy_repeat_theme() {
+  $limit = \Drupal::config('openy_repeat.settings')->get('calendar_limit_days');
+
   return [
     'openy_repeat_schedule_dashboard' => [
       'variables' => [
@@ -16,6 +18,7 @@ function openy_repeat_theme() {
         'categories' => [],
         'checked_locations' => [],
         'checked_categories' => [],
+        'calendar_limit' => $limit,
         'filters' => [],
       ],
     ],
@@ -40,4 +43,12 @@ function openy_repeat_theme() {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function openy_repeat_page_attachments(array &$attachments) {
+  $limit = \Drupal::config('openy_repeat.settings')->get('calendar_limit_days');
+  $attachments['#attached']['drupalSettings']['openy_repeat']['calendarLimitDays'] = $limit;
 }

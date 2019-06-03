@@ -7,6 +7,7 @@ dependencies:
       - openy_prgf_camp_menu
 id: openy_demo_prgf_menu_camp
 migration_tags: {  }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_ncamp
 label: 'Create Camp Menu paragraph(s) for demo camp page nodes'
 migration_dependencies: {  }

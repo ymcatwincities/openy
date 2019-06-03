@@ -242,7 +242,7 @@
       @include breakpoint (1024px) {
         padding: 25px 20px;
       }
-      
+
       h1 {
         margin: 0;
         color: $pink;
@@ -901,6 +901,7 @@
 
 .paragraph--type--openy-prgf-mbrshp-calc {
   padding: 20px 0;
+  overflow: hidden;
 }
 
 .paragraph--type--classes-listing-filters {

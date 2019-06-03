@@ -14,7 +14,7 @@ source:
     -
       id: swim_lessons_adult_begin
       title: 'Swim Lessons - Adult Beginning'
-      activity: swim_lessons_adult
+      activity: activity_swim_lessons_adult
       body: |
         <p>
         For individuals who have never had swim lessons, or are uncomfortable
@@ -35,7 +35,7 @@ source:
     -
       id: swim_lessons_parent_child_a
       title: 'Swim Lessons - Parent/Child Stage A: Water Discov.'
-      activity: swim_lessons_child_with_adult
+      activity: activity_swim_lessons_child_with_adult
       body: |
         <p>
         Accompanied by a parent or guardian, infants and toddlers will be
@@ -54,7 +54,7 @@ source:
     -
       id: swim_lessons_parent_child_b
       title: 'Swim Lessons - Parent/Child Stage B: Water Explor.'
-      activity: swim_lessons_child_with_adult
+      activity: activity_swim_lessons_child_with_adult
       body: |
         <p>
         Designed for infants and toddlers able to enter and exit the water with
@@ -73,7 +73,7 @@ source:
     -
       id: swim_lessons_preschool_1
       title: 'Swim Lessons - Preschool Stage 1: Water Acclimat.'
-      activity: swim_lessons_preschool
+      activity: activity_swim_lessons_preschool
       body: |
         <p>
         For Preschool age children who have never had swim lessons without a
@@ -92,7 +92,7 @@ source:
     -
       id: swim_lessons_preschool_2
       title: 'Swim Lessons - Preschool Stage 2: Water Movement'
-      activity: swim_lessons_preschool
+      activity: activity_swim_lessons_preschool
       body: |
         <p>
         For Preschool age children who are comfortable in the water and able to
@@ -112,7 +112,7 @@ source:
     -
       id: swim_lessons_preschool_3
       title: 'Swim Lessons - Preschool Stage 3: Water Stamina'
-      activity: swim_lessons_preschool
+      activity: activity_swim_lessons_preschool
       body: |
         <p>
         For Preschool age children who can swim 10 yards unassisted with their
@@ -131,7 +131,7 @@ source:
     -
       id: swim_lessons_preschool_4
       title: 'Swim Lessons - Preschool Stage 4: Stroke Intro.'
-      activity: swim_lessons_preschool
+      activity: activity_swim_lessons_preschool
       body: |
         <p>
         For Preschool age children who can swim 15 yards unassisted with their
@@ -150,7 +150,7 @@ source:
     -
       id: swim_lessons_private
       title: 'Swim Lesson - Private'
-      activity: swim_lessons_private
+      activity: activity_swim_lessons_private
       body: |
         <p>
         Private swim lessons.
@@ -166,7 +166,7 @@ source:
     -
       id: swim_lessons_youth_1
       title: 'Swim Lessons - Youth Stage 1: Water Acclimat.'
-      activity: swim_lessons_youth
+      activity: activity_swim_lessons_youth
       body: |
         <p>
         For school age children who have never had swim lessons without a parent
@@ -186,7 +186,7 @@ source:
     -
       id: swim_lessons_youth_2
       title: 'Swim Lessons - Youth Stage 2: Water Movement'
-      activity: swim_lessons_youth
+      activity: activity_swim_lessons_youth
       body: |
         <p>
         For school age children who are comfortable in the water and able to
@@ -206,7 +206,7 @@ source:
     -
       id: swim_lessons_youth_3
       title: 'Swim Lessons - Youth Stage 3: Water Stamina'
-      activity: swim_lessons_youth
+      activity: activity_swim_lessons_youth
       body: |
         <p>
         For school age children who can swim 15 yards unassisted with face in
@@ -225,7 +225,7 @@ source:
     -
       id: swim_lessons_youth_4
       title: 'Swim Lessons - Youth Stage 4: Stroke Intro.'
-      activity: swim_lessons_youth
+      activity: activity_swim_lessons_youth
       body: |
         <p>
         For school age children who can swim 15 yards unassisted. Having
@@ -243,7 +243,7 @@ source:
     -
       id: swim_lessons_youth_5
       title: 'Swim Lessons - Youth Stage 5: Stroke Devel.'
-      activity: swim_lessons_youth
+      activity: activity_swim_lessons_youth
       body: |
         <p>
         For school age children who can swim 25 yards unassisted and show
@@ -263,7 +263,7 @@ source:
     -
       id: swim_lessons_youth_6
       title: 'Swim Lessons - Youth Stage 6: Stroke Mechanics'
-      activity: swim_lessons_youth
+      activity: activity_swim_lessons_youth
       body: |
         <p>
         For school age children who can swim 50 yards unassisted and show
@@ -283,7 +283,7 @@ source:
     -
       id: swim_team_intrest_list
       title: 'Swim Team - Interest List'
-      activity: swim_team
+      activity: activity_swim_team
       body: |
         <p>
         The Northshore Sharks swim team is a Y values based program, focused on
@@ -314,7 +314,7 @@ source:
     -
       id: swim_lessons_teen
       title: 'Swim Lessons - Teen'
-      activity: swim_lessons_teen
+      activity: activity_swim_lessons_teen
       body: |
         <p>
         Teen beginning: For individuals who have never had swim lessons, or are
@@ -345,7 +345,7 @@ source:
     -
       id: swim_lessons_teen_beginning
       title: 'Swim Lessons - Teen Beginning'
-      activity: swim_lessons_teen
+      activity: activity_swim_lessons_teen
       body: |
         <p>
         For individuals who have never had swim lessons, or are uncomfortable
@@ -366,7 +366,7 @@ source:
     -
       id: swim_lessons_teen_intermediate
       title: 'Swim Lessons - Teen Intermediate'
-      activity: swim_lessons_teen
+      activity: activity_swim_lessons_teen
       body: |
         <p>
         For individuals who are comfortable in the water, and able to swim and
@@ -388,7 +388,7 @@ source:
     -
       id: swim_lessons_teen_advanced
       title: 'Swim Lessons - Teen Advanced'
-      activity: swim_lessons_teen
+      activity: activity_swim_lessons_teen
       body: |
         <p>
         For individuals who can swim up to 25 yards unassisted and show
@@ -408,7 +408,7 @@ source:
     -
       id: drop_in_swim_recreational_3ft
       title: 'Recreational Swim 3ft'
-      activity: drop_in_swim
+      activity: activity_drop_in_swim
       body: |
         <p>
         Recreational Swim Time
@@ -424,7 +424,7 @@ source:
     -
       id: drop_in_swim_wade_2ft
       title: 'Wade Swim 2ft'
-      activity: drop_in_swim
+      activity: activity_drop_in_swim
       body: |
         <p>
         Swimming for fun or fitness in shallow water.
@@ -440,7 +440,7 @@ source:
     -
       id: drop_in_swim_rec_with_slide
       title: 'Rec Swim with Slide'
-      activity: drop_in_swim
+      activity: activity_drop_in_swim
       body: |
         <p>
         Recreational swim time.
@@ -456,7 +456,7 @@ source:
     -
       id: drop_in_swim_adult_5.5ft
       title: 'Adult Swim 5.5 ft'
-      activity: drop_in_swim
+      activity: activity_drop_in_swim
       body: |
         <p>
         Lap swimming open to members that enjoy swimming for fitness. Please be
@@ -474,7 +474,7 @@ source:
     -
       id: drop_in_swim_family
       title: 'Family Swim'
-      activity: drop_in_swim
+      activity: activity_drop_in_swim
       body: |
         <p>
         The whole family is ecnouraged to swim together during our family swim
@@ -495,7 +495,7 @@ source:
     -
       id: drop_in_swim_recreational
       title: 'Recreational Swim'
-      activity: drop_in_swim
+      activity: activity_drop_in_swim
       body: |
         <p>
         During recreational swim, some or all of the pool may be used for
@@ -517,7 +517,7 @@ source:
     -
       id: drop_in_swim_lap
       title: 'Lap Swim'
-      activity: drop_in_swim
+      activity: activity_drop_in_swim
       body: |
         <p>
         2 or more lap lanes are available to any members at this time. Please be
@@ -536,7 +536,7 @@ source:
     -
       id: kids_zone_activity_centers_4wks_11yrs
       title: 'Kids Zone 4 wks -11 yrs'
-      activity: kids_zone_activity_centers
+      activity: activity_kids_zone_activity_centers
       body: |
         <p>
         Let our caring staff watch after your little ones while you enjoy a
@@ -558,7 +558,7 @@ source:
     -
       id: cooking_classes_future_chefs
       title: 'Youth Cooking - Future Chefs'
-      activity: cooking_classes
+      activity: activity_cooking_classes
       body: |
         <p>
         Kids ages 6 - 11 will have a blast learning fundamental kitchen skills,
@@ -577,7 +577,7 @@ source:
     -
       id: arts_and_crafts_maycrafternoon_handprint_sunshines
       title: 'May Crafternoon: Handprint Sunshines'
-      activity: arts_and_crafts
+      activity: activity_arts_and_crafts
       body: |
         <p>
         May: Make a sunshine using your child's handprints on a canvas. Optional
@@ -605,7 +605,7 @@ source:
     -
       id: arts_and_crafts_april_earth_day_bridhouses
       title: 'April Earth Day Birdhouses'
-      activity: arts_and_crafts
+      activity: activity_arts_and_crafts
       body: |
         <p>
         Come join us for a wonderful Crafternoon! In April to honor Earth Day,
@@ -628,7 +628,7 @@ source:
     -
       id: arts_and_crafts_crafternoon
       title: 'Crafternoon'
-      activity: arts_and_crafts
+      activity: activity_arts_and_crafts
       body: |
         <p>
         Come join us for a wonderful Crafternoon! Each month will have a
@@ -650,7 +650,7 @@ source:
     -
       id: birthday_parties_room_rental
       title: 'Room Rental'
-      activity: birthday_parties
+      activity: activity_birthday_parties
       body: |
         <p>
         Looking for a fun and safe place for your child's next birthday party?
@@ -689,7 +689,7 @@ source:
     -
       id: birthday_parties_birthday_party
       title: 'Birthday Party'
-      activity: birthday_parties
+      activity: activity_birthday_parties
       body: |
         <p>
         Looking for a fun and safe place for your child's next birthday party?
@@ -727,7 +727,7 @@ source:
     -
       id: before_and_after_school_programs_2016_17_bellevue_no_school_days
       title: '2016/17 Bellevue: No School Days - Package Option'
-      activity: before_and_after_school_programs
+      activity: activity_before_after_school_programs
       body: |
         <p>
         Enroll for all the no school days the YMCA offers throughout the year
@@ -745,7 +745,7 @@ source:
     -
       id: before_and_after_school_programs_am_fit_and_fun
       title: 'AM Fit & Fun'
-      activity: academic_enrichment_youth
+      activity: activity_academic_enrichment_youth
       body: |
         <p>
         Enroll for all the no school days the YMCA offers throughout the year

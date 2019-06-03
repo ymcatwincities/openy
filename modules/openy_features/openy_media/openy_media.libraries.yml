@@ -1,5 +1,5 @@
 browser:
-  version: VERSION
+  version: 0.1
   js:
     js/browser.js: {}
   css:

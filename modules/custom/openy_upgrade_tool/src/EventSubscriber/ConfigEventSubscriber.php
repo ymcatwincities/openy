@@ -5,6 +5,7 @@ namespace Drupal\openy_upgrade_tool\EventSubscriber;
 use Drupal\Core\Config\ConfigCrudEvent;
 use Drupal\Core\Config\ConfigEvents;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\Component\Utility\DiffArray;
 use Drupal\openy_upgrade_tool\OpenyUpgradeLogManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
@@ -52,7 +53,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[ConfigEvents::SAVE][] = array('onSavingConfig', 800);
+    $events[ConfigEvents::SAVE][] = ['onSavingConfig', 800];
     return $events;
   }
 
@@ -65,6 +66,7 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function onSavingConfig(ConfigCrudEvent $event) {
+    // TODO: Find solution without global variable.
     global $_openy_config_import_event;
     $config = $event->getConfig();
     $original = $config->getOriginal();
@@ -86,6 +88,18 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
     }
     if (!$_openy_config_import_event) {
       // This config was updated outside Open Y profile.
+      $ignore = $this->upgradeLogManager->validateConfigDiff($config);
+      if ($ignore) {
+        // Skip tracking these changes according to ignore rules.
+        // @see Plugin/ConfigEventIgnore
+        return;
+      }
+
+      if (!$this->hasDiffFromOpenY($updated, $config_name)) {
+        // No need to track customization if result config similar is to Open Y.
+        return;
+      }
+
       $this->upgradeLogManager->saveLoggerEntity($config_name, $updated);
       $this->logger->warning($this->t('You have manual updated @name config from Open Y profile.', ['@name' => $config_name]));
     }
@@ -96,6 +110,29 @@ class ConfigEventSubscriber implements EventSubscriberInterface {
       }
       $this->logger->info($this->t('Open Y has upgraded @name config.', ['@name' => $config_name]));
     }
+  }
+
+  /**
+   * Check diff with Open Y config version.
+   *
+   * @param array $updated
+   *   Updated configuration data.
+   * @param string $config_name
+   *   Configuration name.
+   *
+   * @return bool
+   *   FALSE if no difference.
+   */
+  public function hasDiffFromOpenY($updated, $config_name) {
+    unset($updated['uuid'], $updated['_core']);
+    $openy_config_data = $this->upgradeLogManager
+      ->featuresManager
+      ->getExtensionStorages()
+      ->read($config_name);
+
+    $diff = DiffArray::diffAssocRecursive($openy_config_data, $updated);
+
+    return !empty($diff);
   }
 
 }
