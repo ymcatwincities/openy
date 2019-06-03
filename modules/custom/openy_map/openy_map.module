@@ -64,7 +64,7 @@ function openy_map_library_info_alter(&$libraries, $extension) {
     if ($key != 'https://maps.googleapis.com/maps/api/js') {
       continue;
     }
-    $api_key = \Drupal::configFactory()->get('geolocation.settings')->get('google_map_api_key');
+    $api_key = \Drupal::configFactory()->get('geolocation_google_maps.settings')->get('google_map_api_key');
     unset($libraries['gmaps']['js'][$key]);
     $libraries['gmaps']['js'][$key . '?key=' . $api_key] = $value;
   }

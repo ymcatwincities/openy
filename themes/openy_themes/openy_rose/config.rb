@@ -42,5 +42,5 @@ output_style = (environment == :development) ? :expanded : :compressed
 sass_options = (environment == :development && debug == true) ? {:debug_info => true} : {}
 
 # Generate sourcemaps
-sourcemap = true
+sourcemap = false
 Encoding.default_external = "utf-8"

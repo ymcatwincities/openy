@@ -95,3 +95,12 @@
     }
   }
 }
+
+.calendar-column {
+  .atcb-list {
+    &.active {
+      visibility: visible !important;
+      display: block !important;
+    }
+  }
+}

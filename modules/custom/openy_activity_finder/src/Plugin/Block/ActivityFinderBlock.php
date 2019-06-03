@@ -32,6 +32,7 @@ class ActivityFinderBlock extends BlockBase {
       '#categories' => $backend->getCategoriesTopLevel(),
       '#categories_type' => $backend->getCategoriesType(),
       '#locations' => $backend->getLocations(),
+      '#is_search_box_disabled' => $config->get('disable_search_box'),
       '#attached' => [
         'drupalSettings' => [
           'activityFinder' => [

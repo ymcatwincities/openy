@@ -353,48 +353,48 @@ function openy_rose_preprocess_html(&$variables) {
   // Preprocess the node to find all paragraphs and react on them.
   if (!empty($variables['node_type'])) {
     /** @var \Drupal\node\Entity\Node $node */
-    $node = \Drupal::routeMatch()->getParameter('node');
+    if (($node = \Drupal::routeMatch()->getParameter('node')) || ($node = \Drupal::routeMatch()->getParameter('node_preview'))) {
+      $paragraph_field_ids = [];
+      // Get all the entity reference revisions fields.
+      $map = \Drupal::service('entity_field.manager')
+        ->getFieldMapByFieldType('entity_reference_revisions');
 
-    $paragraph_field_ids = [];
-    // Get all the entity reference revisions fields.
-    $map = \Drupal::service('entity_field.manager')
-      ->getFieldMapByFieldType('entity_reference_revisions');
+      // Get all fields of the node with paragraphs.
+      $entity_type_id = 'node';
+      foreach ($map[$entity_type_id] as $name => $data) {
+        $target_type = FieldStorageConfig::loadByName($entity_type_id, $name)
+          ->getSetting('target_type');
 
-    // Get all fields of the node with paragraphs.
-    $entity_type_id = 'node';
-    foreach ($map[$entity_type_id] as $name => $data) {
-      $target_type = FieldStorageConfig::loadByName($entity_type_id, $name)
-        ->getSetting('target_type');
-
-      if ($target_type == 'paragraph' && $node->hasField($name)) {
-        $paragraph_field_ids[] = $name;
-      }
-    }
-
-    // Come through all paragraphs of all fields and execute relevant actions.
-    foreach ($paragraph_field_ids as $field_id) {
-      $field = $node->$field_id->getValue();
-      foreach ($field as $p) {
-        /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-        $paragraph = \Drupal::service('entity.manager')
-          ->getStorage('paragraph')
-          ->load($p['target_id']);
-
-        // Take action for microsites_menu paragraph.
-        if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
-          // Add class to the body.
-          $variables['attributes']['class'][] = 'microsites-menu';
-          if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
-            $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
-          }
-
-          // Finish search.
-          break 2;
+        if ($target_type == 'paragraph' && $node->hasField($name)) {
+          $paragraph_field_ids[] = $name;
         }
       }
-    }
-    if (empty($variables['node'])) {
-      $variables['node'] = $node;
+
+      // Come through all paragraphs of all fields and execute relevant actions.
+      foreach ($paragraph_field_ids as $field_id) {
+        $field = $node->$field_id->getValue();
+        foreach ($field as $p) {
+          /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+          $paragraph = \Drupal::service('entity.manager')
+            ->getStorage('paragraph')
+            ->load($p['target_id']);
+
+          // Take action for microsites_menu paragraph.
+          if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
+            // Add class to the body.
+            $variables['attributes']['class'][] = 'microsites-menu';
+            if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
+              $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
+            }
+
+            // Finish search.
+            break 2;
+          }
+        }
+      }
+      if (empty($variables['node'])) {
+        $variables['node'] = $node;
+      }
     }
   }
 

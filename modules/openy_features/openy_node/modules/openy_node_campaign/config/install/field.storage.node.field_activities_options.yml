@@ -19,6 +19,9 @@ settings:
     -
       value: field_prgf_campaign_activity
       label: 'Tracking Activity'
+    -
+      value: field_prgf_campaign_global_goal
+      label: 'Global Goal'
   allowed_values_function: ''
 module: options
 locked: false
