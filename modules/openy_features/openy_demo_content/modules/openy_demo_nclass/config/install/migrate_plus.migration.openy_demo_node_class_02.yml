@@ -14,7 +14,7 @@ source:
     -
       id: sports_classes_and_workshops_youth_fitness_challenge
       title: 'Youth Fitness Challenge'
-      activity: sports_classes_and_workshops_youth
+      activity: activity_sports_classes_and_workshops_youth
       body: |
         <p>
         Can you Lift an Elephant? Youth ages 10 - 14 have 8 weeks to leg press,
@@ -34,7 +34,7 @@ source:
     -
       id: sports_classes_and_workshops_youth_homezone
       title: 'HomeZone'
-      activity: sports_classes_and_workshops_youth
+      activity: activity_sports_classes_and_workshops_youth
       body: |
         <p>
         The Home School program has been designed to encourage children to get
@@ -55,7 +55,7 @@ source:
     -
       id: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
       title: 'AOA National Senior Health and Fitness Day'
-      activity: health_and_wellness_workshops
+      activity: activity_health_and_wellness_workshops
       body: |
         <p>You, your friends and neighbors are invited to the 7th annual
         celebration of National Senior Health and Fitness Day at the Northshore
@@ -112,7 +112,7 @@ source:
     -
       id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
       title: 'AOA Brain Agility - Class Fee, Spring 2017'
-      activity: health_and_wellness_workshops
+      activity: activity_health_and_wellness_workshops
       body: |
         <p>
         Brain Agility is about enhancing and maintaining your brain's ability
@@ -147,7 +147,7 @@ source:
     -
       id: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
       title: 'AOA Brain Agility - Materials Fee, Spring 2017'
-      activity: health_and_wellness_workshops
+      activity: activity_health_and_wellness_workshops
       body: |
         <p>
         Only NEW participants in Brain Agility will register for this
@@ -250,7 +250,7 @@ source:
     -
       id: samll_group_training_youth_small_group_training_tween_girl_power
       title: 'Small Group Training - Tween Girl Power!'
-      activity: samll_group_training_youth
+      activity: activity_small_group_training_youth
       body: |
         <p>
         Let the Y help your tween during these crucial adolescent years learn
@@ -273,7 +273,7 @@ source:
     -
       id: samll_group_training_youth_small_group_training_tween_titans
       title: 'Small Group Training - Tween Titans'
-      activity: samll_group_training_youth
+      activity: activity_small_group_training_youth
       body: |
         <p>
         Tween Fitness (for boys 8-13) Let the Y help your tween during these
@@ -296,7 +296,7 @@ source:
     -
       id: pilates_reformer_10_private_1hr_sessions
       title: 'Pilates Reformer - 10, private 1 hr sessions'
-      activity: personal_training
+      activity: activity_personal_training
       body: |
         <p>
         This unique class is performed on a specialized piece of equipment
@@ -328,7 +328,7 @@ source:
     -
       id: private_yoga_10_1hour_sessions
       title: 'Private Yoga - 10, 1-hour sessions'
-      activity: personal_training
+      activity: activity_personal_training
       body: |
         <h6>
         Private yoga is an incredible way to cultivate your yoga practice in
@@ -385,7 +385,7 @@ source:
     -
       id: pilates_reformer_duet_10_1hour_sessions
       title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
-      activity: personal_training
+      activity: activity_personal_training
       body: |
         <p>
         This unique class is performed on a specialized piece of equipment
@@ -426,7 +426,7 @@ source:
     -
       id: partner_personal_training_1_session
       title: 'Partner Personal Training - 1 session'
-      activity: personal_training
+      activity: activity_personal_training
       body: |
         <p>
         You and your partner will receive personalized interaction with direct
@@ -462,7 +462,7 @@ source:
     -
       id: health_improvement_livestrong_at_the_y
       title: 'LIVESTRONG at the YMCA'
-      activity: health_improvement
+      activity: activity_health_improvement
       body: |
         <p>
         Cancer is a life-changing disease that takes a tremendous physical and
@@ -488,7 +488,7 @@ source:
     -
       id: health_improvement_nutrition_consultation_initial
       title: 'Nutrition Consultation - Initial'
-      activity: health_improvement
+      activity: activity_health_improvement
       body: |
         <p>
         Get real answers to help dispel myths and misunderstandings about
@@ -519,7 +519,7 @@ source:
     -
       id: health_improvement_activly_changing_together
       title: 'ACT! Actively Changing Together'
-      activity: health_improvement
+      activity: activity_health_improvement
       body: |
         <p>
         ACT! is a 12 week program for youth 8-11 years and their parents
@@ -545,7 +545,7 @@ source:
     -
       id: climbing_adult_rock_climbing_sept
       title: 'Climbing - Adult Rock Climbing - September'
-      activity: climbing_adult
+      activity: activity_climbing_adult
       body: |
         <p>
         Tuesdays, Sept 5-26, 6pm-7pm. Adult Rock Climbing.
@@ -572,7 +572,7 @@ source:
     -
       id: climbing_adult_rock_climbing_oct
       title: 'Climbing - Adult Rock Climbing - October'
-      activity: climbing_adult
+      activity: activity_climbing_adult
       body: |
         <p>
         Tuesdays, Oct 3-24, 6pm-7pm. Adult Rock Climbing.
@@ -599,7 +599,7 @@ source:
     -
       id: climbing_adult_parent_child_sept
       title: 'Climbing - Parent/Child Climbing - September'
-      activity: climbing_adult
+      activity: activity_climbing_adult
       body: |
         <p>
         Mondays, Sept 11-25, 6pm-7pm. Parent AND Child Rock Climbing! $35/PAIR.
@@ -627,7 +627,7 @@ source:
     -
       id: climbing_adult_parent_child_oct
       title: 'Climbing - Parent/Child Climbing - October'
-      activity: climbing_adult
+      activity: activity_climbing_adult
       body: |
         <p>
         Mondays, Oct 2-23, 6pm-7pm. Parent AND Child Rock Climbing! $50/PAIR.
@@ -655,7 +655,7 @@ source:
     -
       id: small_group_and_specialty_training_adaptive_yoga
       title: 'Small Group Training - Adaptive Yoga'
-      activity: small_group_and_specialty_training
+      activity: activity_small_group_and_specialty_training
       body: |
         <p>
         Discover the benefits of a yoga practice designed for your body's unique
@@ -677,7 +677,7 @@ source:
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1
       title: 'Small Group Training - Pilates Reformer Level I'
-      activity: small_group_and_specialty_training
+      activity: activity_small_group_and_specialty_training
       body: |
         <p>
         This unique class is performed on a specialized piece of equipment
@@ -717,7 +717,7 @@ source:
     -
       id: small_group_and_specialty_training_pilates_reformer_intro
       title: 'Small Group Training - Pilates Reformer Intro'
-      activity: small_group_and_specialty_training
+      activity: activity_small_group_and_specialty_training
       body: |
         <p>
         This unique class is performed on a specialized piece of equipment
@@ -772,7 +772,7 @@ source:
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1_2
       title: 'Small Group Training - Pilates Reformer Level I/II'
-      activity: small_group_and_specialty_training
+      activity: activity_small_group_and_specialty_training
       body: |
         <p>
         This unique class is performed on a specialized piece of equipment
@@ -823,7 +823,7 @@ source:
     -
       id: weight_loss_lose_to_win_men
       title: 'Lose to Win for Men - Weight Loss Program'
-      activity: weight_loss
+      activity: activity_weight_loss
       body: |
         <p>
         This program is a great way to learn sustainable ways to eat healthier,
@@ -849,7 +849,7 @@ source:
     -
       id: weight_loss_lose_to_win
       title: 'Lose to Win - Weight Loss Program'
-      activity: weight_loss
+      activity: activity_weight_loss
       body: |
         <p>
         This program is a great way to learn sustainable ways to eat healthier,
@@ -875,7 +875,7 @@ source:
     -
       id: before_after_school_child_care_2016_17_woodmoor_non_school_days
       title: '2016/17 Woodmoor - (f) Non-School Days'
-      activity: before_and_after_school_child_care
+      activity: activity_before_after_school_child_care
       body: |
         <p>
         Our program at Woodmoor Elementary School helps kids reach their fullest
@@ -900,7 +900,7 @@ source:
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_plus
       title: '2016/17 Woodmoor - (b) After Plus Care'
-      activity: before_and_after_school_child_care
+      activity: activity_before_after_school_child_care
       body: |
         <p>
         Our program at Woodmoor Elementary School helps kids reach their fullest
@@ -925,7 +925,7 @@ source:
     -
       id: before_after_school_child_care_2016_17_woodmoor_after
       title: '2016/17 Woodmoor - (c) After Care'
-      activity: before_and_after_school_child_care
+      activity: activity_before_after_school_child_care
       body: |
         <p>
         Our program at Woodmoor Elementary School helps kids reach their fullest
@@ -954,7 +954,7 @@ source:
     -
       id: before_after_school_child_care_2016_17_sunrise_before_after
       title: '2016/17 Sunrise - (a) Before and After Care'
-      activity: before_and_after_school_child_care
+      activity: activity_before_after_school_child_care
       body: |
         <p>
         Our program at Sunrise Elementary School helps kids reach their fullest
@@ -979,7 +979,7 @@ source:
     -
       id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
       title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
-      activity: preschool_child_care
+      activity: activity_preschool_child_care
       body: |
         <p>
         In Y Preschool programs your child will develop skills to build
@@ -1003,7 +1003,7 @@ source:
     -
       id: preschool_child_care_2016_17_northshore_preschool_30m_4yr
       title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
-      activity: preschool_child_care
+      activity: activity_preschool_child_care
       body: |
         <p>
         In Y Preschool programs your child will develop skills to build
@@ -1027,7 +1027,7 @@ source:
     -
       id: discovery_day_camp_drop_off_carol_edwards_ctr_2017
       title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
-      activity: discovery_day_camp
+      activity: activity_discovery_day_camp
       body: |
         <p>
         Explore fun themes like Under the Sea and Medieval Madness through art,
@@ -1044,7 +1044,7 @@ source:
     -
       id: discovery_day_camp_drop_off_kenmore_elementary_2017
       title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
-      activity: discovery_day_camp
+      activity: activity_discovery_day_camp
       body: |
         <p>
         Explore fun themes like Under the Sea and Jungle Safari through art,
@@ -1061,7 +1061,7 @@ source:
     -
       id: discovery_day_camp_drop_off_Northshore_ymca_2017
       title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
-      activity: discovery_day_camp
+      activity: activity_discovery_day_camp
       body: |
         <p>
         Explore fun themes like Under the Sea and Medieval Madness through art,
@@ -1079,7 +1079,7 @@ source:
     -
       id: bold_one_wk_expeditions_cascade_challenge
       title: 'BOLD Cascade Challenge'
-      activity: bold_one_week_expeditions
+      activity: activity_bold_one_week_expeditions
       body: |
         <p>
         Do you want to get more out of your summer vacation? Then accept the
@@ -1105,7 +1105,7 @@ source:
     -
       id: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
       title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
-      activity: bold_one_week_expeditions
+      activity: activity_bold_one_week_expeditions
       body: |
         <p>
         This journey is a magical one week adventure on the Olympic Coast for
@@ -1129,7 +1129,7 @@ source:
     -
       id: bold_one_wk_expeditions_river_and_rocks
       title: 'BOLD Rivers and Rocks'
-      activity: bold_one_week_expeditions
+      activity: activity_bold_one_week_expeditions
       body: |
         <p>
         Escaping the soggy confines of Seattle to the sunny climbing and rafting
@@ -1154,7 +1154,7 @@ source:
     -
       id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
       title: 'BOLD Fishing and Backpacking in the North Cascades'
-      activity: bold_one_week_expeditions
+      activity: activity_bold_one_week_expeditions
       body: |
         <p>
         High in the Cascade Mountains is a land of clear mountain lakes full of
@@ -1176,7 +1176,7 @@ source:
     -
       id: earth_service_corps_about_yesc
       title: 'Earth Service Corps About YESC'
-      activity: earth_service_corps
+      activity: activity_earth_service_corps
       body: |
         <p>
         YMCA Earth Service Corps emerged out of an idea Bill Sieverling, then
@@ -1198,7 +1198,7 @@ source:
     -
       id: academic_success
       title: 'Academic Success'
-      activity: academic_success
+      activity: activity_academic_success
       body: |
         <p>
         This is where YMCA Powerful Schools comes in. We rely on generous
@@ -1219,7 +1219,7 @@ source:
     -
       id: class_cardio
       title: 'Cardio'
-      activity: activity_cardio
+      activity: activity_activity_cardio
       body: |
         <p>Cardio class.</p>
     -

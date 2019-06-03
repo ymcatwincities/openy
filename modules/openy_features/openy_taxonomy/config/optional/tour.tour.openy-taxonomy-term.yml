@@ -15,13 +15,13 @@ tips:
     id: term-overview
     plugin: text
     label: 'Taxonomy term form'
-    body: 'On this page you can create new taxonomy terms. When you open already existing taxonomy term, form will be populated with values.'
+    body: 'On this page you can create new taxonomy terms. When you open an already existing taxonomy term, this form will filled in with the current information for the term.'
     weight: 1
   term-name:
     id: term-name
     plugin: text
     label: 'Term Name'
-    body: 'This is the name given to the term in the Vocabulary.'
+    body: 'This is the name of the term in the Vocabulary.'
     weight: 2
     attributes:
       data-class: 'field--name-name'
@@ -37,7 +37,7 @@ tips:
     id: term-relations
     plugin: text
     label: 'Term relations'
-    body: 'In the relations drop down a user can select the parent of the term they are creating. The Root specifies the top level of the Vocabulary. [openy_tour:click:.color_picker]'
+    body: 'In the relations drop down, a user can select the parent of the term they are creating. The Root is the top level of the Vocabulary. You can place taxonomy terms under other terms though. For example, in your Amenities Vocabulary, Pool would be under Root, but you could place Waterslide as a taxonomy under Pool if desired.'
     weight: 4
     attributes:
       data-id: 'edit-relations'
@@ -45,7 +45,7 @@ tips:
     id: term-color
     plugin: text
     label: 'Term color'
-    body: 'In the color widget you can specify color. This field is specific for "Color" vocabulary and won`t be available in other taxonomy vocabularies.'
+    body: 'In the color widget you can specify color. This feature is only available in the "Color" vocabulary and won`t appear in other taxonomy vocabularies, such as Blogs or Amenities.'
     location: top
     weight: 5
     attributes:
@@ -54,7 +54,7 @@ tips:
     id: save-term
     plugin: text
     label: 'Save taxonomy term'
-    body: 'Click on save to commit all changes made on the page.'
+    body: 'Click on save to publish all changes made on the page.'
     location: top
     weight: 6
     attributes:

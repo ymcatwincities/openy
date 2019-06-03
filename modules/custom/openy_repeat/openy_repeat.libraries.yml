@@ -19,6 +19,8 @@ openy_repeat:
     - openy_system/moment
     - openy_repeat/bootstrap-datepicker
     - openy_repeat/openy_repeat.schedules
+    - openy_repeat/openy_repeat.natsort
+
 
 bootstrap-datepicker:
   version: 0.1
@@ -42,3 +44,8 @@ openy_repeat.schedules:
   version: 0.1
   js:
     js/schedules.js: {}
+
+openy_repeat.natsort:
+  version: 1.0
+  js:
+    /libraries/alphanum/alphanum.js: {}

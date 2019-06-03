@@ -9,12 +9,12 @@
  * Implements hook_theme().
  */
 function openy_hours_formatter_theme() {
-  return array(
-    'openy_hours_formatter' => array(
-      'variables' => array(
+  return [
+    'openy_hours_formatter' => [
+      'variables' => [
         'hours' => '',
         'week' => [],
-      ),
-    ),
-  );
+      ],
+    ],
+  ];
 }

@@ -223,11 +223,11 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['branch'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Branch'))
-      ->setDescription(t('Member branch ID.'))
+      ->setLabel(t('Branch / Facility'))
+      ->setDescription(t('Member branch/facility ID.'))
       ->setSetting('target_type', 'node')
       ->setSetting('handler', 'default')
-      ->setSetting('handler_settings', ['target_bundles' => ['branch' => 'branch']])
+      ->setSetting('handler_settings', ['target_bundles' => ['branch' => 'branch', 'facility' => 'facility']])
       ->setDisplayOptions('view', [
         'label'  => 'hidden',
         'type'   => 'branch',
@@ -309,6 +309,48 @@ class Member extends ContentEntityBase implements MemberInterface {
         'weight' => -3,
       ])
       ->setRequired(TRUE)
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['where_are_you_from'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Where Are You From?'))
+      ->setSettings(['target_type' => 'taxonomy_term'])
+      ->setSetting('handler', 'default')
+      ->setSetting('handler_settings', ['target_bundles' => ['where_are_you_from' => 'where_are_you_from']])
+      ->setDisplayOptions('view', [
+        'label'  => 'hidden',
+        'type'   => 'where_are_you_from',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type'     => 'entity_reference_autocomplete',
+        'weight'   => 5,
+        'settings' => [
+          'match_operator'    => 'CONTAINS',
+          'size'              => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder'       => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['is_non_y_member'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('User is non-Y member'))
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'boolean',
+        'weight' => -1,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'boolean',
+        'weight' => -1,
+      ])
+      ->setSettings([
+        'on_label' => t('Non-Y member'),
+        'off_label' => t('Y member'),
+      ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
@@ -420,7 +462,7 @@ class Member extends ContentEntityBase implements MemberInterface {
     $name .= ' ';
     $name .= $this->getLastName();
 
-    return $name;
+    return trim($name);
   }
 
   /**
@@ -504,6 +546,22 @@ class Member extends ContentEntityBase implements MemberInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function setWhereAreYouFrom($where_are_you_from) {
+    $this->set('where_are_you_from', $where_are_you_from);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setNonYMember($value) {
+    $this->set('is_non_y_member', $value);
+    return $this;
+  }
+
+  /**
    * Load Member from CRM values.
    *
    * @param $membershipID
@@ -511,6 +569,8 @@ class Member extends ContentEntityBase implements MemberInterface {
    *
    * @return bool | \Drupal\openy_campaign\Entity\Member
    *   FALSE or Member object.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public static function loadMemberFromCRMData($membershipID) {
     /** @var $client \Drupal\openy_campaign\CRMClientInterface */
@@ -578,6 +638,7 @@ class Member extends ContentEntityBase implements MemberInterface {
       'order_number' => $resultsCRM->OrderNumber,
       'payment_type' => '',
       'member_unit_type' => $productCode,
+      'is_non_y_member' => FALSE,
     ];
 
     // Load Member by unique Membership ID.
@@ -601,6 +662,46 @@ class Member extends ContentEntityBase implements MemberInterface {
       ->getStorage('openy_campaign_member')
       ->create($memberValues);
 
+    return $member;
+  }
+
+  /**
+   * Load Member by invite code.
+   *
+   * @param $invite_code
+   *   int Invite code.
+   *
+   * @return bool|\Drupal\openy_campaign\Entity\Member
+   *   FALSE or Member object.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   */
+  public static function loadMemberFromInvite($invite_code) {
+    // Create Member entity.
+    $memberValues = [
+      'membership_id' => $invite_code,
+      'is_non_y_member' => TRUE,
+    ];
+
+    // Load Member by unique Membership ID.
+    $query = \Drupal::entityQuery('openy_campaign_member')
+      ->condition('membership_id', $invite_code);
+    $result = $query->execute();
+    if (!empty($result)) {
+      $memberID = reset($result);
+      $member = Member::load($memberID);
+
+      // Update Member entity with values.
+      foreach ($memberValues as $field => $value) {
+        $member->set($field, $value);
+      }
+      return $member;
+    }
+
+    /** @var Member $member Otherwise create temporary Member object. Will be saved later. */
+    $member = \Drupal::entityTypeManager()
+      ->getStorage('openy_campaign_member')
+      ->create($memberValues);
     return $member;
   }
 

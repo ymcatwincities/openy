@@ -5,8 +5,8 @@ dependencies:
     module:
       - openy_demo_nnews
 id: openy_demo_lp_paragraph_news_posts_listing
-migration_tags:
-  - 'Open Y Demo News'
+migration_tags: { }
+# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nnews
 label: 'Create news posts listing paragraph(s) for demo landing page nodes'
 migration_dependencies: {  }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies';
-import renderHTML from 'react-render-html';
+import parse from 'html-react-parser';
 import { closeAlert } from '../../actions/helpers';
 import connect from 'react-redux/es/connect/connect';
 
@@ -54,10 +54,10 @@ class AlertItem extends Component {
               )}
               <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <div className="site-alert__title">
-                  {renderHTML(this.props.label)}
+                  {parse(this.props.label)}
                 </div>
                 <div className="site-alert__content footer-alert__content">
-                  {renderHTML(this.props.description)}
+                  {parse(this.props.description)}
                 </div>
               </div>
               {this.props.linkTitle && (
@@ -74,10 +74,11 @@ class AlertItem extends Component {
                 href="#close"
                 className="site-alert__dismiss"
                 onClick={() => closeItem()}
+                aria-label="Close alert"
               >
                 <i className="fa fa-times" aria-hidden="true">
                   <span className="visually-hidden">
-                    Close alert {renderHTML(this.props.label)}
+                    Close alert {parse(this.props.label)}
                   </span>
                 </i>
               </a>

@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update routines.
+ */
+
+/**
+* Update configs.
+*/
+function openy_activity_finder_update_8001() {
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/install');
+  $cim->importConfigs([
+    'openy_activity_finder.settings',
+    'search_api.index.default'
+  ]);
+}
