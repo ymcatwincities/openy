@@ -13,6 +13,11 @@ abstract class OpenyActivityFinderBackend implements OpenyActivityFinderBackendI
   protected $config;
 
   /**
+   * Site's default timezone.
+   */
+  protected $timezone;
+
+  /**
    * Run Programs search.
    *
    * @param $parameters
@@ -29,6 +34,7 @@ abstract class OpenyActivityFinderBackend implements OpenyActivityFinderBackendI
 
   public function __construct(ConfigFactoryInterface $config_factory) {
     $this->config = $config_factory->get('openy_activity_finder.settings');
+    $this->timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
   }
 
   /**

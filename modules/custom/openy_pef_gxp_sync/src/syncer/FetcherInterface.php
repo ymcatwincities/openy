@@ -11,6 +11,8 @@ interface FetcherInterface {
 
   /**
    * Fetch data.
+   *
+   * @throws \Drupal\openy_pef_gxp_sync\OpenYPefGxpSyncException
    */
   public function fetch();
 

@@ -125,6 +125,9 @@ class ActivityTrackingController extends ControllerBase {
     $dateRoute = \DateTime::createFromFormat('Y-m-d', $visit_date);
     $date = new \DateTime($dateRoute->format('d-m-Y'));
     $dateStamp = $date->format('U');
+    if (!array_key_exists('activities', $params)) {
+      $params['activities'] = NULL;
+    }
     $activityIds = $params['activities'];
     $activities_count = isset($params['activities_count']) ? $params['activities_count'] : [];
 
@@ -165,7 +168,12 @@ class ActivityTrackingController extends ControllerBase {
     $utilizationActivitySaved = FALSE;
 
     // Save new selection.
-    $activityIds = array_filter($activityIds);
+    if ($activityIds) {
+      $activityIds = array_filter($activityIds);
+    }
+    else {
+      $activityIds = [];
+    }
 
     foreach ($activityIds as $activityTermId) {
       $activityCount = 0.0;

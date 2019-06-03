@@ -76,7 +76,7 @@
       {{ title_suffix }}
     </div>
   </section>
-  {% set is_header = (field_alert_place['#items'].getString() == 'header') %}
+  {% set is_header = (content.field_alert_place['#items'].getString() == 'header') %}
   {% if is_header %}
     {% include 'node--alert--node-alert-header.html.twig' %}
   {% else %}

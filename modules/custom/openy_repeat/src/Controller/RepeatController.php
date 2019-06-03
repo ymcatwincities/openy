@@ -101,7 +101,7 @@ class RepeatController extends ControllerBase {
    */
   public function getData($request, $location, $date, $category) {
     if (empty($date)) {
-      $date = date('F j, l 00:00:00');
+      $date = date('Y-m-d');
     }
     $date = strtotime($date);
 
@@ -184,15 +184,18 @@ class RepeatController extends ControllerBase {
     }
     $classes_info = $this->getClassesInfo($classesIds);
 
+    $class_name = [];
     foreach ($result as $key => $item) {
       $result[$key]->location_info = $locations_info[$item->location];
 
       if (isset($classes_info[$item->class]['path'])) {
         $query = UrlHelper::buildQuery([
-          'session' => $item->session,
           'location' => $locations_info[$item->location]['nid'],
         ]);
-        $classes_info[$item->class]['path'] .= '?' . $query;
+        if (!in_array($item->name, $class_name)) {
+          $classes_info[$item->class]['path'] .= '?' . $query;
+          $class_name[] = $item->name;
+        }
       }
 
       $result[$key]->class_info = $classes_info[$item->class];
