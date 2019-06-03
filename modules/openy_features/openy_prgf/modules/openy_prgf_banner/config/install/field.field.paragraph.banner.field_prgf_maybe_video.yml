@@ -15,7 +15,7 @@ field_name: field_prgf_maybe_video
 entity_type: paragraph
 bundle: banner
 label: 'Add video insted of image'
-description: 'Check it on and you can add video instead of image.'
+description: 'Check it on and you will get ability to add video instead of image.'
 required: false
 translatable: false
 default_value:
