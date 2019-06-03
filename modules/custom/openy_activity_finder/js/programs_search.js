@@ -6,8 +6,8 @@
   }
 
   var router = new VueRouter({
-      mode: 'history',
-      routes: []
+    mode: 'history',
+    routes: []
   });
 
   Vue.component('sidebar-filter', {
@@ -16,14 +16,21 @@
       return {
         checkboxes: [],
         checked: [],
-        expanded: true,
+        expanded: false,
         expanded_checkboxes: {},
         dependencies: {},
       }
     },
     created: function() {
       this.checkboxes = JSON.parse(this.options);
-      this.checked = this.default.split(',');
+      if (typeof this.default !== 'undefined') {
+        this.checked = this.default.split(',').map(function (item) {
+          if (isNaN(item)) {
+            return item;
+          }
+          return +item;
+        });
+      }
       for (var i in this.checkboxes) {
         checkbox = this.checkboxes[i];
         if (typeof checkbox == 'object') {
@@ -55,6 +62,9 @@
         return string.replace(/^[0-9a-zA-Z]/g, '-');
       },
       getOption: function(data) {
+        if (!isNaN(data.value)) {
+          return data.value * 1;
+        }
         return data.value;
       },
       getLabel: function(data) {
@@ -64,6 +74,15 @@
         var label = this.getLabel(checkbox);
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
+      collapseAllGroups: function(checkbox) {
+        var label = this.getLabel(checkbox);
+        // Close all other expanded groups.
+        for (var i in this.expanded_checkboxes) {
+          if (i !== label && this.expanded_checkboxes[i] !== false) {
+            this.expanded_checkboxes[i] = false;
+          }
+        }
+      },
       groupStatus: function(value) {
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
@@ -72,7 +91,11 @@
         var foundChecked = false;
         var foundUnChecked = false;
         for (var i in this.dependencies[value]) {
-          if (this.checked.indexOf(this.dependencies[value][i]) != -1) {
+          var val = this.dependencies[value][i];
+          if (!isNaN(val)) {
+            val = +val;
+          }
+          if (this.checked.indexOf(val) != -1) {
             foundChecked = true;
           }
           else {
@@ -95,7 +118,6 @@
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
         }
-
         var removeValue = (this.groupStatus(value) == 'all' || this.groupStatus(value) == 'partial');
         for (var i in this.dependencies[value]) {
           var key = this.checked.indexOf(this.dependencies[value][i]);
@@ -104,11 +126,24 @@
           }
           // If we need to add and it was not checked yet.
           if (key == -1 && !removeValue) {
-            Vue.set(this.checked, this.checked.length, this.dependencies[value][i]);
+            var setVal = this.dependencies[value][i];
+            if (!isNaN(setVal)) {
+              setVal = +setVal;
+            }
+            Vue.set(this.checked, this.checked.length, setVal);
           }
           // If already checked but we need to uncheck.
           if (key != -1 && removeValue) {
-            Vue.set(this.checked, key, '');
+            for (let k = 0; k < this.dependencies[value].length; k++) {
+              for (let j = 0; j < this.checked.length; j++) {
+                if (this.checked[j] == this.dependencies[value][k]) {
+                  this.checked.splice(this.checked.indexOf(this.dependencies[value][k]), 1);
+                }
+                if (this.checked[j] == this.dependencies[value][k].toString()) {
+                  this.checked.splice(this.checked.indexOf(this.dependencies[value][k].toString()), 1);
+                }
+              }
+            }
           }
         }
       }
@@ -122,11 +157,11 @@
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
-    '                     v-bind:class="{\'col-xs-4 col-4 col-sm-4\': type == \'tabs\'}">' +
-                         // No parent checkbox.
+    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\'}">' +
+    // No parent checkbox.
     '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
-                         // Locations with sub-locations/branches.
+    // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
     '                       <a v-show="expanded" v-on:click.stop.prevent="selectDependent(getLabel(checkbox))" href="#" v-bind:class="{ ' +
     '                         \'checkbox-unchecked\': groupStatus(getLabel(checkbox)) == \'none\', ' +
@@ -137,7 +172,7 @@
     '                       <input v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked">\n' +
     '                       <label v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" >{{ getLabel(checkbox) }}</label>\n' +
     '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
-    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
+    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
     '                         <span v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" class="fa fa-angle-up" aria-hidden="true"></span>' +
     '                       </a>' +
     '                    </div>' +
@@ -231,8 +266,10 @@
       table: {},
       loading: false,
       count: '',
-      pages: { 0:'' },
-      current_page: 0,
+      pages: {},
+      pager_info: {},
+      current_page: 1,
+      activeClass: 'active',
       keywords: '',
       locations: [],
       ages: [],
@@ -240,9 +277,12 @@
       categories: [],
       categoriesExcluded: [],
       categoriesLimit: [],
+      sort: '',
       moreInfoPopupLoading: false,
       runningClearAllFilters: false,
       afPageRef: '',
+      no_results: 0,
+      alternativeCriteria: '',
       locationPopup: {
         address: '',
         email: '',
@@ -271,7 +311,8 @@
         location_phone: '',
         availability_status: '',
         availability_note: '',
-        link: ''
+        link: '',
+        learn_more: ''
       }
     },
     created: function() {
@@ -279,6 +320,9 @@
 
       if (typeof this.$route.query.locations != 'undefined') {
         var locationsGet = decodeURIComponent(this.$route.query.locations);
+        for (let i = 0; i < locationsGet.length; i++) {
+          locationsGet[i] = +locationsGet[i];
+        }
         if (locationsGet) {
           this.locations = locationsGet.split(',');
         }
@@ -286,6 +330,9 @@
 
       if (typeof this.$route.query.categories != 'undefined') {
         var categoriesGet = decodeURIComponent(this.$route.query.categories);
+        for (let i = 0; i < categoriesGet.length; i++) {
+          categoriesGet[i] = +categoriesGet[i];
+        }
         if (categoriesGet) {
           this.categories = categoriesGet.split(',');
         }
@@ -322,28 +369,35 @@
       component.$watch('locations', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
       component.$watch('categories', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue != oldValue) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
       component.$watch('ages', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
       component.$watch('days', function(newValue, oldValue){
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
-        if (!component.runningClearAllFilters && newValue.length != oldValue.length) {
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+          component.runAjaxRequest();
+        }
+      });
+      component.$watch('sort', function(newValue, oldValue){
+        newValue = component.arrayFilter(newValue);
+        oldValue = component.arrayFilter(oldValue);
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
@@ -353,21 +407,51 @@
         if (typeof array != 'array') {
           return array;
         }
-        return array.filter(function(word){ return word.length > 0 && word != 'undefined'; });
+        return array.filter(function(word){ return word.length > 0 && word != 'undefined'; }).map(function (word) {
+          if (isNaN(word)) {
+            return word;
+          }
+          return +word;
+        });
       },
-      runAjaxRequest: function() {
+      runAjaxRequest: function(reset_pager = true) {
         var component = this;
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
-        var query = [];
-        var cleanLocations = this.locations.filter(function(word){ return word; });
+        // If alternative search provided modify parameters to get some results for most important criteria.
+        if (typeof this.alternativeCriteria !== 'undefined') {
+          switch (this.alternativeCriteria) {
+            case 'day':
+              this.locations = [];
+              this.categories = [];
+              this.$refs.locations_filter.clear();
+              this.$refs.categories_filter.clear();
+              break;
+            case 'program':
+              this.days = [];
+              this.locations = [];
+              this.$refs.locations_filter.clear();
+              this.$refs.days_filter.clear();
+              break;
+            case 'location':
+              this.days = [];
+              this.categories = [];
+              this.$refs.categories_filter.clear();
+              this.$refs.days_filter.clear();
+              break;
+          }
+          this.alternativeCriteria = '';
+        }
+
+        var query = [],
+        cleanLocations = this.locations.map(function(word){ return word; });
         if (cleanLocations.length > 0) {
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
         if (this.keywords.length > 0 && this.keywords != 'undefined') {
           query.push('keywords=' + encodeURIComponent(this.keywords));
         }
-        var cleanCategories = this.categories.filter(function(word){ return word; });
+        var cleanCategories = this.categories.map(function(word){ return word; });
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
@@ -379,9 +463,20 @@
         if (cleanDays.length > 0) {
           query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
-        if (typeof this.pages[this.current_page] != 'undefined') {
-          query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
-          query.push('page=' + encodeURIComponent(this.current_page + 1));
+        if (typeof this.current_page != 'undefined' && this.current_page > 0) {
+          // Undefined pager_info means it is Daxko.
+          if (typeof pager_info == 'undefined' && typeof this.pages[this.current_page] != 'undefined') {
+            query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
+          }
+
+          // Reset pager if any of filters has changed in order to load 1st page.
+          if (reset_pager === true) {
+            this.current_page = 1;
+          }
+          query.push('page=' + encodeURIComponent(this.current_page));
+        }
+        if (typeof this.sort != 'undefined' && this.sort !== '') {
+          query.push('sort=' + encodeURIComponent(this.sort));
         }
 
         if (query.length > 0) {
@@ -394,20 +489,40 @@
           component.table = data.table;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
+          component.pager_info = data.pager_info;
+          component.no_results = data.count > 0 ? '0' : '1';
+          component.sort = data.sort;
+
+          router.push({ query: {
+            locations: cleanLocations.join(','),
+            categories: cleanCategories.join(','),
+            ages: cleanAges.join(','),
+            days: cleanDays.join(','),
+            keywords: component.keywords,
+            page: component.page,
+            no_results: component.no_results,
+            sort: component.sort,
+          }});
+        }).done(function() {
           component.loading = false;
         });
-
-        router.push({ query: {
-          locations: cleanLocations.join(','),
-          categories: cleanCategories.join(','),
-          ages: cleanAges.join(','),
-          days: cleanDays.join(','),
-          keywords: this.keywords,
-          page: this.page
-        }});
+      },
+      searchAlternativeResults: function(type) {
+        this.alternativeCriteria = type;
+        this.runAjaxRequest();
       },
       populatePopupLocation: function(index) {
+        this.table[index].location_info.address = this.convertAddressField(this.table[index].location_info.address);
         this.locationPopup = this.table[index].location_info;
+      },
+      convertAddressField: function(address) {
+        address = address.split(',').map(function(item) {return item.trim()});
+        let address_out = address[0] ? address[0] : '';
+        address_out += '<br />';
+        address_out += address[1] ? address[1] + ', ' : '';
+        address_out += address[2] ? address[2] + ' ': '';
+        address_out += address[3] ? address[3] : '';
+        return address_out;
       },
       populatePopupMoreInfo: function(index) {
         var component = this;
@@ -425,14 +540,17 @@
           component.moreInfoPopup.times = component.table[index].times;
           component.moreInfoPopup.days = component.table[index].days;
 
+          component.moreInfoPopup.location_url = drupalSettings.path.baseUrl + 'node/' + component.table[index].location_info.nid;
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
-          component.moreInfoPopup.location_address = component.table[index].location_info.address;
+
+          component.moreInfoPopup.location_address = this.convertAddressField(component.table[index].location_info.address);
           component.moreInfoPopup.location_phone = component.table[index].location_info.phone;
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
+          component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
 
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
@@ -473,7 +591,8 @@
           component.moreInfoPopup.description = component.table[index].description;
 
           component.moreInfoPopup.price = component.table[index].price;
-          component.moreInfoPopup.ages = component.table[index].ages;
+          let age_output = component.table[index].ages;
+          component.moreInfoPopup.ages = age_output;
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
@@ -494,6 +613,7 @@
           component.availabilityPopup.price = component.table[index].price;
         });
       },
+
       clearFilters: function() {
         this.runningClearAllFilters = true;
         this.locations = [];
@@ -510,12 +630,17 @@
       loadPrevPage: function() {
         this.current_page--;
         this.table = [];
-        this.runAjaxRequest();
+        this.runAjaxRequest(false);
       },
       loadNextPage: function() {
         this.current_page++;
         this.table = [];
-        this.runAjaxRequest();
+        this.runAjaxRequest(false);
+      },
+      loadPageNumber: function(number) {
+        this.current_page = number;
+        this.table = [];
+        this.runAjaxRequest(false);
       }
     },
     delimiters: ["${","}"]

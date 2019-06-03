@@ -16,7 +16,7 @@
     <h2>
       <button v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button" aria-label="previous date"><i class="fa fa-angle-left"></i></button>
       <span class="date" v-cloak>${ dateFormatted }</span>
-      <button v-on:click.stop="forwardOneDay" class="schedule-dashboard__arrow right" role="button" aria-label="next date"><i class="fa fa-angle-right"></i></button>
+      <button v-on:click.stop="forwardOneDay" v-if="showForwardArrow" class="schedule-dashboard__arrow right" role="button" aria-label="next date"><i class="fa fa-angle-right"></i></button>
     </h2>
   </div>
 
@@ -140,7 +140,7 @@
               <td><label>{{ 'Call'|t }}</label></td>
               <td><a v-bind:href="'tel:' + locationPopup.phone">${ locationPopup.phone }</a></td>
             </tr>
-            <tr>
+            <tr v-if="locationPopup.email">
               <td><label>{{ 'Email'|t }}</label></td>
               <td><a v-bind:href="'mailto:' + locationPopup.email">${ locationPopup.email }</a></td>
             </tr>

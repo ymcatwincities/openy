@@ -11,11 +11,16 @@ dependencies:
     - field.storage.node.field_category_program
     - field.storage.node.field_session_time
     - field.storage.paragraph.field_session_time_days
+    - field.storage.node.field_session_mbr_price
+    - field.storage.node.field_session_nmbr_price
+    - field.storage.paragraph.field_session_time_date
     - search_api.server.solr
   module:
     - node
     - paragraphs
     - search_api
+_core:
+  default_config_hash: jeqriDXA-iNZIZ0eP_1GU_RRKOemook1aL46CEIqKZA
 id: default
 name: Default
 description: ''
@@ -124,6 +129,43 @@ field_settings:
         - field.storage.paragraph.field_session_time_days
       module:
         - paragraphs
+  field_session_mbr_price:
+    label: 'Member price'
+    datasource_id: 'entity:node'
+    property_path: field_session_mbr_price
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_session_mbr_price
+  field_session_nmbr_price:
+    label: 'Non Member Price'
+    datasource_id: 'entity:node'
+    property_path: field_session_nmbr_price
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_session_nmbr_price
+  field_session_time_date:
+    label: 'Date & Time'
+    datasource_id: 'entity:node'
+    property_path: 'field_session_time:entity:field_session_time_date'
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_session_time
+        - field.storage.paragraph.field_session_time_date
+      module:
+        - paragraphs
+  field_session_class:
+    label: Class
+    datasource_id: 'entity:node'
+    property_path: 'field_session_class:entity:title'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_session_class
+      module:
+        - node
 datasource_settings:
   'entity:node':
     bundles:

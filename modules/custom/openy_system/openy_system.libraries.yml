@@ -11,12 +11,12 @@ addtocal:
 vue:
   version: 0.1
   js:
-    assets/js/vue/vue.min.js: {}
+    /libraries/vue/dist/vue.min.js: {}
 
 vue_router:
   version: 0.1
   js:
-    assets/js/vue/vue-router.js: {}
+    /libraries/vue-router/dist/vue-router.min.js: {}
     
 moment:
   version: 0.1

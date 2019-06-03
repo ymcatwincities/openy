@@ -20,7 +20,6 @@
     <div class="col col-xs-8 col-sm-8">
       <h4>{{ 'Select one or more locations'|t }}</h4>
     </div>
-
     {% if locations is not empty %}
     <div class="col col-xs-4 col-sm-4 col-md text-right">
       <button class="btn btn-primary btn-lg submit-locations js-submit-locations disabled">{{ 'Next'|t }}</button>
@@ -31,7 +30,7 @@
 
   <div class="js-locations-row row row-eq-height">
     {% if locations is not empty %}
-      {% for partlocations in locations|batch(locations|length / 2, '') %}
+      {% for partlocations in locations|batch(locations|length / 3, '') %}
         <div class="col-xs-12 col-sm-4">
           {% for loc in partlocations %}
             {% if loc is not empty %}
@@ -46,6 +45,12 @@
           {% endfor %}
         </div>
       {% endfor %}
+    {% endif %}
+
+    {% if locations is not empty %}
+      <div class="col col-xs-12 text-right">
+        <button class="btn-mobile btn btn-primary btn-lg submit-locations js-submit-locations disabled">{{ 'Next'|t }}</button>
+      </div>
     {% endif %}
   </div>
 </div>
