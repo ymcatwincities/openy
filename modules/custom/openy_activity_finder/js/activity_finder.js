@@ -42,6 +42,8 @@
       checkedLocations: [],
       rebuildBreadcrumbs: 5,
       categories: {},
+      limitCategory: [],
+      categoriesExclude: [],
       daysMap: {
         1: 'Mon',
         2: 'Tue',
@@ -364,6 +366,15 @@
       jsUcfirst: function(value) {
         return value.charAt(0).toUpperCase() + value.slice(1);
       },
+      categoryIsNotExcluded: function(value) {
+        for (var i in this.categoriesExclude) {
+          // Do not use strict comparison === here in order to support string values.
+          if (this.categoriesExclude[i] == value) {
+            return false;
+          }
+        }
+        return true;
+      },
     },
     computed: {
       cleanCheckedAges: function() {
@@ -517,6 +528,24 @@
       component.hideProgramStep = 'OpenY' in window ? window.OpenY.field_prgf_hide_program_categ[0]['value'] : '';
       // Get 1/0 from paragraph's field.
       component.hideLocationStep = 'OpenY' in window ? window.OpenY.field_prgf_hide_loc_select_step[0]['value'] : '';
+      // Get limit category if any.
+      if ('OpenY' in window && typeof window.OpenY.field_prgf_af_categ != 'undefined') {
+        for (var i in window.OpenY.field_prgf_af_categ) {
+          component.limitCategory.push(window.OpenY.field_prgf_af_categ[i]['id']);
+          // Hide program selection step if any category has been selected.
+          component.hideProgramStep = 1;
+          // Pre populate categories.
+          component.checkedCategories.push(window.OpenY.field_prgf_af_categ[i]['id']);
+          // Make step 1 initial.
+          component.step = 1;
+        }
+      }
+      // Get exclude categories if any.
+      if ('OpenY' in window && typeof window.OpenY.field_prgf_af_categ_excl != 'undefined') {
+        for (var i in window.OpenY.field_prgf_af_categ_excl) {
+          component.categoriesExclude.push(window.OpenY.field_prgf_af_categ_excl[i]['id']);
+        }
+      }
       if (this.hideProgramStep == 1) {
         this.total_steps--;
       }
