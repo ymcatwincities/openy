@@ -9,3 +9,4 @@ alert:
   dependencies:
     - core/drupal
     - core/jquery
+    - openy_system/jquery.matchHeight
