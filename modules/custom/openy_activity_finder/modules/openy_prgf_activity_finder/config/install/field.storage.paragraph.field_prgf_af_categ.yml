@@ -1,0 +1,20 @@
+uuid: eecbdf70-1d23-49d4-9844-1103503eccc9
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - paragraphs
+id: paragraph.field_prgf_af_categ
+field_name: field_prgf_af_categ
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

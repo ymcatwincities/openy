@@ -357,9 +357,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       foreach ($facet as $i => $item) {
         if ($f == 'static_age_filter') {
           $facets[$f][$i] = [
-            'filter' => $i,
-            'label' => $item,
-            'safe' => 'age_' . str_replace('+', '', $i) . '_months',
+            'count' => $this->getNumberOfResultsForAge($item['value'], $facets['field_session_min_age'], $facets['field_session_max_age']),
+            'filter' => $item['value'],
+            'label' => $item['label'],
+            'safe' => 'age_' . $item['value'] . '_months',
           ];
         }
       }
@@ -730,6 +731,27 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     }
     $age_output = implode($ages_y, ' - ');
     return $age_output;
+  }
+
+  /*
+   * Returns number of results for static age filter.
+   */
+  public function getNumberOfResultsForAge($value, $min_ages, $max_ages) {
+    $count = 0;
+    $value = (int) $value;
+    foreach ($min_ages as $min_age) {
+      $a = (int) $min_age['filter'];
+      if ($value >= $a && $a !== '!' && $min_age['count'] != 0) {
+        foreach ($max_ages as $max_age) {
+          $b = (int) $max_age['filter'];
+          if ($value <= $b && $b !== '!' && $max_age['count'] != 0) {
+            $count++;
+            return $count;
+          }
+        }
+      }
+    }
+    return $count;
   }
 
 }
