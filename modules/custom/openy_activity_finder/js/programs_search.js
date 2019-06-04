@@ -83,6 +83,31 @@
           }
         }
       },
+      checkboxIsExcluded: function(title, value) {
+      var component = this.$parent;
+        switch (title) {
+          case "Age":
+            if (typeof component.facets.static_age_filter !== 'undefined') {
+              for (var i in component.facets.static_age_filter) {
+                if (component.facets.static_age_filter[i]['filter'] == value && component.facets.static_age_filter[i]['count'] === 0) {
+                  return true;
+                }
+              }
+            }
+            break;
+          case "Days":
+
+            if (typeof component.daysMap[value] !== 'undefined' && typeof component.facets.days_of_week !== 'undefined' && typeof component.facets.days_of_week[value]['filter'] !== 'undefined') {
+              for (var i in component.facets.days_of_week) {
+                if (component.facets.days_of_week[i]['filter'] == component.daysMap[value] && component.facets.days_of_week[i]['count'] === 0) {
+                  return true;
+                }
+              }
+            }
+            break;
+        }
+        return false;
+      },
       groupStatus: function(value) {
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
@@ -157,9 +182,9 @@
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
-    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\'}">' +
+    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsExcluded(title, getOption(checkbox))}">' +
     // No parent checkbox.
-    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
+    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
@@ -266,6 +291,7 @@
       table: {},
       loading: false,
       count: '',
+      facets: [],
       pages: {},
       pager_info: {},
       current_page: 1,
@@ -283,6 +309,15 @@
       afPageRef: '',
       no_results: 0,
       alternativeCriteria: '',
+      daysMap: {
+        1: 'monday',
+        2: 'tuesday',
+        3: 'wednesday',
+        4: 'thursday',
+        5: 'friday',
+        6: 'saturday',
+        7: 'sunday',
+      },
       locationPopup: {
         address: '',
         email: '',
@@ -487,6 +522,7 @@
 
         $.getJSON(url, function(data) {
           component.table = data.table;
+          component.facets = data.facets;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
