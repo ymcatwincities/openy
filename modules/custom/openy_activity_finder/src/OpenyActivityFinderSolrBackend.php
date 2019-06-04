@@ -275,9 +275,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         }
         $schedule_items[] = [
           'days' => implode(', ', $days),
-          'time' => $_from->format('g:i') .'-'. $_to->format('g:i a'),
+          'time' => $_from->format('g:ia') . '-' . $_to->format('g:ia'),
         ];
-        $full_dates = $_from->format('m/d/y') . ' - ' . $_to->format('m/d/y');
+        $full_dates = $_from->format('M d') . '-' . $_to->format('M d');
+        $weeks = floor($_from->diff($_to)->days/7);
       }
 
       $availability_status = 'closed';
@@ -306,6 +307,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'availability_note' => $availability_note,
         'availability_status' => $availability_status,
         'dates' => isset($full_dates) ? $full_dates : '',
+        'weeks' => isset($weeks) ? $weeks : '',
         'schedule' => $schedule_items,
         'days' => isset($schedule_items[0]['days']) ? $schedule_items[0]['days'] : '',
         'times' => isset($schedule_items[0]['time']) ? $schedule_items[0]['time'] : '',
@@ -313,7 +315,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'location_info' => $locations_info[$fields['field_session_location']->getValues()[0]],
         'log_id' => $log_id,
         'name' => $fields['title']->getValues()[0]->getText(),
-        'price' => 'Member: $' . $entity->field_session_mbr_price->value . '<br/>Non-Member: $' . $entity->field_session_nmbr_price->value,
+        'price' => '$' . $entity->field_session_mbr_price->value . '(member), $' . $entity->field_session_nmbr_price->value . '(non-member)',
         'link' => Url::fromRoute('openy_activity_finder.register_redirect', [
             'log' => $log_id,
           ],
@@ -332,7 +334,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'location_name' => '',
         'location_address' => '',
         'location_phone' => '',
-        'spots_available' => !empty($entity->field_availability->value) ? $entity->field_availability->value . ' open spots' : '',
+        'spots_available' => !empty($entity->field_availability->value) ? $entity->field_availability->value : '',
         'status' => $availability_status,
         'note' => $availability_note,
         'learn_more' => !empty($learn_more) ? $learn_more : '',

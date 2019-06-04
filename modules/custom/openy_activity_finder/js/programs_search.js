@@ -339,6 +339,7 @@
         ages: '',
         gender: '',
         dates: '',
+        weeks: '',
         times: '',
         days: '',
         location_name: '',
@@ -573,6 +574,7 @@
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
+          component.moreInfoPopup.weeks = component.table[index].weeks;
           component.moreInfoPopup.times = component.table[index].times;
           component.moreInfoPopup.days = component.table[index].days;
 
