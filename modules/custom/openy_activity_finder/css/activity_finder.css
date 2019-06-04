@@ -1,0 +1,297 @@
+/* Activity Finder Application */
+.activity-finder__wrapper {
+  margin-bottom: 3rem;
+}
+
+/* Activity Finder > Form (Step 1) */
+.program-search__form--title {
+  margin-top: 5rem;
+}
+
+.program-search__form {
+  margin-bottom: 3rem;
+}
+
+.program-search__form label {
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
+.program-search__keywords {
+  padding: 10px;
+  flex: 1;
+  border: 1px solid #ddd;
+}
+
+/* Activity Finder > Results */
+.field-prgf-af-results-ref {
+  display: none;
+}
+
+.field-prgf-hide-loc-select-step,
+.field-prgf-hide-program-categ,
+.field-prgf-af-page-ref,
+.field-prgf-af-results-ref {
+  display: none;
+}
+
+.activity-finder__step input[type="radio"] {
+  margin-right: 10px;
+}
+
+.item-price,
+.availability-note {
+  font-size: 13px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .activity-finder__step_header .start-over-wrapper {
+    position: fixed;
+    bottom: 27px;
+    left: 20px;
+    z-index: 3;
+  }
+}
+@media screen and (max-width: 767px) {
+  .activity-finder__step_header--actions .actions-buttons {
+    background: #fff;
+    border-top: 1px solid #ddd;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    z-index: 2;
+  }
+}
+.schedule-dashboard__wrapper > .container {
+  max-width: 100%;
+}
+.schedules-data__row--alt {
+  border: none;
+  padding: 20px;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+@media screen and (min-width: 768px) {
+  .schedules-data__row--alt {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+.schedules-data__row--alt:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.schedules-data__row--alt .program-title {
+  font: 18px/27px Verdana, Geneva, sans-serif;
+  display: block;
+  margin-bottom: 20px;
+}
+.schedules-data__row--alt .info-wrapper {
+  margin-bottom: 10px;
+}
+@media screen and (min-width: 768px) {
+  .schedules-data__row--alt .info-wrapper {
+    margin-bottom: 0;
+  }
+}
+.schedules-data__row--alt .dates {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  font-weight: bold;
+}
+@media screen and (min-width: 1200px) {
+  .schedules-data__row--alt .dates {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+.schedules-data__row--alt .time {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  font-weight: bold;
+}
+@media screen and (min-width: 1200px) {
+  .schedules-data__row--alt .time {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+.schedules-data__row--alt .days {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+}
+.schedules-data__row--alt .schedule-dashboard__modal--location-link {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  text-decoration: underline;
+  font-weight: bold;
+}
+@media screen and (min-width: 1200px) {
+  .schedules-data__row--alt .schedule-dashboard__modal--location-link {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+.schedules-data__row--alt .availability-wrapper {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .schedules-data__row--alt .availability-wrapper {
+    margin-top: 0;
+  }
+}
+.schedules-data__row--alt .availability-wrapper .btn {
+  font-size: 18px;
+  white-space: normal;
+}
+.schedules-data__row--alt .spots-availability {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.schedules-data__row--alt .item-price {
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .schedule-dashboard__modal--body {
+    padding: 0 30px;
+  }
+}
+
+.schedule-dashboard__modal--body .btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+@media (min-width: 992px) {
+  #schedules-filters {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+}
+
+.schedule-dashboard__wrapper .pager-wrapper {
+  margin: 15px -15px 0;
+}
+@media (min-width: 768px) {
+  .schedule-dashboard__wrapper .pager-wrapper {
+    margin: 15px 0 0;
+  }
+}
+.schedule-dashboard__wrapper .pager-wrapper .page-of {
+  display: inline-block;
+  height: 35px;
+  line-height: 35px;
+  margin: 0 5px;
+}
+.schedule-dashboard__wrapper .pager-wrapper .btn {
+  padding: 5px 8px;
+}
+.schedule-dashboard__wrapper .pager-controls {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .schedule-dashboard__wrapper .pager-controls {
+    float: right;
+  }
+}
+.schedule-dashboard__wrapper .pager-wrapper ul {
+  list-style: none;
+  display: inline-block;
+  padding: 0 20px;
+}
+.schedule-dashboard__wrapper .pager-wrapper ul li {
+  display: inline-block;
+  margin: 0 5px
+}
+.schedule-dashboard__wrapper .pager-wrapper ul li a { }
+
+.activity-finder__wrapper .openy-card__link {
+  background-color: #0060ad;
+  border-color: #0060ad;
+  color: #fff;
+  align-items: center;
+}
+
+.activity-finder__wrapper .actions > div  > div:first-child a.openy-card__link {
+  color: #fff;
+}
+
+.activity-finder__wrapper .openy-card__link:hover {
+  background-color: #0060ad;
+}
+.activity-finder__wrapper .openy-card__link.outlined {
+  background-color: #fff;
+  border-color: #0060ad;
+  color: #0060ad;
+  align-items: center;
+}
+.activity-finder__wrapper .openy-card__link.outlined:hover {
+  background-color: #fff;
+}
+.activity-finder__wrapper .openy-card__link .h4 {
+  text-transform: uppercase;
+}
+.activity-finder__wrapper .openy-card__item label {
+  border: 2px solid #0060ad;
+  background-color: #fff;
+  color: #0060ad;
+  padding: 15px 25px;
+  min-height: 54px;
+}
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper label {
+  border: 2px solid #0060ad;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  background-color: #fff;
+  color: #0060ad;
+}
+.activity-finder__wrapper .openy-card__item label {
+  border-color: #0060ad !important;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+.activity-finder__wrapper .openy-card__item.selected label,
+.openy-card__item.selected label,
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
+  color: white !important;
+  border-color: #0060ad !important;
+  background: #0060ad !important;
+}
+
+.activity-finder__wrapper .btn.skip {
+  border: 2px solid #0060ad;
+  background-color: #fff;
+  color: #0060ad;
+  text-transform: uppercase;
+  margin-right: 15px;
+}
+.activity-finder__wrapper .btn.next {
+  border: 2px solid #0060ad;
+  text-transform: uppercase;
+}
+.schedules-sort {
+  text-align: right;
+  margin-bottom: 15px;
+}
+.schedules-sort select {
+  display: inline-block;
+  min-width: 250px;
+  font-size: 14px;
+  width: auto;
+}
+@media screen and (max-width: 767px) {
+  .checkboxes > .checkbox-wrapper > .checkbox-wrapper {
+    margin-left: 16px;
+  }
+}

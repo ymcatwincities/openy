@@ -9,7 +9,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\Core\Config\ConfigManager;
-use Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager;
+use Drupal\migrate\Plugin\MigrationPluginManager;
 
 /**
  * Openy modules manager.
@@ -40,7 +40,7 @@ class OpenyModulesManager {
   /**
    * Migration manager.
    *
-   * @var \Drupal\migrate_plus\Plugin\MigrationConfigEntityPluginManager
+   * @var \Drupal\migrate\Plugin\MigrationPluginManager
    */
   protected $migrationManager;
 
@@ -59,7 +59,7 @@ class OpenyModulesManager {
     'field.storage',
     'paragraphs.paragraphs_type',
     'node.type',
-    'media_entity.bundle',
+    'media.type',
     'taxonomy.vocabulary',
     'block_content.type',
   ];
@@ -84,10 +84,9 @@ class OpenyModulesManager {
       'config_entity_type' => 'paragraphs_type',
       'bundle_field' => 'type',
     ],
-    // TODO: fix media_entity info after switching to core media.
     'media' => [
-      'prefix' => 'media_entity.bundle',
-      'config_entity_type' => 'media_bundle',
+      'prefix' => 'media.type',
+      'config_entity_type' => 'media_type',
       'bundle_field' => 'bundle',
     ],
     'taxonomy_term' => [
@@ -110,7 +109,7 @@ class OpenyModulesManager {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The config factory.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, MigrationConfigEntityPluginManager $migration_manager, ConfigManager $config_manager) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, MigrationPluginManager $migration_manager, ConfigManager $config_manager) {
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
     $this->migrationManager = $migration_manager;
@@ -333,12 +332,10 @@ class OpenyModulesManager {
         break;
 
       case 'media':
-        // TODO: Replace url and route after switching to core media.
         $url = Url::fromUserInput('/admin/content/media');
         break;
 
-      case 'media_bundle':
-        // TODO: Replace url and route after switching to core media.
+      case 'media_type':
         $url = Url::fromUserInput("/admin/structure/media/manage/$bundle/delete");
         break;
 

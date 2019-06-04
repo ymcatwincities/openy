@@ -48,7 +48,6 @@
         '.banner-zone-node .banner .banner-cta, ' +
         '.banner-zone-node .landing-header, ' +
         '.banner-zone-node .paragraph-gallery', context);
-
       if (breadCrumbs.length && bannerCta.length) {
         breadCrumbs.once('openy-move-breadcrumbs').appendTo(bannerCta);
       }
@@ -60,9 +59,8 @@
    */
   Drupal.behaviors.openyMoveHeaderAlerts = {
     attach: function (context, settings) {
-      var headerAlerts = $('#block-openy-carnation-views-block-alerts-header-alerts', context);
+      var headerAlerts = $('.block-openy-carnation-views-block-alerts-header-alerts', context);
       var subHeaderFilters = $('.banner-cta', context);
-
       if (headerAlerts.length && subHeaderFilters.length) {
         headerAlerts.once('openy-move-alerts').insertAfter(subHeaderFilters);
       }

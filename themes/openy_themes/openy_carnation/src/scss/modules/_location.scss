@@ -3,6 +3,10 @@
   height: 500px;
 }
 
+.openy-map-canvas.openy-map {
+  z-index: 5;
+}
+
 // address (with marker icon)
 .field-location-address {
   position: relative;

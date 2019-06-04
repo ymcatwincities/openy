@@ -25,6 +25,9 @@ class EntityModerationStatus {
    */
   protected $moduleHandler;
 
+  /**
+   * Constructs EntityModerationStatus object.
+   */
   public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler) {
     $this->configFactory = $config_factory;
     $this->moduleHandler = $module_handler;
@@ -56,17 +59,18 @@ class EntityModerationStatus {
    */
   public function entity_moderation_status(EntityInterface $entity) {
     $moderation_module = $this->active_moderation_module();
-
     if ($this->moduleHandler->moduleExists($moderation_module)) {
       $moderation_info = \Drupal::service($moderation_module . '.moderation_information');
+      // Check that entity bundle support moderation.
+      if ($moderation_info->getWorkflowForEntity($entity)) {
+        // Contains checking:
+        // isLatestRevision, isDefaultRevision, isPublishedState.
+        return $moderation_info->isLiveRevision($entity);
+      }
+    }
 
-      // Contains checking: isLatestRevision, isDefaultRevision, isPublishedState.
-      return $moderation_info->isLiveRevision($entity);
-    }
-    else {
-      // Fallback to is isPublished & isDefaultRevision.
-      return ($entity->isPublished() && $entity->isDefaultRevision());
-    }
+    // Fallback to is isPublished & isDefaultRevision.
+    return ($entity->isPublished() && $entity->isDefaultRevision());
   }
 
   /**
@@ -78,35 +82,50 @@ class EntityModerationStatus {
    * @return bool
    *   Flag indicated the entity has changed its state.
    */
-  function entity_moderation_state_change(EntityInterface $entity) {
+  public function entity_moderation_state_change(EntityInterface $entity) {
     if (!$original = $entity->original) {
       return FALSE;
     }
 
     $moderation_module = $this->active_moderation_module();
+    $check_published_state = FALSE;
     if (\Drupal::moduleHandler()->moduleExists($moderation_module)) {
-      $moderation_service = Drupal::service($moderation_module . '.moderation_information');
-      // The entity got archived.
-      if ($original->moderation_state->entity &&
-        $original->moderation_state->entity->isPublishedState() &&
-        !$moderation_service->isLiveRevision($entity)
-      ) {
-        return TRUE;
-      }
+      $moderation_service = \Drupal::service($moderation_module . '.moderation_information');
+      // Check that entity bundle support moderation.
+      if ($moderation_service->getWorkflowForEntity($entity)) {
+        // The entity got archived.
+        if ($original->moderation_state->entity &&
+          $original->moderation_state->entity->isPublishedState() &&
+          !$moderation_service->isLiveRevision($entity)
+        ) {
+          return TRUE;
+        }
 
-      // The entity got published.
-      if ((!$original->moderation_state->entity || !$original->moderation_state->entity->isPublishedState()) &&
-        $moderation_service->isLiveRevision($entity)
-      ) {
-        return TRUE;
+        // The entity got published.
+        if ((!$original->moderation_state->entity || !$original->moderation_state->entity->isPublishedState()) &&
+          $moderation_service->isLiveRevision($entity)
+        ) {
+          return TRUE;
+        }
+      }
+      else {
+        $check_published_state = TRUE;
       }
     }
-    // The entity published state changed.
-    elseif ($entity->isDefaultRevision() &&
-      ((!$original->isPublished() && $entity->isPublished()) ||
-        ($original->isPublished() && !$entity->isPublished()))
-    ) {
-      return TRUE;
+    else {
+      $check_published_state = TRUE;
+    }
+
+    // Check published state in case disabled moderation module or
+    // not moderated entity bundle.
+    if ($check_published_state) {
+      // The entity published state changed.
+      if ($entity->isDefaultRevision() &&
+        ((!$original->isPublished() && $entity->isPublished()) ||
+          ($original->isPublished() && !$entity->isPublished()))
+      ) {
+        return TRUE;
+      }
     }
 
     return FALSE;
