@@ -12,7 +12,7 @@ dependencies:
   - field
   - field_group
   - image
-  - media_entity
+  - drupal:media (>= 8.6)
   - menu_ui
   - metatag
   - node

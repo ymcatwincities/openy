@@ -35,7 +35,7 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
         );
       }
       $priority = isset($attributes[0]['priority']) ? $attributes[0]['priority'] : 0;
-      $dds['priorities'][$priority][] = new Reference($id);
+      $dds[0][$priority][] = new Reference($id);
     }
 
     $definition->addMethodCall('collectDataServices', $dds);
@@ -54,7 +54,7 @@ class OpenySocratesCompilerPass implements CompilerPassInterface {
       }
 
       $periodicity = isset($attributes[0]['periodicity']) ? $attributes[0]['periodicity'] : 0;
-      $openy_cron_service_instances['cron'][$periodicity][] = new Reference($id);
+      $openy_cron_service_instances[0][$periodicity][] = new Reference($id);
     }
 
     $definition->addMethodCall('collectCronServices', $openy_cron_service_instances);

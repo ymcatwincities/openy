@@ -3,13 +3,14 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_description
     - field.field.node.alert.field_alert_icon_color
     - field.field.node.alert.field_alert_link
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
+    - field.field.node.alert.field_alert_visibility_pages
+    - field.field.node.alert.field_alert_visibility_state
     - node.type.alert
   module:
     - user
@@ -18,6 +19,14 @@ targetEntityType: node
 bundle: alert
 mode: teaser
 content:
+  addthis:
+    label: hidden
+    type: string
+    weight: 100
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   links:
     weight: 100
     region: content
@@ -28,4 +37,6 @@ hidden:
   field_alert_link: true
   field_alert_place: true
   field_alert_text_color: true
+  field_alert_visibility_pages: true
+  field_alert_visibility_state: true
   langcode: true

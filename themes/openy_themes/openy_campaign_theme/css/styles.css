@@ -250,7 +250,8 @@ p {
   }
 }
 .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
-.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select {
   text-align: center;
   justify-content: center;
   margin: 0 auto;
@@ -258,19 +259,22 @@ p {
 }
 @media (min-width: 20em) {
   .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
-  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select {
     width: 100%;
   }
 }
 @media (min-width: 48em) {
   .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select,
-  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select {
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select,
+  .paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select {
     width: 300px;
     float: left;
   }
 }
 .paragraph--type--campaign-leadership .leadership-filters .leadership-branches-select label,
-.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select label {
+.paragraph--type--campaign-leadership .leadership-filters .leadership-activities-select label,
+.paragraph--type--campaign-leadership .leadership-filters .leadership-specify-select label {
   text-transform: uppercase;
   font-size: 18px;
   display: none;
@@ -308,10 +312,14 @@ p {
   text-align: center;
   font-size: 16px;
 }
+.paragraph--type--campaign-leadership .leadership-pager {
+  text-align: center;
+  padding-bottom: 20px;
+}
 
 @media (min-width: 80.625em) {
   .paragraph-background-container .title, .paragraph--type--campaign-winners .winners-branches-select .title {
-    margin-bottom: 50px;
+    padding-bottom: 50px;
   }
 }
 .paragraph-background-container, .paragraph--type--campaign-winners .winners-branches-select {
@@ -385,7 +393,7 @@ p {
 @media (min-width: 80.625em) {
   .columns .paragraph-container .block-description--text {
     display: table-cell;
-    padding: 0px 10px 40px 10px;
+    padding: 0px 10px 10px 10px;
   }
 }
 
@@ -438,28 +446,34 @@ p {
   display: block;
 }
 
+.paragraph-2c-wrapper .paragraph-container {
+  margin: 0 auto;
+}
 @media (min-width: 20em) {
-  .paragraph-2c-wrapper .block-description--text {
+  .paragraph-2c-wrapper .paragraph-container .block-description--text {
     width: 100%;
   }
 }
 @media (min-width: 48em) {
-  .paragraph-2c-wrapper .block-description--text {
+  .paragraph-2c-wrapper .paragraph-container .block-description--text {
     width: 50%;
   }
 }
 
+.paragraph-3c-wrapper .paragraph-container {
+  margin: 0 auto;
+}
 @media (min-width: 20em) {
-  .paragraph-3c-wrapper .block-description--text {
+  .paragraph-3c-wrapper .paragraph-container .block-description--text {
     width: 100%;
   }
 }
 @media (min-width: 48em) {
-  .paragraph-3c-wrapper .block-description--text {
+  .paragraph-3c-wrapper .paragraph-container .block-description--text {
     width: 33%;
   }
 }
-.paragraph-3c-wrapper .block-description--text p:first-child {
+.paragraph-3c-wrapper .paragraph-container .block-description--text p:first-child {
   min-height: 75px;
 }
 
@@ -508,7 +522,6 @@ body {
 .path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
-  background-color: #ffffff;
   padding-left: 0px;
   padding-right: 0px;
   margin: 0 auto;
@@ -518,7 +531,7 @@ body {
 .path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
-  background-color: inherit;
+  background-color: #ffffff;
   position: relative;
   margin-bottom: 100px;
   min-height: 500px;
@@ -557,7 +570,7 @@ body {
   .path-members-list main[role="main"] .layout-content {
     margin-left: 15px;
     margin-right: 15px;
-    margin-top: -400px;
+    margin-top: -245px;
     padding: 30px;
     box-shadow: 10px 20px 115px 10px;
   }
@@ -570,7 +583,7 @@ body {
   .path-members-list main[role="main"] .layout-content {
     margin-left: 125px;
     margin-right: 125px;
-    margin-top: -400px;
+    margin-top: -245px;
     padding: 40px;
     box-shadow: 10px 20px 115px 10px;
   }
@@ -627,7 +640,6 @@ body {
 .path-campaign-scorecards main[role="main"],
 .path-team-member-registration main[role="main"],
 .path-members-list main[role="main"] {
-  background-color: #ffffff;
   padding-left: 0px;
   padding-right: 0px;
   margin: 0 auto;
@@ -642,7 +654,7 @@ body {
 .path-campaign-scorecards main[role="main"] .layout-content,
 .path-team-member-registration main[role="main"] .layout-content,
 .path-members-list main[role="main"] .layout-content {
-  background-color: inherit;
+  background-color: #ffffff;
   position: relative;
   margin-bottom: 100px;
   min-height: 500px;
@@ -731,7 +743,7 @@ body {
   .path-campaign-scorecards.logged-in main[role="main"] .layout-content,
   .path-team-member-registration.logged-in main[role="main"] .layout-content,
   .path-members-list.logged-in main[role="main"] .layout-content {
-    margin-top: -400px;
+    margin-top: -245px;
   }
 }
 @media (min-width: 80.625em) {
@@ -739,7 +751,7 @@ body {
   .path-campaign-scorecards.logged-in main[role="main"] .layout-content,
   .path-team-member-registration.logged-in main[role="main"] .layout-content,
   .path-members-list.logged-in main[role="main"] .layout-content {
-    margin-top: -400px;
+    margin-top: -245px;
   }
 }
 
@@ -870,7 +882,7 @@ body {
   width: 100%;
 }
 #block-campaignmemberregister .openy-campaign-registration-simple-form .form-item {
-  margin: 0px;
+  margin: 0 0 5px 0;
 }
 #block-campaignmemberregister .openy-campaign-registration-simple-form .form-item-membership-id label {
   text-transform: uppercase;
@@ -1351,8 +1363,8 @@ footer .container .footer__nav nav ul > li a {
   padding-right: 0px;
   padding-left: 0px;
 }
-.viewport .top-navs #block-openy-campaign-theme-campaignusermenublock a:first-child {
-  padding-right: 20px;
+.viewport .top-navs #block-openy-campaign-theme-campaignusermenublock a {
+  padding-right: 10px;
 }
 
 .sidebar .page-head__top-menu a {
@@ -1497,6 +1509,9 @@ footer .container .footer__nav nav ul > li a {
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#c6168d), to(#92278f));
   background-image: -webkit-linear-gradient(top, #c6168d, #92278f);
   background-image: -o-linear-gradient(#c6168d, #92278f);
+}
+.activity .personal-progress {
+  text-align: center;
 }
 
 .category-data {
@@ -1998,9 +2013,9 @@ footer .container .footer__nav nav ul > li a {
   border-radius: 4px;
 }
 .ui-dialog .ui-dialog-content .form-item {
-  margin: 0px;
+  margin: 0 0 5px 0;
 }
-.ui-dialog .ui-dialog-content .form-text {
+.ui-dialog .ui-dialog-content .form-text, .ui-dialog .ui-dialog-content .form-email {
   height: 50px;
   border-radius: 4px;
 }

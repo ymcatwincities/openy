@@ -2192,6 +2192,7 @@ body {
 
 .paragraph--type--openy-prgf-mbrshp-calc {
   padding: 20px 0;
+  overflow: hidden;
 }
 
 .paragraph--type--classes-listing-filters {
@@ -2284,6 +2285,19 @@ body {
     margin: 0;
   }
 }
+.site-alert__cta .field-alert-link {
+  float: left;
+}
+@media (min-width: 62em) {
+  .site-alert__cta .field-alert-link {
+    margin-right: 24%;
+  }
+}
+@media (min-width: 48em) {
+  .site-alert__cta .field-alert-link {
+    float: right;
+  }
+}
 .site-alert__cta .field-alert-link a {
   border: 1px solid;
   display: inline-block;
@@ -2358,6 +2372,10 @@ body {
 .header-alerts-list .slick-slider,
 .footer-alerts-list .slick-slider {
   margin-bottom: 0;
+}
+.header-alerts-list .slick-current,
+.footer-alerts-list .slick-current {
+  z-index: auto;
 }
 .header-alerts-list .slick-track,
 .footer-alerts-list .slick-track {
@@ -7279,17 +7297,6 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 0.5em auto;
   }
 }
-.schedule-locations__wrapper {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-@media (min-width: 768px) {
-  .schedule-locations__wrapper {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-}
-
 .locations-header {
   align-items: flex-end;
   margin-bottom: 1rem;
@@ -7308,14 +7315,17 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
-.schedule-locations__item label {
+.openy-card__item label {
   border-color: #ccc;
   color: #4f4f4f;
 }
-.schedule-locations__item label.selected {
+
+.openy-card__item.selected label,
+.openy-card__item.selected:hover label,
+.openy-card__link:hover {
   color: white;
-  border-color: #01A490;
-  background: #01A490;
+  border-color: #b92f9e;
+  background: #b92f9e;
 }
 
 .schedule-dashboard__sidebar {
@@ -7330,12 +7340,40 @@ article .node--view-mode-flexible-content h2 a span {
   color: #b92f9e;
 }
 
-.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
-  background: #b92f9e;
+/*
+ * Due to SASS interpolation we cannot use variables in the background "fill" property unless we upgrade to BS4 and require its libraries.
+*/
+/* Checkbox > checkmark icon (default). */
+.schedule-dashboard__sidebar .checkboxes input + label:after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23b92f9e' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+  background-size: contain;
+}
+
+/* Material Icons + https://yoksel.github.io/url-encoder */
+.schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after {
+  /* minus icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23b92f9e' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13H5v-2h14v2z'/%3E%3C/svg%3E");
+}
+
+.schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after {
+  /* checkmark icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23b92f9e' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+}
+
+.schedule-dashboard__sidebar .radios input + label:after {
+  background-color: #b92f9e;
+}
+
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
+  background-color: #b92f9e;
 }
 
 /* row striping */
+.schedule-dashboard__content .day-label h2 {
+  display: flex;
+  justify-content: space-between;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
@@ -11980,7 +12018,7 @@ p.legend {
   display: none;
 }
 .ui-widget.ui-dialog .ui-dialog-content {
-  padding: 0px 30px 10px;
+  padding: 20px 30px 10px;
 }
 .ui-widget.ui-dialog .ui-dialog-content .landing-header {
   display: none;
@@ -12293,6 +12331,11 @@ body .ajax-progress-throbber .throbber {
 .internal-template.node--type-article #carousel .even-heights .active.item {
   min-height: 300px;
   max-height: 500px;
+}
+
+.program-header .content .image img {
+  max-width: none;
+  float: right;
 }
 
 #main {
@@ -13942,6 +13985,25 @@ input[type="checkbox"]:focus {
 .paragraph--type--faq-item .field-answer {
   display: none;
   padding: 15px;
+}
+
+.site-alert--header, .site-alert--footer {
+  border: 1px solid #636466;
+  width: 100vw;
+}
+
+.header-alerts-list .slick__arrow, .footer-alerts-list .slick__arrow {
+  visibility: visible;
+}
+
+.slick-next:before,
+.slick-prev:before {
+  opacity: 1;
+}
+
+.header-alerts-list .slick__arrow,
+.footer-alerts-list .slick__arrow {
+  margin-top: -25px;
 }
 
 /*# sourceMappingURL=style.css.map */

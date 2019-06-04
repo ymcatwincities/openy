@@ -4,7 +4,7 @@ dependencies:
   config:
     - block_content.type.featured_highlights_block
     - field.storage.block_content.field_featured_hl_block_image
-    - media_entity.bundle.image
+    - media.type.image
 id: block_content.featured_highlights_block.field_featured_hl_block_image
 field_name: field_featured_hl_block_image
 entity_type: block_content

@@ -806,6 +806,7 @@ body {
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .viewport,
 .toolbar-fixed.toolbar-horizontal.toolbar-tray-open .top-navs {
   margin-top: 79px;
+  z-index: 10;
 }
 .toolbar-fixed.toolbar-vertical .viewport,
 .toolbar-fixed.toolbar-vertical .top-navs {
@@ -1867,7 +1868,7 @@ body {
 }
 
 .paragraph--type--small-banner {
-  align-items: stretch;
+  overflow: hidden;
   max-height: 250px;
 }
 .paragraph--type--small-banner .banner-image {
@@ -2319,6 +2320,7 @@ body {
 
 .paragraph--type--openy-prgf-mbrshp-calc {
   padding: 20px 0;
+  overflow: hidden;
 }
 
 .paragraph--type--classes-listing-filters {
@@ -2410,6 +2412,20 @@ body {
 @media (min-width: 62em) {
   .site-alert__cta {
     margin: 0;
+  }
+}
+.site-alert__cta .field-alert-link {
+  float: left;
+  margin-right: 42%;
+}
+@media (min-width: 62em) {
+  .site-alert__cta .field-alert-link {
+    margin-right: 24%;
+  }
+}
+@media (min-width: 48em) {
+  .site-alert__cta .field-alert-link {
+    float: right;
   }
 }
 .site-alert__cta .field-alert-link a {
@@ -3028,6 +3044,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
+  margin: 0;
 }
 .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
   background: none;
@@ -3039,7 +3056,7 @@ body {
   margin-top: -7px;
 }
 .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow:before {
-  color: #00aeef;
+  display: none;
 }
 @media (min-width: 48em) {
   .sub-category-classes-view .activity-group .activity-group-slider .slick-arrow {
@@ -5071,6 +5088,14 @@ html.js .branch__updates_queue__button {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
+@media (min-width: 0) and (max-width: 75em) {
+  .field-prgf-title h2,
+  .field-prgf-nu-title h2,
+  .field-prgf-whay-title h2,
+  .field-prgf-fc-title h2 {
+    font-size: 25px;
+  }
+}
 .field-prgf-title.mobile h2,
 .field-prgf-nu-title.mobile h2,
 .field-prgf-whay-title.mobile h2,
@@ -6438,10 +6463,6 @@ a[href="#step2"] {
   margin-left: 0;
 }
 
-.openy-map-wrapper {
-  margin-bottom: 40px;
-}
-
 .views-view-membership .field-body-no-summary {
   font-size: 15px;
   padding-bottom: 110px;
@@ -7341,6 +7362,9 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
+.paragraph--type--prgf-location-finder {
+  margin-top: 40px;
+}
 .paragraph--type--prgf-location-finder .views-element-container {
   padding: 0;
 }
@@ -7573,17 +7597,28 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 30px;
   padding-right: 10px;
 }
-.node--type-event .location-link a:hover,
-.node--type-event .field-event-location a:hover {
+.node--type-event .location-link a:hover {
   text-decoration: underline !important;
 }
-.node--type-event .location-link:before,
-.node--type-event .field-event-location:before {
+.node--type-event .location-link:before {
   content: "\f041";
   font-family: 'FontAwesome';
   font-size: 30px;
   padding-right: 10px;
   color: #5c2e91;
+}
+.node--type-event .event-image {
+  min-height: 237px;
+}
+@media (max-width: 1200px) {
+  .node--type-event .event-image {
+    min-height: 190px;
+  }
+}
+@media (max-width: 992px) {
+  .node--type-event .event-image {
+    min-height: 247px;
+  }
 }
 .node--type-event.node--view-mode-full .field-event-location {
   border-radius: 8px;
@@ -7661,6 +7696,9 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .node--type-event.node--view-mode-teaser .field-event-image img {
   display: inline-block;
+  width: 100%;
+  max-width: 266px;
+  height: auto;
 }
 .node--type-event.node--view-mode-teaser h2 {
   margin: 10px 0 5px;
@@ -7759,17 +7797,6 @@ article .node--view-mode-flexible-content h2 a span {
     margin: 0.5em auto;
   }
 }
-.schedule-locations__wrapper {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-@media (min-width: 768px) {
-  .schedule-locations__wrapper {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-}
-
 .locations-header {
   align-items: flex-end;
   margin-bottom: 1rem;
@@ -7788,14 +7815,22 @@ article .node--view-mode-flexible-content h2 a span {
   }
 }
 
-.schedule-locations__item label {
+.openy-card__item label {
   border-color: #ccc;
   color: #4f4f4f;
 }
-.schedule-locations__item label.selected {
+
+.openy-card__item.selected label,
+.openy-card__item.selected:hover label,
+.openy-card__link:hover {
   color: white;
   border-color: #01A490;
   background: #01A490;
+}
+
+/* No results text. */
+.openy-card__item.no-results small {
+  color: #ed1c24;
 }
 
 .schedule-dashboard__sidebar {
@@ -7810,15 +7845,43 @@ article .node--view-mode-flexible-content h2 a span {
   color: #0060af;
 }
 
-.schedule-dashboard__sidebar [type="checkbox"]:checked + label:after,
-.schedule-dashboard__sidebar [type="checkbox"]:not(:checked) + label:after {
-  background: #01A490;
+/*
+ * Due to SASS interpolation we cannot use variables in the background "fill" property unless we upgrade to BS4 and require its libraries.
+*/
+/* Checkbox > checkmark icon (default). */
+.schedule-dashboard__sidebar .checkboxes input + label:after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%230060af' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+  background-size: contain;
+}
+
+/* Material Icons + https://yoksel.github.io/url-encoder */
+.schedule-dashboard__sidebar .checkboxes .checkbox-partial input + label:after {
+  /* minus icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%230060af' d='M0 0h24v24H0V0z'/%3E%3Cpath fill='white' d='M19 13H5v-2h14v2z'/%3E%3C/svg%3E");
+}
+
+.schedule-dashboard__sidebar .checkboxes .checkbox-checked input + label:after {
+  /* plus icon */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%230060af' d='M0 0h24v24H0z'/%3E%3Cpath fill='white' d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+}
+
+.schedule-dashboard__sidebar .radios input + label:after {
+  background-color: #0060af;
+}
+
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
+  background-color: #0060af;
 }
 
 /* row striping */
 .schedule-dashboard__content .day-label h2 {
   display: flex;
   justify-content: space-between;
+}
+
+.calendar-column .atcb-list.active {
+  visibility: visible !important;
+  display: block !important;
 }
 
 .paragraph-1c-wrapper {
@@ -7989,6 +8052,9 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: Verdana, Geneva, sans-serif;
 }
 
+.paragraph--type--location-filter-by-amenities {
+  margin-top: 40px;
+}
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
   font-size: 16px;
 }
@@ -8094,7 +8160,10 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: -20px 0 40px;
+  width: 100%;
+}
+.paragraph--type--lto .container {
+  max-width: 100%;
 }
 .paragraph--type--lto .field-lto-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
@@ -8148,7 +8217,6 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 18px;
   padding: 0;
   width: 100%;
-  border: 1px solid white;
 }
 .paragraph--type--lto .btn a, .paragraph--type--lto .button a {
   display: block;
@@ -8156,6 +8224,9 @@ article .node--view-mode-flexible-content h2 a span {
   color: white;
   font-family: "Cachet W01 Medium", Verdana, sans-serif;
   text-transform: uppercase;
+}
+.paragraph--type--lto .btn .field-lto-link, .paragraph--type--lto .button .field-lto-link {
+  border: 1px solid white;
 }
 .wrapper-field-bottom-content .paragraph--type--lto {
   margin: 0;
@@ -8318,4 +8389,21 @@ input[type="checkbox"]:focus {
   padding: 15px;
 }
 
-/*# sourceMappingURL=styles.css.map */
+.site-alert--header, .site-alert--footer {
+  border: 1px solid #636466;
+  width: 100vw;
+}
+
+.header-alerts-list .slick__arrow, .footer-alerts-list .slick__arrow {
+  visibility: visible;
+}
+
+.slick-next:before,
+.slick-prev:before {
+  opacity: 1;
+}
+
+.header-alerts-list .slick__arrow,
+.footer-alerts-list .slick__arrow {
+  margin-top: -25px;
+}

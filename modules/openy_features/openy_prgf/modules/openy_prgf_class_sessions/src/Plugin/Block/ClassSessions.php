@@ -86,10 +86,8 @@ class ClassSessions extends BlockBase implements ContainerFactoryPluginInterface
     // Set cache tags from node.
     $tags = $node->getCacheTags();
 
-    // If location parameter is set add to conditions.
-    if (!empty($location_id = $this->getQueryParamInt('location'))) {
-      $conditions['location'] = $location_id;
-    }
+    // Location parameter add to conditions.
+    $conditions['location'] = $this->getQueryParamInt('location');
 
     // If session parameter is set add to conditions.
     if (!empty($session_id = $this->getQueryParamInt('session'))) {

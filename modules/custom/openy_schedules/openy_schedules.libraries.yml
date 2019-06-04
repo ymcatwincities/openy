@@ -1,5 +1,5 @@
 openy_schedules:
-  version: VERSION
+  version: 0.1
   js:
     js/openy_schedules.js: {}
   dependencies:

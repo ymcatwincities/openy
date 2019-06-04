@@ -10,9 +10,9 @@
     <div class="container search-container">
       <form action="{{ search_view_content_path }}" method="get">
         <div class="input-group">
-          <input type="text" name="q" class="form-control input-lg">
+          <input type="text" aria-label="Search input" name="q" class="form-control input-lg">
           <span class="input-group-btn">
-              <button class="btn btn-primary btn-lg" type="submit">{{ "Search The Y"|t }}</button>
+              <button class="btn btn-primary btn-lg" aria-label="Search submit" type="submit">{{ "Search The Y"|t }}</button>
           </span>
         </div>
         <!-- /input-group -->

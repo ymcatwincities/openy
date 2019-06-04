@@ -7,7 +7,6 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
-use Drupal\media_entity\MediaInterface;
 
 /**
  * Implements hook_form_alter().
@@ -66,4 +65,19 @@ function openy_media_preprocess_entity_embed_container(array &$variables) {
     '.' => '-',
     '_' => '-',
   ]);
+}
+
+/**
+ * Implements hook_library_info_alter().
+ */
+function openy_media_library_info_alter(&$libraries, $extension) {
+  if ($extension === 'blazy' && function_exists('libraries_get_path')) {
+    $libraries['blazy']['js'] = ['/' . libraries_get_path('blazy') . '/blazy.min.js' => [
+      'weight' => -4,
+      'attributes' => [
+        'async' => TRUE
+      ],
+    ]
+    ];
+  }
 }

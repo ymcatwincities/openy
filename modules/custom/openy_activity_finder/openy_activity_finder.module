@@ -1,0 +1,36 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_activity_finder module hooks.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_activity_finder_theme() {
+  return [
+    'openy_activity_finder_program_search' => [
+      'variables' => [
+        'data' => [],
+        'ages' => [],
+        'days' => [],
+        'categories' => [],
+        'categories_type' => '',
+        'locations' => [],
+        'is_search_box_disabled' => ''
+      ],
+    ],
+    'openy_activity_finder_program_search_page' => [
+      'variables' => [
+        'locations' => [],
+        'categories' => [],
+        'categories_type' => '',
+        'ages' => [],
+        'days' => [],
+        'is_search_box_disabled' => '',
+        'sort_options' => [],
+      ],
+    ],
+  ];
+}

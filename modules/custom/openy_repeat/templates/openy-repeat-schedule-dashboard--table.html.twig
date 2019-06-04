@@ -9,15 +9,20 @@
 
 {# date arrows & title #}
 <div class="row schedule-dashboard__content--header">
-  <div class="col-sm-12 col-md-8 day-label">
+
+  {% block date_wrapper %}
+  <div class="col-sm-12 col-md-8 col-lg-7 day-label">
+  {% endblock %}
     <h2>
       <button v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button" aria-label="previous date"><i class="fa fa-angle-left"></i></button>
       <span class="date" v-cloak>${ dateFormatted }</span>
-      <button v-on:click.stop="forwardOneDay" class="schedule-dashboard__arrow right" role="button" aria-label="next date"><i class="fa fa-angle-right"></i></button>
+      <button v-on:click.stop="forwardOneDay" v-if="showForwardArrow" class="schedule-dashboard__arrow right" role="button" aria-label="next date"><i class="fa fa-angle-right"></i></button>
     </h2>
   </div>
 
-  <div class="hidden-xs hidden-sm col-md-4">
+  {% block buttons_wrapper %}
+  <div class="hidden-xs hidden-sm col-md-4 col-lg-5">
+  {% endblock %}
     <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
     <a class="btn btn-md btn-block btn-schedule-pdf-generate hidden" target="_blank">{{ 'Weekly PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
   </div>
@@ -31,7 +36,7 @@
       <div class="schedules-data clearfix">
 
         <div class="schedules-data__header">
-          <div>{{ 'Location'|t }}</div>
+          <div class="location-column">{{ 'Location'|t }}</div>
           <div>{{ 'Class'|t }}</div>
           <div>{{ 'Time'|t }}</div>
           <div class="category-column">{{ 'Category'|t }}</div>
@@ -43,7 +48,7 @@
         <div v-for="(item, index) in propData" class="schedules-data__row">
 
           {# location #}
-          <div v-cloak>
+          <div v-cloak class="location-column">
             <strong><a class="schedule-dashboard__modal--location-link" role="button" v-on:click="$parent.populatePopupL(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
           </div>
 
@@ -99,8 +104,7 @@
         </div>
 
         <div class="schedules-loading">
-          <i class="fa fa-spinner"></i>
-          <span>{{ 'Loading...'|t }}</span>
+          {% include '@openy_system/openy-system--ajax-spinner.html.twig' %}
         </div>
 
       </div>
@@ -136,7 +140,7 @@
               <td><label>{{ 'Call'|t }}</label></td>
               <td><a v-bind:href="'tel:' + locationPopup.phone">${ locationPopup.phone }</a></td>
             </tr>
-            <tr>
+            <tr v-if="locationPopup.email">
               <td><label>{{ 'Email'|t }}</label></td>
               <td><a v-bind:href="'mailto:' + locationPopup.email">${ locationPopup.email }</a></td>
             </tr>
@@ -188,7 +192,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--footer">
-          <a class="btn btn-lg btn-primary" v-bind:href="'{{ url('<front>') }}node/' + classPopup.nid">{{ 'View More'|t }}</a>
+          <a class="btn btn-lg btn-primary" v-bind:href="classPopup.path">{{ 'View More'|t }}</a>
         </div>
 
       </div>
