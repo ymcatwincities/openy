@@ -1,5 +1,5 @@
 gallery_alert:
-  version: VERSION
+  version: 0.1
   js:
     js/openy_prgf_gallery_alert.js: {}
   dependencies:

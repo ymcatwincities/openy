@@ -15,14 +15,14 @@ tips:
   overview:
     id: overview
     plugin: text
-    label: Overview
+    label: Landing Page Overview
     body: 'This page allows a user to add landing pages to the site.'
     weight: 1
   title:
     id: title
     plugin: text
     label: Title
-    body: 'Here a user can specify Landing Page title. [openy_tour:click:#edit-field-lp-layout]'
+    body: 'Here a user can specify Landing Page title.'
     location: bottom
     weight: 2
     attributes:
@@ -31,7 +31,7 @@ tips:
     id: layout
     plugin: text
     label: 'Layout Drop'
-    body: 'Here a user can decide the page layout one column full width, one or two columns or two columns with a sidebar. [openy_tour:click:.field--name-field-header-content]'
+    body: 'Here a user can decide the page layout: one column full width, two columns full width or two columns with a sidebar.'
     location: bottom
     weight: 3
     attributes:
@@ -40,7 +40,7 @@ tips:
     id: header-area
     plugin: text
     label: 'Header area'
-    body: 'Here a user can add different types of paragraphs to the header area. Paragraphs will be displayed at the top of the page with full width.'
+    body: 'Here a user can add different types of paragraphs to the header area. Paragraphs will be displayed at the top of the page across the full width.'
     location: top
     weight: 4
     attributes:
@@ -49,7 +49,7 @@ tips:
     id: microsites
     plugin: text
     label: 'Add Microsites Menu paragraph'
-    body: 'In Header area click on "Add Microsites Menu" [openy_tour:click:edit-field-header-content-add-more-add-more-button-microsites-menu]'
+    body: 'In Header area, click on "Add Microsites Menu"'
     weight: 5
     location: bottom
     attributes:
@@ -58,7 +58,7 @@ tips:
     id: microsites-existing-block
     plugin: text
     label: 'Add existing custom block'
-    body: 'You can add existing menu block if press "Add existing custom block".'
+    body: 'You can add an existing menu block by selecting "Add existing custom block".'
     weight: 6
     attributes:
       data-class: form-submit[value="Add existing custom block"]
@@ -66,7 +66,7 @@ tips:
     id: microsites-create-block
     plugin: text
     label: 'Add new custom block'
-    body: 'Press "Add new custom block" and fill all fields. [openy_tour:click:edit-field-header-content-0-subform-field-prgf-block-ref-actions-ief-add]'
+    body: 'Select "Add new custom block" and fill all fields to create a new block.'
     weight: 7
     attributes:
       data-class: form-submit[value="Add new custom block"]
@@ -74,7 +74,7 @@ tips:
     id: microsites-block-title
     plugin: text
     label: 'Add Description for menu block'
-    body: 'Now all fields are filled. Press "Create custom block" and see resulting menu block on the page.'
+    body: 'Enter a description for the menu block.'
     weight: 8
     location: bottom
     attributes:
@@ -83,7 +83,7 @@ tips:
     id: microsites-block-link
     plugin: text
     label: 'Add links'
-    body: 'Here add links for menu'
+    body: 'Add links for the menu here.'
     weight: 9
     location: top
     attributes:
@@ -92,7 +92,7 @@ tips:
     id: microsites-block-bg-color
     plugin: text
     label: 'Set background color'
-    body: 'Enter colors for background menu.'
+    body: 'Enter colors for the menu background.'
     weight: 10
     location: top
     attributes:
@@ -101,7 +101,7 @@ tips:
     id: microsites-block-text-color
     plugin: text
     label: 'Set color for links in menu'
-    body: 'Here select color for links in the menu.'
+    body: 'Here select the color for links in the menu.'
     weight: 11
     location: top
     attributes:
@@ -110,7 +110,7 @@ tips:
     id: microsites-save-block
     plugin: text
     label: 'Save Menu block'
-    body: 'Now all fields are filled. Press "Create custom block" and see resulting menu block on the page.'
+    body: 'Now all fields are filled. Select "Create custom block" and see resulting menu block on the page.'
     weight: 12
     location: right
     attributes:
@@ -119,7 +119,7 @@ tips:
     id: microsites-hide-menu
     plugin: text
     label: 'Hide Main Menu'
-    body: 'This checkbox allow to hide Main menu and show only Microsites menu.'
+    body: 'This checkbox allows you to hide the Main menu navigation on the webpage and show only the microsites menu.'
     weight: 13
     location: top
     attributes:
@@ -128,7 +128,7 @@ tips:
     id: content-area
     plugin: text
     label: 'Content area'
-    body: 'Here a user can add different types of paragraphs to the content area. Paragraphs types are added and the content for them is created in the actual content type they are being added to.'
+    body: 'Here a user can add different types of paragraphs to the content area. The content for a paragraph type is added after the landing page is set up.'
     weight: 14
     attributes:
       data-id: edit-group-content-area

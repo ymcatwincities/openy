@@ -16,23 +16,8 @@ function openy_node_session_update_8001() {
   $config_importer->importConfigs([
     'rabbit_hole.behavior_settings.node_type_session',
   ]);
-
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.node.session.default' => [
-      'content',
-    ],
-    'core.entity_form_display.paragraph.session_time.default' => [
-      'content',
-    ],
-    'core.entity_view_display.node.session.default' => [
-      'content',
-    ],
-    'core.entity_view_display.node.session.teaser' => [
-      'dependencies.config',
-      'content',
-      'hidden',
-    ],
     'core.entity_view_display.paragraph.session_time.default' => [
       'content',
     ],
@@ -60,9 +45,6 @@ function openy_node_session_update_8002() {
     'field.field.node.session.field_session_description' => [
       'description',
     ],
-    'field.field.node.session.field_session_exclusions' => [
-      'description',
-    ],
     'field.field.node.session.field_session_gender' => [
       'description',
     ],
@@ -87,9 +69,6 @@ function openy_node_session_update_8002() {
     'field.field.node.session.field_session_online' => [
       'description',
     ],
-    'field.field.node.session.field_session_plocation' => [
-      'description',
-    ],
     'field.field.node.session.field_session_reg_link' => [
       'description',
     ],
@@ -97,12 +76,6 @@ function openy_node_session_update_8002() {
       'description',
     ],
     'field.field.node.session.field_session_time' => [
-      'description',
-    ],
-    'field.field.paragraph.session_time.field_session_time_date' => [
-      'description',
-    ],
-    'field.field.paragraph.session_time.field_session_time_days' => [
       'description',
     ],
   ];
@@ -147,24 +120,10 @@ function openy_node_session_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'paragraphs.paragraphs_type.session_time' => [
-      'behavior_plugins',
-    ],
     'field.field.node.session.field_session_exclusions' => [
       'description',
     ],
-    'core.entity_view_display.node.session.teaser' => [
-      'hidden',
-    ],
-    'core.entity_view_display.node.session.default' => [
-      'hidden',
-    ],
-    'core.entity_form_display.node.session.default' => [
-      'dependencies.module',
-      'content',
-    ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
@@ -178,29 +137,13 @@ function openy_node_session_update_8004() {
  * Update feature configs for Drupal Core upgrade.
  */
 function openy_node_session_update_8006() {
-  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
-  // Update multiple configurations.
-  $configs = [
-    'core.entity_form_display.node.session.default' => [
-      'content.langcode',
-      'content.status',
-      'content.addthis',
-    ],
-  ];
-
-  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
-  foreach ($configs as $config_name => $params) {
-    $config = $config_dir . $config_name . '.yml';
-    foreach ($params as $param) {
-      $config_updater->update($config, $config_name, $param);
-    }
-  }
+  // This is outdated update and exist in next hooks, no need to import config twice.
 }
 
 /**
  * Update feature configs after entity reference handler update and configs actualization.
  */
-function openy_node_session_update_8007() {
+function _openy_node_session_update_8007() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
   // Update multiple configurations.
   $configs = [
@@ -217,7 +160,6 @@ function openy_node_session_update_8007() {
       'settings',
     ],
   ];
-
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
   foreach ($configs as $config_name => $params) {
     $config = $config_dir . $config_name . '.yml';
@@ -230,7 +172,7 @@ function openy_node_session_update_8007() {
 /**
  * Add room and instructor fields.
  */
-function openy_node_session_update_8008() {
+function _openy_node_session_update_8008() {
   $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
 
   // Add two new fields.
@@ -263,4 +205,40 @@ function openy_node_session_update_8008() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+}
+
+/**
+ * Update to get fields from prgreg.
+ */
+function openy_node_session_update_8009() {
+  // This is outdated update and exist in next hooks, no need to import config twice.
+}
+
+/**
+ * Update to get fields from prgreg.
+ */
+function openy_node_session_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+
+  // Add two new fields.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_form_display.node.session.default',
+    'core.entity_form_display.paragraph.session_time.default',
+    'core.entity_view_display.node.session.default',
+    'field.field.node.session.field_session_plocation',
+    'core.entity_view_display.node.session.teaser',
+    'field.field.node.session.field_session_room',
+    'field.field.node.session.field_availability',
+    'field.field.node.session.field_productid',
+    'field.field.node.session.field_session_class',
+    'field.storage.node.field_session_room',
+    'field.storage.node.field_availability',
+    'field.storage.node.field_productid',
+    'field.field.node.session.field_session_instructor',
+    'field.field.node.session.field_session_location',
+    'paragraphs.paragraphs_type.session_time',
+    'field.storage.node.field_session_instructor',
+  ]);
 }

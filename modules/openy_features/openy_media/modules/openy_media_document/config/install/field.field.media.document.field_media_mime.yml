@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.storage.media.field_media_mime
-    - media_entity.bundle.document
+    - media.type.document
 id: media.document.field_media_mime
 field_name: field_media_mime
 entity_type: media
