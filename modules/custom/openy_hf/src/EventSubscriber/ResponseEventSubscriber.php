@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  *
  * Implements EventSubscriber functionality.
  */
-class ResponseEventSubscriber implements EventSubscriberInterface
+class ResponseEventSubscriber implements EventSubscriberInterface {
 
   /**
    * {@inheritdoc}
