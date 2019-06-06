@@ -12,11 +12,10 @@
 
 <div id="activity-finder-app">
   <div class="activity-finder__wrapper">
-
-    {% include '@openy_activity_finder/components/af-homepage/af-homepage.html.twig' %}
-    {% include '@openy_activity_finder/components/af-age/af-age.html.twig' %}
-    {% include '@openy_activity_finder/components/af-day/af-day.html.twig' %}
-    {% include '@openy_activity_finder/components/af-activity/af-activity.html.twig' %}
+      {% include '@openy_activity_finder/components/af-homepage/af-homepage.html.twig' %}
+      {% include '@openy_activity_finder/components/af-age/af-age.html.twig' %}
+      {% include '@openy_activity_finder/components/af-day/af-day.html.twig' %}
+      {% include '@openy_activity_finder/components/af-activity/af-activity.html.twig' %}
 
     <router-view class="app-content"></router-view>
 
@@ -133,7 +132,64 @@
     {# / step 1 #}
 
     {# step 2 > activities #}
+    <div v-show="step === 2" class="activity-finder__step">
+      <div class="activity-finder__step_wrapper">
 
+        <div class="activity-finder__step_header">
+          <div class="activity-finder__step_header--progress">
+            <div class="container">
+              <div class="activity-finder__step_header--progress-inner">
+                <div class="d-inline-flex">
+                  <span v-if="loading">
+                    {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
+                  </span>
+                  <span v-else class="activity-finder__step_header--progress-spacer">
+                    <strong>${ table.count } {{ 'programs for:'|t }}</strong> ${ filtersBreadcrumbs1 }
+                    <span class="activity-finder__step_header--progress-spacer">|</span>
+                    <a v-bind:href="afResultsRef + step_2_query">{{ 'View All'|t }}</a>
+                  </span>
+                </div>
+                <div class="d-inline-flex ml-auto text-right start-over-wrapper">
+                  <a href="#" @click.prevent="startOver()" class="start_over">{{ 'Start Over'|t }}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="activity-finder__step_header--actions">
+            <div class="row">
+              <div class="col-12 col-xs-12 col-sm-8">
+                <span v-if="filtersBreadcrumbs2 === ''">{{ 'Narrow your results by selecting one or more activities (below)'|t }}</span>
+                <span v-else><strong>{{ 'Filters:'|t }}</strong> ${ filtersBreadcrumbs2 }</span>
+              </div>
+              <div v-if="!loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
+                <button @click.prevent="skip()" class="btn btn-primary skip btn-lg">{{ 'Skip'|t }}</button>
+                <button @click.prevent="next()" class="btn btn-primary next btn-lg" v-bind:disabled="isStep2NextDisabled">{{ 'Next'|t }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-finder__step_content" v-show="!loading">
+          <div v-for="topLevelCategory in selectedCategories">
+            <h3>${ topLevelCategory.label }</h3>
+            <div class="row">
+              <div v-for="(item, index) in topLevelCategory.value">
+                <div v-if="categoryIsNotExcluded(item.value)" class="col-12 col-xs-12 col-sm-6 col-md-4">
+                  <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedCategories, item.value) }">
+                    <label :for="'af-filter-category-' + item.value" data-mh="openy-card__item-label">
+                      <input v-model="checkedCategories" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" :value="item.value" :data-label="item.label" :id="'af-filter-category-' + item.value" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %} name="activity-radios">
+                      ${ item.label }
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
     {# / step 2 #}
 
     {# step 3 > locations #}
