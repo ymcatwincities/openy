@@ -11,7 +11,7 @@ addtocal:
 vue:
   version: 0.1
   js:
-    /libraries/vue/dist/vue.min.js: {}
+    /libraries/vue/dist/vue.js: {}
 
 vue_router:
   version: 0.1
