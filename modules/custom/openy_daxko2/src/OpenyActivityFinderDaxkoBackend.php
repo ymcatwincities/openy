@@ -184,9 +184,9 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $start_date = new \DateTime($row['start_date']);
       $end_date = new \DateTime($row['end_date']);
       $start_date_formatted = $start_date->format('M d');
-      $end_date_formatted = $end_date->format('M d, Y');
+      $end_date_formatted = $end_date->format('M d');
       if ($start_date->format('Y') != $end_date->format('Y')) {
-        $start_date_formatted = $start_date->format('M d, Y');
+        $start_date_formatted = $start_date->format('M d');
       }
       $times = '';
       if (isset($row['times'][0])) {
@@ -199,10 +199,12 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           $times = date('g:ia', $start) . '-' . date('g:ia', $end);
         }
       }
+      $weeks = floor($start_date->diff($end_date)->days/7);
+      $weeks = $weeks != 0 ? $weeks : '';
       $days = [];
       if (isset($row['days_offered'][0])) {
         foreach ($row['days_offered'] as $day) {
-          $days[] = $day['name'];
+          $days[] = substr($day['name'], 0, 3);
         }
       }
 
@@ -281,9 +283,14 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           'nid' => '',
           'location' => $location_name,
           'name' => $name,
-          'dates' => $start_date_formatted . ' - ' . $end_date_formatted,
-          'times' => $times,
-          'days' => implode(', ', $days),
+          'dates' => $start_date_formatted . '-' . $end_date_formatted,
+          'schedule' => [
+            0 => [
+              'time' => $times,
+              'days' => implode(', ', $days),
+            ]
+          ],
+          'weeks' => $weeks,
           'offering_id' => $offering_id,
           'program_id' => $program_id,
           'location_id' => $location_id,
@@ -640,12 +647,14 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     $availability_status = 'closed';
     $availability_note = '';
+    $spots_available = '';
     if (isset($offeringResponse['details'][0]['registration_summaries'][0]['description'])) {
       $online_open = $offeringResponse['details'][0]['registration_summaries'][0]['can_register'];
       if ($online_open) {
         $availability_status = 'open';
       }
       $availability_note = $offeringResponse['details'][0]['registration_summaries'][0]['description'];
+      $spots_available = $offeringResponse['details'][0]['availability']['available'];
 
       // If online is closed but offline is open.
       if (!$online_open && isset($offeringResponse['details'][0]['registration_summaries'][1]) && $offeringResponse['details'][0]['registration_summaries'][1]['can_register']) {
@@ -656,14 +665,14 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $prices = [];
     if (isset($offeringResponse['details'][0]['groups'])) {
       foreach ($offeringResponse['details'][0]['groups'] as $group) {
-        $prices[] = $group['name'] . ': ' . $group['rate']['description'];
+        $prices[] = $group['rate']['description'] . ' (' . strtolower($group['name']) . ')';
       }
     }
 
     // Cache the Price for one day.
     $cache_key = 'daxko-price-' . md5($offering_id . $program_id . $location_id);
     $ttl = \Drupal::time()->getRequestTime() + 24 * 60 * 60;
-    \Drupal::cache()->set($cache_key, implode('<br/>', $prices), $ttl);
+    \Drupal::cache()->set($cache_key, implode(', ', $prices), $ttl);
 
     // Cache the Availability for five minutes.
     $cache_key = 'daxko-availability-' . md5($offering_id . $program_id . $location_id);
@@ -700,9 +709,10 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $result = [
       'name' => $offeringResponse['name'] . ' ' . $offeringResponse['program']['name'],
       'description' =>  $offeringResponse['description'] . ' ' . $offeringResponse['program']['description'],
-      'price' =>  implode('<br/>', $prices),
-      'availability_status' =>  $availability_status,
-      'availability_note' =>  $availability_note,
+      'price' =>  implode(', ', $prices),
+      'availability_status' => $availability_status,
+      'availability_note' => $availability_note,
+      'spots_available' => $spots_available,
       'gender' => isset($gender) ? $gender : '',
       'ages' => isset($age) ? $age : '',
       'link' =>  $register_link_with_tracking,

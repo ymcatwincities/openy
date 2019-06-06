@@ -201,10 +201,18 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->addCondition('field_activity_category', $categories, 'IN');
     }
     // Ensure to exclude categories.
-    $exclude_nids = explode(',', $this->config->get('exclude'));
+    $exclude_nids = [];
+    if (!empty($parameters['exclude'])) {
+      $exclude_nids = explode(',', $parameters['exclude']);
+    }
+    $exclude_nids_config = explode(',', $this->config->get('exclude'));
+    $exclude_nids = array_merge($exclude_nids, $exclude_nids_config);
     $exclude_categories = [];
     foreach ($exclude_nids as $nid) {
-      $exclude_categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
+      if (empty($category_program_info[$nid]['title'])) {
+        continue;
+      }
+      $exclude_categories[] = $category_program_info[$nid]['title'];
     }
     $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
 
@@ -302,6 +310,14 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         }
       }
 
+      $price = [];
+      if (!empty($entity->field_session_mbr_price->value)) {
+        $price[] = '$' . $node->field_session_mbr_price->value . '(member)';
+      }
+      if (!empty($entity->field_session_nmbr_price->value)) {
+        $price[] = '$' . $node->field_session_nmbr_price->value . '(non-member)';
+      }
+
       $data[] = [
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
@@ -315,7 +331,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'location_info' => $locations_info[$fields['field_session_location']->getValues()[0]],
         'log_id' => $log_id,
         'name' => $fields['title']->getValues()[0]->getText(),
-        'price' => '$' . $entity->field_session_mbr_price->value . '(member), $' . $entity->field_session_nmbr_price->value . '(non-member)',
+        'price' => implode(', ', $price),
         'link' => Url::fromRoute('openy_activity_finder.register_redirect', [
             'log' => $log_id,
           ],

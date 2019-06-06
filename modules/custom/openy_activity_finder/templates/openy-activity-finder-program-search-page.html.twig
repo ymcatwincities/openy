@@ -164,7 +164,7 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="info-wrapper">
-                      <span class="dates">${ item.dates }</span> <span class="weeks">(${ item.weeks }wks)</span>
+                      <span class="dates">${ item.dates }</span> <span class="weeks" v-if="item.weeks">(${ item.weeks }wks)</span>
                     </div>
                     <div class="info-wrapper">
                       <div v-for="(item, index) in item.schedule">
@@ -268,11 +268,9 @@
                     <div v-if="moreInfoPopup.dates.length > 0" class="dates-weeks">
                       <span class="dates">${ moreInfoPopup.dates }</span> (${ moreInfoPopup.weeks }wks)
                     </div>
-                    <div v-if="moreInfoPopup.days.length > 0" class="days">
-                      ${ moreInfoPopup.days }
-                    </div>
-                    <div v-if="moreInfoPopup.times.length > 0" class="times">
-                      ${ moreInfoPopup.times }
+                    <div v-for="(item, index) in moreInfoPopup.schedule">
+                      <div class="days">${ item.days }</div>
+                      <div class="time">${ item.time }</div>
                     </div>
                     <div v-if="moreInfoPopup.location_name.length > 0" class="location_name">
                       <a v-bind:href="moreInfoPopup.location_url" target="_blank">${ moreInfoPopup.location_name } <i class="fa fa-external-link"></i></a>
@@ -281,7 +279,7 @@
                       <span v-html="moreInfoPopup.price"></span>
                     </div>
                     <div class="availability-wrapper">
-                      <div class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
+                      <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
                       <div v-if="moreInfoPopup.availability_note.length > 0" class="availability_note">
                         ${ moreInfoPopup.availability_note }
                       </div>
