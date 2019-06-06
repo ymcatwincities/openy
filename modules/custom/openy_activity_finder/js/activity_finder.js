@@ -1,17 +1,31 @@
 (function ($) {
   Vue.config.devtools = true;
+
   if (!$('#activity-finder-app').length) {
     return;
   }
 
   var router = new VueRouter({
     mode: 'history',
-    routes: []
+    // @TODO replace it with url, came from node with activity finder
+    base: '/activity-finder/',
+    routes: [
+        { path: '/', component: afHomepage, name: 'home'},
+        { path: '/age', component: afAge, name: 'af-age'},
+        { path: '/day', component: afDay, name: 'af-day'},
+        { path: '/activity', component: afActivity, name: 'af-activity'}
+    ]
   });
 
-  new Vue({
-    el: '#activity-finder-app',
+  var app = new Vue({
+    //el: '#activity-finder-app',
     router: router,
+    components: {
+      'af-homepage': afHomepage,
+      'af-age': afAge,
+      'af-day': afDay,
+      'af-activity': afActivity
+    },
     data: {
       step: 0,
       loading: false,
@@ -636,5 +650,6 @@
       }
     },
     delimiters: ["${","}"]
-  });
+  }).$mount('#activity-finder-app');
+
 })(jQuery);

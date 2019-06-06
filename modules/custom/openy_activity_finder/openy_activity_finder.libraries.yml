@@ -1,3 +1,31 @@
+component-homepage:
+  js:
+    templates/components/af-homepage/af-homepage.js: {}
+  dependencies:
+    - openy_system/vue
+    - openy_system/vue_router
+
+component-age:
+  js:
+    templates/components/af-age/af-age.js: {}
+  dependencies:
+    - openy_system/vue
+    - openy_system/vue_router
+
+component-day:
+  js:
+    templates/components/af-day/af-day.js: {}
+  dependencies:
+    - openy_system/vue
+    - openy_system/vue_router
+
+component-activity:
+  js:
+    templates/components/af-activity/af-activity.js: {}
+  dependencies:
+    - openy_system/vue
+    - openy_system/vue_router
+
 openy_activity_finder:
   version: 0.1
   js:
@@ -16,6 +44,10 @@ openy_activity_finder:
     - openy_system/vue
     - openy_system/vue_router
     - openy_system/moment
+    - openy_activity_finder/component-homepage
+    - openy_activity_finder/component-day
+    - openy_activity_finder/component-age
+    - openy_activity_finder/component-activity
 
 openy_activity_finder_search:
   version: 0.1
@@ -35,3 +67,5 @@ openy_activity_finder_search:
     - openy_system/vue
     - openy_system/vue_router
     - openy_system/moment
+
+
