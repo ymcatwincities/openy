@@ -12,54 +12,12 @@
 
 <div id="activity-finder-app">
   <div class="activity-finder__wrapper">
+      {% include '@openy_activity_finder/components/af-homepage/af-homepage.html.twig' %}
+      {% include '@openy_activity_finder/components/af-age/af-age.html.twig' %}
+      {% include '@openy_activity_finder/components/af-day/af-day.html.twig' %}
+      {% include '@openy_activity_finder/components/af-activity/af-activity.html.twig' %}
 
-    {# start #}
-    <div v-show="step === 0" class="activity-finder__step">
-      <div class="activity-finder__step_wrapper">
-        <div class="text-center">
-          <h1 class="program-search__form--title">{{ 'Program Search'|t }}</h1>
-          {% if not is_search_box_disabled %}
-          <form class="program-search__form" role="search">
-            <label class="h3 mb-5" for="program-search__keywords">{{ 'How would you like to search for programs?'|t }}</label>
-            <div class="row row-eq-height justify-content-center">
-              <div class="col-12 col-xs-12 col-md-8 d-flex">
-                <input type="text" class="program-search__keywords" v-model="keywords" id="program-search__keywords" placeholder="{{ 'Search for programs on your terms ...'|t }}"/>
-                <button @click.prevent="submitSearch()" v-bind:disabled="isSearchSubmitDisabled" type="submit" class="btn btn-primary text-white rounded-0"/>
-                <i class="fa fa-search" aria-hidden="true"><span class="visually-hidden">{{ 'Submit'|t }}</span></i>
-                </button>
-              </div>
-            </div>
-          </form>
-          {% else %}
-            <br/>
-          {% endif %}
-        </div>
-
-        <div class="actions">
-          <div class="row row-eq-height justify-content-center">
-
-            <div class="col-12 col-xs-12 col-sm-6 col-md-4">
-              <a @click.prevent="toStep(1)" class="openy-card__item openy-card__link" data-mh="openy-card__item-heading">
-                <span class="h4">{{ 'Activity Finder'|t }}</span>
-                <span class="openy-card__link--subtext">{{ 'Find exactly what you\'re looking for'|t }}</span>
-              </a>
-            </div>
-
-            <div class="col-12 col-xs-12 col-sm-6 col-md-4">
-              <a v-bind:href="afResultsRef" class="openy-card__item openy-card__link outlined" data-mh="openy-card__item-heading">
-                <span class="h4">{{ 'View all programs'|t }}</span>
-                <span class="openy-card__link--subtext" v-if="loading">
-                  {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
-                </span>
-                <span class="openy-card__link--subtext" v-else>${ table.count } {{ 'results'|t }}</span>
-              </a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-    {# / start #}
+    <router-view class="app-content"></router-view>
 
     {# step 1 > age/day/program type #}
     <div v-show="step === 1" class="activity-finder__step">
