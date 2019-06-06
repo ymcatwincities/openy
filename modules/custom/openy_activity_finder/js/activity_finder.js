@@ -271,7 +271,8 @@
           program_types: component.cleanCheckedProgramTypes.join(','),
           categories: component.cleanCheckedCategories.join(','),
           days: component.cleanCheckedDays.join(','),
-          locations: component.cleanCheckedLocations.join(',')
+          locations: component.cleanCheckedLocations.join(','),
+          exclude: component.categoriesExclude.join(',')
         }});
       },
       matchHeight: function() {
@@ -309,6 +310,10 @@
 
         if (this.cleanCheckedCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(this.cleanCheckedCategories.join(',')));
+        }
+
+        if (this.categoriesExclude.length > 0) {
+          query.push('exclude=' + encodeURIComponent(this.categoriesExclude.join(',')));
         }
 
         if (this.cleanCheckedLocations.length > 0) {

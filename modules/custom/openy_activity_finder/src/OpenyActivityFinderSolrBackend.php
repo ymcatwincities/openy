@@ -201,10 +201,18 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->addCondition('field_activity_category', $categories, 'IN');
     }
     // Ensure to exclude categories.
-    $exclude_nids = explode(',', $this->config->get('exclude'));
+    $exclude_nids = [];
+    if (!empty($parameters['exclude'])) {
+      $exclude_nids = explode(',', $parameters['exclude']);
+    }
+    $exclude_nids_config = explode(',', $this->config->get('exclude'));
+    $exclude_nids = array_merge($exclude_nids, $exclude_nids_config);
     $exclude_categories = [];
     foreach ($exclude_nids as $nid) {
-      $exclude_categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
+      if (empty($category_program_info[$nid]['title'])) {
+        continue;
+      }
+      $exclude_categories[] = $category_program_info[$nid]['title'];
     }
     $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
 
