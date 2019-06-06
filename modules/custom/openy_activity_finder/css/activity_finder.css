@@ -39,9 +39,12 @@
   margin-right: 10px;
 }
 
-.item-price,
+.item-price {
+  font-size: 13px;
+}
 .availability-note {
   font-size: 13px;
+  margin-bottom: 10px;
 }
 
 .full-width {
@@ -137,7 +140,7 @@
   }
 }
 .schedules-data__row--alt .availability-wrapper {
-  margin-top: 10px;
+
 }
 .schedules-data__row--alt .availability-wrapper .btn {
   font-size: 18px;
@@ -149,7 +152,6 @@
   border: 1px solid #939495;
   font: 12px/18px Verdana, Geneva, sans-serif;
   margin-bottom: 10px;
-  margin-top: 10px;
   padding: 2px 5px;
   display: inline-block;
 }
@@ -160,11 +162,12 @@
 }
 .schedules-data__row--alt .item-price {
   font: 12px/18px Verdana, Geneva, sans-serif;
+  margin-bottom: 10px;
 }
 
 @media screen and (max-width: 767px) {
   .schedule-dashboard__modal--body {
-    padding: 0 30px;
+    padding: 0 15px;
   }
 }
 

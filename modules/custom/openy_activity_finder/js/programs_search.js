@@ -83,7 +83,7 @@
           }
         }
       },
-      checkboxIsExcluded: function(title, value) {
+      checkboxIsDisabled: function(title, value) {
       var component = this.$parent;
         switch (title) {
           case "Age":
@@ -96,10 +96,29 @@
             }
             break;
           case "Days":
-
-            if (typeof component.daysMap[value] !== 'undefined' && typeof component.facets.days_of_week !== 'undefined' && typeof component.facets.days_of_week[value]['filter'] !== 'undefined') {
+            if (
+              typeof component.daysMap[value] !== 'undefined' &&
+              typeof component.facets.days_of_week !== 'undefined' &&
+              typeof component.facets.days_of_week[value] !== 'undefined' &&
+              typeof component.facets.days_of_week[value]['filter'] !== 'undefined'
+            ) {
               for (var i in component.facets.days_of_week) {
                 if (component.facets.days_of_week[i]['filter'] == component.daysMap[value] && component.facets.days_of_week[i]['count'] === 0) {
+                  return true;
+                }
+              }
+            }
+            break;
+        }
+        return false;
+      },
+      checkboxIsExcluded: function(title, value) {
+        var component = this.$parent;
+        switch (title) {
+          case "Category":
+            if (component.categoriesExcluded.length > 0) {
+              for (var i in component.categoriesExcluded) {
+                if (component.categoriesExcluded[i] == value) {
                   return true;
                 }
               }
@@ -182,7 +201,7 @@
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
-    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsExcluded(title, getOption(checkbox))}">' +
+    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsDisabled(title, getOption(checkbox))}">' +
     // No parent checkbox.
     '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
@@ -202,8 +221,10 @@
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(checkbox) == \'object\'" v-for="checkbox2 in getOption(checkbox)" class="checkbox-wrapper">\n' +
-    '                      <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
-    '                      <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
+    '                      <div v-if="!checkboxIsExcluded(title, getOption(checkbox2))">' +
+    '                       <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
+    '                       <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
+    '                     </div>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
@@ -340,8 +361,7 @@
         gender: '',
         dates: '',
         weeks: '',
-        times: '',
-        days: '',
+        schedule: '',
         location_name: '',
         location_address: '',
         location_phone: '',
@@ -374,6 +394,16 @@
         }
       }
 
+      if (typeof this.$route.query.exclude != 'undefined') {
+        var excludeCategoriesGet = decodeURIComponent(this.$route.query.exclude);
+        for (let i = 0; i < excludeCategoriesGet.length; i++) {
+          excludeCategoriesGet[i] = +excludeCategoriesGet[i];
+        }
+        if (excludeCategoriesGet) {
+          this.categoriesExcluded = excludeCategoriesGet.split(',');
+        }
+      }
+
       if (typeof this.$route.query.ages != 'undefined') {
         var agesGet = decodeURIComponent(this.$route.query.ages);
         if (agesGet) {
@@ -397,7 +427,7 @@
 
       this.runAjaxRequest();
 
-      component.afPageRef = 'OpenY' in window ? window.OpenY.field_prgf_af_page_ref[0]['url'] : '';
+      component.afPageRef = 'OpenY' in window && typeof window.OpenY.field_prgf_af_page_ref !== 'undefined' && typeof window.OpenY.field_prgf_af_page_ref[0] !== 'undefined' ? window.OpenY.field_prgf_af_page_ref[0]['url'] : '';
 
       // We add watchers dynamically otherwise initially there will be
       // up to three requests as we are changing values while initializing
@@ -491,6 +521,9 @@
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
+        if (this.categoriesExcluded.length > 0) {
+          query.push('exclude=' + encodeURIComponent(this.categoriesExcluded.join(',')));
+        }
         var cleanAges = this.ages.filter(function(word){ return word; });
         if (cleanAges.length > 0) {
           query.push('ages=' + encodeURIComponent(cleanAges.join(',')));
@@ -533,6 +566,7 @@
           router.push({ query: {
             locations: cleanLocations.join(','),
             categories: cleanCategories.join(','),
+            exclude: component.categoriesExcluded.join(','),
             ages: cleanAges.join(','),
             days: cleanDays.join(','),
             keywords: component.keywords,
@@ -565,7 +599,7 @@
         var component = this;
 
         // This means we already have all data so no need to run extra ajax call.
-        if (component.table[index].availability_status.length != 0) {
+        if (component.table[index].availability_status !== '') {
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
 
@@ -575,8 +609,7 @@
 
           component.moreInfoPopup.dates = component.table[index].dates;
           component.moreInfoPopup.weeks = component.table[index].weeks;
-          component.moreInfoPopup.times = component.table[index].times;
-          component.moreInfoPopup.days = component.table[index].days;
+          component.moreInfoPopup.schedule = component.table[index].schedule;
 
           component.moreInfoPopup.location_url = drupalSettings.path.baseUrl + 'node/' + component.table[index].location_info.nid;
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
@@ -592,7 +625,7 @@
 
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
-          component.availabilityPopup.link = component.table[index].register_link;
+          component.availabilityPopup.link = component.table[index].link;
           component.availabilityPopup.price = component.table[index].price;
           return;
         }
@@ -620,6 +653,7 @@
           component.table[index].price = data.price;
           component.table[index].availability_note = data.availability_note;
           component.table[index].availability_status = data.availability_status;
+          component.table[index].spots_available = data.spots_available;
           component.table[index].ages = data.ages;
           component.table[index].gender = data.gender;
           component.table[index].description = data.description;
@@ -634,8 +668,7 @@
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
-          component.moreInfoPopup.times = component.table[index].times;
-          component.moreInfoPopup.days = component.table[index].days;
+          component.moreInfoPopup.schedule = component.table[index].schedule;
 
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
           component.moreInfoPopup.location_address = component.table[index].location_info.address;
@@ -643,6 +676,7 @@
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.link = component.table[index].link;
 
           component.availabilityPopup.status = component.table[index].availability_status;
