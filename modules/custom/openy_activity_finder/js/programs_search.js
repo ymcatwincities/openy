@@ -83,7 +83,7 @@
           }
         }
       },
-      checkboxIsExcluded: function(title, value) {
+      checkboxIsDisabled: function(title, value) {
       var component = this.$parent;
         switch (title) {
           case "Age":
@@ -96,10 +96,29 @@
             }
             break;
           case "Days":
-
-            if (typeof component.daysMap[value] !== 'undefined' && typeof component.facets.days_of_week !== 'undefined' && typeof component.facets.days_of_week[value]['filter'] !== 'undefined') {
+            if (
+              typeof component.daysMap[value] !== 'undefined' &&
+              typeof component.facets.days_of_week !== 'undefined' &&
+              typeof component.facets.days_of_week[value] !== 'undefined' &&
+              typeof component.facets.days_of_week[value]['filter'] !== 'undefined'
+            ) {
               for (var i in component.facets.days_of_week) {
                 if (component.facets.days_of_week[i]['filter'] == component.daysMap[value] && component.facets.days_of_week[i]['count'] === 0) {
+                  return true;
+                }
+              }
+            }
+            break;
+        }
+        return false;
+      },
+      checkboxIsExcluded: function(title, value) {
+        var component = this.$parent;
+        switch (title) {
+          case "Category":
+            if (component.categoriesExcluded.length > 0) {
+              for (var i in component.categoriesExcluded) {
+                if (component.categoriesExcluded[i] == value) {
                   return true;
                 }
               }
@@ -182,7 +201,7 @@
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
-    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsExcluded(title, getOption(checkbox))}">' +
+    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsDisabled(title, getOption(checkbox))}">' +
     // No parent checkbox.
     '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
@@ -202,8 +221,10 @@
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(checkbox) == \'object\'" v-for="checkbox2 in getOption(checkbox)" class="checkbox-wrapper">\n' +
-    '                      <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
-    '                      <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
+    '                      <div v-if="!checkboxIsExcluded(title, getOption(checkbox2))">' +
+    '                        <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
+    '                        <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
+    '                      </div>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
@@ -373,6 +394,16 @@
         }
       }
 
+      if (typeof this.$route.query.exclude != 'undefined') {
+        var excludeCategoriesGet = decodeURIComponent(this.$route.query.exclude);
+        for (let i = 0; i < excludeCategoriesGet.length; i++) {
+          excludeCategoriesGet[i] = +excludeCategoriesGet[i];
+        }
+        if (excludeCategoriesGet) {
+          this.categoriesExcluded = excludeCategoriesGet.split(',');
+        }
+      }
+
       if (typeof this.$route.query.ages != 'undefined') {
         var agesGet = decodeURIComponent(this.$route.query.ages);
         if (agesGet) {
@@ -490,6 +521,9 @@
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
+        if (this.categoriesExcluded.length > 0) {
+          query.push('exclude=' + encodeURIComponent(this.categoriesExcluded.join(',')));
+        }
         var cleanAges = this.ages.filter(function(word){ return word; });
         if (cleanAges.length > 0) {
           query.push('ages=' + encodeURIComponent(cleanAges.join(',')));
@@ -532,6 +566,7 @@
           router.push({ query: {
             locations: cleanLocations.join(','),
             categories: cleanCategories.join(','),
+            exclude: component.categoriesExcluded.join(','),
             ages: cleanAges.join(','),
             days: cleanDays.join(','),
             keywords: component.keywords,
