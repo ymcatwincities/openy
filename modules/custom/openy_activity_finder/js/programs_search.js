@@ -224,7 +224,7 @@
     '                      <div v-if="!checkboxIsExcluded(title, getOption(checkbox2))">' +
     '                       <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
     '                       <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
-    '                     </div>\n' +
+    '                      </div>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
