@@ -1,19 +1,38 @@
+uuid: ea357f82-795a-4807-8d4f-24d990adec41
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.activity_finder.field_prgf_af_categ
+    - field.field.paragraph.activity_finder.field_prgf_af_categ_excl
     - field.field.paragraph.activity_finder.field_prgf_af_results_ref
     - field.field.paragraph.activity_finder.field_prgf_block
     - field.field.paragraph.activity_finder.field_prgf_hide_loc_select_step
     - field.field.paragraph.activity_finder.field_prgf_hide_program_categ
     - paragraphs.paragraphs_type.activity_finder
-  module:
-    - content_moderation
 id: paragraph.activity_finder.default
 targetEntityType: paragraph
 bundle: activity_finder
 mode: default
 content:
+  field_prgf_af_categ:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_prgf_af_categ_excl:
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_prgf_af_results_ref:
     weight: 3
     settings:
