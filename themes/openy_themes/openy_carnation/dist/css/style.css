@@ -8457,25 +8457,31 @@ a.direction-link {
   font-family: Verdana, sans-serif; }
 
 .field-location-phone,
-.field-location-fax {
+.field-location-fax,
+.field-location-email {
   font-size: 16px; }
   .field-location-phone i,
-  .field-location-fax i {
+  .field-location-fax i,
+  .field-location-email i {
     margin-right: 5px;
     font-size: 18px; }
   .field-location-phone a,
-  .field-location-fax a {
+  .field-location-fax a,
+  .field-location-email a {
     font-size: 16px;
     font-weight: bold;
     line-height: 2;
     color: inherit; }
     @media (min-width: 768px) {
       .field-location-phone a,
-      .field-location-fax a {
+      .field-location-fax a,
+      .field-location-email a {
         color: #636466; }
         .field-location-phone a:hover, .field-location-phone a:focus,
         .field-location-fax a:hover,
-        .field-location-fax a:focus {
+        .field-location-fax a:focus,
+        .field-location-email a:hover,
+        .field-location-email a:focus {
           text-decoration: none; } }
 
 .nav.bg-pink .nav-link.active {
