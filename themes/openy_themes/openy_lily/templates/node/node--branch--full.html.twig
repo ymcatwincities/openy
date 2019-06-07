@@ -123,6 +123,13 @@ set classes = [
                 <span class="glyphicon glyphicon-earphone bullet"></span>
                   {{ content.field_location_phone }}
               </span>
+              {% if content.field_location_email|render|trim is not empty %}
+                <br>
+                <span class="email">
+                    <span class="glyphicon glyphicon-envelope bullet"></span>
+                      {{ content.field_location_email }}
+                </span>
+              {% endif %}
             </div>
             <div class="col-lg-6 col-sm-6 col-md-6 address clearfix">
               <span class="glyphicon glyphicon-map-marker bullet"></span>
@@ -194,6 +201,13 @@ set classes = [
                 <span class="glyphicon glyphicon-earphone bullet"></span>
                   {{ content.field_location_phone }}
               </span>
+              {% if content.field_location_email|render|trim is not empty %}
+                <br>
+                <span class="email">
+                  <span class="glyphicon glyphicon-envelope bullet"></span>
+                    {{ content.field_location_email }}
+                </span>
+              {% endif %}
             </div>
             <hr>
             <div class="col-lg-6 col-sm-5 col-md-6 address clearfix">
