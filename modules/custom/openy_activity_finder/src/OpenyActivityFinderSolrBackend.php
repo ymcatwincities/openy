@@ -401,17 +401,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
       // Group field_activity_category facet by Program Type.
       if ($f == 'field_activity_category') {
-        $grouped = [];
         foreach ($facet as $i => $item) {
-          if (isset($category_program_info[$item['filter']])) {
-            $grouped[$category_program_info[$item['filter']]][] = $item;
-          }
-          else {
-            // On regular basis there are no results, keep for tracking vary case.
-            $grouped['Others'][] = $item;
+          foreach ($category_program_info as $nid => $info) {
+            if ($info['title'] == $item['filter']) {
+              $facets[$f][$i]['id'] = $nid;
+            }
           }
         }
-        $facets[$f] = !empty($grouped) ? $grouped : $facet;
       }
     }
 

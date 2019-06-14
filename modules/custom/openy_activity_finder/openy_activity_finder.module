@@ -17,6 +17,7 @@ function openy_activity_finder_theme() {
         'days' => [],
         'categories' => [],
         'categories_type' => '',
+        'activities' => [],
         'locations' => [],
         'is_search_box_disabled' => ''
       ],
