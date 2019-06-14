@@ -4,6 +4,7 @@ namespace Drupal\openy_activity_finder\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 
 /**
  * Provides a 'Activity Finder' block.
@@ -23,6 +24,10 @@ class ActivityFinderBlock extends BlockBase {
     $config = \Drupal::service('config.factory')->get('openy_activity_finder.settings');
     $backend_service_id = $config->get('backend');
     $backend = \Drupal::service($backend_service_id);
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node instanceof NodeInterface) {
+      $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id());
+    }
 
     return [
       '#theme' => 'openy_activity_finder_program_search',
@@ -31,12 +36,13 @@ class ActivityFinderBlock extends BlockBase {
       '#days' => $backend->getDaysOfWeek(),
       '#categories' => $backend->getCategoriesTopLevel(),
       '#categories_type' => $backend->getCategoriesType(),
+      '#activities' => $backend->getCategories(),
       '#locations' => $backend->getLocations(),
-      '#is_search_box_disabled' => $config->get('disable_search_box'),
       '#attached' => [
         'drupalSettings' => [
           'activityFinder' => [
-            'categories' => $backend->getCategories(),
+            'alias' => isset($alias) ? $alias : '',
+            'is_search_box_disabled' => $config->get('disable_search_box'),
           ]
         ]
       ]
