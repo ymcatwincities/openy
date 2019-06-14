@@ -6,10 +6,11 @@
 /* Activity Finder > Form (Step 1) */
 .program-search__form--title {
   margin-top: 5rem;
+  margin-bottom: 4rem;
 }
 
 .program-search__form {
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .program-search__form label {
@@ -21,6 +22,25 @@
   padding: 10px;
   flex: 1;
   border: 1px solid #ddd;
+}
+
+.program-search__af-title {
+  margin-top: 8rem;
+  margin-bottom: 4rem;
+}
+
+.af-routing--links {
+  max-width: 320px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.af-routing--links .af-routing--link {
+  border-radius: 5px;
+  display: block;
+  font-size: 18px;
+  margin: 10px 0;
+  padding: 14px;
 }
 
 /* Activity Finder > Results */
@@ -253,6 +273,16 @@
   padding: 15px 25px;
   min-height: 54px;
 }
+.activity-finder__wrapper .openy-card__item.no-results label {
+  border: 2px solid #eee !important;
+  background-color: #eee;
+}
+.activity-finder__wrapper .openy-card__item small {
+  color: #333;
+}
+.activity-finder__wrapper .openy-card__item.no-results small {
+  font-style: normal;
+}
 .schedule-dashboard__sidebar .tabs .checkbox-wrapper label {
   border: 2px solid #0060ad;
   border-radius: 4px;
@@ -304,4 +334,56 @@
   .checkboxes > .checkbox-wrapper > .checkbox-wrapper {
     margin-left: 16px;
   }
+}
+
+.activity-finder__collapse_group__link {
+  border-bottom: 1px solid #ccc;
+  display: block;
+  padding: 15px 15px;
+  text-decoration: none;
+}
+.activity-finder__collapse_group__link.collapsed {
+  border-bottom: none;
+}
+.activity-finder__collapse_group__link:hover,
+.activity-finder__collapse_group__link:focus {
+  outline: none !important;
+  text-decoration: none;
+}
+.activity-finder__collapse_group__link h3 {
+  display: inline-block;
+  font-size: 20px;
+  margin: 0;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.activity-finder__collapse_group__link .fa {
+  float: right;
+  font-size: 20px;
+  margin-top: 2px;
+}
+.activity-finder__collapse_group__link .fa-minus-circle {
+  display: inline-block;
+}
+.activity-finder__collapse_group__link .fa-plus-circle {
+  display: none;
+}
+.activity-finder__collapse_group__link.collapsed .fa-minus-circle {
+  display: none;
+}
+.activity-finder__collapse_group__link.collapsed .fa-plus-circle {
+  display: inline-block;
+}
+.activity-finder__collapse_group {
+  border: 1px solid #ccc;
+  margin-top: -1px;
+}
+.activity-finder__collapse_group .row {
+  background-color: #eee;
+  margin: 0;
+  padding: 20px 0 0;
+}
+.activity-finder__collapse_group .openy-card__item.centered label {
+  display: inline-block;
+  text-align: center;
 }

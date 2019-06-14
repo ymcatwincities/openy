@@ -29,7 +29,7 @@ component-activity:
 openy_activity_finder:
   version: 0.1
   js:
-    js/activity_finder.js: {}
+    openy_af_vue_app/dist/main.js: {}
   css:
     base:
       css/activity_finder.css: {}
@@ -41,13 +41,7 @@ openy_activity_finder:
     - openy_system/openy_system.stepper
     - openy_system/jquery.matchHeight
     - openy_system/polyfill
-    - openy_system/vue
-    - openy_system/vue_router
     - openy_system/moment
-    - openy_activity_finder/component-homepage
-    - openy_activity_finder/component-day
-    - openy_activity_finder/component-age
-    - openy_activity_finder/component-activity
 
 openy_activity_finder_search:
   version: 0.1
