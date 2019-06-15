@@ -145,10 +145,6 @@
           query.push('days=' + encodeURIComponent(this.checkedDays.join(',')));
         }
 
-        if (this.checkedProgramTypes.length > 0) {
-          query.push('program_types=' + encodeURIComponent(this.checkedProgramTypes.join(',')));
-        }
-
         if (this.checkedCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(this.checkedCategories.join(',')));
         }
@@ -220,10 +216,41 @@
             return this.days[i].label;
           }
         }
-      }
+      },
+      initializeFromGet: function() {
+        if (typeof this.$route.query.ages != 'undefined') {
+          var checkedAgesGet = decodeURIComponent(this.$route.query.ages);
+          if (checkedAgesGet) {
+            this.checkedAges = checkedAgesGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.days != 'undefined') {
+          var checkedDaysGet = decodeURIComponent(this.$route.query.days);
+          if (checkedAgesGet) {
+            this.checkedDays = checkedDaysGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.categories != 'undefined') {
+          var checkedCategoriesGet = decodeURIComponent(this.$route.query.categories);
+          if (checkedCategoriesGet) {
+            this.checkedCategories = checkedCategoriesGet.split(',');
+          }
+        }
+
+        if (typeof this.$route.query.locations != 'undefined') {
+          var checkedLocationsGet = decodeURIComponent(this.$route.query.locations);
+          if (checkedLocationsGet) {
+            this.checkedLocations = checkedLocationsGet.split(',');
+          }
+        }
+      },
     },
     mounted: function() {
       let component = this;
+
+      component.initializeFromGet();
 
       // Initial run of ajax request.
       component.runAjaxRequest();
@@ -253,9 +280,6 @@
         component.updateSearchQuery();
       });
       component.$watch('checkedDays', function(){
-        component.updateSearchQuery();
-      });
-      component.$watch('checkedProgramTypes', function(){
         component.updateSearchQuery();
       });
       component.$watch('checkedCategories', function(){
