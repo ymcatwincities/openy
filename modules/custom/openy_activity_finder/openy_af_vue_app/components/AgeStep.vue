@@ -81,7 +81,7 @@
     },
     components: {
       Spinner,
-      MainFilter,
+      MainFilter
     },
     computed: {
       // Prepare structure to pass to Filter component.
