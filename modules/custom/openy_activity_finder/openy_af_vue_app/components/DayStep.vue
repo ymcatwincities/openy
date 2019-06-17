@@ -37,28 +37,14 @@
           </div>
         </div>
 
-        <div class="activity-finder__step_content" v-if="!this.$parent.loading">
-          <div class="activity-finder__collapse_group">
-            <a class="activity-finder__collapse_group__link" href="#">
-              <h3>Day(s)</h3>
-              <span v-if="daysSelected() > 0" class="badge badge-pill badge-dark px-3 py-2">{{ daysSelected() }}</span>
-            </a>
-              <div class="row">
-                <div v-for="(item, index) in this.$parent.days" class="col col-4 col-xs-4 col-sm-6 col-md-3">
-                  <div :class="{ 'openy-card__item': true, 'no-results':(dayCounter(item.value) === 0), 'selected': cardSelected(checkedDays, item.value) }">
-                    <label :for="'af-day-filter-' + item.value" class="justify-content-center" data-mh="openy-card__item-label--days">
-                      <input v-if="dayCounter(item.value) !== 0" v-model="checkedDays" type="checkbox" :value="item.value" :id="'af-day-filter-' + item.value" class="d-none hidden" />
-                      <div class="d-flex flex-column">
-                        <span>{{ item.label }}</span>
-                        <small>{{ dayCounter(item.value) }} results</small>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- It is extremely important to pass $route.query.ages as default value, otherwise initializeFromGet happens -->
+        <!-- later from initializing this component and checkedAges will be overidden to empty value. -->
+        <main-filter
+          :options="daysOptions"
+          type="multiple"
+          :default='$route.query.days'
+          v-on:updated-values="checkedDays = $event"
+        ></main-filter>
 
         <div class="activity-finder__step_footer">
           <div class="activity-finder__step_header--actions">
@@ -83,6 +69,7 @@
 
 <script>
   import Spinner from '../components/Spinner.vue'
+  import MainFilter from '../components/Filter.vue'
 
   export default {
     data () {
@@ -97,14 +84,30 @@
           'thursday' : 4,
           'friday': 5,
           'saturday': 6,
-          'sunday': 7,
+          'sunday': 7
         }
       };
     },
     components: {
-      Spinner
+      Spinner,
+      MainFilter
     },
     computed: {
+      daysOptions: function() {
+        var options = {};
+
+        for (var dayName in this.daysMap) {
+          var id = this.daysMap[dayName];
+          var counter = this.dayCounters[id];
+          options[id] = {
+            label: dayName,
+            count: counter
+          };
+        }
+        return {
+          'Day(s)' : options
+        };
+      },
       count: function() {
         return this.$parent.table.count;
       },
