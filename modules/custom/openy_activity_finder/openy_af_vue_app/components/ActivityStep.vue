@@ -37,32 +37,14 @@
           </div>
         </div>
 
-        <div class="activity-finder__step_content" v-show="!this.$parent.loading">
-          <div v-for="(topLevelCategory, index) in this.$parent.activities" class="activity-finder__collapse_group">
-            <a class="activity-finder__collapse_group__link collapsed" data-toggle="collapse" :href="'#collapse-activity-group-' + index">
-              <h3>{{ topLevelCategory.label }}</h3>
-              <span v-if="categorySelected(topLevelCategory.label) > 0" class="badge badge-pill badge-dark px-3 py-2">{{ categorySelected(topLevelCategory.label) }}</span>
-              <i class="fa fa-plus-circle"></i>
-              <i class="fa fa-minus-circle"></i>
-            </a>
-            <div :id="'collapse-activity-group-' + index" class="row collapse">
-              <div v-for="(item, index) in topLevelCategory.value">
-                <div v-if="categoryIsNotExcluded(item.value)" class="col-12 col-xs-12 col-sm-6 col-md-3">
-                  <div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(activityCounter(item.value) === 0), 'selected': cardSelected(checkedCategories, item.value) }">
-                    <label :for="'af-filter-category-' + item.value" data-mh="openy-card__item-label">
-                      <input v-if="categoriesType === 'single' && activityCounter(item.value) !== 0" v-model="checkedCategories" type="radio" :value="item.value" :data-label="item.label" :id="'af-filter-category-' + item.value" name="activity-radios">
-                      <input v-if="categoriesType === 'multiple' && activityCounter(item.value) !== 0" v-model="checkedCategories" type="checkbox" :value="item.value" :data-label="item.label" :id="'af-filter-category-' + item.value" class="hidden d-none" name="activity-radios">
-                      <div class="d-flex flex-column">
-                        <span>{{ item.label }}</span>
-                        <small>{{ activityCounter(item.value) }} results</small>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- It is extremely important to pass $route.query.ages as default value, otherwise initializeFromGet happens -->
+        <!-- later from initializing this component and checkedAges will be overidden to empty value. -->
+        <main-filter
+                :options="categoriesOptions"
+                type="multiple"
+                :default='$route.query.categories'
+                v-on:updated-values="checkedCategories= $event"
+        ></main-filter>
 
         <div class="activity-finder__step_footer">
           <div class="activity-finder__step_header--actions">
@@ -87,6 +69,7 @@
 
 <script>
   import Spinner from '../components/Spinner.vue'
+  import MainFilter from '../components/Filter.vue'
 
   export default {
     data () {
@@ -97,9 +80,29 @@
       };
     },
     components: {
-      Spinner
+      Spinner,
+      MainFilter
     },
     computed: {
+      categoriesOptions: function() {
+        var options = {};
+
+        for (let i in this.$parent.activities) {
+          let topLevelLabel = this.$parent.activities[i].label;
+          let secondLevelOptions = {};
+          for (let j in this.$parent.activities[i].value) {
+            let id = this.$parent.activities[i].value[j].value;
+            let label = this.$parent.activities[i].value[j].label;
+            secondLevelOptions[id] = {
+              label: label,
+              count: this.activityCounter(id)
+            };
+          }
+
+          options[topLevelLabel] = secondLevelOptions;
+        }
+        return options;
+      },
       count: function() {
         return this.$parent.table.count;
       },
