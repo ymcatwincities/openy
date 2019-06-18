@@ -21,7 +21,7 @@
               {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
             </span>
             <span v-else class="activity-finder__step_header--progress-spacer">
-              ${ count } {{ 'programs meet your criteria.'|t }}
+              ${ count } {{ 'results'|t }}
             </span>
           </div>
           <div class="d-inline-flex ml-auto text-right">
@@ -35,14 +35,26 @@
   <div class="container">
     <div class="row">
 
+      <div class="row hidden-md hidden-lg d-block d-md-none">
+        {# mobile toggler button #}
+        <div class="col col-xs-12">
+          <a href="#" data-toggle="collapse" data-target=".schedule-dashboard__sidebar" role="button" class="collapsed schedule-dashboard__toggle">
+            {{ 'REFINE RESULTS'|t }}
+            <small v-show="totalGroupCounter() > 0" class="badge">${ totalGroupCounter() }</small>
+            <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>
+            <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
       {# sidebar > allows overriding in BS4 compatible themes (carnation), so it can utilize its native mobile breakpoints. #}
       {% block sidebar_wrapper %}
-      <div class="col-xs-12 col-sm-12 col-md-3 schedule-dashboard__sidebar">
+      <div class="col-xs-12 col-sm-12 col-md-3 collapse schedule-dashboard__sidebar">
       {% endblock %}
         {# keywords #}
         {% if not is_search_box_disabled %}
         <div class="form-group-wrapper schedule-dashboard__search--form">
-          <input type="text" class="form-control col-md-9" v-model="keywords" @keyup.enter.prevent="runAjaxRequest()" placeholder="{{ 'Enter your keywords...'|t }}">
+          <input type="text" class="form-control col-md-9" v-model="keywords" @keyup.enter.prevent="runAjaxRequest()" placeholder="{{ 'Keyword(s)'|t }}">
           <button class="btn btn-primary col-3 col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
             {# Make customizable since carnation doesn't have glyphicons in v4. #}
             {% block search_icon %}
@@ -51,31 +63,27 @@
           </button>
         </div>
         {% endif %}
+        <div v-show="!loading" class="schedules-sort schedules-sort-mobile hidden-md hidden-lg d-block d-md-none">
+          {% if sort_options is not empty %}
+            <select v-model="sort" class="form-control form-select">
+              {% for key, item in sort_options %}
+                <option value="{{ key }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          {% endif %}
+        </div>
         <div class="navbar navbar-default navbar-expand-sm navbar-expand-md flex-sm-column flex-md-column">
           <div class="navbar-header w-100">
 
             <div class="navbar-controls">
-              <span class="navbar-controls__title hidden-xs hidden-sm"><strong>{{ 'Filters'|t }}</strong></span>
-              <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear all'|t }}</a>
-            </div>
-
-            <div class="row hidden-md hidden-lg d-block d-md-none">
-              {# mobile toggler button #}
-              <div class="col col-xs-8">
-                <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
-                  <strong>
-                    <i class="fa fa-plus plus" aria-hidden="true"></i>
-                    <i class="fa fa-minus minus" aria-hidden="true"></i>
-                    <span class="plus">{{ 'Show Filters'|t }}</span>
-                    <span class="minus">{{ 'Hide Filters'|t }}</span>
-                  </strong>
-                </a>
-              </div>
+              <span class="navbar-controls__title">{{ 'FILTERS'|t }}</span>
+              <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear filters'|t }}</a>
             </div>
 
           </div>
 
-          <div id="schedules-filters" class="collapse w-100 flex-column">
+          <div id="schedules-filters" class="w-100 flex-column">
+            <h3>{{ 'Schedule preferences'|t }}</h3>
             {% block sidebar_filters %}
             <sidebar-filter
               ref="ages_filter"
@@ -97,6 +105,7 @@
               v-on:updated-values="days = $event"
             ></sidebar-filter>
 
+            <h3>{{ 'Activity preferences'|t }}</h3>
             {% if categories_type == 'single' %}
             <sidebar-filter-single
               ref="categories_filter"
@@ -116,9 +125,12 @@
               options='{{ categories|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
+              expanded="true"
+              hide_label="true"
             ></sidebar-filter>
             {% endif %}
 
+            <h3>{{ 'Location preferences'|t }}</h3>
             <sidebar-filter
               ref="locations_filter"
               title="{{ 'Location'|t }}"
@@ -127,6 +139,8 @@
               options='{{ locations|json_encode }}'
               :default='$route.query.locations'
               v-on:updated-values="locations = $event"
+              expanded="true"
+              hide_label="true"
             ></sidebar-filter>
             {% endblock %}
           </div>
@@ -142,7 +156,7 @@
         <div>
           <div class="vue-template">
 
-            <div v-show="!loading" class="schedules-sort">
+            <div v-show="!loading" class="schedules-sort hidden-xs hidden-sm d-none d-lg-block">
               {% if sort_options is not empty %}
               <select v-model="sort" class="form-control form-select">
                 {% for key, item in sort_options %}
@@ -178,7 +192,7 @@
                       <a class="schedule-dashboard__modal--location-link" role="button" href="#" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a>
                     </div>
                   </div>
-                  <div class="col-sm-4">
+                  <div class="col-sm-4 af-price-availability-wrapper">
                     <div v-if="item.price.length > 0" v-html="item.price" class="item-price"></div>
                     <div class="availability-wrapper">
                       {# if we do not know if it is available #}
