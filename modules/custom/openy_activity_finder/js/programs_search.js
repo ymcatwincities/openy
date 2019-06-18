@@ -11,12 +11,11 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'default', 'type'],
+    props: ['title', 'id', 'options', 'default', 'type', 'expanded', 'hide_label'],
     data: function() {
       return {
         checkboxes: [],
         checked: [],
-        expanded: false,
         expanded_checkboxes: {},
         dependencies: {},
       }
@@ -84,7 +83,7 @@
         }
       },
       checkboxIsDisabled: function(title, value) {
-      var component = this.$parent;
+        var component = this.$parent;
         switch (title) {
           case "Age":
             if (typeof component.facets.static_age_filter !== 'undefined') {
@@ -158,6 +157,27 @@
           return 'none';
         }
       },
+      groupCounter: function(group) {
+        var counter = 0;
+        if (typeof group !== 'undefined' && typeof this.dependencies[group] !== 'undefined') {
+          for (var i in this.dependencies[group]) {
+            for (var j in this.checked) {
+              if (this.dependencies[group][i] == this.checked[j]) {
+                counter ++;
+              }
+            }
+          }
+        }
+        else {
+          counter = this.checked.length;
+          for (var k in this.checked) {
+            if (this.checked[k] == 0) {
+              counter--;
+            }
+          }
+        }
+        return counter;
+      },
       selectDependent: function(value) {
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
@@ -193,37 +213,36 @@
       }
     },
     template: '<div class="form-group-wrapper">\n' +
-    '                <label v-on:click="expanded = !expanded">\n' +
+    '                <label v-if="!hide_label" v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
-    '                  <i v-if="expanded" class="fa fa-minus minus" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus plus" aria-hidden="true"></i>\n' +
+    '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>'+
+    '                  <i v-if="expanded" class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
+    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' + //checked.indexOf(getOption(checkbox)) != -1
     '                </label>\n' +
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
-    '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
+    '                     v-show="type != \'tabs\' || expanded"' +
     '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsDisabled(title, getOption(checkbox))}">' +
     // No parent checkbox.
-    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
-    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
+    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
+    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-show="expanded" v-on:click.stop.prevent="selectDependent(getLabel(checkbox))" href="#" v-bind:class="{ ' +
-    '                         \'checkbox-unchecked\': groupStatus(getLabel(checkbox)) == \'none\', ' +
-    '                         \'checkbox-checked\': groupStatus(getLabel(checkbox)) == \'all\', ' +
-    '                         \'checkbox-partial\': groupStatus(getLabel(checkbox)) == \'partial\', ' +
-    '                         \'d-flex\': true' +
-    '                       }">' +
-    '                       <input v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked">\n' +
-    '                       <label v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" >{{ getLabel(checkbox) }}</label>\n' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
-    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
-    '                         <span v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" class="fa fa-angle-up" aria-hidden="true"></span>' +
+    '                       <a v-show="collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                         <label>{{ getLabel(checkbox) }}</label>\n' +
+    '                         <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small>'+
+    '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
+    '                       </a>' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                         <label>{{ getLabel(checkbox) }}</label>\n' +
+    '                         <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small>'+
+    '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(checkbox) == \'object\'" v-for="checkbox2 in getOption(checkbox)" class="checkbox-wrapper">\n' +
     '                      <div v-if="!checkboxIsExcluded(title, getOption(checkbox2))">' +
-    '                       <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
-    '                       <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
+    '                       <input v-if="expanded && !collapseGroup(checkbox)" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
+    '                       <label v-if="expanded && !collapseGroup(checkbox)" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
     '                      </div>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
@@ -283,8 +302,8 @@
     template: '<div class="form-group-wrapper">\n' +
     '                <label v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
-    '                  <i v-if="expanded" class="fa fa-minus minus" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus plus" aria-hidden="true"></i>\n' +
+    '                  <i v-if="expanded" class="fa fa-minus-circle minus" aria-hidden="true"></i>\n' +
+    '                  <i v-if="!expanded" class="fa fa-plus-circle plus" aria-hidden="true"></i>\n' +
     '                </label>\n' +
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="radio in radios" class="checkbox-wrapper" ' +
@@ -713,6 +732,10 @@
         this.current_page = number;
         this.table = [];
         this.runAjaxRequest(false);
+      },
+      totalGroupCounter() {
+        // Returns count of of applied filters.
+        return this.ages.length + this.days.length + this.categories.length + this.locations.length;
       }
     },
     delimiters: ["${","}"]
