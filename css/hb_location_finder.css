@@ -1,0 +1,9 @@
+.locations .node--type-branch.node--view-mode-teaser.hb-selected {
+  border: solid 1px #33b737;
+}
+.locations .node--type-branch .hb-location {
+  padding: 20px;
+}
+.locations .node--type-branch .hb-location input {
+  margin-right: 10px;
+}
