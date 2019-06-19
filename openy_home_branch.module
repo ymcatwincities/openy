@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_home_branch module hooks.
+ */
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function openy_home_branch_preprocess_node(&$variables) {
+  if ($variables['page']) {
+    // TODO: Replace this by plugins.
+    $variables['#attached']['library'][] = 'openy_home_branch/location_finder';
+  }
+  else {
+    if ($variables['teaser'] && $variables['node']->getType() == 'branch') {
+      // Add location ID as data attribute for VUE application.
+      $variables['attributes']['data-hb-id'] = $variables["node"]->id();
+    }
+  }
+}

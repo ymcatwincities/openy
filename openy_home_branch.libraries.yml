@@ -1,0 +1,20 @@
+сookies_storage:
+  version: 0.1
+  js:
+    js/hb_сookies_storage.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+    - core/jquery.cookie
+
+location_finder:
+  version: 0.1
+  js:
+    js/hb_location_finder.js: {}
+  css:
+    component:
+      css/hb_location_finder.css: {}
+  dependencies:
+    - openy_system/vue
+    - openy_home_branch/сookies_storage
