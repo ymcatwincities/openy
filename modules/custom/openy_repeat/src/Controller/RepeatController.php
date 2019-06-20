@@ -269,7 +269,16 @@ class RepeatController extends ControllerBase {
             $address = $node->get('field_location_address')->getValue();
             if (!empty($address[0])) {
               $address = array_filter($address[0]);
-              $address = implode(', ', $address);
+              $address_order = [
+                'address_line1' => '',
+                'locality' => '',
+                'administrative_area' => '',
+                'country_code' => '',
+                'postal_code' => '',
+              ];
+              $diff_address = array_diff_key($address, $address_order);
+              $address = "{$address['address_line1']}, {$address['locality']}, {$address['administrative_area']}, {$address['country_code']}, {$address['postal_code']}";
+              $address = !empty($diff_address) ? $address . ', ' . implode(', ', $diff_address) : $address;
             }
             $data[$node->title->value] = [
               'nid' => $node->nid->value,
