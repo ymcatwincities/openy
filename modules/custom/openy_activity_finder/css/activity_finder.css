@@ -255,6 +255,10 @@
   background-color: #fff;
   color: #0060ad;
 }
+.schedule-dashboard__sidebar .tabs .checkbox-wrapper.disabled label {
+  border: 2px solid #ddd;
+  color: #ddd;
+}
 .activity-finder__wrapper .openy-card__item label {
   border-color: #0060ad !important;
   border-radius: 4px;
