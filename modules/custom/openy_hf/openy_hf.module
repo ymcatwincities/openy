@@ -90,8 +90,10 @@ function openy_hf_preprocess_html(&$variables) {
       $scripts_bottom = \Drupal::service('asset.js.collection_renderer')->render($js_assets_footer);
       foreach ($scripts_bottom as $key => $script_bottom) {
         $variables['scripts_bottom'][] = $script_bottom;
-        if (isset($script_bottom['#attributes']['src']) && substr($script_bottom['#attributes']['src'], 0, 2) !== '//') {
+        if (isset($script_bottom['#attributes']['src']) && strpos($script_bottom['#attributes']['src'], 'http') === FALSE) {
           $variables['scripts_bottom'][$key]['#attributes']['src'] = $base_url . $script_bottom['#attributes']['src'];
+        } else {
+          $variables['scripts_bottom'][$key]['#attributes']['src'] = $script_bottom['#attributes']['src'];
         }
       }
     }
