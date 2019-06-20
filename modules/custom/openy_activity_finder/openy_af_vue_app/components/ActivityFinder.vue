@@ -49,7 +49,9 @@
     components: {
     },
     computed: {
-
+      previousStepFilters: function () {
+        return this.getHumanReadableAppliedFilters();
+      }
     },
     methods: {
       setInitialStep: function (stepName) {
@@ -89,6 +91,11 @@
             // This is the last step.
             else {
               // @todo redirect to program search with all parameters.
+              var query = this.$route.query;
+              var queryString = Object.keys(query).map(function(key) {
+                return key + '=' + query[key]
+              }).join('&');
+              window.location.href = this.programSearchUrl + '?' + queryString;
             }
           }
         }
@@ -246,6 +253,22 @@
           }
         }
       },
+      getHumanReadableAppliedFilters() {
+        var filters = [];
+        for (var i in this.checkedAges) {
+          filters.push(this.getAgeNameById(this.checkedAges[i]));
+        }
+        for (var j in this.checkedDays) {
+          filters.push(this.getDayNameById(this.checkedDays[j]));
+        }
+        //console.log(filters);
+        for (var k in this.checkedCategories) {
+          filters.push(this.getCategoryNameById(this.checkedCategories[k]));
+        }
+        //console.log(filters);
+        //return this.checkedAges.join(',') + this.checkedDays.join(',') + this.checkedCategories.join(',');
+        return filters.join(', ');
+      }
     },
     mounted: function() {
       let component = this;
