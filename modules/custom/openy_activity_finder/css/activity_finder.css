@@ -319,15 +319,20 @@
   border: 2px solid #0060ad;
   background-color: #fff;
   color: #0060ad;
+  font-weight: bold;
   padding: 15px 25px;
   min-height: 54px;
 }
 .activity-finder__wrapper .openy-card__item.no-results label {
-  border: 2px solid #eee !important;
-  background-color: #eee;
+  border: 2px solid #F2F2F2 !important;
+  background-color: #F2F2F2;
 }
 .activity-finder__wrapper .openy-card__item small {
   color: #333;
+  font-weight: normal;
+}
+.activity-finder__wrapper .openy-card__item.selected small {
+  color: #fff;
 }
 .activity-finder__wrapper .openy-card__item.no-results small {
   font-style: normal;
@@ -461,7 +466,7 @@
   font-size: 12px;
   margin-bottom: -1px;
   margin-top: -1px;
-  padding: 10px;
+  padding: 15px 10px;
   text-transform: uppercase;
   text-decoration: none;
 }
@@ -523,16 +528,31 @@
   text-decoration: none;
 }
 .activity-finder__collapse_group__link h3 {
+  color: #636466;
   display: inline-block;
-  font-size: 20px;
+  font: 14px/28px Verdana, Geneva, sans-serif;
+  font-weight: bold;
   margin: 0;
   text-transform: uppercase;
   vertical-align: middle;
 }
+.activity-finder__collapse_group__link .badge {
+  background-color: #0060AF;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  height: 27px;
+  line-height: 27px;
+  margin-left: 10px;
+  min-width: 30px;
+  padding: 0 7px;
+}
 .activity-finder__collapse_group__link .fa {
+  color: #636466;
   float: right;
   font-size: 20px;
-  margin-top: 2px;
+  margin-top: 5px;
 }
 .activity-finder__collapse_group__link .fa-minus-circle {
   display: inline-block;
@@ -551,7 +571,7 @@
   margin-top: -1px;
 }
 .activity-finder__collapse_group .row {
-  background-color: #eee;
+  background-color: #F2F2F2;
   margin: 0;
   padding: 20px 0 0;
 }
@@ -562,7 +582,6 @@
 .activity-finder__step_header--progress-spacer {
   color: #231F20;
   font-size: 12px;
-  font-weight: bold;
 }
 .schedule-dashboard__toggle {
   align-items: center;

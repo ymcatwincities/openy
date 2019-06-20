@@ -11,7 +11,7 @@
                     <spinner></spinner>
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    <strong>{{ count }} programs</strong>
+                    <strong>{{ count }} programs</strong><span v-if="previousStepFilters"><strong> for:</strong> {{ previousStepFilters }}</span>
                     <span class="activity-finder__step_header--progress-spacer">|</span>
                     <a :href="viewAllUrl">View All</a>
                   </span>
@@ -40,6 +40,7 @@
         <!-- It is extremely important to pass $route.query.ages as default value, otherwise initializeFromGet happens -->
         <!-- later from initializing this component and checkedAges will be overidden to empty value. -->
         <main-filter
+          v-if="!this.$parent.loading"
           :options="daysOptions"
           type="multiple"
           :default='$route.query.days'
@@ -76,6 +77,7 @@
       return {
         checkedDays: [],
         filtersBreadcrumbs: '',
+        previousStepFilters: '',
         isStepNextDisabled: true,
         daysMap: {
           'monday': 1,
@@ -91,6 +93,9 @@
     components: {
       Spinner,
       MainFilter
+    },
+    mounted: function () {
+      this.previousStepFilters = this.$parent.previousStepFilters;
     },
     computed: {
       daysOptions: function() {
