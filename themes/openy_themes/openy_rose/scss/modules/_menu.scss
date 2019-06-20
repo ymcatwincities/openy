@@ -181,42 +181,6 @@
   top: 150px;
 }
 .viewport {
-  .openy-gtranslate {
-    display: inline-block;
-    vertical-align: bottom;
-    height: 41px;
-    .goog-te-gadget-simple {
-      background-color: transparent;
-      border: none;
-      @include cachet();
-      font-size: 12px;
-      .goog-te-gadget-icon {
-        display: none;
-      }
-      .goog-te-menu-value {
-        color: $white;
-        img, span:not(:first-of-type) {
-          display: none;
-        }
-      }
-      &:before {
-        content: '\f0ac';
-        font-family: 'FontAwesome';
-        font-size: 14px;
-        color: $white;
-        padding-right: 5px;
-        padding-left: 10px;
-        border-left: 1px solid $white;
-      }
-      &:after {
-        content: '\f107';
-        font-family: 'FontAwesome';
-        font-size: 15px;
-        padding-left: 5px;
-        color: $white;
-      }
-    }
-  }
 
   .page-head__top-menu {
     @include breakpoint($screen-lg-desktop) {
