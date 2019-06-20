@@ -143,7 +143,9 @@ function openy_node_event_preprocess_field__node__field_event_location__event(&$
   $variables['#attached']['library'][] = 'openy_node_event/event_custom';
 }
 
-
+/**
+ * Implements hook_preprocess_node().
+ */
 function openy_node_event_preprocess_node(&$variables) {
   if ($variables['view_mode'] == 'teaser' && $variables['node']->getType() == 'event') {
     // Get dates.
