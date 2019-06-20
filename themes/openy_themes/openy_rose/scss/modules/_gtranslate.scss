@@ -1,0 +1,24 @@
+.openy-gtranslate {
+  display: inline-block;
+  vertical-align: bottom;
+  height: 39px;
+}
+
+.openy-google-translate select {
+  background: transparent;
+  border: none;
+  text-transform: uppercase;
+  color: $white;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.nav {
+  .language {
+    .openy-google-translate {
+      select {
+        margin-left: 10px;
+      }
+    }
+  }
+}
