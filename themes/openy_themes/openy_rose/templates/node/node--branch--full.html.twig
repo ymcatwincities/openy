@@ -103,6 +103,10 @@ set classes = [
           <h4>{{ 'PHONE'|t }}</h4>
           {{ content.field_location_phone }}
           {{ content.field_location_fax }} {{ fax_suffix }}
+          {% if content.field_location_email|render|trim is not empty %}
+            <h4 class="branch-header__email-header">{{ 'EMAIL'|t }}</h4>
+            {{ content.field_location_email }}
+          {% endif %}
         </div>
         <div class="column col-sm-3 col-md-2 branch-header__item">
           <h4>{{ 'TODAY\'S HOURS'|t }}</h4>
@@ -127,6 +131,9 @@ set classes = [
         <div class="ui-tabs">
           <ul class="ui-tabs-nav">
             <li><a href="#tabs-phone"><i class="fa fa-phone" aria-hidden="true"></i></a></li>
+            {% if content.field_location_email|render|trim is not empty %}
+              <li><a href="#tabs-email"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+            {% endif %}
             <li><a href="#tabs-marker"><i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
             <li><a href="#tabs-clock"><i class="fa fa-clock-o" aria-hidden="true"></i></a></li>
           </ul>
@@ -135,6 +142,12 @@ set classes = [
             {{ content.field_location_phone }}
             {{ content.field_location_fax }} {{ fax_suffix }}
           </div>
+          {% if content.field_location_email|render|trim is not empty %}
+            <div id="tabs-email" class="ui-tabs-panel col-xs-12">
+              <h4>{{ 'EMAIL'|t }}</h4>
+              {{ content.field_location_email }}
+            </div>
+          {% endif %}
           <div id="tabs-marker" class="ui-tabs-panel col-xs-12">
             <h4>{{ 'ADDRESS'|t }}</h4>
             {{ content.field_location_address }}
