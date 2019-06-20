@@ -7,6 +7,8 @@ dependencies:
   - node
   - openy_node_landing
   - openy_prgf
+  - openy_repeat
   - paragraphs
   - plugin
 version: 8.x-1.0
+description: 'Feature with Activity Finder paragraph.'

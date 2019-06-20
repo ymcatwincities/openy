@@ -1,4 +1,3 @@
-uuid: ea357f82-795a-4807-8d4f-24d990adec41
 langcode: en
 status: true
 dependencies:
@@ -10,60 +9,54 @@ dependencies:
     - field.field.paragraph.activity_finder.field_prgf_hide_loc_select_step
     - field.field.paragraph.activity_finder.field_prgf_hide_program_categ
     - paragraphs.paragraphs_type.activity_finder
+  module:
+    - openy_repeat
+    - plugin
 id: paragraph.activity_finder.default
 targetEntityType: paragraph
 bundle: activity_finder
 mode: default
 content:
   field_prgf_af_categ:
-    weight: 4
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_prgf_af_categ_excl:
-    weight: 5
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_prgf_af_results_ref:
-    weight: 3
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
-  field_prgf_hide_loc_select_step:
-    weight: 1
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  field_prgf_hide_program_categ:
-    weight: 2
-    settings:
-      display_label: true
-    third_party_settings: {  }
-    type: boolean_checkbox
-    region: content
-  moderation_state:
-    type: moderation_state_default
+    type: openy_json
     weight: 0
-    settings: {  }
     region: content
+    label: hidden
+    settings: {  }
     third_party_settings: {  }
-hidden:
-  created: true
-  field_prgf_block: true
-  status: true
-  uid: true
+  field_prgf_af_categ_excl:
+    type: openy_json
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_prgf_af_results_ref:
+    type: openy_json
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_prgf_block:
+    type: plugin_block_built
+    weight: 3
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_prgf_hide_loc_select_step:
+    type: openy_json
+    weight: 4
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_prgf_hide_program_categ:
+    type: openy_json
+    weight: 5
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
