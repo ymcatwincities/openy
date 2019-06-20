@@ -37,7 +37,8 @@
           this.dependencies[checkbox.label] = [];
           for (var k in checkbox.value) {
             var item = checkbox.value[k];
-            this.dependencies[checkbox.label].push(item.value);
+            var value = isNaN(item.value) ? item.value : +item.value;
+            this.dependencies[checkbox.label].push(value);
           }
         }
       }
