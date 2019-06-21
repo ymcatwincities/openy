@@ -8,13 +8,22 @@
     - core/jquery.once
     - core/jquery.cookie
 
+hb_app:
+  version: 0.1
+  js:
+    js/hb_app.js: {}
+  dependencies:
+    - openy_home_branch/сookies_storage
+    - openy_system/vue
+#    - openy_system/openy_system.helpers
+#    - openy_system/openy_system.modal
+
 location_finder:
   version: 0.1
   js:
-    js/hb_location_finder.js: {}
+    js/components/hb_location_finder.js: {}
   css:
     component:
       css/hb_location_finder.css: {}
   dependencies:
-    - openy_system/vue
-    - openy_home_branch/сookies_storage
+    - openy_home_branch/hb_app
