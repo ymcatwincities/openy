@@ -384,8 +384,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
       foreach ($facet as $i => $item) {
         if (!empty($item['filter'])) {
-          // Remove double quotes.
-          $facets[$f][$i]['filter'] = str_replace('"', '', $item['filter']);
+          // Remove double quotes and make first letter upppercase i.e. Monday.
+          $facets[$f][$i]['filter'] = ucfirst(str_replace('"', '', $item['filter']));
           // Add safe string for using in tag attributes.
           $facets[$f][$i]['safe'] = Html::cleanCssIdentifier($f . '_' . $item['filter']);
         }
