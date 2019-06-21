@@ -358,9 +358,6 @@
       '$route': function() {
         if (typeof this.$route.query.ages != 'undefined') {
           var checkedAgesGet = decodeURIComponent(this.$route.query.ages);
-
-          console.log(JSON.stringify(checkedAgesGet.split(',')), 'get ages');
-          console.log(JSON.stringify(this.checkedAges), 'ages');
           if (JSON.stringify(checkedAgesGet.split(',')) != JSON.stringify(this.checkedAges)) {
             this.checkedAges = checkedAgesGet.split(',');
             this.reloadRouter();
