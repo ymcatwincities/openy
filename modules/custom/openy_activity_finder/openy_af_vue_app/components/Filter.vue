@@ -13,13 +13,13 @@
           <!--<div v-if="categoryIsNotExcluded(item.value)" class="col-12 col-xs-12 col-sm-6 col-md-3">-->
           <div class="col-12 col-xs-12 col-sm-6 col-md-3">
             <!--<div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(secondLevel.count === 0), 'selected': checked.indexOf(secondLevelId) !== -1 }">-->
-            <div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(parseInt(secondLevel.count) === 0), 'selected': checked.indexOf(secondLevelId) !== -1 }">
+            <div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(parseInt(secondLevel.count) === 0 && secondLevel.count !== undefined), 'selected': checked.indexOf(secondLevelId) !== -1 }">
               <label :for="'af-filter-category-' + topLevelIndex + '-'  + secondLevelIndex" data-mh="openy-card__item-label">
                 <input v-if="type === 'single'" v-model="checked" type="radio" :value="secondLevelId" :data-label="secondLevel.label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" name="filter-radios">
                 <input v-if="type === 'multiple'" v-model="checked" type="checkbox" :value="secondLevelId" :data-label="secondLevel.label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" class="hidden d-none" name="filter-checkboxes">
                 <div class="d-flex flex-column">
                   <span>{{ secondLevel.label }}</span>
-                  <small>{{ secondLevel.count }} results</small>
+                  <small v-if="secondLevel.count !== undefined">{{ secondLevel.count }} results</small>
                 </div>
               </label>
             </div>
@@ -75,11 +75,15 @@
     },
     watch: {
       checked: function(values) {
+        let returnValues = values;
+        if (typeof values == 'string') {
+          returnValues = [ values ];
+        }
         // Some of the values could be empty. Clean them up.
         var cleanValues = [];
-        for (let key in values) {
-          if (values[key] != '') {
-            cleanValues.push(values[key]);
+        for (let key in returnValues) {
+          if (returnValues[key] != '') {
+            cleanValues.push(returnValues[key]);
           }
         }
         this.$emit('updated-values', cleanValues);
