@@ -42,7 +42,7 @@
         <main-filter
           v-if="!this.$parent.loading"
           :options="categoriesOptions"
-          type="multiple"
+          :type="categoriesType"
           :default='$route.query.categories'
           v-on:updated-values="checkedCategories= $event"
         ></main-filter>

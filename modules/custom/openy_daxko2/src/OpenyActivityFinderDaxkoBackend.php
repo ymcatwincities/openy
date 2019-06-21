@@ -319,11 +319,17 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     foreach ($facets as $facet_name => &$facet_data) {
       foreach ($facet_data as $key => &$facet) {
         $facet = [
-          'name' => $facet['name'],
+          'filter' => $facet['name'],
           'id' => $facet['id'],
           'count' => $facet['offering_count'],
         ];
       }
+    }
+
+    // Rename facet to match Solr backend.
+    if (isset($facets['categories'])) {
+      $facets['field_activity_category'] = $facets['categories'];
+      unset($facets['categories']);
     }
 
     $locations = $this->getLocations();
