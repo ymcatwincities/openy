@@ -8,7 +8,7 @@
         <i class="fa fa-plus-circle"></i>
         <i class="fa fa-minus-circle"></i>
       </a>
-      <div :id="'collapse-activity-group-' + topLevelIndex" class="row collapse">
+      <div :id="'collapse-activity-group-' + topLevelIndex" :class="{'row': true, 'collapse': topLevelCounters[topLevelLabel] == 0}">
         <div v-for="(secondLevel, secondLevelId, secondLevelIndex) in topLevel">
           <!--<div v-if="categoryIsNotExcluded(item.value)" class="col-12 col-xs-12 col-sm-6 col-md-3">-->
           <div class="col-12 col-xs-12 col-sm-6 col-md-3">
