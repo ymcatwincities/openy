@@ -187,6 +187,9 @@
             },
             "drupal/blazy": {
                 "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch"
+            },
+            "drupal/openy_repeat": {
+                "Update default behavior for filters on schedule page": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/openy_repeat/update-schedule_update_collapse_behavior.patch"
             }
         }
     },
