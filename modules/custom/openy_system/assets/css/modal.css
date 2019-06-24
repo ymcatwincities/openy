@@ -77,7 +77,8 @@
 }
 @media screen and (min-width: 992px) {
   .schedule-dashboard__modal--body h3 {
-    font-size: 20px;
+    font-size: 18px;
+    line-height: 24px;
   }
 }
 .schedule-dashboard__modal--body .table h4 {
@@ -216,7 +217,7 @@
   .schedule-dashboard__modal--body .modal-info-sidebar .location_name {
     font-size: 15px;
     line-height: 20px;
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 }
 .schedule-dashboard__modal--body .modal-info-sidebar .availability-wrapper {

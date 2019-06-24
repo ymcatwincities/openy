@@ -115,6 +115,8 @@
               options='{{ categories|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
+              expanded="true"
+              hide_label="true"
             ></sidebar-filter-single>
             {% else %}
             <sidebar-filter
@@ -193,24 +195,16 @@
                     </div>
                   </div>
                   <div class="col-sm-4 af-price-availability-wrapper">
-                    <div v-if="item.price.length > 0" v-html="item.price" class="item-price"></div>
+                    <div v-html="item.price" class="item-price"></div>
                     <div class="availability-wrapper">
-                      {# if we do not know if it is available #}
-                      <div v-if="item.availability_status.length == 0">
-                        <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="availability-status-btn btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
-                      </div>
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
-                        <div v-if="item.availability_note" class="availability-note">${ item.availability_note }</div>
                         <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? 'few-spots' : '', 'spots-availability']">${ item.spots_available } spots left</div>
                       </div>
                       {# if we know that registration is NOT available #}
                       <div v-if="item.availability_status == 'closed'">
-                        <span class="spots-availability">${ item.availability_note }</span>
+                        <span class="spots-availability">{{ 'FULL'|t }}</span>
                       </div>
-                    </div>
-                    <div v-else class="col-12 col-xs-12">
-                      <span class="availability-note"><i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i></span>
                     </div>
                   </div>
                 </div>
@@ -294,9 +288,6 @@
                     </div>
                     <div class="availability-wrapper">
                       <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
-                      <div v-if="moreInfoPopup.availability_note.length > 0" class="availability_note">
-                        ${ moreInfoPopup.availability_note }
-                      </div>
                       <div v-if="moreInfoPopup.availability_status == 'open'" class="availability_status">
                         <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
                       </div>

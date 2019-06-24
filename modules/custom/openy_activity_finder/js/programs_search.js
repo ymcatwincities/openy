@@ -229,13 +229,11 @@
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
     '                       <a v-show="collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" class="d-flex checkbox-toggle-subset">' +
-    '                         <label>{{ getLabel(checkbox) }}</label>\n' +
-    '                         <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small>'+
+    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" class="d-flex checkbox-toggle-subset">' +
-    '                         <label>{{ getLabel(checkbox) }}</label>\n' +
-    '                         <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small>'+
+    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
@@ -252,7 +250,7 @@
 
   // Does not yet support flat list of radios. Only two level as for Daxko location.
   Vue.component('sidebar-filter-single', {
-    props: ['title', 'id', 'options', 'default', 'type'],
+    props: ['title', 'id', 'options', 'default', 'type', 'hide_label'],
     data: function() {
       return {
         radios: [],
@@ -297,26 +295,52 @@
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
+      },
+      collapseAllGroups: function(checkbox) {
+        var label = this.getLabel(checkbox);
+        // Close all other expanded groups.
+        for (var i in this.expanded_checkboxes) {
+          if (i !== label && this.expanded_checkboxes[i] !== false) {
+            this.expanded_checkboxes[i] = false;
+          }
+        }
+      },
+      groupCounter: function(group) {
+        var counter = 0;
+        if (typeof group !== 'undefined' && typeof this.dependencies[group] !== 'undefined') {
+          for (var i in this.dependencies[group]) {
+            for (var j in this.checked) {
+              if (this.dependencies[group][i] == this.checked) {
+                counter = 1;
+              }
+            }
+          }
+        }
+        return counter;
       }
     },
     template: '<div class="form-group-wrapper">\n' +
-    '                <label v-on:click="expanded = !expanded">\n' +
+    '                <label v-if="!hide_label" v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
     '                  <i v-if="expanded" class="fa fa-minus-circle minus" aria-hidden="true"></i>\n' +
     '                  <i v-if="!expanded" class="fa fa-plus-circle plus" aria-hidden="true"></i>\n' +
     '                </label>\n' +
-    '                <div v-bind:class="[type]">\n' +
+    '                <div class="checkboxes">\n' +
     '                  <div v-for="radio in radios" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(radio)) != -1">' +
     '                    <div v-if="typeof getOption(radio) == \'object\'">' +
-    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
-    '                         <label v-if="typeof getOption(radio) == \'object\'" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(radio), true);" v-show="collapseGroup(radio) && (expanded || checked.indexOf(getOption(radio)) != -1)" class="full-width">{{ getLabel(radio) }} <span class="fa fa-angle-down pull-right" aria-hidden="true"></span></label>\n' +
-    '                         <label v-if="typeof getOption(radio) == \'object\'" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false" v-show="!collapseGroup(radio) && (expanded || checked.indexOf(getOption(radio)) != -1)" class="full-width">{{ getLabel(radio) }} <span v-if="typeof getOption(radio) == \'object\' && expanded" class="fa fa-angle-up pull-right" aria-hidden="true"></span></label>\n' +
+    '                       <a v-show="collapseGroup(radio)" v-if="typeof getOption(radio) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(radio);Vue.set(expanded_checkboxes, getLabel(radio), true);" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                         <label>{{ getLabel(radio) }} <small v-show="groupCounter(getLabel(radio)) > 0" class="badge">{{ groupCounter(getLabel(radio)) }}</small></label>\n' +
+    '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
+    '                       </a>' +
+    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" v-show="!collapseGroup(radio)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false;" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                         <label>{{ getLabel(radio) }} <small v-show="groupCounter(getLabel(radio)) > 0" class="badge">{{ groupCounter(getLabel(radio)) }}</small></label>\n' +
+    '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
-    '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper">\n' +
-    '                      <input v-if="checked.indexOf(getOption(radio2)) != -1 || (expanded && !collapseGroup(radio))" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
-    '                      <label v-if="checked.indexOf(getOption(radio2)) != -1 || (expanded && !collapseGroup(radio))" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
+    '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper radio-wrapper">\n' +
+    '                      <input v-if="expanded && !collapseGroup(radio)" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
+    '                      <label v-if="expanded && !collapseGroup(radio)" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +

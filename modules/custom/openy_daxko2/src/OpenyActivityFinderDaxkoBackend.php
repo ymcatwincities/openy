@@ -214,13 +214,21 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           continue;
         }
 
-        // Enrich with pricing.
-        $price = '';
-        $cache_key = 'daxko-price-' . md5(
-            $row['id'] . $row['program']['id'] . $location_id
-          );
+        // Cache the Price for one day.
+        $cache_key = 'daxko-price-' . md5($row['id'] . $row['program']['id'] . $location_id);
+        $ttl = \Drupal::time()->getRequestTime() + 24 * 60 * 60;
         if ($cache = $this->cache->get($cache_key)) {
-          $price = $cache->data;
+          $prices = $cache->data;
+        }
+        else {
+          $prices = [];
+          if (isset($row['groups'])) {
+            foreach ($row['groups'] as $group) {
+              $prices[] = $group['rate']['description'] . ' (' . strtolower($group['name']) . ')';
+            }
+          }
+          $prices = implode(', ', $prices);
+          $this->cache->set($cache_key, $prices, $ttl);
         }
 
         $location_name = $location_row['name'];
@@ -295,7 +303,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           'program_id' => $program_id,
           'location_id' => $location_id,
           'info' => var_export($row, TRUE),
-          'price' => $price,
+          'price' => $prices,
           'location_info' => $location_info,
           'availability_status' => $availability_status,
           'availability_note' => $availability_note,
@@ -683,7 +691,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     // Cache the Availability for five minutes.
     $cache_key = 'daxko-availability-' . md5($offering_id . $program_id . $location_id);
     $ttl = \Drupal::time()->getRequestTime() + 5 * 60 * 60;
-    \Drupal::cache()->set($cache_key, ['status' => $availability_status, 'note' => $availability_note], $ttl);
+    \Drupal::cache()->set($cache_key, ['status' => $availability_status, 'note' => $availability_note, 'spots_available' => $spots_available], $ttl);
 
     // We show gender restrictions if there are any. So if value is both
     // male and female we do not need to show it as restriction.
