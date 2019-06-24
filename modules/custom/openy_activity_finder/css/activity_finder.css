@@ -122,12 +122,14 @@
 @media (min-width: 768px) {
   .schedules-data__row--alt .program-title {
     min-height: auto;
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
 }
 @media (min-width: 992px) {
   .schedules-data__row--alt .program-title {
     font: 18px/27px Verdana, Geneva, sans-serif;
+    font-weight: bold;
+    margin-bottom: 15px;
   }
 }
 @media (max-width: 767px) {
@@ -479,6 +481,18 @@
 .schedule-dashboard__sidebar .checkboxes input:not(:checked) + label:after {
   left: 10px;
   top: 8px;
+}
+.schedule-dashboard__sidebar .checkboxes .radio-wrapper input:checked + label:before,
+.schedule-dashboard__sidebar .checkboxes .radio-wrapper input:not(:checked) + label:before {
+  border-radius: 10px;
+  top: 10px;
+}
+.schedule-dashboard__sidebar .checkboxes .radio-wrapper input:checked + label:after,
+.schedule-dashboard__sidebar .checkboxes .radio-wrapper input:not(:checked) + label:after {
+  background: #0060ad;
+  border-radius: 10px;
+  border: 2px solid #666666;
+  top: 10px;
 }
 .activity-finder__wrapper .btn.skip {
   border: 2px solid #0060ad;
