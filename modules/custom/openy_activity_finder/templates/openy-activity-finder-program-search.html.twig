@@ -216,12 +216,14 @@
           <div v-for="topLevelCategory in selectedCategories">
             <h3>${ topLevelCategory.label }</h3>
             <div class="row">
-              <div v-for="(item, index) in topLevelCategory.value" class="col-12 col-xs-12 col-sm-6 col-md-4">
-                <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedCategories, item.value) }">
-                  <label :for="'af-filter-category-' + item.value" data-mh="openy-card__item-label">
-                    <input v-model="checkedCategories" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" :value="item.value" :data-label="item.label" :id="'af-filter-category-' + item.value" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %} name="activity-radios">
-                    ${ item.label }
-                  </label>
+              <div v-for="(item, index) in topLevelCategory.value">
+                <div v-if="categoryIsNotExcluded(item.value)" class="col-12 col-xs-12 col-sm-6 col-md-4">
+                  <div v-bind:class="{ 'openy-card__item': true, 'selected': cardSelected(checkedCategories, item.value) }">
+                    <label :for="'af-filter-category-' + item.value" data-mh="openy-card__item-label">
+                      <input v-model="checkedCategories" type="{% if categories_type == 'single' %}radio{% else %}checkbox{% endif %}" :value="item.value" :data-label="item.label" :id="'af-filter-category-' + item.value" {% if categories_type == 'multiple' %}class="hidden d-none"{% endif %} name="activity-radios">
+                      ${ item.label }
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
