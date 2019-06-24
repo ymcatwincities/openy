@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view class="app-content"></router-view>
+    <router-view :key="rerenderKey" class="app-content"></router-view>
   </div>
 </template>
 
@@ -25,7 +25,7 @@
         stepOptions: {
           'age': ['age', 'day', 'activity', 'location'],
           'day': ['day', 'age', 'activity', 'location'],
-          'activity': ['activity', 'age', 'day', 'location'],
+          'activity': ['activity', 'age', 'day', 'location']
         },
         keywords: '',
         checkedAges: [],
@@ -43,7 +43,8 @@
           5: 'Fri',
           6: 'Sat',
           7: 'Sun',
-        }
+        },
+        rerenderKey: 0
       };
     },
     components: {
@@ -111,6 +112,7 @@
       startOver: function () {
         var component = this;
         // Reset all filters.
+        component.initialStep = '';
         component.keywords = '';
         component.checkedAges = [];
         component.checkedDays = [];
@@ -136,7 +138,8 @@
           categories: component.checkedCategories.join(','),
           days: component.checkedDays.join(','),
           locations: component.checkedLocations.join(','),
-          exclude: component.categoriesExclude.join(',')
+          exclude: component.categoriesExclude.join(','),
+          initial: component.initialStep
         }});
       },
       runAjaxRequest: function() {
@@ -252,6 +255,13 @@
             this.checkedLocations = checkedLocationsGet.split(',');
           }
         }
+
+        if (typeof this.$route.query.initial != 'undefined') {
+          let initialStepGet = decodeURIComponent(this.$route.query.initial);
+          if (initialStepGet) {
+            this.initialStep = initialStepGet;
+          }
+        }
       },
       getHumanReadableAppliedFilters() {
         var filters = [];
@@ -261,13 +271,15 @@
         for (var j in this.checkedDays) {
           filters.push(this.getDayNameById(this.checkedDays[j]));
         }
-        //console.log(filters);
         for (var k in this.checkedCategories) {
           filters.push(this.getCategoryNameById(this.checkedCategories[k]));
         }
-        //console.log(filters);
         //return this.checkedAges.join(',') + this.checkedDays.join(',') + this.checkedCategories.join(',');
         return filters.join(', ');
+      },
+      reloadRouter: function() {
+        // We reload the route component but changing the value of rerenderKey.
+        this.rerenderKey += 1;
       }
     },
     mounted: function() {
@@ -311,6 +323,9 @@
       component.$watch('checkedLocations', function(){
         component.updateSearchQuery();
       });
+      component.$watch('initialStep', function(){
+        component.updateSearchQuery();
+      });
 
       // Get url from paragraph's field.
       component.programSearchUrl = 'OpenY' in window ? window.OpenY.field_prgf_af_results_ref[0]['url'] : '';
@@ -335,6 +350,42 @@
       if ('OpenY' in window && typeof window.OpenY.field_prgf_af_categ_excl != 'undefined') {
         for (var i in window.OpenY.field_prgf_af_categ_excl) {
           component.categoriesExclude.push(window.OpenY.field_prgf_af_categ_excl[i]['id']);
+        }
+      }
+    },
+    watch: {
+      // Call again the method if the route changes.
+      '$route': function() {
+        if (typeof this.$route.query.ages != 'undefined') {
+          var checkedAgesGet = decodeURIComponent(this.$route.query.ages);
+          if (JSON.stringify(checkedAgesGet.split(',')) != JSON.stringify(this.checkedAges)) {
+            this.checkedAges = checkedAgesGet.split(',');
+            this.reloadRouter();
+          }
+        }
+
+        if (typeof this.$route.query.ages != 'undefined') {
+          var checkedDaysGet = decodeURIComponent(this.$route.query.days);
+          if (JSON.stringify(checkedDaysGet.split(',')) != JSON.stringify(this.checkedDays)) {
+            this.checkedDays = checkedDaysGet.split(',');
+            this.reloadRouter();
+          }
+        }
+
+        if (typeof this.$route.query.categories != 'undefined') {
+          var checkedCategoriesGet = decodeURIComponent(this.$route.query.categories);
+          if (JSON.stringify(checkedCategoriesGet.split(',')) != JSON.stringify(this.checkedCategories)) {
+            this.checkedCategories = checkedCategoriesGet.split(',');
+            this.reloadRouter();
+          }
+        }
+
+        if (typeof this.$route.query.locations != 'undefined') {
+          var checkedLocationsGet = decodeURIComponent(this.$route.query.locations);
+          if (JSON.stringify(checkedLocationsGet.split(',')) != JSON.stringify(this.checkedLocations)) {
+            this.checkedLocations = checkedLocationsGet.split(',');
+            this.reloadRouter();
+          }
         }
       }
     }
