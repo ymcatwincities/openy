@@ -16,6 +16,11 @@
       dontAsk: false
     },
 
+    // Markup that can be provided by other components.
+    // @see openy_home_branch/js/components/hb_location_finder.js
+    // Drupal.homeBranch.componentsMarkup.push.
+    componentsMarkup: [],
+
     // Object Initialization.
     init: function () {
       this.data = this.loadFromStorage();

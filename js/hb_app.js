@@ -7,10 +7,11 @@
 
   "use strict";
 
+  // TODO: Delete this.
   Vue.config.devtools = true;
 
   /**
-   * Init home branch location finder extension.
+   * Init home branch extension.
    *
    * @type {Drupal~behavior}
    */
@@ -34,10 +35,10 @@
           26: { id: 26, title: 'Kennett Branch', selected: false },
           31: { id: 31, title: 'Octorara Program Center', selected: false },
           36: { id: 36, title: 'Oscar Lasko Branch', selected: false },
+          641396: { id: 641396, title: 'Outdoor Pool at Kennett Area YMCA', selected: false },
           41: { id: 41, title: 'Lionville Branch', selected: false },
           46: { id: 46, title: 'Upper Main Line Branch', selected: false },
-          61: { id: 61, title: 'West Chester Branch', selected: false },
-          81: { id: 81, title: 'YMCA of Greater Brandywine', selected: false }
+          61: { id: 61, title: 'West Chester Branch', selected: false }
         },
       },
       mounted(){
@@ -53,13 +54,7 @@
             for (let id in this.locations) {
               if (this.locations.hasOwnProperty(id)) {
                 let originData = this.locations[id];
-                if (originData['id'] == selectedId) {
-                  originData.selected = true;
-                }
-                else {
-                  originData.selected = false;
-                }
-
+                originData.selected = (originData['id'] == selectedId);
                 this.$set(this.locations, id, originData);
               }
             }
@@ -69,9 +64,15 @@
     });
   };
 
+  /**
+   * Add markup for all components on the page.
+   */
   Drupal.homeBranch.addMarkup = function (context) {
-    // TODO: move this to array and foreach all markup collection.
-    this.addLocationFinderMarkup(context);
+    if (typeof Drupal.homeBranch.componentsMarkup !== 'undefined' && Drupal.homeBranch.componentsMarkup.length > 0) {
+      Drupal.homeBranch.componentsMarkup.forEach(function (component, key, arr, context) {
+        component.getMarkup(context);
+      });
+    }
   };
 
 })(jQuery, Drupal);
