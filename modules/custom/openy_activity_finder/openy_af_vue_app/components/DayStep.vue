@@ -11,9 +11,9 @@
                     <spinner></spinner>
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    <strong>{{ count }} programs</strong><span v-if="previousStepFilters"><strong> for:</strong> {{ previousStepFilters }}</span>
+                    <strong>{{ count }} programs</strong><span v-if="this.$parent.previousStepFilters"><strong> for:</strong> {{ this.$parent.previousStepFilters }}</span>
                     <span class="activity-finder__step_header--progress-spacer">|</span>
-                    <a :href="viewAllUrl">View All</a>
+                    <a :href="this.$parent.previousStepQuery">View All</a>
                   </span>
                 </div>
                 <div class="d-inline-flex ml-auto text-right start-over-wrapper">
@@ -77,7 +77,6 @@
       return {
         checkedDays: [],
         filtersBreadcrumbs: '',
-        previousStepFilters: '',
         isStepNextDisabled: true,
         daysMap: {
           'Monday': 1,
@@ -93,9 +92,6 @@
     components: {
       Spinner,
       MainFilter
-    },
-    mounted: function () {
-      this.previousStepFilters = this.$parent.previousStepFilters;
     },
     computed: {
       daysOptions: function() {
@@ -127,6 +123,7 @@
         }
         for (var key in this.$parent.table.facets.days_of_week) {
           var filter = this.$parent.table.facets.days_of_week[key].filter;
+          filter = filter.charAt(0).toUpperCase() + filter.slice(1);
           if (typeof this.daysMap[filter] !== 'undefined') {
             filter = this.daysMap[filter];
           }
