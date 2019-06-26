@@ -1,31 +1,3 @@
-component-homepage:
-  js:
-    templates/components/af-homepage/af-homepage.js: {}
-  dependencies:
-    - openy_system/vue
-    - openy_system/vue_router
-
-component-age:
-  js:
-    templates/components/af-age/af-age.js: {}
-  dependencies:
-    - openy_system/vue
-    - openy_system/vue_router
-
-component-day:
-  js:
-    templates/components/af-day/af-day.js: {}
-  dependencies:
-    - openy_system/vue
-    - openy_system/vue_router
-
-component-activity:
-  js:
-    templates/components/af-activity/af-activity.js: {}
-  dependencies:
-    - openy_system/vue
-    - openy_system/vue_router
-
 openy_activity_finder:
   version: 0.1
   js:
