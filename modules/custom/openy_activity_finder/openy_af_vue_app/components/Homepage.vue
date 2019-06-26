@@ -30,7 +30,6 @@
         <router-link :to="{name: 'af-age'}" @click.native="setInitialStep('age')" class="af-routing--link btn">By Age</router-link>
         <router-link :to="{name: 'af-day'}" @click.native="setInitialStep('day')"  class="af-routing--link btn">By Day Of Week</router-link>
         <router-link :to="{name: 'af-activity'}" @click.native="setInitialStep('activity')"  class="af-routing--link btn">By Activity</router-link>
-        <router-link :to="{name: 'af-location'}" @click.native="setInitialStep('age')"  class="af-routing--link btn">By Location</router-link>
       </div>
 
     </div>
