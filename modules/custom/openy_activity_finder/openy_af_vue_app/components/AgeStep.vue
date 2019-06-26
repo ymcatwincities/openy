@@ -11,9 +11,9 @@
                     <spinner></spinner>
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    <strong>{{ count }} programs</strong><span v-if="previousStepFilters"><strong> for:</strong> {{ previousStepFilters }}</span>
+                    <strong>{{ count }} programs</strong><span v-if="this.$parent.previousStepFilters"><strong> for:</strong> {{ this.$parent.previousStepFilters }}</span>
                     <span class="activity-finder__step_header--progress-spacer">|</span>
-                    <a :href="viewAllUrl">View All</a>
+                    <a :href="this.$parent.previousStepQuery">View All</a>
                   </span>
                 </div>
                 <div class="d-inline-flex ml-auto text-right start-over-wrapper">
@@ -77,16 +77,12 @@
       return {
         checkedAges: [],
         filtersBreadcrumbs: '',
-        previousStepFilters: '',
         isStepNextDisabled: true
       };
     },
     components: {
       Spinner,
       MainFilter
-    },
-    mounted: function () {
-      this.previousStepFilters = this.$parent.previousStepFilters;
     },
     computed: {
       // Prepare structure to pass to Filter component.
@@ -117,7 +113,7 @@
           return counters;
         }
         for (var key in this.$parent.table.facets.static_age_filter) {
-          counters[this.$parent.table.facets.static_age_filter[key].filter] = this.$parent.table.facets.static_age_filter[key].count;
+          counters[this.$parent.table.facets.static_age_filter[key].value] = this.$parent.table.facets.static_age_filter[key].count;
         }
         return counters;
       }

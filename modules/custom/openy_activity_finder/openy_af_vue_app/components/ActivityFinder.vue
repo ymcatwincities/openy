@@ -35,6 +35,7 @@
         checkedLocations: [],
         limitCategory: [],
         categoriesExclude: [],
+        skipActivityStep: 0,
         daysMap: {
           1: 'Mon',
           2: 'Tue',
@@ -52,6 +53,9 @@
     computed: {
       previousStepFilters: function () {
         return this.getHumanReadableAppliedFilters();
+      },
+      previousStepQuery: function () {
+        return this.getPreviousAppliedFilters();
       }
     },
     methods: {
@@ -62,19 +66,28 @@
         // Lets found next step based on initial step.
         var nextStep = '';
         let stepOptions = this.stepOptions[this.initialStep];
-          for (let i = 0; i <= stepOptions.length; i++) {
-            if (stepOptions[i] === stepName) {
-              // Found next step id.
-              if (typeof stepOptions[i + 1] !== 'undefined') {
-                nextStep = stepOptions[i + 1];
-              }
-              // This is the last step.
-              else {
-                // @todo redirect to program search with all parameters.
+        for (let i = 0; i <= stepOptions.length; i++) {
+          if (stepOptions[i] === stepName) {
+            // Found next step id.
+            if (typeof stepOptions[i + 1] !== 'undefined') {
+              nextStep = stepOptions[i + 1];
+              // Skip Activity Step if "Limit by category" is set up.
+              if (nextStep === 'activity' && this.skipActivityStep) {
+                nextStep = stepOptions[i + 2];
               }
             }
+            // This is the last step.
+            else {
+              // @todo redirect to program search with all parameters.
+              var query = this.$route.query;
+              var queryString = Object.keys(query).map(function(key) {
+                return key + '=' + query[key]
+              }).join('&');
+              window.location.href = this.programSearchUrl + '?' + queryString;
+            }
           }
-          // Go to next step.
+        }
+        // Go to next step.
         if (nextStep) {
           this.$router.push({name: 'af-' + nextStep, query: this.$route.query});
         }
@@ -88,6 +101,10 @@
             // Found next step id.
             if (typeof stepOptions[i + 1] !== 'undefined') {
               nextStep = stepOptions[i + 1];
+              // Skip Activity Step if "Limit by category" is set up.
+              if (nextStep === 'activity' && this.skipActivityStep) {
+                nextStep = stepOptions[i + 2];
+              }
             }
             // This is the last step.
             else {
@@ -230,35 +247,35 @@
       initializeFromGet: function() {
         if (typeof this.$route.query.ages != 'undefined') {
           var checkedAgesGet = decodeURIComponent(this.$route.query.ages);
-          if (checkedAgesGet) {
+          if (checkedAgesGet !== '') {
             this.checkedAges = checkedAgesGet.split(',');
           }
         }
 
         if (typeof this.$route.query.days != 'undefined') {
           var checkedDaysGet = decodeURIComponent(this.$route.query.days);
-          if (checkedAgesGet) {
+          if (checkedDaysGet !== '') {
             this.checkedDays = checkedDaysGet.split(',');
           }
         }
 
         if (typeof this.$route.query.categories != 'undefined') {
           var checkedCategoriesGet = decodeURIComponent(this.$route.query.categories);
-          if (checkedCategoriesGet) {
+          if (checkedCategoriesGet !== '') {
             this.checkedCategories = checkedCategoriesGet.split(',');
           }
         }
 
         if (typeof this.$route.query.locations != 'undefined') {
           var checkedLocationsGet = decodeURIComponent(this.$route.query.locations);
-          if (checkedLocationsGet) {
+          if (checkedLocationsGet !== '') {
             this.checkedLocations = checkedLocationsGet.split(',');
           }
         }
 
         if (typeof this.$route.query.initial != 'undefined') {
           let initialStepGet = decodeURIComponent(this.$route.query.initial);
-          if (initialStepGet) {
+          if (initialStepGet !== '') {
             this.initialStep = initialStepGet;
           }
         }
@@ -274,8 +291,14 @@
         for (var k in this.checkedCategories) {
           filters.push(this.getCategoryNameById(this.checkedCategories[k]));
         }
-        //return this.checkedAges.join(',') + this.checkedDays.join(',') + this.checkedCategories.join(',');
         return filters.join(', ');
+      },
+      getPreviousAppliedFilters() {
+        var query = this.$route.query,
+            queryString = Object.keys(query).map(function(key) {
+          return key + '=' + query[key]
+        }).join('&');
+        return this.programSearchUrl + '?' + queryString;
       },
       reloadRouter: function() {
         // We reload the route component but changing the value of rerenderKey.
@@ -337,13 +360,13 @@
       if ('OpenY' in window && typeof window.OpenY.field_prgf_af_categ != 'undefined') {
         for (var i in window.OpenY.field_prgf_af_categ) {
           component.limitCategory.push(window.OpenY.field_prgf_af_categ[i]['id']);
-          // Hide program selection step if any category has been selected.
-          component.hideProgramStep = 1;
           // Pre populate categories.
           component.checkedCategories.push(window.OpenY.field_prgf_af_categ[i]['id']);
-          // @todo
-          // Make step 1 initial.
-          //component.step = 1;
+          // Skip Activity Selection step.
+          component.skipActivityStep = 1;
+          // Make Age step initial.
+          this.initialStep = 'age';
+          this.$router.push({name: 'af-age', query: this.$route.query});
         }
       }
       // Get exclude categories if any.
@@ -358,7 +381,7 @@
       '$route': function() {
         if (typeof this.$route.query.ages != 'undefined') {
           var checkedAgesGet = decodeURIComponent(this.$route.query.ages);
-          if (JSON.stringify(checkedAgesGet.split(',')) != JSON.stringify(this.checkedAges)) {
+          if (checkedAgesGet.length > 0 && JSON.stringify(checkedAgesGet.split(',')) != JSON.stringify(this.checkedAges)) {
             this.checkedAges = checkedAgesGet.split(',');
             this.reloadRouter();
           }
@@ -366,7 +389,7 @@
 
         if (typeof this.$route.query.ages != 'undefined') {
           var checkedDaysGet = decodeURIComponent(this.$route.query.days);
-          if (JSON.stringify(checkedDaysGet.split(',')) != JSON.stringify(this.checkedDays)) {
+          if (checkedDaysGet.length > 0 && JSON.stringify(checkedDaysGet.split(',')) != JSON.stringify(this.checkedDays)) {
             this.checkedDays = checkedDaysGet.split(',');
             this.reloadRouter();
           }
@@ -374,7 +397,7 @@
 
         if (typeof this.$route.query.categories != 'undefined') {
           var checkedCategoriesGet = decodeURIComponent(this.$route.query.categories);
-          if (JSON.stringify(checkedCategoriesGet.split(',')) != JSON.stringify(this.checkedCategories)) {
+          if (checkedCategoriesGet.length > 0 && JSON.stringify(checkedCategoriesGet.split(',')) != JSON.stringify(this.checkedCategories)) {
             this.checkedCategories = checkedCategoriesGet.split(',');
             this.reloadRouter();
           }
@@ -382,7 +405,7 @@
 
         if (typeof this.$route.query.locations != 'undefined') {
           var checkedLocationsGet = decodeURIComponent(this.$route.query.locations);
-          if (JSON.stringify(checkedLocationsGet.split(',')) != JSON.stringify(this.checkedLocations)) {
+          if (checkedLocationsGet.length > 0 && JSON.stringify(checkedLocationsGet.split(',')) != JSON.stringify(this.checkedLocations)) {
             this.checkedLocations = checkedLocationsGet.split(',');
             this.reloadRouter();
           }

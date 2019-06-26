@@ -10,12 +10,10 @@
       </a>
       <div :id="'collapse-activity-group-' + topLevelIndex" :class="{'row': true, 'collapse': topLevelCounters[topLevelLabel] == 0}">
         <div v-for="(secondLevel, secondLevelId, secondLevelIndex) in topLevel">
-          <!--<div v-if="categoryIsNotExcluded(item.value)" class="col-12 col-xs-12 col-sm-6 col-md-3">-->
-          <div class="col-12 col-xs-12 col-sm-6 col-md-3">
-            <!--<div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(secondLevel.count === 0), 'selected': checked.indexOf(secondLevelId) !== -1 }">-->
+          <div v-if="filterIsNotExcluded(secondLevelId)" class="col-12 col-xs-12 col-sm-6 col-md-3">
             <div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(parseInt(secondLevel.count) === 0 && secondLevel.count !== undefined), 'selected': checked.indexOf(secondLevelId) !== -1 }">
               <label :for="'af-filter-category-' + topLevelIndex + '-'  + secondLevelIndex" data-mh="openy-card__item-label">
-                <input v-if="type === 'single'" v-model="checked" type="radio" :value="secondLevelId" :data-label="secondLevel.label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" name="filter-radios">
+                <input v-if="type === 'single'" v-model="checked" type="radio" :value="secondLevelId" :data-label="secondLevel.label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" class="hidden d-none" name="filter-radios">
                 <input v-if="type === 'multiple'" v-model="checked" type="checkbox" :value="secondLevelId" :data-label="secondLevel.label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" class="hidden d-none" name="filter-checkboxes">
                 <div class="d-flex flex-column">
                   <span>{{ secondLevel.label }}</span>
@@ -45,7 +43,7 @@
   //  }
   export default {
     props: [
-      'options', 'type', 'default'
+      'options', 'type', 'default', 'excluded'
     ],
     data: function() {
       return {
@@ -73,6 +71,16 @@
         return counters;
       }
     },
+  methods: {
+    filterIsNotExcluded: function (value) {
+      for (var i in this.excluded) {
+        if (this.excluded[i] == value) {
+          return false;
+        }
+      }
+      return true;
+    }
+  },
     watch: {
       checked: function(values) {
         let returnValues = values;
@@ -88,6 +96,11 @@
         }
         this.$emit('updated-values', cleanValues);
       }
+    },
+    mounted: function () {
+      jQuery(function() {
+        jQuery('*[data-mh="openy-card__item-label"]').matchHeight();
+      });
     }
   }
 </script>
