@@ -11,9 +11,9 @@
                     <spinner></spinner>
                   </span>
                   <span v-else class="activity-finder__step_header--progress-spacer">
-                    <strong>{{ count }} programs</strong><span v-if="previousStepFilters"><strong> for:</strong> {{ previousStepFilters }}</span>
+                    <strong>{{ count }} programs</strong><span v-if="this.$parent.previousStepFilters"><strong> for:</strong> {{ this.$parent.previousStepFilters }}</span>
                     <span class="activity-finder__step_header--progress-spacer">|</span>
-                    <a :href="viewAllUrl">View All</a>
+                    <a :href="this.$parent.previousStepQuery">View All</a>
                   </span>
                 </div>
                 <div class="d-inline-flex ml-auto text-right start-over-wrapper">
@@ -43,6 +43,7 @@
           v-if="!this.$parent.loading"
           :options="categoriesOptions"
           :type="categoriesType"
+          :excluded="categoriesExclude"
           :default='$route.query.categories'
           v-on:updated-values="checkedCategories= $event"
         ></main-filter>
@@ -77,16 +78,12 @@
       return {
         checkedCategories: [],
         filtersBreadcrumbs: '',
-        previousStepFilters: '',
         isStepNextDisabled: true,
       };
     },
     components: {
       Spinner,
       MainFilter
-    },
-    mounted: function () {
-      this.previousStepFilters = this.$parent.previousStepFilters;
     },
     computed: {
       categoriesOptions: function() {
@@ -118,6 +115,9 @@
       categoriesType: function() {
         return this.$parent.categories_type;
       },
+      categoriesExclude: function() {
+        return this.$parent.categoriesExclude;
+      },
       activityCounters: function () {
         var counters = {};
         if (typeof this.$parent.table.facets.field_activity_category == 'undefined') {
@@ -142,9 +142,6 @@
       },
       cardSelected: function(data, value) {
         return this.$parent.cardSelected(data, value);
-      },
-      categoryIsNotExcluded: function(value) {
-        return this.$parent.categoryIsNotExcluded(value);
       },
       buildBreadcrumbs: function (value) {
         // There are 2 kinds of categories structure: single (daxko), multiple (solr).
