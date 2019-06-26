@@ -16,3 +16,14 @@ function openy_activity_finder_update_8001() {
     'search_api.index.default'
   ]);
 }
+
+/**
+ * Update configs.
+ */
+function openy_activity_finder_update_8002() {
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/install');
+  $cim->importConfigs([
+    'search_api.index.default'
+  ]);
+}
