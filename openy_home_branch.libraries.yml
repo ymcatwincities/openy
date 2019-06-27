@@ -13,10 +13,9 @@ hb_app:
   js:
     js/hb_app.js: {}
   dependencies:
+    - core/drupalSettings
     - openy_home_branch/сookies_storage
     - openy_system/vue
-#    - openy_system/openy_system.helpers
-#    - openy_system/openy_system.modal
 
 location_finder:
   version: 0.1
@@ -25,5 +24,15 @@ location_finder:
   css:
     component:
       css/hb_location_finder.css: {}
+  dependencies:
+    - openy_home_branch/hb_app
+
+menu_selector:
+  version: 0.1
+  js:
+    js/components/hb_menu_selector.js: {}
+  css:
+    component:
+      css/hb_menu_selector.css: {}
   dependencies:
     - openy_home_branch/hb_app

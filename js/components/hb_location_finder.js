@@ -26,20 +26,25 @@
     },
     methods: {
       init: function () {
-        this.id = this.$el.closest('.node--type-branch.node--view-mode-teaser').dataset.hbId;
-        if (this.locations[this.id] !== 'undefined') {
+        let branchEl = this.$el.closest('.node--type-branch.node--view-mode-teaser');
+        this.id = branchEl.dataset.hbId;
+        if (this.locations.hasOwnProperty(this.id) && this.locations[this.id].hasOwnProperty('selected')) {
           this.checked = this.locations[this.id]['selected'];
-          // TODO: ADD class to parent teaser if checked.
-          // $('.views-row .node--type-branch').removeClass('hb-selected');
-          // $('.views-row .node--type-branch[data-hb-id=' + selectedId + ']').addClass('hb-selected');
+          if (this.checked) {
+            branchEl.classList.add('hb-selected');
+          }
+          else {
+            branchEl.classList.remove('hb-selected');
+          }
+          // TODO: move selected item to the first place (use css or js).
         }
       },
       change: function () {
         if (this.checked === true) {
-          Drupal.homeBranch.setById(this.id);
+          Drupal.homeBranch.setId(this.id);
         }
         else {
-          Drupal.homeBranch.setById(null);
+          Drupal.homeBranch.setId(null);
         }
       },
       getLabel: function () {
@@ -62,6 +67,7 @@
    */
   Drupal.homeBranch.componentsMarkup.push({
     getMarkup: (context) => {
+      // TODO: move selectors to constants.
       let locationsList = $('.field-prgf-location-finder .locations-list .views-row__wrapper', context);
       locationsList.find('.views-row .node--type-branch').each(function (index) {
         // The locations object available in hb_app.js.
