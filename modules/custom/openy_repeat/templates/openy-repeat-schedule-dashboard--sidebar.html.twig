@@ -62,7 +62,7 @@
       {# location select list #}
       {% if locations is not empty %}
         <div class="form-group-wrapper">
-          <label for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="false" aria-controls="form-group-location">
+          <label for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="false" aria-controls="form-group-location, skip-t">
             {{ 'Location'|t }}
             <i class="fa fa-minus minus" aria-hidden="true"></i>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
@@ -95,19 +95,19 @@
       {# categories select list #}
       {% if categories is not empty and filters.category %}
         <div class="form-group-wrapper">
-          <label for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button" class="expanded" aria-controls="form-group-category">
+          <label for="form-group-category" data-toggle="collapse" data-target=".skip-c" role="button" aria-expanded="false" aria-controls="form-group-category">
             {{ 'Category'|t }}
             <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <i class="fa fa-minus plus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
-          <div id="form-group-category" class="form-group-category collapse in" aria-expanded="true">
+          <div id="form-group-category" class="form-group-category" aria-expanded="true">
             <div class="checkboxes">
             {% for category in categories %}
-              {% set cat_checked = "t" %}
+              {% set cat_checked = "c collapse" %}
               {% if checked_categories is not empty and category in checked_categories %}
                 {% set cat_checked = "checked" %}
               {% endif %}
-              <div class="checkbox-wrapper">
+              <div class="checkbox-wrapper skip-{{ cat_checked }}">
                 <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
                 <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
               </div>
@@ -120,17 +120,38 @@
       {# class name select list #}
       {% if filters.classname %}
         <div v-if="getClassFilter()" class="form-group-wrapper">
-          <label for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" class="expanded" aria-controls="form-group-classname">
+          <label for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" aria-expanded="false" aria-controls="form-group-classname">
             {{ 'Class name'|t }}
             <i class="fa fa-minus minus" aria-hidden="true"></i>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
-          <div id="form-group-classname" class="form-group-classname collapse in" aria-expanded="true">
+          <div id="form-group-classname" class="form-group-classname collapse" aria-expanded="true">
             <div class="checkboxes">
               <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
                 <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
                 <label v-bind:for="generateId(classFilter)">
                   ${ classFilter }
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      {# instructors select list #}
+      {% if filters.instructors %}
+        <div v-if="getInstructorFilter()" class="form-group-wrapper">
+          <label for="form-group-instructors" data-toggle="collapse" data-target="#form-group-instructors" aria-expanded="false" role="button" aria-controls="form-group-classname">
+            {{ 'Instructors'|t }}
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
+          </label>
+          <div id="form-group-instructors" class="form-group-instructors collapse" aria-expanded="true">
+            <div class="checkboxes">
+              <div v-for="instructorFilter in getInstructorFilter()" class="checkbox-wrapper" v-if="instructorFilter">
+                <input type="checkbox" v-model="instructors" v-bind:value="instructorFilter" v-bind:id="generateId(instructorFilter)" class="box"/>
+                <label v-bind:for="generateId(instructorFilter)">
+                  ${ instructorFilter }
                 </label>
               </div>
             </div>
