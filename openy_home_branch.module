@@ -9,16 +9,37 @@
  * Implements hook_preprocess_node().
  */
 function openy_home_branch_preprocess_node(&$variables) {
-  if ($variables['page']) {
-    // TODO: Replace this by plugins.
-    // TODO: Looks like new vue APP broke PEF... Double check how to make it work together
-    $variables['#attached']['library'][] = 'openy_home_branch/location_finder';
-    $variables['#attached']['library'][] = 'openy_home_branch/menu_selector';
+  if ($variables['teaser'] && $variables['node']->getType() == 'branch') {
+    // Add location ID as data attribute for VUE application.
+    $variables['attributes']['data-hb-id'] = $variables['node']->id();
   }
-  else {
-    if ($variables['teaser'] && $variables['node']->getType() == 'branch') {
-      // Add location ID as data attribute for VUE application.
-      $variables['attributes']['data-hb-id'] = $variables["node"]->id();
+
+  _openy_home_branch_attach_libraries('node', $variables);
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function openy_home_branch_preprocess_paragraph(&$variables) {
+  _openy_home_branch_attach_libraries('paragraph', $variables);
+}
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function openy_home_branch_preprocess_block(&$variables) {
+  _openy_home_branch_attach_libraries('block', $variables);
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function _openy_home_branch_attach_libraries($entity_type, &$variables) {
+  $plugin_service = \Drupal::service('plugin.manager.home_branch_library');
+  foreach ($plugin_service->getDefinitionsByEntityType($entity_type) as $plugin_id => $plugin) {
+    $instance = $plugin_service->createInstance($plugin_id);
+    if ($instance->isAllowedForAttaching($variables)) {
+      $variables['#attached']['library'][] = $instance->getLibrary();
     }
   }
 }
