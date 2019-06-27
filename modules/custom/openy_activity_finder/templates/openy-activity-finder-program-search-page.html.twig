@@ -33,20 +33,16 @@
   </div>
 
   <div class="container">
+    <div class="row hidden-md hidden-lg d-block d-lg-none">
+      {# mobile toggler button #}
+      <a href="#" data-toggle="collapse" data-target=".schedule-dashboard__sidebar" role="button" class="collapsed schedule-dashboard__toggle">
+        {{ 'REFINE RESULTS'|t }}
+        <small v-show="totalGroupCounter() > 0" class="badge">${ totalGroupCounter() }</small>
+        <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>
+        <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>
+      </a>
+    </div>
     <div class="row">
-
-      <div class="row hidden-md hidden-lg d-block d-md-none">
-        {# mobile toggler button #}
-        <div class="col col-xs-12">
-          <a href="#" data-toggle="collapse" data-target=".schedule-dashboard__sidebar" role="button" class="collapsed schedule-dashboard__toggle">
-            {{ 'REFINE RESULTS'|t }}
-            <small v-show="totalGroupCounter() > 0" class="badge">${ totalGroupCounter() }</small>
-            <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>
-            <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>
-          </a>
-        </div>
-      </div>
-
       {# sidebar > allows overriding in BS4 compatible themes (carnation), so it can utilize its native mobile breakpoints. #}
       {% block sidebar_wrapper %}
       <div class="col-xs-12 col-sm-12 col-md-3 collapse schedule-dashboard__sidebar">
@@ -260,7 +256,9 @@
                 </div>
 
                 <div class="schedule-dashboard__modal--body row">
+                  {% block modal_info_main %}
                   <div class="col-md-7 modal-info-main">
+                  {% endblock %}
                     <h3>${ moreInfoPopup.name }</h3>
                     <p>${ moreInfoPopup.description }</p>
                     <p v-if="moreInfoPopup.ages.length > 0" class="ages">
@@ -270,9 +268,10 @@
                       <strong>{{ 'Gender:'|t }}</strong>${ moreInfoPopup.gender }
                     </p>
                     <div v-html="moreInfoPopup.learn_more" v-if="moreInfoPopup.learn_more.length > 0" class="col-md-12"></div>
-
                   </div>
+                  {% block modal_info_sidebar %}
                   <div class="col-md-5 modal-info-sidebar">
+                  {% endblock %}
                     <div v-if="moreInfoPopup.dates.length > 0" class="dates-weeks">
                       <span class="dates">${ moreInfoPopup.dates }</span> (${ moreInfoPopup.weeks }wks)
                     </div>

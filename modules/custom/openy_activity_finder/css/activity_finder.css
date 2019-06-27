@@ -5,12 +5,16 @@
 
 /* Activity Finder > Form (Step 1) */
 .program-search__form--title {
-  margin-top: 5rem;
-  margin-bottom: 4rem;
+  color: #231F20;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 48px;
+  margin-bottom: 50px;
+  margin-top: 40px;
 }
 
 .program-search__form {
-  margin-bottom: 4rem;
+  margin-bottom: 35px;
 }
 
 .program-search__form label {
@@ -19,14 +23,18 @@
 }
 
 .program-search__keywords {
-  padding: 10px;
+  padding: 7px;
   flex: 1;
   border: 1px solid #ddd;
 }
 
 .program-search__af-title {
-  margin-top: 8rem;
-  margin-bottom: 4rem;
+  color: #231F20;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 48px;
+  margin-bottom: 45px;
+  margin-top: 65px;
 }
 
 .af-routing--links {
@@ -93,6 +101,13 @@
 }
 .schedule-dashboard__wrapper > .container {
   max-width: 100%;
+  margin-top: 20px;
+}
+@media screen and (min-width: 768px) {
+  .schedule-dashboard__wrapper > .container {
+    max-width: 100%;
+    margin-top: 5rem;
+  }
 }
 .schedules-data {
   border-top: 1px solid #939495;
@@ -323,16 +338,20 @@
   text-transform: uppercase;
 }
 .activity-finder__wrapper .openy-card__item label {
-  border: 2px solid #0060ad;
+  border: 2px solid #0060ad !important;
   background-color: #fff;
   color: #0060ad;
   font-weight: bold;
   padding: 15px 25px;
   min-height: 54px;
+  border-radius: 4px;
+  margin-bottom: 10px;
 }
 .activity-finder__wrapper .openy-card__item.no-results label {
   border: 2px solid #F2F2F2 !important;
   background-color: #F2F2F2;
+  color: #636466;
+  font-weight: normal;
 }
 .activity-finder__wrapper .openy-card__item small {
   color: #333;
@@ -342,6 +361,9 @@
   color: #fff;
 }
 .activity-finder__wrapper .openy-card__item.no-results small {
+  color: #cc0000;
+  opacity: 1;
+  font-weight: bold;
   font-style: normal;
 }
 .schedule-dashboard__wrapper .schedule-dashboard__sidebar .schedule-dashboard__search--form input {
@@ -376,6 +398,7 @@
 }
 .schedule-dashboard__wrapper .schedule-dashboard__content {
   padding: 0;
+  margin-top: 20px;
 }
 @media (min-width: 992px) {
   .schedule-dashboard__wrapper .schedule-dashboard__sidebar {
@@ -384,6 +407,7 @@
   }
   .schedule-dashboard__wrapper .schedule-dashboard__content {
     padding: 0 15px;
+    margin-top: 0;
   }
 }
 .schedule-dashboard__sidebar .form-group-wrapper {
@@ -399,6 +423,7 @@
   border-top: 1px solid #939495;
   color: #636466;
   font-size: 12px;
+  font-weight: bold;
   margin-bottom: 0;
   margin-top: -1px;
   padding: 15px 10px;
@@ -435,12 +460,7 @@
   border: 2px solid #ddd;
   color: #ddd;
 }
-.activity-finder__wrapper .openy-card__item label {
-  border-color: #0060ad !important;
-  border-radius: 4px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-}
+
 .activity-finder__wrapper .openy-card__item.selected label,
 .openy-card__item.selected label,
 .schedule-dashboard__sidebar .tabs .checkbox-wrapper input:checked + label {
@@ -462,7 +482,7 @@
   font-weight: normal;
   line-height: 25px;
   margin-bottom: 0;
-  padding: 5px 0 5px 35px;
+  padding: 5px 5px 5px 35px;
 }
 .schedule-dashboard__sidebar .checkboxes .checkbox-wrapper a {
   align-items: center;
@@ -566,6 +586,7 @@
   margin-left: 10px;
   min-width: 30px;
   padding: 0 7px;
+  vertical-align: middle;
 }
 .activity-finder__collapse_group__link .fa {
   color: #636466;

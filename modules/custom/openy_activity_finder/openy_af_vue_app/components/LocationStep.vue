@@ -41,23 +41,21 @@
           <div v-for="(topLevelLocation, index) in this.$parent.locations" class="activity-finder__collapse_group">
             <a class="activity-finder__collapse_group__link collapsed" data-toggle="collapse" :href="'#collapse-location-group-' + index">
               <h3>{{ topLevelLocation.label }}</h3>
-              <span v-if="locationSelected(topLevelLocation.label) > 0" class="badge badge-pill badge-dark px-3 py-2">{{ locationSelected(topLevelLocation.label) }}</span>
+              <span v-if="locationSelected(topLevelLocation.label) > 0" class="badge badge-pill badge-dark">{{ locationSelected(topLevelLocation.label) }}</span>
               <i class="fa fa-plus-circle"></i>
               <i class="fa fa-minus-circle"></i>
             </a>
             <div :id="'collapse-location-group-' + index" class="row collapse">
-              <div v-for="(item, index) in topLevelLocation.value">
-                <div class="col-12 col-xs-12 col-sm-6 col-md-4">
-                  <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter(item.value) === 0), 'selected': cardSelected(checkedLocations, item.value) }">
-                    <label :for="'af-filter-location-' + item.value" class="has-subtext" data-mh="openy-card__item-label">
-                      <i class="fa fa-map-marker"></i>
-                      <input v-if="locationCounter(item.value) !== 0" v-model="checkedLocations" type="checkbox" :value="item.value" :data-label="item.label" :id="'af-filter-location-' + item.value" class="d-none hidden">
-                      <div class="d-flex flex-column">
-                        <span>{{ item.label }}</span>
-                        <small>{{ locationCounter(item.value) }} results</small>
-                      </div>
-                    </label>
-                  </div>
+              <div v-for="(item, index) in topLevelLocation.value" class="col-12 col-xs-12 col-sm-6 col-md-4">
+                <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter(item.value) === 0), 'selected': cardSelected(checkedLocations, item.value) }">
+                  <label :for="'af-filter-location-' + item.value" class="has-subtext" data-mh="openy-card__item-label">
+                    <i class="fa fa-map-marker"></i>
+                    <input v-if="locationCounter(item.value) !== 0" v-model="checkedLocations" type="checkbox" :value="item.value" :data-label="item.label" :id="'af-filter-location-' + item.value" class="d-none hidden">
+                    <div class="d-flex flex-column">
+                      <span>{{ item.label }}</span>
+                      <small>{{ locationCounter(item.value) }} results</small>
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>
@@ -66,12 +64,12 @@
 
         <div class="activity-finder__step_footer">
           <div class="activity-finder__step_header--actions">
-            <div class="row">
+            <div v-if="!this.$parent.loading" class="row">
               <div class="col-12 col-xs-12 col-sm-8">
                 <span v-if="filtersBreadcrumbs === ''">Do you have any location preferences?</span>
                 <span v-else><strong>Filters: </strong>{{ filtersBreadcrumbs }}</span>
               </div>
-              <div v-if="!this.$parent.loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
+              <div class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
                 <button @click.prevent="skip()" v-bind:disabled="!isStepNextDisabled" class="btn btn-primary skip btn-lg">Skip</button>
                 <button @click.prevent="next()" v-bind:disabled="isStepNextDisabled" class="btn btn-primary btn-lg next btn-disabled">Next</button>
               </div>
