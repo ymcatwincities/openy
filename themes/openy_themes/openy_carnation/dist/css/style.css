@@ -8457,25 +8457,31 @@ a.direction-link {
   font-family: Verdana, sans-serif; }
 
 .field-location-phone,
-.field-location-fax {
+.field-location-fax,
+.field-location-email {
   font-size: 16px; }
   .field-location-phone i,
-  .field-location-fax i {
+  .field-location-fax i,
+  .field-location-email i {
     margin-right: 5px;
     font-size: 18px; }
   .field-location-phone a,
-  .field-location-fax a {
+  .field-location-fax a,
+  .field-location-email a {
     font-size: 16px;
     font-weight: bold;
     line-height: 2;
     color: inherit; }
     @media (min-width: 768px) {
       .field-location-phone a,
-      .field-location-fax a {
+      .field-location-fax a,
+      .field-location-email a {
         color: #636466; }
         .field-location-phone a:hover, .field-location-phone a:focus,
         .field-location-fax a:hover,
-        .field-location-fax a:focus {
+        .field-location-fax a:focus,
+        .field-location-email a:hover,
+        .field-location-email a:focus {
           text-decoration: none; } }
 
 .nav.bg-pink .nav-link.active {
@@ -10352,6 +10358,32 @@ article .node--view-mode-flexible-content h2 {
     .paragraph--column-in-a-grid .inner .more-link a:hover {
       opacity: 0.85; }
 
+.openy-gtranslate {
+  float: right;
+  vertical-align: text-bottom;
+  margin-top: 6px; }
+  @media (min-width: 992px) {
+    .openy-gtranslate {
+      display: flex; } }
+
+.openy-google-translate select {
+  font-family: "Cachet", sans-serif;
+  font-weight: 400;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #777777; }
+
+.nav .language {
+  padding-top: 15px; }
+  .nav .language .openy-google-translate select {
+    font-family: "Cachet", sans-serif;
+    font-weight: 400;
+    margin-left: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 18px; }
+
 .layout-container .top-navs .logo img {
   width: 105px; }
 
@@ -10407,41 +10439,6 @@ article .node--view-mode-flexible-content h2 {
 .goog-te-menu-frame.open {
   left: 0;
   top: 150px; }
-
-.openy-gtranslate {
-  float: right;
-  display: none;
-  vertical-align: text-bottom; }
-  @media (min-width: 992px) {
-    .openy-gtranslate {
-      display: flex; } }
-  .openy-gtranslate .goog-te-gadget-simple {
-    background-color: transparent;
-    border: none;
-    padding: 0; }
-    .openy-gtranslate .goog-te-gadget-simple .goog-te-gadget-icon {
-      display: none; }
-    .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value {
-      font-family: "Cachet", sans-serif;
-      font-weight: 400;
-      display: inline-block;
-      margin: 0;
-      padding: 8px 1.5rem;
-      font-size: 16px;
-      color: #777777;
-      border-left: 1px solid #636466;
-      transition: all 0.2s linear; }
-    .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value img,
-    .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value span:not(:first-of-type) {
-      display: none; }
-    .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value:after {
-      content: '\f107';
-      font-family: 'FontAwesome';
-      font-size: 18px;
-      padding-left: 5px; }
-    .openy-gtranslate .goog-te-gadget-simple .goog-te-menu-value:hover {
-      background-color: #fff;
-      color: black; }
 
 .page-head__search {
   padding: 24px 0;
@@ -13178,6 +13175,32 @@ body.path-user:not(.user-logged-in) {
   font-family: "Cachet", sans-serif;
   font-weight: 700;
   font-size: 22px; }
+
+.openy-gtranslate {
+  float: right;
+  vertical-align: text-bottom;
+  margin-top: 6px; }
+  @media (min-width: 992px) {
+    .openy-gtranslate {
+      display: flex; } }
+
+.openy-google-translate select {
+  font-family: "Cachet", sans-serif;
+  font-weight: 400;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #777777; }
+
+.nav .language {
+  padding-top: 15px; }
+  .nav .language .openy-google-translate select {
+    font-family: "Cachet", sans-serif;
+    font-weight: 400;
+    margin-left: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 18px; }
 
 .paragraph-1c-wrapper {
   padding-bottom: 30px; }

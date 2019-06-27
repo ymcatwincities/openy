@@ -254,9 +254,6 @@
   margin-bottom: 10px;
 }
 /* Location details modal styling */
-.schedule-dashboard__modal--location .modal-content {
-  max-width: 320px;
-}
 .schedule-dashboard__modal--location .info {
   font: 12px/18px Verdana, Geneva, sans-serif;
   width: 100%;
