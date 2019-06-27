@@ -6,7 +6,6 @@ dependencies:
     - field.field.paragraph.activity_finder_search.field_prgf_af_page_ref
     - paragraphs.paragraphs_type.activity_finder_search
   module:
-    - content_moderation
     - plugin
 id: paragraph.activity_finder_search.default
 targetEntityType: paragraph

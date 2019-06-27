@@ -221,6 +221,11 @@
     font: 12px/18px Verdana, Geneva, sans-serif;
   }
 }
+
+.schedule-dashboard__modal--location .modal-content {
+  max-width: 320px;
+}
+
 @media screen and (max-width: 767px) {
   .schedule-dashboard__modal--body {
     padding: 0 15px;

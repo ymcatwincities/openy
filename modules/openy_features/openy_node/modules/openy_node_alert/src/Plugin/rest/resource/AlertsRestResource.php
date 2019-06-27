@@ -146,7 +146,7 @@ class AlertsRestResource extends ResourceBase {
       }
       else {
         if ($this->checkVisibility($alert)) {
-          $iconColor = 'white';
+          $iconColor = '';
           if ($alert->field_alert_icon_color && $alert->field_alert_icon_color->entity && $alert->field_alert_icon_color->entity->field_color && $alert->field_alert_icon_color->entity->field_color->value) {
             $iconColor = $alert->field_alert_icon_color->entity->field_color->value;
           }

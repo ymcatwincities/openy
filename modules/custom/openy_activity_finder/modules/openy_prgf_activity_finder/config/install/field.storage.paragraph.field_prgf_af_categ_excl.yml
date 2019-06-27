@@ -1,4 +1,3 @@
-uuid: babab8c7-7e02-4172-8613-65115fe96821
 langcode: en
 status: true
 dependencies:
@@ -18,4 +17,3 @@ translatable: true
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false
-

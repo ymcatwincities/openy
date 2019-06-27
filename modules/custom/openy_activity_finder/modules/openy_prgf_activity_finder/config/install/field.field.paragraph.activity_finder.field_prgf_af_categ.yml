@@ -1,10 +1,8 @@
-uuid: 2314ffc7-1a1c-4ada-bc11-6beb74d8c20c
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.paragraph.field_prgf_af_categ
-    - node.type.program_subcategory
     - paragraphs.paragraphs_type.activity_finder
 id: paragraph.activity_finder.field_prgf_af_categ
 field_name: field_prgf_af_categ
@@ -17,12 +15,13 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:node'
+  handler: 'default_no_dep:node'
   handler_settings:
-    target_bundles:
-      program_subcategory: program_subcategory
+    target_bundles: null
     sort:
       field: _none
-    auto_create: false
+    auto_create: 0
     auto_create_bundle: ''
+    target_bundles_no_dep:
+      program_subcategory: program_subcategory
 field_type: entity_reference
