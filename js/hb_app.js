@@ -3,7 +3,7 @@
  * Location finder extension with Home Branch logic.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, drupalSettings) {
 
   "use strict";
 
@@ -26,40 +26,40 @@
 
   Drupal.homeBranch.initVueApp = function (context) {
     new Vue({
+      // TODO: move selectors to constants.
       el: '.layout-container',
       Drupal: Drupal,
       data: {
-        locations: {
-          16: { id: 16, title: 'Brandywine Branch', selected: false },
-          21: { id: 21, title: 'Jennersville Branch', selected: false },
-          26: { id: 26, title: 'Kennett Branch', selected: false },
-          31: { id: 31, title: 'Octorara Program Center', selected: false },
-          36: { id: 36, title: 'Oscar Lasko Branch', selected: false },
-          641396: { id: 641396, title: 'Outdoor Pool at Kennett Area YMCA', selected: false },
-          41: { id: 41, title: 'Lionville Branch', selected: false },
-          46: { id: 46, title: 'Upper Main Line Branch', selected: false },
-          61: { id: 61, title: 'West Chester Branch', selected: false }
-        },
+        locations: {},
       },
-      mounted(){
-        // TODO: get locations from API.
-        this.init();
+      mounted() {
+        this.getLocations();
         // Subscribe on jQuery event inside Vue App.
         $(document).on('hb-after-storage-update', this.init);
       },
       methods: {
         init: function () {
           let selectedId = Drupal.homeBranch.getValue('id');
-          if (selectedId) {
-            for (let id in this.locations) {
-              if (this.locations.hasOwnProperty(id)) {
-                let originData = this.locations[id];
-                originData.selected = (originData['id'] == selectedId);
-                this.$set(this.locations, id, originData);
-              }
+          for (let id in this.locations) {
+            if (this.locations.hasOwnProperty(id)) {
+              let originData = this.locations[id];
+              originData.selected = originData['id'] == selectedId;
+              this.$set(this.locations, id, originData);
             }
           }
         },
+        getLocations: function () {
+          let url = drupalSettings.path.baseUrl + 'api/home-branch/locations';
+          this.locations = {};
+          self = this;
+          $.getJSON(url, function (data) {
+            data.forEach(function (item) {
+              let data = { id: item.nid, title: item.title, selected: false };
+              self.$set(self.locations, item.nid, data);
+            });
+            self.init();
+          });
+        }
       },
     });
   };
@@ -75,4 +75,4 @@
     }
   };
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, drupalSettings);

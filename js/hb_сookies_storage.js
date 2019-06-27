@@ -12,7 +12,6 @@
     // Home branch data.
     data: {
       id: null,
-      name: null,
       dontAsk: false
     },
 
@@ -31,6 +30,13 @@
       return this.data[property];
     },
 
+    // Set values.
+    set: function (id, dontAsk) {
+      this.data.id = id;
+      this.data.dontAsk = dontAsk;
+      this.updateStorage();
+    },
+
     // Set property value.
     setValue: function (property, value) {
       this.data[property] = value;
@@ -38,9 +44,7 @@
     },
 
     // Set property value.
-    setById: function (id) {
-      // TODO: Update storage only with ID (ID + NAME)
-      // TODO: Get name from some were.
+    setId: function (id) {
       this.setValue('id', id);
     },
 

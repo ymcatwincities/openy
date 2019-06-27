@@ -1,0 +1,56 @@
+.hb-menu-selector__modal {
+  font-size: 14px;
+  position: absolute;
+  z-index: 100;
+  /* TODO: this is ugly, need to fix later */
+  top: 150px;
+  right: 180%;
+  width: 400px;
+}
+
+/* modal > header */
+.hb-menu-selector__modal--header {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+.hb-menu-selector__modal--header h4 {
+  float: left;
+}
+.hb-menu-selector__modal--header button {
+  float: right;
+  font-size: 27px;
+  opacity: .8;
+}
+
+/* modal > body */
+.hb-menu-selector__modal .modal-content {
+  padding: 20px;
+}
+.hb-menu-selector__modal--body {
+  margin: 15px 0;
+}
+
+
+/* modal > footer */
+
+.hb-menu-selector__modal--footer {
+  overflow: hidden;
+}
+
+.hb-menu-selector__modal--footer .btn {
+  font-size: 14px;
+}
+
+/* modal > animation (provided by vue transition) */
+.modal-enter {
+  opacity: 0;
+}
+.modal-leave-active {
+  opacity: 0;
+}
+.modal-enter .modal-content,
+.modal-leave-active .modal-content {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
