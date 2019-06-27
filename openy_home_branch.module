@@ -11,7 +11,9 @@
 function openy_home_branch_preprocess_node(&$variables) {
   if ($variables['page']) {
     // TODO: Replace this by plugins.
+    // TODO: Looks like new vue APP broke PEF... Double check how to make it work together
     $variables['#attached']['library'][] = 'openy_home_branch/location_finder';
+    $variables['#attached']['library'][] = 'openy_home_branch/menu_selector';
   }
   else {
     if ($variables['teaser'] && $variables['node']->getType() == 'branch') {
