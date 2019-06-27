@@ -50,12 +50,12 @@
 
         <div class="activity-finder__step_footer">
           <div class="activity-finder__step_header--actions">
-            <div class="row">
+            <div v-if="!this.$parent.loading" class="row">
               <div class="col-12 col-xs-12 col-sm-8">
                 <span v-if="filtersBreadcrumbs === ''">Do the people you're searching for have any prefered activities?</span>
                 <span v-else><strong>Filters: </strong>{{ filtersBreadcrumbs }}</span>
               </div>
-              <div v-if="!this.$parent.loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
+              <div class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
                 <button @click.prevent="skip()" v-bind:disabled="!isStepNextDisabled" class="btn btn-primary skip btn-lg">Skip</button>
                 <button @click.prevent="next()" v-bind:disabled="isStepNextDisabled" class="btn btn-primary btn-lg next btn-disabled">Next</button>
               </div>

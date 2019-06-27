@@ -212,6 +212,7 @@
   text-decoration: none;
   font: 12px/16px Verdana, Geneva, sans-serif;
   font-weight: bold;
+  color: #0060ac;
 }
 @media screen and (min-width: 992px) {
   .schedule-dashboard__modal--body .modal-info-sidebar .location_name {

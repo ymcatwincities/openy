@@ -229,11 +229,11 @@
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-show="collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
     '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                       <a v-show="!collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded"  v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(checkbox)}">' +
     '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
@@ -330,11 +330,11 @@
     '                  <div v-for="radio in radios" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(radio)) != -1">' +
     '                    <div v-if="typeof getOption(radio) == \'object\'">' +
-    '                       <a v-show="collapseGroup(radio)" v-if="typeof getOption(radio) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(radio);Vue.set(expanded_checkboxes, getLabel(radio), true);" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(radio);Vue.set(expanded_checkboxes, getLabel(radio), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(radio)}">' +
     '                         <label>{{ getLabel(radio) }} <small v-show="groupCounter(getLabel(radio)) > 0" class="badge">{{ groupCounter(getLabel(radio)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
-    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" v-show="!collapseGroup(radio)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false;" href="#" class="d-flex checkbox-toggle-subset">' +
+    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false;" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(radio)}">' +
     '                         <label>{{ getLabel(radio) }} <small v-show="groupCounter(getLabel(radio)) > 0" class="badge">{{ groupCounter(getLabel(radio)) }}</small></label>\n' +
     '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
