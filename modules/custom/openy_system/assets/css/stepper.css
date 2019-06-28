@@ -11,7 +11,9 @@
 .activity-finder__step_header--progress {
   background-color: #eee;
 }
-
+.activity-finder__step_header--progress > .container {
+  max-width: 100%;
+}
 .activity-finder__step_header--progress-inner {
   display: flex;
   align-items: center;
