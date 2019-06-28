@@ -148,40 +148,106 @@
       },
       updateSearchQuery: function() {
         let component = this;
+        let clearRouterAges = component.checkedAges.filter(function(word){
+          if (word && {}.toString.call(word) === '[object Function]') {
+            return;
+          }
+          return word;
+        });
+        let clearRouterProgramTypes = component.checkedProgramTypes.filter(function(word){
+          if (word && {}.toString.call(word) === '[object Function]') {
+            return;
+          }
+          return word;
+        });
+        let clearRouterCategories = component.checkedCategories.filter(function(word){
+          if (word && {}.toString.call(word) === '[object Function]') {
+            return;
+          }
+          return word;
+        });
+        let clearRouterDays = component.checkedDays.filter(function(word){
+          if (word && {}.toString.call(word) === '[object Function]') {
+            return;
+          }
+          return word;
+        });
+        let clearRouterLocations = component.checkedLocations.filter(function(word){
+          if (word && {}.toString.call(word) === '[object Function]') {
+            return;
+          }
+          return word;
+        });
+        let clearRouterCategoriesExclude = component.categoriesExclude.filter(function(word){
+          if (word && {}.toString.call(word) === '[object Function]') {
+            return;
+          }
+          return word;
+        });
         this.$router.push({ query: {
-          keywords: encodeURIComponent(component.keywords),
-          ages: component.checkedAges.join(','),
-          program_types: component.checkedProgramTypes.join(','),
-          categories: component.checkedCategories.join(','),
-          days: component.checkedDays.join(','),
-          locations: component.checkedLocations.join(','),
-          exclude: component.categoriesExclude.join(','),
-          initial: component.initialStep
-        }});
+            keywords: encodeURIComponent(component.keywords),
+            ages: clearRouterAges.join(','),
+            program_types: clearRouterProgramTypes.join(','),
+            categories: clearRouterCategories.join(','),
+            days: clearRouterDays.join(','),
+            locations: clearRouterLocations.join(','),
+            exclude: clearRouterCategoriesExclude.join(','),
+            initial: component.initialStep
+          }});
       },
       runAjaxRequest: function() {
         let component = this,
-            url = drupalSettings.path.baseUrl + 'af/get-data',
-            query = [];
+                url = drupalSettings.path.baseUrl + 'af/get-data',
+                query = [];
 
         if (this.checkedAges.length > 0) {
-          query.push('ages=' + encodeURIComponent(this.checkedAges.join(',')));
+          let cleanAges = this.checkedAges.filter(function(word){
+            if (word && {}.toString.call(word) === '[object Function]') {
+              return;
+            }
+            return word;
+          });
+          query.push('ages=' + encodeURIComponent(cleanAges.join(',')));
         }
 
         if (this.checkedDays.length > 0) {
-          query.push('days=' + encodeURIComponent(this.checkedDays.join(',')));
+          let cleanDays = this.checkedDays.filter(function(word){
+            if (word && {}.toString.call(word) === '[object Function]') {
+              return;
+            }
+            return word;
+          });
+          query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
 
         if (this.checkedCategories.length > 0) {
-          query.push('categories=' + encodeURIComponent(this.checkedCategories.join(',')));
+          let cleanCategories = this.checkedCategories.filter(function(word){
+            if (word && {}.toString.call(word) === '[object Function]') {
+              return;
+            }
+            return word;
+          });
+          query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
 
         if (this.categoriesExclude.length > 0) {
-          query.push('exclude=' + encodeURIComponent(this.categoriesExclude.join(',')));
+          let cleanCategoriesExclude = this.categoriesExclude.filter(function(word){
+            if (word && {}.toString.call(word) === '[object Function]') {
+              return;
+            }
+            return word;
+          });
+          query.push('exclude=' + encodeURIComponent(cleanCategoriesExclude.join(',')));
         }
 
         if (this.checkedLocations.length > 0) {
-          query.push('locations=' + encodeURIComponent(this.checkedLocations.join(',')));
+          let cleanLocations = this.checkedLocations.filter(function(word){
+            if (word && {}.toString.call(word) === '[object Function]') {
+              return;
+            }
+            return word;
+          });
+          query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
 
         if (query.length > 0) {
@@ -295,9 +361,9 @@
       },
       getPreviousAppliedFilters() {
         var query = this.$route.query,
-            queryString = Object.keys(query).map(function(key) {
-          return key + '=' + query[key]
-        }).join('&');
+                queryString = Object.keys(query).map(function(key) {
+                  return key + '=' + query[key]
+                }).join('&');
         return this.programSearchUrl + '?' + queryString;
       },
       reloadRouter: function() {
