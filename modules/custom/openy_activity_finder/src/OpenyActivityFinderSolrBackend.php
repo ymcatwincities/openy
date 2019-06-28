@@ -299,10 +299,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
 
       $price = [];
       if (!empty($entity->field_session_mbr_price->value)) {
-        $price[] = '$' . $node->field_session_mbr_price->value . '(member)';
+        $price[] = '$' . $entity->field_session_mbr_price->value . '(member)';
       }
       if (!empty($entity->field_session_nmbr_price->value)) {
-        $price[] = '$' . $node->field_session_nmbr_price->value . '(non-member)';
+        $price[] = '$' . $entity->field_session_nmbr_price->value . '(non-member)';
       }
 
       $data[] = [
