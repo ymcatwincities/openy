@@ -59,12 +59,12 @@
           <div class="modal-content">
             <div class="hb-menu-selector__modal--header">
               <h4><strong>Home branch</strong></h4>
-              <button type="button" class="close" @click="showModal = false"><i class="fa fa-times" aria-hidden="true"></i></button>
+              <button type="button" class="close" @click="showModal = false"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="hb-menu-selector__modal--body">
               <div>Would you like to set a different location as your 'home branch'?<br><a>Learn more</a></div>
               <div class="form">
-                <select v-model="id" required>
+                <select v-model="id" required class="form-select form-control">
                   <option :value="null" disabled selected>Select location</option>
                   <option v-for="location in locations" v-bind:value="location.id">
                     {{ location.title }}
@@ -77,8 +77,8 @@
               </div>
             </div>
             <div class="hb-menu-selector__modal--footer">
-              <button class="btn btn-lg btn-secondary" @click="save(false)">No</button>
-              <button class="btn btn-lg btn-secondary" @click="save(true)" :disabled="id == null">Yes</button>
+              <button class="btn btn-lg btn-default" @click="save(false)">No</button>
+              <button class="btn btn-lg btn-success" @click="save(true)" :disabled="id == null">Yes</button>
             </div>
           </div>
         </div>
