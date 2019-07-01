@@ -8,14 +8,6 @@
   margin-right: 10px;
 }
 
-.hb-menu-selector-wrapper {
-  position: relative;
-  padding-top: 11px;
-  padding-bottom: 12px;
-  cursor: pointer;
-}
-
-
 .locations .node--type-branch .hb-location-checkbox-wrapper {
   padding: 20px;
   align-self: end;
