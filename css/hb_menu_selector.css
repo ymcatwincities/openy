@@ -2,10 +2,15 @@
   font-size: 14px;
   position: absolute;
   z-index: 100;
-  /* TODO: this is ugly, need to fix later */
   top: 150px;
-  right: 180%;
+  right: 50%;
   width: 400px;
+}
+
+@media (min-width: 1200px) {
+  .hb-menu-selector__modal {
+    right: 180%;
+  }
 }
 
 /* modal > header */
