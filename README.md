@@ -40,7 +40,7 @@ You can always evaluate distribution by visiting demo website - http://sandbox.o
 We are using [composer](https://getcomposer.org/) for initiating new project tree.
 
 ```
-composer create-project ymcatwincities/openy-project:8.1.x-dev MY_PROJECT --no-interaction
+composer create-project ymcatwincities/openy-project MY_PROJECT --no-interaction
 cd MY_PROJECT && composer update
 ```
 
