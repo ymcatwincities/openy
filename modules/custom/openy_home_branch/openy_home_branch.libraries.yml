@@ -1,7 +1,7 @@
 сookies_storage:
   version: 0.1
   js:
-    js/hb_сookies_storage.js: {}
+    js/hb_cookies_storage.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings
