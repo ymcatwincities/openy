@@ -45,6 +45,7 @@
           type="multiple"
           :default='$route.query.days'
           v-on:updated-values="checkedDays = $event"
+          col-count=3
         ></main-filter>
 
         <div class="activity-finder__step_footer">
