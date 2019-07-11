@@ -263,7 +263,9 @@
     },
     created: function() {
       this.radios = JSON.parse(this.options);
-      this.checked = this.default;
+      if (typeof this.default !== 'undefined') {
+        this.checked = this.default;
+      }
       for (var i in this.radios) {
         radio = this.radios[i];
         if (typeof radio == 'object') {
@@ -747,16 +749,19 @@
         this.current_page--;
         this.table = [];
         this.runAjaxRequest(false);
+        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
       },
       loadNextPage: function() {
         this.current_page++;
         this.table = [];
         this.runAjaxRequest(false);
+        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
       },
       loadPageNumber: function(number) {
         this.current_page = number;
         this.table = [];
         this.runAjaxRequest(false);
+        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
       },
       totalGroupCounter() {
         // Returns count of of applied filters.

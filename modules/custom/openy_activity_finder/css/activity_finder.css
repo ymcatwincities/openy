@@ -337,15 +337,32 @@
 .activity-finder__wrapper .openy-card__link .h4 {
   text-transform: uppercase;
 }
+.activity-finder__wrapper .openy-card__wrapper {
+  padding-left: 7.5px;
+  padding-right: 7.5px;
+}
+@media (min-width: 992px) {
+  .activity-finder__wrapper .openy-card__wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
 .activity-finder__wrapper .openy-card__item label {
   border: 2px solid #0060ad !important;
   background-color: #fff;
   color: #0060ad;
   font-weight: bold;
-  padding: 15px 25px;
+  padding: 10px;
   min-height: 54px;
   border-radius: 4px;
   margin-bottom: 10px;
+  font-size: 12px;
+}
+@media (min-width: 992px) {
+  .activity-finder__wrapper .openy-card__item label {
+    font-size: 14px;
+    padding: 15px 25px;
+  }
 }
 .activity-finder__wrapper .openy-card__item.no-results label {
   border: 2px solid #F2F2F2 !important;
@@ -356,6 +373,12 @@
 .activity-finder__wrapper .openy-card__item small {
   color: #333;
   font-weight: normal;
+  font-size: 10px;
+}
+@media (min-width: 992px) {
+  .activity-finder__wrapper .openy-card__item small {
+    font-size: 12px;
+  }
 }
 .activity-finder__wrapper .openy-card__item.selected small {
   color: #fff;

@@ -45,6 +45,7 @@
           type="multiple"
           :default='$route.query.ages'
           v-on:updated-values="checkedAges = $event"
+          col-count=3
         ></main-filter>
 
         <div class="activity-finder__step_footer">

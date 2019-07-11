@@ -37,30 +37,13 @@
           </div>
         </div>
 
-        <div class="activity-finder__step_content" v-show="!this.$parent.loading">
-          <div v-for="(topLevelLocation, index) in this.$parent.locations" class="activity-finder__collapse_group">
-            <a class="activity-finder__collapse_group__link collapsed" data-toggle="collapse" :href="'#collapse-location-group-' + index">
-              <h3>{{ topLevelLocation.label }}</h3>
-              <span v-if="locationSelected(topLevelLocation.label) > 0" class="badge badge-pill badge-dark">{{ locationSelected(topLevelLocation.label) }}</span>
-              <i class="fa fa-plus-circle"></i>
-              <i class="fa fa-minus-circle"></i>
-            </a>
-            <div :id="'collapse-location-group-' + index" class="row collapse">
-              <div v-for="(item, index) in topLevelLocation.value" class="col-12 col-xs-12 col-sm-6 col-md-4">
-                <div v-bind:class="{'openy-card__item':true, 'no-results':(locationCounter(item.value) === 0), 'selected': cardSelected(checkedLocations, item.value) }">
-                  <label :for="'af-filter-location-' + item.value" class="has-subtext" data-mh="openy-card__item-label">
-                    <i class="fa fa-map-marker"></i>
-                    <input v-if="locationCounter(item.value) !== 0" v-model="checkedLocations" type="checkbox" :value="item.value" :data-label="item.label" :id="'af-filter-location-' + item.value" class="d-none hidden">
-                    <div class="d-flex flex-column">
-                      <span>{{ item.label }}</span>
-                      <small>{{ locationCounter(item.value) }} results</small>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <main-filter
+          v-if="!this.$parent.loading"
+          :options="locationsOptions"
+          :default='$route.query.locations'
+          v-on:updated-values="checkedLocations= $event"
+          col-count=2
+        ></main-filter>
 
         <div class="activity-finder__step_footer">
           <div class="activity-finder__step_header--actions">
@@ -85,6 +68,7 @@
 
 <script>
   import Spinner from '../components/Spinner.vue'
+  import MainFilter from '../components/Filter.vue'
 
   export default {
     data () {
@@ -96,9 +80,29 @@
       };
     },
     components: {
-      Spinner
+      Spinner,
+      MainFilter
     },
     computed: {
+      locationsOptions: function() {
+        var options = {};
+
+        for (let i in this.$parent.locations) {
+          let topLevelLabel = this.$parent.locations[i].label;
+          let secondLevelOptions = {};
+          for (let j in this.$parent.locations[i].value) {
+            let id = this.$parent.locations[i].value[j].value;
+            let label = this.$parent.locations[i].value[j].label;
+            secondLevelOptions[id] = {
+              label: label,
+              count: this.locationCounter(id)
+            };
+          }
+
+          options[topLevelLabel] = secondLevelOptions;
+        }
+        return options;
+      },
       count: function() {
         return this.$parent.table.count;
       },
@@ -173,6 +177,11 @@
         this.isStepNextDisabled = component.checkedLocations.length === 0;
         this.filtersBreadcrumbs = this.buildBreadcrumbs(value);
       }
+    },
+    mounted: function () {
+      jQuery(function() {
+        jQuery('*[data-mh="openy-card__item-label"]').matchHeight();
+      });
     }
   }
 </script>
