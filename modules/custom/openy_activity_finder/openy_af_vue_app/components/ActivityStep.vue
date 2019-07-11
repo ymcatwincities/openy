@@ -46,6 +46,7 @@
           :excluded="categoriesExclude"
           :default='$route.query.categories'
           v-on:updated-values="checkedCategories= $event"
+          col-count=2
         ></main-filter>
 
         <div class="activity-finder__step_footer">
