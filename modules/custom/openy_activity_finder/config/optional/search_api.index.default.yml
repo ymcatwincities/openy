@@ -19,8 +19,6 @@ dependencies:
     - node
     - paragraphs
     - search_api
-_core:
-  default_config_hash: jeqriDXA-iNZIZ0eP_1GU_RRKOemook1aL46CEIqKZA
 id: default
 name: Default
 description: ''
