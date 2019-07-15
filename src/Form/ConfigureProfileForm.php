@@ -396,7 +396,7 @@ class ConfigureProfileForm extends FormBase {
 
     // Add dependencies to the list. The new modules will be processed as
     // the while loop continues.
-    while (list($module) = each($module_list)) {
+    foreach ($module_list as $module => $moduleData) {
       foreach (array_keys($module_data[$module]->requires) as $dependency) {
         if (!isset($module_data[$dependency])) {
           // The dependency does not exist.
