@@ -198,7 +198,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       foreach ($categories_nids as $nid) {
         $categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
       }
-      $query->addCondition('field_activity_category', $categories, 'IN');
+      if ($categories) {
+        $query->addCondition('field_activity_category', $categories, 'IN');
+      }
     }
     // Ensure to exclude categories.
     $exclude_nids = [];
@@ -214,7 +216,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
       $exclude_categories[] = $category_program_info[$nid]['title'];
     }
-    $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
+    if ($exclude_categories) {
+      $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
+    }
 
     if (!empty($parameters['locations'])) {
       $locations_nids = explode(',', rawurldecode($parameters['locations']));
@@ -534,18 +538,20 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
             }
             $address = implode(', ', $address);
             $days = [];
-            foreach ($location->field_branch_hours as $multi_hours) {
-              $sub_hours = $multi_hours->getValue();
-              $days = [
-                [
-                  0 => "Mon - Fri:",
-                  1 => $sub_hours['hours_mon']
-                ],
-                [
-                  0 => "Sat - Sun:",
-                  1 => $sub_hours['hours_sat']
-                ]
-              ];
+            if ($location->hasField('field_branch_hours')) {
+              foreach ($location->field_branch_hours as $multi_hours) {
+                $sub_hours = $multi_hours->getValue();
+                $days = [
+                  [
+                    0 => "Mon - Fri:",
+                    1 => $sub_hours['hours_mon']
+                  ],
+                  [
+                    0 => "Sat - Sun:",
+                    1 => $sub_hours['hours_sat']
+                  ]
+                ];
+              }
             }
             $data[$location->title->value] =[
               'type' => $location->bundle(),
