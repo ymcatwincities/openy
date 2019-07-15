@@ -153,7 +153,7 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
     throw new ActivenetClientException(sprintf('Method %s not implemented yet.', $method));
   }
 
-  public function getActivityDetail(integer $id){
+  public function getActivityDetail(int $id){
     if(!$this->api_settings) throw new ActivenetClientException(sprintf('Please inject api settings using "$this->setAPI($api_settings)".'));
 
     $base_uri = $this->api_settings['base_uri'];
