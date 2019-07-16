@@ -721,7 +721,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         if ($ages[$i + 1] && $ages[$i + 1] == 0) {
           $ages_y[$i] .= t('+ years');
         }
-        if ($ages[$i + 1] && $ages[$i + 1] > 18 || !$ages[$i + 1]) {
+        if (isset($ages[$i + 1]) && $ages[$i + 1] > 18 || !$ages[$i + 1]) {
           if ($i % 2 || (!$ages[$i + 1]) && !($i % 2)) {
             $ages_y[$i] .= t(' years');
           }
@@ -729,9 +729,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
       else {
         if ($ages[$i] <= 18 && $ages[$i] != 0) {
-          //$ages_y[$i] = $ages[$i];
           $plus = '';
-          if ($ages[$i + 1] && $ages[$i + 1] == 0) {
+          if (isset($ages[$i + 1]) && $ages[$i + 1] == 0) {
             $plus = ' + ';
           }
           $ages_y[$i] = $ages[$i] . \Drupal::translation()->formatPlural($ages_y[$i], ' month', ' months' . $plus);
