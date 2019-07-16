@@ -19,7 +19,7 @@
 
       {# mobile toggler button #}
       <div class="col-xs-5">
-        <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed" >
+        <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
           <strong>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
             <i class="fa fa-minus minus" aria-hidden="true"></i>
@@ -64,8 +64,8 @@
         <div class="form-group-wrapper">
           <label class="collapsed" for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="false" aria-controls="form-group-location">
             {{ 'Location'|t }}
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
             <i class="fa fa-minus minus" aria-hidden="true"></i>
+            <i class="fa fa-plus plus" aria-hidden="true"></i>
           </label>
           <div id="form-group-location" class="form-group-location" aria-expanded="true">
             <div class="checkboxes">
@@ -75,7 +75,7 @@
                 {% set loc_checked = "checked" %}
               {% endif %}
               <div class="checkbox-wrapper skip-{{ loc_checked }}">
-                <input v-on:click="toggleParentClass($event)" type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+                <input v-on:click="toggleParentClass($event)" type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box {{ loc_checked }} ">
                 <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
                 <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
                   <div v-for="roomFilter in getRoomFilter('{{ location }}')">
