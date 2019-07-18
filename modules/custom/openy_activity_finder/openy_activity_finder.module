@@ -30,6 +30,7 @@ function openy_activity_finder_theme() {
         'ages' => [],
         'days' => [],
         'is_search_box_disabled' => '',
+        'is_spots_available_disabled' => '',
         'sort_options' => [],
       ],
     ],
