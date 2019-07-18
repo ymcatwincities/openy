@@ -361,10 +361,11 @@
       },
       getPreviousAppliedFilters() {
         var query = this.$route.query,
-                queryString = Object.keys(query).map(function(key) {
-                  return key + '=' + query[key]
-                }).join('&');
-        return this.programSearchUrl + '?' + queryString;
+            queryString = Object.keys(query).map(function(key) {
+              return key + '=' + query[key]
+            }).join('&'),
+            programSearchUrl = 'OpenY' in window ? window.OpenY.field_prgf_af_results_ref[0]['url'] : '';
+        return programSearchUrl + '?' + queryString;
       },
       reloadRouter: function() {
         // We reload the route component but changing the value of rerenderKey.
