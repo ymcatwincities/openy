@@ -11373,9 +11373,18 @@ article .node--view-mode-flexible-content h2 {
     .two-column-fixed .affix,
     .two-column-fixed .affix-bottom {
       width: 360px; } }
-  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
-  .two-column-fixed .affix-bottom {
-    top: 166px; }
+  @media (min-width: 576px) {
+    .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+    .two-column-fixed .affix-bottom {
+      top: 150px; } }
+  @media (min-width: 768px) {
+    .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+    .two-column-fixed .affix-bottom {
+      top: 186px; } }
+  @media (min-width: 992px) {
+    .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+    .two-column-fixed .affix-bottom {
+      top: 196px; } }
 
 .embedded-entity .media-image.view-mode-link {
   display: inline; }
