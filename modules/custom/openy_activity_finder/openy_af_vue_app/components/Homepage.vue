@@ -13,20 +13,19 @@
         </div>
       </form>
 
-      <a v-bind:href="this.$parent.programSearchUrl"><strong>View all programs</strong></a>
-      <br/>
+      <a v-bind:href="this.$parent.programSearchUrl" class="program-search__view-all-programs"><strong>View all programs</strong></a>
       <p v-if="this.$parent.loading">
         <spinner></spinner>
       </p>
-      <span v-if="!this.$parent.loading">{{ count }} results</span>
+      <div v-if="!this.$parent.loading" class="program-search__count-results">{{ count }} results</div>
 
       <h2 class="program-search__af-title">Activity Finder</h2>
-      <p>
+      <p class="program-search__af-description">
         We can help you find the right activities for you and your family!
         <b>How should we begin?</b>
       </p>
 
-      <div class="af-routing--links">
+      <div class="program-search__af-routing--links">
         <router-link :to="{name: 'af-age'}" @click.native="setInitialStep('age')" class="af-routing--link btn btn-primary btn-block btn-lg">By Age</router-link>
         <router-link :to="{name: 'af-day'}" @click.native="setInitialStep('day')"  class="af-routing--link btn btn-primary btn-block btn-lg">By Day Of Week</router-link>
         <router-link :to="{name: 'af-activity'}" @click.native="setInitialStep('activity')"  class="af-routing--link btn btn-primary btn-block btn-lg">By Activity</router-link>
