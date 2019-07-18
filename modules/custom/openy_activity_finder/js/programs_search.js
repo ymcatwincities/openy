@@ -376,6 +376,7 @@
       afPageRef: '',
       no_results: 0,
       alternativeCriteria: '',
+      isSpotsAvailableDisabled: drupalSettings.activityFinder.is_spots_available_disabled,
       daysMap: {
         1: 'monday',
         2: 'tuesday',
@@ -414,7 +415,8 @@
         availability_status: '',
         availability_note: '',
         link: '',
-        learn_more: ''
+        learn_more: '',
+        more_results: ''
       }
     },
     created: function() {
@@ -668,7 +670,13 @@
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
-
+          // Dynamically create more results depends on search criteria.
+          if (component.table[index].more_results_type == 'keyword') {
+            component.moreInfoPopup.more_results = '?' + 'keywords=' + encodeURIComponent(component.table[index].program_name) + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
+          if (component.table[index].more_results_type == 'program') {
+            component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
           component.availabilityPopup.link = component.table[index].link;
@@ -704,6 +712,7 @@
           component.table[index].gender = data.gender;
           component.table[index].description = data.description;
           component.table[index].link = data.link;
+          component.table[index].program_name = data.program_name;
 
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
@@ -724,7 +733,14 @@
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.link = component.table[index].link;
-
+          component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
+          // Dynamically create more results depends on search criteria.
+          if (component.table[index].more_results_type == 'keyword') {
+            component.moreInfoPopup.more_results = '?' + 'keywords=' + encodeURIComponent(component.table[index].program_name) + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
+          if (component.table[index].more_results_type == 'program') {
+            component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
           component.availabilityPopup.link = component.table[index].link;
