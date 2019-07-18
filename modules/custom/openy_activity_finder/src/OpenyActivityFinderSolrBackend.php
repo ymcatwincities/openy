@@ -185,7 +185,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       foreach ($categories_nids as $nid) {
         $categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
       }
-      $query->addCondition('field_activity_category', $categories, 'IN');
+      if ($categories) {
+        $query->addCondition('field_activity_category', $categories, 'IN');
+      }
     }
     // Ensure to exclude categories.
     $exclude_nids = [];
@@ -201,7 +203,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
       $exclude_categories[] = $category_program_info[$nid]['title'];
     }
-    $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
+    if ($exclude_categories) {
+      $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
+    }
 
     if (!empty($parameters['locations'])) {
       $locations_nids = explode(',', rawurldecode($parameters['locations']));
@@ -525,18 +529,20 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
             }
             $address = implode(', ', $address);
             $days = [];
-            foreach ($location->field_branch_hours as $multi_hours) {
-              $sub_hours = $multi_hours->getValue();
-              $days = [
-                [
-                  0 => "Mon - Fri:",
-                  1 => $sub_hours['hours_mon']
-                ],
-                [
-                  0 => "Sat - Sun:",
-                  1 => $sub_hours['hours_sat']
-                ]
-              ];
+            if ($location->hasField('field_branch_hours')) {
+              foreach ($location->field_branch_hours as $multi_hours) {
+                $sub_hours = $multi_hours->getValue();
+                $days = [
+                  [
+                    0 => "Mon - Fri:",
+                    1 => $sub_hours['hours_mon']
+                  ],
+                  [
+                    0 => "Sat - Sun:",
+                    1 => $sub_hours['hours_sat']
+                  ]
+                ];
+              }
             }
             $data[$location->title->value] =[
               'type' => $location->bundle(),
@@ -706,7 +712,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         if ($ages[$i + 1] && $ages[$i + 1] == 0) {
           $ages_y[$i] .= t('+ years');
         }
-        if ($ages[$i + 1] && $ages[$i + 1] > 18 || !$ages[$i + 1]) {
+        if (isset($ages[$i + 1]) && $ages[$i + 1] > 18 || !$ages[$i + 1]) {
           if ($i % 2 || (!$ages[$i + 1]) && !($i % 2)) {
             $ages_y[$i] .= t(' years');
           }
@@ -714,9 +720,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
       else {
         if ($ages[$i] <= 18 && $ages[$i] != 0) {
-          //$ages_y[$i] = $ages[$i];
           $plus = '';
-          if ($ages[$i + 1] && $ages[$i + 1] == 0) {
+          if (isset($ages[$i + 1]) && $ages[$i + 1] == 0) {
             $plus = ' + ';
           }
           $ages_y[$i] = $ages[$i] . \Drupal::translation()->formatPlural($ages_y[$i], ' month', ' months' . $plus);

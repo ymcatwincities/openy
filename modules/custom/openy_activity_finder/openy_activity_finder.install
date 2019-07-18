@@ -9,12 +9,17 @@
 * Update configs.
 */
 function openy_activity_finder_update_8001() {
+  $openy_activity_finder_dir = drupal_get_path('module', 'openy_activity_finder');
   $cim = \Drupal::service('config_import.importer');
-  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/install');
-  $cim->importConfigs([
-    'openy_activity_finder.settings',
-    'search_api.index.default'
-  ]);
+  $cim->setDirectory($openy_activity_finder_dir . '/config/install');
+  $cim->importConfigs(['openy_activity_finder.settings']);
+
+  $cim->setDirectory($openy_activity_finder_dir . '/config/optional');
+  $config = \Drupal::config('search_api.index.default');
+  if (!$config->isNew()) {
+    // Import config only in case it already exist.
+    $cim->importConfigs(['search_api.index.default']);
+  }
 }
 
 /**

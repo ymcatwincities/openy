@@ -19,7 +19,6 @@ dependencies:
     - node
     - paragraphs
     - search_api
-    - openy_activity_finder
 id: default
 name: Default
 description: ''
