@@ -254,6 +254,15 @@
 .schedule-dashboard__modal--body .modal-info-sidebar .availability_note {
   margin-bottom: 10px;
 }
+.schedule-dashboard__modal--body .modal-info-sidebar .more_results {
+  margin-top: 20px;
+  text-align: center;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .more_results a {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: underline;
+}
 /* Location details modal styling */
 .schedule-dashboard__modal--location .info {
   font: 12px/18px Verdana, Geneva, sans-serif;

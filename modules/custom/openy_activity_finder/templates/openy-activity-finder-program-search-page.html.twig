@@ -192,6 +192,7 @@
                   </div>
                   <div class="col-sm-4 af-price-availability-wrapper">
                     <div v-html="item.price" class="item-price"></div>
+                    {% if not is_spots_available_disabled %}
                     <div class="availability-wrapper">
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
@@ -202,6 +203,7 @@
                         <span class="spots-availability">{{ 'FULL'|t }}</span>
                       </div>
                     </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
@@ -286,10 +288,15 @@
                       <span v-html="moreInfoPopup.price"></span>
                     </div>
                     <div class="availability-wrapper">
+                      {% if not is_spots_available_disabled %}
                       <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
+                      {% endif %}
                       <div v-if="moreInfoPopup.availability_status == 'open'" class="availability_status">
                         <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
                       </div>
+                    </div>
+                    <div v-if="moreInfoPopup.more_results.length > 0" class="more_results">
+                      <a v-bind:href="moreInfoPopup.more_results">More results for this program at this location</a>
                     </div>
                   </div>
                 </div>

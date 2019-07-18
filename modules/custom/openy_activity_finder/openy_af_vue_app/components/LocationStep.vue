@@ -40,6 +40,7 @@
         <main-filter
           v-if="!this.$parent.loading"
           :options="locationsOptions"
+          type="multiple"
           :default='$route.query.locations'
           v-on:updated-values="checkedLocations= $event"
           col-count=2
