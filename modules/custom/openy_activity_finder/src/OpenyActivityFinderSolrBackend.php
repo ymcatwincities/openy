@@ -315,6 +315,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'days' => isset($schedule_items[0]['days']) ? $schedule_items[0]['days'] : '',
         'times' => isset($schedule_items[0]['time']) ? $schedule_items[0]['time'] : '',
         'location' => $fields['field_session_location']->getValues()[0],
+        'location_id' => $locations_info[$fields['field_session_location']->getValues()[0]]['nid'],
         'location_info' => $locations_info[$fields['field_session_location']->getValues()[0]],
         'log_id' => $log_id,
         'name' => $fields['title']->getValues()[0]->getText(),
@@ -330,8 +331,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'ages' => $this->convertData([$entity->field_session_min_age->value, $entity->field_session_max_age->value]),
         'gender' => !empty($entity->field_session_gender->value) ? $entity->field_session_gender->value : '',
         // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
-        'location_id' => '',
-        'program_id' => '',
+        'program_id' => $sub_category->id(),
         'offering_id' => '',
         'info' => [],
         'location_name' => '',
@@ -341,6 +341,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'status' => $availability_status,
         'note' => $availability_note,
         'learn_more' => !empty($learn_more) ? $learn_more : '',
+        'more_results' => '',
+        'more_results_type' => 'program',
+        'program_name' => $fields['title']->getValues()[0]->getText(),
       ];
     }
     return $data;

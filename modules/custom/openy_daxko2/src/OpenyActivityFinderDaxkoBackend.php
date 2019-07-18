@@ -311,6 +311,9 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           'log_id' => $log_id,
           'spots_available' => '',
           'learn_more' => '',
+          'more_results' => '',
+          'more_results_type' => 'keyword',
+          'program_name' => '',
           'gender' => isset($gender) ? $gender : '',
           'ages' => isset($age) ? $age : '',
         ];
@@ -722,6 +725,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     $result = [
       'name' => $offeringResponse['name'] . ' ' . $offeringResponse['program']['name'],
+      'program_name' => $offeringResponse['program']['name'],
       'description' =>  $offeringResponse['description'] . ' ' . $offeringResponse['program']['description'],
       'price' =>  implode(', ', $prices),
       'availability_status' => $availability_status,
