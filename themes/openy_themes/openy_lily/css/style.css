@@ -7368,6 +7368,9 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 18px !important;
   font-weight: bold;
 }
+.nav .language .openy-google-translate select option {
+  color: #636466;
+}
 
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
