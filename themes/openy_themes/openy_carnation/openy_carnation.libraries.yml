@@ -16,3 +16,14 @@ global-styling:
     - core/drupal
     - openy_rose/blog_slider
     - openy_system/jquery.matchHeight
+
+landing:
+  version: 0.1
+  js:
+    src/js/affix.js: {}
+    src/js/openy_carnation_landing.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
