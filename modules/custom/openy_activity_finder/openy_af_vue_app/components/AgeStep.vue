@@ -104,10 +104,6 @@
       count: function() {
         return this.$parent.table.count;
       },
-      viewAllUrl: function() {
-        // @todo get all checked filters from previous steps.
-        return this.$parent.programSearchUrl;
-      },
       ageCounters: function () {
         var counters = {};
         if (typeof this.$parent.table.facets.static_age_filter == 'undefined') {
@@ -156,7 +152,6 @@
     watch: {
       'checkedAges': function(value) {
         let component = this.$parent;
-        //component.initializeFromGet();
         component.checkedAges = value;
         this.isStepNextDisabled = component.checkedAges.length === 0;
         this.filtersBreadcrumbs = this.buildBreadcrumbs(value);

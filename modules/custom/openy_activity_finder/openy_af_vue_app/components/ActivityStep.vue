@@ -109,10 +109,6 @@
       count: function() {
         return this.$parent.table.count;
       },
-      viewAllUrl: function() {
-        // @todo get all checked filters from previous steps.
-        return this.$parent.programSearchUrl;
-      },
       categoriesType: function() {
         return this.$parent.categories_type;
       },
@@ -204,7 +200,6 @@
     watch: {
       'checkedCategories': function(value) {
         let component = this.$parent;
-        //component.initializeFromGet();
         component.checkedCategories = value;
         this.isStepNextDisabled = component.checkedCategories.length === 0;
         this.filtersBreadcrumbs = this.buildBreadcrumbs(value);

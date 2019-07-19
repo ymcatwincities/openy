@@ -113,10 +113,6 @@
       count: function() {
         return this.$parent.table.count;
       },
-      viewAllUrl: function() {
-        // @todo get all checked filters from previous steps.
-        return this.$parent.programSearchUrl;
-      },
       dayCounters: function () {
         var counters = {};
         if (typeof this.$parent.table.facets.days_of_week == 'undefined') {
@@ -170,7 +166,6 @@
     watch: {
       'checkedDays': function(value) {
         let component = this.$parent;
-        //component.initializeFromGet();
         component.checkedDays = value;
         this.isStepNextDisabled = component.checkedDays.length === 0;
         this.filtersBreadcrumbs = this.buildBreadcrumbs(value);
