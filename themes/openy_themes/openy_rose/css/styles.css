@@ -7860,10 +7860,14 @@ article .node--view-mode-flexible-content h2 a span {
 .openy-google-translate select {
   background: transparent;
   border: none;
+  max-width: 145px;
   text-transform: uppercase;
   color: #fff;
   font-size: 12px;
   margin-top: 6px;
+}
+.openy-google-translate select option {
+  color: #636466;
 }
 
 .nav .language .openy-google-translate select {

@@ -21,6 +21,10 @@
         color: $white;
         font-size: 18px !important;
         font-weight: bold;
+
+        option {
+          color: $default-grey;
+        }
       }
     }
   }
