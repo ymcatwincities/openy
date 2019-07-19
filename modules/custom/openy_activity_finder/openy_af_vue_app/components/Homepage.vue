@@ -4,7 +4,7 @@
       <h1 class="program-search__form--title">Program Search</h1>
       <form v-if="!isSearchBoxDisabled" class="program-search__form" role="search">
         <div class="row row-eq-height justify-content-center">
-          <div class="col-12 col-xs-12 col-md-6 d-flex">
+          <div class="col-12 col-xs-12 col-md-6 col-lg-4 d-flex">
             <input type="text" class="program-search__keywords" v-model="keywords" id="program-search__keywords" placeholder="Keywords ..."/>
             <button @click.prevent="submitSearch()" v-bind:disabled="isSearchSubmitDisabled" type="submit" class="btn btn-primary text-white rounded-0">
               <i class="fa fa-search" aria-hidden="true"><span class="visually-hidden">Submit</span></i>
