@@ -25,6 +25,7 @@ class ActivityFinderBlock extends BlockBase {
     $backend_service_id = $config->get('backend');
     $backend = \Drupal::service($backend_service_id);
     $node = \Drupal::routeMatch()->getParameter('node');
+    $alias = '';
     if ($node instanceof NodeInterface) {
       $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id());
     }
@@ -41,7 +42,7 @@ class ActivityFinderBlock extends BlockBase {
       '#attached' => [
         'drupalSettings' => [
           'activityFinder' => [
-            'alias' => isset($alias) ? $alias : '',
+            'alias' => $alias,
             'is_search_box_disabled' => $config->get('disable_search_box'),
           ]
         ]
