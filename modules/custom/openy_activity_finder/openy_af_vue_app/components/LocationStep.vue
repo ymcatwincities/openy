@@ -107,10 +107,6 @@
       count: function() {
         return this.$parent.table.count;
       },
-      viewAllUrl: function() {
-        // @todo get all checked filters from previous steps.
-        return this.$parent.programSearchUrl;
-      },
       locationCounters: function () {
         var counters = {};
         if (typeof this.$parent.table.facets.locations == 'undefined') {
@@ -173,7 +169,6 @@
     watch: {
       'checkedLocations': function(value) {
         let component = this.$parent;
-        //component.initializeFromGet();
         component.checkedLocations = value;
         this.isStepNextDisabled = component.checkedLocations.length === 0;
         this.filtersBreadcrumbs = this.buildBreadcrumbs(value);
