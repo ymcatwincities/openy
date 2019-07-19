@@ -27,8 +27,10 @@ function openy_activity_finder_update_8001() {
  */
 function openy_activity_finder_update_8002() {
   $cim = \Drupal::service('config_import.importer');
-  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/install');
-  $cim->importConfigs([
-    'search_api.index.default'
-  ]);
+  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/optional');
+  $config = \Drupal::config('search_api.index.default');
+  if (!$config->isNew()) {
+    // Import config only in case it already exist.
+    $cim->importConfigs(['search_api.index.default']);
+  }
 }
