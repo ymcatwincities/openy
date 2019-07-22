@@ -332,7 +332,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           ],
         ])->toString(),
         'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
-        'ages' => $this->convertData([$entity->field_session_min_age->value, $entity->field_session_max_age->value]),
+        'ages' => $this->convertData([$entity->field_session_min_age->value, isset($entity->field_session_max_age->value) ? $entity->field_session_max_age->value : '0']),
         'gender' => !empty($entity->field_session_gender->value) ? $entity->field_session_gender->value : '',
         // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
         'program_id' => $sub_category->id(),
@@ -395,7 +395,6 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     }
     return $facets_m;
   }
-
 
   /**
    * {@inheritdoc}
@@ -696,8 +695,14 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     ];
   }
 
-  /*
+  /**
    * Date months to years transformation.
+   *
+   * @param array $ages
+   *   Array with min and max age values,
+   *
+   * @return string
+   *   String with month or year.
    */
   public function convertData($ages = []) {
     $ages_y = [];
@@ -709,10 +714,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         else {
           $ages_y[$i] = number_format($ages[$i] / 12, 0, '.', '');;
         }
-        if ($ages[$i + 1] && $ages[$i + 1] == 0) {
+        if (isset($ages[$i + 1]) && $ages[$i + 1] == 0) {
           $ages_y[$i] .= t('+ years');
         }
-        if (isset($ages[$i + 1]) && $ages[$i + 1] > 18 || !$ages[$i + 1]) {
+        if (isset($ages[$i + 1]) && $ages[$i + 1] > 18 || !isset($ages[$i + 1])) {
           if ($i % 2 || (!$ages[$i + 1]) && !($i % 2)) {
             $ages_y[$i] .= t(' years');
           }
