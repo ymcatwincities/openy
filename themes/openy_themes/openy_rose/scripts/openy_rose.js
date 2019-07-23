@@ -272,5 +272,19 @@
     }
   };
 
+  // Location collapsible.
+  Drupal.behaviors.schedules_location_collapse = {
+    attach: function (context, settings) {
+      $('label[for="form-group-location"]').on('click', function () {
+        let status = $(this).attr('aria-expanded');
+        if (status === 'false') {
+          $(this).attr('aria-expanded', 'true');
+        }
+        else {
+          $(this).attr('aria-expanded', 'false');
+        }
+      });
+    }
+  };
 
 })(jQuery);
