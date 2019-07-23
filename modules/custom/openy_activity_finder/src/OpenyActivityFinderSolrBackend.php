@@ -9,6 +9,7 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\search_api\Entity\Index;
 use Drupal\Core\Url;
 use Drupal\Component\Utility\Html;
@@ -76,6 +77,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   protected $loggerChannel;
 
   /**
+   * Module Handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * Creates a new RepeatController.
    *
    * @param CacheBackendInterface $cache
@@ -90,8 +98,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    *   Time service.
    * @param LoggerChannelInterface $loggerChannel
    *   Logger service.
+   * @param ModuleHandlerInterface $module_handler
+   *   Module Handler.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time, LoggerChannelInterface $loggerChannel) {
+  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time, LoggerChannelInterface $loggerChannel, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
     $this->cache = $cache;
     $this->database = $database;
@@ -100,6 +110,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $this->dateFormatter = $date_formatter;
     $this->time = $time;
     $this->loggerChannel = $loggerChannel;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -309,7 +320,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $price[] = '$' . $entity->field_session_nmbr_price->value . '(non-member)';
       }
 
-      $data[] = [
+      $item_data = [
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
         'availability_status' => $availability_status,
@@ -349,6 +360,12 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'more_results_type' => 'program',
         'program_name' => $fields['title']->getValues()[0]->getText(),
       ];
+
+      // Allow other modules to alter the process results.
+      $this->moduleHandler
+        ->alter('activity_finder_program_process_results', $item_data, $entity);
+
+      $data[] = $item_data;
     }
     return $data;
   }
