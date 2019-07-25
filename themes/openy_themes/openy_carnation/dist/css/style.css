@@ -7446,9 +7446,7 @@ a.text-black:hover, a.text-black:focus {
   outline: none !important;
   cursor: pointer; }
 
-.atcb-link:focus ~ ul,
-.atcb-link:active ~ ul,
-.atcb-list:hover {
+.atcb-link ~ ul.active {
   visibility: visible; }
 
 .atcb-list {
