@@ -15,14 +15,27 @@
       dontAsk: false
     },
 
-    // Markup that can be provided by other components.
-    // @see openy_home_branch/js/components/hb_location_finder.js
-    // Drupal.homeBranch.componentsMarkup.push.
-    componentsMarkup: [],
+    showModal: false,
+
+    // Locations list.
+    locations: {},
+
+    // Plugins that can be provided by other components.
+    // @see openy_home_branch/js/hb-plugins/hb-location-finder.js
+    // Drupal.homeBranch.plugins.push.
+    plugins: [],
 
     // Object Initialization.
     init: function () {
       this.data = this.loadFromStorage();
+
+      // Get locations list.
+      let self = this;
+      $.getJSON(drupalSettings.path.baseUrl + 'api/home-branch/locations', function (data) {
+        data.forEach(function (item) {
+          self.locations[item.nid] = item.title;
+        });
+      });
     },
 
     // Get property value.
@@ -46,6 +59,11 @@
     // Set property value.
     setId: function (id) {
       this.setValue('id', id);
+    },
+
+    // Get locations list.
+    getLocations: function () {
+      return this.locations;
     },
 
     // Move current data to Cookies storage.

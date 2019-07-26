@@ -1,0 +1,82 @@
+.hb-loc-modal__modal {
+  font-size: 14px;
+  position: fixed;
+  z-index: 1000;
+  right: 0;
+  top: 15%;
+  left: 0;
+  margin: 0 auto;
+  width: 400px;
+}
+
+/* modal > header */
+.hb-loc-modal__modal--header {
+  display: block;
+  overflow: hidden;
+  clear: both;
+  border-bottom: #0a001f solid 1px;
+}
+.hb-loc-modal__modal--header h4 {
+  float: left;
+  padding: 5px 0 0 20px;
+  text-transform: uppercase;
+}
+.hb-loc-modal__modal--header button {
+  float: right;
+  font-size: 27px;
+  opacity: .8;
+}
+
+.hb-loc-modal__modal--header button.close {
+  padding: 10px;
+  background: #0e5188;
+  color: white;
+  font-weight: 400;
+}
+
+.hb-loc-modal__modal--header button.close .fa {
+  color: white;
+}
+
+/* modal > body */
+.hb-loc-modal__modal .modal-content {
+  border-radius: unset;
+}
+.hb-loc-modal__modal--body {
+  margin: 15px 0;
+  padding: 20px;
+}
+
+.hb-loc-modal__modal .modal-content .dont-ask {
+  margin: 15px 0;
+  font-weight: 400;
+}
+
+.hb-loc-modal__modal .modal-content .dont-ask label {
+  font-weight: 400;
+}
+
+/* modal > footer */
+.hb-loc-modal__modal--footer {
+  overflow: hidden;
+  padding: 20px;
+}
+
+.hb-loc-modal__modal--footer .btn {
+  font-size: 14px;
+}
+
+.hb-loc-modal__modal--footer .btn.btn-default {
+  border: #0a6eb4 2px solid;
+}
+
+.hb-loc-modal__modal--footer .btn.btn-success {
+  float: right;
+}
+
+.hb-loc-modal-wrapper {
+  position: relative;
+  padding-top: 11px;
+  padding-bottom: 12px;
+  cursor: pointer;
+}
