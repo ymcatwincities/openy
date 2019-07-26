@@ -8,31 +8,48 @@
     - core/jquery.once
     - core/jquery.cookie
 
-hb_app:
+hb_plugin_base:
   version: 0.1
   js:
-    js/hb_app.js: {}
+    js/hb-plugin-base.js: {}
   dependencies:
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
     - core/drupalSettings
     - openy_home_branch/сookies_storage
-    - openy_system/vue
 
 location_finder:
   version: 0.1
   js:
-    js/components/hb_location_finder.js: {}
+    js/hb-plugins/hb-location-finder.js: {}
   css:
     component:
       css/hb_location_finder.css: {}
   dependencies:
-    - openy_home_branch/hb_app
+    - openy_home_branch/hb_plugin_base
 
 menu_selector:
   version: 0.1
   js:
-    js/components/hb_menu_selector.js: {}
+    js/hb-plugins/hb-menu-selector.js: {}
+  dependencies:
+    - openy_home_branch/hb_plugin_base
+    - openy_home_branch/location_modal
+
+location_modal:
+  version: 0.1
+  js:
+    js/hb-plugins/hb-loc-modal.js: {}
   css:
     component:
-      css/hb_menu_selector.css: {}
+      css/hb_loc_modal.css: {}
   dependencies:
-    - openy_home_branch/hb_app
+    - openy_home_branch/hb_plugin_base
+
+pef_location:
+  version: 0.1
+  js:
+    js/hb-plugins/hb-pef-location.js: {}
+  dependencies:
+    - openy_home_branch/сookies_storage
