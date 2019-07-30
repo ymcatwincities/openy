@@ -56,4 +56,11 @@ class HomeBranchLibraryBase extends PluginBase implements HomeBranchLibraryInter
     return '';
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLibrarySettings() {
+    return FALSE;
+  }
+
 }
