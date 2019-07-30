@@ -1,12 +1,17 @@
 .hb-loc-modal__modal {
-  font-size: 14px;
   position: fixed;
   z-index: 1500;
   right: 0;
   top: 15%;
   left: 0;
   margin: 0 auto;
-  width: 400px;
+  width: 24em;
+}
+
+@media (min-width: 30em) {
+  .hb-loc-modal__modal {
+    width: 28em;
+  }
 }
 
 /* modal > header */
@@ -43,8 +48,13 @@
   border-radius: unset;
 }
 .hb-loc-modal__modal--body {
-  margin: 15px 0;
-  padding: 20px;
+  padding: 20px 20px 0 20px;
+}
+
+@media (min-width: 48em) {
+  .hb-loc-modal__modal--body {
+    margin: 15px 0;
+  }
 }
 
 .hb-loc-modal__modal .modal-content .dont-ask {
