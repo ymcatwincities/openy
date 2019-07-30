@@ -9,7 +9,7 @@
  * Implements hook_preprocess_node().
  */
 function openy_home_branch_preprocess_node(&$variables) {
-  if ($variables['teaser'] && $variables['node']->getType() == 'branch') {
+  if ($variables['node']->getType() == 'branch') {
     // Add location ID as data attribute for VUE application.
     $variables['attributes']['data-hb-id'] = $variables['node']->id();
   }
@@ -40,6 +40,11 @@ function _openy_home_branch_attach_libraries($entity_type, &$variables) {
     $instance = $plugin_service->createInstance($plugin_id);
     if ($instance->isAllowedForAttaching($variables)) {
       $variables['#attached']['library'][] = $instance->getLibrary();
+
+      if ($settings = $instance->getLibrarySettings()) {
+        // Add library settings to drupalSettings.
+        $variables['#attached']['drupalSettings']['home_branch'][$plugin_id] = $settings;
+      }
     }
   }
 }

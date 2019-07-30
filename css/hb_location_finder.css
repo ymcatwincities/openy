@@ -1,10 +1,10 @@
 .locations .node--type-branch.node--view-mode-teaser.hb-selected {
   border: solid 1px #33b737;
 }
-.locations .node--type-branch .hb-location-checkbox-wrapper {
+.hb-location-checkbox-wrapper {
   padding: 20px;
 }
-.locations .node--type-branch .hb-location-checkbox-wrapper input {
+.hb-location-checkbox-wrapper input {
   margin-right: 10px;
 }
 
@@ -17,7 +17,7 @@
   margin: auto 0 0 0;
 }
 
-.locations .node--type-branch .hb-location-checkbox-wrapper label{
+.hb-location-checkbox-wrapper label{
   font-weight: 400;
 }
 
@@ -35,8 +35,7 @@
 }
 
 .locations .node--type-branch .location-item--title,
-.locations .node--type-branch .field-location-area
-{
+.locations .node--type-branch .field-location-area {
   padding: 0 20px;
 }
 
