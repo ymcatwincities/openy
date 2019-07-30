@@ -43,6 +43,7 @@ class JsonFormatter extends FormatterBase {
     foreach ($items as $item) {
       if ($item instanceof EntityReferenceItem) {
         $export[] = [
+          'id' => $item->entity->id(),
           'title' => $item->entity->label(),
           'url' => $item->entity->toUrl('canonical', ['absolute' => TRUE])->toString(),
         ];

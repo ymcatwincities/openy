@@ -11,7 +11,9 @@
 .activity-finder__step_header--progress {
   background-color: #eee;
 }
-
+.activity-finder__step_header--progress > .container {
+  max-width: 100%;
+}
 .activity-finder__step_header--progress-inner {
   display: flex;
   align-items: center;
@@ -31,11 +33,7 @@
 .activity-finder__step_header .start_over {
   float: right;
 }
-@media (min-width: 992px) {
-  .activity-finder__step_header .start_over {
-    margin-right: 45px;
-  }
-}
+
 .activity-finder__step_header .actions {
   float: right;
 }
