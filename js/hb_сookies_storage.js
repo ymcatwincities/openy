@@ -15,8 +15,6 @@
       dontAsk: false
     },
 
-    showModal: false,
-
     // Locations list.
     locations: {},
 
@@ -82,6 +80,11 @@
       // Return default values if storage not defined.
       return this.data;
     },
+
+    // Request to show modal window.
+    showModal: function () {
+      // Intentionally empty.
+    }
   };
 
   /**

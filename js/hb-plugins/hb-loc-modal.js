@@ -24,8 +24,14 @@
           if (!this.element) {
             return;
           }
-          // TODO: investigate why on first load selected not detected.
+
           let selected = Drupal.homeBranch.getValue('id');
+          let $locationList = this.element.find('#hb-locations-list');
+          if (selected) {
+            $locationList.val(selected);
+          }
+        },
+        appendOptions: function() {
           let locations = Drupal.homeBranch.getLocations();
         },
         onChange: function (event, el) {
