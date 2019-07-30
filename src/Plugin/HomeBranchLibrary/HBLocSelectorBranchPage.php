@@ -38,7 +38,7 @@ class HBLocSelectorBranchPage extends HomeBranchLibraryBase {
   public function getLibrarySettings() {
     return [
       // TODO: double check that it works in OpenY.
-      'selector' => '.branch-header .openy-branch-selector',
+      'placeholderSelector' => '.openy-branch-selector',
     ];
   }
 

@@ -13,55 +13,56 @@
   Drupal.homeBranch.plugins.push({
     name: 'hb-menu-selector',
     attach: (context) => {
-
       // Attach plugin instance to branch header instead of default
       // branch selector.
       // @see openy_home_branch/js/hb-plugin-base.js
-      $('.branch-header', context).each(function (index) {
-        let id = $(this).attr('data-hb-id');
-        $(this).find('.hb-branch-selector').hbPlugin({
-          selector: '.hb-location-checkbox',
-          event: 'change',
-          element: null,
-          init: function () {
-            if (!this.element) {
-              return;
-            }
-            let selected = Drupal.homeBranch.getValue('id');
-            if ($(this.element).val() === selected) {
-              this.element.prop('checked', true);
-              $('.hb-location-checkbox-wrapper label').text('My Home Branch');
-            }
-            else {
-              this.element.prop('checked', false);
-              $('.hb-location-checkbox-wrapper label').text('Set as my Home Branch');
-            }
-            // This text also changed in hb-menu-selector plugin,
-            // so we need to set default value after this.
-            $('.hb-location-checkbox-wrapper a.hb-menu-selector').text('Change');
-          },
-          onChange: function (event, el) {
-            // Save selected value in сookies storage.
-            let id = ($(el).is(':checked')) ? $(el).val() : null;
-            Drupal.homeBranch.setId(id);
-          },
-          addMarkup: function (context) {
-            let settings = drupalSettings.home_branch.hb_loc_selector_branch_page;
-            let branchSelector = $(settings.selector, context);
-            // Replace branch selector implementation by home branch alternative.
-            branchSelector.replaceWith(`
+      $('.branch-header', context).hbPlugin({
+        selector: '.hb-location-checkbox',
+        event: 'change',
+        element: null,
+        labelSelector: '.hb-location-checkbox-wrapper label span',
+        selectedText: 'My Home Branch',
+        notSelectedText: 'Set as my Home Branch',
+        placeholderSelector: drupalSettings.home_branch.hb_loc_selector_branch_page.placeholderSelector,
+        init: function () {
+          if (!this.element) {
+            return;
+          }
+          let isSelected = $(this.element).val() === Drupal.homeBranch.getValue('id')
+          this.element.prop('checked', isSelected);
+          $(this.labelSelector).text(isSelected ? this.selectedText : this.notSelectedText);
+        },
+        handleChangeLink: function () {
+          $('.hb-branch-selector-change', context).on('click', function() {
+            Drupal.homeBranch.showModal();
+          });
+        },
+        onChange: function (event, el) {
+          // Save selected value in сookies storage.
+          let id = ($(el).is(':checked')) ? $(el).val() : null;
+          Drupal.homeBranch.setId(id);
+        },
+        addMarkup: function (context) {
+          let id = $(context).data('hb-id');
+          let branchSelector = $(this.placeholderSelector, context);
+          // Replace branch selector implementation by home branch alternative.
+          branchSelector.each(function() {
+            $(this).replaceWith(`
               <div class="hb-branch-selector">
                 <div class="hb-location-checkbox-wrapper">
-                  <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox">
-                  <label>Set as my Home Branch</label>
-                  <span>[<a class="hb-menu-selector" href="#">Change</a>]</span>
+                  <label>
+                    <input type="checkbox" value="` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
+                    <span>Set as my Home Branch</span>
+                  </label>
+                  <span>[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
                 </div>
               </div>
             `);
-            // Save created element in plugin.
-            this.element = $('#hb-location-checkbox-' + id);
-          },
-        });
+          });
+          // Save created element in plugin.
+          this.element = $('.hb-location-checkbox-' + id);
+          this.handleChangeLink();
+        },
       });
 
     },
