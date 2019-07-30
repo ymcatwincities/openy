@@ -14,16 +14,15 @@
    */
   Drupal.behaviors.openyHomeBranchLocationFinderSort = {
     attach(context, settings) {
-      // TODO: Other handlers detached after sort. so plugin init doesn't work.
-      // TODO: Find other solution.
-      // $(document).unbind().on('hb-location-finder-sort', function (event, el) {
-      //   let items = $(el).find('.views-row');
-      //   items.sort(function (a, b) {
-      //     return parseInt($(a).data('hb-sort')) > parseInt($(b).data('hb-sort'));
-      //   });
-      //
-      //   items.bind().appendTo('.field-prgf-location-finder .views-row__wrapper');
-      // });
+      $(document).once().on('hb-location-finder-sort', function (event, el) {
+        let items = $(el).find('.views-row');
+        items.each(function (index) {
+          let weight = $(this).attr('data-hb-sort');
+          if (weight == -1) {
+            $(this).prependTo(el);
+          }
+        });
+      });
     }
   };
 
