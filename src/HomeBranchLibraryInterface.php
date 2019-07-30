@@ -45,4 +45,17 @@ interface HomeBranchLibraryInterface extends PluginInspectionInterface {
    */
   public function getLibrary();
 
+  /**
+   * Get library settings that used on front-end.
+   *
+   * Those settings will be attached here:
+   * $variables['#attached']['drupalSettings']['home_branch'][{PLUGIN ID}]
+   *
+   * @return bool|array
+   *   FALSE if no settings.
+   *
+   * @see https://www.drupal.org/docs/8/creating-custom-modules/adding-stylesheets-css-and-javascript-js-to-a-drupal-8-module#configurable
+   */
+  public function getLibrarySettings();
+
 }

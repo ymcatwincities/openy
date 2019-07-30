@@ -53,3 +53,15 @@ pef_location:
     js/hb-plugins/hb-pef-location.js: {}
   dependencies:
     - openy_home_branch/сookies_storage
+
+loc_selector_branch_page:
+  version: 0.1
+  js:
+    js/hb-plugins/hb-loc-selector-branch-page.js: {}
+  css:
+    component:
+      css/hb_location_finder.css: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/hb_plugin_base
+    - openy_home_branch/menu_selector
