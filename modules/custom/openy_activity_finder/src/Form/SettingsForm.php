@@ -74,6 +74,13 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('When checked hides search text box (both for Activity Finder and Results page).'),
     ];
 
+    $form['disable_spots_available'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Disable Spots Available'),
+      '#default_value' => $config->get('disable_spots_available'),
+      '#description' => t('When checked disables Spots Available feature on Results page.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -91,6 +98,8 @@ class SettingsForm extends ConfigFormBase {
     $config->set('exclude', $form_state->getValue('exclude'))->save();
 
     $config->set('disable_search_box', $form_state->getValue('disable_search_box'))->save();
+
+    $config->set('disable_spots_available', $form_state->getValue('disable_spots_available'))->save();
 
     parent::submitForm($form, $form_state);
   }
