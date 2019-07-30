@@ -16,15 +16,15 @@
       // Attach plugin instance to header menu item.
       // @see openy_home_branch/js/hb-plugin-base.js
       $('.hb-menu-selector', context).hbPlugin({
-        selector: 'a.hb-menu-selector',
+        selector: '.hb-menu-selector',
         event: 'click',
         element: null,
+        menuSelector: '.nav-global .page-head__top-menu ul.navbar-nav',
+        //, .block-plugin-id--system_menu_block:account .nav.navbar-nav',
         init: function () {
-          console.log('INIT');
           if (!this.element) {
             return;
           }
-          // TODO: investigate why on first load selected not detected.
           let selected = Drupal.homeBranch.getValue('id');
           let locations = Drupal.homeBranch.getLocations();
           if (selected) {
@@ -39,11 +39,10 @@
           Drupal.homeBranch.showModal();
         },
         addMarkup: function (context) {
-          // TODO: move selectors to constants.
-          let topMenu = $('.nav-global .page-head__top-menu ul.navbar-nav', context);
-          topMenu.prepend('<li><a class="hb-menu-selector" href="#">My home branch</a></li>');
+          let menu = $(this.menuSelector);
+          menu.prepend('<li><a class="hb-menu-selector" href="#">My home branch</a></li>');
           // Save created element in plugin.
-          this.element = $('.hb-menu-selector');
+          this.element = $(this.selector, menu);
         },
       });
     },

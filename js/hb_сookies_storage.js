@@ -29,11 +29,27 @@
 
       // Get locations list.
       let self = this;
+      // TODO: convert to drupal settings.
+      // On the other hand it's cached.
       $.getJSON(drupalSettings.path.baseUrl + 'api/home-branch/locations', function (data) {
         data.forEach(function (item) {
           self.locations[item.nid] = item.title;
         });
+        self.attachPlugins();
       });
+    },
+
+    // Attaches plugins.
+    attachPlugins: function () {
+      if (this.plugins.length === 0) {
+        return;
+      }
+      Drupal.homeBranch.plugins.forEach(function (plugin, key, arr) {
+        plugin.attach();
+      });
+      if (this.data['id'] == null && !this.data['dontAsk']) {
+        this.showModal();
+      }
     },
 
     // Get property value.
@@ -67,7 +83,7 @@
     // Move current data to Cookies storage.
     updateStorage: function () {
       $(document).trigger('hb-before-storage-update', this.data);
-      $.cookie('home_branch', JSON.stringify(this.data), { expires: 360 });
+      $.cookie('home_branch', JSON.stringify(this.data), { expires: 360, path: '/' });
       $(document).trigger('hb-after-storage-update', this.data);
     },
 
@@ -103,6 +119,6 @@
         Drupal.homeBranch.init();
       });
     }
-  }
+  };
 
 })(jQuery, Drupal);
