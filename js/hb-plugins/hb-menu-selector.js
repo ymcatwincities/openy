@@ -36,7 +36,7 @@
         },
         onChange: function (event, el) {
           // Show HB locations modal.
-          $(document).trigger('hb-modal-show');
+          Drupal.homeBranch.showModal();
         },
         addMarkup: function (context) {
           // TODO: move selectors to constants.
