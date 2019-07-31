@@ -43,7 +43,7 @@ function _openy_home_branch_attach_libraries($entity_type, &$variables) {
 
       if ($settings = $instance->getLibrarySettings()) {
         // Add library settings to drupalSettings.
-        $plugin_service->attachHbLibrarySettings($variables['#attached'], $plugin_id, $settings);
+        $plugin_service->attachHbLibrarySettings($variables, $plugin_id, $settings);
       }
     }
   }
