@@ -33,7 +33,7 @@
             $locationList.val(selected);
           }
         },
-        appendOptions: function() {
+        appendOptions: function () {
           let locations = Drupal.homeBranch.getLocations();
           let $locationList = this.element.find('#hb-locations-list');
           for (let locationId in locations) {
@@ -53,13 +53,13 @@
         },
         bindButtons: function () {
           let self = this;
-          this.element.find(self.btnYesSelector).on('click', function() {
+          this.element.find(self.btnYesSelector).on('click', function () {
             let $locationList = self.element.find(self.listSelector);
             let value = $locationList.val();
             Drupal.homeBranch.setValue('id', value === 'null' ? null : value);
             self.hide();
           });
-          this.element.find(self.btnNoSelector).on('click', function() {
+          this.element.find(self.btnNoSelector).on('click', function () {
             self.hide();
           });
         },
@@ -109,7 +109,7 @@
 
           // Let HomeBranch know how to call the modal window.
           let self = this;
-          Drupal.homeBranch.showModal = function() {
+          Drupal.homeBranch.showModal = function () {
             self.show();
           };
         },

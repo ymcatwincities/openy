@@ -3,7 +3,7 @@
  * Location finder extension with Home Branch logic.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, drupalSettings) {
 
   "use strict";
 
@@ -32,26 +32,24 @@
   Drupal.homeBranch.plugins.push({
     name: 'hb-location-finder',
     attach: (context) => {
-      // TODO: get selector from settings.
-      let locationsList = $('.field-prgf-location-finder .locations-list .views-row__wrapper', context);
-      locationsList.find('.views-row .node--type-branch')
+      let locationsList = $(drupalSettings.home_branch.hb_location_finder.locationsList, context);
+      locationsList.find(drupalSettings.home_branch.hb_location_finder.branchTeaserSelector)
         .each(function (index) {
           let el = $(this);
           // Add sort attribute with default index for correct order on change.
           el.closest('.views-row').attr('data-hb-sort', index);
           el.closest('.views-row').attr('data-hb-sort-origin', index);
-          //el.closest('.views-row').find('.location-item--title').prepend(index);
         })
-        .each(function() {
+        .each(function () {
           // Attach plugin instance to each location teaser.
           // @see openy_home_branch/js/hb-plugin-base.js
           $(this).hbPlugin({
             selector: '.hb-location-checkbox',
             event: 'change',
             element: null,
-            branchTeaserSelector: '.node--type-branch.node--view-mode-teaser',
-            selectedText: 'My Home Branch',
-            notSelectedText: 'Set as my Home Branch',
+            branchTeaserSelector: drupalSettings.home_branch.hb_location_finder.branchTeaserSelector,
+            selectedText: drupalSettings.home_branch.hb_location_finder.selectedText,
+            notSelectedText: drupalSettings.home_branch.hb_location_finder.notSelectedText,
             init: function () {
               if (!this.element) {
                 return;
@@ -76,8 +74,6 @@
                 // Save selected value in сookies storage.
                 let id = ($(el).is(':checked')) ? $(el).val() : null;
                 Drupal.homeBranch.setId(id);
-                // Run sort after plugin instances re-init.
-                // $(document).delay(300).trigger('hb-location-finder-sort', locationsList);
               }
             },
             addMarkup: function (context) {
@@ -101,4 +97,4 @@
     },
   });
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, drupalSettings);

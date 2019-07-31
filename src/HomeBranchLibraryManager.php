@@ -3,6 +3,7 @@
 namespace Drupal\openy_home_branch;
 
 use Drupal\Component\Plugin\Factory\DefaultFactory;
+use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
@@ -44,6 +45,37 @@ class HomeBranchLibraryManager extends DefaultPluginManager {
       }
     }
     return $definitions;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function createInstance($plugin_id, array $configuration = []) {
+    $plugin_definition = $this->getDefinition($plugin_id);
+    $plugin_class = DefaultFactory::getPluginClass($plugin_id, $plugin_definition);
+    // If the plugin provides a factory method, pass the container to it.
+    if (is_subclass_of($plugin_class, 'Drupal\Core\Plugin\ContainerFactoryPluginInterface')) {
+      $plugin = $plugin_class::create(\Drupal::getContainer(), $configuration, $plugin_id, $plugin_definition);
+    }
+    else {
+      $plugin = new $plugin_class($configuration, $plugin_id, $plugin_definition);
+    }
+    return $plugin;
+  }
+
+  /**
+   * Helper function for attaching Drupal Settings required bu plugin.
+   *
+   * @param array $attached
+   *   Attached array from preprocess variables - $variables['#attached'].
+   * @param string $plugin_id
+   *   Home Branch plugin ID, used as key/identifier in HB settings list.
+   * @param array $settings
+   *   Plugin settings that used on front-end.
+   */
+  public function attachHbLibrarySettings(array &$attached, $plugin_id, array $settings) {
+    $parents = ['drupalSettings', 'home_branch', $plugin_id];
+    NestedArray::setValue($attached, $parents, $settings, TRUE);
   }
 
 }
