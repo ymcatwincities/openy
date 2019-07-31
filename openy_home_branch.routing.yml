@@ -1,6 +1,0 @@
-openy_home_branch.locations:
-  path: '/api/home-branch/locations'
-  defaults:
-    _controller: '\Drupal\openy_home_branch\Controller\HomeBranchController::getLocations'
-  requirements:
-    _permission: 'access content'

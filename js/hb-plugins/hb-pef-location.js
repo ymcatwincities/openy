@@ -3,7 +3,7 @@
  * Home branch PEF extension.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, drupalSettings) {
 
   /**
    * Adds plugin related to PEF Schedules locations paragraph.
@@ -15,8 +15,8 @@
       // @see openy_home_branch/js/hb-plugin-base.js
       $('.hb-menu-selector', context).hbPlugin({
         selector: null,
-        inputSelector: '.paragraph--type--repeat-schedules-loc',
-        linkSelector: '.field-prgf-repeat-lschedules-prf a',
+        inputSelector: drupalSettings.home_branch.hb_loc_selector_pef.inputSelector,
+        linkSelector: drupalSettings.home_branch.hb_loc_selector_pef.linkSelector,
         event: null,
         element: null,
         init: function () {
@@ -36,4 +36,4 @@
     }
   });
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, drupalSettings);

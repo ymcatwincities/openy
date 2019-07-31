@@ -4,6 +4,7 @@
     js/hb_сookies_storage.js: {}
   dependencies:
     - core/drupal
+    - core/drupalSettings
     - core/jquery
     - core/jquery.once
     - core/jquery.cookie
@@ -27,6 +28,7 @@ location_finder:
     component:
       css/hb_location_finder.css: {}
   dependencies:
+    - core/drupalSettings
     - openy_home_branch/hb_plugin_base
 
 menu_selector:
@@ -34,6 +36,7 @@ menu_selector:
   js:
     js/hb-plugins/hb-menu-selector.js: {}
   dependencies:
+    - core/drupalSettings
     - openy_home_branch/hb_plugin_base
     - openy_home_branch/location_modal
 
@@ -45,6 +48,7 @@ location_modal:
     component:
       css/hb_loc_modal.css: {}
   dependencies:
+    - core/drupalSettings
     - openy_home_branch/hb_plugin_base
 
 pef_location:
@@ -52,6 +56,7 @@ pef_location:
   js:
     js/hb-plugins/hb-pef-location.js: {}
   dependencies:
+    - core/drupalSettings
     - openy_home_branch/сookies_storage
 
 loc_selector_branch_page:

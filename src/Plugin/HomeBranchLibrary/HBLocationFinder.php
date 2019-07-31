@@ -34,4 +34,16 @@ class HBLocationFinder extends HomeBranchLibraryBase {
     return FALSE;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLibrarySettings() {
+    return [
+      'locationsList' => '.field-prgf-location-finder .locations-list .views-row__wrapper',
+      'branchTeaserSelector' => '.node--type-branch.node--view-mode-teaser',
+      'selectedText' => t('My Home Branch'),
+      'notSelectedText' => t('Set as my Home Branch'),
+    ];
+  }
+
 }

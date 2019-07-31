@@ -21,8 +21,8 @@
         event: 'change',
         element: null,
         labelSelector: '.hb-location-checkbox-wrapper label span',
-        selectedText: 'My Home Branch',
-        notSelectedText: 'Set as my Home Branch',
+        selectedText: drupalSettings.home_branch.hb_loc_selector_branch_page.selectedText,
+        notSelectedText: drupalSettings.home_branch.hb_loc_selector_branch_page.notSelectedText,
         placeholderSelector: drupalSettings.home_branch.hb_loc_selector_branch_page.placeholderSelector,
         init: function () {
           if (!this.element) {
@@ -52,7 +52,7 @@
                 <div class="hb-location-checkbox-wrapper">
                   <label>
                     <input type="checkbox" value="` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
-                    <span>Set as my Home Branch</span>
+                    <span>` + this.selectedText + `</span>
                   </label>
                   <span>[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
                 </div>

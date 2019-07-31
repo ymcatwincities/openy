@@ -17,13 +17,6 @@ class HomeBranchLibraryBase extends PluginBase implements HomeBranchLibraryInter
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function getId() {
     return $this->pluginDefinition['id'];
   }

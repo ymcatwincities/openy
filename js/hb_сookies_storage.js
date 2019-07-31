@@ -3,7 +3,7 @@
  * Cookies storage JavaScript for the Open Y Home Branch module.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, drupalSettings) {
 
   "use strict";
 
@@ -29,14 +29,11 @@
 
       // Get locations list.
       let self = this;
-      // TODO: convert to drupal settings.
-      // On the other hand it's cached.
-      $.getJSON(drupalSettings.path.baseUrl + 'api/home-branch/locations', function (data) {
-        data.forEach(function (item) {
-          self.locations[item.nid] = item.title;
-        });
-        self.attachPlugins();
+      drupalSettings.home_branch.hb_menu_selector.locations.forEach(function (item) {
+        self.locations[item.nid] = item.title;
       });
+
+      self.attachPlugins();
     },
 
     // Attaches plugins.
@@ -121,4 +118,4 @@
     }
   };
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, drupalSettings);
