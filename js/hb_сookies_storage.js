@@ -29,9 +29,7 @@
 
       // Get locations list.
       let self = this;
-      drupalSettings.home_branch.hb_menu_selector.locations.forEach(function (item) {
-        self.locations[item.nid] = item.title;
-      });
+      self.locations = drupalSettings.home_branch.hb_menu_selector.locations;
 
       self.attachPlugins();
     },

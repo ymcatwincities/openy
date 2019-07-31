@@ -73,7 +73,8 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
     $query->condition('n.type', 'branch');
     $query->orderBy('n.title');
     $query->addTag('openy_home_branch_get_locations');
-    $result = $query->execute()->fetchAll();
+    $query->addTag('node_access');
+    $result = $query->execute()->fetchAllKeyed();
 
     return [
       'menuSelector' => '.nav-global .page-head__top-menu ul.navbar-nav',
