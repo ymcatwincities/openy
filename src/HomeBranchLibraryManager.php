@@ -73,8 +73,8 @@ class HomeBranchLibraryManager extends DefaultPluginManager {
    * @param array $settings
    *   Plugin settings that used on front-end.
    */
-  public function attachHbLibrarySettings(array &$attached, $plugin_id, array $settings) {
-    $parents = ['drupalSettings', 'home_branch', $plugin_id];
+  public static function attachHbLibrarySettings(array &$attached, $plugin_id, array $settings) {
+    $parents = ['#attached', 'drupalSettings', 'home_branch', $plugin_id];
     NestedArray::setValue($attached, $parents, $settings, TRUE);
   }
 
