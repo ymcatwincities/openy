@@ -56,10 +56,7 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
    * {@inheritdoc}
    */
   public function isAllowedForAttaching($variables) {
-    if ($variables['plugin_id'] == 'system_menu_block:account') {
-      return TRUE;
-    }
-    return FALSE;
+    return ($variables['plugin_id'] == 'system_menu_block:account');
   }
 
   /**

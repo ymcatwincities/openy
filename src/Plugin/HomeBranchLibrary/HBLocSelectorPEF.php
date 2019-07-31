@@ -15,6 +15,8 @@ use Drupal\openy_home_branch\HomeBranchLibraryBase;
  */
 class HBLocSelectorPEF extends HomeBranchLibraryBase {
 
+  const PRGF_TYPE = 'repeat_schedules_loc';
+
   /**
    * {@inheritdoc}
    */
@@ -26,10 +28,7 @@ class HBLocSelectorPEF extends HomeBranchLibraryBase {
    * {@inheritdoc}
    */
   public function isAllowedForAttaching($variables) {
-    if ($variables['paragraph'] && $variables['paragraph']->getType() == 'repeat_schedules_loc') {
-      return TRUE;
-    }
-    return FALSE;
+    return ($variables['paragraph'] && $variables['paragraph']->getType() == self::PRGF_TYPE);
   }
 
   /**
