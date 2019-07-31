@@ -17,6 +17,8 @@ use Drupal\openy_home_branch\HomeBranchLibraryBase;
  */
 class HBLocationFinder extends HomeBranchLibraryBase {
 
+  const PRGF_TYPE = 'prgf_location_finder';
+
   /**
    * {@inheritdoc}
    */
@@ -28,10 +30,7 @@ class HBLocationFinder extends HomeBranchLibraryBase {
    * {@inheritdoc}
    */
   public function isAllowedForAttaching($variables) {
-    if ($variables['paragraph'] && $variables['paragraph']->getType() == 'prgf_location_finder') {
-      return TRUE;
-    }
-    return FALSE;
+    return ($variables['paragraph'] && $variables['paragraph']->getType() == self::PRGF_TYPE);
   }
 
   /**

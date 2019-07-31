@@ -15,6 +15,8 @@ use Drupal\openy_home_branch\HomeBranchLibraryBase;
  */
 class HBLocSelectorBranchPage extends HomeBranchLibraryBase {
 
+  const NODE_TYPE = 'branch';
+
   /**
    * {@inheritdoc}
    */
@@ -26,10 +28,7 @@ class HBLocSelectorBranchPage extends HomeBranchLibraryBase {
    * {@inheritdoc}
    */
   public function isAllowedForAttaching($variables) {
-    if ($variables['node'] && $variables['node']->getType() == 'branch') {
-      return TRUE;
-    }
-    return FALSE;
+    return ($variables['node'] && $variables['node']->getType() == self::NODE_TYPE);
   }
 
   /**
