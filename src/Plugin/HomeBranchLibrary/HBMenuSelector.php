@@ -3,6 +3,9 @@
 namespace Drupal\openy_home_branch\Plugin\HomeBranchLibrary;
 
 use Drupal\openy_home_branch\HomeBranchLibraryBase;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines the home branch library plugin for user menu block.
@@ -13,7 +16,34 @@ use Drupal\openy_home_branch\HomeBranchLibraryBase;
  *   entity="block"
  * )
  */
-class HBMenuSelector extends HomeBranchLibraryBase {
+class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The Database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $database;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->database = $database;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('database')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -30,6 +60,25 @@ class HBMenuSelector extends HomeBranchLibraryBase {
       return TRUE;
     }
     return FALSE;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLibrarySettings() {
+    // Get locations list.
+    $query = $this->database->select('node_field_data', 'n');
+    $query->fields('n', ['nid', 'title']);
+    $query->condition('n.status', 1);
+    $query->condition('n.type', 'branch');
+    $query->orderBy('n.title');
+    $query->addTag('openy_home_branch_get_locations');
+    $result = $query->execute()->fetchAll();
+
+    return [
+      'menuSelector' => '.nav-global .page-head__top-menu ul.navbar-nav',
+      'locations' => $result,
+    ];
   }
 
 }

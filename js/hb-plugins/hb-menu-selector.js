@@ -3,7 +3,7 @@
  * Location finder extension with Home Branch logic.
  */
 
-(function ($, Drupal) {
+(function ($, Drupal, drupalSettings) {
 
   "use strict";
 
@@ -19,8 +19,7 @@
         selector: '.hb-menu-selector',
         event: 'click',
         element: null,
-        menuSelector: '.nav-global .page-head__top-menu ul.navbar-nav',
-        //, .block-plugin-id--system_menu_block:account .nav.navbar-nav',
+        menuSelector: drupalSettings.home_branch.hb_menu_selector.menuSelector,
         init: function () {
           if (!this.element) {
             return;
@@ -48,4 +47,4 @@
     },
   });
 
-})(jQuery, Drupal);
+})(jQuery, Drupal, drupalSettings);

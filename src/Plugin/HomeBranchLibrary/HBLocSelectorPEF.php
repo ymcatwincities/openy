@@ -32,4 +32,14 @@ class HBLocSelectorPEF extends HomeBranchLibraryBase {
     return FALSE;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLibrarySettings() {
+    return [
+      'inputSelector' => '.paragraph--type--repeat-schedules-loc',
+      'linkSelector' => '.field-prgf-repeat-lschedules-prf a',
+    ];
+  }
+
 }
