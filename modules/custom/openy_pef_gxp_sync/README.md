@@ -11,6 +11,10 @@ Go to `/admin/openy/integrations/groupex-pro/gxp`.
 1. Set up your GroupExPro client id.
 2. Provide parent activity ID. Should be Group Exercises under Fitness.
 
+#### How to sync my groupex data to my project?
+
+Run `drush openy-pef-gxp-sync` command from your project docroot.
+
 ### How the syncer works
 
 The syncer consists of the next steps:
