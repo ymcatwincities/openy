@@ -200,6 +200,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $query->addCondition('field_activity_category', $categories, 'IN');
       }
     }
+    // Ignore sessions which don't have referenced activity.
+    else {
+      $query->addCondition('field_activity_category', NULL, '<>');
+    }
     // Ensure to exclude categories.
     $exclude_nids = [];
     if (!empty($parameters['exclude'])) {
