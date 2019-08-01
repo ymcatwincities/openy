@@ -40,7 +40,7 @@
         return;
       }
       Drupal.homeBranch.plugins.forEach(function (plugin, key, arr) {
-        plugin.attach();
+        plugin.attach(plugin.settings);
       });
       if (this.data['id'] == null && !this.data['dontAsk']) {
         this.showModal();
