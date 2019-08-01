@@ -66,7 +66,7 @@
 /* modal > body */
 
 .schedule-dashboard__modal--body {
-  padding: 0 15px;
+  padding: 0;
 }
 .schedule-dashboard__modal--body h3 {
   color: #000;
