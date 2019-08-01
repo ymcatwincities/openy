@@ -31,7 +31,9 @@
       let self = this;
       self.locations = drupalSettings.home_branch.hb_menu_selector.locations;
 
-      self.attachPlugins();
+      setTimeout(function() {
+        self.attachPlugins();
+      }, 0);
     },
 
     // Attaches plugins.
