@@ -12,69 +12,71 @@
    */
   Drupal.homeBranch.plugins.push({
     name: 'hb-loc-modal',
-    attach: (context) => {
+    attach: (settings) => {
       // Attach plugin instance to hb-loc-modal.
       // @see openy_home_branch/js/hb-plugin-base.js
-      $('#hb-loc-modal', context).hbPlugin({
-        selector: null,
-        event: null,
-        element: null,
-        listSelector: '#hb-locations-list',
-        btnYesSelector: '.action-save',
-        btnNoSelector: '.close, .action-cancel',
-        init: function () {
-          if (!this.element) {
-            return;
-          }
+      $('#hb-loc-modal').hbPlugin(settings);
+    },
+    settings: {
+      selector: null,
+      event: null,
+      element: null,
+      listSelector: '#hb-locations-list',
+      btnYesSelector: '.action-save',
+      btnNoSelector: '.close, .action-cancel',
+      init: function () {
+        if (!this.element) {
+          return;
+        }
 
-          let selected = Drupal.homeBranch.getValue('id');
-          let $locationList = this.element.find('#hb-locations-list');
-          if (selected) {
-            $locationList.val(selected);
+        let selected = Drupal.homeBranch.getValue('id');
+        let $locationList = this.element.find('#hb-locations-list');
+        if (selected) {
+          $locationList.val(selected);
+        }
+      },
+      appendOptions: function () {
+        let locations = Drupal.homeBranch.getLocations();
+        let $locationList = this.element.find('#hb-locations-list');
+        for (let locationId in locations) {
+          if (!locations.hasOwnProperty(locationId)) {
+            continue;
           }
-        },
-        appendOptions: function () {
-          let locations = Drupal.homeBranch.getLocations();
-          let $locationList = this.element.find('#hb-locations-list');
-          for (let locationId in locations) {
-            if (!locations.hasOwnProperty(locationId)) {
-              continue;
-            }
-            let locationName = locations[locationId];
-            $('<option value="' + locationId + '">' + locationName + '</option>').appendTo($locationList);
-          }
-        },
-        handleDontAsk: function () {
-          let $dontAskCheckbox = this.element.find('#hb-dont-ask-checkbox');
-          $dontAskCheckbox.attr('checked', Drupal.homeBranch.getValue('dontAsk'));
-          $dontAskCheckbox.on('click', function () {
-            Drupal.homeBranch.setValue('dontAsk', $(this).is(':checked'));
-          });
-        },
-        bindButtons: function () {
-          let self = this;
-          this.element.find(self.btnYesSelector).on('click', function () {
-            let $locationList = self.element.find(self.listSelector);
-            let value = $locationList.val();
-            Drupal.homeBranch.setValue('id', value === 'null' ? null : value);
-            self.hide();
-          });
-          this.element.find(self.btnNoSelector).on('click', function () {
-            self.hide();
-          });
-        },
-        hide: function () {
-          this.element.addClass('hidden');
-        },
-        show: function () {
-          this.element.removeClass('hidden');
-        },
-        onChange: function (event, el) {
-          // Nothing.
-        },
-        addMarkup: function (context) {
-          // Save created element in plugin.
-          this.element = $(`
+          let locationName = locations[locationId];
+          $('<option value="' + locationId + '">' + locationName + '</option>').appendTo($locationList);
+        }
+      },
+      handleDontAsk: function () {
+        let $dontAskCheckbox = this.element.find('#hb-dont-ask-checkbox');
+        $dontAskCheckbox.attr('checked', Drupal.homeBranch.getValue('dontAsk'));
+        $dontAskCheckbox.on('click', function () {
+          Drupal.homeBranch.setValue('dontAsk', $(this).is(':checked'));
+        });
+      },
+      bindButtons: function () {
+        let self = this;
+        this.element.find(self.btnYesSelector).on('click', function () {
+          let $locationList = self.element.find(self.listSelector);
+          let value = $locationList.val();
+          Drupal.homeBranch.setValue('id', value === 'null' ? null : value);
+          self.hide();
+        });
+        this.element.find(self.btnNoSelector).on('click', function () {
+          self.hide();
+        });
+      },
+      hide: function () {
+        this.element.addClass('hidden');
+      },
+      show: function () {
+        this.element.removeClass('hidden');
+      },
+      onChange: function (event, el) {
+        // Nothing.
+      },
+      addMarkup: function (context) {
+        // Save created element in plugin.
+        this.element = $(`
             <div id="hb-loc-modal" class="hidden">
               <div class="hb-loc-modal__modal" tabindex="-1" role="dialog">
                 <div class="modal-content">
@@ -102,19 +104,18 @@
               </div>
             </div>
           `);
-          $('body').append(this.element);
-          this.appendOptions();
-          this.handleDontAsk();
-          this.bindButtons();
+        $('body').append(this.element);
+        this.appendOptions();
+        this.handleDontAsk();
+        this.bindButtons();
 
-          // Let HomeBranch know how to call the modal window.
-          let self = this;
-          Drupal.homeBranch.showModal = function () {
-            self.show();
-          };
-        },
-      });
-    },
+        // Let HomeBranch know how to call the modal window.
+        let self = this;
+        Drupal.homeBranch.showModal = function () {
+          self.show();
+        };
+      },
+    }
   });
 
 })(jQuery, Drupal);
