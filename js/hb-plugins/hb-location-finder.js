@@ -87,7 +87,7 @@
         let $markup = $(`
               <div class="hb-location-checkbox-wrapper">
                 <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox">
-                <label for="hb-location-checkbox-` + id + `">Set as my Home Branch</label>
+                <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
               </div>
               `);
         $markup.appendTo(context);
