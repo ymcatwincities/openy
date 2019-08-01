@@ -130,6 +130,7 @@
 
 .schedule-dashboard__modal--footer .btn {
   font-size: 14px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 991px) {
