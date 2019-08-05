@@ -7,10 +7,15 @@
 .openy-google-translate select {
   background: transparent;
   border: none;
+  max-width: 145px;
   text-transform: uppercase;
   color: $white;
   font-size: 12px;
   margin-top: 6px;
+
+  option {
+    color: $default-grey;
+  }
 }
 
 .nav {

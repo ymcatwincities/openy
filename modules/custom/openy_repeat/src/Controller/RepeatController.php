@@ -190,6 +190,7 @@ class RepeatController extends ControllerBase {
 
       if (isset($classes_info[$item->class]['path'])) {
         $query = UrlHelper::buildQuery([
+          'session' => $item->session,
           'location' => $locations_info[$item->location]['nid'],
         ]);
         if (!in_array($item->name, $class_name)) {
