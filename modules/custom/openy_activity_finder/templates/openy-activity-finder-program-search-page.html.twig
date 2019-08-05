@@ -21,7 +21,7 @@
               {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
             </span>
             <span v-else class="activity-finder__step_header--progress-spacer">
-              ${ count } {{ 'programs meet your criteria.'|t }}
+              ${ count } {{ 'results'|t }}
             </span>
           </div>
           <div class="d-inline-flex ml-auto text-right">
@@ -33,16 +33,24 @@
   </div>
 
   <div class="container">
+    <div class="row hidden-md hidden-lg d-block d-lg-none">
+      {# mobile toggler button #}
+      <a href="#" data-toggle="collapse" data-target=".schedule-dashboard__sidebar" role="button" class="collapsed schedule-dashboard__toggle">
+        {{ 'REFINE RESULTS'|t }}
+        <small v-show="totalGroupCounter() > 0" class="badge">${ totalGroupCounter() }</small>
+        <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>
+        <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>
+      </a>
+    </div>
     <div class="row">
-
       {# sidebar > allows overriding in BS4 compatible themes (carnation), so it can utilize its native mobile breakpoints. #}
       {% block sidebar_wrapper %}
-      <div class="col-xs-12 col-sm-12 col-md-3 schedule-dashboard__sidebar">
+      <div class="col-xs-12 col-sm-12 col-md-3 collapse schedule-dashboard__sidebar">
       {% endblock %}
         {# keywords #}
         {% if not is_search_box_disabled %}
         <div class="form-group-wrapper schedule-dashboard__search--form">
-          <input type="text" class="form-control col-md-9" v-model="keywords" @keyup.enter.prevent="runAjaxRequest()" placeholder="{{ 'Enter your keywords...'|t }}">
+          <input type="text" class="form-control col-md-9" v-model="keywords" @keyup.enter.prevent="runAjaxRequest()" placeholder="{{ 'Keyword(s)'|t }}">
           <button class="btn btn-primary col-3 col-md-3 rounded-0" v-on:click.stop.prevent="runAjaxRequest()">
             {# Make customizable since carnation doesn't have glyphicons in v4. #}
             {% block search_icon %}
@@ -51,31 +59,27 @@
           </button>
         </div>
         {% endif %}
+        <div v-show="!loading" class="schedules-sort schedules-sort-mobile hidden-md hidden-lg d-block d-md-none">
+          {% if sort_options is not empty %}
+            <select v-model="sort" class="form-control form-select">
+              {% for key, item in sort_options %}
+                <option value="{{ key }}">{{ item }}</option>
+              {% endfor %}
+            </select>
+          {% endif %}
+        </div>
         <div class="navbar navbar-default navbar-expand-sm navbar-expand-md flex-sm-column flex-md-column">
           <div class="navbar-header w-100">
 
             <div class="navbar-controls">
-              <span class="navbar-controls__title hidden-xs hidden-sm"><strong>{{ 'Filters'|t }}</strong></span>
-              <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear all'|t }}</a>
-            </div>
-
-            <div class="row hidden-md hidden-lg d-block d-md-none">
-              {# mobile toggler button #}
-              <div class="col col-xs-8">
-                <a data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed">
-                  <strong>
-                    <i class="fa fa-plus plus" aria-hidden="true"></i>
-                    <i class="fa fa-minus minus" aria-hidden="true"></i>
-                    <span class="plus">{{ 'Show Filters'|t }}</span>
-                    <span class="minus">{{ 'Hide Filters'|t }}</span>
-                  </strong>
-                </a>
-              </div>
+              <span class="navbar-controls__title">{{ 'FILTERS'|t }}</span>
+              <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear filters'|t }}</a>
             </div>
 
           </div>
 
-          <div id="schedules-filters" class="collapse w-100 flex-column">
+          <div id="schedules-filters" class="w-100 flex-column">
+            <h3>{{ 'Schedule preferences'|t }}</h3>
             {% block sidebar_filters %}
             <sidebar-filter
               ref="ages_filter"
@@ -97,6 +101,7 @@
               v-on:updated-values="days = $event"
             ></sidebar-filter>
 
+            <h3>{{ 'Activity preferences'|t }}</h3>
             {% if categories_type == 'single' %}
             <sidebar-filter-single
               ref="categories_filter"
@@ -106,6 +111,8 @@
               options='{{ categories|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
+              expanded="true"
+              hide_label="true"
             ></sidebar-filter-single>
             {% else %}
             <sidebar-filter
@@ -116,9 +123,12 @@
               options='{{ categories|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
+              expanded="true"
+              hide_label="true"
             ></sidebar-filter>
             {% endif %}
 
+            <h3>{{ 'Location preferences'|t }}</h3>
             <sidebar-filter
               ref="locations_filter"
               title="{{ 'Location'|t }}"
@@ -127,6 +137,8 @@
               options='{{ locations|json_encode }}'
               :default='$route.query.locations'
               v-on:updated-values="locations = $event"
+              expanded="true"
+              hide_label="true"
             ></sidebar-filter>
             {% endblock %}
           </div>
@@ -142,7 +154,7 @@
         <div>
           <div class="vue-template">
 
-            <div v-show="!loading" class="schedules-sort">
+            <div v-show="!loading" class="schedules-sort hidden-xs hidden-sm d-none d-lg-block">
               {% if sort_options is not empty %}
               <select v-model="sort" class="form-control form-select">
                 {% for key, item in sort_options %}
@@ -159,48 +171,39 @@
 
               <div v-show="!loading" v-for="(item, index) in table" class="schedules-data__row--alt clearfix" style="">
                 <div class="row">
-                  <div class="col-sm-9">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <a href="#" class="program-title" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info">${ item.name }</a>
-                      </div>
+                  <div class="col-sm-12">
+                    <a href="#" class="program-title" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--more-info">${ item.name }</a>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="info-wrapper">
+                      <span class="dates">${ item.dates }</span> <span class="weeks" v-if="item.weeks">(${ item.weeks }wks)</span>
                     </div>
-                    <div class="row">
-                      <div class="info-wrapper col-sm-4">
-                        <span class="dates">${ item.dates }</span>
-                      </div>
-                      <div class="info-wrapper col-sm-4">
-                        <div v-for="(item, index) in item.schedule">
-                          <span class="time">${ item.time }</span><br/>
-                          <span class="days">${ item.days }</span>
-                        </div>
-                      </div>
-                      <div class="info-wrapper col-sm-4">
-                        <a class="schedule-dashboard__modal--location-link" role="button" href="#" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a>
+                    <div class="info-wrapper">
+                      <div v-for="(item, index) in item.schedule">
+                        <span class="days">${ item.days }</span><br/>
+                        <span class="time">${ item.time }</span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-3">
+                  <div class="col-sm-4">
+                    <div class="info-wrapper">
+                      <a class="schedule-dashboard__modal--location-link" role="button" href="#" v-on:click="populatePopupLocation(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a>
+                    </div>
+                  </div>
+                  <div class="col-sm-4 af-price-availability-wrapper">
+                    <div v-html="item.price" class="item-price"></div>
+                    {% if not is_spots_available_disabled %}
                     <div class="availability-wrapper">
-                      {# if we do not know if it is available #}
-                      <div v-if="item.availability_status.length == 0">
-                        <a href="#" v-on:click="populatePopupMoreInfo(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--availability" class="availability-status-btn btn btn-primary btn-block" style="margin-bottom: 20px;" >{{ 'Check Availability'|t }}</a>
-                      </div>
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
-                        <a :href="item.link" target="_blank" class="register-btn btn btn-primary btn-block" style="margin-bottom: 10px;">{{ 'Register'|t }}</a>
-                        <div v-if="item.availability_note" class="availability-note">${ item.availability_note }</div>
-                        <div v-if="item.spots_available" class="spots-availability">${ item.spots_available }</div>
+                        <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? 'few-spots' : '', 'spots-availability']">${ item.spots_available } spots left</div>
                       </div>
                       {# if we know that registration is NOT available #}
                       <div v-if="item.availability_status == 'closed'">
-                        <span class="availability-note">${ item.availability_note }</span>
+                        <span class="spots-availability">{{ 'FULL'|t }}</span>
                       </div>
-                      </div>
-                    <div v-if="item.price.length > 0" v-html="item.price" class="item-price"></div>
-                    <div v-else class="col-12 col-xs-12">
-                      <span class="availability-note"><i>{{ 'Click on \'Check Availability\' for pricing'|t }}</i></span>
                     </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
@@ -255,53 +258,45 @@
                 </div>
 
                 <div class="schedule-dashboard__modal--body row">
+                  {% block modal_info_main %}
                   <div class="col-md-7 modal-info-main">
+                  {% endblock %}
                     <h3>${ moreInfoPopup.name }</h3>
                     <p>${ moreInfoPopup.description }</p>
-
-                    <div class="row">
-                      <div v-if="moreInfoPopup.ages.length > 0" class="col-md-6">
-                        <div><strong>{{ 'Ages:'|t }}</strong>${ moreInfoPopup.ages }</div>
-                      </div>
-                      <div v-if="moreInfoPopup.gender.length > 0" class="col-md-6">
-                        <div><strong>{{ 'Gender:'|t }}</strong>${ moreInfoPopup.gender }</div>
-                      </div>
-                      <div v-html="moreInfoPopup.learn_more" v-if="moreInfoPopup.learn_more.length > 0" class="col-md-12"></div>
-                    </div>
-
+                    <p v-if="moreInfoPopup.ages.length > 0" class="ages">
+                      <strong>{{ 'Ages:'|t }}</strong>${ moreInfoPopup.ages }
+                    </p>
+                    <p v-if="moreInfoPopup.gender.length > 0" class="gender">
+                      <strong>{{ 'Gender:'|t }}</strong>${ moreInfoPopup.gender }
+                    </p>
+                    <div v-html="moreInfoPopup.learn_more" v-if="moreInfoPopup.learn_more.length > 0" class="col-md-12"></div>
                   </div>
+                  {% block modal_info_sidebar %}
                   <div class="col-md-5 modal-info-sidebar">
-                    <div v-if="moreInfoPopup.dates.length > 0" class="dates">
-                      ${ moreInfoPopup.dates }
+                  {% endblock %}
+                    <div v-if="moreInfoPopup.dates.length > 0" class="dates-weeks">
+                      <span class="dates">${ moreInfoPopup.dates }</span> (${ moreInfoPopup.weeks }wks)
                     </div>
-                    <div v-if="moreInfoPopup.times.length > 0" class="times">
-                      ${ moreInfoPopup.times }
-                    </div>
-                    <div v-if="moreInfoPopup.days.length > 0" class="days">
-                      ${ moreInfoPopup.days }
+                    <div v-for="(item, index) in moreInfoPopup.schedule">
+                      <div class="days">${ item.days }</div>
+                      <div class="time">${ item.time }</div>
                     </div>
                     <div v-if="moreInfoPopup.location_name.length > 0" class="location_name">
-                      <a v-bind:href="moreInfoPopup.location_url" target="_blank">${ moreInfoPopup.location_name }</a>
+                      <a v-bind:href="moreInfoPopup.location_url" target="_blank">${ moreInfoPopup.location_name } <i class="fa fa-external-link"></i></a>
                     </div>
-                    <div v-if="moreInfoPopup.location_address.length > 0" class="location_address">
-                      <span v-html="moreInfoPopup.location_address"></span>
-                    </div>
-                    <div v-if="moreInfoPopup.location_phone.length > 0" class="location_phone">
-                      <strong>Phone:</strong> ${ moreInfoPopup.location_phone }
+                    <div v-if="moreInfoPopup.price.length > 0" class="price">
+                      <span v-html="moreInfoPopup.price"></span>
                     </div>
                     <div class="availability-wrapper">
-                      {% if moreInfoPopup.spots_available is not empty %}
-                        <div class="spots_available"><strong>There are ${ moreInfoPopup.spots_available }</strong></div>
+                      {% if not is_spots_available_disabled %}
+                      <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
                       {% endif %}
-                      <div v-if="moreInfoPopup.availability_note.length > 0" class="availability_note">
-                        ${ moreInfoPopup.availability_note }
-                      </div>
                       <div v-if="moreInfoPopup.availability_status == 'open'" class="availability_status">
                         <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
                       </div>
-                      <div v-if="moreInfoPopup.price.length > 0" class="price">
-                        <span v-html="moreInfoPopup.price"></span>
-                      </div>
+                    </div>
+                    <div v-if="moreInfoPopup.more_results.length > 0" class="more_results">
+                      <a v-bind:href="moreInfoPopup.more_results">More results for this program at this location</a>
                     </div>
                   </div>
                 </div>

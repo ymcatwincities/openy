@@ -14,7 +14,15 @@
       width: 360px;
     }
     .toolbar-fixed & {
-      top: 166px;
+      @include breakpoint($screen-sm) {
+        top: 150px;
+      }
+      @include breakpoint($screen-md) {
+        top: 186px;
+      }
+      @include breakpoint($screen-lg) {
+        top: 196px;
+      }
     }
   }
 }

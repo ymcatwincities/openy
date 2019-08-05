@@ -13,7 +13,7 @@ openy_activity_finder.register_redirect:
   options:
      no_cache: TRUE
 openy_activity_finder.settings:
-  path: '/admin/config/services/activity-finder'
+  path: '/admin/openy/settings/activity-finder'
   defaults:
     _form: '\Drupal\openy_activity_finder\Form\SettingsForm'
     _title: 'Activity Finder settings'

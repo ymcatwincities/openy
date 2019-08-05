@@ -62,7 +62,7 @@
       {# location select list #}
       {% if locations is not empty %}
         <div class="form-group-wrapper">
-          <label for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="false" aria-controls="form-group-location, skip-t">
+          <label class="collapsed" for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="false" aria-controls="form-group-location">
             {{ 'Location'|t }}
             <i class="fa fa-minus minus" aria-hidden="true"></i>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
@@ -75,7 +75,7 @@
                 {% set loc_checked = "checked" %}
               {% endif %}
               <div class="checkbox-wrapper skip-{{ loc_checked }}">
-                <input v-on:click="toggleParentClass($event)" type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box" {{ loc_checked }}>
+                <input v-on:click="toggleParentClass($event)" type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box {{ loc_checked }} ">
                 <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
                 <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
                   <div v-for="roomFilter in getRoomFilter('{{ location }}')">
@@ -95,12 +95,12 @@
       {# categories select list #}
       {% if categories is not empty and filters.category %}
         <div class="form-group-wrapper">
-          <label for="form-group-category" data-toggle="collapse" data-target=".skip-c" role="button" aria-expanded="false" aria-controls="form-group-category">
+          <label class="collapsed" for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button"  aria-expanded="false" aria-controls="form-group-category">
             {{ 'Category'|t }}
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
+            <i class="fa fa-minus minus" aria-hidden="true"></i>
           </label>
-          <div id="form-group-category" class="form-group-category" aria-expanded="true">
+          <div id="form-group-category" class="form-group-category collapse" aria-expanded="true">
             <div class="checkboxes">
             {% for category in categories %}
               {% set cat_checked = "c collapse" %}
@@ -120,7 +120,7 @@
       {# class name select list #}
       {% if filters.classname %}
         <div v-if="getClassFilter()" class="form-group-wrapper">
-          <label for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" aria-expanded="false" aria-controls="form-group-classname">
+          <label class="collapsed" for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" aria-expanded="false" aria-controls="form-group-classname">
             {{ 'Class name'|t }}
             <i class="fa fa-minus minus" aria-hidden="true"></i>
             <i class="fa fa-plus plus" aria-hidden="true"></i>
