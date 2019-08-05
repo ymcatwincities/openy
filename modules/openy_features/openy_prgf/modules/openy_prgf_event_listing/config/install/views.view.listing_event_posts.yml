@@ -6,6 +6,7 @@ dependencies:
     - field.storage.node.field_event_description
     - node.type.event
   module:
+    - datetime
     - node
     - text
     - user
@@ -398,6 +399,7 @@ display:
               administrator: '0'
               contributor: '0'
               editor: '0'
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -413,7 +415,6 @@ display:
           fields:
             title: title
             field_event_description: field_event_description
-            rendered_entity: rendered_entity
           plugin_id: combine
       sorts:
         sticky:
@@ -441,7 +442,8 @@ display:
           exposed: false
           expose:
             label: ''
-          plugin_id: standard
+          plugin_id: datetime
+          entity_type: node
       title: 'Event Posts Listing'
       header: {  }
       footer: {  }
@@ -486,30 +488,24 @@ display:
         - 'config:core.entity_view_display.node.alert.teaser'
         - 'config:core.entity_view_display.node.blog.default'
         - 'config:core.entity_view_display.node.blog.full'
-        - 'config:core.entity_view_display.node.blog.search_index'
         - 'config:core.entity_view_display.node.blog.teaser'
         - 'config:core.entity_view_display.node.branch.calc_summary'
         - 'config:core.entity_view_display.node.branch.class_location'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
-        - 'config:core.entity_view_display.node.branch.search_index'
         - 'config:core.entity_view_display.node.branch.sidebar_teaser'
         - 'config:core.entity_view_display.node.branch.teaser'
         - 'config:core.entity_view_display.node.camp.class_location'
         - 'config:core.entity_view_display.node.camp.default'
         - 'config:core.entity_view_display.node.camp.full'
-        - 'config:core.entity_view_display.node.camp.search_index'
         - 'config:core.entity_view_display.node.camp.teaser'
         - 'config:core.entity_view_display.node.class.default'
-        - 'config:core.entity_view_display.node.class.search_index'
         - 'config:core.entity_view_display.node.class.teaser'
         - 'config:core.entity_view_display.node.event.default'
         - 'config:core.entity_view_display.node.event.full'
-        - 'config:core.entity_view_display.node.event.search_index'
         - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.facility.default'
         - 'config:core.entity_view_display.node.facility.full'
-        - 'config:core.entity_view_display.node.facility.search_index'
         - 'config:core.entity_view_display.node.facility.teaser'
         - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.landing_page.full'
@@ -520,15 +516,12 @@ display:
         - 'config:core.entity_view_display.node.membership.teaser'
         - 'config:core.entity_view_display.node.news.default'
         - 'config:core.entity_view_display.node.news.full'
-        - 'config:core.entity_view_display.node.news.search_index'
         - 'config:core.entity_view_display.node.news.teaser'
         - 'config:core.entity_view_display.node.program.default'
         - 'config:core.entity_view_display.node.program.full'
-        - 'config:core.entity_view_display.node.program.search_index'
         - 'config:core.entity_view_display.node.program.teaser'
         - 'config:core.entity_view_display.node.program_subcategory.default'
         - 'config:core.entity_view_display.node.program_subcategory.full'
-        - 'config:core.entity_view_display.node.program_subcategory.search_index'
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
@@ -563,30 +556,24 @@ display:
         - 'config:core.entity_view_display.node.alert.teaser'
         - 'config:core.entity_view_display.node.blog.default'
         - 'config:core.entity_view_display.node.blog.full'
-        - 'config:core.entity_view_display.node.blog.search_index'
         - 'config:core.entity_view_display.node.blog.teaser'
         - 'config:core.entity_view_display.node.branch.calc_summary'
         - 'config:core.entity_view_display.node.branch.class_location'
         - 'config:core.entity_view_display.node.branch.default'
         - 'config:core.entity_view_display.node.branch.full'
-        - 'config:core.entity_view_display.node.branch.search_index'
         - 'config:core.entity_view_display.node.branch.sidebar_teaser'
         - 'config:core.entity_view_display.node.branch.teaser'
         - 'config:core.entity_view_display.node.camp.class_location'
         - 'config:core.entity_view_display.node.camp.default'
         - 'config:core.entity_view_display.node.camp.full'
-        - 'config:core.entity_view_display.node.camp.search_index'
         - 'config:core.entity_view_display.node.camp.teaser'
         - 'config:core.entity_view_display.node.class.default'
-        - 'config:core.entity_view_display.node.class.search_index'
         - 'config:core.entity_view_display.node.class.teaser'
         - 'config:core.entity_view_display.node.event.default'
         - 'config:core.entity_view_display.node.event.full'
-        - 'config:core.entity_view_display.node.event.search_index'
         - 'config:core.entity_view_display.node.event.teaser'
         - 'config:core.entity_view_display.node.facility.default'
         - 'config:core.entity_view_display.node.facility.full'
-        - 'config:core.entity_view_display.node.facility.search_index'
         - 'config:core.entity_view_display.node.facility.teaser'
         - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.landing_page.full'
@@ -597,15 +584,12 @@ display:
         - 'config:core.entity_view_display.node.membership.teaser'
         - 'config:core.entity_view_display.node.news.default'
         - 'config:core.entity_view_display.node.news.full'
-        - 'config:core.entity_view_display.node.news.search_index'
         - 'config:core.entity_view_display.node.news.teaser'
         - 'config:core.entity_view_display.node.program.default'
         - 'config:core.entity_view_display.node.program.full'
-        - 'config:core.entity_view_display.node.program.search_index'
         - 'config:core.entity_view_display.node.program.teaser'
         - 'config:core.entity_view_display.node.program_subcategory.default'
         - 'config:core.entity_view_display.node.program_subcategory.full'
-        - 'config:core.entity_view_display.node.program_subcategory.search_index'
         - 'config:core.entity_view_display.node.program_subcategory.teaser'
         - 'config:core.entity_view_display.node.session.default'
         - 'config:core.entity_view_display.node.session.teaser'
