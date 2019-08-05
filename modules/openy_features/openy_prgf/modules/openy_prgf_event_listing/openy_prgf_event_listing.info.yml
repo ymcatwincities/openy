@@ -1,11 +1,12 @@
-name: Open Y Paragraph Event Posts Listing
-description: Provides a dynamic paragraph that renders event posts listing with exposed filters.
+name: 'Open Y Paragraph Event Posts Listing'
+description: 'Provides a dynamic paragraph that renders event posts listing with exposed filters.'
 type: module
 core: 8.x
-package: Open Y
+package: 'Open Y'
 version: 8.x-1.0
 dependencies:
   - datalayer
+  - datetime
   - field
   - node
   - openy_node_event
