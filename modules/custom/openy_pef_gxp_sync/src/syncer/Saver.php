@@ -169,6 +169,9 @@ class Saver implements SaverInterface {
     // Get session_exclusions.
     $sessionExclusions = $this->getSessionExclusions($class);
 
+    // Get register link.
+    $sessionRegLink = $this->getSessionRegLink($class);
+
     $session = Node::create([
       'uid' => 1,
       'lang' => 'und',
@@ -182,6 +185,7 @@ class Saver implements SaverInterface {
     $session->set('field_session_location', ['target_id' => $class['location_id']]);
     $session->set('field_session_room', $class['studio']);
     $session->set('field_session_instructor', $class['instructor']);
+    $session->set('field_session_reg_link', $sessionRegLink);
 
     $session->setUnpublished();
 
@@ -224,6 +228,30 @@ class Saver implements SaverInterface {
     }
 
     return $exclusions;
+  }
+
+  /**
+  * Get register link.
+  *
+  * @param array $class
+  *   Class properties.
+  *
+  * @return array
+  *   Link field array.
+  *
+  * @throws \Exception
+  */
+  private function getSessionRegLink(array $class) {
+    $regLink = [];
+
+    if (isset($class['reservation_id']) && !empty($class['reservation_id'])) {
+      $regLink = [
+        'uri' => 'https://www.groupexpro.com/gxp/reservations/start/index/' . $class['reservation_id'],
+        'title' => 'Sign Up',
+      ];
+    }
+
+    return $regLink;
   }
 
   /**
