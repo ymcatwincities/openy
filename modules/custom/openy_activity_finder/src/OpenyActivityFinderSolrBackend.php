@@ -12,9 +12,9 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\search_api\Entity\Index;
 use Drupal\Core\Url;
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\search_api\SearchApiException;
 
 /**
  * {@inheritdoc}
@@ -275,7 +275,19 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $locations_info = $this->getLocationsInfo();
     /** @var \Drupal\search_api\Item\Item $result_item */
     foreach ($results->getResultItems() as $result_item) {
-      $entity = $result_item->getOriginalObject()->getValue();
+      try {
+        $entity = $result_item->getOriginalObject()->getValue();
+        if (!$entity) {
+          $this->loggerChannel->error('Failed to load original object ' . $this->itemId);
+          continue;
+        }
+      }
+      catch (SearchApiException $e) {
+        // If we couldn't load the object, just log an error and fail
+        // silently to set the values.
+        $this->loggerChannel->error($e);
+        continue;
+      }
       $fields = $result_item->getFields();
       $dates = $entity->field_session_time->referencedEntities();
       $schedule_items = [];
