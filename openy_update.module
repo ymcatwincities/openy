@@ -13,7 +13,9 @@ function openy_update_update_status_alter(&$projects) {
   $response = $client->post('http://openy.org:1880/packages', [
     'body' => json_encode($projects),
   ]);
-  $body = $response->getBody();
-  $body = $body->getContents();
-  $projects = json_decode($body, TRUE);
+  if ($response->getStatusCode() == 200) {
+    $body = $response->getBody();
+    $body = $body->getContents();
+    $projects = json_decode($body, TRUE);
+  }
 }
