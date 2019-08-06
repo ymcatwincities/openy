@@ -50,6 +50,9 @@
   .image {
     margin-top: -40px;
   }
+  #banner .image {
+    margin-top: 0;
+  }
   .main {
     position: static;
   }
@@ -81,6 +84,10 @@
       font-size: 60px;
       margin-bottom: 80px;
     }
+  }
+
+  .field-header-content {
+    margin-bottom: 20px;
   }
 
   &.program-header-sub-category {
