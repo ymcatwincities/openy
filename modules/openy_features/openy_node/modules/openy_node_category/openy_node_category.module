@@ -15,6 +15,10 @@ function openy_node_category_node_update(Drupal\Core\Entity\EntityInterface $ent
   if ($entity->getType() != 'program') {
     return;
   }
+  // A Draft has been created – ignore.
+  if (!$entity->isDefaultRevision()) {
+    return;
+  }
 
   // Published will be true, unpublished false.
   $original_status = $entity->original->isPublished();

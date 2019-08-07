@@ -66,14 +66,20 @@
 /* modal > body */
 
 .schedule-dashboard__modal--body {
-  padding: 0 15px;
+  padding: 0;
 }
 .schedule-dashboard__modal--body h3 {
   color: #000;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
   margin: 20px 0;
   font-family: Verdana, Geneva, sans-serif;
+}
+@media screen and (min-width: 992px) {
+  .schedule-dashboard__modal--body h3 {
+    font-size: 18px;
+    line-height: 24px;
+  }
 }
 .schedule-dashboard__modal--body .table h4 {
   font-size: 16px;
@@ -124,15 +130,19 @@
 
 .schedule-dashboard__modal--footer .btn {
   font-size: 14px;
+  margin-bottom: 20px;
 }
 
+@media (max-width: 991px) {
+  .schedule-dashboard__modal .modal-content {
+    max-width: 375px;
+  }
+}
 @media (min-width: 768px) {
   .schedule-dashboard__modal {
     font-size: 16px;
   }
   .schedule-dashboard__modal--header {
-  }
-  .schedule-dashboard__modal .modal-content {
   }
   .schedule-dashboard__modal--body .table h4 {
     font-size: 18px;
@@ -146,15 +156,25 @@
 .schedule-dashboard__modal--body .modal-info-main {
   background-color: #fff;
   margin-bottom: 20px;
+  padding: 0 10px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .schedule-dashboard__modal--body .modal-info-main {
     margin-bottom: 0;
+    padding: 0 15px;
   }
 }
-.schedule-dashboard__modal--body .modal-info-main strong {
-  margin-right: 20px;
+@media screen and (max-width: 991px) {
+  .schedule-dashboard__modal--body .modal-info-main .ages {
+    margin-bottom: 5px;
+  }
 }
+.schedule-dashboard__modal--body .modal-info-main .ages strong,
+.schedule-dashboard__modal--body .modal-info-main .gender strong {
+  display: inline-block;
+  width: 100px;
+}
+
 .schedule-dashboard__modal--body .label-for-field-learn-more {
   display: none;
 }
@@ -166,43 +186,85 @@
 }
 .schedule-dashboard__modal--body .modal-info-sidebar {
   background-color: #f2f2f2;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 10px;
   font: 12px/18px Verdana, Geneva, sans-serif;
+  position: relative;
 }
-.schedule-dashboard__modal--body .modal-info-sidebar .dates {
-  font-weight: bold;
+@media screen and (min-width: 992px) {
+  .schedule-dashboard__modal--body .modal-info-sidebar {
+    padding: 20px 15px;
+  }
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .dates-weeks {
   color: #000;
 }
-.schedule-dashboard__modal--body .modal-info-sidebar .times {
-
+.schedule-dashboard__modal--body .modal-info-sidebar .dates-weeks .dates {
+  font-weight: bold;
+}
+@media screen and (min-width: 992px) {
+  .schedule-dashboard__modal--body .modal-info-sidebar .times {
+    margin-bottom: 20px;
+  }
 }
 .schedule-dashboard__modal--body .modal-info-sidebar .days {
   font-style: italic;
-  margin-bottom: 20px;
 }
 .schedule-dashboard__modal--body .modal-info-sidebar .location_name {
-  text-decoration: underline;
+  text-decoration: none;
+  font: 12px/16px Verdana, Geneva, sans-serif;
   font-weight: bold;
+  color: #0060ac;
+}
+@media screen and (min-width: 992px) {
+  .schedule-dashboard__modal--body .modal-info-sidebar .location_name {
+    font-size: 15px;
+    line-height: 20px;
+    margin: 20px 0;
+  }
 }
 .schedule-dashboard__modal--body .modal-info-sidebar .availability-wrapper {
-  border-top: 2px dotted #333;
-  border-bottom: 2px dotted #333;
-  padding: 15px 0;
-  margin: 15px 0;
-  text-align: center;
+  margin: 10px 0;
 }
 .schedule-dashboard__modal--body .modal-info-sidebar .availability-wrapper .btn {
   margin-bottom: 10px;
   padding: 10px 70px;
+  display: block;
+  border-radius: 3px;
+}
+@media screen and (max-width: 991px) {
+  .schedule-dashboard__modal--body .modal-info-sidebar .price {
+    font-size: 10px;
+  }
+}
+@media screen and (max-width: 991px) {
+  .schedule-dashboard__modal--body .modal-info-sidebar .spots_available {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
 }
 .schedule-dashboard__modal--body .modal-info-sidebar .spots_available {
+  background: #fff;
+  border-radius: 3px;
+  border: 1px solid #939495;
+  font: 12px/18px Verdana, Geneva, sans-serif;
+  margin-bottom: 15px;
+  padding: 2px 5px;
+  display: inline-block;
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .availability_note {
   margin-bottom: 10px;
 }
-/* Location details modal styling */
-.schedule-dashboard__modal--location .modal-content {
-  max-width: 320px;
+.schedule-dashboard__modal--body .modal-info-sidebar .more_results {
+  margin-top: 20px;
+  text-align: center;
 }
+.schedule-dashboard__modal--body .modal-info-sidebar .more_results a {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+/* Location details modal styling */
 .schedule-dashboard__modal--location .info {
   font: 12px/18px Verdana, Geneva, sans-serif;
   width: 100%;

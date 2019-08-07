@@ -1,7 +1,9 @@
+const sass = require('node-sass');
+
 module.exports = function(grunt) {
   "use strict";
   require('time-grunt')(grunt);
-
+  require('load-grunt-tasks')(grunt);
   var global_vars = {
     theme_dist_css: 'dist/css',
     theme_dist_js: 'dist/js',
@@ -34,6 +36,12 @@ module.exports = function(grunt) {
     },
 
     sass: {
+      sass: {
+        options: {
+          implementation: sass,
+          sourceMap: true
+        }
+      },
       modules: {
         options: {
           includePaths: [
