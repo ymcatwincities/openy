@@ -74,6 +74,7 @@ class ActivityFinderController extends ControllerBase {
       'page' => $request->get('page'),
       'day' => $request->get('days'),
       'age' => $request->get('ages'),
+      'sort' => $request->get('sort'),
     ];
     $record['hash'] = md5(json_encode($record));
 

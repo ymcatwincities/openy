@@ -635,10 +635,10 @@ header#page-head {
   display: block;
   overflow: hidden;
   box-sizing: content-box;
-  margin: 7px 0 5px 0;
+  margin: 12px 0 5px 0;
   padding: 5px 0 0 30px;
   width: 220px;
-  height: 72%;
+  height: 62%;
   background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
   @include breakpoint(0 $tablet-start) {

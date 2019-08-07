@@ -1,0 +1,32 @@
+.openy-gtranslate {
+  float: right;
+  vertical-align: text-bottom;
+  margin-top: 6px;
+  @include media-breakpoint-up(lg) {
+    display: flex;
+  }
+
+}
+
+.openy-google-translate select {
+  @include cachet();
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: $gray-300;
+}
+
+.nav {
+  .language {
+    padding-top:15px;
+    .openy-google-translate {
+      select {
+        @include cachet();
+        margin-left: 10px;
+        text-transform: uppercase;
+        color: $white;
+        font-size: 18px;
+      }
+    }
+  }
+}

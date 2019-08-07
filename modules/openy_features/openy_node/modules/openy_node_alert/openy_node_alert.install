@@ -188,7 +188,7 @@ function openy_node_alert_update_8010() {
   $config_importer = \Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs($configs);
-  
+
   $alerts = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties(['type' => 'alert']);
   /** @var \Drupal\node\Entity\Node $alert */
   foreach ($alerts as $alert) {
@@ -229,19 +229,29 @@ function openy_node_alert_update_8010() {
       }
     }
   }
-  // Remove obsolete field.
-  if ($field_config = FieldConfig::loadByName('node', 'alert', 'field_alert_belongs')) {
+}
 
-    $field_storage = $field_config->getFieldStorageDefinition();
-    $bundles = \Drupal::entityManager()->getBundleInfo($field_config->getTargetEntityTypeId());
-    $bundle_label = $bundles[$field_config->getTargetBundle()]['label'];
+/**
+ * Restore field_alert_belongs if not exist.
+ */
+function openy_node_alert_update_8011() {
+  // Note: no need to check field existing, those configs anyway was changed
+  // and should be imported.
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $configs = [
+    'core.entity_form_display.node.alert.default',
+    'core.entity_view_display.node.alert.default',
+    'core.entity_view_display.node.alert.node_alert_footer',
+    'core.entity_view_display.node.alert.node_alert_header',
+    'core.entity_view_display.node.alert.teaser',
+    'core.entity_view_mode.node.node_alert_footer',
+    'core.entity_view_mode.node.node_alert_header',
+    'field.field.node.alert.field_alert_belongs',
+    'field.storage.node.field_alert_belongs',
+  ];
 
-    if ($field_storage && !$field_storage->isLocked()) {
-      $field_config->delete();
-      \Drupal::logger(__FUNCTION__)->info('The field %field has been deleted from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
-    }
-    else {
-      \Drupal::logger(__FUNCTION__)->error('There was a problem removing the %field from the %type content type.', array('%field' => $field_config->label(), '%type' => $bundle_label));
-    }
-  }
+  // Import updated configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs($configs);
 }

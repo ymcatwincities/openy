@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update routines.
+ */
+
+/**
+ * Update configs.
+ */
+function openy_prgf_activity_finder_update_8001() {
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_prgf_activity_finder') . '/config/install');
+  $cim->importConfigs([
+    'field.storage.paragraph.field_prgf_af_categ_excl',
+    'field.storage.paragraph.field_prgf_af_categ',
+    'field.field.paragraph.activity_finder.field_prgf_af_results_ref',
+    'field.field.paragraph.activity_finder.field_prgf_af_categ_excl',
+    'field.field.paragraph.activity_finder.field_prgf_af_categ',
+    'core.entity_view_display.paragraph.activity_finder.default',
+    'core.entity_form_display.paragraph.activity_finder.default'
+  ]);
+}

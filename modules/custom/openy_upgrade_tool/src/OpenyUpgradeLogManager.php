@@ -533,10 +533,10 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    *
    * @param string $openy_upgrade_log
    *   OpenyUpgradeLog item name.
-   * @param array $context
+   * @param object $context
    *   The batch context.
    */
-  public static function setConflictResolvedBatchProcess($openy_upgrade_log, array &$context) {
+  public static function setConflictResolvedBatchProcess($openy_upgrade_log, &$context) {
     $entity = \Drupal::service('openy_upgrade_log.manager')
       ->loadByName($openy_upgrade_log);
     $entity->setStatus(TRUE)->save();
@@ -547,10 +547,10 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    *
    * @param string $openy_upgrade_log
    *   OpenyUpgradeLog item name.
-   * @param array $context
+   * @param object $context
    *   The batch context.
    */
-  public static function deleteOpenyUpgradeLogItemBatchProcess($openy_upgrade_log, array &$context) {
+  public static function deleteOpenyUpgradeLogItemBatchProcess($openy_upgrade_log, &$context) {
     $entity = \Drupal::service('openy_upgrade_log.manager')
       ->loadByName($openy_upgrade_log);
     $entity->delete();

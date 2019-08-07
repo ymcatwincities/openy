@@ -2,7 +2,7 @@ global-styling:
   version: 1.x
   css:
     base:
-      https://use.fontawesome.com/95fd5fcc01.js: {type: external, attributes: { defer: true, async: true} }
+      //use.fontawesome.com/releases/v5.1.0/css/all.css: {type: external, attributes: { defer: true, async: true} }
       dist/css/style.css: {}
   js:
     https://use.fontawesome.com/95fd5fcc01.js: {type: external, attributes: { defer: true, async: true} }
@@ -16,3 +16,14 @@ global-styling:
     - core/drupal
     - openy_rose/blog_slider
     - openy_system/jquery.matchHeight
+
+landing:
+  version: 0.1
+  js:
+    src/js/affix.js: {}
+    src/js/openy_carnation_landing.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
