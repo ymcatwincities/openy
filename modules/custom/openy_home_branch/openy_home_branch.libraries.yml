@@ -1,7 +1,7 @@
 сookies_storage:
   version: 0.1
   js:
-    js/hb_cookies_storage.js: {}
+    js/hb_сookies_storage.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings
@@ -70,3 +70,11 @@ loc_selector_branch_page:
     - core/drupalSettings
     - openy_home_branch/hb_plugin_base
     - openy_home_branch/menu_selector
+
+activity_finder_location:
+  version: 0.1
+  js:
+    js/hb-plugins/hb-activity-finder-location.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/сookies_storage
