@@ -37,7 +37,7 @@
 .site-name {
   @include cachet();
   font-size: 20px;
-  color: $gray-400;
+  color: $gray-300;
   text-transform: uppercase;
   letter-spacing: -1px;
   line-height: 44px;
@@ -62,7 +62,7 @@
 
     > a {
       @include cachet();
-      color: $gray-800;
+      color: $gray-300;
       background-color: transparent !important;
       padding-bottom: 8px;
       padding-top: 8px;
@@ -104,7 +104,7 @@
       margin: 0;
       padding: 8px 1.5rem;
       font-size: 16px;
-      color: $gray-800;
+      color: $gray-300;
       border-left: 1px solid $gray-400;
       transition: all 0.2s linear;
     }
