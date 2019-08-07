@@ -97,7 +97,7 @@ set classes = [
           {% if content.field_location_phone|render|trim is not empty %}
           <div class="wrapper-field-location-phone">
             <div class="field-location-phone">
-              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
+              <span class="label-inline"><i class="fa fa-phone"></i> {{ 'Tel'|t }}:</span> {{ content.field_location_phone }}
             </div>
           </div>
           {% endif %}
@@ -105,9 +105,17 @@ set classes = [
           {% if content.field_location_fax|render|trim is not empty %}
           <div class="wrapper-field-location-fax">
             <div class="field-location-fax">
-              <span class="label-inline"><i class="fas fa-phone-volume"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
+              <span class="label-inline"><i class="fa fa-fax"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
             </div>
           </div>
+          {% endif %}
+
+          {% if content.field_location_email|render|trim is not empty %}
+            <div class="wrapper-field-location-email">
+              <div class="field-location-email">
+                <span class="label-inline"><i class="fa fa-envelope"></i> {{ 'Email'|t }}:</span> {{ content.field_location_email }}
+              </div>
+            </div>
           {% endif %}
 
           {{ content.field_location_directions }}
@@ -148,7 +156,7 @@ set classes = [
 
           <div class="tab-content bg-indigo text-white">
 
-            {# phone #}
+            {# contacts #}
             <div id="tabs-phone" class="tab-pane fade show active p-3">
               <h4 class="text-uppercase">{{ 'Contacts'|t }}</h4>
               <div class="wrapper-field-location-phone">
@@ -162,6 +170,13 @@ set classes = [
                   <span class="label-inline"><i class="fa fa-fax"></i> {{ 'Fax'|t }}:</span> {{ content.field_location_fax }}
                 </div>
               </div>
+              {% endif %}
+              {% if content.field_location_email|render|trim is not empty %}
+                <div class="wrapper-field-location-email">
+                  <div class="field-location-email">
+                    <span class="label-inline"><i class="fa fa-envelope"></i> {{ 'Email'|t }}:</span> {{ content.field_location_email }}
+                  </div>
+                </div>
               {% endif %}
             </div>
 

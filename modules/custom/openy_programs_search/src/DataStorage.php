@@ -891,6 +891,7 @@ class DataStorage implements DataStorageInterface, OpenyCronServiceInterface {
     $params = [
       'branch' => $branch_id,
       'tag' => $category,
+      'limit' => 10000,
     ];
 
     $data = [];

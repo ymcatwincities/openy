@@ -11,12 +11,11 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'default', 'type'],
+    props: ['title', 'id', 'options', 'default', 'type', 'expanded', 'hide_label'],
     data: function() {
       return {
         checkboxes: [],
         checked: [],
-        expanded: false,
         expanded_checkboxes: {},
         dependencies: {},
       }
@@ -37,7 +36,8 @@
           this.dependencies[checkbox.label] = [];
           for (var k in checkbox.value) {
             var item = checkbox.value[k];
-            this.dependencies[checkbox.label].push(item.value);
+            var value = isNaN(item.value) ? item.value : +item.value;
+            this.dependencies[checkbox.label].push(value);
           }
         }
       }
@@ -83,6 +83,50 @@
           }
         }
       },
+      checkboxIsDisabled: function(title, value) {
+        var component = this.$parent;
+        switch (title) {
+          case "Age":
+            if (typeof component.facets.static_age_filter !== 'undefined') {
+              for (var i in component.facets.static_age_filter) {
+                if (component.facets.static_age_filter[i]['filter'] == value && component.facets.static_age_filter[i]['count'] === 0) {
+                  return true;
+                }
+              }
+            }
+            break;
+          case "Days":
+            if (
+              typeof component.daysMap[value] !== 'undefined' &&
+              typeof component.facets.days_of_week !== 'undefined' &&
+              typeof component.facets.days_of_week[value] !== 'undefined' &&
+              typeof component.facets.days_of_week[value]['filter'] !== 'undefined'
+            ) {
+              for (var i in component.facets.days_of_week) {
+                if (component.facets.days_of_week[i]['filter'] == component.daysMap[value] && component.facets.days_of_week[i]['count'] === 0) {
+                  return true;
+                }
+              }
+            }
+            break;
+        }
+        return false;
+      },
+      checkboxIsExcluded: function(title, value) {
+        var component = this.$parent;
+        switch (title) {
+          case "Category":
+            if (component.categoriesExcluded.length > 0) {
+              for (var i in component.categoriesExcluded) {
+                if (component.categoriesExcluded[i] == value) {
+                  return true;
+                }
+              }
+            }
+            break;
+        }
+        return false;
+      },
       groupStatus: function(value) {
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
@@ -113,6 +157,27 @@
         else {
           return 'none';
         }
+      },
+      groupCounter: function(group) {
+        var counter = 0;
+        if (typeof group !== 'undefined' && typeof this.dependencies[group] !== 'undefined') {
+          for (var i in this.dependencies[group]) {
+            for (var j in this.checked) {
+              if (this.dependencies[group][i] == this.checked[j]) {
+                counter ++;
+              }
+            }
+          }
+        }
+        else {
+          counter = this.checked.length;
+          for (var k in this.checked) {
+            if (this.checked[k] == 0) {
+              counter--;
+            }
+          }
+        }
+        return counter;
       },
       selectDependent: function(value) {
         if (typeof this.dependencies[value] == 'undefined') {
@@ -149,36 +214,35 @@
       }
     },
     template: '<div class="form-group-wrapper">\n' +
-    '                <label v-on:click="expanded = !expanded">\n' +
+    '                <label v-if="!hide_label" v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
-    '                  <i v-if="expanded" class="fa fa-minus minus" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus plus" aria-hidden="true"></i>\n' +
+    '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>'+
+    '                  <i v-if="expanded" class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
+    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' + //checked.indexOf(getOption(checkbox)) != -1
     '                </label>\n' +
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
-    '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(checkbox)) != -1"' +
-    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\'}">' +
+    '                     v-show="type != \'tabs\' || expanded"' +
+    '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsDisabled(title, getOption(checkbox))}">' +
     // No parent checkbox.
-    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
-    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
+    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
+    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-show="expanded" v-on:click.stop.prevent="selectDependent(getLabel(checkbox))" href="#" v-bind:class="{ ' +
-    '                         \'checkbox-unchecked\': groupStatus(getLabel(checkbox)) == \'none\', ' +
-    '                         \'checkbox-checked\': groupStatus(getLabel(checkbox)) == \'all\', ' +
-    '                         \'checkbox-partial\': groupStatus(getLabel(checkbox)) == \'partial\', ' +
-    '                         \'d-flex\': true' +
-    '                       }">' +
-    '                       <input v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" type="checkbox" v-model="checked">\n' +
-    '                       <label v-if="typeof getOption(checkbox) == \'object\'" v-show="expanded || checked.indexOf(getOption(checkbox)) != -1" >{{ getLabel(checkbox) }}</label>\n' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
-    '                         <span v-show="collapseGroup(checkbox)" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" class="fa fa-angle-down" aria-hidden="true"></span>' +
-    '                         <span v-if="typeof getOption(checkbox) == \'object\' && expanded" v-show="!collapseGroup(checkbox)" v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" class="fa fa-angle-up" aria-hidden="true"></span>' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
+    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
+    '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
+    '                       </a>' +
+    '                       <a v-show="!collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded"  v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(checkbox)}">' +
+    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
+    '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(checkbox) == \'object\'" v-for="checkbox2 in getOption(checkbox)" class="checkbox-wrapper">\n' +
-    '                      <input v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
-    '                      <label v-if="checked.indexOf(getOption(checkbox2)) != -1 || (expanded && !collapseGroup(checkbox))" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
+    '                      <div v-if="!checkboxIsExcluded(title, getOption(checkbox2))">' +
+    '                       <input v-if="expanded && !collapseGroup(checkbox)" type="checkbox" v-model="checked" :value="getOption(checkbox2)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">\n' +
+    '                       <label v-if="expanded && !collapseGroup(checkbox)" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox2)">{{ getLabel(checkbox2) }}</label>\n' +
+    '                      </div>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
@@ -187,7 +251,7 @@
 
   // Does not yet support flat list of radios. Only two level as for Daxko location.
   Vue.component('sidebar-filter-single', {
-    props: ['title', 'id', 'options', 'default', 'type'],
+    props: ['title', 'id', 'options', 'default', 'type', 'hide_label'],
     data: function() {
       return {
         radios: [],
@@ -199,7 +263,9 @@
     },
     created: function() {
       this.radios = JSON.parse(this.options);
-      this.checked = this.default;
+      if (typeof this.default !== 'undefined') {
+        this.checked = this.default;
+      }
       for (var i in this.radios) {
         radio = this.radios[i];
         if (typeof radio == 'object') {
@@ -232,26 +298,52 @@
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
+      },
+      collapseAllGroups: function(checkbox) {
+        var label = this.getLabel(checkbox);
+        // Close all other expanded groups.
+        for (var i in this.expanded_checkboxes) {
+          if (i !== label && this.expanded_checkboxes[i] !== false) {
+            this.expanded_checkboxes[i] = false;
+          }
+        }
+      },
+      groupCounter: function(group) {
+        var counter = 0;
+        if (typeof group !== 'undefined' && typeof this.dependencies[group] !== 'undefined') {
+          for (var i in this.dependencies[group]) {
+            for (var j in this.checked) {
+              if (this.dependencies[group][i] == this.checked) {
+                counter = 1;
+              }
+            }
+          }
+        }
+        return counter;
       }
     },
     template: '<div class="form-group-wrapper">\n' +
-    '                <label v-on:click="expanded = !expanded">\n' +
+    '                <label v-if="!hide_label" v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
-    '                  <i v-if="expanded" class="fa fa-minus minus" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus plus" aria-hidden="true"></i>\n' +
+    '                  <i v-if="expanded" class="fa fa-minus-circle minus" aria-hidden="true"></i>\n' +
+    '                  <i v-if="!expanded" class="fa fa-plus-circle plus" aria-hidden="true"></i>\n' +
     '                </label>\n' +
-    '                <div v-bind:class="[type]">\n' +
+    '                <div class="checkboxes">\n' +
     '                  <div v-for="radio in radios" class="checkbox-wrapper" ' +
     '                     v-show="type != \'tabs\' || expanded || checked.indexOf(getOption(radio)) != -1">' +
     '                    <div v-if="typeof getOption(radio) == \'object\'">' +
-    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" href="#" class="checkbox-toggle-subset ml-auto">' +
-    '                         <label v-if="typeof getOption(radio) == \'object\'" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(radio), true);" v-show="collapseGroup(radio) && (expanded || checked.indexOf(getOption(radio)) != -1)" class="full-width">{{ getLabel(radio) }} <span class="fa fa-angle-down pull-right" aria-hidden="true"></span></label>\n' +
-    '                         <label v-if="typeof getOption(radio) == \'object\'" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false" v-show="!collapseGroup(radio) && (expanded || checked.indexOf(getOption(radio)) != -1)" class="full-width">{{ getLabel(radio) }} <span v-if="typeof getOption(radio) == \'object\' && expanded" class="fa fa-angle-up pull-right" aria-hidden="true"></span></label>\n' +
+    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(radio);Vue.set(expanded_checkboxes, getLabel(radio), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(radio)}">' +
+    '                         <label>{{ getLabel(radio) }} <small v-show="groupCounter(getLabel(radio)) > 0" class="badge">{{ groupCounter(getLabel(radio)) }}</small></label>\n' +
+    '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
+    '                       </a>' +
+    '                       <a v-if="typeof getOption(radio) == \'object\' && expanded" v-on:click.stop.prevent="expanded_checkboxes[getLabel(radio)] = false;" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(radio)}">' +
+    '                         <label>{{ getLabel(radio) }} <small v-show="groupCounter(getLabel(radio)) > 0" class="badge">{{ groupCounter(getLabel(radio)) }}</small></label>\n' +
+    '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
-    '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper">\n' +
-    '                      <input v-if="checked.indexOf(getOption(radio2)) != -1 || (expanded && !collapseGroup(radio))" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
-    '                      <label v-if="checked.indexOf(getOption(radio2)) != -1 || (expanded && !collapseGroup(radio))" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
+    '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper radio-wrapper">\n' +
+    '                      <input v-if="expanded && !collapseGroup(radio)" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
+    '                      <label v-if="expanded && !collapseGroup(radio)" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
@@ -266,6 +358,7 @@
       table: {},
       loading: false,
       count: '',
+      facets: [],
       pages: {},
       pager_info: {},
       current_page: 1,
@@ -283,6 +376,16 @@
       afPageRef: '',
       no_results: 0,
       alternativeCriteria: '',
+      isSpotsAvailableDisabled: drupalSettings.activityFinder.is_spots_available_disabled,
+      daysMap: {
+        1: 'monday',
+        2: 'tuesday',
+        3: 'wednesday',
+        4: 'thursday',
+        5: 'friday',
+        6: 'saturday',
+        7: 'sunday',
+      },
       locationPopup: {
         address: '',
         email: '',
@@ -304,15 +407,16 @@
         ages: '',
         gender: '',
         dates: '',
-        times: '',
-        days: '',
+        weeks: '',
+        schedule: '',
         location_name: '',
         location_address: '',
         location_phone: '',
         availability_status: '',
         availability_note: '',
         link: '',
-        learn_more: ''
+        learn_more: '',
+        more_results: ''
       }
     },
     created: function() {
@@ -335,6 +439,16 @@
         }
         if (categoriesGet) {
           this.categories = categoriesGet.split(',');
+        }
+      }
+
+      if (typeof this.$route.query.exclude != 'undefined') {
+        var excludeCategoriesGet = decodeURIComponent(this.$route.query.exclude);
+        for (let i = 0; i < excludeCategoriesGet.length; i++) {
+          excludeCategoriesGet[i] = +excludeCategoriesGet[i];
+        }
+        if (excludeCategoriesGet) {
+          this.categoriesExcluded = excludeCategoriesGet.split(',');
         }
       }
 
@@ -361,7 +475,7 @@
 
       this.runAjaxRequest();
 
-      component.afPageRef = 'OpenY' in window ? window.OpenY.field_prgf_af_page_ref[0]['url'] : '';
+      component.afPageRef = 'OpenY' in window && typeof window.OpenY.field_prgf_af_page_ref !== 'undefined' && typeof window.OpenY.field_prgf_af_page_ref[0] !== 'undefined' ? window.OpenY.field_prgf_af_page_ref[0]['url'] : '';
 
       // We add watchers dynamically otherwise initially there will be
       // up to three requests as we are changing values while initializing
@@ -455,6 +569,9 @@
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
+        if (this.categoriesExcluded.length > 0) {
+          query.push('exclude=' + encodeURIComponent(this.categoriesExcluded.join(',')));
+        }
         var cleanAges = this.ages.filter(function(word){ return word; });
         if (cleanAges.length > 0) {
           query.push('ages=' + encodeURIComponent(cleanAges.join(',')));
@@ -487,6 +604,7 @@
 
         $.getJSON(url, function(data) {
           component.table = data.table;
+          component.facets = data.facets;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
@@ -496,6 +614,7 @@
           router.push({ query: {
             locations: cleanLocations.join(','),
             categories: cleanCategories.join(','),
+            exclude: component.categoriesExcluded.join(','),
             ages: cleanAges.join(','),
             days: cleanDays.join(','),
             keywords: component.keywords,
@@ -528,7 +647,7 @@
         var component = this;
 
         // This means we already have all data so no need to run extra ajax call.
-        if (component.table[index].availability_status.length != 0) {
+        if (component.table[index].availability_status !== '') {
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
 
@@ -537,8 +656,8 @@
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
-          component.moreInfoPopup.times = component.table[index].times;
-          component.moreInfoPopup.days = component.table[index].days;
+          component.moreInfoPopup.weeks = component.table[index].weeks;
+          component.moreInfoPopup.schedule = component.table[index].schedule;
 
           component.moreInfoPopup.location_url = drupalSettings.path.baseUrl + 'node/' + component.table[index].location_info.nid;
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
@@ -551,10 +670,16 @@
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
-
+          // Dynamically create more results depends on search criteria.
+          if (component.table[index].more_results_type == 'keyword') {
+            component.moreInfoPopup.more_results = '?' + 'keywords=' + encodeURIComponent(component.table[index].program_name) + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
+          if (component.table[index].more_results_type == 'program') {
+            component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
-          component.availabilityPopup.link = component.table[index].register_link;
+          component.availabilityPopup.link = component.table[index].link;
           component.availabilityPopup.price = component.table[index].price;
           return;
         }
@@ -582,10 +707,12 @@
           component.table[index].price = data.price;
           component.table[index].availability_note = data.availability_note;
           component.table[index].availability_status = data.availability_status;
+          component.table[index].spots_available = data.spots_available;
           component.table[index].ages = data.ages;
           component.table[index].gender = data.gender;
           component.table[index].description = data.description;
           component.table[index].link = data.link;
+          component.table[index].program_name = data.program_name;
 
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
@@ -596,8 +723,7 @@
           component.moreInfoPopup.gender = component.table[index].gender;
 
           component.moreInfoPopup.dates = component.table[index].dates;
-          component.moreInfoPopup.times = component.table[index].times;
-          component.moreInfoPopup.days = component.table[index].days;
+          component.moreInfoPopup.schedule = component.table[index].schedule;
 
           component.moreInfoPopup.location_name = component.table[index].location_info.title;
           component.moreInfoPopup.location_address = component.table[index].location_info.address;
@@ -605,8 +731,16 @@
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.link = component.table[index].link;
-
+          component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
+          // Dynamically create more results depends on search criteria.
+          if (component.table[index].more_results_type == 'keyword') {
+            component.moreInfoPopup.more_results = '?' + 'keywords=' + encodeURIComponent(component.table[index].program_name) + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
+          if (component.table[index].more_results_type == 'program') {
+            component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
+          }
           component.availabilityPopup.status = component.table[index].availability_status;
           component.availabilityPopup.note = component.table[index].availability_note;
           component.availabilityPopup.link = component.table[index].link;
@@ -631,16 +765,23 @@
         this.current_page--;
         this.table = [];
         this.runAjaxRequest(false);
+        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
       },
       loadNextPage: function() {
         this.current_page++;
         this.table = [];
         this.runAjaxRequest(false);
+        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
       },
       loadPageNumber: function(number) {
         this.current_page = number;
         this.table = [];
         this.runAjaxRequest(false);
+        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
+      },
+      totalGroupCounter() {
+        // Returns count of of applied filters.
+        return this.ages.length + this.days.length + this.categories.length + this.locations.length;
       }
     },
     delimiters: ["${","}"]
