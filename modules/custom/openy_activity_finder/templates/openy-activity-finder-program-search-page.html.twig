@@ -87,6 +87,7 @@
               id="age-filter"
               type="{{ 'tabs'|t }}"
               options='{{ ages|json_encode }}'
+              config_settings ='{{ config_settings|json_encode }}'
               :default='$route.query.ages'
               v-on:updated-values="ages = $event"
             ></sidebar-filter>
@@ -97,6 +98,7 @@
               id="days-filter"
               type="{{ 'tabs'|t }}"
               options='{{ days|json_encode }}'
+              config_settings ='{{ config_settings|json_encode }}'
               :default='$route.query.days'
               v-on:updated-values="days = $event"
             ></sidebar-filter>
@@ -109,6 +111,7 @@
               id="category-filter"
               type="{{ 'radios'|t }}"
               options='{{ categories|json_encode }}'
+              config_settings ='{{ config_settings|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
               expanded="true"
@@ -121,6 +124,7 @@
               id="category-filter"
               type="{{ 'checkboxes'|t }}"
               options='{{ categories|json_encode }}'
+              config_settings ='{{ config_settings|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
               expanded="true"
@@ -135,6 +139,7 @@
               id="location-filter"
               type="{{ 'checkboxes'|t }}"
               options='{{ locations|json_encode }}'
+              config_settings ='{{ config_settings|json_encode }}'
               :default='$route.query.locations'
               v-on:updated-values="locations = $event"
               expanded="true"

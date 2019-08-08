@@ -11,13 +11,14 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'default', 'type', 'expanded', 'hide_label'],
+    props: ['title', 'id', 'options', 'default', 'type', 'expanded', 'hide_label', 'config_settings'],
     data: function() {
       return {
         checkboxes: [],
         checked: [],
         expanded_checkboxes: {},
         dependencies: {},
+        is_expanded: false,
       }
     },
     created: function() {
@@ -55,6 +56,23 @@
       }
     },
     methods: {
+      check_expanded_global: function(label) {
+        label = label.toLowerCase().replace(new RegExp(' ', 'g'), '_');
+        config_settings = JSON.parse(this.config_settings);
+        prefixes = [
+            'category',
+            'location',
+            'schedule'
+        ];
+        let is_expanded = true;
+        prefixes.map(function(prefix) {
+          if (config_settings[prefix + '_' + label] != 'undefined' && config_settings[prefix + '_' + label]) {
+            console.log(prefix + '_' + label, config_settings[prefix + '_' + label]);
+            is_expanded = false;
+          }
+        });
+        return is_expanded;
+      },
       clear: function() {
         this.checked = [];
       },
@@ -72,7 +90,8 @@
       },
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
-        return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
+        return this.check_expanded_global(label);
+        //return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
       collapseAllGroups: function(checkbox) {
         var label = this.getLabel(checkbox);
@@ -251,7 +270,7 @@
 
   // Does not yet support flat list of radios. Only two level as for Daxko location.
   Vue.component('sidebar-filter-single', {
-    props: ['title', 'id', 'options', 'default', 'type', 'hide_label'],
+    props: ['title', 'id', 'options', 'default', 'type', 'hide_label', 'config_settings'],
     data: function() {
       return {
         radios: [],
@@ -283,6 +302,22 @@
       }
     },
     methods: {
+      check_expanded_global: function(label) {
+        label = label.toLowerCase().replace(new RegExp(' ', 'g'), '_');
+        config_settings = JSON.parse(this.config_settings);
+        prefixes = [
+          'category',
+          'location',
+          'schedule'
+        ];
+        let is_expanded = true;
+        prefixes.map(function(prefix) {
+          if (config_settings[prefix + '_' + label] != 'undefined' && config_settings[prefix + '_' + label] === 1) {
+            is_expanded = false;
+          }
+        });
+        return is_expanded;
+      },
       clear: function() {
         this.checked = '';
       },
@@ -297,7 +332,8 @@
       },
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
-        return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
+        return this.check_expanded_global(label);
+        //return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
       collapseAllGroups: function(checkbox) {
         var label = this.getLabel(checkbox);
@@ -323,7 +359,7 @@
       }
     },
     template: '<div class="form-group-wrapper">\n' +
-    '                <label v-if="!hide_label" v-on:click="expanded = !expanded">\n' +
+    '                <label v-if="!hide_label" v-on:load="check_expaned(label)" v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
     '                  <i v-if="expanded" class="fa fa-minus-circle minus" aria-hidden="true"></i>\n' +
     '                  <i v-if="!expanded" class="fa fa-plus-circle plus" aria-hidden="true"></i>\n' +
@@ -417,7 +453,8 @@
         link: '',
         learn_more: '',
         more_results: ''
-      }
+      },
+      config_settings: [],
     },
     created: function() {
       var component = this;
@@ -605,6 +642,7 @@
         $.getJSON(url, function(data) {
           component.table = data.table;
           component.facets = data.facets;
+          component.config_settings = data.config_settings;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;

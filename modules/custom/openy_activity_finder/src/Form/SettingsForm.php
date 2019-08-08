@@ -4,6 +4,10 @@ namespace Drupal\openy_activity_finder\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
+use Drupal\openy_activity_finder\Controller\ActivityFinderController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Settings Form for daxko.
@@ -81,6 +85,77 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('When checked disables Spots Available feature on Results page.'),
     ];
 
+    $component = $this->getActivityFinderDataStructure();
+
+    $form['collapse'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Group collapse settings.'),
+      '#open' => TRUE,
+      '#description' => $this->t('Please select items to show them as Expanded on program search. Default state is collapsed'),
+    ];
+
+    $form['collapse']['schedule'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Schedule preferences'),
+      '#open' => TRUE,
+    ];
+
+    if (isset($component['facets']->days_of_week)) {
+      $form['collapse']['schedule']['schedule_days'] = [
+        '#title' => $this->t('Days'),
+        '#type' => 'checkbox',
+        '#default_value' => $config->get('schedule_days'),
+      ];
+    }
+    if (isset($component['facets']->static_age_filter)) {
+      $form['collapse']['schedule']['schedule_ages'] = [
+        '#title' => $this->t('Ages'),
+        '#type' => 'checkbox',
+        '#default_value' => $config->get('schedule_ages'),
+      ];
+    }
+
+    $form['collapse']['category'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Activity preferences'),
+      '#open' => TRUE,
+    ];
+    foreach ($component['facets']->field_category_program as $category) {
+      if ($category->filter != '!') {
+        $machine_name = 'category_' . str_replace(' ', '_', strtolower($category->filter));
+        $form['collapse']['category'][$machine_name] = [
+          '#title' => $category->filter,
+          '#type' => 'checkbox',
+          '#default_value' => $config->get($machine_name),
+        ];
+      }
+    }
+    foreach ($component['facets']->field_activity_category as $category) {
+      if ($category->filter != '!') {
+        $machine_name = 'category_' . str_replace(' ', '_', strtolower($category->filter));
+        $form['collapse']['category'][$machine_name] = [
+          '#title' => $category->filter,
+          '#type' => 'checkbox',
+          '#default_value' => $config->get($machine_name),
+        ];
+      }
+    }
+
+    $form['collapse']['locations'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Location preferences'),
+      '#open' => TRUE,
+    ];
+
+    foreach ($component['groupedLocations'] as $groupedLocation) {
+      $machine_name = 'locations_' . strtolower($groupedLocation->label);
+      $form['collapse']['locations'][$machine_name] = [
+        '#title' => $groupedLocation->label,
+        '#type' => 'checkbox',
+        '#default_value' => $config->get($machine_name),
+      ];
+    }
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -101,7 +176,49 @@ class SettingsForm extends ConfigFormBase {
 
     $config->set('disable_spots_available', $form_state->getValue('disable_spots_available'))->save();
 
+    $component = $this->getActivityFinderDataStructure();
+
+    foreach ($component['groupedLocations'] as $groupedLocation) {
+      $machine_name = 'locations_' . strtolower($groupedLocation->label);
+      $config->set($machine_name, $form_state->getValue($machine_name))->save();
+    }
+
+    foreach ($component['facets']->field_category_program as $category) {
+      if ($category->filter != '!') {
+        $machine_name = 'category_' . str_replace(' ', '_', strtolower($category->filter));
+        $config->set($machine_name, $form_state->getValue($machine_name))->save();
+      }
+    }
+
+    foreach ($component['facets']->field_activity_category as $category) {
+      if ($category->filter != '!') {
+        $machine_name = 'category_' . str_replace(' ', '_', strtolower($category->filter));
+        $config->set($machine_name, $form_state->getValue($machine_name))->save();
+      }
+    }
+
+    $config->set('schedule_days', $form_state->getValue('schedule_days'))->save();
+    $config->set('schedule_ages', $form_state->getValue('schedule_ages'))->save();
+
     parent::submitForm($form, $form_state);
   }
 
+  /**
+   * Return Data structure the same as in Program search.
+   * @return array
+   */
+  public function getActivityFinderDataStructure() {
+    $component = [];
+    $url = Url::fromRoute('openy_activity_finder.get_results');
+    $base_url = \Drupal::request()->getSchemeAndHttpHost();;
+    $response = \Drupal::httpClient()
+      ->get($base_url . $url->toString());
+    $json_string = (string) $response->getBody();
+    $data = json_decode($json_string);
+
+    $component['facets'] = $data->facets;
+    $component['groupedLocations'] = $data->groupedLocations;
+
+    return $component;
+  }
 }
