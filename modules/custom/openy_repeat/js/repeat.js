@@ -41,10 +41,10 @@
       var colCount = $('.schedules-data__header > div').length;
       if ($('.schedules-data__row .register-btn').length === 0) {
         colCount = colCount - 1;
-        $('.schedules-data__header > div').last().hide();
+        $('.schedules-data__header > div').last().css('visibility', 'hidden');
       }
       else {
-        $('.schedules-data__header > div').last().show();
+        $('.schedules-data__header > div').last().css('visibility', 'show');
       }
       $('.schedules-data')
         .removeClass('schedules-data__cols-5')
@@ -88,6 +88,9 @@
       categoriesExcluded: [],
       categoriesLimit: [],
       className: [],
+      classesLimit: [],
+      instructors: [],
+      instructorsLimit: [],
       locationPopup: {
         address: '',
         email: '',
@@ -153,6 +156,29 @@
         }
       }
 
+      // If there is preselected Classes, we hide filters and column.
+      var limitClasses = window.OpenY.field_prgf_repeat_schedule_class || [];
+      if (limitClasses && limitClasses.length > 0) {
+        // If we limit to one class.
+        if (limitClasses.length == 1) {
+          component.className.push(limitClasses[0].title);
+          $('.form-group-classname').parent().hide();
+          $('.class-column').remove();
+        }
+        else {
+          limitClasses.forEach(function(element){
+            component.classesLimit.push(element.title);
+          });
+
+          $('.form-group-classname .checkbox-wrapper input').each(function(){
+            var value = $(this).attr('value');
+            if (component.classesLimit.indexOf(value) === -1) {
+              $(this).parent().hide();
+            }
+          });
+        }
+      }
+
       var dateGet = this.$route.query.date;
       if (dateGet) {
         var date = new Date(dateGet);
@@ -173,6 +199,11 @@
         this.categories = categoriesGet.split(',');
       }
 
+      var classesGet = this.$route.query.classes;
+      if (classesGet) {
+        this.className = classesGet.split(',');
+      }
+
       this.runAjaxRequest();
 
       // We add watchers dynamically otherwise initially there will be
@@ -181,6 +212,7 @@
       component.$watch('date', function(){ component.runAjaxRequest(); });
       component.$watch('locations', function(){ component.runAjaxRequest(); });
       component.$watch('categories', function(){ component.runAjaxRequest(); });
+      component.$watch('className', function(){ component.runAjaxRequest(); });
     },
     mounted: function() {
       /* It doesn't work if try to add datepicker in created. */
@@ -245,6 +277,27 @@
         }
         return availableClasses;
       },
+      instructorFilters: function() {
+        var availableInstructors = [];
+        this.table.forEach(function(element) {
+          if (element.instructor.trim()) {
+            availableInstructors[element.instructor] = element.instructor;
+          }
+        });
+
+        // Already selected options.
+        this.instructors.forEach(function(instr) {
+          if (instr.trim()) {
+            availableInstructors[instr] = instr;
+          }
+        });
+
+        availableInstructors = Object.keys(availableInstructors);
+        if (typeof availableInstructors.alphanumSort !== 'undefined') {
+          availableInstructors.alphanumSort();
+        }
+        return availableInstructors;
+      },
       filteredTable: function() {
         var filterByRoom = [];
 
@@ -276,6 +329,11 @@
 
           // Check if class fits classname filter.
           if (self.className.length > 0 && self.className.indexOf(item.class_info.title) === -1) {
+            return;
+          }
+
+          // Check if class fits classname filter.
+          if (self.instructors.length > 0 && self.instructors.indexOf(item.instructor) === -1) {
             return;
           }
 
@@ -317,16 +375,15 @@
           }
           $('.schedules-loading').addClass('hidden');
         });
-
         router.push({ query: {
             date: date,
             locations: this.locations.join(','),
-            categories: this.categories.join(',')
+            categories: this.categories.join(','),
+            classes: component.className.join(',')
           }});
       },
 
       toggleParentClass: function(event) {
-
           if (event.target.parentElement.classList.contains('skip-checked')) {
             event.target.parentElement.classList.remove('skip-checked');
             event.target.parentElement.classList.add('skip-t');
@@ -376,6 +433,9 @@
       getClassFilter: function() {
         return this.classFilters;
       },
+      getInstructorFilter: function() {
+        return this.instructorFilters;
+      },
       generateId: function(string) {
         return string.replace(/[\W_]+/g, "-");
       }
@@ -387,6 +447,20 @@
 
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
+        // Fix accessibility features, make atc calendar accessible by keyboard and screen readers.
+        $(".atcb-link").each(function () {
+          $(this).parent().find('ul').find('.atcb-item-link').attr("tabindex", 0);
+          $(this).attr("tabindex", 0).attr("href", '#').on('click', function (e) {
+            e.preventDefault();
+            if (!$(this).hasClass('open')) {
+              $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+              $(this).addClass('open').parent().find('ul').addClass('active').css('visibility', 'visible !important').find('.atcb-item-link:eq(0)').focus();
+            }
+            else {
+              $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+            }
+          });
+        });
       }
       // Consider moving out of 'updated' handler.
       $('.btn-schedule-pdf-generate').off('click').on('click', function () {
