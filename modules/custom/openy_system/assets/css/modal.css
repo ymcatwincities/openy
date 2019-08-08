@@ -66,7 +66,7 @@
 /* modal > body */
 
 .schedule-dashboard__modal--body {
-  padding: 0 15px;
+  padding: 0;
 }
 .schedule-dashboard__modal--body h3 {
   color: #000;
@@ -130,6 +130,7 @@
 
 .schedule-dashboard__modal--footer .btn {
   font-size: 14px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 991px) {
