@@ -447,6 +447,20 @@
 
       if (typeof(addtocalendar) !== 'undefined') {
         addtocalendar.load();
+        // Fix accessibility features, make atc calendar accessible by keyboard and screen readers.
+        $(".atcb-link").each(function () {
+          $(this).parent().find('ul').find('.atcb-item-link').attr("tabindex", 0);
+          $(this).attr("tabindex", 0).attr("href", '#').on('click', function (e) {
+            e.preventDefault();
+            if (!$(this).hasClass('open')) {
+              $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+              $(this).addClass('open').parent().find('ul').addClass('active').css('visibility', 'visible !important').find('.atcb-item-link:eq(0)').focus();
+            }
+            else {
+              $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+            }
+          });
+        });
       }
       // Consider moving out of 'updated' handler.
       $('.btn-schedule-pdf-generate').off('click').on('click', function () {

@@ -12,6 +12,6 @@
 #}
 {% block input %}
   <div class="input-wrapper position-relative">
-    <input{{ attributes }} />{{ children }}
+    <input{{ attributes.setAttribute('aria-label', element['#title']) }} />{{ children }}
   </div>
 {% endblock %}
