@@ -82,6 +82,7 @@ content:
     region: content
 hidden:
   addthis: true
+  field_alert_belongs: true
   field_alert_visibility_pages: true
   field_alert_visibility_state: true
   langcode: true

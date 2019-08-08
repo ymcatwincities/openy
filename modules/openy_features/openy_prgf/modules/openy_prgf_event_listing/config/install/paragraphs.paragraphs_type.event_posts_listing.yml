@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: event_posts_listing
 label: 'Event Posts Listing'
+icon_uuid: null
+description: null
 behavior_plugins: {  }
