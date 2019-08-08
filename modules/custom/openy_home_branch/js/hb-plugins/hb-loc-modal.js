@@ -87,7 +87,7 @@
                       <select id="hb-locations-list" required class="form-select form-control">
                         <option value="null" selected>Select location</option>
                       </select>
-                      <div class="dont-ask">
+                      <div class="dont-ask hb-checkbox-wrapper">
                         <input type="checkbox" id="hb-dont-ask-checkbox">
                         <label for="hb-dont-ask-checkbox">Don't ask me again</label>
                       </div>

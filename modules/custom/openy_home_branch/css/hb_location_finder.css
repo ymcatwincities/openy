@@ -1,28 +1,21 @@
 .locations .node--type-branch.node--view-mode-teaser.hb-selected {
-  border: solid 1px #33b737;
+  border: solid 1px #0060ad;
 }
+
 .hb-location-checkbox-wrapper {
   padding: 20px;
-}
-.hb-location-checkbox-wrapper input {
-  margin-right: 10px;
 }
 
 .locations .node--type-branch .hb-location-checkbox-wrapper {
   padding: 20px;
   align-self: end;
-  border-top: solid 1px #fcaf17;
   width: 100%;
   background-color: #f2f2f2;
   margin: auto 0 0 0;
 }
 
-.hb-location-checkbox-wrapper label{
-  font-weight: 400;
-}
-
 .locations .node--type-branch.node--view-mode-teaser.hb-selected .hb-location-checkbox-wrapper {
-  border-top: solid 1px #33b737;
+  border-top: solid 1px #0060ad;
 }
 
 .locations-list .views-row .node--view-mode-teaser {

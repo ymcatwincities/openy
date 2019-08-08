@@ -85,7 +85,7 @@
       addMarkup: function (context) {
         let id = context.data('hb-id');
         let $markup = $(`
-              <div class="hb-location-checkbox-wrapper">
+              <div class="hb-location-checkbox-wrapper hb-checkbox-wrapper">
                 <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox">
                 <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
               </div>
