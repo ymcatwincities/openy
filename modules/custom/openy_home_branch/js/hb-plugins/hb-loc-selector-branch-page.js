@@ -22,7 +22,7 @@
       selector: '.hb-location-checkbox',
       event: 'change',
       element: null,
-      labelSelector: '.hb-location-checkbox-wrapper label span',
+      labelSelector: '.hb-location-checkbox-wrapper label',
       selectedText: drupalSettings.home_branch.hb_loc_selector_branch_page.selectedText,
       notSelectedText: drupalSettings.home_branch.hb_loc_selector_branch_page.notSelectedText,
       placeholderSelector: drupalSettings.home_branch.hb_loc_selector_branch_page.placeholderSelector,
@@ -52,10 +52,10 @@
           $(this).replaceWith(`
               <div class="hb-branch-selector">
                 <div class="hb-location-checkbox-wrapper">
-                  <label>
-                    <input type="checkbox" value="` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
-                    <span>` + this.selectedText + `</span>
-                  </label>
+                  <span class="hb-checkbox-wrapper">
+                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + ` + " class="hb-location-checkbox hb-location-checkbox-` + id + `">
+                    <label for="hb-location-checkbox-` + id + ` + ">` + this.selectedText + `</label>
+                  </span>
                   <span>[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
                 </div>
               </div>

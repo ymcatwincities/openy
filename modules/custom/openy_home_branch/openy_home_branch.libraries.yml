@@ -30,6 +30,7 @@ location_finder:
   dependencies:
     - core/drupalSettings
     - openy_home_branch/hb_plugin_base
+    - openy_home_branch/hb_checkbox
 
 menu_selector:
   version: 0.1
@@ -50,6 +51,7 @@ location_modal:
   dependencies:
     - core/drupalSettings
     - openy_home_branch/hb_plugin_base
+    - openy_home_branch/hb_checkbox
 
 pef_location:
   version: 0.1
@@ -66,10 +68,12 @@ loc_selector_branch_page:
   css:
     component:
       css/hb_location_finder.css: {}
+      css/hb-loc-selector-branch-page.css: {}
   dependencies:
     - core/drupalSettings
     - openy_home_branch/hb_plugin_base
     - openy_home_branch/menu_selector
+    - openy_home_branch/hb_checkbox
 
 activity_finder_location:
   version: 0.1
@@ -78,3 +82,9 @@ activity_finder_location:
   dependencies:
     - core/drupalSettings
     - openy_home_branch/cookies_storage
+
+hb_checkbox:
+  version: 0.1
+  css:
+    component:
+      css/hb-checkbox.css: {}
