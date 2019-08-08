@@ -1,4 +1,4 @@
-сookies_storage:
+cookies_storage:
   version: 0.1
   js:
     js/hb_cookies_storage.js: {}
@@ -18,7 +18,7 @@ hb_plugin_base:
     - core/jquery
     - core/jquery.once
     - core/drupalSettings
-    - openy_home_branch/сookies_storage
+    - openy_home_branch/cookies_storage
 
 location_finder:
   version: 0.1
@@ -57,7 +57,7 @@ pef_location:
     js/hb-plugins/hb-pef-location.js: {}
   dependencies:
     - core/drupalSettings
-    - openy_home_branch/сookies_storage
+    - openy_home_branch/cookies_storage
 
 loc_selector_branch_page:
   version: 0.1
@@ -77,4 +77,4 @@ activity_finder_location:
     js/hb-plugins/hb-activity-finder-location.js: {}
   dependencies:
     - core/drupalSettings
-    - openy_home_branch/сookies_storage
+    - openy_home_branch/cookies_storage
