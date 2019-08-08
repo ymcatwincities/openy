@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_home_branch\Plugin\HomeBranchLibrary;
 
+use Drupal\node\NodeInterface;
 use Drupal\openy_home_branch\HomeBranchLibraryBase;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -66,7 +67,7 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
     // Get locations list.
     $query = $this->database->select('node_field_data', 'n');
     $query->fields('n', ['nid', 'title']);
-    $query->condition('n.status', 1);
+    $query->condition('n.status', NodeInterface::PUBLISHED);
     $query->condition('n.type', 'branch');
     $query->orderBy('n.title');
     $query->addTag('openy_home_branch_get_locations');
