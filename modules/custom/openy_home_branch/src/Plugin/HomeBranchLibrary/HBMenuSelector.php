@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_home_branch\Plugin\HomeBranchLibrary;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\node\NodeInterface;
 use Drupal\openy_home_branch\HomeBranchLibraryBase;
 use Drupal\Core\Database\Connection;
@@ -18,6 +19,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPluginInterface {
+
+  use StringTranslationTrait;
+
+  const BLOCK_ID = 'system_menu_block:account';
 
   /**
    * The Database connection.
@@ -57,7 +62,7 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
    * {@inheritdoc}
    */
   public function isAllowedForAttaching($variables) {
-    return ($variables['plugin_id'] == 'system_menu_block:account');
+    return ($variables['plugin_id'] == self::BLOCK_ID);
   }
 
   /**
@@ -76,6 +81,7 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
 
     return [
       'menuSelector' => '.nav-global .page-head__top-menu ul.navbar-nav',
+      'defaultTitle' => $this->t('My home branch'),
       'locations' => $result,
     ];
   }

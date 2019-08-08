@@ -46,6 +46,7 @@
 /* modal > body */
 .hb-loc-modal__modal .modal-content {
   border-radius: unset;
+  position: relative;
 }
 .hb-loc-modal__modal--body {
   padding: 20px 20px 0 20px;
@@ -60,6 +61,10 @@
 .hb-loc-modal__modal .modal-content .dont-ask {
   margin: 15px 0;
   font-weight: 400;
+}
+
+.hb-loc-modal__modal .modal-content select {
+  cursor: pointer;
 }
 
 .hb-loc-modal__modal .modal-content .dont-ask label {
@@ -89,4 +94,87 @@
   padding-top: 11px;
   padding-bottom: 12px;
   cursor: pointer;
+}
+
+/* Learn more */
+.hb-loc-modal__modal .modal-content .learn-more {
+  position: absolute;
+  display: none;
+  top: 0;
+  left: 0;
+  background: #FFFFFF;
+  width: 100%;
+  height: 100%;
+}
+
+.hb-loc-modal__modal .modal-content .open-learn-more {
+  background: none;
+  color: #0060ad;
+  padding: 0;
+  margin: 10px 0 15px;
+}
+
+.hb-loc-modal__modal .modal-content .close-learn-more {
+  background: none;
+  color: #0060ad;
+  line-height: 0;
+  font-size: 0;
+  padding: 0;
+  -webkit-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 15px;
+  height: 15px;
+  border-width: 4px 4px 0 0;
+  border-style: solid;
+  margin: 10px;
+}
+
+.hb-loc-modal__modal .modal-content .close-learn-more:hover {
+  border-color: #0060ad;
+}
+
+.hb-loc-modal__modal .modal-content .close-learn-more:after,
+.hb-loc-modal__modal .modal-content .close-learn-more:before {
+  content: "";
+  box-sizing: border-box;
+}
+
+.hb-loc-modal__modal .modal-content .close-learn-more:before {
+  right: 0;
+  top: -3px;
+  position: absolute;
+  height: 4px;
+  box-shadow: inset 0 0 0 32px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  width: 23px;
+  -webkit-transform-origin: right top;
+  transform-origin: right top;
+}
+
+.hb-loc-modal__modal .modal-content .learn-more .learn-more-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid;
+}
+
+.hb-loc-modal__modal .modal-content .learn-more .learn-more-content {
+  margin-top: 50px;
+  padding: 15px;
+}
+
+.hb-loc-modal__modal .modal-content .learn-more .learn-more-content h5 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.hb-loc-modal__modal .modal-content .learn-more .learn-more-title strong {
+  text-transform: uppercase;
 }

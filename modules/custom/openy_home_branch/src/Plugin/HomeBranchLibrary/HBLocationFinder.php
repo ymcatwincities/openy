@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_home_branch\Plugin\HomeBranchLibrary;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\openy_home_branch\HomeBranchLibraryBase;
 
 /**
@@ -16,6 +17,8 @@ use Drupal\openy_home_branch\HomeBranchLibraryBase;
  * )
  */
 class HBLocationFinder extends HomeBranchLibraryBase {
+
+  use StringTranslationTrait;
 
   const PRGF_TYPE = 'prgf_location_finder';
 
@@ -40,8 +43,8 @@ class HBLocationFinder extends HomeBranchLibraryBase {
     return [
       'locationsList' => '.field-prgf-location-finder .locations-list .views-row__wrapper',
       'branchTeaserSelector' => '.node--type-branch.node--view-mode-teaser',
-      'selectedText' => t('My Home Branch'),
-      'notSelectedText' => t('Set as my Home Branch'),
+      'selectedText' => $this->t('My Home Branch'),
+      'notSelectedText' => $this->t('Set as my Home Branch'),
     ];
   }
 
