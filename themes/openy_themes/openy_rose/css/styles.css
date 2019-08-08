@@ -5923,9 +5923,7 @@ iframe#ga_iframe {
   cursor: pointer;
 }
 
-.atcb-link:focus ~ ul,
-.atcb-link:active ~ ul,
-.atcb-list:hover {
+.atcb-link ~ ul.active {
   visibility: visible;
 }
 
