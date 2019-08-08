@@ -71,9 +71,6 @@
       show: function () {
         this.element.removeClass('hidden');
       },
-      onChange: function (event, el) {
-        // Nothing.
-      },
       addMarkup: function (context) {
         // Save created element in plugin.
         this.element = $(`

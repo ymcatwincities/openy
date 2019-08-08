@@ -2,11 +2,11 @@
 
 namespace Drupal\openy_home_branch;
 
-use Drupal\Component\Plugin\Factory\DefaultFactory;
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
+use Drupal\Core\Plugin\Factory\ContainerFactory;
 
 /**
  * Defines the base plugin for HomeBranchLibrary classes.
@@ -31,7 +31,7 @@ class HomeBranchLibraryManager extends DefaultPluginManager {
 
     $this->alterInfo('home_branch_library_info');
     $this->setCacheBackend($cache_backend, 'home_branch_library');
-    $this->factory = new DefaultFactory($this->getDiscovery());
+    $this->factory = new ContainerFactory($this->getDiscovery());
   }
 
   /**
@@ -45,22 +45,6 @@ class HomeBranchLibraryManager extends DefaultPluginManager {
       }
     }
     return $definitions;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function createInstance($plugin_id, array $configuration = []) {
-    $plugin_definition = $this->getDefinition($plugin_id);
-    $plugin_class = DefaultFactory::getPluginClass($plugin_id, $plugin_definition);
-    // If the plugin provides a factory method, pass the container to it.
-    if (is_subclass_of($plugin_class, 'Drupal\Core\Plugin\ContainerFactoryPluginInterface')) {
-      $plugin = $plugin_class::create(\Drupal::getContainer(), $configuration, $plugin_id, $plugin_definition);
-    }
-    else {
-      $plugin = new $plugin_class($configuration, $plugin_id, $plugin_definition);
-    }
-    return $plugin;
   }
 
   /**
