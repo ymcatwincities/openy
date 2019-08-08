@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_home_branch\Plugin\HomeBranchLibrary;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\openy_home_branch\HomeBranchLibraryBase;
 
 /**
@@ -14,6 +15,8 @@ use Drupal\openy_home_branch\HomeBranchLibraryBase;
  * )
  */
 class HBLocSelectorBranchPage extends HomeBranchLibraryBase {
+
+  use StringTranslationTrait;
 
   const NODE_TYPE = 'branch';
 
@@ -28,7 +31,7 @@ class HBLocSelectorBranchPage extends HomeBranchLibraryBase {
    * {@inheritdoc}
    */
   public function isAllowedForAttaching($variables) {
-    return ($variables['node'] && $variables['node']->getType() == self::NODE_TYPE);
+    return ($variables['node'] && $variables['node']->getType() == self::NODE_TYPE && $variables['page']);
   }
 
   /**
@@ -37,8 +40,8 @@ class HBLocSelectorBranchPage extends HomeBranchLibraryBase {
   public function getLibrarySettings() {
     return [
       'placeholderSelector' => '.openy-branch-selector',
-      'selectedText' => t('My Home Branch'),
-      'notSelectedText' => t('Set as my Home Branch'),
+      'selectedText' => $this->t('My Home Branch'),
+      'notSelectedText' => $this->t('Set as my Home Branch'),
     ];
   }
 

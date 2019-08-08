@@ -24,6 +24,10 @@
       listSelector: '#hb-locations-list',
       btnYesSelector: '.action-save',
       btnNoSelector: '.close, .action-cancel',
+      modalTitle: drupalSettings.home_branch.hb_loc_modal.modalTitle,
+      modalDescription: drupalSettings.home_branch.hb_loc_modal.modalDescription,
+      dontAskTitle: drupalSettings.home_branch.hb_loc_modal.dontAskTitle,
+      learnMoreText: drupalSettings.home_branch.hb_loc_modal.learnMoreText,
       init: function () {
         if (!this.element) {
           return;
@@ -64,6 +68,12 @@
         this.element.find(self.btnNoSelector).on('click', function () {
           self.hide();
         });
+        this.element.find('.open-learn-more').on('click', function () {
+          $('#hb-loc-modal .learn-more').show();
+        });
+        this.element.find('.close-learn-more').on('click', function () {
+          $('#hb-loc-modal .learn-more').hide();
+        });
       },
       hide: function () {
         this.element.addClass('hidden');
@@ -78,24 +88,35 @@
               <div class="hb-loc-modal__modal" tabindex="-1" role="dialog">
                 <div class="modal-content">
                   <div class="hb-loc-modal__modal--header">
-                    <h4><strong>Home branch</strong></h4>
+                    <h4><strong>` + this.modalTitle + `</strong></h4>
                     <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
                   </div>
                   <div class="hb-loc-modal__modal--body">
-                    <div>Would you like to set a different location as your 'home branch'?<br><a>Learn more</a></div>
+                    <div>
+                      ` + this.modalDescription + `<br>
+                      <button type="button" class="btn btn-link open-learn-more">Learn more</button>
+                    </div>
                     <div class="form">
                       <select id="hb-locations-list" required class="form-select form-control">
                         <option value="null" selected>Select location</option>
                       </select>
                       <div class="dont-ask hb-checkbox-wrapper">
                         <input type="checkbox" id="hb-dont-ask-checkbox">
-                        <label for="hb-dont-ask-checkbox">Don't ask me again</label>
+                        <label for="hb-dont-ask-checkbox">` + this.dontAskTitle + `</label>
                       </div>
                     </div>
                   </div>
                   <div class="hb-loc-modal__modal--footer">
                     <button class="btn btn-lg btn-default action-cancel">No</button>
                     <button class="btn btn-lg btn-success action-save">Yes</button>
+                  </div>
+                  
+                  <div class="learn-more">
+                    <h4 class="learn-more-title">
+                      <button type="button" class="btn btn-link close-learn-more">Close</button>
+                      <strong>` + this.modalTitle + `</strong>
+                    </h4>
+                    <div class="learn-more-content">` + this.learnMoreText + `</div>
                   </div>
                 </div>
               </div>

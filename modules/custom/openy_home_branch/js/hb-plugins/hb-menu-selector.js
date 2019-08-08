@@ -22,6 +22,7 @@
       event: 'click',
       element: null,
       menuSelector: drupalSettings.home_branch.hb_menu_selector.menuSelector,
+      defaultTitle: drupalSettings.home_branch.hb_menu_selector.defaultTitle,
       init: function () {
         if (!this.element) {
           return;
@@ -32,7 +33,7 @@
           this.element.text(locations[selected]);
         }
         else {
-          this.element.text('My home branch');
+          this.element.text(this.defaultTitle);
         }
       },
       onChange: function (event, el) {
@@ -41,7 +42,7 @@
       },
       addMarkup: function (context) {
         let menu = $(this.menuSelector);
-        menu.prepend('<li><a class="hb-menu-selector" href="#">My home branch</a></li>');
+        menu.prepend('<li><a class="hb-menu-selector" href="#">' + this.defaultTitle + '</a></li>');
         // Save created element in plugin.
         this.element = $(this.selector, menu);
       },
