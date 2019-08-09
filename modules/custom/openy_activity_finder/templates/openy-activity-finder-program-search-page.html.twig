@@ -87,14 +87,12 @@
               {% set expanded = config_settings['schedule_collapse_group'] == 'enabled_expanded' ? 'false' : 'true' %}
               {% set collapsed_class = config_settings['schedule_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
               {% set wrapper_class = config_settings['schedule_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
-              {% set icon_expanded_show = config_settings['schedule_collapse_group'] == 'enabled_expanded' ? 'none' : 'block' %}
-              {% set icon_collapsed_show = config_settings['schedule_collapse_group'] == 'enabled_expanded' ? 'block' : 'none' %}
+              {% set icon_expanded_show = config_settings['schedule_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
             {% endif %}
 
             {% if collapse_group %}
               <h3 type="button" data-toggle="collapse" data-target="#scheduleGroup" class="{{ collapsed_class }} scheduleGroup" aria-expanded="{{ expanded }}" aria-controls="scheduleGroup">{{ 'Schedule preferences'|t }}
-                <i class="fa fa-plus plus ml-auto" aria-hidden="true" style="display: {{ icon_expanded_show }}"></i>
-                <i class="fa fa-minus minus ml-auto" aria-hidden="true" style="display: {{ icon_collapsed_show }}"></i>
+                <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
               </h3>
               <div class="collapse {{ wrapper_class }}" id="scheduleGroup">
             {% else %}
@@ -135,14 +133,12 @@
               {% set expanded = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'false' : 'true' %}
               {% set collapsed_class = config_settings['category_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
               {% set wrapper_class = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
-              {% set icon_expanded_show = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'none' : 'block' %}
-              {% set icon_collapsed_show = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'block' : 'none' %}
+              {% set icon_expanded_show = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
             {% endif %}
 
             {% if collapse_group %}
               <h3 type="button" data-toggle="collapse" data-target="#activityGroup" class="{{ collapsed_class }} activityGroup" aria-expanded="{{ expanded }}" aria-controls="activityGroup">{{ 'Activity preferences'|t }}
-                <i class="fa fa-plus plus ml-auto" aria-hidden="true" style="display: {{ icon_expanded_show }}"></i>
-                <i class="fa fa-minus minus ml-auto" aria-hidden="true" style="display: {{ icon_collapsed_show }}"></i>
+                <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
               </h3>
               <div class="collapse {{ wrapper_class }}" id="activityGroup">
             {% else %}
@@ -188,14 +184,12 @@
               {% set expanded = config_settings['locations_collapse_group'] == 'enabled_expanded' ? 'false' : 'true' %}
               {% set collapsed_class = config_settings['locations_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
               {% set wrapper_class = config_settings['locations_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
-              {% set icon_expanded_show = config_settings['locations_collapse_group'] == 'enabled_expanded' ? 'none' : 'block' %}
-              {% set icon_collapsed_show = config_settings['locations_collapse_group'] == 'enabled_expanded' ? 'block' : 'none' %}
+              {% set icon_expanded_show = config_settings['locations_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
 
             {% endif %}
             {% if collapse_group %}
               <h3 type="button" data-toggle="collapse" data-target="#locationGroup" class="{{ collapsed_class }} locationGroup" aria-expanded="{{ expanded }}" aria-controls="locationGroup">{{ 'Location preferences'|t }}
-                <i class="fa fa-plus plus ml-auto" aria-hidden="true" style="display: {{ icon_expanded_show }}"></i>
-                <i class="fa fa-minus minus ml-auto" aria-hidden="true" style="display: {{ icon_collapsed_show }}"></i>
+                <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
               </h3>
               <div class="collapse {{ wrapper_class }}" id="locationGroup">
             {% else %}

@@ -832,17 +832,11 @@
       ];
       groups.map(function(group) {
         $('#' + group).on('hide.bs.collapse', function () {
-          $(this).parent().find("." + group + " h3 > i.minus").hide();
-          $(this).parent().find("." + group + " h3 > i.plus").show();
-          /*$(this).parent().find("." + group + " h3 > i").addClass('fa-plus').removeClass('fa-minus');
-          $(this).parent().find("." + group + " h3 > i").addClass('plus').removeClass('minus');*/
+          $("h3." + group + " > i").removeClass('minus').removeClass('fa-minus').addClass('fa-plus').addClass('plus');
         });
 
         $('#' + group).on('show.bs.collapse', function () {
-          $(this).parent().find("." + group + " h3 > i.minus").show();
-          $(this).parent().find("." + group + " h3 > i.plus").hide();
-          /*$(this).parent().find("." + group + "h3 > i").addClass('fa-minus').removeClass('fa-plus');
-          $(this).parent().find("." + group + "h3 > i").addClass('minus').removeClass('plus');*/
+          $("h3." + group + " > i").removeClass('plus').removeClass('fa-plus').addClass('fa-minus').addClass('minus');
         });
       });
     }
