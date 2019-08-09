@@ -280,14 +280,20 @@ class RepeatManager implements SessionInstanceManagerInterface {
         $exclusions = self::reorderExclusions($session_schedule['exclusions']);
         $combined_dates = self::combineDates($dates, $exclusions);
 
+        $user_time_zone = drupal_get_user_timezone();
+
         foreach ($combined_dates as $date) {
           $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
           $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
           $duration = round(abs($to_time - $from_time) / 60,2);
 
+          // Convert time to UTC timestamp considering TZ of the site.
+          $date_from = new \DateTime($date['from'], new \DateTimeZone($user_time_zone));
+          $date_to = new \DateTime($date['to'], new \DateTimeZone($user_time_zone));
+
           $session_instances[] = [
-            'start' => strtotime($date['from']),
-            'end' => strtotime($date['to']),
+            'start' => $date_from->format('U'),
+            'end' => $date_to->format('U'),
             'year' => '*',
             'month' => '*',
             'day' => '*',
