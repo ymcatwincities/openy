@@ -1,11 +1,12 @@
 .hb-loc-modal__modal {
-  position: fixed;
-  z-index: 1500;
-  right: 0;
-  top: 15%;
+  font-size: 14px;
   left: 0;
   margin: 0 auto;
+  position: fixed;
+  right: 0;
+  top: 15%;
   width: 24em;
+  z-index: 1500;
 }
 
 @media (min-width: 30em) {
