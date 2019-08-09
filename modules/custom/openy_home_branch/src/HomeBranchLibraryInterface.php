@@ -58,4 +58,14 @@ interface HomeBranchLibraryInterface extends PluginInspectionInterface {
    */
   public function getLibrarySettings();
 
+  /**
+   * Get plugin cache tags that used for invalidation of an entity cache.
+   *
+   * @return bool|array
+   *   FALSE if no cache tags.
+   *
+   * @see https://www.drupal.org/docs/8/api/cache-api/cache-tags
+   */
+  public function getCacheTags();
+
 }

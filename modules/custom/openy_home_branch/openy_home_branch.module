@@ -35,7 +35,7 @@ function openy_home_branch_preprocess_block(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_node().
+ * Helper function for attaching HB plugins and settings to entity.
  */
 function _openy_home_branch_attach_libraries($entity_type, &$variables) {
   $plugin_service = \Drupal::service('plugin.manager.home_branch_library');
@@ -47,6 +47,11 @@ function _openy_home_branch_attach_libraries($entity_type, &$variables) {
       if ($settings = $instance->getLibrarySettings()) {
         // Add library settings to drupalSettings.
         $plugin_service->attachHbLibrarySettings($variables, $plugin_id, $settings);
+      }
+
+      if ($tags = $instance->getCacheTags()) {
+        // Add Cache tags.
+        $plugin_service->addPluginCacheTags($variables, $tags);
       }
     }
   }
