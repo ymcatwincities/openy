@@ -12,7 +12,7 @@
    */
   Drupal.homeBranch.plugins.push({
     name: 'hb-menu-selector',
-    attach: (settings) => {
+    attach: function (settings) {
       // Attach plugin instance to branch header instead of default
       // branch selector.
       // @see openy_home_branch/js/hb-plugin-base.js
@@ -30,23 +30,24 @@
         if (!this.element) {
           return;
         }
-        let isSelected = $(this.element).val() === Drupal.homeBranch.getValue('id');
+        var isSelected = $(this.element).val() === Drupal.homeBranch.getValue('id');
         this.element.prop('checked', isSelected);
         $(this.labelSelector).text(isSelected ? this.selectedText : this.notSelectedText);
       },
       handleChangeLink: function () {
         $('.hb-branch-selector-change').on('click', function () {
           Drupal.homeBranch.showModal();
+          return false;
         });
       },
       onChange: function (event, el) {
         // Save selected value in сookies storage.
-        let id = ($(el).is(':checked')) ? $(el).val() : null;
+        var id = ($(el).is(':checked')) ? $(el).val() : null;
         Drupal.homeBranch.setId(id);
       },
       addMarkup: function (context) {
-        let id = $(context).data('hb-id');
-        let branchSelector = $(this.placeholderSelector, context);
+        var id = $(context).data('hb-id');
+        var branchSelector = $(this.placeholderSelector, context);
         // Replace branch selector implementation by home branch alternative.
         branchSelector.each(function() {
           $(this).replaceWith(`
@@ -64,7 +65,7 @@
         // Save created element in plugin.
         this.element = $('.hb-location-checkbox-' + id);
         this.handleChangeLink();
-      },
+      }
     }
   });
 
