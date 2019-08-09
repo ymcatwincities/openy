@@ -12,7 +12,7 @@
    */
   Drupal.homeBranch.plugins.push({
     name: 'hb-menu-selector',
-    attach: (settings) => {
+    attach: function (settings) {
       // Attach plugin instance to header menu item.
       // @see openy_home_branch/js/hb-plugin-base.js
       $('.hb-menu-selector').hbPlugin(settings);
@@ -45,8 +45,8 @@
         menu.prepend('<li><a class="hb-menu-selector" href="#">' + this.defaultTitle + '</a></li>');
         // Save created element in plugin.
         this.element = $(this.selector, menu);
-      },
-    },
+      }
+    }
   });
 
 })(jQuery, Drupal, drupalSettings);
