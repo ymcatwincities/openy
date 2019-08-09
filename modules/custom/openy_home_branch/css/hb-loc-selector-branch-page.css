@@ -19,3 +19,11 @@
 .hb-branch-selector .hb-branch-selector-change {
   font-size: 13px;
 }
+
+.hb-branch-selector-change-wrapper {
+  display: none;
+}
+
+.hb-branch-selector--selected .hb-branch-selector-change-wrapper {
+  display: inline;
+}

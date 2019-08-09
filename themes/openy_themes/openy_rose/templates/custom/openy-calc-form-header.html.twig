@@ -11,7 +11,9 @@
       {% endfor %}
       {% for step in steps %}
       <li{% if step.active %} class="active"{% endif %}>
-        <div class="step-{{ step.number }}" data-toggle="tab" data-step="{{ step.number }}" {% if step.number == active_step %}aria-label="{{ 'current step is'|t }} {{ step.title }}"{% endif %}><span class="nav-pills__text">{{ step.number }}. {{ step.title }}</span></div>
+        <div class="step-{{ step.number }}" data-toggle="tab" data-step="{{ step.number }}">
+          <span class="nav-pills__text" {% if step.number == active_step %}aria-label="{{ 'current step is'|t }} {{ step.title }}"{% endif %}>{{ step.number }}. {{ step.title }}</span>
+        </div>
       </li>
       {% endfor %}
     </ul>
