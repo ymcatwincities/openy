@@ -14,3 +14,8 @@
 .hb-branch-selector .hb-location-checkbox-wrapper input:checked ~ label:before {
   border: solid 1px #2196F3;
 }
+
+.hb-branch-selector .hb-branch-selector-change-wrapper,
+.hb-branch-selector .hb-branch-selector-change {
+  font-size: 13px;
+}
