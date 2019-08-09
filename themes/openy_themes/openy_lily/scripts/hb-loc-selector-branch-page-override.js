@@ -25,8 +25,8 @@
               <div class="hb-branch-selector">
                 <div class="hb-location-checkbox-wrapper">
                   <span class="hb-checkbox-wrapper">
-                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + ` + " class="hb-location-checkbox hb-location-checkbox-` + id + `">
-                    <label for="hb-location-checkbox-` + id + ` + ">` + this.selectedText + `</label>
+                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
+                    <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
                   </span>
                   <span class="hb-branch-selector-change-wrapper">[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
                 </div>
@@ -35,6 +35,7 @@
           });
           // Save created element in plugin.
           this.element = $('.hb-location-checkbox-' + id);
+          this.wrapper = $('.hb-branch-selector');
           this.handleChangeLink();
         }
       }

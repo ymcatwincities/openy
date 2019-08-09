@@ -13,11 +13,11 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.openyHomeBranchLocationFinderSort = {
-    attach(context, settings) {
+    attach: function (context, settings) {
       $(document).once().on('hb-location-finder-sort', function (event, el) {
-        let items = $(el).find('.views-row');
+        var items = $(el).find('.views-row');
         items.each(function (index) {
-          let weight = $(this).attr('data-hb-sort');
+          var weight = $(this).attr('data-hb-sort');
           if (weight == -1) {
             $(this).prependTo(el);
           }
@@ -31,11 +31,11 @@
    */
   Drupal.homeBranch.plugins.push({
     name: 'hb-location-finder',
-    attach: (settings) => {
+    attach: function (settings) {
       var locationsList = $(drupalSettings.home_branch.hb_location_finder.locationsList);
       locationsList.find(drupalSettings.home_branch.hb_location_finder.branchTeaserSelector)
         .each(function (index) {
-          let el = $(this);
+          var el = $(this);
           // Add sort attribute with default index for correct order on change.
           el.closest('.views-row').attr('data-hb-sort', index);
           el.closest('.views-row').attr('data-hb-sort-origin', index);
@@ -60,8 +60,8 @@
         if (!this.element) {
           return;
         }
-        let selected = Drupal.homeBranch.getValue('id');
-        let branchEl = this.element.closest(this.branchTeaserSelector);
+        var selected = Drupal.homeBranch.getValue('id');
+        var branchEl = this.element.closest(this.branchTeaserSelector);
         if ($(this.element).val() === selected) {
           this.element.prop('checked', true);
           branchEl.addClass('hb-selected');
@@ -78,13 +78,13 @@
       onChange: function (event, el) {
         if ($(el).attr('id') == this.element.attr('id')) {
           // Save selected value in сookies storage.
-          let id = ($(el).is(':checked')) ? $(el).val() : null;
+          var id = ($(el).is(':checked')) ? $(el).val() : null;
           Drupal.homeBranch.setId(id);
         }
       },
       addMarkup: function (context) {
-        let id = context.data('hb-id');
-        let $markup = $(`
+        var id = context.data('hb-id');
+        var $markup = $(`
               <div class="hb-location-checkbox-wrapper hb-checkbox-wrapper">
                 <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox">
                 <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
@@ -94,7 +94,7 @@
         // Save created element in plugin.
         this.element = $markup.find('input');
       }
-    },
+    }
   });
 
 })(jQuery, Drupal, drupalSettings);
