@@ -80,7 +80,7 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
     $result = $query->execute()->fetchAllKeyed();
 
     return [
-      'menuSelector' => '.nav-global .page-head__top-menu ul.navbar-nav',
+      'menuSelector' => '.nav-global .page-head__top-menu ul.navbar-nav, .sidebar .page-head__top-menu ul.navbar-nav',
       'defaultTitle' => $this->t('My home branch'),
       'locations' => $result,
     ];
