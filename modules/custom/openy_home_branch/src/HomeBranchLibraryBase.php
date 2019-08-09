@@ -56,4 +56,11 @@ class HomeBranchLibraryBase extends PluginBase implements HomeBranchLibraryInter
     return FALSE;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    return FALSE;
+  }
+
 }

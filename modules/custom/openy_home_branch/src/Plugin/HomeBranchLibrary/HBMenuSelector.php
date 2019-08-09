@@ -32,11 +32,19 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
   protected $database;
 
   /**
+   * Branches list.
+   *
+   * @var array
+   */
+  protected $branchesList = [];
+
+  /**
    * {@inheritdoc}
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->database = $database;
+    $this->branchesList = $this->getBranches();
   }
 
   /**
@@ -66,10 +74,9 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
   }
 
   /**
-   * {@inheritdoc}
+   * Get branches list.
    */
-  public function getLibrarySettings() {
-    // Get locations list.
+  public function getBranches() {
     $query = $this->database->select('node_field_data', 'n');
     $query->fields('n', ['nid', 'title']);
     $query->condition('n.status', NodeInterface::PUBLISHED);
@@ -77,13 +84,30 @@ class HBMenuSelector extends HomeBranchLibraryBase implements ContainerFactoryPl
     $query->orderBy('n.title');
     $query->addTag('openy_home_branch_get_locations');
     $query->addTag('node_access');
-    $result = $query->execute()->fetchAllKeyed();
+    return $query->execute()->fetchAllKeyed();
+  }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getLibrarySettings() {
     return [
       'menuSelector' => '.nav-global .page-head__top-menu ul.navbar-nav, .sidebar .page-head__top-menu ul.navbar-nav',
       'defaultTitle' => $this->t('My home branch'),
-      'locations' => $result,
+      'locations' => $this->branchesList,
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    $tags = ['node_list'];
+    foreach(array_keys($this->branchesList) as $id) {
+      $tags[] = 'node:' . $id;
+    }
+
+    return $tags;
   }
 
 }
