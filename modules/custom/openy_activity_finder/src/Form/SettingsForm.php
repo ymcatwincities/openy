@@ -99,7 +99,19 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Schedule preferences'),
       '#open' => TRUE,
     ];
+    $options = [
+      'disabled' => $this->t('Disabled'),
+      'enabled_collapsed' => $this->t('Enabled - Collapsed'),
+      'enabled_expanded' => $this->t('Enabled - Expanded'),
+    ];
 
+    $form['collapse']['schedule']['schedule_collapse_group'] = [
+      '#title' => $this->t('Settings for whole group.'),
+      '#type' => 'radios',
+      '#options' => $options,
+      '#default_value' => $config->get('schedule_collapse_group') ? $config->get('schedule_collapse_group') : 'disabled',
+      '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
+    ];
     if (isset($component['facets']->days_of_week)) {
       $form['collapse']['schedule']['schedule_days'] = [
         '#title' => $this->t('Days'),
@@ -114,11 +126,17 @@ class SettingsForm extends ConfigFormBase {
         '#default_value' => $config->get('schedule_ages'),
       ];
     }
-
     $form['collapse']['category'] = [
       '#type' => 'details',
       '#title' => $this->t('Activity preferences'),
       '#open' => TRUE,
+    ];
+    $form['collapse']['category']['category_collapse_group'] = [
+      '#title' => $this->t('Settings for whole group.'),
+      '#type' => 'radios',
+      '#options' => $options,
+      '#default_value' => $config->get('category_collapse_group') ? $config->get('category_collapse_group') : 'disabled',
+      '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
     foreach ($component['facets']->field_category_program as $category) {
       if ($category->filter != '!') {
@@ -145,6 +163,14 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'details',
       '#title' => $this->t('Location preferences'),
       '#open' => TRUE,
+    ];
+
+    $form['collapse']['locations']['locations_collapse_group'] = [
+      '#title' => $this->t('Settings for whole group.'),
+      '#type' => 'radios',
+      '#options' => $options,
+      '#default_value' => $config->get('locations_collapse_group') ? $config->get('locations_collapse_group') : 'disabled',
+      '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
 
     foreach ($component['groupedLocations'] as $groupedLocation) {
@@ -199,6 +225,12 @@ class SettingsForm extends ConfigFormBase {
 
     $config->set('schedule_days', $form_state->getValue('schedule_days'))->save();
     $config->set('schedule_ages', $form_state->getValue('schedule_ages'))->save();
+
+    $config->set('schedule_collapse_group', $form_state->getValue('schedule_collapse_group'))->save();
+    $config->set('category_collapse_group', $form_state->getValue('category_collapse_group'))->save();
+    $config->set('locations_collapse_group', $form_state->getValue('locations_collapse_group'))->save();
+
+    $config->set('make_groups_collapsiable', $form_state->getValue('make_groups_collapsiable'))->save();
 
     parent::submitForm($form, $form_state);
   }

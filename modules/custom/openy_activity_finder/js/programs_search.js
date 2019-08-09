@@ -67,7 +67,6 @@
         let is_expanded = true;
         prefixes.map(function(prefix) {
           if (config_settings[prefix + '_' + label] != 'undefined' && config_settings[prefix + '_' + label]) {
-            console.log(prefix + '_' + label, config_settings[prefix + '_' + label]);
             is_expanded = false;
           }
         });
@@ -276,7 +275,7 @@
         radios: [],
         checked: [],
         expanded: true,
-        expanded_checkboxes: {},
+        expanded_checkboxes: [],
         dependencies: {},
       }
     },
@@ -454,11 +453,10 @@
         learn_more: '',
         more_results: ''
       },
-      config_settings: [],
+      configSettings: [],
     },
     created: function() {
       var component = this;
-
       if (typeof this.$route.query.locations != 'undefined') {
         var locationsGet = decodeURIComponent(this.$route.query.locations);
         for (let i = 0; i < locationsGet.length; i++) {
@@ -824,5 +822,30 @@
     },
     delimiters: ["${","}"]
   });
+
+  Drupal.behaviors.openyGroupsCollapse = {
+    attach: function (context, settings) {
+      let groups = [
+          'scheduleGroup',
+          'activityGroup',
+          'locationGroup'
+      ];
+      groups.map(function(group) {
+        $('#' + group).on('hide.bs.collapse', function () {
+          $(this).parent().find("." + group + " h3 > i.minus").hide();
+          $(this).parent().find("." + group + " h3 > i.plus").show();
+          /*$(this).parent().find("." + group + " h3 > i").addClass('fa-plus').removeClass('fa-minus');
+          $(this).parent().find("." + group + " h3 > i").addClass('plus').removeClass('minus');*/
+        });
+
+        $('#' + group).on('show.bs.collapse', function () {
+          $(this).parent().find("." + group + " h3 > i.minus").show();
+          $(this).parent().find("." + group + " h3 > i.plus").hide();
+          /*$(this).parent().find("." + group + "h3 > i").addClass('fa-minus').removeClass('fa-plus');
+          $(this).parent().find("." + group + "h3 > i").addClass('minus').removeClass('plus');*/
+        });
+      });
+    }
+  }
 
 })(jQuery);
