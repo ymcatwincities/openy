@@ -69,10 +69,10 @@
           self.hide();
         });
         this.element.find('.open-learn-more').on('click', function () {
-          $('#hb-loc-modal .learn-more').show();
+          self.element.addClass('modal-content__learn_more');
         });
         this.element.find('.close-learn-more').on('click', function () {
-          $('#hb-loc-modal .learn-more').hide();
+          self.element.removeClass('modal-content__learn_more');
         });
       },
       hide: function () {
@@ -111,11 +111,11 @@
                     <button class="btn btn-lg btn-success action-save">Yes</button>
                   </div>
                   
-                  <div class="learn-more">
-                    <h4 class="learn-more-title">
-                      <button type="button" class="btn btn-link close-learn-more">Close</button>
-                      <strong>` + this.modalTitle + `</strong>
-                    </h4>
+                  <div class="hb-loc-modal__modal--learn-more">
+                    <div class="learn-more-title">
+                        <h4 class="learn-more-title--label">` + this.modalTitle + `</h4>
+                        <button type="button" class="btn btn-link close-learn-more">Close</button>
+                    </div>
                     <div class="learn-more-content">` + this.learnMoreText + `</div>
                   </div>
                 </div>
