@@ -23,10 +23,10 @@
           branchTitle.each(function() {
             $(this).append(`
               <div class="hb-branch-selector">
-                <div class="hb-location-checkbox-wrapper">
+                <div class="hb-location-checkbox-wrapper" style="text-align: left;">
                   <span class="hb-checkbox-wrapper">
-                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + ` + " class="hb-location-checkbox hb-location-checkbox-` + id + `">
-                    <label for="hb-location-checkbox-` + id + ` + ">` + this.selectedText + `</label>
+                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
+                    <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
                   </span>
                   <span class="hb-branch-selector-change-wrapper">[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
                 </div>

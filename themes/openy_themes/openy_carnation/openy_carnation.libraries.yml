@@ -43,3 +43,14 @@ hb_menu_selector_override:
   dependencies:
     - core/drupalSettings
     - openy_home_branch/menu_selector
+
+hb_location_finder_override:
+  version: 0.1
+  js:
+    src/js/hb-location-finder-override.js: {}
+  css:
+    theme:
+      src/css/hb-location-finder-override.css: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/location_finder
