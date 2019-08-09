@@ -79,7 +79,11 @@
           </div>
 
           <div id="schedules-filters" class="w-100 flex-column">
-            <h3>{{ 'Schedule preferences'|t }}</h3>
+            <h3 type="button" data-toggle="collapse" data-target="#scheduleGroup" aria-expanded="false" aria-controls="scheduleGroup">{{ 'Schedule preferences'|t }}
+              <i class="fa fa-minus minus ml-auto" aria-hidden="true"></i>
+              <i class="fa fa-plus plus ml-auto" aria-hidden="true"></i>
+            </h3>
+            <div class="collapse" id="scheduleGroup">
             {% block sidebar_filters %}
             <sidebar-filter
               ref="ages_filter"
