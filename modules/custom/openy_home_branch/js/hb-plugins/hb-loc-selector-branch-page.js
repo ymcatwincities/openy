@@ -11,7 +11,7 @@
    * Add plugin, that related to Location Finder.
    */
   Drupal.homeBranch.plugins.push({
-    name: 'hb-menu-selector',
+    name: 'hb-loc-selector-branch-page',
     attach: function (settings) {
       // Attach plugin instance to branch header instead of default
       // branch selector.
@@ -57,7 +57,7 @@
                     <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + ` + " class="hb-location-checkbox hb-location-checkbox-` + id + `">
                     <label for="hb-location-checkbox-` + id + ` + ">` + this.selectedText + `</label>
                   </span>
-                  <span>[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
+                  <span class="hb-branch-selector-change-wrapper">[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
                 </div>
               </div>
             `);
