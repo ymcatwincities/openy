@@ -4,6 +4,7 @@ namespace Drupal\openy_home_branch;
 
 use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Cache\Cache;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Plugin\Factory\ContainerFactory;
@@ -30,7 +31,7 @@ class HomeBranchLibraryManager extends DefaultPluginManager {
     );
 
     $this->alterInfo('home_branch_library_info');
-    $this->setCacheBackend($cache_backend, 'home_branch_library');
+    $this->setCacheBackend($cache_backend, 'home_branch_library', ['node_list']);
     $this->factory = new ContainerFactory($this->getDiscovery());
   }
 
@@ -50,16 +51,34 @@ class HomeBranchLibraryManager extends DefaultPluginManager {
   /**
    * Helper function for attaching Drupal Settings required bu plugin.
    *
-   * @param array $attached
-   *   Attached array from preprocess variables - $variables['#attached'].
+   * @param array $variables
+   *   Preprocess variables - $variables.
    * @param string $plugin_id
    *   Home Branch plugin ID, used as key/identifier in HB settings list.
    * @param array $settings
    *   Plugin settings that used on front-end.
    */
-  public static function attachHbLibrarySettings(array &$attached, $plugin_id, array $settings) {
+  public static function attachHbLibrarySettings(array &$variables, $plugin_id, array $settings) {
     $parents = ['#attached', 'drupalSettings', 'home_branch', $plugin_id];
-    NestedArray::setValue($attached, $parents, $settings, TRUE);
+    NestedArray::setValue($variables, $parents, $settings, TRUE);
+  }
+
+  /**
+   * Helper function for adding plugin cache tags to default tags.
+   *
+   * @param array $variables
+   *   Preprocess variables - $variables.
+   * @param array $tags
+   *   Plugin cache tags that used for invalidation of an entity cache.
+   */
+  public static function addPluginCacheTags(array &$variables, array $tags) {
+    $default_tags = [];
+    if (isset($variables['#cache']['tags'])) {
+      $default_tags = $variables['#cache']['tags'];
+    }
+    $result = Cache::mergeTags($default_tags, $tags);
+
+    NestedArray::setValue($variables, ['#cache', 'tags'], $result, TRUE);
   }
 
 }
