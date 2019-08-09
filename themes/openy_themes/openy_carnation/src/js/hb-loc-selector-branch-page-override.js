@@ -35,6 +35,7 @@
           });
           // Save created element in plugin.
           this.element = $('.hb-location-checkbox-' + id);
+          this.wrapper = $('.hb-branch-selector');
           this.handleChangeLink();
         }
       }

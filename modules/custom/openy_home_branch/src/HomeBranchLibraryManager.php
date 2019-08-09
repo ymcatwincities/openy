@@ -60,7 +60,9 @@ class HomeBranchLibraryManager extends DefaultPluginManager {
    */
   public static function attachHbLibrarySettings(array &$variables, $plugin_id, array $settings) {
     $parents = ['#attached', 'drupalSettings', 'home_branch', $plugin_id];
-    NestedArray::setValue($variables, $parents, $settings, TRUE);
+    $old_settings = NestedArray::getValue($variables, $parents) ?: [];
+    $merged_settings = array_merge($old_settings, $settings);
+    NestedArray::setValue($variables, $parents, $merged_settings, TRUE);
   }
 
   /**
