@@ -80,3 +80,11 @@ subcategory-search-form:
     - core/jquery.once
     - core/drupal
     - core/drupalSettings
+
+hb_loc_selector_branch_page_override:
+  version: 0.1
+  js:
+    scripts/hb-loc-selector-branch-page-override.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/loc_selector_branch_page
