@@ -7,11 +7,12 @@
 }
 
 .locations .node--type-branch .hb-location-checkbox-wrapper {
-  padding: 20px;
   align-self: end;
-  width: 100%;
   background-color: #f2f2f2;
+  border-top: solid 1px #cccccc;
   margin: auto 0 0 0;
+  padding: 20px;
+  width: 100%;
 }
 
 .locations .node--type-branch.node--view-mode-teaser.hb-selected .hb-location-checkbox-wrapper {
