@@ -43,6 +43,17 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
           $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
         }
         break;
+
+      case 'branch':
+        // Check that home branch enabled.
+        if (\Drupal::hasService('plugin.manager.home_branch_library')) {
+          if (!$variables['page']) {
+            return;
+          }
+          // Fix hb_loc_selector_branch_page plugin for Open Y Carnation theme.
+          $variables['#attached']['library'][] = 'openy_carnation/hb_loc_selector_branch_page_override';
+        }
+        break;
     }
   }
 }
@@ -85,6 +96,11 @@ function openy_carnation_preprocess_menu(&$variables) {
 function openy_carnation_preprocess_page(array &$variables) {
   $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
   $variables['display_search'] = theme_get_setting('display_search_form');
+
+  if (\Drupal::hasService('plugin.manager.home_branch_library')) {
+    // Fix hb_menu_selector plugin for Open Y Carnation theme.
+    $variables['#attached']['library'][] = 'openy_carnation/hb_menu_selector_override';
+  }
 }
 
 /**
