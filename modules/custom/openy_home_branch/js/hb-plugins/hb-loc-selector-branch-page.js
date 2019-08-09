@@ -11,7 +11,7 @@
    * Add plugin, that related to Location Finder.
    */
   Drupal.homeBranch.plugins.push({
-    name: 'hb-menu-selector',
+    name: 'hb-loc-selector-branch-page',
     attach: function (settings) {
       // Attach plugin instance to branch header instead of default
       // branch selector.
