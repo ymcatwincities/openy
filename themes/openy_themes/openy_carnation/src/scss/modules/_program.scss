@@ -275,6 +275,15 @@
       padding-right: 0;
     }
   }
+
+  .btn {
+    color: $dark-blue;
+    border-color: $dark-blue;
+    &:hover {
+      background-color: $dark-blue;
+      color: $white;
+    }
+  }
 }
 
 .sub-category-classes-view {

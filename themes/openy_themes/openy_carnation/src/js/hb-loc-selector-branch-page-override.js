@@ -1,6 +1,6 @@
 /**
  * @file
- * Home branch extension override example.
+ * Carnation overrides Home branch branch page selector plugin.
  */
 
 (function ($, Drupal, drupalSettings) {
@@ -18,12 +18,12 @@
         // @see openy_home_branch/js/hb-plugins/hb-loc-selector-branch-page.js
         Drupal.homeBranch.plugins[key]['settings']['addMarkup'] = function (context) {
           var id = $(context).data('hb-id');
-          var branchTitle = $('.location-masthead .masthead-brand', context);
+          var branchTitle = $('.address-wrapper.branch-header__item', context);
           // Insert hb-branch-selector after title (For mobile and desktop).
           branchTitle.each(function() {
-            $(this).after(`
+            $(this).append(`
               <div class="hb-branch-selector">
-                <div class="hb-location-checkbox-wrapper">
+                <div class="hb-location-checkbox-wrapper" style="text-align: left;">
                   <span class="hb-checkbox-wrapper">
                     <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
                     <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>

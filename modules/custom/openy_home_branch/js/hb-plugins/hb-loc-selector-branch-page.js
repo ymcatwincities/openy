@@ -22,10 +22,12 @@
       selector: '.hb-location-checkbox',
       event: 'change',
       element: null,
+      wrapper: null,
       labelSelector: '.hb-location-checkbox-wrapper label',
       selectedText: drupalSettings.home_branch.hb_loc_selector_branch_page.selectedText,
       notSelectedText: drupalSettings.home_branch.hb_loc_selector_branch_page.notSelectedText,
       placeholderSelector: drupalSettings.home_branch.hb_loc_selector_branch_page.placeholderSelector,
+      selectedClass: 'hb-branch-selector--selected',
       init: function () {
         if (!this.element) {
           return;
@@ -33,6 +35,11 @@
         var isSelected = $(this.element).val() === Drupal.homeBranch.getValue('id');
         this.element.prop('checked', isSelected);
         $(this.labelSelector).text(isSelected ? this.selectedText : this.notSelectedText);
+
+        this.wrapper.removeClass(this.selectedClass);
+        if (isSelected) {
+          this.wrapper.addClass(this.selectedClass);
+        }
       },
       handleChangeLink: function () {
         $('.hb-branch-selector-change').on('click', function () {
@@ -54,8 +61,8 @@
               <div class="hb-branch-selector">
                 <div class="hb-location-checkbox-wrapper">
                   <span class="hb-checkbox-wrapper">
-                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + ` + " class="hb-location-checkbox hb-location-checkbox-` + id + `">
-                    <label for="hb-location-checkbox-` + id + ` + ">` + this.selectedText + `</label>
+                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
+                    <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
                   </span>
                   <span class="hb-branch-selector-change-wrapper">[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
                 </div>
@@ -64,6 +71,7 @@
         });
         // Save created element in plugin.
         this.element = $('.hb-location-checkbox-' + id);
+        this.wrapper = $('.hb-branch-selector');
         this.handleChangeLink();
       }
     }
