@@ -27,7 +27,7 @@ body.toolbar-fixed.toolbar-horizontal .viewport .schedule-dashboard__sidebar .na
   align-items: center;
 }
 
-.schedule-dashboard__sidebar .navbar-header a[data-toggle] {
+.schedule-dashboard__sidebar .navbar-header [data-toggle] {
   color: #4f4f4f;
   text-decoration: none;
   cursor: pointer;
