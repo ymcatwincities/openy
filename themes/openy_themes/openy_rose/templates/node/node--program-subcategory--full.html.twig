@@ -95,9 +95,11 @@ set classes = [
           <h1>{{ label }}</h1>
           {{ content.field_category_program }}
         </div>
-        <div class="col-md-4 hidden-xs hidden-sm image">
-          {{ content.field_category_image }}
-        </div>
+        {%  if content.field_category_image|render|striptags|length > 0 %}
+          <div class="col-md-4 hidden-xs hidden-sm image">
+            {{ content.field_category_image }}
+          </div>
+        {% endif %}
       </div>
     </div>
   </div>
