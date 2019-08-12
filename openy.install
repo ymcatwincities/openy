@@ -1033,7 +1033,6 @@ function openy_update_8070() {
  */
 function openy_update_8075() {
   $modules = [
-    'update',
     'openy_update'
   ];
   foreach ($modules as $module) {
