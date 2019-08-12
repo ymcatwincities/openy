@@ -5,4 +5,5 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - update
+  - drupal:update
+  - drupal:file
