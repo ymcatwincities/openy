@@ -61,7 +61,7 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
   // Add alt attributes to images in subprogram listings.
   if ($view_mode == 'teaser') {
     $entity = $variables['elements']['#node'];
-    if (!$entity->get('field_category_image')->isEmpty()) {
+    if ($entity->hasField('field_category_image') && !$entity->get('field_category_image')->isEmpty()) {
       $entity->get('field_category_image')->entity->get('field_media_image')->alt = $entity->label();
     }
   }
@@ -106,6 +106,7 @@ function openy_carnation_preprocess_menu(&$variables) {
 function openy_carnation_preprocess_page(array &$variables) {
   $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
   $variables['display_search'] = theme_get_setting('display_search_form');
+  $variables['base_path'] = \Drupal::request()->getSchemeAndHttpHost();
 
   if (Drupal::hasService('plugin.manager.home_branch_library')) {
     // Fix hb_menu_selector plugin for Open Y Carnation theme.
