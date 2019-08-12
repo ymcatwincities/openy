@@ -2626,6 +2626,13 @@ body {
     margin-bottom: 0;
   }
 }
+.program-header h1.banner-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.program-header .field-header-content {
+  margin-bottom: 20px;
+}
 .program-header.program-header-sub-category {
   margin-bottom: 0;
   overflow: hidden;
