@@ -85,7 +85,8 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('When checked disables Spots Available feature on Results page.'),
     ];
 
-    $component = $this->getActivityFinderDataStructure();
+    // This is not approved yet.
+    //$component = $this->getActivityFinderDataStructure();
 
     $form['collapse'] = [
       '#type' => 'details',
@@ -112,7 +113,8 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('schedule_collapse_group') ? $config->get('schedule_collapse_group') : 'disabled',
       '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
-    if (isset($component['facets']->days_of_week)) {
+    // This is not approved yet.
+    /*if (isset($component['facets']->days_of_week)) {
       $form['collapse']['schedule']['schedule_days'] = [
         '#title' => $this->t('Days'),
         '#type' => 'checkbox',
@@ -125,7 +127,7 @@ class SettingsForm extends ConfigFormBase {
         '#type' => 'checkbox',
         '#default_value' => $config->get('schedule_ages'),
       ];
-    }
+    }*/
     $form['collapse']['category'] = [
       '#type' => 'details',
       '#title' => $this->t('Activity preferences'),
@@ -138,6 +140,8 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('category_collapse_group') ? $config->get('category_collapse_group') : 'disabled',
       '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
+    // This is not approved yet.
+    /*
     foreach ($component['facets']->field_category_program as $category) {
       if ($category->filter != '!') {
         $machine_name = 'category_' . str_replace(' ', '_', strtolower($category->filter));
@@ -157,7 +161,7 @@ class SettingsForm extends ConfigFormBase {
           '#default_value' => $config->get($machine_name),
         ];
       }
-    }
+    }*/
 
     $form['collapse']['locations'] = [
       '#type' => 'details',
@@ -173,14 +177,15 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
 
-    foreach ($component['groupedLocations'] as $groupedLocation) {
+    // This is not approved yet.
+    /*foreach ($component['groupedLocations'] as $groupedLocation) {
       $machine_name = 'locations_' . strtolower($groupedLocation->label);
       $form['collapse']['locations'][$machine_name] = [
         '#title' => $groupedLocation->label,
         '#type' => 'checkbox',
         '#default_value' => $config->get($machine_name),
       ];
-    }
+    }*/
 
     return parent::buildForm($form, $form_state);
   }
@@ -202,7 +207,8 @@ class SettingsForm extends ConfigFormBase {
 
     $config->set('disable_spots_available', $form_state->getValue('disable_spots_available'))->save();
 
-    $component = $this->getActivityFinderDataStructure();
+    // This is not approved yet.
+    /*$component = $this->getActivityFinderDataStructure();
 
     foreach ($component['groupedLocations'] as $groupedLocation) {
       $machine_name = 'locations_' . strtolower($groupedLocation->label);
@@ -224,13 +230,11 @@ class SettingsForm extends ConfigFormBase {
     }
 
     $config->set('schedule_days', $form_state->getValue('schedule_days'))->save();
-    $config->set('schedule_ages', $form_state->getValue('schedule_ages'))->save();
+    $config->set('schedule_ages', $form_state->getValue('schedule_ages'))->save();*/
 
     $config->set('schedule_collapse_group', $form_state->getValue('schedule_collapse_group'))->save();
     $config->set('category_collapse_group', $form_state->getValue('category_collapse_group'))->save();
     $config->set('locations_collapse_group', $form_state->getValue('locations_collapse_group'))->save();
-
-    $config->set('make_groups_collapsiable', $form_state->getValue('make_groups_collapsiable'))->save();
 
     parent::submitForm($form, $form_state);
   }

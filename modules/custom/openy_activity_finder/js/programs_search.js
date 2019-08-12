@@ -23,6 +23,7 @@
     },
     created: function() {
       this.checkboxes = JSON.parse(this.options);
+      this.config_settings = JSON.parse(this.config_settings);
       if (typeof this.default !== 'undefined') {
         this.checked = this.default.split(',').map(function (item) {
           if (isNaN(item)) {
@@ -89,8 +90,8 @@
       },
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
-        return this.check_expanded_global(label);
-        //return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
+        //return typeof this.expanded_checkboxes[label] == 'undefined' || this.check_expanded_global(label) || this.expanded_checkboxes[label] == false;
+        return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
       collapseAllGroups: function(checkbox) {
         var label = this.getLabel(checkbox);

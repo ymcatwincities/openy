@@ -130,7 +130,7 @@
               config_settings['category_collapse_group'] == 'enabled_expanded')
             %}
               {% set collapse_group = true %}
-              {% set expanded = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'false' : 'true' %}
+              {% set expanded = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'true' : 'false' %}
               {% set collapsed_class = config_settings['category_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
               {% set wrapper_class = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
               {% set icon_expanded_show = config_settings['category_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
