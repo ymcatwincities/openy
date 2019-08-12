@@ -280,7 +280,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
         $exclusions = self::reorderExclusions($session_schedule['exclusions']);
         $combined_dates = self::combineDates($dates, $exclusions);
 
-        $user_time_zone = drupal_get_user_timezone();
+        // Ignore PHP strict notice if time zone has not yet been set in the php.ini configuration.
+        $system_timezone = \Drupal::config('system.date')->get('timezone.default');
+        $user_time_zone = !empty($system_timezone) ? $system_timezone : @date_default_timezone_get();
 
         foreach ($combined_dates as $date) {
           $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
