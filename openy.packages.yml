@@ -5,7 +5,6 @@ alerts:
   modules:
     - openy_node_alert
     - openy_update
-    - update
 
 analytics:
   name: 'Analytics'
