@@ -49,12 +49,12 @@
 
           {# location #}
           <div v-cloak class="location-column">
-            <strong><a href="#" class="schedule-dashboard__modal--location-link" role="button" v-on:click="$parent.populatePopupL(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
+            <strong><a href="#" tabindex="0" class="schedule-dashboard__modal--location-link" role="button" v-on:click="$parent.populatePopupL(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--location">${ item.location }</a></strong>
           </div>
 
           {# class #}
           <div v-cloak>
-            <strong><a href="#" class="schedule-dashboard__modal--class-link" role="button" v-on:click="$parent.populatePopupC(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
+            <strong><a href="#" tabindex="0" class="schedule-dashboard__modal--class-link" role="button" v-on:click="$parent.populatePopupC(index)" data-toggle="modal" data-target=".schedule-dashboard__modal--class">${ item.name }</a></strong>
           </div>
 
           {# time #}
