@@ -2460,6 +2460,9 @@ body {
 .program-header .image {
   margin-top: -40px;
 }
+.program-header #banner .image {
+  margin-top: 0;
+}
 .program-header .main {
   position: static;
 }
@@ -2495,6 +2498,9 @@ body {
     font-size: 60px;
     margin-bottom: 80px;
   }
+}
+.program-header .field-header-content {
+  margin-bottom: 20px;
 }
 .program-header.program-header-sub-category {
   margin-bottom: 0;
