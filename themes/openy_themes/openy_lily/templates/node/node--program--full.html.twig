@@ -83,6 +83,11 @@
 
 {# Program header #}
 <article{{ attributes.addClass('program-header') }}>
+  {% if content.field_header_content is not empty %}
+    <div class="main">
+      {{ content.field_header_content }}
+    </div>
+  {% else %}
   <div{{ content_attributes.addClass('content').setAttribute('style', bg_color) }}>
     <div class="container">
       <div class="row">
@@ -98,6 +103,8 @@
       </div>
     </div>
   </div>
+  {% endif %}
+
   <div class="container">
     <div class="row">
       <div class="col-sm-8 description" style="color: {{ color }};">
@@ -120,11 +127,13 @@
       </div>
 
       {# Program sidebar #}
+      {% if content.field_sidebar_content.0 %}
       <div class="sidebar-region col-sm-4">
         <article class="program-sidebar">
           {{ content.field_sidebar_content }}
         </article>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
