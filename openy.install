@@ -1027,3 +1027,17 @@ function openy_update_8070() {
     'openy.terms_and_conditions.schema',
   ]);
 }
+
+/**
+ * Enable OpenY Update.
+ */
+function openy_update_8075() {
+  $modules = [
+    'openy_update'
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
