@@ -80,7 +80,7 @@
     // Move current data to Cookies storage.
     updateStorage: function () {
       $(document).trigger('hb-before-storage-update', this.data);
-      $.cookie('home_branch', JSON.stringify(this.data), { expires: 360, path: '/' });
+      $.cookie('home_branch', JSON.stringify(this.data), { expires: 360, path: drupalSettings.path.baseUrl });
       $(document).trigger('hb-after-storage-update', this.data);
     },
 
