@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_home_branch install hooks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function openy_home_branch_install() {
+  // We need to clear all caches for correct module work after install.
+  drupal_flush_all_caches();
+}
