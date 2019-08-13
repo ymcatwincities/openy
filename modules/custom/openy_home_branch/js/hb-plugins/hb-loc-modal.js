@@ -74,6 +74,10 @@
         this.element.find('.close-learn-more').on('click', function () {
           self.element.removeClass('modal-content__learn_more');
         });
+        this.element.find('#hb-locations-list').on('change', function () {
+          // Set don't ask checkbox on location select.
+          self.element.find('#hb-dont-ask-checkbox').prop('checked', true);
+        });
       },
       hide: function () {
         this.element.addClass('hidden');
