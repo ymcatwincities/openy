@@ -27,8 +27,8 @@
         if (!this.element) {
           return;
         }
-        let selected = Drupal.homeBranch.getValue('id');
-        let locations = Drupal.homeBranch.getLocations();
+        var selected = Drupal.homeBranch.getValue('id');
+        var locations = Drupal.homeBranch.getLocations();
         if (selected) {
           this.element.text(locations[selected]);
         }
@@ -37,11 +37,18 @@
         }
       },
       onChange: function (event, el) {
-        // Show HB locations modal.
-        Drupal.homeBranch.showModal();
+        var selected = Drupal.homeBranch.getValue('id');
+        if (!selected) {
+          // Show HB locations modal.
+          Drupal.homeBranch.showModal();
+        }
+        else {
+          // Redirect to branch page.
+          location.href = drupalSettings.path.baseUrl + 'node/' + selected;
+        }
       },
       addMarkup: function (context) {
-        let menu = $(this.menuSelector);
+        var menu = $(this.menuSelector);
         menu.prepend('<li><a class="hb-menu-selector" href="#">' + this.defaultTitle + '</a></li>');
         // Save created element in plugin.
         this.element = $(this.selector, menu);
