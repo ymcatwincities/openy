@@ -42,10 +42,10 @@ class HBLocModal extends HomeBranchLibraryBase {
       'modalDescription' => $this->t('Would you like to set a different location as your "home branch"?'),
       'dontAskTitle' => $this->t('Don\'t ask me again'),
       'learnMoreText' => $this->t('
-        <h5>Why set a home branch?</h5>
-        <p>By setting a "home branch", we can help you find content faster. When you search for location-based information - like programs, schedules, and more - we\'ll assume this is the location you\'re searching about.</p>
+        <h5>Why set your home branch?</h5>
+        <p>Many YMCA members primarily visit one YMCA branch. Setting your home branch customizes your experience with schedules and programs for that branch. You are still able to view information for all other branches.</p>
         <h5>Changing your home branch</h5>
-        <p>To change your "home branch" later, you can find the link in the website header. If you have not selected a branch, the link will read "My home branch". If you have set a branch, the link will appear as the branch name.</p>
+        <p>You can change your home branch at any time by using the branch link at the top of the website. If we change the link in the header to go straight to the location page, we\'ll need to update the "Changing your home branch" copy – so lets wed these two tickets. </p>
       '),
     ];
   }
