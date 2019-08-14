@@ -291,7 +291,26 @@
                       {% if not is_spots_available_disabled %}
                       <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
                       {% endif %}
-                      <div v-if="moreInfoPopup.availability_status == 'open'" class="availability_status">
+                      <div v-if="moreInfoPopup.activity_type == 'group'" class="availability_status activity_type">
+                        <div v-if="moreInfoPopup.atc_info != ''" class="addtocalendar">
+                          <var class="atc_event">
+                            <var class="atc_date_start">${ moreInfoPopup.atc_info.time_start_calendar }</var>
+                            <var class="atc_date_end">${ moreInfoPopup.atc_info.time_end_calendar }</var>
+                            <var class="atc_timezone">${ moreInfoPopup.atc_info.timezone }</var>
+                            <var class="atc_title">${ moreInfoPopup.name }</var>
+                            <var class="atc_description">${ moreInfoPopup.description }</var>
+                            <var class="atc_location"></var>
+                            <var class="atc_organizer"></var>
+                          </var>
+                        </div>
+                      </div>
+                      <div v-else-if="moreInfoPopup.activity_type == 'personal'" class="availability_status activity_type">
+                        <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Book this session'|t }}</a>
+                      </div>
+                      <div v-else-if="moreInfoPopup.activity_type == 'small group training'" class="availability_status activity_type">
+                        <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Reserve a spot'|t }}</a>
+                      </div>
+                      <div v-else="moreInfoPopup.availability_status == 'open'" class="availability_status">
                         <a class="btn btn-lg btn-primary" v-bind:href="moreInfoPopup.link" target="_blank">{{ 'Register'|t }}</a>
                       </div>
                     </div>

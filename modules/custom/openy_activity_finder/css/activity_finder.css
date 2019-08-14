@@ -687,3 +687,11 @@
   padding: 0 5px;
 }
 
+.activity_type .addtocalendar {
+  display: block;
+}
+
+.activity_type .addtocalendar .atcb-list {
+  left: 0;
+  margin-top: 5px;
+}
