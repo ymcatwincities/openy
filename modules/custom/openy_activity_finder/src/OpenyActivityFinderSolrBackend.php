@@ -336,10 +336,25 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $price[] = '$' . $entity->field_session_nmbr_price->value . '(non-member)';
       }
 
+      $activity_type = '';
+      if (!empty($entity->field_activity_type->value)) {
+        $activity_type = $entity->field_activity_type->value;
+      }
+
+      $atc_info = [];
+      if ($activity_type == 'group') {
+        // Create "Add to calendar" info for "group" activity types.
+        // Example of calendar format 2018-08-21 14:15:00.
+        $atc_info['time_start_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
+        $atc_info['time_end_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['end_value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
+        $atc_info['timezone'] = drupal_get_user_timezone();
+      }
+
       $item_data = [
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
         'availability_status' => $availability_status,
+        'activity_type' => $activity_type,
         'dates' => isset($full_dates) ? $full_dates : '',
         'weeks' => isset($weeks) ? $weeks : '',
         'schedule' => $schedule_items,
@@ -375,6 +390,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'more_results' => '',
         'more_results_type' => 'program',
         'program_name' => $fields['title']->getValues()[0]->getText(),
+        'atc_info' => $atc_info,
       ];
 
       // Allow other modules to alter the process results.

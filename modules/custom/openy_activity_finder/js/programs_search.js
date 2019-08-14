@@ -413,6 +413,8 @@
         location_address: '',
         location_phone: '',
         availability_status: '',
+        atc_info: '',
+        activity_type: '',
         availability_note: '',
         link: '',
         learn_more: '',
@@ -514,6 +516,26 @@
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
+      });
+    },
+    updated: function() {
+      if (typeof(addtocalendar) !== 'undefined') {
+        addtocalendar.load();
+      }
+      // Fix accessibility features, make atc calendar accessible by keyboard and screen readers.
+      $(".atcb-link").each(function () {
+        $(this).addClass('btn btn-lg btn-primary');
+        $(this).parent().find('ul').find('.atcb-item-link').attr("tabindex", 0);
+        $(this).attr("tabindex", 0).attr("href", '#').on('click', function (e) {
+          e.preventDefault();
+          if (!$(this).hasClass('open')) {
+            $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+            $(this).addClass('open').parent().find('ul').addClass('active').css('visibility', 'visible !important').find('.atcb-item-link:eq(0)').focus();
+          }
+          else {
+            $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+          }
+        });
       });
     },
     methods: {
@@ -667,6 +689,8 @@
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.activity_type = component.table[index].activity_type;
+          component.moreInfoPopup.atc_info = component.table[index].atc_info;
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
@@ -678,6 +702,8 @@
             component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
           }
           component.availabilityPopup.status = component.table[index].availability_status;
+          component.availabilityPopup.activity_type = component.table[index].activity_type;
+          component.availabilityPopup.atc_info = component.table[index].atc_info;
           component.availabilityPopup.note = component.table[index].availability_note;
           component.availabilityPopup.link = component.table[index].link;
           component.availabilityPopup.price = component.table[index].price;
@@ -707,6 +733,8 @@
           component.table[index].price = data.price;
           component.table[index].availability_note = data.availability_note;
           component.table[index].availability_status = data.availability_status;
+          component.table[index].activity_type = data.activity_type;
+          component.table[index].atc_info = data.atc_info;
           component.table[index].spots_available = data.spots_available;
           component.table[index].ages = data.ages;
           component.table[index].gender = data.gender;
@@ -731,6 +759,8 @@
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.activity_type = component.table[index].activity_type;
+          component.moreInfoPopup.atc_info = component.table[index].atc_info;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
@@ -742,6 +772,8 @@
             component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
           }
           component.availabilityPopup.status = component.table[index].availability_status;
+          component.availabilityPopup.activity_type = component.table[index].activity_type;
+          component.availabilityPopup.atc_info = component.table[index].atc_info;
           component.availabilityPopup.note = component.table[index].availability_note;
           component.availabilityPopup.link = component.table[index].link;
           component.availabilityPopup.price = component.table[index].price;

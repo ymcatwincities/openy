@@ -33,5 +33,4 @@ openy_activity_finder_search:
     - openy_system/vue
     - openy_system/vue_router
     - openy_system/moment
-
-
+    - openy_system/addtocal
