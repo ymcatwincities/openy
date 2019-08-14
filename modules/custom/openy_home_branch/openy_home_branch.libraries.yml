@@ -60,6 +60,7 @@ pef_location:
   dependencies:
     - core/drupalSettings
     - openy_home_branch/cookies_storage
+    - openy_system/openy_system.ajax_spinner
 
 loc_selector_branch_page:
   version: 0.1
