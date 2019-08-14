@@ -218,7 +218,7 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    /* @var $config \Drupal\Core\Config\Config */
+
     $config = $this->config('openy_activity_finder.settings');
 
     $config->set('backend', $form_state->getValue('backend'))->save();
