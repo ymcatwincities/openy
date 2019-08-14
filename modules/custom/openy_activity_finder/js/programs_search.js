@@ -17,19 +17,9 @@
         checkboxes: [],
         checked: [],
         expanded_checkboxes: {},
+        start_states: {},
         dependencies: {},
         is_expanded: false,
-      }
-    },
-    mounted: function() {
-      this.checkboxes = JSON.parse(this.options);
-      for (var i in this.checkboxes) {
-        checkbox = this.checkboxes[i];
-        if (typeof checkbox == 'object') {
-          for (var k in checkbox.value) {
-            this.check_expanded(checkbox.label);
-          }
-        }
       }
     },
     created: function() {
@@ -50,9 +40,26 @@
             var item = checkbox.value[k];
             var value = isNaN(item.value) ? item.value : +item.value;
             this.dependencies[checkbox.label].push(value);
-            this.check_expanded(checkbox.label);
           }
         }
+      }
+      if (this.id != 'age-filter' && this.id != 'days-filter') {
+        for (var i in this.checkboxes) {
+          checkbox = this.checkboxes[i];
+          if (typeof checkbox == 'object') {
+            for (var k in checkbox.value) {
+              this.check_expanded(checkbox.label);
+            }
+          }
+        }
+      } else {
+        if (this.id == 'age-filter') {
+          label = 'ages';
+        }
+        if (this.id == 'days-filter') {
+          label = 'days';
+        }
+        this.check_expanded(label);
       }
     },
     watch: {
@@ -66,6 +73,9 @@
         }
         this.$emit('updated-values', cleanValues);
       }
+    },
+    destroyed: function () {
+      this.start_states = [];
     },
     methods: {
       check_expanded: function(label) {
@@ -86,10 +96,8 @@
         field = prefix + '_' + label_transformed;
 
         if (typeof expander_sections_config[field] !== undefined) {
-          this.expanded_checkboxes[label] = expander_sections_config[field];
-          this.expanded = expander_sections_config[field];
+          this.start_states[label.toLowerCase()] = expander_sections_config[field];
         }
-
       },
 
       clear: function() {
@@ -107,6 +115,18 @@
       getLabel: function(data) {
         return data.label;
       },
+      checkStartStates: function(label) {
+        label = label.toLowerCase();
+        console.log(label, this.start_states[label]);
+        if (this.start_states.length) {
+          return this.start_states[label] !== undefined ? this.start_states[label] : false;
+        }
+        else {
+          return -1;
+        }
+
+      },
+
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
@@ -254,16 +274,16 @@
     '                <label v-if="!hide_label" v-on:click="expanded = !expanded;">\n' +
     '                 {{ title }}\n' +
     '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>'+
-    '                  <i v-if="expanded " class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' +
+    '                  <i v-if="expanded && (checkStartStates(title) || checkStartStates(title) == -1) " class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
+    '                  <i v-if="!expanded && (!checkStartStates(title) || checkStartStates(title) == -1)" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' +
     '                </label>\n' +
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
-    '                     v-show="type != \'tabs\' || expanded"' +
+    '                     v-show="type != \'tabs\' || expanded || (checkStartStates(title) || checkStartStates(title) == -1)"' +
     '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsDisabled(title, getOption(checkbox))}">' +
     // No parent checkbox.
-    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
-    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
+    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || (checkStartStates(title) || checkStartStates(title) == -1)" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
+    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || (checkStartStates(title) || checkStartStates(title) == -1)" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
     '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true)" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
