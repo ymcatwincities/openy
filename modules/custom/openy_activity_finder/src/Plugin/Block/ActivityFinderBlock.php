@@ -3,7 +3,6 @@
 namespace Drupal\openy_activity_finder\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 
 /**
@@ -39,7 +38,7 @@ class ActivityFinderBlock extends BlockBase {
       '#categories_type' => $backend->getCategoriesType(),
       '#activities' => $backend->getCategories(),
       '#locations' => $backend->getLocations(),
-      '#config_settings' => $config->getRawData(),
+      '#expanderSectionsConfig' => $config->getRawData(),
       '#attached' => [
         'drupalSettings' => [
           'activityFinder' => [

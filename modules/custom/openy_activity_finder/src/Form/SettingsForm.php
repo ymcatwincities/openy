@@ -5,14 +5,40 @@ namespace Drupal\openy_activity_finder\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\openy_activity_finder\Controller\ActivityFinderController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Settings Form for daxko.
  */
 class SettingsForm extends ConfigFormBase {
+
+  /**
+   * Guzzle Http Client.
+   *
+   * @var GuzzleHttp\Client
+   */
+  protected $httpClient;
+
+  /**
+   * Constructs a new Class.
+   *
+   * @param \GuzzleHttp\Client $http_client
+   *   The http_client.
+   */
+  public function __construct(Client $http_client) {
+    $this->httpClient = $http_client;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('http_client')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -85,8 +111,8 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('When checked disables Spots Available feature on Results page.'),
     ];
 
-    // This is not approved yet.
-    //$component = $this->getActivityFinderDataStructure();
+    // Get structure of AF.
+    $component = $this->getActivityFinderDataStructure();
 
     $form['collapse'] = [
       '#type' => 'details',
@@ -113,8 +139,8 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('schedule_collapse_group') ? $config->get('schedule_collapse_group') : 'disabled',
       '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
-    // This is not approved yet.
-    /*if (isset($component['facets']->days_of_week)) {
+
+    if (isset($component['facets']->days_of_week)) {
       $form['collapse']['schedule']['schedule_days'] = [
         '#title' => $this->t('Days'),
         '#type' => 'checkbox',
@@ -127,7 +153,7 @@ class SettingsForm extends ConfigFormBase {
         '#type' => 'checkbox',
         '#default_value' => $config->get('schedule_ages'),
       ];
-    }*/
+    }
     $form['collapse']['category'] = [
       '#type' => 'details',
       '#title' => $this->t('Activity preferences'),
@@ -140,8 +166,7 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('category_collapse_group') ? $config->get('category_collapse_group') : 'disabled',
       '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
-    // This is not approved yet.
-    /*
+
     foreach ($component['facets']->field_category_program as $category) {
       if ($category->filter != '!') {
         $machine_name = 'category_' . str_replace(' ', '_', strtolower($category->filter));
@@ -161,7 +186,7 @@ class SettingsForm extends ConfigFormBase {
           '#default_value' => $config->get($machine_name),
         ];
       }
-    }*/
+    }
 
     $form['collapse']['locations'] = [
       '#type' => 'details',
@@ -177,15 +202,14 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Check this if you want default state for whole this group is "Collapsed"'),
     ];
 
-    // This is not approved yet.
-    /*foreach ($component['groupedLocations'] as $groupedLocation) {
+    foreach ($component['groupedLocations'] as $groupedLocation) {
       $machine_name = 'locations_' . strtolower($groupedLocation->label);
       $form['collapse']['locations'][$machine_name] = [
         '#title' => $groupedLocation->label,
         '#type' => 'checkbox',
         '#default_value' => $config->get($machine_name),
       ];
-    }*/
+    }
 
     return parent::buildForm($form, $form_state);
   }
@@ -195,7 +219,7 @@ class SettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     /* @var $config \Drupal\Core\Config\Config */
-    $config = \Drupal::service('config.factory')->getEditable('openy_activity_finder.settings');
+    $config = $this->config('openy_activity_finder.settings');
 
     $config->set('backend', $form_state->getValue('backend'))->save();
 
@@ -207,8 +231,7 @@ class SettingsForm extends ConfigFormBase {
 
     $config->set('disable_spots_available', $form_state->getValue('disable_spots_available'))->save();
 
-    // This is not approved yet.
-    /*$component = $this->getActivityFinderDataStructure();
+    $component = $this->getActivityFinderDataStructure();
 
     foreach ($component['groupedLocations'] as $groupedLocation) {
       $machine_name = 'locations_' . strtolower($groupedLocation->label);
@@ -230,7 +253,7 @@ class SettingsForm extends ConfigFormBase {
     }
 
     $config->set('schedule_days', $form_state->getValue('schedule_days'))->save();
-    $config->set('schedule_ages', $form_state->getValue('schedule_ages'))->save();*/
+    $config->set('schedule_ages', $form_state->getValue('schedule_ages'))->save();
 
     $config->set('schedule_collapse_group', $form_state->getValue('schedule_collapse_group'))->save();
     $config->set('category_collapse_group', $form_state->getValue('category_collapse_group'))->save();
@@ -244,17 +267,26 @@ class SettingsForm extends ConfigFormBase {
    * @return array
    */
   public function getActivityFinderDataStructure() {
+    $request = $this->getRequest();
     $component = [];
     $url = Url::fromRoute('openy_activity_finder.get_results');
-    $base_url = \Drupal::request()->getSchemeAndHttpHost();;
-    $response = \Drupal::httpClient()
-      ->get($base_url . $url->toString());
-    $json_string = (string) $response->getBody();
-    $data = json_decode($json_string);
+    $base_url = $request->getSchemeAndHttpHost();
+    try {
+      $response = $this->httpClient
+        ->get($base_url . $url->toString());
+      $data = $response->getBody();
+    }
+    catch (RequestException $e) {
+      watchdog_exception('error', $e, $e->getMessage());
+    }
 
-    $component['facets'] = $data->facets;
-    $component['groupedLocations'] = $data->groupedLocations;
+    if ($data) {
+      $data = json_decode($data);
+      $component['facets'] = $data->facets;
+      $component['groupedLocations'] = $data->groupedLocations;
 
-    return $component;
+      return $component;
+    }
+    return false;
   }
 }

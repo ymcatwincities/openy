@@ -20,7 +20,7 @@ function openy_activity_finder_theme() {
         'activities' => [],
         'locations' => [],
         'is_search_box_disabled' => '',
-        'config_settings' => [],
+        'expanderSectionsConfig' => [],
       ],
     ],
     'openy_activity_finder_program_search_page' => [
@@ -32,7 +32,7 @@ function openy_activity_finder_theme() {
         'days' => [],
         'is_search_box_disabled' => '',
         'is_spots_available_disabled' => '',
-        'config_settings' => [],
+        'expanderSectionsConfig' => [],
         'sort_options' => [],
       ],
     ],

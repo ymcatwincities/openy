@@ -99,9 +99,9 @@ class ActivityFinderController extends ControllerBase {
     else {
       $data = $this->backend->runProgramSearch($parameters, $log->id());
 
-      /* @var $config_settings \Drupal\Core\Config\Config */
-      $config_settings = \Drupal::service('config.factory')->getEditable('openy_activity_finder.settings');
-      $data['config_settings'] = $config_settings->getRawData();
+      /* @var $expanderSectionsConfig \Drupal\Core\Config\Config */
+      $expanderSectionsConfig = $this->config('openy_activity_finder.settings');
+      $data['expanderSectionsConfig'] = $expanderSectionsConfig->getRawData();
 
       // Allow other modules to alter the search results.
       $this->moduleHandler()->alter('activity_finder_program_search_results', $data);

@@ -11,7 +11,7 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'default', 'type', 'expanded', 'hide_label', 'config_settings'],
+    props: ['title', 'id', 'options', 'expanded', 'default', 'type', 'hide_label', 'expander_sections_config'],
     data: function() {
       return {
         checkboxes: [],
@@ -21,9 +21,19 @@
         is_expanded: false,
       }
     },
+    mounted: function() {
+      this.checkboxes = JSON.parse(this.options);
+      for (var i in this.checkboxes) {
+        checkbox = this.checkboxes[i];
+        if (typeof checkbox == 'object') {
+          for (var k in checkbox.value) {
+            this.check_expanded(checkbox.label);
+          }
+        }
+      }
+    },
     created: function() {
       this.checkboxes = JSON.parse(this.options);
-      this.config_settings = JSON.parse(this.config_settings);
       if (typeof this.default !== 'undefined') {
         this.checked = this.default.split(',').map(function (item) {
           if (isNaN(item)) {
@@ -40,6 +50,7 @@
             var item = checkbox.value[k];
             var value = isNaN(item.value) ? item.value : +item.value;
             this.dependencies[checkbox.label].push(value);
+            this.check_expanded(checkbox.label);
           }
         }
       }
@@ -57,22 +68,30 @@
       }
     },
     methods: {
-      check_expanded_global: function(label) {
-        label = label.toLowerCase().replace(new RegExp(' ', 'g'), '_');
-        config_settings = JSON.parse(this.config_settings);
-        prefixes = [
-            'category',
-            'location',
-            'schedule'
-        ];
-        let is_expanded = true;
-        prefixes.map(function(prefix) {
-          if (config_settings[prefix + '_' + label] != 'undefined' && config_settings[prefix + '_' + label]) {
-            is_expanded = false;
-          }
-        });
-        return is_expanded;
+      check_expanded: function(label) {
+        let label_transformed = label.toLowerCase().replace(new RegExp(' ', 'g'), '_');
+        let expander_sections_config = JSON.parse(this.expander_sections_config);
+
+        if (this.id == 'age-filter' || this.id == 'days-filter') {
+          prefix = 'schedule';
+        }
+
+        if (this.id == 'category-filter') {
+          prefix = 'category';
+        }
+
+        if (this.id == 'location-filter') {
+          prefix = 'locations';
+        }
+        field = prefix + '_' + label_transformed;
+
+        if (typeof expander_sections_config[field] !== undefined) {
+          this.expanded_checkboxes[label] = expander_sections_config[field];
+          this.expanded = expander_sections_config[field];
+        }
+
       },
+
       clear: function() {
         this.checked = [];
       },
@@ -90,7 +109,6 @@
       },
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
-        //return typeof this.expanded_checkboxes[label] == 'undefined' || this.check_expanded_global(label) || this.expanded_checkboxes[label] == false;
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
       collapseAllGroups: function(checkbox) {
@@ -233,11 +251,11 @@
       }
     },
     template: '<div class="form-group-wrapper">\n' +
-    '                <label v-if="!hide_label" v-on:click="expanded = !expanded">\n' +
+    '                <label v-if="!hide_label" v-on:click="expanded = !expanded;">\n' +
     '                 {{ title }}\n' +
     '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>'+
-    '                  <i v-if="expanded" class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' + //checked.indexOf(getOption(checkbox)) != -1
+    '                  <i v-if="expanded " class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
+    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' +
     '                </label>\n' +
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
@@ -248,12 +266,12 @@
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true)" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
     '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                       <a v-show="!collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded"  v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(checkbox)}">' +
-    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
+    '                         <label>{{ getLabel(checkbox) }}<small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
@@ -270,18 +288,19 @@
 
   // Does not yet support flat list of radios. Only two level as for Daxko location.
   Vue.component('sidebar-filter-single', {
-    props: ['title', 'id', 'options', 'default', 'type', 'hide_label', 'config_settings'],
+    props: ['title', 'id', 'options', 'default', 'type', 'hide_label', 'expander_sections_config'],
     data: function() {
       return {
         radios: [],
         checked: [],
-        expanded: true,
+        expanded: '',
         expanded_checkboxes: [],
         dependencies: {},
       }
     },
     created: function() {
       this.radios = JSON.parse(this.options);
+      this.expander_sections_config = JSON.parse(this.expander_sections_config);
       if (typeof this.default !== 'undefined') {
         this.checked = this.default;
       }
@@ -302,22 +321,6 @@
       }
     },
     methods: {
-      check_expanded_global: function(label) {
-        label = label.toLowerCase().replace(new RegExp(' ', 'g'), '_');
-        config_settings = JSON.parse(this.config_settings);
-        prefixes = [
-          'category',
-          'location',
-          'schedule'
-        ];
-        let is_expanded = true;
-        prefixes.map(function(prefix) {
-          if (config_settings[prefix + '_' + label] != 'undefined' && config_settings[prefix + '_' + label] === 1) {
-            is_expanded = false;
-          }
-        });
-        return is_expanded;
-      },
       clear: function() {
         this.checked = '';
       },
@@ -332,8 +335,7 @@
       },
       collapseGroup: function(checkbox) {
         var label = this.getLabel(checkbox);
-        return this.check_expanded_global(label);
-        //return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
+        return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
       collapseAllGroups: function(checkbox) {
         var label = this.getLabel(checkbox);
@@ -359,7 +361,7 @@
       }
     },
     template: '<div class="form-group-wrapper">\n' +
-    '                <label v-if="!hide_label" v-on:load="check_expaned(label)" v-on:click="expanded = !expanded">\n' +
+    '                <label v-if="!hide_label"  v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
     '                  <i v-if="expanded" class="fa fa-minus-circle minus" aria-hidden="true"></i>\n' +
     '                  <i v-if="!expanded" class="fa fa-plus-circle plus" aria-hidden="true"></i>\n' +
@@ -641,7 +643,7 @@
         $.getJSON(url, function(data) {
           component.table = data.table;
           component.facets = data.facets;
-          component.config_settings = data.config_settings;
+          component.expanderSectionsConfig = data.expanderSectionsConfig;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
