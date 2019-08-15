@@ -26,7 +26,7 @@
           <div class="activity-finder__step_header--actions">
             <div class="row">
               <div class="col-12 col-xs-12 col-sm-8">
-                <span v-if="filtersBreadcrumbs === ''">Do the people you're searching for have any prefered activities?</span>
+                <span v-if="filtersBreadcrumbs === ''">Do the people you're searching for have any preferred activities?</span>
                 <span v-else><strong>Filters: </strong>{{ filtersBreadcrumbs }}</span>
               </div>
               <div v-if="!this.$parent.loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
