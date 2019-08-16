@@ -271,9 +271,9 @@
       if ($(window).width() > 992) {
         return;
       }
-      var menu = $('.microsites-menu__wrapper');
+      var menu = $('.microsites-menu__wrapper', context);
       if (menu.length === 0) {
-        menu = $('.paragraph--type--camp-menu');
+        menu = $('.paragraph--type--camp-menu', context);
       }
 
       if (menu.length === 0) {
@@ -286,7 +286,7 @@
       var home = $('ul li a', menu).first();
       home.text('');
       home.append('<span class="name">' + Drupal.t('Helpful links, info, etc.') + '</span><b class="caret"></b>');
-      home.parent().css('display', 'list-item');
+      home.closest('li').css('display', 'list-item');
       home.click(function (e) {
         e.preventDefault();
         if ($(this).hasClass('open')) {
@@ -300,9 +300,9 @@
     },
     detach: function (context, settings, trigger) {
       if (trigger === 'unload') {
-        var menu = $('.microsites-menu__wrapper');
+        var menu = $('.microsites-menu__wrapper', context);
         if (menu.length === 0) {
-          menu = $('.paragraph--type--camp-menu');
+          menu = $('.paragraph--type--camp-menu', context);
         }
         var home = $('ul li a', menu).first();
         home.unbind('click');
