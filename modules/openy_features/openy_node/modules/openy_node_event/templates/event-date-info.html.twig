@@ -22,8 +22,8 @@
  */
 #}
 <div class="info-col date col-md-4">
-  <div class="date-start">{{ info.date_start }}</div>
-  <div class="date-end">{{ 'Until'|t }} {{ info.date_end }}</div>
+  <div class="date-start">{{ info.date_start|date('M j, g:i a') }}</div>
+  <div class="date-end">{{ 'Until'|t }} {{ info.date_end|date('g:i a') }}</div>
   <div class="addtocalendar">
     <var class="atc_event">
       <var class="atc_date_start">{{ atc.atc_date_start }}</var>

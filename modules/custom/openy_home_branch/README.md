@@ -88,4 +88,6 @@ Or you can attach to page your custom js file and override plugin here. Example:
 
 More examples with override cases you can find in `openy_hb_override_example` sub-module.
 
+For back-end plugins we need this in Drupal core - https://www.drupal.org/project/drupal/issues/2958184
+
 
