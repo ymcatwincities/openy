@@ -72,12 +72,8 @@ function openy_media_preprocess_entity_embed_container(array &$variables) {
  */
 function openy_media_library_info_alter(&$libraries, $extension) {
   if ($extension === 'blazy' && function_exists('libraries_get_path')) {
-    $libraries['blazy']['js'] = ['/' . libraries_get_path('blazy') . '/blazy.min.js' => [
-      'weight' => -4,
-      'attributes' => [
-        'async' => TRUE
-      ],
-    ]
+    $libraries['blazy']['js']['/' . libraries_get_path('blazy') . '/blazy.min.js']['attributes'] = [
+      'defer' => TRUE,
     ];
   }
 }

@@ -36,6 +36,7 @@ class HBLocSelectorPEF extends HomeBranchLibraryBase {
    */
   public function getLibrarySettings() {
     return [
+      'locationsWrapper' => '.schedule-locations__wrapper',
       'inputSelector' => '.paragraph--type--repeat-schedules-loc',
       'linkSelector' => '.field-prgf-repeat-lschedules-prf a',
     ];
