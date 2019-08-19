@@ -95,23 +95,23 @@
       {# categories select list #}
       {% if categories is not empty and filters.category %}
         <div class="form-group-wrapper">
-          <label class="collapsed" for="form-group-category" data-toggle="collapse" data-target="#form-group-category" role="button"  aria-expanded="false" aria-controls="form-group-category">
+          <label class="collapsed" for="form-group-category" data-toggle="collapse" data-target=".skip-c" role="button"  aria-expanded="false" aria-controls="form-group-category">
             {{ 'Category'|t }}
             <i class="fa fa-plus plus" aria-hidden="true"></i>
             <i class="fa fa-minus minus" aria-hidden="true"></i>
           </label>
-          <div id="form-group-category" class="form-group-category collapse" aria-expanded="true">
+          <div id="form-group-category" class="form-group-category" aria-expanded="true">
             <div class="checkboxes">
-            {% for category in categories %}
-              {% set cat_checked = "c collapse" %}
-              {% if checked_categories is not empty and category in checked_categories %}
-                {% set cat_checked = "checked" %}
-              {% endif %}
-              <div class="checkbox-wrapper skip-{{ cat_checked }}">
-                <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
-                <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
-              </div>
-            {% endfor %}
+              {% for category in categories %}
+                {% set cat_checked = "c collapse" %}
+                {% if checked_categories is not empty and category in checked_categories %}
+                  {% set cat_checked = "checked" %}
+                {% endif %}
+                <div class="checkbox-wrapper skip-{{ cat_checked }}">
+                  <input v-on:click="toggleParentClass($event, 'skip-c')" type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
+                  <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
+                </div>
+              {% endfor %}
             </div>
           </div>
         </div>
