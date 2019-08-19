@@ -383,22 +383,22 @@
           }});
       },
 
-      toggleParentClass: function(event) {
-          if (event.target.parentElement.classList.contains('skip-checked')) {
-            event.target.parentElement.classList.remove('skip-checked');
-            event.target.parentElement.classList.add('skip-t');
-            if (!event.target.parentElement.classList.contains('skip-t')) {
-              event.target.parentElement.classList.add('skip-t');
-            }
+      toggleParentClass: function(event, skipClassName = 'skip-t') {
+        if (event.target.parentElement.classList.contains('skip-checked')) {
+          event.target.parentElement.classList.remove('skip-checked');
+          event.target.parentElement.classList.add(skipClassName);
+          if (!event.target.parentElement.classList.contains(skipClassName)) {
+            event.target.parentElement.classList.add(skipClassName);
           }
+        }
 
-          else {
-            event.target.parentElement.classList.toggle("skip-t");
-            event.target.parentElement.classList.add('skip-checked');
-            event.target.parentElement.classList.remove('skip-t');
-            event.target.parentElement.classList.remove('collapse');
-            event.target.parentElement.classList.remove('in');
-          }
+        else {
+          event.target.parentElement.classList.toggle(skipClassName);
+          event.target.parentElement.classList.add('skip-checked');
+          event.target.parentElement.classList.remove(skipClassName);
+          event.target.parentElement.classList.remove('collapse');
+          event.target.parentElement.classList.remove('in');
+        }
       },
 
       populatePopupL: function(index) {
