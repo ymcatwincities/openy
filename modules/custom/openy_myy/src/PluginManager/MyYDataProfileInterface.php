@@ -37,5 +37,48 @@ interface MyYDataProfileInterface {
    */
   public function getProfileHealthInformation();
 
+  /**
+   * @param array $profile
+   *
+   * @return mixed
+   */
+  public function updateProfileFields(array $profile);
+
+  /**
+   * @param $old_pwd
+   * @param $new_pwd
+   *
+   * @return mixed
+   */
+  public function updateProfilePassword($old_pwd, $new_pwd);
+
+  /**
+   * @param array $phone
+   *
+   * @return mixed
+   */
+  public function updateProfilePhoneNumber(array $phone);
+
+  /**
+   * @param array $contact_data
+   *
+   * @return mixed
+   */
+  public function updateEmergencyContact(array $contact_data);
+
+  /**
+   * @param array $contact_data
+   *
+   * @return mixed
+   */
+  public function addEmergencyContact(array $contact_data);
+
+  /**
+   * @param array $health_info
+   *
+   * @return mixed
+   */
+  public function updateHealthInformation(array $health_info);
+
 
 }
