@@ -1,13 +1,15 @@
 <?php
 
-namespace Drupal\personify_sso;
+namespace Drupal\personify;
+
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
- * Class PersonifySsO.
+ * Personify SSO service.
  *
  * @package Drupal\personify_sso.
  */
-class PersonifySso {
+class PersonifySSO {
 
   /**
    * WSDL link.
@@ -54,23 +56,17 @@ class PersonifySso {
   /**
    * PersonifySSO constructor.
    *
-   * @param string $wsdl
-   *   WSDL link.
-   * @param int $vendor_id
-   *   Vendor ID.
-   * @param string $vendor_username
-   *   Vendor username.
-   * @param string $vendor_password
-   *   Vendor password.
-   * @param string $vendor_block
-   *   Vendor block.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    */
-  public function __construct($wsdl, $vendor_id, $vendor_username, $vendor_password, $vendor_block) {
-    $this->wsdl = $wsdl;
-    $this->vendorId = $vendor_id;
-    $this->vendorUsername = $vendor_username;
-    $this->vendorPassword = $vendor_password;
-    $this->vendorBlock = $vendor_block;
+  public function __construct(ConfigFactoryInterface $configFactory) {
+
+    $config = $configFactory->get('personify.settings');
+
+    $this->wsdl = $config['wsdl'];
+    $this->vendorId = $config['vendor_id'];
+    $this->vendorUsername = $config['vendor_username'];
+    $this->vendorPassword = $config['vendor_password'];
+    $this->vendorBlock = $config['vendor_block'];
 
     $this->initClient();
   }

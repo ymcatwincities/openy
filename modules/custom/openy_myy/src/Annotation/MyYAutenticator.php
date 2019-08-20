@@ -33,6 +33,4 @@ class MyYAutenticator extends Plugin {
    */
   public $class;
 
-
-
 }

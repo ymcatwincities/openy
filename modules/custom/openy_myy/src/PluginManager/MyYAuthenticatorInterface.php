@@ -24,6 +24,13 @@ interface MyYAuthenticatorInterface {
   public function logoutPage();
 
   /**
+   * Content or redirect after login.
+   *
+   * @return mixed
+   */
+  public function authPage();
+
+  /**
    * @return mixed
    */
   public function getUserId();

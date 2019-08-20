@@ -4,3 +4,21 @@ openy_myy.get_results:
     _controller: '\Drupal\openy_myy\Controller\MyYController::getData'
   requirements:
     _permission: 'access content'
+openy_myy.login:
+  path: '/myy/login'
+  defaults:
+    _controller: '\Drupal\openy_myy\Controller\MyYAuthenticatorController::login'
+  requirements:
+    _permission: 'access content'
+openy_myy.logout:
+  path: '/myy/logout'
+  defaults:
+    _controller: '\Drupal\openy_myy\Controller\MyYAuthenticatorController::logout'
+  requirements:
+    _permission: 'access content'
+openy_myy.account:
+  path: '/myy/auth'
+  defaults:
+    _controller: '\Drupal\openy_myy\Controller\MyYAuthenticatorController::auth'
+  requirements:
+    _permission: 'access content'
