@@ -280,14 +280,22 @@ class RepeatManager implements SessionInstanceManagerInterface {
         $exclusions = self::reorderExclusions($session_schedule['exclusions']);
         $combined_dates = self::combineDates($dates, $exclusions);
 
+        // Ignore PHP strict notice if time zone has not yet been set in the php.ini configuration.
+        $system_timezone = \Drupal::config('system.date')->get('timezone.default');
+        $user_time_zone = !empty($system_timezone) ? $system_timezone : @date_default_timezone_get();
+
         foreach ($combined_dates as $date) {
           $to_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['to']);
           $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
           $duration = round(abs($to_time - $from_time) / 60,2);
 
+          // Convert time to UTC timestamp considering TZ of the site.
+          $date_from = new \DateTime($date['from'], new \DateTimeZone($user_time_zone));
+          $date_to = new \DateTime($date['to'], new \DateTimeZone($user_time_zone));
+
           $session_instances[] = [
-            'start' => strtotime($date['from']),
-            'end' => strtotime($date['to']),
+            'start' => $date_from->format('U'),
+            'end' => $date_to->format('U'),
             'year' => '*',
             'month' => '*',
             'day' => '*',
