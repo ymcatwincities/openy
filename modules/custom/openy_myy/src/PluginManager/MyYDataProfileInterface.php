@@ -38,5 +38,4 @@ interface MyYDataProfileInterface {
   public function getProfileHealthInformation();
 
 
-
 }

@@ -1,0 +1,25 @@
+# SSO data.
+wsdl: https://***REMOVED***/SSO/webservice/service.asmx?wsdl
+vendor_id: 8
+vendor_username: ClockWork
+vendor_password: ***REMOVED***
+vendor_block: ***REMOVED***
+
+# Prod endpoint.
+prod_endpoint: 'https://***REMOVED***/PersonifyDataServices/PersonifyData.svc/'
+prod_username: ***REMOVED***
+prod_password: ***REMOVED***
+
+# Stage endpoint.
+stage_endpoint: 'https://ygtctrain3ebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc/'
+stage_username: ***REMOVED***
+stage_password: ***REMOVED***
+
+# Environment: stage or prod
+environment: stage
+
+url_login: https://***REMOVED***/PersonifyEBusiness/Default.aspx?TabID=337
+url_account: https://***REMOVED***/PersonifyEbusiness/MyY/tabid/61/Default.aspx
+url_sign_out: https://***REMOVED***/PersonifyEbusiness/MyY/tabid/61/ctl/Logoff/Default.aspx
+url_cart: https://***REMOVED***/PersonifyEbusiness/YMCA/ShoppingCart.aspx
+
