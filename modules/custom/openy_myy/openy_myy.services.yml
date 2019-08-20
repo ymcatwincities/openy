@@ -1,0 +1,4 @@
+services:
+  plugin.manager.myy_authenticator:
+    class: Drupal\openy_myy\Fabrics\MyYAuthenticator
+    parent: default_plugin_manager
