@@ -4,7 +4,7 @@ namespace Drupal\openy_myy\Annotation;
 
 use Drupal\Component\Annotation\Plugin;
 
-class MyYAutenticator extends Plugin {
+class MyYAuthenticator extends Plugin {
 
   /**
    * The plugin ID.

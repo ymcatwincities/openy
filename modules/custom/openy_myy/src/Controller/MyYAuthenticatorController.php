@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_myy\Controller;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\openy_myy\PluginManager\MyYAuthenticator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -18,14 +19,21 @@ class MyYAuthenticatorController extends ControllerBase {
   private $myy_authenticator_manager;
 
   /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  private $config;
+
+  /**
    * MyYAuthenticatorController constructor.
    *
    * @param \Drupal\openy_myy\PluginManager\MyYAuthenticator $myy_authenticator_manager
    */
   public function __construct(
-    MyYAuthenticator $myy_authenticator_manager
+    MyYAuthenticator $myy_authenticator_manager,
+    ConfigFactoryInterface $configFactory
   ) {
     $this->myy_authenticator_manager = $myy_authenticator_manager;
+    $this->config = $configFactory->get('openy_myy.settings');
   }
 
   /**
@@ -33,7 +41,8 @@ class MyYAuthenticatorController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('plugin.manager.myy_authenticator')
+      $container->get('plugin.manager.myy_authenticator'),
+      $container->get('config.factory')
     );
   }
 
@@ -46,7 +55,8 @@ class MyYAuthenticatorController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   private function createPluginInstance($execution_method) {
-    $myy_config = $this->configFactory->get('openy_myy.settings');
+
+    $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myy_authenticator_manager->getDefinitions();
     if (in_array($myy_config['myy_authenticator'], $myy_authenticator_instances)) {
       return $this
