@@ -1,6 +1,6 @@
-openy_myy.get_results:
-  path: '/myy/get-data'
+openy_myy.myy:
+  path: '/myy'
   defaults:
-    _controller: '\Drupal\openy_myy\Controller\MyYController::getData'
+    _controller: '\Drupal\openy_myy\Controller\MyYController::myy'
   requirements:
     _permission: 'access content'
