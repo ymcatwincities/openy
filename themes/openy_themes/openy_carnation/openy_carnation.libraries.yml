@@ -27,3 +27,30 @@ landing:
     - core/jquery.once
     - core/drupal
     - core/drupalSettings
+
+hb_loc_selector_branch_page_override:
+  version: 0.1
+  js:
+    src/js/hb-loc-selector-branch-page-override.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/loc_selector_branch_page
+
+hb_menu_selector_override:
+  version: 0.1
+  js:
+    src/js/hb-menu-selector-override.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/menu_selector
+
+hb_location_finder_override:
+  version: 0.1
+  js:
+    src/js/hb-location-finder-override.js: {}
+  css:
+    theme:
+      src/css/hb-location-finder-override.css: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/location_finder
