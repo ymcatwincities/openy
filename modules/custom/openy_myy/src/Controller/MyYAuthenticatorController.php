@@ -25,7 +25,6 @@ class MyYAuthenticatorController extends ControllerBase {
   public function __construct(
     MyYAuthenticator $myy_authenticator_manager
   ) {
-    parent::__construct();
     $this->myy_authenticator_manager = $myy_authenticator_manager;
   }
 
@@ -47,7 +46,7 @@ class MyYAuthenticatorController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\PluginException
    */
   private function createPluginInstance($execution_method) {
-    $myy_config = $this->configFactory->get('myy.settings');
+    $myy_config = $this->configFactory->get('openy_myy.settings');
     $myy_authenticator_instances = $this->myy_authenticator_manager->getDefinitions();
     if (in_array($myy_config['myy_authenticator'], $myy_authenticator_instances)) {
       return $this
