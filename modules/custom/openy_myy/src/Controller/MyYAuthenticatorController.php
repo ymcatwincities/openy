@@ -58,7 +58,7 @@ class MyYAuthenticatorController extends ControllerBase {
 
     $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myy_authenticator_manager->getDefinitions();
-    if (in_array($myy_config['myy_authenticator'], $myy_authenticator_instances)) {
+    if (array_key_exists($myy_config['myy_authenticator'], $myy_authenticator_instances)) {
       return $this
         ->myy_authenticator_manager
         ->createInstance($myy_config['myy_authenticator'])
