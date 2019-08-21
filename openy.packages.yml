@@ -338,3 +338,10 @@ integration:
   Initially, this package was used for enabling domains with different themes (design) per domain.</p>'
   modules:
     - openy_development
+
+myy:
+  name: 'MyY'
+  description: 'Drupal-based user profile that connected to your CRM'
+  modules:
+    - openy_myy
+    - myy_personify
