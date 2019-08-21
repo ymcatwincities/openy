@@ -2,10 +2,15 @@
 [data-toggle][aria-expanded=true] .plus,
 label.expanded:not(.collapsed) .plus,
 label[aria-expanded=false] .minus,
-a.collapsed .minus {
+a.collapsed .minus,
+button.collapsed .minus {
   display: none;
 }
-
+.button-no-style {
+  background: none;
+  border: none;
+  text-align: left;
+}
 /* BS4 Helpers */
 .bg-light {
   background-color: #eee;
