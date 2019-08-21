@@ -7,7 +7,7 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines a MyYAuthenticator annotation object.
  *
- * @see \Drupal\geolocation\DataProviderManager
+ * @see \Drupal\openy_myy\PluginManager\MyYAuthenticator
  * @see plugin_api
  *
  * @Annotation

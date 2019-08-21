@@ -7,7 +7,7 @@ use Drupal\Component\Annotation\Plugin;
 /**
  * Defines a MyYDataProfile annotation object.
  *
- * @see \Drupal\geolocation\DataProviderManager
+ * @see \Drupal\openy_myy\PluginManager\MyYDataProfile
  * @see plugin_api
  *
  * @Annotation
