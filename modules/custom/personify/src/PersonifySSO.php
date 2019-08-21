@@ -60,7 +60,7 @@ class PersonifySSO {
    */
   public function __construct(ConfigFactoryInterface $configFactory) {
 
-    $config = $configFactory->get('personify.settings');
+    $config = $configFactory->get('personify.settings')->getRawData();
 
     $this->wsdl = $config['wsdl'];
     $this->vendorId = $config['vendor_id'];
@@ -236,6 +236,13 @@ class PersonifySSO {
     }
 
     return FALSE;
+  }
+
+  /**
+   * @return int
+   */
+  public function getConfigVendorId() {
+    return $this->vendorId;
   }
 
 }

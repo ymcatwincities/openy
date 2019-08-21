@@ -27,17 +27,22 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
   /**
    * @var \Drupal\personify\PersonifySSO;
    */
-  private $personifySSO;
+  protected $personifySSO;
 
   /**
    * @var \Symfony\Component\HttpFoundation\Request|null
    */
-  private $request;
+  protected $request;
 
   /**
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  private $logger;
+  protected $logger;
+
+  /**
+   * @var array
+   */
+  protected $config;
 
   /**
    * PersonifyAuthenticator constructor.
@@ -61,7 +66,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
-    $this->config = $configFactory->get('myy_personify.settings');
+    $this->config = $configFactory->get('myy_personify.settings')->getRawData();
     $this->request = $requestStack->getCurrentRequest();
     $this->logger = $loggerChannelFactory->get('personify_authenticator');
   }
@@ -99,12 +104,12 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
     }
 
     // Generate URL that would base of validation token.
-    $url = Url::fromRoute('openy_myy.login', [], $options)->toString();
+    $url = Url::fromRoute('openy_myy.account', [], $options)->toString();
 
     $vendor_token = $this->personifySSO->getVendorToken($url);
     $options = [
       'query' => [
-        'vi' => $this->config['vendor_id'],
+        'vi' => $this->personifySSO->getConfigVendorId(),
         'vt' => $vendor_token,
       ],
     ];
@@ -120,7 +125,6 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
    * {@inheritdoc}
    */
   public function authPage() {
-
     $query = $this->request->query->all();
     if (isset($query['ct']) && !empty($query['ct'])) {
       $decrypted_token = $this->personifySSO->decryptCustomerToken($query['ct']);
@@ -129,6 +133,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
         user_cookie_save([
           'personify_authorized' => $token,
           'personify_time' => REQUEST_TIME,
+          //@TODO remove before release.
           'personify_id' => $id
         ]);
 
@@ -140,10 +145,11 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
       }
     }
 
-    $redirect_url = Url::fromUri($this->config['url_account'])->toString();
+    $redirect_url = Url::fromRoute('openy_myy.get_results')->toString();
     if (isset($query['dest'])) {
       $redirect_url = urldecode($query['dest']);
     }
+
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
