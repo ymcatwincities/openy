@@ -10,7 +10,7 @@ use Drupal\openy_myy\PluginManager\MyYDataProfileInterface;
  * @MyYDataProfile(
  *   id = "myy_personify_data_profile",
  *   label = "MyY Data Profile: Personify",
- *   description = "Profile data communication using Personify"
+ *   description = "Profile data communication using Personify",
  * )
  */
 class PersonifyDataProfile implements MyYDataProfileInterface {

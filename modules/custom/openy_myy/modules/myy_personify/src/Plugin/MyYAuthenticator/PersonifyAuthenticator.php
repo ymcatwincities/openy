@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @MyYAuthenticator(
  *   id = "myy_personify_authenticator",
  *   label = "MyY Authenticator: Personify",
- *   description = "Authentication logic for Personify integration"
+ *   description = "Authentication logic for Personify integration",
  * )
  */
 class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInterface, ContainerFactoryPluginInterface {

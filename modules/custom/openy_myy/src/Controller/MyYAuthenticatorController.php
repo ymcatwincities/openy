@@ -16,12 +16,12 @@ class MyYAuthenticatorController extends ControllerBase {
   /**
    * @var \Drupal\openy_myy\PluginManager\MyYAuthenticator
    */
-  private $myy_authenticator_manager;
+  protected $myy_authenticator_manager;
 
   /**
    * @var \Drupal\Core\Config\ImmutableConfig
    */
-  private $config;
+  protected $config;
 
   /**
    * MyYAuthenticatorController constructor.
