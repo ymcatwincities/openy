@@ -26,7 +26,7 @@
           <div class="activity-finder__step_header--actions">
             <div class="row">
               <div class="col-12 col-xs-12 col-sm-8">
-                <span v-if="filtersBreadcrumbs === ''">How old are the people you-re searching for?</span>
+                <span v-if="filtersBreadcrumbs === ''">How old are the people you're searching for?</span>
                 <span v-else><strong>Filters: </strong>{{ filtersBreadcrumbs }}</span>
               </div>
               <div v-if="!this.$parent.loading" class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
@@ -52,7 +52,7 @@
           <div class="activity-finder__step_header--actions">
             <div v-if="!this.$parent.loading" class="row">
               <div class="col-12 col-xs-12 col-sm-8">
-                <span v-if="filtersBreadcrumbs === ''">How old are the people you-re searching for?</span>
+                <span v-if="filtersBreadcrumbs === ''">How old are the people you're searching for?</span>
                 <span v-else><strong>Filters: </strong>{{ filtersBreadcrumbs }}</span>
               </div>
               <div class="col-xs-12 col-sm-4 text-right ml-auto actions-buttons">
