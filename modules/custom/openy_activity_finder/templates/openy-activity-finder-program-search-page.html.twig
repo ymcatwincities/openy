@@ -16,6 +16,7 @@
     <div class="activity-finder__step_header--progress">
       <div class="container">
         <div class="activity-finder__step_header--progress-inner">
+          {% block header_progress %}
           <div class="d-inline-flex">
             <span v-if="loading">
               {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
@@ -27,6 +28,7 @@
           <div class="d-inline-flex ml-auto text-right">
             <a v-bind:href="afPageRef" class="start_over">{{ 'Start Over'|t }}</a>
           </div>
+          {% endblock %}
         </div>
       </div>
     </div>
