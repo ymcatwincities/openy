@@ -4,6 +4,7 @@ dependencies:
   config:
     - entity_browser.browser.images_library
     - field.field.node.program.field_content
+    - field.field.node.program.field_header_content
     - field.field.node.program.field_meta_tags
     - field.field.node.program.field_program_color
     - field.field.node.program.field_program_description
@@ -26,6 +27,7 @@ third_party_settings:
         - field_program_icon
         - field_program_image
         - field_program_color
+        - field_header_content
       parent_name: ''
       weight: 1
       format_type: tab
@@ -36,6 +38,7 @@ third_party_settings:
         description: 'Page should contain one and only one paragraph with H1 heading: Small banner, Banner, Gallery'
         required_fields: true
       label: 'Header Area'
+      region: content
     group_content_area:
       children:
         - field_program_description
@@ -50,6 +53,7 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Content Area'
+      region: content
     group_sidebar_area:
       children:
         - field_sidebar_content
@@ -63,6 +67,7 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Sidebar Area'
+      region: content
 id: node.program.default
 targetEntityType: node
 bundle: program
@@ -89,6 +94,19 @@ content:
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  field_header_content:
+    weight: 122
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: closed
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
@@ -141,7 +159,7 @@ content:
     type: entity_browser_entity_reference
     region: content
   field_sidebar_content:
-    weight: 11
+    weight: 12
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -180,6 +198,8 @@ content:
   scheduler_settings:
     weight: 20
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
