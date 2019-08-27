@@ -35,3 +35,10 @@ function openy_editor_update_8002() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'editor.editor.full_html', 'settings.toolbar.rows');
 }
+
+/**
+ * Update editor settings.
+ */
+function openy_editor_update_8003() {
+  openy_editor_update_8002();
+}
