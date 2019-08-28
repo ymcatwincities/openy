@@ -1041,10 +1041,3 @@ function openy_update_8075() {
     ]);
   }
 }
-
-/**
- * Enable CKEditor Font module.
- */
-function openy_update_8076() {
-  \Drupal::service('module_installer')->install(['ckeditor_font'], TRUE);
-}
