@@ -199,6 +199,9 @@
             },
             "drupal/blazy": {
                 "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch"
+            },
+            "drupal/ckeditor_font": {
+                "Fixes CKEditor Font if a drupal website is installed in a subdirectory": "https://www.drupal.org/files/issues/2018-10-25/configure_library-2900789-22.patch"
             }
         }
     },
