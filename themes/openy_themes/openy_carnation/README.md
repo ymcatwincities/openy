@@ -41,6 +41,10 @@ https://yarnpkg.com/lang/en/docs/install/#windows-stable
 
 `grunt build`
 
+On some systems ( OSX ) grunt is not available globally, so just use it from node_modules
+
+`.//node_modules/grunt/bin/grunt build`
+
 ##4. Start watching all assets (for development)
 
 `grunt watch`

@@ -69,13 +69,25 @@
         {
             "type": "package",
             "package": {
+                "name": "library-ckeditor/font",
+                "version": "4.12.1",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://download.ckeditor.com/font/releases/font_4.12.1.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "library-smonetti/btbutton",
                 "version": "1.0.1",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/smonetti/btbutton",
                     "type": "git",
-                    "reference": "1620254d294a209bdf18cc0bc7b131d2ffaa10db"
+                    "reference": "e98f4d74338e7183c8b5e4902a1a91968705d066"
                 }
             }
         },
@@ -187,6 +199,9 @@
             },
             "drupal/blazy": {
                 "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch"
+            },
+            "drupal/ckeditor_font": {
+                "Fixes CKEditor Font if a drupal website is installed in a subdirectory": "https://www.drupal.org/files/issues/ckeditor_font_8_1_0_libraries_integration_01.patch"
             }
         }
     },
@@ -195,7 +210,7 @@
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.4.0",
-        "drupal/core": "~8.6.10",
+        "drupal/core": "~8.7.6",
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
@@ -232,6 +247,7 @@
         "library-jaypan/jquery_colorpicker": "1.0.1",
         "library-ckeditor/panelbutton": "4.10.1",
         "library-ckeditor/colorbutton": "4.10.1",
+        "library-ckeditor/font": "4.12.1",
         "library-smonetti/btbutton": "1.0.1",
         "library-davekoelle/alphanum": "1.0.0",
         "grt107/grt-youtube-popup": "^1.0",
@@ -279,6 +295,7 @@
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
         "vuejs/vue": "2.6.10",
-        "vuejs/vue-router": "3.0.6"
+        "vuejs/vue-router": "3.0.6",
+        "drupal/ckeditor_font": "^1.0"
     }
 }

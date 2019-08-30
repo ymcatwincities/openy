@@ -16,6 +16,7 @@
     <div class="activity-finder__step_header--progress">
       <div class="container">
         <div class="activity-finder__step_header--progress-inner">
+          {% block header_progress %}
           <div class="d-inline-flex">
             <span v-if="loading">
               {% include '@openy_system/openy-system--ajax-spinner.html.twig' with { 'size': 'small', 'flow': 'inline' } %}
@@ -27,6 +28,7 @@
           <div class="d-inline-flex ml-auto text-right">
             <a v-bind:href="afPageRef" class="start_over">{{ 'Start Over'|t }}</a>
           </div>
+          {% endblock %}
         </div>
       </div>
     </div>
@@ -73,7 +75,7 @@
 
             <div class="navbar-controls">
               <span class="navbar-controls__title">{{ 'FILTERS'|t }}</span>
-              <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear filters'|t }}</a>
+              <a v-on:click.stop.prevent="clearFilters()" href="#" class="clear-all">{{ 'Clear All'|t }}</a>
             </div>
 
           </div>
@@ -101,7 +103,7 @@
               v-on:updated-values="days = $event"
             ></sidebar-filter>
 
-            <h3>{{ 'Activity preferences'|t }}</h3>
+            <h3>{{ 'Programs & Classes'|t }}</h3>
             {% if categories_type == 'single' %}
             <sidebar-filter-single
               ref="categories_filter"
@@ -196,6 +198,7 @@
                     <div class="availability-wrapper">
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
+                        <div class="spots-label" v-if="item.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
                         <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? 'few-spots' : '', 'spots-availability']">${ item.spots_available } spots left</div>
                       </div>
                       {# if we know that registration is NOT available #}
@@ -251,7 +254,7 @@
               </div>
               <div v-else class="modal-content" style="font-size: 80%;">
                 <div class="schedule-dashboard__modal--header">
-                  <h3>{{ "Program details"|t }}</h3>
+                  <h3>{{ "Activity Details"|t }}</h3>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <i class="fa fa-times" aria-hidden="true"></i>
                   </button>
@@ -289,7 +292,8 @@
                     </div>
                     <div class="availability-wrapper">
                       {% if not is_spots_available_disabled %}
-                      <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
+                        <div class="spots-label" v-if="moreInfoPopup.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
+                        <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
                       {% endif %}
                       <div v-if="moreInfoPopup.activity_type == 'group'" class="availability_status activity_type">
                         <div v-if="moreInfoPopup.atc_info != ''" class="addtocalendar">
