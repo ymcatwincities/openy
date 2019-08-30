@@ -11,13 +11,15 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'default', 'type', 'expanded', 'hide_label'],
+    props: ['title', 'id', 'options', 'expanded', 'default', 'type', 'hide_label', 'expander_sections_config'],
     data: function() {
       return {
         checkboxes: [],
         checked: [],
         expanded_checkboxes: {},
+        start_states: {},
         dependencies: {},
+        is_expanded: false,
       }
     },
     created: function() {
@@ -53,6 +55,9 @@
         }
         this.$emit('updated-values', cleanValues);
       }
+    },
+    mounted: function () {
+      this.start_states = [];
     },
     methods: {
       clear: function() {
@@ -218,7 +223,7 @@
     '                 {{ title }}\n' +
     '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>'+
     '                  <i v-if="expanded" class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' + //checked.indexOf(getOption(checkbox)) != -1
+    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' +
     '                </label>\n' +
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
@@ -229,12 +234,12 @@
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true)" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
     '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                       <a v-show="!collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded"  v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(checkbox)}">' +
-    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
+    '                         <label>{{ getLabel(checkbox) }}<small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
@@ -251,18 +256,19 @@
 
   // Does not yet support flat list of radios. Only two level as for Daxko location.
   Vue.component('sidebar-filter-single', {
-    props: ['title', 'id', 'options', 'default', 'type', 'hide_label'],
+    props: ['title', 'id', 'options', 'default', 'type', 'hide_label', 'expander_sections_config'],
     data: function() {
       return {
         radios: [],
         checked: [],
-        expanded: true,
-        expanded_checkboxes: {},
+        expanded: '',
+        expanded_checkboxes: [],
         dependencies: {},
       }
     },
     created: function() {
       this.radios = JSON.parse(this.options);
+      this.expander_sections_config = JSON.parse(this.expander_sections_config);
       if (typeof this.default !== 'undefined') {
         this.checked = this.default;
       }
@@ -419,7 +425,8 @@
         link: '',
         learn_more: '',
         more_results: ''
-      }
+      },
+      configSettings: [],
     },
     created: function() {
       var component = this;
@@ -627,6 +634,7 @@
         $.getJSON(url, function(data) {
           component.table = data.table;
           component.facets = data.facets;
+          component.expanderSectionsConfig = data.expanderSectionsConfig;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
@@ -818,5 +826,24 @@
     },
     delimiters: ["${","}"]
   });
+
+  Drupal.behaviors.openyGroupsCollapse = {
+    attach: function (context, settings) {
+      let groups = [
+        'scheduleGroup',
+        'activityGroup',
+        'locationGroup'
+      ];
+      groups.map(function(group) {
+        $('#' + group).on('hide.bs.collapse', function () {
+          $("h3." + group + " > i").removeClass('minus').removeClass('fa-minus').addClass('fa-plus').addClass('plus');
+        });
+
+        $('#' + group).on('show.bs.collapse', function () {
+          $("h3." + group + " > i").removeClass('plus').removeClass('fa-plus').addClass('fa-minus').addClass('minus');
+        });
+      });
+    }
+  }
 
 })(jQuery);
