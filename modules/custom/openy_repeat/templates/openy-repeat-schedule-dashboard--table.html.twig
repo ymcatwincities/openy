@@ -93,8 +93,8 @@
           </div>
 
           {# register btn #}
-          <div v-cloak class="register-column" v-if="item.register_url" >
-            <a v-bind:href="item.register_url" class="btn btn-primary register-btn">${ item.register_text }</a>
+          <div v-cloak class="register-column">
+            <span v-if="item.register_url"><a v-bind:href="item.register_url" class="btn btn-primary register-btn">${ item.register_text }</a></span>
           </div>
         </div>
 
