@@ -133,7 +133,7 @@
     {{ content.field_branch_hours }}
 
     <span class="button branch-info">
-      <a href="{{ title_url }}" class="btn-{{ card_colour }}">{{ node.type.entity.label ~ ' ' ~ 'Info'|t }}</a>
+      <a href="{{ title_url }}" class="btn-{{ card_colour }}" aria-label="{{ node.type.entity.label ~ ' ' ~ 'Info for'|t }} {{ label|render|striptags }}">{{ node.type.entity.label ~ ' ' ~ 'Info'|t }}</a>
     </span>
 
   </div>

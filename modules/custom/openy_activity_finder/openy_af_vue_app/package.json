@@ -12,7 +12,7 @@
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.20",
     "history": "^4.9.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "query-string": "^6.5.0",
     "v-calendar": "^0.9.7",
