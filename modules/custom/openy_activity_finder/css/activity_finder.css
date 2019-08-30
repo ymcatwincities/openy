@@ -275,6 +275,9 @@
     padding-bottom: 0;
     overflow: visible !important;
   }
+  .schedule-dashboard__sidebar .collapse.show {
+    padding-bottom: 0;
+  }
 }
 
 #schedules-filters {
@@ -290,6 +293,13 @@
   margin: -1px 0 0;
   padding: 10px 0;
   text-align: center;
+  position: relative;
+}
+
+#schedules-filters > h3 > i {
+  position: absolute;
+  right: 10px;
+  top: 12px;
 }
 
 .schedule-dashboard__wrapper .pager-wrapper {

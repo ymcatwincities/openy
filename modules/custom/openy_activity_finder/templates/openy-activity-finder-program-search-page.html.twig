@@ -9,7 +9,7 @@
 #}
 
 {{ attach_library('openy_activity_finder/openy_activity_finder_search') }}
-
+{% set collapse_group = false %}
 <div class="schedule-dashboard__wrapper" id="app">
 
   <div class="activity-finder__step_header">
@@ -81,29 +81,72 @@
           </div>
 
           <div id="schedules-filters" class="w-100 flex-column">
-            <h3>{{ 'Schedule preferences'|t }}</h3>
+            {% if expanderSectionsConfig['schedule_collapse_group'] and
+              (expanderSectionsConfig['schedule_collapse_group'] == 'enabled_collapsed' or
+              expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded')
+            %}
+              {% set collapse_group = true %}
+              {% set expanded = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? 'true' : 'false' %}
+              {% set collapsed_class = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
+              {% set wrapper_class = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
+              {% set icon_expanded_show = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
+            {% endif %}
+
+            {% if collapse_group %}
+              <h3 type="button" data-toggle="collapse" data-target="#scheduleGroup" class="{{ collapsed_class }} scheduleGroup" aria-expanded="{{ expanded }}" aria-controls="scheduleGroup">{{ 'Schedule preferences'|t }}
+                <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
+              </h3>
+              <div class="collapse {{ wrapper_class }}" id="scheduleGroup">
+            {% else %}
+                <h3> {{ 'Schedule preferences'|t }}</h3>
+            {% endif %}
             {% block sidebar_filters %}
-            <sidebar-filter
-              ref="ages_filter"
-              title="{{ 'Age'|t }}"
-              id="age-filter"
-              type="{{ 'tabs'|t }}"
-              options='{{ ages|json_encode }}'
-              :default='$route.query.ages'
-              v-on:updated-values="ages = $event"
-            ></sidebar-filter>
+              <sidebar-filter
+                ref="ages_filter"
+                title="{{ 'Age'|t }}"
+                id="age-filter"
+                type="{{ 'tabs'|t }}"
+                options='{{ ages|json_encode }}'
+                :default='$route.query.ages'
+                expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
+                v-on:updated-values="ages = $event"
+                :default='$route.query.ages'
+              ></sidebar-filter>
 
-            <sidebar-filter
-              ref="days_filter"
-              title="{{ 'Days'|t }}"
-              id="days-filter"
-              type="{{ 'tabs'|t }}"
-              options='{{ days|json_encode }}'
-              :default='$route.query.days'
-              v-on:updated-values="days = $event"
-            ></sidebar-filter>
+              <sidebar-filter
+                ref="days_filter"
+                title="{{ 'Days'|t }}"
+                id="days-filter"
+                type="{{ 'tabs'|t }}"
+                options='{{ days|json_encode }}'
+                expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
+                :default='$route.query.days'
+                v-on:updated-values="days = $event"
+              ></sidebar-filter>
+              {% if collapse_group %}
+                </div>
+              {% endif %}
 
-            <h3>{{ 'Programs & Classes'|t }}</h3>
+            {% set collapse_group = false %}
+            {% if expanderSectionsConfig['category_collapse_group'] and
+              (expanderSectionsConfig['category_collapse_group'] == 'enabled_collapsed' or
+              expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded')
+            %}
+              {% set collapse_group = true %}
+              {% set expanded = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? 'true' : 'false'  %}
+              {% set collapsed_class = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
+              {% set wrapper_class = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
+              {% set icon_expanded_show = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
+            {% endif %}
+
+            {% if collapse_group %}
+            <h3 type="button" data-toggle="collapse" data-target="#activityGroup" class="{{ collapsed_class }} activityGroup" aria-expanded="{{ expanded }}" aria-controls="activityGroup">{{ 'Programs & Classes'|t }}
+              <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
+            </h3>
+            <div class="collapse {{ wrapper_class }}" id="activityGroup">
+              {% else %}
+                <h3> {{ 'Programs & Classes'|t }}</h3>
+              {% endif %}
             {% if categories_type == 'single' %}
             <sidebar-filter-single
               ref="categories_filter"
@@ -111,37 +154,65 @@
               id="category-filter"
               type="{{ 'radios'|t }}"
               options='{{ categories|json_encode }}'
+              expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
-              expanded="true"
+              expanded="false"
               hide_label="true"
             ></sidebar-filter-single>
             {% else %}
             <sidebar-filter
               ref="categories_filter"
               title="{{ 'Category'|t }}"
+              expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
               id="category-filter"
               type="{{ 'checkboxes'|t }}"
               options='{{ categories|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
-              expanded="true"
+              expanded="false"
               hide_label="true"
             ></sidebar-filter>
             {% endif %}
+            {% if collapse_group %}
+              </div>
+            {% endif %}
 
-            <h3>{{ 'Location preferences'|t }}</h3>
+            {% set collapse_group = false %}
+            {% if expanderSectionsConfig['locations_collapse_group'] and
+              (expanderSectionsConfig['locations_collapse_group'] == 'enabled_collapsed' or
+              expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded')
+            %}
+              {% set collapse_group = true %}
+              {% set expanded = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? 'true' : 'false' %}
+              {% set collapsed_class = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
+              {% set wrapper_class = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
+              {% set icon_expanded_show = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
+
+            {% endif %}
+            {% if collapse_group %}
+              <h3 type="button" data-toggle="collapse" data-target="#locationGroup" class="{{ collapsed_class }} locationGroup" aria-expanded="{{ expanded }}" aria-controls="locationGroup">{{ 'Location preferences'|t }}
+                <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
+              </h3>
+              <div class="collapse {{ wrapper_class }}" id="locationGroup">
+            {% else %}
+              <h3> {{ 'Location preferences'|t }}</h3>
+            {% endif %}
             <sidebar-filter
               ref="locations_filter"
               title="{{ 'Location'|t }}"
               id="location-filter"
               type="{{ 'checkboxes'|t }}"
               options='{{ locations|json_encode }}'
+              expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
               :default='$route.query.locations'
               v-on:updated-values="locations = $event"
               expanded="true"
               hide_label="true"
             ></sidebar-filter>
+            {% if collapse_group %}
+              </div>
+            {% endif %}
             {% endblock %}
           </div>
         </div>
