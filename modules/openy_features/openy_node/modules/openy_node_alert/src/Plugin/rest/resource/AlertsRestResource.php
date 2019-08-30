@@ -3,11 +3,16 @@
 namespace Drupal\openy_node_alert\Plugin\rest\resource;
 
 use Drupal\Component\Utility\Unicode;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\Core\Path\CurrentPathStack;
+use Drupal\Core\Path\PathMatcherInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\Url;
+use Drupal\node\NodeInterface;
 use Drupal\rest\ModifiedResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -33,6 +38,41 @@ class AlertsRestResource extends ResourceBase {
   protected $currentUser;
 
   /**
+   * The alias manager that caches alias lookups based on the request.
+   *
+   * @var \Drupal\Core\Path\AliasManagerInterface
+   */
+  protected $aliasManager;
+
+  /**
+   * The Path Matcher.
+   *
+   * @var \Drupal\Core\Path\PathMatcherInterface
+   */
+  protected $pathMatcher;
+
+  /**
+   * The current path.
+   *
+   * @var \Drupal\Core\Path\CurrentPathStack
+   */
+  protected $currentPath;
+
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * Constructs a new AlertsRestResource object.
    *
    * @param array $configuration
@@ -47,6 +87,16 @@ class AlertsRestResource extends ResourceBase {
    *   A logger instance.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   A current user instance.
+   * @param \Drupal\Core\Path\AliasManagerInterface $alias_manager
+   *   The alias manager.
+   * @param \Drupal\Core\Path\PathMatcherInterface $path_matcher
+   *   The Path Matcher.
+   * @param \Drupal\Core\Path\CurrentPathStack $current_path
+   *   The current path.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
   public function __construct(
     array $configuration,
@@ -54,13 +104,20 @@ class AlertsRestResource extends ResourceBase {
     $plugin_definition,
     array $serializer_formats,
     LoggerInterface $logger,
-    AccountProxyInterface $current_user, $aliasManager, $pathMatcher, $pathCurrent) {
+    AccountProxyInterface $current_user,
+    AliasManagerInterface $alias_manager,
+    PathMatcherInterface $path_matcher,
+    CurrentPathStack $current_path,
+    EntityTypeManagerInterface $entity_type_manager,
+    ModuleHandlerInterface $module_handler) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->currentUser = $current_user;
-    $this->aliasManager = $aliasManager;
-    $this->pathMatcher = $pathMatcher;
-    $this->pathCurrent = $pathCurrent;
+    $this->aliasManager = $alias_manager;
+    $this->pathMatcher = $path_matcher;
+    $this->currentPath = $current_path;
+    $this->entityTypeManager = $entity_type_manager;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -76,21 +133,21 @@ class AlertsRestResource extends ResourceBase {
       $container->get('current_user'),
       $container->get('path.alias_manager'),
       $container->get('path.matcher'),
-      $container->get('path.current')
+      $container->get('path.current'),
+      $container->get('entity_type.manager'),
+      $container->get('module_handler')
     );
   }
 
   /**
    * Responds to GET requests.
    *
-   * @param \Drupal\Core\Entity\EntityInterface $entity
-   *   The entity object.
-   *
    * @return \Drupal\rest\ModifiedResourceResponse
    *   The HTTP response object.
    *
-   * @throws \Symfony\Component\HttpKernel\Exception\HttpException
-   *   Throws exception expected.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \HttpException
    */
   public function get() {
 
@@ -99,15 +156,12 @@ class AlertsRestResource extends ResourceBase {
     if (!$this->currentUser->hasPermission('access content')) {
       throw new AccessDeniedHttpException();
     }
-    $alerts = \Drupal::entityTypeManager()
+    $alerts = $this->entityTypeManager
       ->getStorage('node')
       ->loadByProperties(['type' => 'alert', 'status' => 1]);
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
-      $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)
-        ->setAbsolute()
-        ->toString() : NULL;
       if (!$alert->hasField('field_alert_visibility_pages')) {
         if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
           $refid = $alert->field_alert_belongs->target_id;
@@ -116,29 +170,10 @@ class AlertsRestResource extends ResourceBase {
             // Do not show alerts for current page.
             continue;
           }
-          $sendAlerts[$alert->field_alert_place->value]['local'][] = [
-            'title' => $alert->getTitle(),
-            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
-            'bgColor' => $alert->field_alert_color->entity->field_color->value,
-            'description' => $alert->field_alert_description->value,
-            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
-            'linkUrl' => $url,
-            'linkText' => $alert->field_alert_link->title,
-            'id' => $alert->id(),
-          ];
-
+          $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);;
         }
         elseif ($alert->hasField('field_alert_belongs') && $alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
-          $sendAlerts[$alert->field_alert_place->value]['global'][] = [
-            'title' => $alert->getTitle(),
-            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
-            'bgColor' => $alert->field_alert_color->entity->field_color->value,
-            'description' => $alert->field_alert_description->value,
-            'iconColor' => $alert->field_alert_icon_color->entity->field_color->value,
-            'linkUrl' => $url,
-            'linkText' => $alert->field_alert_link->title,
-            'id' => $alert->id(),
-          ];
+          $sendAlerts[$alert->field_alert_place->value]['global'][] = self::formatAlert($alert);;
         }
         else {
           throw new \HttpException('Field configuration for alerts is wrong');
@@ -146,34 +181,56 @@ class AlertsRestResource extends ResourceBase {
       }
       else {
         if ($this->checkVisibility($alert)) {
-          $iconColor = '';
-          if ($alert->field_alert_icon_color && $alert->field_alert_icon_color->entity && $alert->field_alert_icon_color->entity->field_color && $alert->field_alert_icon_color->entity->field_color->value) {
-            $iconColor = $alert->field_alert_icon_color->entity->field_color->value;
-          }
-          $sendAlerts[$alert->field_alert_place->value]['local'][] = [
-            'title' => $alert->getTitle(),
-            'textColor' => $alert->field_alert_text_color->entity->field_color->value,
-            'bgColor' => $alert->field_alert_color->entity->field_color->value,
-            'description' => $alert->field_alert_description->value,
-            'iconColor' => $iconColor,
-            'linkUrl' => $url,
-            'linkText' => $alert->field_alert_link->title,
-            'id' => $alert->id(),
-          ];
+          $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);
         }
       }
     }
+
+    $this->moduleHandler->alter('openy_node_alert_get', $sendAlerts, $alerts);
+
     return new ModifiedResourceResponse($sendAlerts, 200);
+  }
+
+  /**
+   * Helper function for alerts formatting.
+   *
+   * @param \Drupal\node\NodeInterface $alert
+   *   Alert node.
+   *
+   * @return array
+   *   Formatted alert.
+   */
+  public static function formatAlert(NodeInterface $alert) {
+    $url = $alert->field_alert_link->uri != NULL ? Url::fromUri($alert->field_alert_link->uri)
+      ->setAbsolute()
+      ->toString() : NULL;
+
+    $iconColor = '';
+    if ($alert->field_alert_icon_color && $alert->field_alert_icon_color->entity && $alert->field_alert_icon_color->entity->field_color && $alert->field_alert_icon_color->entity->field_color->value) {
+      $iconColor = $alert->field_alert_icon_color->entity->field_color->value;
+    }
+    return [
+      'title' => $alert->getTitle(),
+      'textColor' => $alert->field_alert_text_color->entity->field_color->value,
+      'bgColor' => $alert->field_alert_color->entity->field_color->value,
+      'description' => $alert->field_alert_description->value,
+      'iconColor' => $iconColor,
+      'linkUrl' => $url,
+      'linkText' => $alert->field_alert_link->title,
+      'id' => $alert->id(),
+    ];
   }
 
   /**
    * Check visibility of alert.
    *
-   * @param $node
+   * @param \Drupal\node\NodeInterface $node
+   *   Alert node.
    *
    * @return bool
+   *   Visibility status, TRUE if visible.
    */
-  private function checkVisibility(\Drupal\node\NodeInterface $node) {
+  private function checkVisibility(NodeInterface $node) {
 
     $pages = '';
     if ($node->hasField('field_alert_visibility_pages')) {
