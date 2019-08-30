@@ -9,6 +9,7 @@ dependencies:
   - ckeditor_bootstrap_buttons:ckeditor_bootstrap_buttons
   - drupal:ckeditor
   - drupal:editor
+  - ckeditor_font:ckeditor_font
   - drupal:filter
   - entity_embed:entity_embed
   - token_filter:token_filter
