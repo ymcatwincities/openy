@@ -2460,6 +2460,9 @@ body {
 .program-header .image {
   margin-top: -40px;
 }
+.program-header #banner .image {
+  margin-top: 0;
+}
 .program-header .main {
   position: static;
 }
@@ -2495,6 +2498,9 @@ body {
     font-size: 60px;
     margin-bottom: 80px;
   }
+}
+.program-header .field-header-content {
+  margin-bottom: 20px;
 }
 .program-header.program-header-sub-category {
   margin-bottom: 0;
@@ -5580,9 +5586,7 @@ iframe#ga_iframe {
   cursor: pointer;
 }
 
-.atcb-link:focus ~ ul,
-.atcb-link:active ~ ul,
-.atcb-list:hover {
+.atcb-link ~ ul.active {
   visibility: visible;
 }
 
@@ -7370,6 +7374,26 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .nav .language .openy-google-translate select option {
   color: #636466;
+}
+
+#hb-loc-modal .hb-loc-modal__modal {
+  z-index: 99500;
+}
+
+.node--type-branch .location-masthead .hb-branch-selector {
+  min-height: auto;
+}
+@media (min-width: 48em) {
+  .node--type-branch .location-masthead .hb-branch-selector .hb-location-checkbox-wrapper {
+    text-align: left;
+  }
+}
+
+.hb-loc-modal__modal--footer .btn.btn-default, .hb-loc-modal__modal--footer .btn-default.button {
+  border: none;
+}
+.hb-loc-modal__modal--footer .btn.action-cancel, .hb-loc-modal__modal--footer .action-cancel.button {
+  background-color: #999;
 }
 
 .paragraph-1c-wrapper {
