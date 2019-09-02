@@ -3,6 +3,7 @@
 namespace Drupal\personify;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Driver\Exception\Exception;
 
 /**
  * Personify SSO service.
@@ -243,6 +244,27 @@ class PersonifySSO {
    */
   public function getConfigVendorId() {
     return $this->vendorId;
+  }
+
+  /**
+   *
+   * General function that executes
+   *
+   * @param $method
+   * @param $params
+   *
+   * @return mixed
+   */
+  public function execute($method, $params) {
+
+    try {
+
+      return $this->client->{$method}($params);
+
+    } catch (Exception $e) {
+
+    }
+
   }
 
 }

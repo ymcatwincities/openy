@@ -3,11 +3,14 @@
 namespace Drupal\myy_personify\Plugin\MyYDataProfile;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Plugin\PluginBase;
 use Drupal\openy_myy\PluginManager\MyYDataProfileInterface;
+use Drupal\personify\PersonifyClient;
 use Drupal\personify\PersonifySSO;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Personify Profile data plugin.
@@ -18,27 +21,32 @@ use Drupal\Core\Logger\LoggerChannelFactory;
  *   description = "Profile data communication using Personify",
  * )
  */
-class PersonifyDataProfile implements MyYDataProfileInterface, ContainerFactoryPluginInterface {
+class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface, ContainerFactoryPluginInterface {
 
   /**
    * @var \Drupal\personify\PersonifySSO;
    */
-  private $personifySSO;
+  protected $personifySSO;
 
   /**
    * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
-  private $logger;
+  protected $logger;
 
   /**
-   * PersonifyAuthenticator constructor.
+   * @var \Drupal\personify\PersonifyClient
+   */
+  protected $personifyClient;
+
+  /**
+   * PersonifyDataProfile constructor.
    *
    * @param array $configuration
    * @param $plugin_id
    * @param $plugin_definition
    * @param \Drupal\personify\PersonifySSO $personifySSO
+   * @param \Drupal\personify\PersonifyClient $personifyClient
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
-   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    * @param \Drupal\Core\Logger\LoggerChannelFactory $loggerChannelFactory
    */
   public function __construct(
@@ -46,11 +54,13 @@ class PersonifyDataProfile implements MyYDataProfileInterface, ContainerFactoryP
     $plugin_id,
     $plugin_definition,
     PersonifySSO $personifySSO,
+    PersonifyClient $personifyClient,
     ConfigFactoryInterface $configFactory,
     LoggerChannelFactory $loggerChannelFactory
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
+    $this->personifyClient = $personifyClient;
     $this->config = $configFactory->get('myy_personify.settings');
     $this->logger = $loggerChannelFactory->get('personify_authenticator');
   }
@@ -64,6 +74,7 @@ class PersonifyDataProfile implements MyYDataProfileInterface, ContainerFactoryP
       $plugin_id,
       $plugin_definition,
       $container->get('personify.sso_client'),
+      $container->get('personify.client'),
       $container->get('config.factory'),
       $container->get('logger.factory')
     );
@@ -99,7 +110,37 @@ class PersonifyDataProfile implements MyYDataProfileInterface, ContainerFactoryP
    * {@inheritdoc}
    */
   public function getFamilyInfo() {
-    // TODO: Implement getFamilyInfo() method.
+
+    $personifyID = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
+    $relationship_data = $this
+      ->personifyClient
+      ->doAPIcall(
+        'GET',
+        "CustomerInfos(MasterCustomerId='" . $personifyID . "',SubCustomerId=0)/Relationships"
+      );
+
+    $output = [];
+
+    foreach ($relationship_data->d as $relationship) {
+
+      $family_member_profile_data = $this
+        ->personifyClient
+        ->doAPIcall(
+          'GET',
+          "CustomerInfos(MasterCustomerId='" . $relationship->RelatedMasterCustomerId . "',SubCustomerId=0)"
+        );
+
+      $family_member_birthdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $family_member_profile_data->d->CL_BirthDate) / 1000, 'UTC');
+      $now = new DrupalDateTime();
+      $output['household'][] = [
+        'name' => $relationship->RelatedName,
+        'RelationshipCode' => $relationship->RelationshipCode,
+        'age' => $now->diff($family_member_birthdate)->format('%y'),
+      ];
+    }
+
+    return $output;
+
   }
 
   /**
