@@ -5,3 +5,6 @@ services:
   plugin.manager.myy_data_profile:
     class: Drupal\openy_myy\PluginManager\MyYDataProfile
     parent: default_plugin_manager
+  plugin.manager.myy_data_visits:
+    class: Drupal\openy_myy\PluginManager\MyYDataVisits
+    parent: default_plugin_manager

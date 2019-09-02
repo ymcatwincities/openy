@@ -108,7 +108,7 @@ class PersonifyClient {
       ],
     ];
 
-    return $this->doAPIcall('CL_GetCustomerBranchInformation', $json);
+    return $this->doAPIcall('POST', 'CL_GetCustomerBranchInformation', $json);
   }
 
   /**
@@ -133,7 +133,7 @@ class PersonifyClient {
       ],
     ];
 
-    $results = $this->doAPIcall('CL_GetFacilityVisitCountByDate', $json);
+    $results = $this->doAPIcall('POST', 'CL_GetFacilityVisitCountByDate', $json);
     if (empty($results)) {
       return [];
     }
