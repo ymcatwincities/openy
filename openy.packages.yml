@@ -4,6 +4,7 @@ alerts:
   help: '<p>Using Alerts package you can create, select placement, select color schema and publish alerts that should notify visitors about important events or announcements.</p>'
   modules:
     - openy_node_alert
+    - openy_update
 
 analytics:
   name: 'Analytics'
@@ -337,3 +338,10 @@ integration:
   Initially, this package was used for enabling domains with different themes (design) per domain.</p>'
   modules:
     - openy_development
+
+myy:
+  name: 'MyY'
+  description: 'Drupal-based user profile that connected to your CRM'
+  modules:
+    - openy_myy
+    - myy_personify

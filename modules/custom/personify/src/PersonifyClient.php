@@ -2,13 +2,14 @@
 
 namespace Drupal\personify;
 
-use Drupal\openy_campaign\CRMClientInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Site\Settings;
+use GuzzleHttp\Client;
 
 /**
  * Helper for Personify API requests needed for retention campaign.
  */
-class PersonifyClient implements CRMClientInterface {
+class PersonifyClient {
 
   /** @var string Personify API endpoint */
   protected $endpoint;
@@ -20,12 +21,27 @@ class PersonifyClient implements CRMClientInterface {
   protected $password;
 
   /**
-   * Client constructor.
+   * @var \GuzzleHttp\Client
    */
-  public function __construct() {
-    $this->endpoint = Settings::get('personify_endpoint');
-    $this->username = Settings::get('personify_username');
-    $this->password = Settings::get('personify_password');
+  protected $client;
+
+  /**
+   * @var array
+   */
+  protected $config;
+
+  /**
+   * PersonifyClient constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \GuzzleHttp\Client $client
+   */
+  public function __construct(ConfigFactoryInterface $configFactory, Client $client) {
+    $this->client = $client;
+    $this->config = $configFactory->get('personify.settings')->getRawData();
+    $this->endpoint = $this->config['prod_endpoint'];
+    $this->username = $this->config['prod_username'];
+    $this->password = $this->config['prod_password'];
 
     if (empty($this->endpoint) || empty($this->username) || empty($this->password)) {
       throw new \LogicException(t('Personify module is misconfigured. Make sure endpoint, username and password details are set.'));
@@ -38,8 +54,8 @@ class PersonifyClient implements CRMClientInterface {
    *
    * @return array|mixed
    */
-  protected function doAPIcall($method, $json) {
-    $client = \Drupal::httpClient();
+  public function doAPIcall($type = 'GET', $method, $json = []) {
+
     $options = [
       'json' => $json,
       'headers' => [
@@ -50,9 +66,12 @@ class PersonifyClient implements CRMClientInterface {
         $this->password,
       ],
     ];
+
     try {
+
       $endpoint = $this->endpoint . $method;
-      $response = $client->request('POST', $endpoint, $options);
+      $response = $this->client->request($type, $endpoint, $options);
+
       if ($response->getStatusCode() != '200') {
         throw new \LogicException(t('API Method %method is failed.', ['%method' => $method]));
       }
@@ -89,7 +108,7 @@ class PersonifyClient implements CRMClientInterface {
       ],
     ];
 
-    return $this->doAPIcall('CL_GetCustomerBranchInformation', $json);
+    return $this->doAPIcall('POST', 'CL_GetCustomerBranchInformation', $json);
   }
 
   /**
@@ -114,7 +133,7 @@ class PersonifyClient implements CRMClientInterface {
       ],
     ];
 
-    $results = $this->doAPIcall('CL_GetFacilityVisitCountByDate', $json);
+    $results = $this->doAPIcall('POST', 'CL_GetFacilityVisitCountByDate', $json);
     if (empty($results)) {
       return [];
     }
