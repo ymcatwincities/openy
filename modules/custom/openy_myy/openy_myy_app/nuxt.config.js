@@ -13,7 +13,13 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+      //{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' }
+    ],
+    script: [
+      { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
+      { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.js' },
+      { src: 'https://use.fontawesome.com/95fd5fcc01.js' }
+    ],
   },
   /*
   ** Customize the progress bar color
@@ -23,6 +29,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    devtools: true,
     /*
     ** Run ESLint on save
     */
@@ -37,11 +44,11 @@ module.exports = {
       }
     },
     extractCSS: {
-      allChunks: true
+      allChunks: ({ isDev }) => !isDev,
     },
     filenames: {
       app: ({ isDev }) => !isDev ? '[name].js' : 'app.js',
-      chunk: ({ isDev }) => !isDev ? '[name].js' : '[chunkhash].js',
+      chunk: ({ isDev }) => !isDev ? '[id].[name].js' : '[id].[name].js',
       css: ({ isDev }) => !isDev ? '[name].css' : '[name].css',
     },
     splitChunks: {

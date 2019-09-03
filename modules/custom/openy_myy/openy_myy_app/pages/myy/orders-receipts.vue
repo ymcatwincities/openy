@@ -5,10 +5,10 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-3">
-            <sidebar-menu/>
+            <filters/>
           </div>
           <div class="col-sm-9">
-            <childcare/>
+            <orders-receipts-results/>
           </div>
         </div>
       </div>
@@ -18,14 +18,14 @@
 
 <script>
   import MyyHeader from '~/components/MyyHeader.vue'
-  import SidebarMenu from '~/components/SidebarMenu.vue'
-  import Childcare from '~/components/Childcare.vue'
+  import Filters from '~/components/Filters.vue'
+  import OrdersReceiptsResults from '~/components/OrdersReceiptsResults.vue'
 
   export default {
     components: {
       MyyHeader,
-      SidebarMenu,
-      Childcare,
+      OrdersReceiptsResults,
+      Filters,
     }
   }
 </script>

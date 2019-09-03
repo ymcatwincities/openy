@@ -4,3 +4,10 @@ openy_myy.myy:
     _controller: '\Drupal\openy_myy\Controller\MyYController::myy'
   requirements:
     _permission: 'access content'
+openy_myy.settings:
+  path: '/admin/openy/settings/myy'
+  defaults:
+    _form: '\Drupal\openy_myy\Form\SettingsForm'
+    _title: 'MyY settings'
+  requirements:
+    _permission: 'administer site configuration'

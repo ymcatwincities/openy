@@ -8,6 +8,7 @@ import _6f516668 from '../pages/myy/calendar.vue'
 import _7063c0f3 from '../pages/myy/childcare.vue'
 import _4268c44c from '../pages/myy/dashboard.vue'
 import _46f76b00 from '../pages/myy/membership.vue'
+import _541b0069 from '../pages/myy/orders-receipts.vue'
 import _956a5f1e from '../pages/myy/profile-settings.vue'
 import _07b3db5a from '../pages/index.vue'
 
@@ -40,6 +41,10 @@ export const routerOptions = {
       path: "/myy/membership",
       component: () => _46f76b00.default || _46f76b00,
       name: "myy-membership"
+    }, {
+      path: "/myy/orders-receipts",
+      component: () => _541b0069.default || _541b0069,
+      name: "myy-orders-receipts"
     }, {
       path: "/myy/profile-settings",
       component: () => _956a5f1e.default || _956a5f1e,
