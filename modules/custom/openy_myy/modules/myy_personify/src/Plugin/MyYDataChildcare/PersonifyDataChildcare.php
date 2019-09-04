@@ -1,26 +1,26 @@
 <?php
 
-namespace Drupal\myy_personify\Plugin\MyYDataVisits;
+namespace Drupal\myy_personify\Plugin\MyYDataChildcare;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\open_myy\PluginManager\MyYDataVisitsInterface;
+use Drupal\openy_myy\PluginManager\MyYDataChildcareInterface;
 use Drupal\personify\PersonifyClient;
 use Drupal\personify\PersonifySSO;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Personify Profile data plugin.
+ * Personify Childcare data plugin.
  *
- * @MyYDataVisits(
- *   id = "myy_personify_data_visits",
+ * @MyYDataChildcare(
+ *   id = "myy_personify_data_childcare",
  *   label = "MyY Data Profile: Visits",
  *   description = "Visits data from Personify",
  * )
  */
-class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, ContainerFactoryPluginInterface {
+class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInterface, ContainerFactoryPluginInterface {
 
   /**
    * @var \Drupal\personify\PersonifySSO;
@@ -61,7 +61,7 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     $this->personifySSO = $personifySSO;
     $this->personifyClient = $personifyClient;
     $this->config = $configFactory->get('myy_personify.settings');
-    $this->logger = $loggerChannelFactory->get('personify_authenticator');
+    $this->logger = $loggerChannelFactory->get('personify_data_childcare');
   }
 
   /**
@@ -82,9 +82,44 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
   /**
    * {@inheritdoc}
    */
-  public function getVisitsCountByDate($start_date, $finish_date) {
+  public function getChildcareEvents($start_date, $end_date) {
+
     $personifyID = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
-    return $this->personifyClient->getVisitCountByDate($personifyID, $start_date, $finish_date);
+    $body = "<StoredProcedureRequest>
+    <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS</StoredProcedureName>
+    <SPParameterList>
+        <StoredProcedureParameter>
+            <Name>@id</Name>
+            <Value>$personifyID</Value>
+        </StoredProcedureParameter>
+                <StoredProcedureParameter>
+            <Name>@startDate</Name>
+            <Value>$start_date</Value>
+        </StoredProcedureParameter>
+                <StoredProcedureParameter>
+            <Name>@endDate</Name>
+            <Value>$end_date</Value>
+        </StoredProcedureParameter>
+    </SPParameterList>
+    </StoredProcedureRequest>";
+
+    $result = [];
+
+    $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+    $results = json_decode($data->Data);
+    if (!empty($result->Table)) {
+       $result = $results->Table;
+    }
+
+    return $result;
   }
+
+  public function getChildcareScheduledEvents($start_date, $end_date) {
+
+    $personifyID = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
+
+    // TODO: Implement getChildcareScheduledEvents() method.
+  }
+
 
 }

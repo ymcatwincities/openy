@@ -54,12 +54,17 @@ class PersonifyClient {
    *
    * @return array|mixed
    */
-  public function doAPIcall($type = 'GET', $method, $json = []) {
+  public function doAPIcall($type = 'GET', $method, $body = [], $body_format = 'json') {
+
+    $body_key = 'body';
+    if ($body_format == 'json') {
+      $body_key = 'json';
+    }
 
     $options = [
-      'json' => $json,
+      $body_key => $body,
       'headers' => [
-        'Content-Type' => 'application/json;charset=utf-8',
+        'Content-Type' => 'application/' . $body_format . ';charset=utf-8',
       ],
       'auth' => [
         $this->username,
@@ -80,7 +85,7 @@ class PersonifyClient {
 
       \Drupal::logger('personify')->info('Personify request to %method. Arguments %json. Response %body', [
         '%method' => $method,
-        '%json' => json_encode($json),
+        '%json' => json_encode($body),
         '%body' => $content,
       ]);
 

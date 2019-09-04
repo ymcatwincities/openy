@@ -8,3 +8,6 @@ services:
   plugin.manager.myy_data_visits:
     class: Drupal\openy_myy\PluginManager\MyYDataVisits
     parent: default_plugin_manager
+  plugin.manager.myy_data_childcare:
+    class: Drupal\openy_myy\PluginManager\MyYDataChildcare
+    parent: default_plugin_manager
