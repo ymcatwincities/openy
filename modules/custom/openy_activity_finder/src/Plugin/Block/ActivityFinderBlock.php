@@ -39,6 +39,7 @@ class ActivityFinderBlock extends BlockBase {
       '#categories_type' => $backend->getCategoriesType(),
       '#activities' => $backend->getCategories(),
       '#locations' => $backend->getLocations(),
+      '#expanderSectionsConfig' => $config->getRawData(),
       '#attached' => [
         'drupalSettings' => [
           'activityFinder' => [
