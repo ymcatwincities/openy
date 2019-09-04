@@ -31,7 +31,7 @@
 
     }, options);
 
-    let self = this;
+    var self = this;
 
     // Re-init plugin instance on storage update.
     $(document).on('hb-after-storage-update', function (event, data) {

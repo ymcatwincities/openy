@@ -10,7 +10,7 @@
    */
   Drupal.homeBranch.plugins.push({
     name: 'hb-loc-selector-activity-finder',
-    attach: (settings) => {
+    attach: function (settings) {
       // Attach plugin instance to activity finder paragraph.
       // @see openy_home_branch/js/hb-plugin-base.js
       $(drupalSettings.home_branch.hb_loc_selector_activity_finder.selector).hbPlugin(settings);
