@@ -68,6 +68,9 @@
 .schedule-dashboard__modal--body {
   padding: 0;
 }
+.schedule-dashboard__modal--body.row {
+  padding: 0 15px;
+}
 .schedule-dashboard__modal--body h3 {
   color: #000;
   font-size: 14px;
