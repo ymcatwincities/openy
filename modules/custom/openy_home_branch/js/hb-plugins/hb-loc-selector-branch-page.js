@@ -56,18 +56,16 @@
         var id = $(context).data('hb-id');
         var branchSelector = $(this.placeholderSelector, context);
         // Replace branch selector implementation by home branch alternative.
-        branchSelector.each(function() {
-          $(this).replaceWith(`
-              <div class="hb-branch-selector">
-                <div class="hb-location-checkbox-wrapper">
-                  <span class="hb-checkbox-wrapper">
-                    <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox hb-location-checkbox-` + id + `">
-                    <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
-                  </span>
-                  <span class="hb-branch-selector-change-wrapper">[<a class="hb-branch-selector-change" href="#">Change</a>]</span>
-                </div>
-              </div>
-            `);
+        branchSelector.each(function () {
+          $(this).replaceWith('<div class="hb-branch-selector">' +
+            '<div class="hb-location-checkbox-wrapper">' +
+              '<span class="hb-checkbox-wrapper">' +
+                '<input type="checkbox" value="' + id + '" id="hb-location-checkbox-' + id + '" class="hb-location-checkbox hb-location-checkbox-' + id + '">' +
+                '<label for="hb-location-checkbox-' + id + '">' + this.selectedText + '</label>' +
+              '</span>' +
+              '<span class="hb-branch-selector-change-wrapper">[<a class="hb-branch-selector-change" href="#">Change</a>]</span>' +
+            '</div>' +
+          '</div>');
         });
         // Save created element in plugin.
         this.element = $('.hb-location-checkbox-' + id);
