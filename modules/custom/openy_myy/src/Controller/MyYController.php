@@ -14,7 +14,7 @@ class MyYController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function getData(Request $request) {
+  public function myy(Request $request) {
     return [
       '#theme' => 'openy_myy',
     ];
