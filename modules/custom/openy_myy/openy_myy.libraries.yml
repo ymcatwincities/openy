@@ -2,8 +2,8 @@ openy_myy:
   version: 0.1
   js:
     openy_myy_app/nuxt-dist/dist/client/runtime.js: {}
-    openy_myy_app/nuxt-dist/dist/client/vendors.app.js: {}
-    openy_myy_app/nuxt-dist/dist/client/app.js: {}
+    openy_myy_app/nuxt-dist/dist/client/2.vendors.app.js: {}
+    openy_myy_app/nuxt-dist/dist/client/0.app.js: {}
 
   css:
     base:

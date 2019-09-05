@@ -9,17 +9,30 @@
           <div class="col-sm-7">
             <h1>MY Y</h1>
           </div>
-          <div class="col-sm-5 text-right">
+          <div v-if="isLoggedIn" class="col-sm-5 text-right">
             <span class="account_name">Hello, John!</span>
             <nuxt-link to="/myy/profile-settings" class="profile_settings"><i class="fa fa-gear"></i></nuxt-link>
-            <nuxt-link to="/myy/sign-out" class="sign_out">Sign out</nuxt-link>
+            <a href="/myy/logout" class="sign_out">Sign out</a>
+          </div>
+          <div v-else class="col-sm-5 text-right">
+            <a href="/myy/login" class="sign_in">Login</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
-
+  <script>
+  export default {
+    components: {
+    },
+    created: function() {
+      this.isLoggedIn = this.$cookie.get('Drupal.visitor.personify_authorized');
+    },
+    methods: {
+    }
+  }
+  </script>
 <style lang="scss">
   .myy-header {
     background-color: #231F20;
@@ -66,7 +79,8 @@
           vertical-align: middle;
         }
       }
-      .sign_out {
+      .sign_out,
+      .sign_in {
         font-weight: bold;
         font-size: 14px;
         line-height: 48px;

@@ -1,6 +1,9 @@
 module.exports = {
   buildDir: 'nuxt-dist',
   mode: 'spa',
+  plugins: [
+    {src: '~plugins/vue-cookie', ssr: false, injectAs: 'cookie'}
+  ],
   /*
   ** Headers of the page
   */
@@ -21,6 +24,7 @@ module.exports = {
       { src: 'https://use.fontawesome.com/95fd5fcc01.js' }
     ],
   },
+
   /*
   ** Customize the progress bar color
   */
@@ -47,7 +51,7 @@ module.exports = {
       allChunks: ({ isDev }) => !isDev,
     },
     filenames: {
-      app: ({ isDev }) => !isDev ? '[name].js' : 'app.js',
+      app: ({ isDev }) => !isDev ? '[name].js' : '[name].js',
       chunk: ({ isDev }) => !isDev ? '[id].[name].js' : '[id].[name].js',
       css: ({ isDev }) => !isDev ? '[name].css' : '[name].css',
     },

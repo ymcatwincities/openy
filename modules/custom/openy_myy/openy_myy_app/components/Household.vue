@@ -1,5 +1,6 @@
 <template>
-  <section class="myy-household">
+  <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
+  <section v-else class="myy-household">
     <div class="row headline">
       <div class="col">
         <h3>Household</h3>
@@ -13,52 +14,22 @@
             <div class="name">Me (John Doe)</div>
             <div class="age">36</div>
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Select
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <button class="dropdown-item" type="button">Action</button>
                 <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
+                <button class="dropdown-item" type="button">Something else here</button>lj
               </div>
             </div>
           </div>
-          <div class="col">
+          <div v-for="(item, index) in data.household" v-bind:key="index" class="col">
             <span class="rounded_letter red">J</span>
-            <div class="name">Janne Doe</div>
-            <div class="age">36 (Primary)</div>
+            <div class="name">{{ item.name }}</div>
+            <div class="age">{{ item.age }}</div>
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <span class="rounded_letter blue">B</span>
-            <div class="name">Buck Doe</div>
-            <div class="age">36</div>
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <span class="rounded_letter purple">D</span>
-            <div class="name">Daedra Doe</div>
-            <div class="age">36</div>
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-primary dropdown-toggle" type="button" :id="'dropdownMenu' + index" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Select
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -73,6 +44,41 @@
     </div>
   </section>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        loading: true,
+        data: {
+          household: []
+        }
+      }
+    },
+    methods: {
+      runAjaxRequest: function() {
+        let component = this,
+          //url = drupalSettings.path.baseUrl + 'myy/data/profile/family-list';
+          url = 'http://openy20.docksal/myy/data/profile/family-list';
+
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          component.data = data;
+          component.loading = false;
+        });
+      },
+    },
+    mounted: function() {
+      let component = this;
+      component.runAjaxRequest();
+    }
+  }
+</script>
 
 <style lang="scss">
   .myy-household {
