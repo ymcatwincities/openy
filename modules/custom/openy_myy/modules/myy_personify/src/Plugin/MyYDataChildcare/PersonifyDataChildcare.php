@@ -85,6 +85,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
   public function getChildcareEvents($start_date, $end_date) {
 
     $personifyID = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
+
+    //@TODO Change to real data parameters
     $body = "<StoredProcedureRequest>
     <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS</StoredProcedureName>
     <SPParameterList>
@@ -94,11 +96,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@startDate</Name>
-            <Value>$start_date</Value>
+            <Value>2019-08-26 00:00:00.000</Value>
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@endDate</Name>
-            <Value>$end_date</Value>
+            <Value>2019-08-30 00:00:00.000</Value>
         </StoredProcedureParameter>
     </SPParameterList>
     </StoredProcedureRequest>";
@@ -107,18 +109,43 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
     $results = json_decode($data->Data);
-    if (!empty($result->Table)) {
-       $result = $results->Table;
+    if (!empty($results->Table)) {
+       foreach ($results->Table as $childcare_item) {
+         $result[] = [
+           'order_number' => $childcare_item->order_number,
+           'usr_day' => $childcare_item->usr_day,
+           'od_order_date' => $childcare_item->od_order_date,
+           'order_date' => $childcare_item->order_date,
+           'scheduled' => $childcare_item->sflag,
+           'attended' => $childcare_item->aflag,
+           'type' => $childcare_item->stype,
+           'program_name' => $childcare_item->pname,
+           'program_code' => $childcare_item->pcode,
+           'product_id' => $childcare_item->pid,
+           'branch_id' => $childcare_item->branch_id
+         ];
+       }
     }
 
     return $result;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getChildcareScheduledEvents($start_date, $end_date) {
 
-    $personifyID = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
+    $items = $this->getChildcareEvents($start_date, $end_date);
 
-    // TODO: Implement getChildcareScheduledEvents() method.
+    $result = [];
+
+    foreach ($items as $item) {
+      if (($item['attended'] == 'N') && ($item['scheduled'] == 'Y')) {
+        $result[] = $item;
+      }
+    }
+
+    return $result;
   }
 
 

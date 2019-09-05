@@ -145,7 +145,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
       }
     }
 
-    $redirect_url = Url::fromRoute('openy_myy.get_results')->toString();
+    $redirect_url = Url::fromRoute('openy_myy.myy')->toString();
     if (isset($query['dest'])) {
       $redirect_url = urldecode($query['dest']);
     }

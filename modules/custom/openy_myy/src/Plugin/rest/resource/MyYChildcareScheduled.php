@@ -85,7 +85,7 @@ class MyYChildcareScheduled extends ResourceBase {
       $response = $this
         ->myYDataChildcare
         ->createInstance($myy_config['myy_data_childcare'])
-        ->getChildcareEvents(date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
+        ->getChildcareScheduledEvents(date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
     } else {
       return new NotFoundHttpException();
     }

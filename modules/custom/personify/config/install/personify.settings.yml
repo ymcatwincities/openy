@@ -11,7 +11,7 @@ prod_username: ***REMOVED***
 prod_password: ***REMOVED***
 
 # Stage endpoint.
-stage_endpoint: 'https://ygtctrain3ebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc/'
+stage_endpoint: 'https://ygtctst4ebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc/'
 stage_username: ***REMOVED***
 stage_password: ***REMOVED***
 
