@@ -39,9 +39,10 @@ class PersonifyClient {
   public function __construct(ConfigFactoryInterface $configFactory, Client $client) {
     $this->client = $client;
     $this->config = $configFactory->get('personify.settings')->getRawData();
-    $this->endpoint = $this->config['prod_endpoint'];
-    $this->username = $this->config['prod_username'];
-    $this->password = $this->config['prod_password'];
+
+    $this->endpoint = $this->config[$this->config['environment'] . '_endpoint'];
+    $this->username = $this->config[$this->config['environment'] . '_username'];
+    $this->password = $this->config[$this->config['environment'] . '_password'];
 
     if (empty($this->endpoint) || empty($this->username) || empty($this->password)) {
       throw new \LogicException(t('Personify module is misconfigured. Make sure endpoint, username and password details are set.'));
@@ -54,12 +55,17 @@ class PersonifyClient {
    *
    * @return array|mixed
    */
-  public function doAPIcall($type = 'GET', $method, $json = []) {
+  public function doAPIcall($type = 'GET', $method, $body = [], $body_format = 'json') {
+
+    $body_key = 'body';
+    if ($body_format == 'json') {
+      $body_key = 'json';
+    }
 
     $options = [
-      'json' => $json,
+      $body_key => $body,
       'headers' => [
-        'Content-Type' => 'application/json;charset=utf-8',
+        'Content-Type' => 'application/' . $body_format . ';charset=utf-8',
       ],
       'auth' => [
         $this->username,
@@ -80,7 +86,7 @@ class PersonifyClient {
 
       \Drupal::logger('personify')->info('Personify request to %method. Arguments %json. Response %body', [
         '%method' => $method,
-        '%json' => json_encode($json),
+        '%json' => json_encode($body),
         '%body' => $content,
       ]);
 

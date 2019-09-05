@@ -5,6 +5,7 @@ namespace Drupal\myy_personify\Plugin\MyYDataVisits;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\open_myy\PluginManager\MyYDataVisitsInterface;
 use Drupal\personify\PersonifyClient;
 use Drupal\personify\PersonifySSO;
@@ -19,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   description = "Visits data from Personify",
  * )
  */
-class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface {
+class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, ContainerFactoryPluginInterface {
 
   /**
    * @var \Drupal\personify\PersonifySSO;

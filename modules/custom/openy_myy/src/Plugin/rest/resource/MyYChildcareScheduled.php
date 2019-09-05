@@ -8,26 +8,25 @@ use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Drupal\openy_myy\PluginManager\MyYDataProfile;
+use Drupal\openy_myy\PluginManager\MyYDataChildcare;
 
 /**
- * Family list resource
+ * MyY scheduled childcare session resource
  *
  * @RestResource(
- *   id = "myy_profile_family_list",
- *   label = @Translation("List of Family members"),
+ *   id = "myy_childcare_scheduled",
+ *   label = @Translation("List of scheduled childcare items"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/profile/family-list"
+ *     "canonical" = "/myy/data/childcare/scheduled"
  *   }
  * )
  */
-class MyYProfileFamilyList extends ResourceBase {
-
+class MyYChildcareScheduled extends ResourceBase {
 
   /**
-   * @var \Drupal\openy_myy\PluginManager\MyYDataProfile
+   * @var \Drupal\openy_myy\PluginManager\MyYDataChildcare
    */
-  protected $myYDataProfile;
+  protected $myYDataChildcare;
 
   /**
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -35,14 +34,14 @@ class MyYProfileFamilyList extends ResourceBase {
   protected $config;
 
   /**
-   * MyYProfileFamilyList constructor.
+   * MyYChildcareScheduled constructor.
    *
    * @param array $configuration
    * @param $plugin_id
    * @param $plugin_definition
    * @param array $serializer_formats
    * @param \Psr\Log\LoggerInterface $logger
-   * @param \Drupal\openy_myy\PluginManager\MyYDataProfile $myYDataProfile
+   * @param \Drupal\openy_myy\PluginManager\MyYDataChildcare $myYDataChildcare
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    */
   public function __construct(
@@ -51,13 +50,13 @@ class MyYProfileFamilyList extends ResourceBase {
     $plugin_definition,
     array $serializer_formats,
     LoggerInterface $logger,
-    MyYDataProfile $myYDataProfile,
+    MyYDataChildcare $myYDataChildcare,
     ConfigFactoryInterface $configFactory
-   ) {
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->config = $configFactory->get('openy_myy.settings');
-    $this->myYDataProfile = $myYDataProfile;
+    $this->myYDataChildcare = $myYDataChildcare;
   }
 
   /**
@@ -69,8 +68,8 @@ class MyYProfileFamilyList extends ResourceBase {
       $plugin_id,
       $plugin_definition,
       $container->getParameter('serializer.formats'),
-      $container->get('logger.factory')->get('openy_myy_data_profile'),
-      $container->get('plugin.manager.myy_data_profile'),
+      $container->get('logger.factory')->get('openy_myy_data_childcare'),
+      $container->get('plugin.manager.myy_data_childcare'),
       $container->get('config.factory')
     );
   }
@@ -81,12 +80,12 @@ class MyYProfileFamilyList extends ResourceBase {
   public function get() {
 
     $myy_config = $this->config->getRawData();
-    $myy_authenticator_instances = $this->myYDataProfile->getDefinitions();
-    if (array_key_exists($myy_config['myy_data_profile'], $myy_authenticator_instances)) {
+    $myy_authenticator_instances = $this->myYDataChildcare->getDefinitions();
+    if (array_key_exists($myy_config['myy_data_childcare'], $myy_authenticator_instances)) {
       $response = $this
-        ->myYDataProfile
-        ->createInstance($myy_config['myy_data_profile'])
-        ->getFamilyInfo();
+        ->myYDataChildcare
+        ->createInstance($myy_config['myy_data_childcare'])
+        ->getChildcareScheduledEvents(date('Y-m-d H:i:s'), date('Y-m-d H:i:s'));
     } else {
       return new NotFoundHttpException();
     }
