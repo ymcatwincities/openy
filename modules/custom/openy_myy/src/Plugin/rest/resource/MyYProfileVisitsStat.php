@@ -27,7 +27,7 @@ class MyYProfileVisitsStat extends ResourceBase {
   /**
    * @var \Drupal\openy_myy\PluginManager\MyYDataVisits
    */
-  protected $myYDataPVisits;
+  protected $myYDataVisits;
 
   /**
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -57,7 +57,7 @@ class MyYProfileVisitsStat extends ResourceBase {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->config = $configFactory->get('openy_myy.settings');
-    $this->myDataVisits = $myYDataVisits;
+    $this->myYDataVisits = $myYDataVisits;
   }
 
   /**
@@ -81,11 +81,11 @@ class MyYProfileVisitsStat extends ResourceBase {
   public function get($start_date, $finish_date) {
 
     $myy_config = $this->config->getRawData();
-    $myy_authenticator_instances = $this->myYDataProfile->getDefinitions();
-    if (array_key_exists($myy_config['myy_data_profile'], $myy_authenticator_instances)) {
+    $myy_authenticator_instances = $this->myYDataVisits->getDefinitions();
+    if (array_key_exists($myy_config['myy_data_visits'], $myy_authenticator_instances)) {
       $response = $this
-        ->myYDataProfile
-        ->createInstance($myy_config['myy_data_profile'])
+        ->myYDataPVisits
+        ->createInstance($myy_config['myy_data_visits'])
         ->getFamilyInfo();
     } else {
       return new NotFoundHttpException();
