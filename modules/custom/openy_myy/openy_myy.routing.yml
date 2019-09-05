@@ -10,6 +10,7 @@ openy_myy.settings:
     _form: '\Drupal\openy_myy\Form\SettingsForm'
     _title: 'MyY settings'
   requirements:
+    _permission: 'administer content'
 openy_myy.login:
   path: '/myy/login'
   defaults:
