@@ -264,6 +264,8 @@
         expanded: '',
         expanded_checkboxes: [],
         dependencies: {},
+        is_expanded: false,
+        start_states: {}
       }
     },
     created: function() {
@@ -287,6 +289,9 @@
       checked: function(values) {
         this.$emit('updated-values', [values]);
       }
+    },
+    mounted: function () {
+      this.start_states = [];
     },
     methods: {
       clear: function() {
@@ -348,8 +353,8 @@
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper radio-wrapper">\n' +
-    '                      <input v-if="expanded && !collapseGroup(radio)" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
-    '                      <label v-if="expanded && !collapseGroup(radio)" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
+    '                      <input  type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
+    '                      <label  :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
