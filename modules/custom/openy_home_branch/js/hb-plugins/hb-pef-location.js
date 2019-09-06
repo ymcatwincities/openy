@@ -7,13 +7,10 @@
 
   // By default hide locations list.
   $(drupalSettings.home_branch.hb_loc_selector_pef.locationsWrapper).hide();
-  $(drupalSettings.home_branch.hb_loc_selector_pef.locationsWrapper).after(`
-    <div style="height: 50px; margin: 30px;">
-      <svg class="spinner" viewBox="0 0 50 50" data-size="normal" data-flow="centered">
-        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="#93bfec"></circle>
-      </svg>
-    </div>
-  `);
+  $(drupalSettings.home_branch.hb_loc_selector_pef.locationsWrapper).after('<div style="height: 50px; margin: 30px;">' +
+    '<svg class="spinner" viewBox="0 0 50 50" data-size="normal" data-flow="centered">' +
+      '<circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="#93bfec"></circle>' +
+    '</svg></div>');
 
   /**
    * Adds plugin related to PEF Schedules locations paragraph.

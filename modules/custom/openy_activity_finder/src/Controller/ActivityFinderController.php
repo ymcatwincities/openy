@@ -9,6 +9,7 @@ use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\openy_activity_finder\Entity\ProgramSearchLog;
 use Drupal\openy_activity_finder\OpenyActivityFinderBackendInterface;
 use Drupal\openy_activity_finder\Entity\ProgramSearchCheckLog;
+use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -108,7 +109,7 @@ class ActivityFinderController extends ControllerBase {
 
       // Cache for 5 minutes.
       $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
-      $this->cacheBackend->set($cid, $data, $expire);
+      $this->cacheBackend->set($cid, $data, $expire, [OpenyActivityFinderSolrBackend::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return new JsonResponse($data);
@@ -158,9 +159,10 @@ class ActivityFinderController extends ControllerBase {
 
       // Cache for 5 minutes.
       $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
-      $this->cacheBackend->set($cid, $data, $expire);
+      $this->cacheBackend->set($cid, $data, $expire, [OpenyActivityFinderSolrBackend::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return new JsonResponse($data);
   }
+
 }
