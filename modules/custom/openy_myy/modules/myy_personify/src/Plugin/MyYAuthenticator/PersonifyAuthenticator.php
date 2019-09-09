@@ -45,6 +45,11 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
   protected $config;
 
   /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected $personify_config;
+
+  /**
    * PersonifyAuthenticator constructor.
    *
    * @param array $configuration
@@ -67,6 +72,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
     $this->config = $configFactory->get('myy_personify.settings')->getRawData();
+    $this->personify_config = $configFactory->get('personify.settings')->getRawData();
     $this->request = $requestStack->getCurrentRequest();
     $this->logger = $loggerChannelFactory->get('personify_authenticator');
   }
@@ -114,7 +120,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
       ],
     ];
 
-    $redirect_url = Url::fromUri($this->config['url_login'], $options)->toString();
+    $redirect_url = Url::fromUri($this->config[$this->personify_config['environment'] .'_url_login'], $options)->toString();
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
@@ -133,9 +139,10 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
         user_cookie_save([
           'personify_authorized' => $token,
           'personify_time' => REQUEST_TIME,
-          //@TODO remove before release.
-          'personify_id' => $id
         ]);
+
+        //@TODO remove after token problem fix.
+        $_SESSION['personify_id'] = $id;
 
         $this->logger->info('A user logged in via Personify.');
 
@@ -160,7 +167,12 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
    * {@inheritdoc}
    */
   public function logoutPage() {
-    // TODO: Implement logoutPage() method.
+
+    //@TODO remove after token problem fix.
+    unset($_SESSION['personify_id']);
+
+    return new TrustedRedirectResponse('/');
+
   }
 
 }

@@ -1,5 +1,6 @@
 # SSO data.
-wsdl: https://***REMOVED***/SSO/webservice/service.asmx?wsdl
+prod_wsdl: 'https://***REMOVED***/SSO/webservice/service.asmx?wsdl'
+stage_wsdl: 'https://ygtctst4ebiz.personifycloud.com/SSO/webservice/service.asmx?wsdl'
 vendor_id: 8
 vendor_username: ClockWork
 vendor_password: ***REMOVED***

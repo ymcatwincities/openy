@@ -63,7 +63,8 @@ class PersonifySSO {
 
     $config = $configFactory->get('personify.settings')->getRawData();
 
-    $this->wsdl = $config['wsdl'];
+    $this->wsdl = $config[$config['environment'] . '_wsdl'];
+
     $this->vendorId = $config['vendor_id'];
     $this->vendorUsername = $config['vendor_username'];
     $this->vendorPassword = $config['vendor_password'];
@@ -222,8 +223,10 @@ class PersonifySSO {
     ];
 
     try {
-      $response = $this->client->TIMSSCustomerIdentifierGet($params);
 
+     // $r = $this->client->SSOCustomerTokenIsValid($params);
+      $i=1;
+      $response = $this->client->TIMSSCustomerIdentifierGet($params);
       // Here we'll remove strange "|0" symbols at the end of ID.
       $id = $response->TIMSSCustomerIdentifierGetResult->CustomerIdentifier;
       $pos = strpos($id, '|');

@@ -1,0 +1,4 @@
+services:
+  myy_personify_user_helper:
+    class: Drupal\myy_personify\PersonifyUserHelper
+    arguments: ['@personify.sso_client']
