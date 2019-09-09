@@ -6,13 +6,14 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\open_myy\PluginManager\MyYDataVisitsInterface;
+use Drupal\myy_personify\PersonifyUserHelper;
+use Drupal\openy_myy\PluginManager\MyYDataVisitsInterface;
 use Drupal\personify\PersonifyClient;
 use Drupal\personify\PersonifySSO;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Personify Profile data plugin.
+ * Personify Visits stat data plugin.
  *
  * @MyYDataVisits(
  *   id = "myy_personify_data_visits",
@@ -38,6 +39,11 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
   protected $personifyClient;
 
   /**
+   * @var \Drupal\myy_personify\PersonifyUserHelper
+   */
+  protected $personifyUserHelper;
+
+  /**
    * PersonifyDataProfile constructor.
    *
    * @param array $configuration
@@ -55,13 +61,15 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     PersonifySSO $personifySSO,
     PersonifyClient $personifyClient,
     ConfigFactoryInterface $configFactory,
-    LoggerChannelFactory $loggerChannelFactory
+    LoggerChannelFactory $loggerChannelFactory,
+    PersonifyUserHelper $personifyUserHelper
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
     $this->personifyClient = $personifyClient;
     $this->config = $configFactory->get('myy_personify.settings');
     $this->logger = $loggerChannelFactory->get('personify_authenticator');
+    $this->personifyUserHelper = $personifyUserHelper;
   }
 
   /**
@@ -75,7 +83,8 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
       $container->get('personify.sso_client'),
       $container->get('personify.client'),
       $container->get('config.factory'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('myy_personify_user_helper')
     );
   }
 
@@ -83,8 +92,17 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
    * {@inheritdoc}
    */
   public function getVisitsCountByDate($start_date, $finish_date) {
-    $personifyID = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
-    return $this->personifyClient->getVisitCountByDate($personifyID, $start_date, $finish_date);
+
+    $personifyID = $this->personifyUserHelper->personifyGetId();
+    $visits = $this->personifyClient->getVisitCountByDate(
+      $personifyID,
+      \DateTime::createFromFormat('Y-m-d', $start_date),
+      \DateTime::createFromFormat('Y-m-d', $finish_date)
+    );
+
+    return [
+      'total' => $visits->TotalVisits,
+    ];
   }
 
 }

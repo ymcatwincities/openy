@@ -84,9 +84,9 @@ class MyYProfileVisitsStat extends ResourceBase {
     $myy_authenticator_instances = $this->myYDataVisits->getDefinitions();
     if (array_key_exists($myy_config['myy_data_visits'], $myy_authenticator_instances)) {
       $response = $this
-        ->myYDataPVisits
+        ->myYDataVisits
         ->createInstance($myy_config['myy_data_visits'])
-        ->getFamilyInfo();
+        ->getVisitsCountByDate($start_date, $finish_date);
     } else {
       return new NotFoundHttpException();
     }

@@ -6,6 +6,7 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\myy_personify\PersonifyUserHelper;
 use Drupal\openy_myy\PluginManager\MyYDataChildcareInterface;
 use Drupal\personify\PersonifyClient;
 use Drupal\personify\PersonifySSO;
@@ -38,6 +39,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
   protected $personifyClient;
 
   /**
+   * @var \Drupal\myy_personify\PersonifyUserHelper
+   */
+  protected $personifyUserHelper;
+
+  /**
    * PersonifyDataProfile constructor.
    *
    * @param array $configuration
@@ -55,13 +61,15 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     PersonifySSO $personifySSO,
     PersonifyClient $personifyClient,
     ConfigFactoryInterface $configFactory,
-    LoggerChannelFactory $loggerChannelFactory
+    LoggerChannelFactory $loggerChannelFactory,
+    PersonifyUserHelper $personifyUserHelper
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
     $this->personifyClient = $personifyClient;
     $this->config = $configFactory->get('myy_personify.settings');
     $this->logger = $loggerChannelFactory->get('personify_data_childcare');
+    $this->personifyUserHelper = $personifyUserHelper;
   }
 
   /**
@@ -75,7 +83,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
       $container->get('personify.sso_client'),
       $container->get('personify.client'),
       $container->get('config.factory'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('myy_personify_user_helper')
     );
   }
 
@@ -84,7 +93,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
    */
   public function getChildcareEvents($start_date, $end_date) {
 
-    $personifyID = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
+    $personifyID = $this->personifyUserHelper->personifyGetId();
 
     //@TODO Change to real data parameters
     $body = "<StoredProcedureRequest>

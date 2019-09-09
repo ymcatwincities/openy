@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\open_myy\PluginManager;
+namespace Drupal\openy_myy\PluginManager;
 
 /**
  * Interface MyYDataVisitsInterface

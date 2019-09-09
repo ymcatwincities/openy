@@ -50,12 +50,15 @@ class PersonifyClient {
   }
 
   /**
-   * @param $method
-   * @param $json
+   * @param string $type
+   * @param string $method
+   * @param array $body
+   * @param string $body_format
    *
    * @return array|mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function doAPIcall($type = 'GET', $method, $body = [], $body_format = 'json') {
+  public function doAPIcall($type = 'GET', $method = '', $body = [], $body_format = 'json') {
 
     $body_key = 'body';
     if ($body_format == 'json') {
@@ -81,9 +84,8 @@ class PersonifyClient {
       if ($response->getStatusCode() != '200') {
         throw new \LogicException(t('API Method %method is failed.', ['%method' => $method]));
       }
-      $body = $response->getBody();
-      $content = $body->getContents();
 
+      $content = $response->getBody()->getContents();
       \Drupal::logger('personify')->info('Personify request to %method. Arguments %json. Response %body', [
         '%method' => $method,
         '%json' => json_encode($body),
@@ -139,7 +141,13 @@ class PersonifyClient {
       ],
     ];
 
-    $results = $this->doAPIcall('POST', 'CL_GetFacilityVisitCountByDate', $json);
+    $body = "<CL_GetFacilityVisitCountByDateInput>
+      <MasterCustomerId>$masterId</MasterCustomerId>
+      <DateFrom>2018-01-01</DateFrom>
+      <DateTo>2020-01-01</DateTo>
+    </CL_GetFacilityVisitCountByDateInput>";
+
+    $results = $this->doAPIcall('POST', 'CL_GetFacilityVisitCountByDate?$format=json', $body, 'xml');
     if (empty($results)) {
       return [];
     }
