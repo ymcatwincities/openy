@@ -88,7 +88,7 @@
               {% set collapse_group = true %}
               {% set expanded = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? 'true' : 'false' %}
               {% set collapsed_class = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
-              {% set wrapper_class = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
+              {% set wrapper_class = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? 'show in' : '' %}
               {% set icon_expanded_show = expanderSectionsConfig['schedule_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
             {% endif %}
 
@@ -135,18 +135,18 @@
               {% set collapse_group = true %}
               {% set expanded = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? 'true' : 'false'  %}
               {% set collapsed_class = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
-              {% set wrapper_class = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
+              {% set wrapper_class = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? 'show in' : '' %}
               {% set icon_expanded_show = expanderSectionsConfig['category_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
             {% endif %}
 
             {% if collapse_group %}
-            <h3 type="button" data-toggle="collapse" data-target="#activityGroup" class="{{ collapsed_class }} activityGroup" aria-expanded="{{ expanded }}" aria-controls="activityGroup">{{ 'Programs & Classes'|t }}
-              <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
-            </h3>
-            <div class="collapse {{ wrapper_class }}" id="activityGroup">
-              {% else %}
+              <h3 type="button" data-toggle="collapse" data-target="#activityGroup" class="{{ collapsed_class }} activityGroup" aria-expanded="{{ expanded }}" aria-controls="activityGroup">{{ 'Programs & Classes'|t }}
+                <i class="fa fa-{{ icon_expanded_show }} {{ icon_expanded_show }} ml-auto" aria-hidden="true"></i>
+              </h3>
+              <div class="collapse {{ wrapper_class }}" id="activityGroup">
+            {% else %}
                 <h3> {{ 'Programs & Classes'|t }}</h3>
-              {% endif %}
+            {% endif %}
             {% if categories_type == 'single' %}
             <sidebar-filter-single
               ref="categories_filter"
@@ -157,7 +157,7 @@
               expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
               :default='$route.query.categories'
               v-on:updated-values="categories = $event"
-              expanded="false"
+              expanded="{{ expanded }}"
               hide_label="true"
             ></sidebar-filter-single>
             {% else %}
@@ -186,7 +186,7 @@
               {% set collapse_group = true %}
               {% set expanded = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? 'true' : 'false' %}
               {% set collapsed_class = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? '' : 'collapsed' %}
-              {% set wrapper_class = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? 'show' : '' %}
+              {% set wrapper_class = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? 'show in' : '' %}
               {% set icon_expanded_show = expanderSectionsConfig['locations_collapse_group'] == 'enabled_expanded' ? 'minus' : 'plus' %}
 
             {% endif %}

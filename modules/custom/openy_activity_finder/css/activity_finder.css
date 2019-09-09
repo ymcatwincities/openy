@@ -465,7 +465,15 @@
   border-color: #939495 !important;
   background-color: #f2f2f2;
   padding: 0;
+  overflow: hidden;
+  height: inherit;
 }
+
+.schedule-dashboard__sidebar .collapse {
+  overflow: hidden;
+  height: inherit;
+}
+
 .schedule-dashboard__sidebar .form-group-wrapper > label {
   background-color: #fff;
   border-bottom: 1px solid #939495;
