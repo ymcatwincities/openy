@@ -302,6 +302,65 @@
   top: 12px;
 }
 
+/* Iphone's fixes*/
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 568px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 414px)
+and (max-device-width: 736px)
+and (-webkit-min-device-pixel-ratio: 3) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+/* Ipads fixes */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 1) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 834px)
+and (max-device-width: 1112px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+
 .schedule-dashboard__wrapper .pager-wrapper {
   margin: 15px -15px 0;
 }
