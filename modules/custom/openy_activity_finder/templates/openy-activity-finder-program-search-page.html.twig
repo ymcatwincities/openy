@@ -270,7 +270,10 @@
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
                         <div class="spots-label" v-if="item.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
-                        <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? 'few-spots' : '', 'spots-availability']">${ item.spots_available } spots left</div>
+                        <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? item.spots_available == 1 ? 'few-spots only-one' : 'few-spots' : '', 'spots-availability']">${ item.spots_available }
+                          <span v-if="item.spots_available == 1">spot</span>
+                          <span v-if="item.spots_available > 1">spots</span>
+                          left</div>
                       </div>
                       {# if we know that registration is NOT available #}
                       <div v-if="item.availability_status == 'closed'">
@@ -364,7 +367,10 @@
                     <div class="availability-wrapper">
                       {% if not is_spots_available_disabled %}
                         <div class="spots-label" v-if="moreInfoPopup.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
-                        <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
+                        <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available }
+                          <span v-if="moreInfoPopup.spots_available == 1">spot</span>
+                          <span v-if="moreInfoPopup.spots_available > 1">spots</span>
+                          left</div>
                       {% endif %}
                       <div v-if="moreInfoPopup.activity_type == 'group'" class="availability_status activity_type">
                         <div v-if="moreInfoPopup.atc_info != ''" class="addtocalendar">

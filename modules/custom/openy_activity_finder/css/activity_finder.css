@@ -242,6 +242,11 @@
   border: 1px solid #ff0000;
   color: #fff;
 }
+.schedules-data__row--alt .spots-availability.few-spots.only-one {
+  background: #000;
+  border: 1px solid #000;
+  color: #fff;
+}
 .schedules-data__row--alt .spots-label,
 .schedules-data__row--alt .item-price {
   font: 10px/15px Verdana, Geneva, sans-serif;
