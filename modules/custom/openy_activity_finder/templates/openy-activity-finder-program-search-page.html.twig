@@ -367,7 +367,7 @@
                     <div class="availability-wrapper">
                       {% if not is_spots_available_disabled %}
                         <div class="spots-label" v-if="moreInfoPopup.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
-                        <div v-if="moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available }
+                        <div v-if="moreInfoPopup.spots_available != ''"  v-bind:class="[moreInfoPopup.spots_available <= 3 ? moreInfoPopup.spots_available == 1 ? 'only-one' : 'few-spots' : '', 'spots_available']">${ moreInfoPopup.spots_available }
                           <span v-if="moreInfoPopup.spots_available == 1">spot</span>
                           <span v-if="moreInfoPopup.spots_available > 1">spots</span>
                           left</div>
