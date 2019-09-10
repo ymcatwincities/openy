@@ -439,8 +439,8 @@
   }
 }
 .schedule-dashboard__wrapper .schedule-dashboard__sidebar .navbar-header .clear-all {
-  text-decoration: underline;
   font-size: 12px;
+  font-weight: bold;
 }
 .schedule-dashboard__wrapper .schedule-dashboard__sidebar {
   padding: 0;
