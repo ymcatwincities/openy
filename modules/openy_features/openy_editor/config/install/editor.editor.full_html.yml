@@ -24,6 +24,8 @@ settings:
             - JustifyBlock
             - TextColor
             - BGColor
+            - Font
+            - FontSize
             - Outdent
             - Indent
             - Format
