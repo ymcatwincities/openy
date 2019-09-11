@@ -20,12 +20,6 @@
       locationStep: drupalSettings.home_branch.hb_loc_selector_activity_finder.locationStep,
       event: null,
       element: null,
-      getQueryParam: function (name) {
-        // Get url query param by name.
-        var results = new RegExp('[\?&]' + name + '=([^&#]*)')
-          .exec(window.location.search);
-        return (results !== null) ? results[1] || 0 : false;
-      },
       replaceQueryParam: function (param, newval, search) {
         // Set url query param by name.
         var regex = new RegExp("([?;&])" + param + "[^&;]*[;&]?");
@@ -33,7 +27,7 @@
         return (query.length > 2 ? query + "&" : "?") + (newval ? param + "=" + newval : '');
       },
       checkStep: function (self) {
-        if (self.getQueryParam('step') != self.locationStep) {
+        if (window.location.hash.indexOf(self.locationStep) === -1) {
           // Skip if we not on location select step.
           return;
         }
