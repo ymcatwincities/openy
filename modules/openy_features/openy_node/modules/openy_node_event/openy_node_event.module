@@ -61,8 +61,8 @@ function openy_node_event_preprocess_field__node__field_event_location__event(&$
   $endDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['end_value'], DATETIME_STORAGE_TIMEZONE);
   $endDt->setTimezone(timezone_open($timezone));
   $datesInfo = [
-    'date_start' => $startDt->format('j M g:i a'),
-    'date_end' => $endDt->format('g:i a'),
+    'date_start' => $startDt,
+    'date_end' => $endDt,
   ];
   $description = strip_tags($node->field_event_description->value);
   $description = substr($description, 0, 300);

@@ -7376,6 +7376,26 @@ article .node--view-mode-flexible-content h2 a span {
   color: #636466;
 }
 
+#hb-loc-modal .hb-loc-modal__modal {
+  z-index: 99500;
+}
+
+.node--type-branch .location-masthead .hb-branch-selector {
+  min-height: auto;
+}
+@media (min-width: 48em) {
+  .node--type-branch .location-masthead .hb-branch-selector .hb-location-checkbox-wrapper {
+    text-align: left;
+  }
+}
+
+.hb-loc-modal__modal--footer .btn.btn-default, .hb-loc-modal__modal--footer .btn-default.button {
+  border: none;
+}
+.hb-loc-modal__modal--footer .btn.action-cancel, .hb-loc-modal__modal--footer .action-cancel.button {
+  background-color: #999;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
