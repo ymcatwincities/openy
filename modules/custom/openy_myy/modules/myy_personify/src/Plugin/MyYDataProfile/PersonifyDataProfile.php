@@ -156,6 +156,27 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
   /**
    * {@inheritdoc}
    */
+  public function getMembershipInfo() {
+    $personifyID = $this->personifyUserHelper->personifyGetId();
+
+    $memberships = $this
+      ->personifyClient
+      ->doAPIcall(
+        'GET',
+        'OrderMembershipInformationViews?$filter=ShipMasterCustomerId%20eq%20%27' . $personifyID . '%27&$format=json'
+      );
+    $i=1;
+    foreach ($memberships as $membership) {
+
+    }
+    return [
+      'test' => 1,
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function addEmergencyContact(array $contact_data) {
     // TODO: Implement addEmergencyContact() method.
   }
@@ -187,5 +208,6 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
   public function updateProfilePhoneNumber(array $phone) {
     // TODO: Implement updateProfilePhoneNumber() method.
   }
+
 
 }
