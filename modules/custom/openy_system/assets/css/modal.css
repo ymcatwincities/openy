@@ -255,6 +255,17 @@
   padding: 2px 5px;
   display: inline-block;
 }
+.schedule-dashboard__modal--body .modal-info-sidebar .spots_available.few-spots {
+  border: 1px solid #ff0000;
+  background: #ff0000;
+  color: #fff
+}
+.schedule-dashboard__modal--body .modal-info-sidebar .spots_available.only-one {
+  border: 1px solid #000;
+  background: #000;
+  color: #fff
+}
+
 .schedule-dashboard__modal--body .modal-info-sidebar .availability_note {
   margin-bottom: 10px;
 }
