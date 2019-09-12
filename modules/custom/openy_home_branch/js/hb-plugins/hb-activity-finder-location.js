@@ -45,7 +45,8 @@
 
         // Redirect to results page with selected Home Branch in filters.
         var resultsUrl = window.OpenY.field_prgf_af_results_ref[0]['url'];
-        window.location = resultsUrl + self.replaceQueryParam('locations', selected, window.location.search);
+        var queryString = window.location.hash.replace(self.locationStep, '');
+        window.location = resultsUrl + self.replaceQueryParam('locations', selected, queryString);
       },
       init: function () {
         window.setInterval(this.checkStep, 2000, this);
