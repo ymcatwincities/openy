@@ -32,6 +32,7 @@
 
 .activity-finder__step_header .start_over {
   float: right;
+  font-weight: bold;
 }
 
 .activity-finder__step_header .actions {
