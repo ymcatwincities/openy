@@ -169,9 +169,7 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     foreach ($memberships as $membership) {
 
     }
-    return [
-      'test' => 1,
-    ];
+    return $memberships;
   }
 
   /**
