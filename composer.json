@@ -297,6 +297,6 @@
         "vuejs/vue": "2.6.10",
         "vuejs/vue-router": "3.0.6",
         "drupal/ckeditor_font": "^1.0",
-        "drupal/draggableviews": "^1.2",
+        "drupal/draggableviews": "^1.2"
     }
 }
