@@ -121,6 +121,22 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
   public function getFamilyInfo() {
 
     $personifyID = $this->personifyUserHelper->personifyGetId();
+    $output = [];
+
+    $my_data = $this
+      ->personifyClient
+      ->doAPIcall(
+        'GET',
+        "CustomerInfos(MasterCustomerId='" . $personifyID . "',SubCustomerId=0)"
+      );
+
+    $my_bdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $my_data['d']['CL_BirthDate']) / 1000, 'UTC');
+    $now = new DrupalDateTime();
+    $output['household'][] = [
+      'name' => $my_data['d']['LabelName'],
+      'age' => $now->diff($my_bdate)->format('%y'),
+      'RelationshipCode' => 'ME'
+    ];
 
     $relationship_data = $this
       ->personifyClient
@@ -129,23 +145,23 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
         "CustomerInfos(MasterCustomerId='" . $personifyID . "',SubCustomerId=0)/Relationships"
       );
 
-    $output = [];
 
-    foreach ($relationship_data->d as $relationship) {
+    foreach ($relationship_data['d'] as $relationship) {
 
       $family_member_profile_data = $this
         ->personifyClient
         ->doAPIcall(
           'GET',
-          "CustomerInfos(MasterCustomerId='" . $relationship->RelatedMasterCustomerId . "',SubCustomerId=0)"
+          "CustomerInfos(MasterCustomerId='" . $relationship['RelatedMasterCustomerId'] . "',SubCustomerId=0)"
         );
 
-      $family_member_birthdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $family_member_profile_data->d->CL_BirthDate) / 1000, 'UTC');
-      $now = new DrupalDateTime();
+      $family_member_birthdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $family_member_profile_data['d']['CL_BirthDate']) / 1000, 'UTC');
+
       $output['household'][] = [
-        'name' => $relationship->RelatedName,
-        'RelationshipCode' => $relationship->RelationshipCode,
+        'name' => $relationship['RelatedName'],
+        'RelationshipCode' => $relationship['RelationshipCode'],
         'age' => $now->diff($family_member_birthdate)->format('%y'),
+        'RelatedMasterCustomerId' => $relationship['RelatedMasterCustomerId']
       ];
     }
 
