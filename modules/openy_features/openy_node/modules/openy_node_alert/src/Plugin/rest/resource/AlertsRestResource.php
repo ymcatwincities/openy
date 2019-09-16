@@ -156,9 +156,31 @@ class AlertsRestResource extends ResourceBase {
     if (!$this->currentUser->hasPermission('access content')) {
       throw new AccessDeniedHttpException();
     }
-    $alerts = $this->entityTypeManager
+
+    // Get data from draggableviews_structure table.
+    $query = \Drupal::database()->select('draggableviews_structure', 'dvs');
+    $query->fields('dvs', ['view_name', 'view_display', 'entity_id', 'weight']);
+    $query->condition('dvs.view_name', 'alerts_rearrange');
+    $query->condition('dvs.view_display', 'page_1');
+    $query->orderBy('dvs.weight');
+    $weights = $query->execute()->fetchAll();
+    foreach ($weights as $row) {
+      $nids[] = $row->entity_id;
+    }
+
+    $alerts_entities = $this->entityTypeManager
       ->getStorage('node')
-      ->loadByProperties(['type' => 'alert', 'status' => 1]);
+      ->loadByProperties(['type' => 'alert', 'nid' => $nids, 'status' => 1]);
+
+    // Sort alert based od draggable_views data.
+    $alerts = [];
+    foreach ($weights as $row) {
+      if (!isset($alerts_entities[(int) $row->entity_id])) {
+        continue;
+      }
+      $alerts[(int) $row->entity_id] = $alerts_entities[(int) $row->entity_id];
+    }
+
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
@@ -170,10 +192,10 @@ class AlertsRestResource extends ResourceBase {
             // Do not show alerts for current page.
             continue;
           }
-          $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);;
+          $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);
         }
         elseif ($alert->hasField('field_alert_belongs') && $alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
-          $sendAlerts[$alert->field_alert_place->value]['global'][] = self::formatAlert($alert);;
+          $sendAlerts[$alert->field_alert_place->value]['global'][] = self::formatAlert($alert);
         }
         else {
           throw new \HttpException('Field configuration for alerts is wrong');
@@ -209,6 +231,7 @@ class AlertsRestResource extends ResourceBase {
     if ($alert->field_alert_icon_color && $alert->field_alert_icon_color->entity && $alert->field_alert_icon_color->entity->field_color && $alert->field_alert_icon_color->entity->field_color->value) {
       $iconColor = $alert->field_alert_icon_color->entity->field_color->value;
     }
+
     return [
       'title' => $alert->getTitle(),
       'textColor' => $alert->field_alert_text_color->entity->field_color->value,

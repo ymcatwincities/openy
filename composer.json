@@ -279,6 +279,7 @@
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
         "vuejs/vue": "2.6.10",
-        "vuejs/vue-router": "3.0.6"
+        "vuejs/vue-router": "3.0.6",
+        "drupal/draggableviews": "^1.2"
     }
 }
