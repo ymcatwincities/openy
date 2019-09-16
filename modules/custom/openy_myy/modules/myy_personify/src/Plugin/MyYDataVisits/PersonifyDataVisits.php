@@ -91,7 +91,7 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
   /**
    * {@inheritdoc}
    */
-  public function getVisitsCountByDate($start_date, $finish_date) {
+  public function getVisitsCountByDate($personifyID, $start_date, $finish_date) {
 
     $personifyID = $this->personifyUserHelper->personifyGetId();
     $visits = $this->personifyClient->getVisitCountByDate(

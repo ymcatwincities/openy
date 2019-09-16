@@ -12,11 +12,12 @@ interface MyYDataVisitsInterface {
   /**
    * Function that retrieve count of visits in time period.
    *
+   * @param $personifyID
    * @param $start_date
    * @param $finish_date
    *
    * @return mixed
    */
-  public function getVisitsCountByDate($start_date, $finish_date);
+  public function getVisitsCountByDate($personifyID, $start_date, $finish_date);
 
 }

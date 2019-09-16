@@ -92,7 +92,7 @@ class PersonifyClient {
         '%body' => $content,
       ]);
 
-      return json_decode($content);
+      return json_decode($content, TRUE);
     }
     catch (\Exception $e) {
       watchdog_exception('personify', $e);

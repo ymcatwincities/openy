@@ -18,7 +18,7 @@ use Drupal\openy_myy\PluginManager\MyYDataProfile;
  *   id = "myy_profile_visits_stat",
  *   label = @Translation("Stat of user visits"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/profile/visits-stat/{start}/{finish}"
+ *     "canonical" = "/myy/data/profile/visits-stat/{personify_id}/{start}/{finish}"
  *   }
  * )
  */
@@ -78,7 +78,7 @@ class MyYProfileVisitsStat extends ResourceBase {
   /**
    * {@inheritdoc}
    */
-  public function get($start_date, $finish_date) {
+  public function get($personify_id, $start_date, $finish_date) {
 
     $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myYDataVisits->getDefinitions();
@@ -86,7 +86,7 @@ class MyYProfileVisitsStat extends ResourceBase {
       $response = $this
         ->myYDataVisits
         ->createInstance($myy_config['myy_data_visits'])
-        ->getVisitsCountByDate($start_date, $finish_date);
+        ->getVisitsCountByDate($personify_id, $start_date, $finish_date);
     } else {
       return new NotFoundHttpException();
     }
