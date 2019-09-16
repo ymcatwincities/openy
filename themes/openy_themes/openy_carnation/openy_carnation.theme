@@ -13,6 +13,7 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\openy_home_branch\Plugin\HomeBranchLibrary\HBLocationFinder;
 
 /**
  * Implements hook_preprocess_html().
@@ -43,13 +44,24 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
           $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
         }
         break;
+
+      case 'branch':
+        // Check that home branch enabled.
+        if (Drupal::hasService('plugin.manager.home_branch_library')) {
+          if (!$variables['page']) {
+            return;
+          }
+          // Fix hb_loc_selector_branch_page plugin for Open Y Carnation theme.
+          $variables['#attached']['library'][] = 'openy_carnation/hb_loc_selector_branch_page_override';
+        }
+        break;
     }
   }
 
   // Add alt attributes to images in subprogram listings.
   if ($view_mode == 'teaser') {
     $entity = $variables['elements']['#node'];
-    if (!$entity->get('field_category_image')->isEmpty()) {
+    if ($entity->hasField('field_category_image') && !$entity->get('field_category_image')->isEmpty()) {
       $entity->get('field_category_image')->entity->get('field_media_image')->alt = $entity->label();
     }
   }
@@ -94,6 +106,33 @@ function openy_carnation_preprocess_menu(&$variables) {
 function openy_carnation_preprocess_page(array &$variables) {
   $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
   $variables['display_search'] = theme_get_setting('display_search_form');
+  $variables['base_path'] = \Drupal::request()->getSchemeAndHttpHost();
+
+  if (Drupal::hasService('plugin.manager.home_branch_library')) {
+    // Fix hb_menu_selector plugin for Open Y Carnation theme.
+    $variables['#attached']['library'][] = 'openy_carnation/hb_menu_selector_override';
+  }
+}
+
+/**
+ * Implements hook_preprocess_ENTITY_TYPE().
+ */
+function openy_carnation_preprocess_paragraph(array &$variables) {
+  if (!Drupal::hasService('plugin.manager.home_branch_library')) {
+    return;
+  }
+  if (empty($variables['paragraph'])) {
+    return;
+  }
+  if ($variables['paragraph']->getType() == HBLocationFinder::PRGF_TYPE) {
+    // Fix theming for hb_location_finder plugin for Open Y Carnation theme.
+    $variables['#attached']['library'][] = 'openy_carnation/hb_location_finder_override';
+
+    $hb_plugin_service = Drupal::service('plugin.manager.home_branch_library');
+    $hb_plugin_service->attachHbLibrarySettings($variables, 'hb_location_finder', [
+      'locationsList' => '.paragraph--type--prgf-location-finder .locations-list',
+    ]);
+  }
 }
 
 /**

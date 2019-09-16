@@ -13,7 +13,7 @@
         </div>
       </form>
 
-      <a v-bind:href="this.$parent.programSearchUrl" class="program-search__view-all-programs"><strong>View all programs</strong></a>
+      <a v-bind:href="this.programSearchUrlWithExclude" class="program-search__view-all-programs"><strong>View all programs</strong></a>
       <p v-if="this.$parent.loading">
         <spinner></spinner>
       </p>
@@ -52,7 +52,10 @@
     computed: {
       count: function() {
         return this.$parent.table.count;
-      }
+      },
+      programSearchUrlWithExclude: function() {
+        return this.$parent.programSearchUrl + '/?exclude=' + this.$parent.categoriesExclude.join(',');
+      },
     },
     methods: {
       setInitialStep: function(stepName) {

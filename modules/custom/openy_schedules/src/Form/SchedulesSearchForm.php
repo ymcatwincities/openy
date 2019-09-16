@@ -541,13 +541,6 @@ class SchedulesSearchForm extends FormBase {
       '#weight' => 99,
       'filters' => self::buildFilters($values),
     ];
-
-    $form['alerts'] = [
-      views_embed_view('header_alerts', 'specific_alerts_block', $values['location']),
-    ];
-    $form['alerts']['#prefix'] = '<div class="alerts-wrapper cleafix"><div class="container"><div class="row"><div class="col-xs-12">';
-    $form['alerts']['#suffix'] = '</div></div></div></div>';
-    $form['alerts']['#weight'] = 100;
   }
 
   /**
@@ -746,33 +739,6 @@ class SchedulesSearchForm extends FormBase {
   }
 
   /**
-   * Build Alerts.
-   */
-  public function buildAlerts($parameters) {
-    $build = '';
-    if (!$parameters['location'] || $parameters['location'] == 'All') {
-      return $build;
-    }
-
-    $locationOptions = $this->getLocationOptions();
-    if (!empty($locationOptions['branches'][$parameters['location']])) {
-      $id = $parameters['location'];
-    }
-    if (!empty($locationOptions['camps'][$parameters['location']])) {
-      $id = $parameters['location'];
-    }
-    if (!isset($id)) {
-      return $build;
-    }
-    $build = [
-      '#theme' => 'openy_schedules_alerts_block',
-      '#alerts' => views_embed_view('header_alerts', 'specific_alerts_block', $id),
-    ];
-
-    return $build;
-  }
-
-  /**
    * Build results.
    */
   public function getSessions($parameters) {
@@ -952,13 +918,11 @@ class SchedulesSearchForm extends FormBase {
     }
     $formatted_results = $this->buildResults($form, $parameters);
     $filters = self::buildFilters($parameters);
-    $alerts = self::buildAlerts($parameters);
     $branch_hours = $this->buildBranchHours($form, $parameters);
     $response = new AjaxResponse();
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .selects-container', $form['selects']));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .results', $formatted_results));
     $response->addCommand(new HtmlCommand('#schedules-search-form-wrapper .filters-container', $filters));
-    $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .alerts-wrapper', $alerts));
     $response->addCommand(new HtmlCommand('#schedules-search-listing-wrapper .branch-hours-wrapper', $branch_hours));
     $response->addCommand(new InvokeCommand(NULL, 'schedulesAjaxAction', [$parameters]));
     $form_state->setRebuild();
