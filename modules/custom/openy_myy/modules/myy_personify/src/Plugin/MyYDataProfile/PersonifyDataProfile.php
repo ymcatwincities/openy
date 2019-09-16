@@ -173,6 +173,7 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
    * {@inheritdoc}
    */
   public function getMembershipInfo() {
+
     $personifyID = $this->personifyUserHelper->personifyGetId();
 
     $memberships = $this
