@@ -96,23 +96,23 @@ module.exports = function(grunt) {
     },
 
     // compress js
-    uglify: {
-      dist: {
-        options: {
-          sourceMap: true,
-          includeSources: true
-        },
-        files: [{
-          expand: true,
-          cwd: '<%= global_vars.theme_src_js %>',
-          src: ['*.js', '*.min.js'],
-          dest: '<%= global_vars.theme_dist_js %>',
-          rename: function (dst, src) {
-            return dst + '/' + src.replace('.js', '.min.js');
-          }
-        }]
-      }
-    },
+    //uglify: {
+    //  dist: {
+    //    options: {
+    //      sourceMap: true,
+    //      includeSources: true
+    //    },
+    //    files: [{
+    //      expand: true,
+    //      cwd: '<%= global_vars.theme_src_js %>',
+    //      src: ['*.js', '*.min.js'],
+    //      dest: '<%= global_vars.theme_dist_js %>',
+    //      rename: function (dst, src) {
+    //        return dst + '/' + src.replace('.js', '.min.js');
+    //      }
+    //    }]
+    //  }
+    //},
 
     // linting
     sasslint: {
@@ -166,6 +166,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('build', ['sasslint', 'sass_globbing', 'sass', 'autoprefixer', 'copy', 'uglify']);
+  grunt.registerTask('build', ['sasslint', 'sass_globbing', 'sass', 'autoprefixer', 'copy']);
   grunt.registerTask('default', ['build', 'watch']);
 };

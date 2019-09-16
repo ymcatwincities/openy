@@ -50,6 +50,17 @@ function openy_lily_preprocess_node_blog(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_node() for the Branch Content Type.
+ */
+function openy_lily_preprocess_node_branch(&$variables) {
+  // Check that home branch enabled.
+  if (\Drupal::hasService('plugin.manager.home_branch_library') && $variables['node']->getType() == 'branch' && $variables['page']) {
+    // Fix hb_loc_selector_branch_page plugin for Open Y Lily theme.
+    $variables['#attached']['library'][] = 'openy_lily/hb_loc_selector_branch_page_override';
+  }
+}
+
+/**
  * Implements hook_preprocess_paragraph().
  */
 function openy_lily_preprocess_paragraph(&$variables) {
@@ -403,6 +414,15 @@ function openy_lily_preprocess_page(&$variables) {
   }
   // Camp logo.
   $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
+
+  // Add home branch support to Open Y Lily theme.
+  if (\Drupal::hasService('plugin.manager.home_branch_library')) {
+    $hb_plugin_service = \Drupal::service('plugin.manager.home_branch_library');
+    $hb_plugin_service->attachHbLibrarySettings($variables, 'hb_menu_selector', [
+      // Fix hb_menu_selector classes.
+      'menuSelector' => '.nav-global .secondary_menu ul.navbar-nav, .mobile_menu ul.nav-level-1',
+    ]);
+  }
 }
 
 /**
