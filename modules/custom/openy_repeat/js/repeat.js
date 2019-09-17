@@ -383,7 +383,8 @@
           }});
       },
 
-      toggleParentClass: function(event, skipClassName = 'skip-t') {
+      toggleParentClass: function(event, skipClassName) {
+        if (!skipClassName) skipClassName = 'skip-t';
         if (event.target.parentElement.classList.contains('skip-checked')) {
           event.target.parentElement.classList.remove('skip-checked');
           event.target.parentElement.classList.add(skipClassName);
