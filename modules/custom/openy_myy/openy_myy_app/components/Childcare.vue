@@ -184,11 +184,11 @@
         if (typeof drupalSettings === 'undefined') {
           var drupalSettings = {
             path: {
-              url: 'http://openy-demo.docksal/'
+              baseUrl: 'http://openy-demo.docksal/'
             }
           };
         }
-        let url = drupalSettings.path.url + 'myy/data/childcare/scheduled';
+        let url = drupalSettings.path.baseUrl + 'myy/data/childcare/scheduled';
 
         component.loading = true;
         jQuery.ajax({

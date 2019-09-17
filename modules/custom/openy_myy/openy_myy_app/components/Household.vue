@@ -42,9 +42,17 @@
     },
     methods: {
       runAjaxRequest: function() {
-        let component = this,
-          //url = drupalSettings.path.baseUrl + 'myy/data/profile/family-list';
-          url = 'http://openy-demo.docksal/myy/data/profile/family-list';
+        let component = this;
+
+        // @todo: find solution how to configure dev environment.
+        if (typeof drupalSettings === 'undefined') {
+          var drupalSettings = {
+            path: {
+              baseUrl: 'http://openy-demo.docksal/'
+            }
+          };
+        }
+        let url = drupalSettings.path.baseUrl + 'myy/data/profile/family-list';
 
         component.loading = true;
         jQuery.ajax({

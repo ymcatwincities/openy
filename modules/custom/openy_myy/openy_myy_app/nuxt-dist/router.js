@@ -6,6 +6,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 import _3296e3ae from '../pages/myy/index.vue'
 import _014931dc from '../pages/myy/calendar.vue'
 import _3ccc54ee from '../pages/myy/childcare.vue'
+import _671fd2fc from '../pages/myy/childcare-visits.vue'
 import _5001b270 from '../pages/myy/dashboard.vue'
 import _dbde6eac from '../pages/myy/membership.vue'
 import _ff4e6702 from '../pages/myy/orders-receipts.vue'
@@ -33,6 +34,10 @@ export const routerOptions = {
       path: "/myy/childcare",
       component: () => _3ccc54ee.default || _3ccc54ee,
       name: "myy-childcare"
+    }, {
+      path: "/myy/childcare-visits",
+      component: () => _671fd2fc.default || _671fd2fc,
+      name: "myy-childcare-visits"
     }, {
       path: "/myy/dashboard",
       component: () => _5001b270.default || _5001b270,

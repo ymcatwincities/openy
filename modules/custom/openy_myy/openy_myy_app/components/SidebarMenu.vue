@@ -37,7 +37,7 @@
             <nuxt-link to="/myy/orders-receipts" class="nav-link">Orders & receipts</nuxt-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">Visits</a>
+            <nuxt-link to="/myy/childcare-visits" class="nav-link" href="/">Visits</nuxt-link>
           </li>
         </ul>
       </li>

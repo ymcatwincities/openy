@@ -11,7 +11,6 @@
           </div>
           <div v-if="isLoggedIn" class="col-sm-5 text-right">
             <span class="account_name">Hello, John!</span>
-            <nuxt-link to="/myy/profile-settings" class="profile_settings"><i class="fa fa-gear"></i></nuxt-link>
             <a href="/myy/logout" class="sign_out">Sign out</a>
           </div>
           <div v-else class="col-sm-5 text-right">
@@ -28,6 +27,10 @@
     },
     created: function() {
       this.isLoggedIn = this.$cookie.get('Drupal.visitor.personify_authorized');
+      // Redirect user to login page if authorization cookie is not present.
+/*      if (!this.isLoggedIn) {
+        window.location.pathname = '/myy/login';
+      }*/
     },
     methods: {
     }
@@ -61,6 +64,7 @@
         color: #fff;
         font-size: 14px;
         line-height: 48px;
+        margin-right: 15px;
       }
       a {
         color: #fff;
