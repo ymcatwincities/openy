@@ -528,7 +528,8 @@
           return +word;
         });
       },
-      runAjaxRequest: function(reset_pager = true) {
+      runAjaxRequest: function(reset_pager) {
+        if (!reset_pager) reset_pager = true;
         var component = this;
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
