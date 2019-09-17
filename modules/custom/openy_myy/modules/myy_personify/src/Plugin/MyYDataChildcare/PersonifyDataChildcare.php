@@ -117,21 +117,22 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     $result = [];
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
-    $results = json_decode($data->Data);
-    if (!empty($results->Table)) {
-       foreach ($results->Table as $childcare_item) {
+    $results = json_decode($data['Data'], TRUE);
+    if (!empty($results['Table'])) {
+       foreach ($results['Table'] as $childcare_item) {
          $result[] = [
-           'order_number' => $childcare_item->order_number,
-           'usr_day' => $childcare_item->usr_day,
-           'od_order_date' => $childcare_item->od_order_date,
-           'order_date' => $childcare_item->order_date,
-           'scheduled' => $childcare_item->sflag,
-           'attended' => $childcare_item->aflag,
-           'type' => $childcare_item->stype,
-           'program_name' => $childcare_item->pname,
-           'program_code' => $childcare_item->pcode,
-           'product_id' => $childcare_item->pid,
-           'branch_id' => $childcare_item->branch_id
+           'order_number' => $childcare_item['order_number'],
+           'usr_day' => $childcare_item['usr_day'],
+           'od_order_date' => $childcare_item['od_order_date'],
+           'order_date' => $childcare_item['order_date'],
+           'scheduled' => $childcare_item['sflag'],
+           'attended' => $childcare_item['aflag'],
+           'type' => $childcare_item['stype'],
+           'program_name' => $childcare_item['pname'],
+           'program_code' => $childcare_item['pcode'],
+           'product_id' => $childcare_item['pid'],
+           'branch_id' => $childcare_item['branch_id'],
+           'child_id' => $childcare_item['prtcpnt_id']
          ];
        }
     }

@@ -80,5 +80,10 @@ interface MyYDataProfileInterface {
    */
   public function updateHealthInformation(array $health_info);
 
+  /**
+   * @return mixed
+   */
+  public function getMembershipInfo();
+
 
 }

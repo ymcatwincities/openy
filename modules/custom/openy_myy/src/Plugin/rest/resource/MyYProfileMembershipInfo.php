@@ -3,7 +3,6 @@
 namespace Drupal\openy_myy\Plugin\rest\resource;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\openy_myy\PluginManager\MyYDataVisits;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
@@ -12,22 +11,23 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Drupal\openy_myy\PluginManager\MyYDataProfile;
 
 /**
- * Provides a Demo Resource
+ * Membership info resource
  *
  * @RestResource(
- *   id = "myy_profile_visits_stat",
- *   label = @Translation("Stat of user visits"),
+ *   id = "myy_profile_membership_info",
+ *   label = @Translation("Membership info"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/profile/visits-stat/{personify_id}/{start}/{finish}"
+ *     "canonical" = "/myy/data/profile/membership"
  *   }
  * )
  */
-class MyYProfileVisitsStat extends ResourceBase {
+class MyYProfileMembershipInfo extends ResourceBase {
+
 
   /**
-   * @var \Drupal\openy_myy\PluginManager\MyYDataVisits
+   * @var \Drupal\openy_myy\PluginManager\MyYDataProfile
    */
-  protected $myYDataVisits;
+  protected $myYDataProfile;
 
   /**
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -42,7 +42,7 @@ class MyYProfileVisitsStat extends ResourceBase {
    * @param $plugin_definition
    * @param array $serializer_formats
    * @param \Psr\Log\LoggerInterface $logger
-   * @param \Drupal\openy_myy\PluginManager\MyYDataVisits $myYDataVisits
+   * @param \Drupal\openy_myy\PluginManager\MyYDataProfile $myYDataProfile
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    */
   public function __construct(
@@ -51,13 +51,13 @@ class MyYProfileVisitsStat extends ResourceBase {
     $plugin_definition,
     array $serializer_formats,
     LoggerInterface $logger,
-    MyYDataVisits $myYDataVisits,
+    MyYDataProfile $myYDataProfile,
     ConfigFactoryInterface $configFactory
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->config = $configFactory->get('openy_myy.settings');
-    $this->myYDataVisits = $myYDataVisits;
+    $this->myYDataProfile = $myYDataProfile;
   }
 
   /**
@@ -69,8 +69,8 @@ class MyYProfileVisitsStat extends ResourceBase {
       $plugin_id,
       $plugin_definition,
       $container->getParameter('serializer.formats'),
-      $container->get('logger.factory')->get('openy_node_alert'),
-      $container->get('plugin.manager.myy_data_visits'),
+      $container->get('logger.factory')->get('openy_myy_data_profile'),
+      $container->get('plugin.manager.myy_data_profile'),
       $container->get('config.factory')
     );
   }
@@ -78,15 +78,15 @@ class MyYProfileVisitsStat extends ResourceBase {
   /**
    * {@inheritdoc}
    */
-  public function get($personify_id, $start_date, $finish_date) {
+  public function get() {
 
     $myy_config = $this->config->getRawData();
-    $myy_authenticator_instances = $this->myYDataVisits->getDefinitions();
-    if (array_key_exists($myy_config['myy_data_visits'], $myy_authenticator_instances)) {
+    $myy_authenticator_instances = $this->myYDataProfile->getDefinitions();
+    if (array_key_exists($myy_config['myy_data_profile'], $myy_authenticator_instances)) {
       $response = $this
-        ->myYDataVisits
-        ->createInstance($myy_config['myy_data_visits'])
-        ->getVisitsCountByDate($personify_id, $start_date, $finish_date);
+        ->myYDataProfile
+        ->createInstance($myy_config['myy_data_profile'])
+        ->getMembershipInfo();
     } else {
       return new NotFoundHttpException();
     }
