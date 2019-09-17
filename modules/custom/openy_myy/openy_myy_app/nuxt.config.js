@@ -1,4 +1,4 @@
-module.exports = {
+let config = {
   buildDir: 'nuxt-dist',
   mode: 'spa',
   plugins: [
@@ -7,23 +7,6 @@ module.exports = {
   /*
   ** Headers of the page
   */
-  head: {
-    title: 'openy_myy_app',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'OpenY MyY project' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-      //{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' }
-    ],
-    script: [
-      { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
-      { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.js' },
-      { src: 'https://use.fontawesome.com/95fd5fcc01.js' }
-    ],
-  },
 
   /*
   ** Customize the progress bar color
@@ -59,14 +42,31 @@ module.exports = {
       layouts: false,
       pages: false,
       commons: false
-    },
-    css: {
-      loaderOptions: {
-        sass: {
-          data: `@import "node_modules/bootstrap/scss/bootstrap";`
-        }
-      }
     }
   }
 }
 
+if (process.env.NODE_ENV === 'dev') {
+  config.css = [
+    '~/node_modules/bootstrap/dist/css/bootstrap.css',
+  ];
+  config.head = {
+    title: 'openy_myy_app',
+      meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: 'OpenY MyY project' }
+    ],
+      link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }/*,
+      { rel: 'stylesheet', href: '' }*/
+    ],
+      script: [
+      { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
+      { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.js' },
+      { src: 'https://use.fontawesome.com/95fd5fcc01.js' },
+    ],
+  }
+}
+
+module.exports = config;

@@ -5,7 +5,7 @@
   "author": "Andrey T <andrey@imagexmedia.com>",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "NODE_ENV=dev nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.28",
+    "bootstrap-vue": "^2.0.0",
     "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
     "sass-loader": "^7.3.1",

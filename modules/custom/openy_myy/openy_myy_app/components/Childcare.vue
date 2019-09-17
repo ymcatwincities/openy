@@ -1,5 +1,6 @@
 <template>
-  <section class="myy-childcare">
+  <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
+  <section v-else class="myy-childcare">
     <div class="row title-area">
       <div class="col">
         <h2>Childcare</h2>
@@ -16,7 +17,49 @@
         <a href="#" class="view_all">View all</a> | <a href="#" class="purchases">Purchases</a>
       </div>
     </div>
+
     <div class="row content">
+      <div class="col">
+        <div class="event_row">
+          <div class="event_head row">
+            <div class="col-sm-1">
+              <span class="rounded_letter small blue">J</span>
+            </div>
+            <div class="col-sm-5">
+              <div class="program_name" v-if="data.length > 0"><strong>{{ data[0].program_name }}</strong></div>
+              {{ data[0].branch_id }}
+            </div>
+            <div class="col-sm-4">
+              <div class="date"><strong>Dec 12-Dec 19</strong></div>
+              <span class="weekdays">Mon - Fri</span>
+            </div>
+            <div class="col-sm-2 text-right">
+              <a href="#" class="cancel"><strong>Cancel all</strong></a>
+            </div>
+          </div>
+          <div v-for="(item, index) in data" v-bind:key="index" class="event_item row">
+            <div class="col-sm-1 no-padding-left text-center">
+              <i class="fa fa-calendar-check-o"></i>
+            </div>
+            <div class="col-sm-5 no-padding-left">
+              <span class="date">{{ item.usr_day }}, {{ item.order_date }}</span>
+            </div>
+            <div class="col-sm-4">
+              <span class="duration">{{ item.type }}</span>
+            </div>
+            <div class="col-sm-2 text-right no-padding-right">
+              <a href="#" class="cancel"><strong>Cancel</strong></a>
+            </div>
+          </div>
+          <div class="event_add_item row">
+            <div class="col">
+              <i class="fa blue fa-calendar-plus-o"></i> <a href="#"><strong>Add Item</strong></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<div class="row content">
       <div class="col">
         <div class="event_row">
           <div class="event_head row">
@@ -121,9 +164,50 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </section>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        loading: true,
+        data: {}
+      }
+    },
+    methods: {
+      runAjaxRequest: function() {
+        let component = this;
+
+        // @todo: find solution how to configure dev environment.
+        if (typeof drupalSettings === 'undefined') {
+          var drupalSettings = {
+            path: {
+              url: 'http://openy-demo.docksal/'
+            }
+          };
+        }
+        let url = drupalSettings.path.url + 'myy/data/childcare/scheduled';
+
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          component.data = data;
+          component.loading = false;
+        });
+      },
+    },
+    mounted: function() {
+      let component = this;
+      component.runAjaxRequest();
+    }
+  }
+</script>
 
 <style lang="scss">
   .myy-childcare {

@@ -21,13 +21,11 @@ import MyyHeader from '~/components/MyyHeader.vue'
 import SidebarMenu from '~/components/SidebarMenu.vue'
 import Vue from 'vue'
 import VueCookie from 'vue-cookie';
-import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(VueCookie);
-Vue.use(BootstrapVue);
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+//import 'bootstrap/dist/css/bootstrap.css'
+//import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
   components: {

@@ -9,22 +9,7 @@
     <div class="row content">
       <div class="col">
         <div class="row">
-          <div class="col">
-            <span class="rounded_letter green">J</span>
-            <div class="name">Me (John Doe)</div>
-            <div class="age">36</div>
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>lj
-              </div>
-            </div>
-          </div>
-          <div v-for="(item, index) in data.household" v-bind:key="index" class="col">
+          <div v-for="(item, index) in data.household" v-bind:key="index" class="col-md-3">
             <span class="rounded_letter red">J</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
@@ -59,7 +44,7 @@
       runAjaxRequest: function() {
         let component = this,
           //url = drupalSettings.path.baseUrl + 'myy/data/profile/family-list';
-          url = 'http://openy20.docksal/myy/data/profile/family-list';
+          url = 'http://openy-demo.docksal/myy/data/profile/family-list';
 
         component.loading = true;
         jQuery.ajax({
