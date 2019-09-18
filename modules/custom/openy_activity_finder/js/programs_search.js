@@ -780,7 +780,7 @@
         this.runAjaxRequest(false);
         $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
       },
-      totalGroupCounter() {
+      totalGroupCounter: function() {
         // Returns count of of applied filters.
         return this.ages.length + this.days.length + this.categories.length + this.locations.length;
       }
