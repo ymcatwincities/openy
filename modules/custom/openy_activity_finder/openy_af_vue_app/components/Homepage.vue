@@ -13,7 +13,7 @@
         </div>
       </form>
 
-      <a v-bind:href="this.programSearchUrlWithExclude" class="program-search__view-all-programs"><strong>View all programs</strong></a>
+      <a v-bind:href="this.programSearchUrlWithExclude" v-if="this.$parent.isMounted" class="program-search__view-all-programs"><strong>View all programs</strong></a>
       <p v-if="this.$parent.loading">
         <spinner></spinner>
       </p>
@@ -54,7 +54,10 @@
         return this.$parent.table.count;
       },
       programSearchUrlWithExclude: function() {
-        return this.$parent.programSearchUrl + '/?exclude=' + this.$parent.categoriesExclude.join(',');
+        if (typeof this.$parent.categoriesExclude !== 'undefined' && this.$parent.categoriesExclude.length > 0) {
+          return this.$parent.programSearchUrl + '?exclude=' + this.$parent.categoriesExclude.join(',');
+        }
+        return this.$parent.programSearchUrl;
       },
     },
     methods: {
