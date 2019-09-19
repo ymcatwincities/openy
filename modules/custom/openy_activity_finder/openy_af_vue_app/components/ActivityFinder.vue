@@ -10,6 +10,7 @@
     data () {
       return {
         loading: false,
+        isMounted: false,
         table: {
           count: 0,
           facets: {
@@ -442,6 +443,8 @@
           component.categoriesExclude.push(window.OpenY.field_prgf_af_categ_excl[i]['id']);
         }
       }
+
+      this.isMounted = true;
     },
     watch: {
       // Call again the method if the route changes.
