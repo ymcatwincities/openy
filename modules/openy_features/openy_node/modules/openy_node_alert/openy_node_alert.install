@@ -255,3 +255,17 @@ function openy_node_alert_update_8011() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs($configs);
 }
+
+/**
+ * Add functionality for Rearranging Alerts.
+ */
+function openy_node_alert_update_8012() {
+  \Drupal::service('module_installer')->install(['draggableviews']);
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $configs = [
+    'views.view.alerts_rearrange',
+  ];
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs($configs);
+}
