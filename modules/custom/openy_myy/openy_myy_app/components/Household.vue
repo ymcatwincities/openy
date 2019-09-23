@@ -10,7 +10,7 @@
       <div class="col">
         <div class="row">
           <div v-for="(item, index) in data.household" v-bind:key="index" class="col-md-3">
-            <span class="rounded_letter red">J</span>
+            <span :class="'rounded_letter color-' + index">{{ item.name.charAt(0) }}</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
             <div class="dropdown">

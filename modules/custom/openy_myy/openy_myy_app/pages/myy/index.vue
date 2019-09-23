@@ -101,7 +101,7 @@ export default {
     text-align: center;
     width: 80px;
     &.green {
-       background-color: #006B6B;
+      background-color: #006B6B;
     }
     &.red {
       background-color: #ED1C24;
@@ -114,6 +114,51 @@ export default {
     }
     &.black {
       background-color: #231F20;
+    }
+    &.color-0 {
+      background-color: #006b6b;
+    }
+    &.color-1 {
+      background-color: #0060af;
+    }
+    &.color-2 {
+      background-color: #5c2e91;
+    }
+    &.color-3 {
+      background-color: #a92b31;
+    }
+    &.color-4 {
+      background-color: #dd5828;
+    }
+    &.color-5 {
+      background-color: #01a490;
+    }
+    &.color-6 {
+      background-color: #0089d0;
+    }
+    &.color-7 {
+      background-color: #92278f;
+    }
+    &.color-8 {
+      background-color: #ed1c24;
+    }
+    &.color-9 {
+      background-color: #f47920;
+    }
+    &.color-10 {
+      background-color: #20bdbe;
+    }
+    &.color-11 {
+      background-color: #00aeef;
+    }
+    &.color-12 {
+      background-color: #c6168d;
+    }
+    &.color-13 {
+      background-color: #f15922;
+    }
+    &.color-14 {
+      background-color: #fcaf17;
     }
     &.small {
       border-radius: 20px;
