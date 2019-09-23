@@ -58,6 +58,9 @@ if (process.env.NODE_ENV === 'dev') {
     '~/node_modules/bootstrap/dist/css/bootstrap.css',
   ];
   config.head = {
+    meta: [
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    ],
     script: [
       { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
       { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.js' },

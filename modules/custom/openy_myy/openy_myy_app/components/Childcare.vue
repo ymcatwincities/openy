@@ -6,7 +6,7 @@
         <h2>Childcare</h2>
       </div>
       <div class="col text-right">
-       <a class="btn btn-primary">PURCHASE CARE <i class="fa fa-external-link-square"></i></a>
+       <a :href="childcare_purchase_link_url" class="btn btn-primary text-uppercase">{{ childcare_purchase_link_title }} <i class="fa fa-external-link-square"></i></a>
       </div>
     </div>
     <div class="row headline">
@@ -173,7 +173,9 @@
     data () {
       return {
         loading: true,
-        data: {}
+        data: {},
+        childcare_purchase_link_title: '',
+        childcare_purchase_link_url: ''
       }
     },
     methods: {
@@ -184,7 +186,9 @@
         if (typeof drupalSettings === 'undefined') {
           var drupalSettings = {
             path: {
-              baseUrl: 'http://openy-demo.docksal/'
+              baseUrl: 'http://openy-demo.docksal/',
+              childcare_purchase_link_title: 'Purchase Care',
+              childcare_purchase_link_url: '/myy'
             }
           };
         }
@@ -205,6 +209,17 @@
     mounted: function() {
       let component = this;
       component.runAjaxRequest();
+      //
+      if (typeof drupalSettings === 'undefined') {
+        var drupalSettings = {
+          myy: {
+            childcare_purchase_link_title: 'Purchase Care',
+            childcare_purchase_link_url: '/myy'
+          }
+        };
+      }
+      component.childcare_purchase_link_title = typeof drupalSettings.myy !== 'undefined' ? drupalSettings.myy.childcare_purchase_link_title : '';
+      component.childcare_purchase_link_url = typeof drupalSettings.myy !== 'undefined' ? drupalSettings.myy.childcare_purchase_link_url : '';
     }
   }
 </script>

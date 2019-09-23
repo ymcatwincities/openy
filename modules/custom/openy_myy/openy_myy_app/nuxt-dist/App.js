@@ -10,7 +10,7 @@ import _6f6c098b from '../layouts/default.vue'
 const layouts = { "_default": _6f6c098b }
 
 export default {
-  head: {"script":[{"src":"https:\u002F\u002Fcode.jquery.com\u002Fjquery-2.2.4.min.js"},{"src":"https:\u002F\u002Fmaxcdn.bootstrapcdn.com\u002Fbootstrap\u002F4.0.0\u002Fjs\u002Fbootstrap.bundle.js"},{"src":"https:\u002F\u002Fuse.fontawesome.com\u002F95fd5fcc01.js"},{"src":"https:\u002F\u002Fcdnjs.cloudflare.com\u002Fajax\u002Flibs\u002Fdatepicker\u002F0.6.5\u002Fdatepicker.min.js"}],"link":[{"rel":"stylesheet","href":"https:\u002F\u002Fcdnjs.cloudflare.com\u002Fajax\u002Flibs\u002Fdatepicker\u002F0.6.5\u002Fdatepicker.css"}],"meta":[],"style":[]},
+  head: {"meta":[{"name":"viewport","content":"width=device-width, initial-scale=1"}],"script":[{"src":"https:\u002F\u002Fcode.jquery.com\u002Fjquery-2.2.4.min.js"},{"src":"https:\u002F\u002Fmaxcdn.bootstrapcdn.com\u002Fbootstrap\u002F4.0.0\u002Fjs\u002Fbootstrap.bundle.js"},{"src":"https:\u002F\u002Fuse.fontawesome.com\u002F95fd5fcc01.js"},{"src":"https:\u002F\u002Fcdnjs.cloudflare.com\u002Fajax\u002Flibs\u002Fdatepicker\u002F0.6.5\u002Fdatepicker.min.js"}],"link":[{"rel":"stylesheet","href":"https:\u002F\u002Fcdnjs.cloudflare.com\u002Fajax\u002Flibs\u002Fdatepicker\u002F0.6.5\u002Fdatepicker.css"}],"style":[]},
 
   render(h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })
