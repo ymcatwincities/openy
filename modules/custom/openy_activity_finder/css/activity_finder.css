@@ -314,7 +314,7 @@ and (min-device-width: 320px)
 and (max-device-width: 568px)
 and (-webkit-min-device-pixel-ratio: 2) {
   #schedules-filters > h3 > i {
-    line-height: 3px;
+    line-height: 15px;
   }
 }
 @media only screen
@@ -363,7 +363,7 @@ and (min-device-width: 834px)
 and (max-device-width: 1112px)
 and (-webkit-min-device-pixel-ratio: 2) {
   #schedules-filters > h3 > i {
-    line-height: 3px;
+    line-height: 15px;
   }
 }
 
