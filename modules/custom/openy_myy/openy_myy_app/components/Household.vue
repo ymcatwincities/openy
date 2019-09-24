@@ -2,15 +2,15 @@
   <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
   <section v-else class="myy-household">
     <div class="row headline">
-      <div class="col">
+      <div class="col-sm-12">
         <h3>Household</h3>
       </div>
     </div>
     <div class="row content">
-      <div class="col">
+      <div class="col-sm-12">
         <div class="row">
           <div v-for="(item, index) in data.household" v-bind:key="index" class="col-md-3">
-            <span :class="'rounded_letter color-' + index">{{ item.name.charAt(0) }}</span>
+            <span :class="'rounded_letter color-' + index" v-if="item.name">{{ item.name.charAt(0) }}</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
             <div class="dropdown">
@@ -35,6 +35,7 @@
     data () {
       return {
         loading: true,
+        baseUrl: '/',
         data: {
           household: []
         }
@@ -42,17 +43,8 @@
     },
     methods: {
       runAjaxRequest: function() {
-        let component = this;
-
-        // @todo: find solution how to configure dev environment.
-        if (typeof drupalSettings === 'undefined') {
-          var drupalSettings = {
-            path: {
-              baseUrl: 'http://openy-demo.docksal/'
-            }
-          };
-        }
-        let url = drupalSettings.path.baseUrl + 'myy/data/profile/family-list';
+        let component = this,
+            url = component.baseUrl + 'myy/data/profile/family-list';
 
         component.loading = true;
         jQuery.ajax({
@@ -68,6 +60,17 @@
     },
     mounted: function() {
       let component = this;
+
+      if (typeof window.drupalSettings === 'undefined') {
+        var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/',
+          }
+        };
+        window.drupalSettings = drupalSettings;
+      }
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+
       component.runAjaxRequest();
     }
   }

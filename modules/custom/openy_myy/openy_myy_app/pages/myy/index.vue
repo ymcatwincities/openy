@@ -28,24 +28,18 @@ Vue.use(VueCookie);
 //import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 export default {
-/*  middleware ({ store, redirect }) {
-    //if (!store.state.authenticated) {
+  middleware ({ store, redirect }) {
+    if (store.state.isLoggedIn) {
       return redirect('/myy/dashboard')
-    //}
-  },*/
+    }
+    else {
+      window.location.pathname = '/myy/login';
+    }
+  },
   components: {
     MyyHeader,
     SidebarMenu
-  },
-  created: function() {
-    // @todo Only for dev purposes, remove before launch.
-    if (typeof Drupal === 'undefined') {
-      this.$cookie.set('Drupal.visitor.personify_authorized', '203dcb9c-b2d3-4163-b59a-eb83437d41a4');
-      this.$cookie.set('Drupal.visitor.personify_id', '2052596923');
-      this.$cookie.set('Drupal.visitor.personify_time', '1567520392');
-      this.$cookie.set('SESS1d4a7c030a658eb491c69621ef4614db', '7oVaupY_R7YG9UZbvLX7xbakurIjZmWsPKXfBHaQX-E');
-    }
-  },
+  }
 }
 </script>
 
@@ -55,13 +49,13 @@ export default {
     height: 76px;
     line-height: 76px;
     .back-link {
-      display: inline-block;
       background-color: #fff;
+      border-radius: 25px;
+      display: inline-block;
       height: 50px;
       line-height: 50px;
-      width: 50px;
-      border-radius: 25px;
       text-align: center;
+      width: 50px;
       .fa {
         color: #000;
         font-size: 20px;
@@ -76,10 +70,9 @@ export default {
   }
   .myy-main {
     margin-top: 40px;
-  }
-  * {
     font-family: Verdana, sans-serif;
     font-size: 14px;
+    color: #231F20;
   }
   a {
     color: #0060AF;
@@ -184,10 +177,10 @@ export default {
       width: 60px;
     }
   }
-  .no-padding-left {
+  div.no-padding-left {
     padding-left: 0;
   }
-  .no-padding-right {
+  div.no-padding-right {
     padding-right: 0;
   }
   #nuxt-loading {  visibility: hidden;  opacity: 0;  left: 0;  right: 0;  top: 0;  bottom: 0;  display: flex;  justify-content: center;  align-items: center;  flex-direction: column;  animation: nuxtLoadingIn 10s ease;  -webkit-animation: nuxtLoadingIn 10s ease;  animation-fill-mode: forwards;  overflow: hidden;}@keyframes nuxtLoadingIn {  0% {visibility: hidden;opacity: 0;  }  20% {visibility: visible;opacity: 0;  }  100% {visibility: visible;opacity: 1;  }}@-webkit-keyframes nuxtLoadingIn {  0% {visibility: hidden;opacity: 0;  }  20% {visibility: visible;opacity: 0;  }  100% {visibility: visible;opacity: 1;  }}#nuxt-loading>div,#nuxt-loading>div:after {  border-radius: 50%;  width: 5rem;  height: 5rem;}#nuxt-loading>div {  font-size: 10px;  position: relative;  text-indent: -9999em;  border: .5rem solid #F5F5F5;  border-left: .5rem solid #3B8070;  -webkit-transform: translateZ(0);  -ms-transform: translateZ(0);  transform: translateZ(0);  -webkit-animation: nuxtLoading 1.1s infinite linear;  animation: nuxtLoading 1.1s infinite linear;}#nuxt-loading.error>div {  border-left: .5rem solid #ff4500;  animation-duration: 5s;}@-webkit-keyframes nuxtLoading {  0% {-webkit-transform: rotate(0deg);transform: rotate(0deg);  }  100% {-webkit-transform: rotate(360deg);transform: rotate(360deg);  }}@keyframes nuxtLoading {  0% {-webkit-transform: rotate(0deg);transform: rotate(0deg);  }  100% {-webkit-transform: rotate(360deg);transform: rotate(360deg);  }}
@@ -210,6 +203,7 @@ export default {
       border-bottom: 1px solid #636466;
       padding: 0 10px;
       line-height: 50px;
+      margin: 0;
       label {
         color: #636466;
         display: inline-block;
@@ -222,15 +216,16 @@ export default {
       input {
         border: none;
         background: none;
+        box-shadow: none;
         display: inline-block;
         font-size: 12px;
         height: 50px;
         line-height: 50px;
         color: #231F20;
-        padding: 0;
+        padding: 0 0 0 115px;
         margin: 0;
         font-style: italic;
-        left: 115px;
+        left: 0;
         position: absolute;
         top: 1px;
         right: 0;

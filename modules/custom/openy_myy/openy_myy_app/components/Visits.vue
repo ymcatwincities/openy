@@ -1,15 +1,15 @@
 <template>
   <section class="myy-visits">
     <div class="row headline">
-      <div class="col">
+      <div class="col-sm-6">
         <h3>Visits</h3>
       </div>
-      <div class="col text-right">
+      <div class="col-sm-6 text-right">
         <span class="date">Dec 2019</span> | <a href="#" class="view_all">View all</a>
       </div>
     </div>
     <div class="row content">
-      <div class="col">
+      <div class="col-sm-6">
         <div class="row">
           <div class="col-sm-3">
             <span class="rounded_letter green"> J</span>
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="col">
+      <div class="col-sm-6">
         <div class="row">
           <div class="col-sm-3">
             <span class="rounded_letter red"> J</span>

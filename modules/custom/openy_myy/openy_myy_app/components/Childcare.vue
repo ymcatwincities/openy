@@ -2,24 +2,24 @@
   <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
   <section v-else class="myy-childcare">
     <div class="row title-area">
-      <div class="col">
+      <div class="col-sm-6">
         <h2>Childcare</h2>
       </div>
-      <div class="col text-right">
+      <div class="col-sm-6 text-right">
        <a :href="childcare_purchase_link_url" class="btn btn-primary text-uppercase">{{ childcare_purchase_link_title }} <i class="fa fa-external-link-square"></i></a>
       </div>
     </div>
     <div class="row headline">
-      <div class="col">
+      <div class="col-sm-6">
         <h3>Upcoming events</h3>
       </div>
-      <div class="col text-right">
+      <div class="col-sm-6 text-right">
         <a href="#" class="view_all">View all</a> | <a href="#" class="purchases">Purchases</a>
       </div>
     </div>
 
     <div class="row content">
-      <div class="col">
+      <div class="col-sm-12">
         <div class="event_row">
           <div class="event_head row">
             <div class="col-sm-1">
@@ -29,11 +29,11 @@
               <div class="program_name" v-if="data.length > 0"><strong>{{ data[0].program_name }}</strong></div>
               {{ data[0].branch_id }}
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <div class="date"><strong>Dec 12-Dec 19</strong></div>
               <span class="weekdays">Mon - Fri</span>
             </div>
-            <div class="col-sm-2 text-right">
+            <div class="col-sm-3 text-right">
               <a href="#" class="cancel"><strong>Cancel all</strong></a>
             </div>
           </div>
@@ -44,15 +44,15 @@
             <div class="col-sm-5 no-padding-left">
               <span class="date">{{ item.usr_day }}, {{ item.order_date }}</span>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <span class="duration">{{ item.type }}</span>
             </div>
-            <div class="col-sm-2 text-right no-padding-right">
+            <div class="col-sm-3 text-right no-padding-right">
               <a href="#" class="cancel"><strong>Cancel</strong></a>
             </div>
           </div>
           <div class="event_add_item row">
-            <div class="col">
+            <div class="col-sm-12">
               <i class="fa blue fa-calendar-plus-o"></i> <a href="#"><strong>Add Item</strong></a>
             </div>
           </div>
@@ -174,6 +174,7 @@
       return {
         loading: true,
         data: {},
+        baseUrl: '/',
         childcare_purchase_link_title: '',
         childcare_purchase_link_url: ''
       }
@@ -181,18 +182,7 @@
     methods: {
       runAjaxRequest: function() {
         let component = this;
-
-        // @todo: find solution how to configure dev environment.
-        if (typeof drupalSettings === 'undefined') {
-          var drupalSettings = {
-            path: {
-              baseUrl: 'http://openy-demo.docksal/',
-              childcare_purchase_link_title: 'Purchase Care',
-              childcare_purchase_link_url: '/myy'
-            }
-          };
-        }
-        let url = drupalSettings.path.baseUrl + 'myy/data/childcare/scheduled';
+        let url = component.baseUrl + 'myy/data/childcare/scheduled';
 
         component.loading = true;
         jQuery.ajax({
@@ -208,18 +198,24 @@
     },
     mounted: function() {
       let component = this;
-      component.runAjaxRequest();
-      //
-      if (typeof drupalSettings === 'undefined') {
+
+      if (typeof window.drupalSettings === 'undefined') {
         var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/'
+          },
           myy: {
-            childcare_purchase_link_title: 'Purchase Care',
-            childcare_purchase_link_url: '/myy'
+          childcare_purchase_link_title: 'Purchase Care',
+          childcare_purchase_link_url: '/myy'
           }
         };
+        window.drupalSettings = drupalSettings;
       }
-      component.childcare_purchase_link_title = typeof drupalSettings.myy !== 'undefined' ? drupalSettings.myy.childcare_purchase_link_title : '';
-      component.childcare_purchase_link_url = typeof drupalSettings.myy !== 'undefined' ? drupalSettings.myy.childcare_purchase_link_url : '';
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+      component.childcare_purchase_link_title = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.childcare_purchase_link_title : '';
+      component.childcare_purchase_link_url = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.childcare_purchase_link_url : '';
+
+      component.runAjaxRequest();
     }
   }
 </script>

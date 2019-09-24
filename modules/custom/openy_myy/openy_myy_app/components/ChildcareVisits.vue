@@ -5,7 +5,7 @@
       <div class="col-sm-7">
         <span class="count">{{ data.length }} results</span>
       </div>
-      <div class="col-sm-5">
+      <div class="col-sm-4">
         <select class="form-control form-select">
           <option value="date_ASC">Sort by date (ascending)</option>
           <option value="date_DESC">Sort by date (descending)</option>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="row content">
-      <div class="col-xs-12">
+      <div class="col-sm-12">
           <div v-for="(item, index) in data" v-bind:key="index" class="item-row row">
             <div class="col-sm-1 no-padding-left">
               <span class="rounded_letter small black">X</span>
@@ -43,23 +43,15 @@
     data () {
       return {
         loading: true,
+        baseUrl: '/',
         data: {}
       }
     },
     methods: {
       runAjaxRequest: function() {
         let component = this,
-            query = [];
-
-        // @todo: find solution how to configure dev environment.
-        if (typeof drupalSettings === 'undefined') {
-          var drupalSettings = {
-            path: {
-              baseUrl: 'http://openy-demo.docksal/'
-            }
-          };
-        }
-        let url = drupalSettings.path.baseUrl + 'myy/data/childcare/scheduled';
+            query = [],
+            url = window.drupalSettings.path.baseUrl + 'myy/data/childcare/scheduled';
 
         if (this.$route.query.start_date !== 'undefined') {
           query.push('start_date=' + this.$route.query.start_date);
@@ -86,6 +78,17 @@
     },
     mounted: function() {
       let component = this;
+
+      if (typeof window.drupalSettings === 'undefined') {
+        var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/',
+          }
+        };
+        window.drupalSettings = drupalSettings;
+      }
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+
       component.runAjaxRequest();
     },
     watch: {

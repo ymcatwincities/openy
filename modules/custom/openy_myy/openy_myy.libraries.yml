@@ -4,6 +4,12 @@ openy_myy:
     openy_myy_app/nuxt-dist/dist/client/runtime.js: {}
     openy_myy_app/nuxt-dist/dist/client/2.vendors.app.js: {}
     openy_myy_app/nuxt-dist/dist/client/0.app.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - core/jquery.ui.core
+    - core/jquery.ui.widget
+    - core/jquery.ui.datepicker
 
   css:
     base:

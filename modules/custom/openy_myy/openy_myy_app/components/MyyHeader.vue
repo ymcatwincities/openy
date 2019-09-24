@@ -9,9 +9,9 @@
           <div class="col-sm-7">
             <h1>MY Y</h1>
           </div>
-          <div v-if="isLoggedIn" class="col-sm-5 text-right">
+          <div v-if="$store.state.isLoggedIn" class="col-sm-5 text-right">
             <span class="account_name">Hello, John!</span>
-            <a href="/myy/logout" class="sign_out">Sign out</a>
+            <a @click="logout" class="sign_out">Sign out</a>
           </div>
           <div v-else class="col-sm-5 text-right">
             <a href="/myy/login" class="sign_in">Login</a>
@@ -21,21 +21,27 @@
     </div>
   </section>
 </template>
-  <script>
+<script>
+  import VueCookie from 'vue-cookie';
+  import Vue from 'vue'
+  Vue.use(VueCookie);
+
   export default {
     components: {
     },
     created: function() {
-      this.isLoggedIn = this.$cookie.get('Drupal.visitor.personify_authorized');
-      // Redirect user to login page if authorization cookie is not present.
-/*      if (!this.isLoggedIn) {
-        window.location.pathname = '/myy/login';
-      }*/
+      console.log(this.$store.state);
     },
     methods: {
+      logout: function () {
+        Vue.cookie.delete('Drupal.visitor.personify_authorized');
+        Vue.cookie.delete('Drupal.visitor.personify_id');
+        Vue.cookie.delete('Drupal.visitor.personify_time');
+        window.location.pathname = '/myy/logout';
+      }
     }
   }
-  </script>
+</script>
 <style lang="scss">
   .myy-header {
     background-color: #231F20;
