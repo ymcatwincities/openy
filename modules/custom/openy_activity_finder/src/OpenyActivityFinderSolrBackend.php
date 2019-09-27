@@ -327,7 +327,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       if ($sub_category && $sub_category->hasField('field_learn_more')) {
         $link = $sub_category->field_learn_more->getValue();
         if (!empty($link[0]['uri'])) {
-          $learn_more = render($sub_category->field_learn_more->view())->__toString();
+          $learn_more_view = $sub_category->field_learn_more->view();
+          $learn_more = render($learn_more_view)->__toString();
         }
       }
 
