@@ -57,7 +57,7 @@ function openy_node_alert_update_dependencies() {
  */
 function openy_node_alert_update_fixes() {
   // TODO: move this to highler level.
-  Drupal::service('module_installer')->install(['openy']);
+  \Drupal::service('module_installer')->install(['openy']);
 }
 
 
