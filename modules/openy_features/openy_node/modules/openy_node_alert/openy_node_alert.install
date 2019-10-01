@@ -53,6 +53,15 @@ function openy_node_alert_update_dependencies() {
 }
 
 /**
+ * Update fixes for the OpenY upgrade path support.
+ */
+function openy_node_alert_update_fixes() {
+  // TODO: move this to highler level.
+  Drupal::service('module_installer')->install(['openy']);
+}
+
+
+/**
  * Update Alert for rabbit hole, hiding pages from anonymous users.
  */
 function openy_node_alert_update_8001() {
@@ -260,6 +269,7 @@ function openy_node_alert_update_8011() {
  * Add functionality for Rearranging Alerts.
  */
 function openy_node_alert_update_8012() {
+  openy_node_alert_update_fixes();
   \Drupal::service('module_installer')->install(['draggableviews']);
   $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
   $configs = [
