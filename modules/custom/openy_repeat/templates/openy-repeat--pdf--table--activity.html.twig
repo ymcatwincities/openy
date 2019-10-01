@@ -43,7 +43,11 @@
               <td>
                 {% for key, item in item %}
                   <p>{{ item.time }}</p>
-                  <p>({{ item.category }})</p><br/>
+                  <p>({{ item.category }})</p>
+                  {% if item.instructor is not empty %}
+                    <p><i>{{ item.instructor }}</i></p>
+                  {% endif %}
+                  <br/>
                 {% endfor %}
               </td>
             {% endfor %}
