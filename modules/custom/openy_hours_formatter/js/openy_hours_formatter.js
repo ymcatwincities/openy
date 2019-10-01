@@ -3,7 +3,7 @@
   "use strict";
   Drupal.behaviors.openy_hours_formatter = {
     attach: function (context, settings) {
-      $('.today-hours .show-link').once().on('click', function(e) {
+      $('.today-hours .show-link').once().on('click', function (e) {
         e.preventDefault();
         $(this)
           .addClass('hidden')
@@ -12,7 +12,7 @@
           .parent()
           .find('.branch-hours').removeClass('hidden');
       });
-      $('.today-hours .hide-link').once().on('click', function(e) {
+      $('.today-hours .hide-link').once().on('click', function (e) {
         e.preventDefault();
         $(this)
           .addClass('hidden')
@@ -33,24 +33,26 @@
 
     /**
      * See https://moment.github.io/luxon/docs/manual/formatting.
+     *
      * @returns {string}
      */
-    getDayOfWeek(tz) {
+    getDayOfWeek: function (tz) {
       return luxon.DateTime.local().setZone(tz).toFormat('c');
     },
 
     /**
      * See https://moment.github.io/luxon/docs/manual/formatting.
+     *
      * @returns {string}
      */
-    getDate(tz) {
+    getDate: function (tz) {
       return luxon.DateTime.local().setZone(tz).toFormat('yyyy-LL-dd');
     },
 
     /**
      * Primary method for updating the today hours.
      */
-    updateTodayHours() {
+    updateTodayHours: function () {
       if (typeof drupalSettings.openy_hours_formatter != 'undefined') {
         drupalSettings.openy_hours_formatter = {};
       }
@@ -61,7 +63,7 @@
       var tz = drupalSettings.openy_hours_formatter.tz || 'America/New York';
 
       // Prioritize these arbitrary hours names first.
-      ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function(name) {
+      ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function (name) {
         if (typeof branchHours[name] != 'undefined') {
           hoursData = branchHours[name];
         }
@@ -105,7 +107,7 @@
         // into memory on a phone the hour will always be correct.
         this.refreshTimer = setInterval(this.updateTodayHours, 60 * 1000);
 
-        // RUn for the first time
+        // Run for the first time.
         this.updateTodayHours();
         $todayHours.addClass(onceClass);
       }
