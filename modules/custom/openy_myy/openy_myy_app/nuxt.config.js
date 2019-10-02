@@ -42,21 +42,21 @@ var config = {
       layouts: false,
       pages: false,
       commons: false
-    },
-    css: {
-      loaderOptions: {
-        sass: {
-          data: `@import "node_modules/bootstrap/scss/bootstrap";`
-        }
-      }
     }
-  }
+  },
+  css: [
+    '@/assets//scss/myy_global.scss',
+    '@/assets//scss/myy_global_build.scss',
+  ]
 }
 
 if (process.env.NODE_ENV === 'dev') {
-  config.css = [
-    '~/node_modules/bootstrap/dist/css/bootstrap.css',
+  /*css = ['bootstrap','~/node_modules/bootstrap/scss/bootstrap'];*/
+  let custom_css = [
+    '@/assets//scss/myy_global.scss',
+    '@/assets//scss/myy_global_dev.scss',
   ];
+  config.css = custom_css;
   config.head = {
     meta: [
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

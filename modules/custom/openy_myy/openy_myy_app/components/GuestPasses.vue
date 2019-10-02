@@ -1,18 +1,18 @@
 <template>
   <section class="myy-guest-passes">
     <div class="row headline">
-      <div class="col">
+      <div class="col-myy">
         <h3>Guest passes<sup>*</sup></h3>
       </div>
-      <div class="col text-right">
+      <div class="col-myy text-right">
         <a href="#" class="link"><strong>Guest pass policy</strong> <i class="fa fa-external-link-square"></i></a>
       </div>
     </div>
     <div class="row content">
-      <div class="col">
+      <div class="col-myy">
         <span class="square_number small">3</span> <strong>Available</strong>
       </div>
-      <div class="col">
+      <div class="col-myy">
         <span class="square_number small">1</span> <strong>Used</strong>
       </div>
     </div>

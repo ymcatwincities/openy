@@ -1,33 +1,33 @@
 <template>
   <section class="myy-pending-payments">
     <div class="row headline">
-      <div class="col">
+      <div class="col-myy">
         <h3>Pending Payments</h3>
       </div>
     </div>
     <div class="row content">
-      <div class="col">
+      <div class="col-myy">
         <div class="row payments">
-          <div class="col">
+          <div class="col-myy">
             <strong class="type">Family Membership</strong>
           </div>
-          <div class="col">
+          <div class="col-myy">
             <span class="period">Month-to-month</span>
           </div>
-          <div class="col text-right">
+          <div class="col-myy text-right">
             <span class="price">$129.00/mo</span>
           </div>
-          <div class="col text-right">
+          <div class="col-myy text-right">
             <a href="#" class="details"><strong>Details</strong></a>
           </div>
         </div>
         <div class="row due-now">
-          <div class="col">
+          <div class="col-myy">
             <i class="fa fa-exclamation-triangle red"></i>
             <p class="red"><strong>Payment due: 12/1/18</strong></p>
             <i>Automatic Payments: Visa 1234</i>
           </div>
-          <div class="col text-right">
+          <div class="col-myy text-right">
             <a class="btn btn-primary" href="#">Pay now <i class="fa fa-external-link-square"></i></a>
           </div>
         </div>

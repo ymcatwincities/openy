@@ -4,13 +4,13 @@
     <div class="myy-sub-header">
       <div class="container">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-myy-sm-3">
             <a @click="$router.go(-1)" class="back-link"><i class="fa fa-arrow-left"></i></a>
           </div>
-          <div class="col-sm-6 text-center">
+          <div class="col-myy-sm-6 text-center">
             <h2>Childcare visits</h2>
           </div>
-          <div class="col-sm-3 text-right">
+          <div class="col-myy-sm-3 text-right">
             <a href="#" class="purchases"><strong>Purchases</strong></a>
           </div>
         </div>
@@ -19,7 +19,7 @@
     <section class="myy-main">
       <div class="container">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-myy-sm-3">
             <div class="myy-filters">
               <h3>FILTERS</h3>
               <div class="myy-filters__wrapper">
@@ -36,7 +36,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-9">
+          <div class="col-myy-sm-9">
             <childcare-visits/>
           </div>
         </div>

@@ -1,50 +1,56 @@
 <template>
   <div class="myy-sidebar_menu">
-    <ul class="myy-sidebar_menu__nav">
-      <li>
-        <nuxt-link to="/myy/dashboard">dashboard</nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/myy/childcare">childcare</nuxt-link>
-      </li>
-      <li class="nav-item">
-        <nuxt-link to="/myy/calendar">calendar</nuxt-link>
-      </li>
-      <li class="nav-item">
-        <a href="#submenu-1" class="collapsed" data-toggle="collapse" data-target="#submenu-1">activities <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
-        <ul class="collapse" id="submenu-1" aria-expanded="false">
-          <li class="nav-item">
-            <a class="nav-link" href="/">Group Exercise schedules <i class="fa fa-external-link"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Activity Finder <i class="fa fa-external-link"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Personal Training <i class="fa fa-external-link"></i></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Small Group Training</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/">Camps <i class="fa fa-external-link"></i></a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#submenu-2" class="collapsed" data-toggle="collapse" data-target="#submenu-2">transactions <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
-        <ul class="collapse" id="submenu-2" aria-expanded="false">
-          <li class="nav-item">
-            <nuxt-link to="/myy/orders-receipts" class="nav-link">Orders & receipts</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/myy/childcare-visits" class="nav-link" href="/">Visits</nuxt-link>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <nuxt-link to="/myy/membership">membership</nuxt-link>
-      </li>
-    </ul>
+    <div id="myy-sidebar" class="myy-sidebar_menu sidebar sidebar-left width collapse" aria-expanded="true">
+      <div class="myy-sidebar_menu__top">
+        <button aria-controls="myy-sidebar" aria-expanded="false" class="collapsed myy-navbar-toggle visible-xs visible-sm" data-target="#myy-sidebar" data-toggle="collapse" type="button">
+          <i class="fa fa-close"></i> </button> MY Y MENU
+      </div>
+      <ul class="myy-sidebar_menu__nav">
+        <li>
+          <nuxt-link to="/myy/dashboard">dashboard</nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/myy/childcare">childcare</nuxt-link>
+        </li>
+        <li class="nav-item">
+          <nuxt-link to="/myy/calendar">calendar</nuxt-link>
+        </li>
+        <li class="nav-item">
+          <a href="#submenu-3" class="collapsed" data-toggle="collapse" data-target="#submenu-3">activities <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
+          <ul class="collapse" id="submenu-3" aria-expanded="false">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Group Exercise schedules <i class="fa fa-external-link"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Activity Finder <i class="fa fa-external-link"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Personal Training <i class="fa fa-external-link"></i></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Small Group Training</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/">Camps <i class="fa fa-external-link"></i></a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#submenu-4" class="collapsed" data-toggle="collapse" data-target="#submenu-4">transactions <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
+          <ul class="collapse" id="submenu-4" aria-expanded="false">
+            <li class="nav-item">
+              <nuxt-link to="/myy/orders-receipts" class="nav-link">Orders & receipts</nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link to="/myy/childcare-visits" class="nav-link" href="/">Visits</nuxt-link>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <nuxt-link to="/myy/membership">membership</nuxt-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -168,6 +174,12 @@
     .myy-sidebar_menu__nav {
       margin: 0 20px;
       display: block;
+    }
+    button {
+      background: none;
+      border: none;
+      margin: 0;
+      padding: 0;
     }
   }
 </style>

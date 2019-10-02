@@ -2,14 +2,14 @@
   <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
   <section v-else class="myy-household">
     <div class="row headline">
-      <div class="col-sm-12">
+      <div class="col-myy-sm-12 col-myy-12">
         <h3>Household</h3>
       </div>
     </div>
     <div class="row content">
-      <div class="col-sm-12">
+      <div class="col-myy-sm-12 col-myy-12">
         <div class="row">
-          <div v-for="(item, index) in data.household" v-bind:key="index" class="col-md-3">
+          <div v-for="(item, index) in data.household" v-bind:key="index" class="col-myy-md-3 col-myy-6 col-myy-md-3">
             <span :class="'rounded_letter color-' + index" v-if="item.name">{{ item.name.charAt(0) }}</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
@@ -99,7 +99,7 @@
       border-bottom: 1px solid #636466;
       margin: 0;
       padding: 20px 5px;
-      .col {
+      .col-myy {
         text-align: center;
       }
       .rounded_letter {

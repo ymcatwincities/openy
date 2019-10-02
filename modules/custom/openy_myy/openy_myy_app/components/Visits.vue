@@ -1,38 +1,38 @@
 <template>
   <section class="myy-visits">
     <div class="row headline">
-      <div class="col-sm-6">
+      <div class="col-myy-6">
         <h3>Visits</h3>
       </div>
-      <div class="col-sm-6 text-right">
+      <div class="col-myy-6 text-right">
         <span class="date">Dec 2019</span> | <a href="#" class="view_all">View all</a>
       </div>
     </div>
     <div class="row content">
-      <div class="col-sm-6">
+      <div class="col-myy-md-6 col-myy-12">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-myy-3">
             <span class="rounded_letter green"> J</span>
           </div>
-          <div class="col-sm-3">
+          <div class="col-myy-3">
             <span class="square_number">15</span>
           </div>
-          <div class="col-sm-6">
+          <div class="col-myy-6">
             <div class="name">John Doe</div>
             <div class="unique_visits"> 15 unique visits*</div>
             <div class="total_visits">17 total visits</div>
           </div>
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-myy-md-6 col-myy-12">
         <div class="row">
-          <div class="col-sm-3">
+          <div class="col-myy-3">
             <span class="rounded_letter red"> J</span>
           </div>
-          <div class="col-sm-3">
+          <div class="col-myy-3">
             <span class="square_number">11</span>
           </div>
-          <div class="col-sm-6">
+          <div class="col-myy-6">
             <div class="name">Jane Doe</div>
             <div class="unique_visits"> 11 unique visits*</div>
             <div class="total_visits">11 total visits</div>
@@ -90,6 +90,23 @@
       .total_visits {
         font-size: 12px;
         line-height: 21px;
+      }
+      .row {
+        border-bottom: 1px solid #636466;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        @media (min-width: 768px) {
+          border-bottom: none;
+          padding-bottom: 0;
+          margin-bottom: 0;
+        }
+      }
+      > div:last-child {
+        .row {
+          border-bottom: none;
+          padding-bottom: 0;
+          margin-bottom: 0;
+        }
       }
     }
     .description {

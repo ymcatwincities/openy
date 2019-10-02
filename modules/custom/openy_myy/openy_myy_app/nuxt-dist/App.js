@@ -2,6 +2,10 @@ import Vue from 'vue'
 import { getMatchedComponentsInstances, promisify, globalHandleError } from './utils'
 import NuxtLoading from './components/nuxt-loading.vue'
 
+import '../assets/scss/myy_global.scss'
+
+import '../assets/scss/myy_global_build.scss'
+
 import _6f6c098b from '../layouts/default.vue'
 
 const layouts = { "_default": _6f6c098b }

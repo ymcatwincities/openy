@@ -2,10 +2,10 @@
   <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
   <section v-else class="myy-childcare-visits">
     <div class="row results-sorting">
-      <div class="col-sm-7">
+      <div class="col-myy-sm-7">
         <span class="count">{{ data.length }} results</span>
       </div>
-      <div class="col-sm-4">
+      <div class="col-myy-sm-4">
         <select class="form-control form-select">
           <option value="date_ASC">Sort by date (ascending)</option>
           <option value="date_DESC">Sort by date (descending)</option>
@@ -13,22 +13,22 @@
       </div>
     </div>
     <div class="row content">
-      <div class="col-sm-12">
+      <div class="col-myy-sm-12">
           <div v-for="(item, index) in data" v-bind:key="index" class="item-row row">
-            <div class="col-sm-1 no-padding-left">
+            <div class="col-myy-sm-1 no-padding-left">
               <span class="rounded_letter small black">X</span>
             </div>
-            <div class="col-sm-3">
+            <div class="col-myy-sm-3">
               <span class="program_name">{{ item.program_name }}</span>
             </div>
-            <div class="col-sm-3">
+            <div class="col-myy-sm-3">
               <span class="date">{{ item.usr_day }}, {{ item.order_date }}</span><br/>
               <span class="duration">{{ item.type }}</span>
             </div>
-            <div class="col-sm-3">
+            <div class="col-myy-sm-3">
               <span class="branch">{{ item.branch_id }}</span>
             </div>
-            <div class="col-sm-2 no-padding-right text-right">
+            <div class="col-myy-sm-2 no-padding-right text-right">
               <span v-if="item.scheduled == 'Y'" class="status">SCHEDULED</span>
               <span v-if="item.attended == 'Y'" class="status">Attended</span>
             </div>

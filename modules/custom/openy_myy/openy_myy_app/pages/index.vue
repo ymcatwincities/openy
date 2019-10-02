@@ -9,6 +9,9 @@
       </h2>
       <div class="links">
         <a
+          href="/myy"
+          class="button--green">MyY</a>
+        <a
           href="https://nuxtjs.org/"
           target="_blank"
           class="button--green">Documentation</a>

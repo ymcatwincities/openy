@@ -15,9 +15,7 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0",
-    "node-sass": "^4.12.0",
     "nuxt": "^2.0.0",
-    "sass-loader": "^7.3.1",
     "vue-cookie": "^1.1.4"
   },
   "devDependencies": {
@@ -25,6 +23,8 @@
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^4.0.0"
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.3.1"
   }
 }
