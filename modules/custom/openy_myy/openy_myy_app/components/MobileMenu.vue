@@ -1,6 +1,6 @@
 <template>
   <div class="myy-sidebar_menu">
-    <div id="myy-sidebar" class="myy-sidebar_menu sidebar sidebar-left width collapse" aria-expanded="true">
+    <div id="myy-sidebar" class="myy-sidebar_menu width collapse" aria-expanded="true">
       <div class="myy-sidebar_menu__top">
         <button aria-controls="myy-sidebar" aria-expanded="false" class="collapsed myy-navbar-toggle visible-xs visible-sm" data-target="#myy-sidebar" data-toggle="collapse" type="button">
           <i class="fa fa-close"></i> </button> MY Y MENU

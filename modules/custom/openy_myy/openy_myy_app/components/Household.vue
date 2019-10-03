@@ -9,15 +9,15 @@
     <div class="row content">
       <div class="col-myy-sm-12 col-myy-12">
         <div class="row">
-          <div v-for="(item, index) in data.household" v-bind:key="index" class="col-myy-md-3 col-myy-6 col-myy-md-3">
+          <div v-for="(item, index) in data.household" v-bind:key="index" class="item col-myy-md-3 col-myy-6 col-myy-md-3">
             <span :class="'rounded_letter color-' + index" v-if="item.name">{{ item.name.charAt(0) }}</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" :id="'dropdownMenu' + index" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-primary select dropdown-toggle" type="button" :id="'dropdownMenu' + index" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Select
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <div class="dropdown-menu select" aria-labelledby="dropdownMenu1">
                 <button class="dropdown-item" type="button">Action</button>
                 <button class="dropdown-item" type="button">Another action</button>
                 <button class="dropdown-item" type="button">Something else here</button>
@@ -99,11 +99,14 @@
       border-bottom: 1px solid #636466;
       margin: 0;
       padding: 20px 5px;
-      .col-myy {
+      .item {
         text-align: center;
       }
       .rounded_letter {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        @media (min-width: 992px) {
+          margin-bottom: 20px;
+        }
       }
       .name {
         color: #231F20;

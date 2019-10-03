@@ -66,15 +66,15 @@ export default {
     }
   }
   .myy-main {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-family: Verdana, sans-serif;
     font-size: 12px;
     color: #231F20;
     @media (min-width: 992px) {
-      margin-top: 20px;
-      margin-bottom: 20px;
       font-size: 14px;
+      margin-top: 40px;
+      margin-bottom: 40px;
     }
     button {
       margin: 0;
@@ -97,11 +97,17 @@ export default {
     color: #fff;
     display: inline-block;
     font-family: "Cachet Medium", sans-serif;
-    font-size: 48px;
-    height: 80px;
-    line-height: 80px;
+    font-size: 36px;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
-    width: 80px;
+    width: 60px;
+    @media (min-width: 992px) {
+      height: 80px;
+      line-height: 80px;
+      font-size: 48px;
+      width: 80px;
+    }
     &.green {
       background-color: #006B6B;
     }
@@ -176,10 +182,15 @@ export default {
     color: #231F20;
     display: inline-block;
     font-size: 36px;
-    height: 80px;
-    line-height: 80px;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
-    width: 80px;
+    width: 60px;
+    @media (min-width: 992px) {
+      height: 80px;
+      line-height: 80px;
+      width: 80px;
+    }
     &.small {
       height: 60px;
       line-height: 60px;

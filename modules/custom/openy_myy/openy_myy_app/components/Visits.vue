@@ -49,7 +49,10 @@
 <style lang="scss">
   .myy-visits {
     line-height: 17px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    @media (min-width: 992px) {
+      margin-bottom: 40px;
+    }
     .headline {
       padding: 20px 5px;
       margin: 0;
@@ -80,7 +83,9 @@
         color: #0060AF;
         font-weight: bold;
         line-height: 21px;
-        margin-top: 10px;
+        @media (min-width: 992px) {
+          margin-top: 10px;
+        }
       }
       .unique_visits {
         color: #231F20;
@@ -112,8 +117,12 @@
     .description {
       margin: 10px 0;
       i {
-        font-size: 12px;
-        line-height: 18px;
+        font-size: 10px;
+        line-height: 15px;
+        @media (min-width: 992px) {
+          font-size: 12px;
+          line-height: 18px;
+        }
       }
     }
   }
