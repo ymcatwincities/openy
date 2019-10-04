@@ -9439,7 +9439,7 @@ a.direction-link {
       top: -2px;
       left: 0;
       content: '\f00c';
-      font-family: 'Font Awesome 5 Free'; }
+      font-family: "Font Awesome 5 Free"; }
 
 .branch__updates_queue {
   /* 3 */
@@ -10865,7 +10865,7 @@ article .node--view-mode-flexible-content h2 {
   .select-wrapper:before {
     position: absolute;
     content: '\f078';
-    font-family: 'Font Awesome 5 Free';
+    font-family: "Font Awesome 5 Free";
     font-weight: bold;
     font-size: 18px;
     right: 10px;
@@ -11528,7 +11528,7 @@ article .node--view-mode-flexible-content h2 {
       -webkit-font-smoothing: antialiased;
       color: #c6168d;
       content: '\f078';
-      font-family: 'Font Awesome 5 Free';
+      font-family: "Font Awesome 5 Free";
       font-size: 24px;
       font-weight: bold;
       margin-top: -18px;
@@ -13645,7 +13645,7 @@ iframe#ga_iframe {
       .listing-event-posts .form-item.js-form-item-date .input-wrapper:after,
       .listing-blog-posts .form-item.js-form-item-date .input-wrapper:after {
         content: '\f133';
-        font-family: 'Font Awesome 5 Free';
+        font-family: "Font Awesome 5 Free";
         font-weight: bold;
         padding-left: 5px; }
   #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
@@ -14334,7 +14334,7 @@ body.path-user:not(.user-logged-in) {
       margin-top: -34px; } }
   .paragraph--type--upcoming-events header a:after {
     content: '\f105';
-    font-family: 'Font Awesome 5 Free';
+    font-family: "Font Awesome 5 Free";
     font-weight: bold;
     padding-left: 5px; }
 

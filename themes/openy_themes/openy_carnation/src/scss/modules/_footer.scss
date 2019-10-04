@@ -108,7 +108,7 @@
     color: transparent !important;
     font-size: 28px;
     transition: all 0.3s linear 0s;
-    font-family: "Font Awesome 5 Brands";
+    font-family: $font-awesome-brands;
 
     &:before {
       color: $white;
