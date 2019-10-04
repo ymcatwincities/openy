@@ -1,14 +1,14 @@
-#ui-id-2 {
-    width: 90%;
-    overflow-y: scroll;
-    height: 200px;
+.ui-autocomplete {
+  width: 90%;
+  overflow-y: scroll;
+  height: 200px;
 }
 
-ul li.ui-menu-item {
-    padding: 10px;
-    border-bottom: 1px solid #CCCCCC;
+.ui-autocomplete li.ui-menu-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
-ul li.ui-menu-item hr {
-    display: none;
+.ui-autocomplete li.ui-menu-item hr {
+  display: none;
 }
