@@ -268,7 +268,7 @@
    */
   Drupal.behaviors.mobile_microsites_menu = {
     attach: function (context, settings) {
-      if ($(window).width() > 992) {
+      if (window.screen.availWidth > 992) {
         return;
       }
       var menu = $('.microsites-menu__wrapper', context);
