@@ -3958,6 +3958,56 @@
             }
         },
         {
+            "name": "drupal/media_directories",
+            "version": "1.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/media_directories.git",
+                "reference": "8.x-1.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/media_directories-8.x-1.0-alpha1.zip",
+                "reference": "8.x-1.0-alpha1",
+                "shasum": "f4460e97f6ad3ac9bbea3d37d09a3e0b9e64ab73"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "require-dev": {
+                "drupal/entity_browser": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-alpha1",
+                    "datestamp": "1561297985",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "rang501",
+                    "homepage": "https://www.drupal.org/user/235669"
+                }
+            ],
+            "description": "Add directory structure to Media entities.",
+            "homepage": "https://www.drupal.org/project/media_directories",
+            "support": {
+                "source": "https://git.drupalcode.org/project/media_directories"
+            }
+        },
+        {
             "name": "drupal/media_entity",
             "version": "2.0.0-beta3",
             "source": {
@@ -11468,6 +11518,7 @@
         "drupal/libraries": 20,
         "drupal/datalayer": 20,
         "drupal/tzfield": 20,
+        "drupal/media_directories": 15,
         "drupal/tqextension": 20
     },
     "prefer-stable": true,

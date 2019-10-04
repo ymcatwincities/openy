@@ -28,7 +28,7 @@ widgets:
       submit_text: 'Select images'
       auto_select: false
     uuid: 066bf7d9-6d8d-46cd-ac5c-a0944058e8c4
-    weight: -8
+    weight: -10
     label: 'All Images'
     id: view
   89e6e16d-6b22-45f4-b91a-f37edaa85f64:
@@ -47,6 +47,6 @@ widgets:
       thumbnail_method: contain
       submit_text: 'Select images'
     uuid: 89e6e16d-6b22-45f4-b91a-f37edaa85f64
-    weight: -10
+    weight: -9
     label: 'Upload images'
     id: dropzonejs_media_entity_inline_entity_form

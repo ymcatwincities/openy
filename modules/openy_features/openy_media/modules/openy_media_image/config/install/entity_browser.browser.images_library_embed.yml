@@ -28,12 +28,12 @@ widgets:
       submit_text: 'Select images'
       auto_select: false
     uuid: 066bf7d9-6d8d-46cd-ac5c-a0944058e8c4
-    weight: -8
+    weight: -10
     label: 'All Images'
     id: view
   eaf0fa61-65c5-4c7c-a3d6-ef077a075918:
     settings:
-      form_mode: default
+      form_mode: media_library
       media_type: image
       upload_location: 'public://[date:custom:Y]-[date:custom:m]'
       dropzone_description: 'Drop files here to upload them'
