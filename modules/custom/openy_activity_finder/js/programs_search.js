@@ -563,7 +563,6 @@
         });
       },
       runAjaxRequest: function(reset_pager) {
-        if (!reset_pager) reset_pager = true;
         var component = this;
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
@@ -620,13 +619,14 @@
           if (typeof pager_info == 'undefined' && typeof this.pages[this.current_page] != 'undefined') {
             query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
           }
-
-          // Reset pager if any of filters has changed in order to load 1st page.
-          if (reset_pager === true) {
-            this.current_page = 1;
-          }
-          query.push('page=' + encodeURIComponent(this.current_page));
         }
+
+        // Reset pager if any of filters has changed in order to load 1st page.
+        if (reset_pager === true) {
+          this.current_page = 1;
+        }
+        query.push('page=' + encodeURIComponent(this.current_page));
+
         if (typeof this.sort != 'undefined' && this.sort !== '') {
           query.push('sort=' + encodeURIComponent(this.sort));
         }
