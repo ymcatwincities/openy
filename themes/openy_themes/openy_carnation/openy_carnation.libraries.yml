@@ -5,7 +5,6 @@ global-styling:
       //use.fontawesome.com/releases/v5.1.0/css/all.css: {type: external, attributes: { defer: true, async: true} }
       dist/css/style.css: {}
   js:
-    https://use.fontawesome.com/95fd5fcc01.js: {type: external, attributes: { defer: true, async: true} }
     dist/js/popper.min.js: {}
     https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js: {type: external, minified: true}
     dist/js/jquery.matchHeight.min.js: {}

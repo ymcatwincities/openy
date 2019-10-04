@@ -53,12 +53,13 @@
       top: -1px;
       content: "\f105";
       display: inline-block;
-      font-family: "FontAwesome";
+      font-family: "Font Awesome 5 Free";
       font-size: inherit;
       text-rendering: auto;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       color: $pink;
+      font-weight: bold;
     }
   }
 }
