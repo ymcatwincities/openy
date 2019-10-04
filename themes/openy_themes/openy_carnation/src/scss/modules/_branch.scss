@@ -178,7 +178,7 @@ a.direction-link {
 
         &:last-child::before {
           margin-right: 10px;
-          font-family: "Font Awesome 5 Free";
+          font-family: $font-awesome;
           content: "\f017";
           -webkit-font-smoothing: antialiased;
           display: inline-block;
