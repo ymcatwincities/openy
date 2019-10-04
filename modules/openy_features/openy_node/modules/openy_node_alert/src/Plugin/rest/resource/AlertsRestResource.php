@@ -178,13 +178,17 @@ class AlertsRestResource extends ResourceBase {
       ->getStorage('node')
       ->loadByProperties($loadByProperties);
 
-    // Sort alert based od draggable_views data.
-    $alerts = [];
-    foreach ($weights as $row) {
-      if (!isset($alerts_entities[(int) $row->entity_id])) {
-        continue;
+    $alerts = $alerts_entities;
+
+    // Sort alert based on draggable_views data.
+    if (!empty($weights)) {
+      $alerts = [];
+      foreach ($weights as $row) {
+        if (!isset($alerts_entities[(int)$row->entity_id])) {
+          continue;
+        }
+        $alerts[(int)$row->entity_id] = $alerts_entities[(int)$row->entity_id];
       }
-      $alerts[(int) $row->entity_id] = $alerts_entities[(int) $row->entity_id];
     }
 
     $sendAlerts = [];
