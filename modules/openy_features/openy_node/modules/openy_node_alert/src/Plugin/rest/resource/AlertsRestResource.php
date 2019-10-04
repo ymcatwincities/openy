@@ -164,21 +164,31 @@ class AlertsRestResource extends ResourceBase {
     $query->condition('dvs.view_display', 'page_1');
     $query->orderBy('dvs.weight');
     $weights = $query->execute()->fetchAll();
-    foreach ($weights as $row) {
-      $nids[] = $row->entity_id;
+
+    // If draggableviews_structure table is not pre-populated we load all nids with default sort.
+    $loadByProperties = ['type' => 'alert', 'status' => 1];
+    if (!empty($weights)) {
+      foreach ($weights as $row) {
+        $nids[] = $row->entity_id;
+      }
+      $loadByProperties = ['type' => 'alert', 'nid' => $nids, 'status' => 1];
     }
 
     $alerts_entities = $this->entityTypeManager
       ->getStorage('node')
-      ->loadByProperties(['type' => 'alert', 'nid' => $nids, 'status' => 1]);
+      ->loadByProperties($loadByProperties);
 
-    // Sort alert based od draggable_views data.
-    $alerts = [];
-    foreach ($weights as $row) {
-      if (!isset($alerts_entities[(int) $row->entity_id])) {
-        continue;
+    $alerts = $alerts_entities;
+
+    // Sort alert based on draggable_views data.
+    if (!empty($weights)) {
+      $alerts = [];
+      foreach ($weights as $row) {
+        if (!isset($alerts_entities[(int)$row->entity_id])) {
+          continue;
+        }
+        $alerts[(int)$row->entity_id] = $alerts_entities[(int)$row->entity_id];
       }
-      $alerts[(int) $row->entity_id] = $alerts_entities[(int) $row->entity_id];
     }
 
     $sendAlerts = [];
