@@ -76,7 +76,7 @@
   &:before {
     position: absolute;
     content: '\f078';
-    font-family: 'Font Awesome 5 Free';
+    font-family: $font-awesome;
     font-weight: bold;
     font-size: 18px;
     right: 10px;
