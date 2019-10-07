@@ -172,35 +172,40 @@ class RepeatManager implements SessionInstanceManagerInterface {
         continue;
       }
       // Program Subcategory reference.
-      if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
-        $program_subcategory = reset($program_subcategory);
-
-        // Some instances may require unpublished references.
-        // Do not skip program subcategory in that case.
-        if (!$this->config->get('allow_unpublished_references')) {
-          if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
-            // Skip activity due to unpublished program subcategory.
-            continue;
-          }
-        }
-
-        // Program reference.
-        if ($program = $program_subcategory->field_category_program->referencedEntities()) {
-          $program = reset($program);
+      try {
+        if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
+          $program_subcategory = reset($program_subcategory);
 
           // Some instances may require unpublished references.
-          // Do not skip program in that case.
+          // Do not skip program subcategory in that case.
           if (!$this->config->get('allow_unpublished_references')) {
-            if (!$moderation_wrapper->entity_moderation_status($program)) {
-              // Skip activity due to unpublished program.
+            if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
+              // Skip activity due to unpublished program subcategory.
               continue;
             }
           }
 
-          $activity_ids[] = $activity->id();
-          $program_subcategory_ids[] = $program_subcategory->id();
-          $program_ids[] = $program->id();
+          // Program reference.
+          if ($program = $program_subcategory->field_category_program->referencedEntities()) {
+            $program = reset($program);
+
+            // Some instances may require unpublished references.
+            // Do not skip program in that case.
+            if (!$this->config->get('allow_unpublished_references')) {
+              if (!$moderation_wrapper->entity_moderation_status($program)) {
+                // Skip activity due to unpublished program.
+                continue;
+              }
+            }
+
+            $activity_ids[] = $activity->id();
+            $program_subcategory_ids[] = $program_subcategory->id();
+            $program_ids[] = $program->id();
+          }
         }
+      }
+      catch (\Exception $e) {
+        $this->logger->error($e->getMessage());
       }
     }
 
