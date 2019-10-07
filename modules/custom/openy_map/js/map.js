@@ -1282,7 +1282,7 @@
       get_parameters: function () {
         var searchString = window.location.search.substring(1);
         var params = searchString.split("&");
-        var hash = {};
+        var hash = [];
 
         for (var i = 0; i < params.length; i++) {
           var val = params[i].split("=");
@@ -1299,7 +1299,22 @@
             filteramenitiesRaw = this.amenities_filters,
             filterTags = '',
             filteramenities = '',
+            utmListRaw = {},
+            utms = '',
             mapLocation = $('.search_field').val() || (params.hasOwnProperty('map_location') && params.map_location) || '';
+
+        for (let [key, value] of Object.entries(params)) {
+          var prmsKey = key.split("_");
+          if (prmsKey[0] === 'utm'){
+            utmListRaw[key] = value;
+          }
+        }
+
+        if (Object.keys(utmListRaw).length) {
+          utms = '&';
+          utms += jQuery.param(utmListRaw);
+        }
+
         if (mapLocation) {
           mapLocation = '?map_location=' + this.encode_to_url_format(mapLocation);
         }
@@ -1319,7 +1334,7 @@
           }, this, filteramenities);
           filteramenities = filteramenities.substring(0, filteramenities.length - 1);
         }
-        window.history.replaceState(null, null, url + mapLocation + filterTags + filteramenities);
+        window.history.replaceState(null, null, url + mapLocation + filterTags + filteramenities + utms);
       },
 
       // Renders an extra set of filter boxes below the map.
