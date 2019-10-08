@@ -128,14 +128,17 @@
     background: $white;
 
     &:before {
-      font-family: 'FontAwesome';
-      position: absolute;
-      content: '\f107';
-      right: 10px;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
       color: $pink;
+      content: '\f078';
+      font-family: $font-awesome;
       font-size: 24px;
-      top: 50%;
+      font-weight: bold;
       margin-top: -18px;
+      position: absolute;
+      right: 10px;
+      top: 50%;
       z-index: 0;
     }
 

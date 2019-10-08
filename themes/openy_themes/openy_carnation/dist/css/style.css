@@ -8299,7 +8299,7 @@ a.text-black:hover, a.text-black:focus {
 /* Blue */
 .atc-style-blue .atcb-link:before {
   margin-right: 8px;
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
   content: "\f073";
   font-size: 14px;
   speak: none;
@@ -9439,7 +9439,7 @@ a.direction-link {
       top: -2px;
       left: 0;
       content: '\f00c';
-      font-family: 'FontAwesome'; }
+      font-family: "Font Awesome 5 Free"; }
 
 .branch__updates_queue {
   /* 3 */
@@ -10786,7 +10786,8 @@ article .node--view-mode-flexible-content h2 {
     width: 28px;
     color: transparent !important;
     font-size: 28px;
-    transition: all 0.3s linear 0s; }
+    transition: all 0.3s linear 0s;
+    font-family: "Font Awesome 5 Brands"; }
     .footer .fa:before {
       color: #fff; }
   .footer .list-inline li:hover .fa::before {
@@ -10863,8 +10864,9 @@ article .node--view-mode-flexible-content h2 {
   position: relative; }
   .select-wrapper:before {
     position: absolute;
-    content: '\f107';
-    font-family: 'FontAwesome';
+    content: '\f078';
+    font-family: "Font Awesome 5 Free";
+    font-weight: bold;
     font-size: 18px;
     right: 10px;
     top: 7px; }
@@ -11054,7 +11056,7 @@ article .node--view-mode-flexible-content h2 {
       /* 9 */
       color: #0089d0;
       content: "\f002";
-      font: normal normal normal 14px/1 FontAwesome;
+      font: normal normal normal 14px/1 "Font Awesome 5 Free";
       position: absolute; }
     .global-search-results .views-exposed-form .js-form-item-query input {
       border-radius: 5px;
@@ -11522,14 +11524,17 @@ article .node--view-mode-flexible-content h2 {
     position: relative;
     background: #fff; }
     .form__locations .distance .form-group:before {
-      font-family: 'FontAwesome';
-      position: absolute;
-      content: '\f107';
-      right: 10px;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
       color: #c6168d;
+      content: '\f078';
+      font-family: "Font Awesome 5 Free";
       font-size: 24px;
-      top: 50%;
+      font-weight: bold;
       margin-top: -18px;
+      position: absolute;
+      right: 10px;
+      top: 50%;
       z-index: 0; }
     .form__locations .distance .form-group .form-select {
       position: relative;
@@ -12111,12 +12116,13 @@ a[href="#step2"] {
     top: -1px;
     content: "\f105";
     display: inline-block;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
     font-size: inherit;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #c6168d; }
+    color: #c6168d;
+    font-weight: bold; }
 
 .news-card {
   overflow: visible;
@@ -13143,7 +13149,7 @@ iframe#ga_iframe {
     .header-alerts-list .slick-arrow:before,
     .footer-alerts-list .slick-arrow:before {
       color: #fff;
-      font-family: "FontAwesome";
+      font-family: "Font Awesome 5 Free";
       font-size: 30px;
       font-weight: bold;
       -webkit-font-smoothing: antialiased;
@@ -13221,7 +13227,7 @@ iframe#ga_iframe {
   .header-alerts-list .slick-prev:before,
   .footer-alerts-list .slick-prev:before,
   .footer-alerts-list .slick-prev:before {
-    content: "\f104"; }
+    content: "\f053"; }
 
 @media (max-width: 992px) {
   .header-alerts-list .slick-prev,
@@ -13246,7 +13252,7 @@ iframe#ga_iframe {
   .header-alerts-list .slick-next:before,
   .footer-alerts-list .slick-next:before,
   .footer-alerts-list .slick-next:before {
-    content: "\f105"; }
+    content: "\f054"; }
 
 .header-alerts-list .slick-track,
 .footer-alerts-list .slick-track {
@@ -13639,7 +13645,7 @@ iframe#ga_iframe {
       .listing-event-posts .form-item.js-form-item-date .input-wrapper:after,
       .listing-blog-posts .form-item.js-form-item-date .input-wrapper:after {
         content: '\f133';
-        font-family: 'FontAwesome';
+        font-family: "Font Awesome 5 Free";
         font-weight: bold;
         padding-left: 5px; }
   #schedules-search-form-wrapper .js-form-type-select.js-form-item-location,
@@ -14328,7 +14334,7 @@ body.path-user:not(.user-logged-in) {
       margin-top: -34px; } }
   .paragraph--type--upcoming-events header a:after {
     content: '\f105';
-    font-family: 'FontAwesome';
+    font-family: "Font Awesome 5 Free";
     font-weight: bold;
     padding-left: 5px; }
 

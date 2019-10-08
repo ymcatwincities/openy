@@ -16,7 +16,7 @@
         @include rem(top, 12px);
         color: $primary;
         content: "\f002";
-        font: normal normal normal 14px/1 FontAwesome;
+        font: normal normal normal 14px/1 $font-awesome;
         position: absolute;
       }
 
