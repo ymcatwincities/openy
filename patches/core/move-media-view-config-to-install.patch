@@ -1,0 +1,4 @@
+diff --git a/core/modules/media/config/optional/views.view.media.yml b/core/modules/media/config/install/views.view.media.yml
+similarity index 100%
+rename from core/modules/media/config/optional/views.view.media.yml
+rename to core/modules/media/config/install/views.view.media.yml

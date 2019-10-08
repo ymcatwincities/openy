@@ -183,6 +183,7 @@
                 "2789531 - Support for batch operations": "https://www.drupal.org/files/issues/2789531-105.patch"
             },
             "drupal/core": {
+                "media view is not found on installing related contrib module": "https://raw.githubusercontent.com/NightHunterSV/openy/OYS-26/patches/core/move-media-view-config-to-install.patch",
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
                 "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch"
