@@ -281,7 +281,7 @@
         "drupal/media_entity_video": "^2.0",
         "drupal/video": "^1.4",
         "drupal/easy_breadcrumb": "^1.8",
-        "drupal/ckeditor_bootstrap_buttons": "^1.1",
+        "drupal/ckeditor_bootstrap_buttons": "^1.2",
         "drupal/fontyourface": "^3.2",
         "drupal/css_editor": "^1.2",
         "drupal/domain": "1.0-alpha14",
