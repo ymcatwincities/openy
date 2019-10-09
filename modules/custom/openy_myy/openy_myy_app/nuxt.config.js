@@ -1,4 +1,4 @@
-module.exports = {
+var config = {
   buildDir: 'nuxt-dist',
   mode: 'spa',
   plugins: [
@@ -7,23 +7,6 @@ module.exports = {
   /*
   ** Headers of the page
   */
-  head: {
-    title: 'openy_myy_app',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'OpenY MyY project' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-      //{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' }
-    ],
-    script: [
-      { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
-      { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.js' },
-      { src: 'https://use.fontawesome.com/95fd5fcc01.js' }
-    ],
-  },
 
   /*
   ** Customize the progress bar color
@@ -59,14 +42,35 @@ module.exports = {
       layouts: false,
       pages: false,
       commons: false
-    },
-    css: {
-      loaderOptions: {
-        sass: {
-          data: `@import "node_modules/bootstrap/scss/bootstrap";`
-        }
-      }
     }
+  },
+  css: [
+    '@/assets//scss/myy_global.scss',
+    '@/assets//scss/myy_global_build.scss',
+  ]
+}
+
+if (process.env.NODE_ENV === 'dev') {
+  /*css = ['bootstrap','~/node_modules/bootstrap/scss/bootstrap'];*/
+  let custom_css = [
+    '@/assets//scss/myy_global.scss',
+    '@/assets//scss/myy_global_dev.scss',
+  ];
+  config.css = custom_css;
+  config.head = {
+    meta: [
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    ],
+    script: [
+      { src: 'https://code.jquery.com/jquery-2.2.4.min.js' },
+      { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.js' },
+      { src: 'https://use.fontawesome.com/95fd5fcc01.js' },
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js' },
+    ],
+    link: [
+      { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.css' }
+    ]
   }
 }
 
+module.exports = config;

@@ -2,37 +2,22 @@
   <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
   <section v-else class="myy-household">
     <div class="row headline">
-      <div class="col">
+      <div class="col-myy-sm-12 col-myy-12">
         <h3>Household</h3>
       </div>
     </div>
     <div class="row content">
-      <div class="col">
+      <div class="col-myy-sm-12 col-myy-12">
         <div class="row">
-          <div class="col">
-            <span class="rounded_letter green">J</span>
-            <div class="name">Me (John Doe)</div>
-            <div class="age">36</div>
-            <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Select
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>lj
-              </div>
-            </div>
-          </div>
-          <div v-for="(item, index) in data.household" v-bind:key="index" class="col">
-            <span class="rounded_letter red">J</span>
+          <div v-for="(item, index) in data.household" v-bind:key="index" class="item col-myy-md-3 col-myy-6 col-myy-md-3">
+            <span :class="'rounded_letter color-' + index" v-if="item.name">{{ item.name.charAt(0) }}</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
             <div class="dropdown">
-              <button class="btn btn-primary dropdown-toggle" type="button" :id="'dropdownMenu' + index" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-primary select dropdown-toggle" type="button" :id="'dropdownMenu' + index" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Select
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <div class="dropdown-menu select" aria-labelledby="dropdownMenu1">
                 <button class="dropdown-item" type="button">Action</button>
                 <button class="dropdown-item" type="button">Another action</button>
                 <button class="dropdown-item" type="button">Something else here</button>
@@ -50,6 +35,7 @@
     data () {
       return {
         loading: true,
+        baseUrl: '/',
         data: {
           household: []
         }
@@ -58,8 +44,7 @@
     methods: {
       runAjaxRequest: function() {
         let component = this,
-          //url = drupalSettings.path.baseUrl + 'myy/data/profile/family-list';
-          url = 'http://openy20.docksal/myy/data/profile/family-list';
+            url = component.baseUrl + 'myy/data/profile/family-list';
 
         component.loading = true;
         jQuery.ajax({
@@ -75,6 +60,17 @@
     },
     mounted: function() {
       let component = this;
+
+      if (typeof window.drupalSettings === 'undefined') {
+        var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/',
+          }
+        };
+        window.drupalSettings = drupalSettings;
+      }
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+
       component.runAjaxRequest();
     }
   }
@@ -103,11 +99,14 @@
       border-bottom: 1px solid #636466;
       margin: 0;
       padding: 20px 5px;
-      .col {
+      .item {
         text-align: center;
       }
       .rounded_letter {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
+        @media (min-width: 992px) {
+          margin-bottom: 20px;
+        }
       }
       .name {
         color: #231F20;

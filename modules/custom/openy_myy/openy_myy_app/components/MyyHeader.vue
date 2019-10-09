@@ -6,15 +6,19 @@
     <div class="myy-header__content">
       <div class="container">
         <div class="row">
-          <div class="col-sm-7">
+          <div class="col-myy-1 d-myy-lg-none">
+            <button aria-controls="myy-sidebar" aria-expanded="false" class="collapsed myy-navbar-toggle visible-xs visible-sm" data-target="#myy-sidebar" data-toggle="collapse" type="button">
+              <i class="fa fa-th"></i>
+            </button>
+          </div>
+          <div class="col-myy-3">
             <h1>MY Y</h1>
           </div>
-          <div v-if="isLoggedIn" class="col-sm-5 text-right">
-            <span class="account_name">Hello, John!</span>
-            <nuxt-link to="/myy/profile-settings" class="profile_settings"><i class="fa fa-gear"></i></nuxt-link>
-            <a href="/myy/logout" class="sign_out">Sign out</a>
+          <div v-if="$store.state.isLoggedIn" class="col-myy-8 col-myy-lg-9 text-right">
+            <span class="account_name" v-if="data.household.length > 0">Hello, {{ data.household[0].name }}!</span>
+            <a @click="logout" href="#" class="sign_out">Sign out</a>
           </div>
-          <div v-else class="col-sm-5 text-right">
+          <div v-else class="col-myy-8 col-myy-lg-9 text-right">
             <a href="/myy/login" class="sign_in">Login</a>
           </div>
         </div>
@@ -22,24 +26,75 @@
     </div>
   </section>
 </template>
-  <script>
+<script>
+  import VueCookie from 'vue-cookie';
+  import Vue from 'vue'
+  Vue.use(VueCookie);
+
   export default {
     components: {
     },
     created: function() {
-      this.isLoggedIn = this.$cookie.get('Drupal.visitor.personify_authorized');
+      console.log(this.$store.state);
+    },
+    data () {
+      return {
+        loading: true,
+        baseUrl: '/',
+        data: {
+          household: []
+        }
+      }
     },
     methods: {
+      runAjaxRequest: function() {
+        let component = this,
+          url = component.baseUrl + 'myy/data/profile/family-list';
+
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          component.data = data;
+          component.loading = false;
+        });
+      },
+      logout: function () {
+        Vue.cookie.delete('Drupal.visitor.personify_authorized');
+        Vue.cookie.delete('Drupal.visitor.personify_id');
+        Vue.cookie.delete('Drupal.visitor.personify_time');
+        window.location.pathname = '/myy/logout';
+      }
+    },
+    mounted: function() {
+      let component = this;
+
+      if (typeof window.drupalSettings === 'undefined') {
+        var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/',
+          }
+        };
+        window.drupalSettings = drupalSettings;
+      }
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+
+      component.runAjaxRequest();
     }
   }
-  </script>
+</script>
 <style lang="scss">
   .myy-header {
     background-color: #231F20;
     position: relative;
-    height: 140px;
+    height: 50px;
     overflow: hidden;
-
+    @media (min-width: 992px) {
+      height: 140px;
+    }
     &__image {
       position: relative;
       z-index: 1;
@@ -54,13 +109,21 @@
         font-family: "Cachet Medium";
         color: #fff;
         display: inline;
-        font-size: 48px;
-        line-height: 48px;
+        font-size: 18px;
+        line-height: 50px;
+        @media (min-width: 992px) {
+          font-size: 48px;
+          line-height: 48px;
+        }
       }
       .account_name {
         color: #fff;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 48px;
+        @media (min-width: 992px) {
+          margin-right: 15px;
+          font-size: 14px;
+        }
       }
       a {
         color: #fff;
@@ -82,8 +145,23 @@
       .sign_out,
       .sign_in {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 48px;
+        color: #fff;
+        @media (min-width: 992px) {
+          font-size: 14px;
+        }
+      }
+    }
+    .myy-navbar-toggle {
+      position: relative;
+      margin: 0;
+      background: none;
+      border: none;
+      z-index: 3;
+      .fa {
+        color: #fff;
+        line-height: 50px;
       }
     }
   }
