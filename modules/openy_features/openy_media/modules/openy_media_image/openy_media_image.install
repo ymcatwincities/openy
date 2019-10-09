@@ -279,7 +279,7 @@ function openy_media_image_update_8011() {
  * Change media browsers for images.
  */
 function openy_media_image_update_8012() {
-  \Drupal::service('module_installer')->install(['media_library', 'media_directories']);
+  \Drupal::service('module_installer')->install(['openy', 'media_library', 'media_directories']);
 
   $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
   // Import configuration.
