@@ -109,7 +109,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@endDate</Name>
-            <Value>2019-08-30 00:00:00.000</Value>
+            <Value>2019-09-30 00:00:00.000</Value>
         </StoredProcedureParameter>
     </SPParameterList>
     </StoredProcedureRequest>";
