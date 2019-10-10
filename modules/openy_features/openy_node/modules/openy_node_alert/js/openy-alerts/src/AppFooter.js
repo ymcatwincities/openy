@@ -86,7 +86,7 @@ class App extends Component {
             {this.props.footerPager && (
               <div className="slick__arrow">
                 <a
-                  href="#previous"
+                  tabIndex="0"
                   data-role="none"
                   className="slick-prev slick-arrow"
                   role="button"
@@ -97,7 +97,7 @@ class App extends Component {
                   Previous alert message
                 </a>
                 <a
-                  href="#next"
+                  tabIndex="0"
                   data-role="none"
                   className="slick-next slick-arrow"
                   role="button"

@@ -28,7 +28,7 @@
       this.data = this.loadFromStorage();
 
       // Get locations list.
-      let self = this;
+      var self = this;
       self.locations = drupalSettings.home_branch.hb_menu_selector.locations;
 
       setTimeout(function() {
@@ -86,7 +86,7 @@
 
     // Load data from Cookies storage.
     loadFromStorage: function () {
-      let data = $.cookie('home_branch');
+      var data = $.cookie('home_branch');
       if (data !== undefined) {
         return JSON.parse($.cookie('home_branch'));
       }
@@ -106,7 +106,7 @@
    * @type {Drupal~behavior}
    */
   Drupal.behaviors.openyHomeBranchCookiesStorage = {
-    attach(context, settings) {
+    attach: function (context, settings) {
       if (typeof Drupal.homeBranch === 'undefined') {
         return;
       }

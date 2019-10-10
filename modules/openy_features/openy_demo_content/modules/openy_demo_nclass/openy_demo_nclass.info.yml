@@ -8,5 +8,6 @@ dependencies:
   - migrate
   - migrate_plus
   - migrate_tools
+  - openy_node_class
   - openy_demo_ncategory
   - openy_demo_nprogram

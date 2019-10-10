@@ -3,6 +3,8 @@
 namespace Drupal\openy_activity_finder\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Cache\Cache;
+use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 
 /**
  * Provides a 'PEF Programs' block.
@@ -14,6 +16,7 @@ use Drupal\Core\Block\BlockBase;
  * )
  */
 class ActivityFinderSearchBlock extends BlockBase {
+
   /**
    * {@inheritdoc}
    */
@@ -38,10 +41,22 @@ class ActivityFinderSearchBlock extends BlockBase {
           'activityFinder' => [
             'is_search_box_disabled' => $config->get('disable_search_box'),
             'is_spots_available_disabled' => $config->get('disable_spots_available'),
-          ]
-        ]
-      ]
+          ],
+        ],
+      ],
+      '#cache' => [
+        'tags' => $this->getCacheTags(),
+        'contexts' => $this->getCacheContexts(),
+        'max-age' => $this->getCacheMaxAge(),
+      ],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    return Cache::mergeTags(parent::getCacheTags(), [OpenyActivityFinderSolrBackend::ACTIVITY_FINDER_CACHE_TAG]);
   }
 
 }

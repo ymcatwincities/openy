@@ -84,12 +84,10 @@
       },
       addMarkup: function (context) {
         var id = context.data('hb-id');
-        var $markup = $(`
-              <div class="hb-location-checkbox-wrapper hb-checkbox-wrapper">
-                <input type="checkbox" value="` + id + `" id="hb-location-checkbox-` + id + `" class="hb-location-checkbox">
-                <label for="hb-location-checkbox-` + id + `">` + this.selectedText + `</label>
-              </div>
-              `);
+        var $markup = $('<div class="hb-location-checkbox-wrapper hb-checkbox-wrapper">' +
+          '<input type="checkbox" value="' + id + '" id="hb-location-checkbox-' + id + '" class="hb-location-checkbox">' +
+          '<label for="hb-location-checkbox-' + id + '">' + this.selectedText + '</label>' +
+        '</div>');
         $markup.appendTo(context);
         // Save created element in plugin.
         this.element = $markup.find('input');

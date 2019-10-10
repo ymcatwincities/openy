@@ -27,6 +27,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   // Number of results to retrieve per page.
   const TOTAL_RESULTS_PER_PAGE = 25;
 
+  // Cache ID for locations info.
+  const ACTIVITY_FINDER_CACHE_TAG = 'openy_activity_finder:default';
+
   /**
    * Cache default.
    *
@@ -324,7 +327,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       if ($sub_category && $sub_category->hasField('field_learn_more')) {
         $link = $sub_category->field_learn_more->getValue();
         if (!empty($link[0]['uri'])) {
-          $learn_more = render($sub_category->field_learn_more->view())->__toString();
+          $learn_more_view = $sub_category->field_learn_more->view();
+          $learn_more = render($learn_more_view)->__toString();
         }
       }
 
@@ -515,7 +519,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     else {
       $nids = $this->entityQuery
         ->get('node')
-        ->condition('type','program_subcategory')
+        ->condition('type', 'program_subcategory')
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunked) {
@@ -536,7 +540,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
 
       $expire = $this->time->getRequestTime() + self::CACHE_TTL;
-      $this->cache->set($cid, $data, $expire);
+      $this->cache->set($cid, $data, $expire, [self::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return $data;
@@ -605,7 +609,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         }
       }
       $expire = $this->time->getRequestTime() + self::CACHE_TTL;
-      $this->cache->set($cid, $data, $expire);
+      $this->cache->set($cid, $data, $expire, [self::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return $data;

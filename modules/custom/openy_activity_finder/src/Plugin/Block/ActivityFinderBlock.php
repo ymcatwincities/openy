@@ -3,8 +3,8 @@
 namespace Drupal\openy_activity_finder\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Url;
-use Drupal\node\NodeInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 
 /**
  * Provides a 'Activity Finder' block.
@@ -45,10 +45,22 @@ class ActivityFinderBlock extends BlockBase {
           'activityFinder' => [
             'alias' => $alias,
             'is_search_box_disabled' => $config->get('disable_search_box'),
-          ]
-        ]
-      ]
+          ],
+        ],
+      ],
+      '#cache' => [
+        'tags' => $this->getCacheTags(),
+        'contexts' => $this->getCacheContexts(),
+        'max-age' => $this->getCacheMaxAge(),
+      ],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    return Cache::mergeTags(parent::getCacheTags(), [OpenyActivityFinderSolrBackend::ACTIVITY_FINDER_CACHE_TAG]);
   }
 
 }
