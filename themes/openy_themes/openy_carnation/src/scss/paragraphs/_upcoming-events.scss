@@ -25,7 +25,7 @@
 
     &:after {
       content: '\f105';
-      font-family: 'FontAwesome';
+      font-family: $font-awesome;
       font-weight: bold;
       padding-left: 5px;
     }

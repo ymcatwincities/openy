@@ -10,7 +10,7 @@
    */
   Drupal.homeBranch.plugins.push({
     name: 'hb-loc-selector-activity-finder',
-    attach: (settings) => {
+    attach: function (settings) {
       // Attach plugin instance to activity finder paragraph.
       // @see openy_home_branch/js/hb-plugin-base.js
       $(drupalSettings.home_branch.hb_loc_selector_activity_finder.selector).hbPlugin(settings);
@@ -20,12 +20,6 @@
       locationStep: drupalSettings.home_branch.hb_loc_selector_activity_finder.locationStep,
       event: null,
       element: null,
-      getQueryParam: function (name) {
-        // Get url query param by name.
-        var results = new RegExp('[\?&]' + name + '=([^&#]*)')
-          .exec(window.location.search);
-        return (results !== null) ? results[1] || 0 : false;
-      },
       replaceQueryParam: function (param, newval, search) {
         // Set url query param by name.
         var regex = new RegExp("([?;&])" + param + "[^&;]*[;&]?");
@@ -33,7 +27,7 @@
         return (query.length > 2 ? query + "&" : "?") + (newval ? param + "=" + newval : '');
       },
       checkStep: function (self) {
-        if (self.getQueryParam('step') != self.locationStep) {
+        if (window.location.hash.indexOf(self.locationStep) === -1) {
           // Skip if we not on location select step.
           return;
         }
@@ -51,7 +45,8 @@
 
         // Redirect to results page with selected Home Branch in filters.
         var resultsUrl = window.OpenY.field_prgf_af_results_ref[0]['url'];
-        window.location = resultsUrl + self.replaceQueryParam('locations', selected, window.location.search);
+        var queryString = window.location.hash.replace(self.locationStep, '');
+        window.location = resultsUrl + self.replaceQueryParam('locations', selected, queryString);
       },
       init: function () {
         window.setInterval(this.checkStep, 2000, this);

@@ -36,7 +36,8 @@ class HBLocSelectorActivityFinder extends HomeBranchLibraryBase {
    */
   public function getLibrarySettings() {
     return [
-      'locationStep' => '3',
+      // @see VueRouter in openy_activity_finder/openy_af_vue_app/js/script.js
+      'locationStep' => '#/location',
       'selector' => '.paragraph--type--activity-finder',
     ];
   }

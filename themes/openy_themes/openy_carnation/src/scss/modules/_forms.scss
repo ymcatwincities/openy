@@ -75,8 +75,9 @@
 
   &:before {
     position: absolute;
-    content: '\f107';
-    font-family: 'FontAwesome';
+    content: '\f078';
+    font-family: $font-awesome;
+    font-weight: bold;
     font-size: 18px;
     right: 10px;
     top: 7px;
