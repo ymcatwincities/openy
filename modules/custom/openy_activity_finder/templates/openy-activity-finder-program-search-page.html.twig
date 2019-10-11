@@ -269,8 +269,7 @@
                     <div class="availability-wrapper">
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
-                        <div class="spots-label" v-if="item.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
-                        <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? item.spots_available == 1 ? 'few-spots only-one' : 'few-spots' : '', 'spots-availability']">${ item.spots_available }
+                        <div v-if="item.spots_available !== null" v-bind:class="[item.spots_available <= 3 ? item.spots_available == 1 ? 'few-spots only-one' : 'few-spots' : '', 'spots-availability']">${ item.spots_available }
                           <span v-if="item.spots_available == 1">spot</span>
                           <span v-if="item.spots_available > 1">spots</span>
                           left</div>
@@ -365,9 +364,17 @@
                       <span v-html="moreInfoPopup.price"></span>
                     </div>
                     <div class="availability-wrapper">
+                      <div v-else-if="moreInfoPopup.activity_type == 'personal'" class="availability_status activity_type">
+                        <div class="spots-label">{{ 'Purchase of PT sessions required'|t }}</div>
+                      </div>
+                      <div v-else-if="moreInfoPopup.activity_type == 'small group training'" class="availability_status activity_type">
+                        <div class="spots-label">{{ 'Purchase of SGT classes required'|t }}</div>
+                      </div>
+                      <div v-else="moreInfoPopup.availability_status == 'open'" class="availability_status">
+                        <div class="spots-label">{{ 'Free for members'|t }}</div>
+                      </div>
                       {% if not is_spots_available_disabled %}
-                        <div class="spots-label" v-if="moreInfoPopup.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
-                        <div v-if="moreInfoPopup.spots_available != ''"  v-bind:class="[moreInfoPopup.spots_available <= 3 ? moreInfoPopup.spots_available == 1 ? 'only-one' : 'few-spots' : '', 'spots_available']">${ moreInfoPopup.spots_available }
+                        <div v-if="moreInfoPopup.spots_available !== null"  v-bind:class="[moreInfoPopup.spots_available <= 3 ? moreInfoPopup.spots_available == 1 ? 'only-one' : 'few-spots' : '', 'spots_available']">${ moreInfoPopup.spots_available }
                           <span v-if="moreInfoPopup.spots_available == 1">spot</span>
                           <span v-if="moreInfoPopup.spots_available > 1">spots</span>
                           left</div>
