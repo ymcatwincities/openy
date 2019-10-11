@@ -112,6 +112,7 @@
 .schedule-dashboard__wrapper > .container {
   max-width: 100%;
   margin-top: 20px;
+  width: auto;
 }
 @media screen and (min-width: 768px) {
   .schedule-dashboard__wrapper > .container {
@@ -369,7 +370,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
 }
 
 .schedule-dashboard__wrapper .pager-wrapper {
-  margin: 15px -15px 0;
+  margin: 15px 0 0;
 }
 @media (min-width: 768px) {
   .schedule-dashboard__wrapper .pager-wrapper {
