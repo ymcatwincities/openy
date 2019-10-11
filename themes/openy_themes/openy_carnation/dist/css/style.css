@@ -14312,6 +14312,10 @@ body.path-user:not(.user-logged-in) {
   .wrapper-field-bottom-content .paragraph--type--lto {
     margin: 0; }
 
+.node--view-mode-teaser .row .post-excerpt-image article img {
+  width: 100%;
+  height: 100%; }
+
 .paragraph--type--upcoming-events h2 {
   letter-spacing: normal;
   text-transform: none;
