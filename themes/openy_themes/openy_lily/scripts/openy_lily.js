@@ -291,10 +291,12 @@
         e.preventDefault();
         if ($(this).hasClass('open')) {
           $(this).removeClass('open').parents('ul.camp-menu').find('li:not(.heading)').slideUp();
+          $(this).closest('ul').removeClass('mobile-open');
         }
         else {
           $(this).parents('ul.camp-menu').find('li:eq(0)').addClass('heading');
           $(this).addClass('open').parents('ul.camp-menu').find('li').slideDown();
+          $(this).closest('ul').addClass('mobile-open');
         }
       });
     },
@@ -317,7 +319,7 @@
    */
   Drupal.behaviors.mobile_ux = {
     attach: function (context, settings) {
-      $(window).on('orientationchange', function () {
+      $(window).on('orientationchange resize', function () {
         Drupal.behaviors.mobile_microsites_menu.detach(context, settings, 'unload');
         Drupal.behaviors.mobile_microsites_menu.attach(context, settings);
       });
