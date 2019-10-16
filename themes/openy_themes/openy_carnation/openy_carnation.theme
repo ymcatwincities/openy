@@ -101,6 +101,21 @@ function openy_carnation_preprocess_menu(&$variables) {
 }
 
 /**
+ * Set a file usage by the theme.
+ *
+ * @param \Drupal\file\FileInterface $file
+ *   The file to set the usage of.
+ */
+function openy_carnation_set_theme_file_usage(FileInterface $file) {
+  $file_usage = \Drupal::service('file.usage');
+  $file_uses = $file_usage->listUsage($file);
+  if (empty($file_uses) || !array_key_exists('openy_carnation', $file_uses)) {
+    // Set usage.
+    $file_usage->add($file, 'openy_carnation', 'theme', 1);
+  }
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function openy_carnation_preprocess_page(array &$variables) {
@@ -112,6 +127,41 @@ function openy_carnation_preprocess_page(array &$variables) {
     // Fix hb_menu_selector plugin for Open Y Carnation theme.
     $variables['#attached']['library'][] = 'openy_carnation/hb_menu_selector_override';
   }
+
+  openy_carnation_preprocess_page_camp_images_override($variables);
+}
+
+function openy_carnation_preprocess_page_camp_images_override(&$variables) {
+  // Set custom theme variables for page when they are set.
+  if ($image_fields = \Drupal::config('openy_carnation.settings')
+    ->get('openy_carnation_image_fields')
+  ) {
+    foreach ($image_fields as $image_template_variable => $theme_setting_key) {
+      $fid = theme_get_setting($theme_setting_key);
+      if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
+        $file = File::load(reset($fid));
+        if ($file !== NULL) {
+          $variables[$image_template_variable] = $file->getFileUri();
+        }
+      }
+    }
+  }
+
+  // Set special variables for Camp and Branch (Location) nodes.
+  if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
+    $node = $variables['node'];
+    /** @var Drupal\openy_loc_camp\CampService $service */
+    if (\Drupal::hasService('openy_loc_camp.camp_service') && $service = \Drupal::service('openy_loc_camp.camp_service')) {
+      if ($service->nodeHasOrIsCamp($node)) {
+        $variables['page_class'] = 'is-camp';
+      }
+      if ($node->bundle() == 'branch') {
+        $variables['page_class'] = 'is-branch';
+      }
+    }
+  }
+  // Camp logo.
+  $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
 }
 
 /**
@@ -252,7 +302,12 @@ function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array
 /**
  * Implements hook_form_system_theme_settings_alter().
  */
-function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+  // Work-around for a core bug affecting admin themes. See issue #943212.
+  if (isset($form_id)) {
+    return;
+  }
+
   $form['search'] = [
     '#type' => 'details',
     '#title' => t('Search'),
@@ -265,4 +320,54 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
     '#default_value' => theme_get_setting('display_search_form'),
     '#description' => t('Show search form in the header'),
   ];
+
+  theme_settings_add_camp_section($form, $form_state);
+}
+
+/**
+ * Camp section on theme settings page
+ */
+function theme_settings_add_camp_section(array &$form, FormStateInterface &$form_state) {
+  $form['camp_section'] = array(
+    '#type' => 'details',
+    '#title' => t('Camp section'),
+    '#description' => t('Contains theme configuration for camp and camp related content.'),
+    '#open' => TRUE,
+  );
+  $form['camp_section']['openy_carnation_camp_section_logo'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camp section logo'),
+    '#description' => t('To display a logo in the header area on camp pages, and camp related landing pages, upload it here.</br>Image size suggested 92 x 70 pixels.'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('png jpg jpeg gif svg'),
+    ),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('openy_carnation_camp_section_logo'),
+  );
+  $form['camp_section']['openy_carnation_camp_favicon'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Camp favicon'),
+    '#description' => t('To display a favicon on camp pages, and camp related landing pages, upload it here.</br>Image sizes must be 16×16, 32×32, 48×48, or 64×64 pixels.</br>Accepted file types ico, png, gif.'),
+    '#upload_validators' => array(
+      'file_validate_extensions' => array('ico png gif'),
+    ),
+    '#upload_location' => 'public://',
+    '#default_value' => theme_get_setting('openy_carnation_camp_favicon'),
+  );
+
+  // Submission handler is not working on theme form
+  // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
+  // Setting file usage for openy_carnation theme.
+  if ($image_fields = theme_get_setting('openy_carnation_image_fields')) {
+    foreach ($image_fields as $image_field) {
+      $fid_array = theme_get_setting($image_field);
+      if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
+        $file = File::load(reset($fid_array));
+        if ($file !== NULL) {
+          openy_carnation_set_theme_file_usage($file);
+        }
+      }
+    }
+  }
+
 }
