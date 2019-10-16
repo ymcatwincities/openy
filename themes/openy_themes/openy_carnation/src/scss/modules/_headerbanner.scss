@@ -36,6 +36,17 @@
       z-index: 1;
     }
   }
+  .banner {
+    min-height: 70px;
+
+    @include media-breakpoint-up(sm) {
+      min-height: 225px;
+    }
+
+    @include media-breakpoint-up(md) {
+      min-height: 350px;
+    }
+  }
 
   .banner-cta {
     position: relative;

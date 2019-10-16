@@ -11361,6 +11361,14 @@ article .node--view-mode-flexible-content h2 {
       content: "";
       opacity: .3;
       z-index: 1; }
+  .banner-zone-node .banner {
+    min-height: 70px; }
+    @media (min-width: 576px) {
+      .banner-zone-node .banner {
+        min-height: 225px; } }
+    @media (min-width: 768px) {
+      .banner-zone-node .banner {
+        min-height: 350px; } }
   .banner-zone-node .banner-cta {
     position: relative; }
     @media (min-width: 992px) {
@@ -11998,6 +12006,9 @@ a[href="#step2"] {
     .camp-menu__wrapper a:last-child,
     .microsites-menu__wrapper a:last-child {
       margin-right: 0; }
+  .camp-menu__wrapper .wrapper-field-menu-block-links,
+  .microsites-menu__wrapper .wrapper-field-menu-block-links {
+    justify-content: normal !important; }
 
 /*
 ** Mobile menu
