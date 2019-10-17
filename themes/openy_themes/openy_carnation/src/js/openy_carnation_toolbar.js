@@ -1,6 +1,6 @@
 /**
  * @file
- * Open Y Carnation JS.
+ * Additional code that fixes problem of admin_tolbar view and carnation menu on mobile.
  */
 (function ($) {
   "use strict";
