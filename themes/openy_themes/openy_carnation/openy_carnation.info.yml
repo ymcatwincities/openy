@@ -7,6 +7,9 @@ version: 8.x-1.x-beta
 base theme: false
 libraries:
   - openy_carnation/global-styling
+libraries-extend:
+  toolbar/toolbar:
+    - openy_carnation/carnation_toolbar
 regions:
   header: Header
   logo: Logo
