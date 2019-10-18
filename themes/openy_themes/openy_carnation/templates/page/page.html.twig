@@ -56,9 +56,14 @@
 
           <div class="col-auto mr-auto">
             {% block page_logo %}
+              {{ dump() }}
               {% if (page_class == 'is-camp') and (camp_section_image is not empty) %}
-                <a href="{{ front_page }}" title="{{ "YMCA Twin Cities"|t }}" rel="{{ "YMCA Twin Cities"|t }}">
-                  <img src="{{ camp_section_image }}" alt="{{ "YMCA Twin Cities"|t }}">
+                <a href="{{ front_page }}" title="{{ "OpenY"|t }}" rel="{{ "OpenY"|t }}">
+                  <img src="{{ camp_section_image }}" alt="{{ "OpenY"|t }}">
+                </a>
+              {% elseif site_logo %}
+                <a href="{{ front_page }}" title="{{ "OpenY"|t }}" rel="{{ "OpenY"|t }}">
+                  <img src="{{ site_logo }}" alt="{{ "OpenY"|t }}">
                 </a>
               {% else %}
                 <a class="navbar-brand" href="{{ base_path }}" title="{{ "OpenY"|t }}" rel="{{ "OpenY"|t }}"></a>
