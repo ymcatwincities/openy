@@ -56,7 +56,6 @@
 
           <div class="col-auto mr-auto">
             {% block page_logo %}
-              {{ dump() }}
               {% if (page_class == 'is-camp') and (camp_section_image is not empty) %}
                 <a href="{{ front_page }}" title="{{ "OpenY"|t }}" rel="{{ "OpenY"|t }}">
                   <img src="{{ camp_section_image }}" alt="{{ "OpenY"|t }}">
@@ -113,7 +112,22 @@
             {# sitename & secondary menu #}
             <div class="page-head__top-menu d-flex align-items-stretch w-100">
               <div class="col-md-3 site-name">
-               {{ page.logo }}
+                {% block logo %}
+                  {% if site_logo %}
+                    <a class="logo d-block d-lg-none" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
+                      <img class="logo-img" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+                    </a>
+                  {% endif %}
+
+                  <span class="d-none d-lg-block">
+                    {% if site_name %}
+                      {{ site_name }}
+                    {% endif %}
+                    {% if site_slogan %}
+                      {{ site_slogan }}
+                    {% endif %}
+                  </span>
+                {% endblock %}
               </div>
               <div class="col-md">
                 {{ page.secondary_menu }}
