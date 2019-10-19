@@ -122,6 +122,7 @@ function openy_carnation_preprocess_page(array &$variables) {
   $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
   $variables['display_search'] = theme_get_setting('display_search_form');
   $variables['base_path'] = \Drupal::request()->getSchemeAndHttpHost();
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
 
   if (Drupal::hasService('plugin.manager.home_branch_library')) {
     // Fix hb_menu_selector plugin for Open Y Carnation theme.

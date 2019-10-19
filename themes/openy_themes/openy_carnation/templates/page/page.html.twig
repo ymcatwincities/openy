@@ -112,22 +112,11 @@
             {# sitename & secondary menu #}
             <div class="page-head__top-menu d-flex align-items-stretch w-100">
               <div class="col-md-3 site-name">
-                {% block logo %}
-                  {% if site_logo %}
-                    <a class="logo d-block d-lg-none" href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
-                      <img class="logo-img" src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
-                    </a>
-                  {% endif %}
-
                   <span class="d-none d-lg-block">
                     {% if site_name %}
                       {{ site_name }}
                     {% endif %}
-                    {% if site_slogan %}
-                      {{ site_slogan }}
-                    {% endif %}
                   </span>
-                {% endblock %}
               </div>
               <div class="col-md">
                 {{ page.secondary_menu }}
