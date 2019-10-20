@@ -13,7 +13,7 @@ libraries-extend:
 regions:
   header: Header
   primary_menu: Primary Menu
-  secondary_menu: Secondary Menu
+  secondary_menu: User Menu
   top_menu: Top menu
   mobile_menu: Mobile menu
   search: Search Form
