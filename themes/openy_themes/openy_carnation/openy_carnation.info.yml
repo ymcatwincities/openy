@@ -14,7 +14,7 @@ regions:
   header: Header
   primary_menu: Primary Menu
   secondary_menu: User Menu
-  top_menu: Top menu
+  top_menu: Mobile User Menu
   mobile_menu: Mobile menu
   search: Search Form
   content: Content
