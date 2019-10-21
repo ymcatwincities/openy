@@ -138,6 +138,8 @@ function openy_carnation_preprocess_page_logo(&$variables) {
   $variables['camp_section_logo'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo'));
   $variables['camp_favicon'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon'));
   $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
+  $variables['logo'] = '';
+
 
   // Set special variables for Camp and Branch (Location) nodes.
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
@@ -151,17 +153,6 @@ function openy_carnation_preprocess_page_logo(&$variables) {
         $variables['page_class'] = 'is-branch';
       }
     }
-  }
-}
-
-function openy_carnation_entity_file_uri_by_fid($fid) {
-  if (!empty($fid) && is_array($fid) && is_numeric(reset($fid))) {
-    $file = File::load(reset($fid));
-      if ($file !== NULL) {
-        return $file->getFileUri();
-    }
-  } else {
-    return '';
   }
 }
 
@@ -359,16 +350,38 @@ function openy_carnation_camp_section_settings(array &$form, FormStateInterface 
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_carnation theme.
-  if ($image_fields = theme_get_setting('openy_carnation_image_fields')) {
-    foreach ($image_fields as $image_field) {
-      $fid_array = theme_get_setting($image_field);
-      if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
-        $file = File::load(reset($fid_array));
-        if ($file !== NULL) {
-          openy_carnation_set_theme_file_usage($file);
-        }
-      }
+  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_section_logo'))) !== NULL) {
+    openy_carnation_set_theme_file_usage($file);
+  }
+  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_favicon'))) !== NULL) {
+    openy_carnation_set_theme_file_usage($file);
+  }
+}
+
+/**
+ * @param $fid
+ * @return \Drupal\file\Entity\File|null
+ */
+function openy_carnation_entity_file_by_fid($fid) {
+  if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
+    $file = File::load(reset($fid_array));
+    if ($file !== NULL) {
+      return $file;
     }
   }
 
+  return NULL;
+}
+
+/**
+ * @param $fid
+ * @return uri|''
+ */
+function openy_carnation_entity_file_uri_by_fid($fid) {
+  $file = openy_carnation_entity_file_by_fid($fid);
+  if ($file !== NULL) {
+      return $file->getFileUri();
+  }
+
+  return '';
 }
