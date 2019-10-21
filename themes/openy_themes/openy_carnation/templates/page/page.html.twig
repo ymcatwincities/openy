@@ -139,7 +139,25 @@
                   </div>
                 </div>
               {% endif %}
-              <div class="page-head__main-menu nav-home nav-desktop">
+
+              {% block fullsite_logo %}
+                <div class="col-md-2" style="float: left;">
+                  <span style="display: inline-block;height:100%;"></span>
+                  {% if (page_class == 'is-camp') and (camp_section_logo_url is not empty) %}
+                    <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                      <img class="logo-img" src="{{ camp_section_logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
+                    </a>
+                  {% elseif logo_url %}
+                    <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                      <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
+                    </a>
+                  {% else %}
+                    <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
+                  {% endif %}
+                </div>
+              {% endblock %}
+
+              <div class="page-head__main-menu nav-home nav-desktop col-md-10" style="float: left;">
                 {{ page.primary_menu }}
               </div>
             </div>
