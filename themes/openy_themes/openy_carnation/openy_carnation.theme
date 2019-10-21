@@ -16,6 +16,7 @@ use Drupal\image\Entity\ImageStyle;
 use Drupal\openy_home_branch\Plugin\HomeBranchLibrary\HBLocationFinder;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_preprocess_html().
@@ -137,9 +138,8 @@ function openy_carnation_preprocess_page(array &$variables) {
 function openy_carnation_preprocess_page_logo(&$variables) {
   $variables['camp_section_logo'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo'));
   $variables['camp_favicon'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon'));
-  $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
-  $variables['logo'] = '';
-
+  $variables['camp_section_logo_url'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
+  $variables['logo_url'] = file_create_url(theme_get_setting('logo.path'));
 
   // Set special variables for Camp and Branch (Location) nodes.
   if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
@@ -359,10 +359,10 @@ function openy_carnation_camp_section_settings(array &$form, FormStateInterface 
 }
 
 /**
- * @param $fid
+ * @param $fid_array
  * @return \Drupal\file\Entity\File|null
  */
-function openy_carnation_entity_file_by_fid($fid) {
+function openy_carnation_entity_file_by_fid($fid_array) {
   if (!empty($fid_array) && is_array($fid_array) && is_numeric(reset($fid_array))) {
     $file = File::load(reset($fid_array));
     if ($file !== NULL) {
@@ -374,11 +374,11 @@ function openy_carnation_entity_file_by_fid($fid) {
 }
 
 /**
- * @param $fid
+ * @param $fid_array
  * @return uri|''
  */
-function openy_carnation_entity_file_uri_by_fid($fid) {
-  $file = openy_carnation_entity_file_by_fid($fid);
+function openy_carnation_entity_file_uri_by_fid($fid_array) {
+  $file = openy_carnation_entity_file_by_fid($fid_array);
   if ($file !== NULL) {
       return $file->getFileUri();
   }
