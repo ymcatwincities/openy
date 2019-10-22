@@ -206,6 +206,16 @@ function openy_carnation_theme_suggestions_page_alter(array &$suggestions, array
     || in_array('page__user__password', $suggestions)) {
     $suggestions[] = 'page__user__login';
   }
+
+  // Adds template suggestions for 40x pages.
+  $http_error_suggestions = [
+    'system.403' => 'page__403',
+    'system.404' => 'page__404',
+  ];
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (isset($http_error_suggestions[$route_name])) {
+    $suggestions[] = $http_error_suggestions[$route_name];
+  }
 }
 
 /**

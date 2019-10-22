@@ -8516,6 +8516,9 @@ html.js .ajax-new-content:empty {
     .breadcrumbs li:first-child a:before {
       display: none; }
 
+body.without-banner div div div div div div.breadcrumbs-wrapper {
+  position: initial; }
+
 .btn-transparent {
   font-family: "Cachet", sans-serif;
   font-weight: 400;
@@ -12209,6 +12212,9 @@ body {
 
 .webform-submission-form {
   padding-top: 136px; }
+
+.error-page {
+  text-align: center; }
 
 .pager li.load_more_button > a {
   padding: 12px 35px;
