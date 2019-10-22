@@ -19,6 +19,12 @@
       </p>
       <div v-if="!this.$parent.loading" class="program-search__count-results">{{ count }} results</div>
 
+      <a v-bind:href="this.programSearchUrlWithLocations" v-if="this.$parent.isMounted && this.$parent.homeBranchId" class="program-search__view-all-programs"><strong>View all programs for Home Branch</strong></a>
+      <p v-if="this.$parent.homeBranchLoading && this.$parent.homeBranchId">
+        <spinner></spinner>
+      </p>
+      <div v-if="!this.$parent.homeBranchLoading && this.$parent.homeBranchId" class="program-search__count-results">{{ countHomeBranch }} results</div>
+
       <h2 class="program-search__af-title">Activity Finder</h2>
       <p class="program-search__af-description">
         We can help you find the right activities for you and your family!
@@ -53,11 +59,25 @@
       count: function() {
         return this.$parent.table.count;
       },
+      countHomeBranch: function() {
+        return this.$parent.countHomeBranch;
+      },
+      homeBranchId: function() {
+        return this.$parent.homeBranchId;
+      },
       programSearchUrlWithExclude: function() {
         if (typeof this.$parent.categoriesExclude !== 'undefined' && this.$parent.categoriesExclude.length > 0) {
           return this.$parent.programSearchUrl + '?exclude=' + this.$parent.categoriesExclude.join(',');
         }
         return this.$parent.programSearchUrl;
+      },
+      programSearchUrlWithLocations: function() {
+        if (this.homeBranchId) {
+          var url = this.$parent.programSearchUrl + '?locations=' + this.homeBranchId;
+          if (typeof this.$parent.categoriesExclude !== 'undefined' && this.$parent.categoriesExclude.length > 0) {
+            return url + '&exclude=' + this.$parent.categoriesExclude.join(',');
+          }
+        }
       },
     },
     methods: {
@@ -66,7 +86,6 @@
       },
       submitSearch: function () {
         // Redirect to Search page.
-        //window.location.href = this.programSearchUrl + window.location.search;
         this.$parent.$emit('submitSearch');
       }
     },

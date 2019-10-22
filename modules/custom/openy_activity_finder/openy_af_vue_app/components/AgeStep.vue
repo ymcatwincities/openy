@@ -42,6 +42,7 @@
         <main-filter
           v-if="!this.$parent.loading"
           :options="agesOptions"
+          :order="agesOrder"
           type="multiple"
           :default='$route.query.ages'
           v-on:updated-values="checkedAges = $event"
@@ -96,6 +97,17 @@
         return {
           'Age(s)': options
         };
+      },
+      agesOrder: function() {
+        var order = {};
+
+        order['Age(s)'] = [];
+        for (var i in this.$parent.ages) {
+          var item = this.$parent.ages[i];
+          order['Age(s)'].push(item.value);
+        }
+
+        return order;
       },
       count: function() {
         return this.$parent.table.count;

@@ -121,6 +121,48 @@ class SettingsForm extends ConfigFormBase {
       '#description' => t('When checked disables Spots Available feature on Results page.'),
     ];
 
+    $form['hb_modal'] = [
+      '#type' => 'details',
+      '#title' => $this->t('HomeBranch - No results modal content.'),
+      '#open' => TRUE,
+    ];
+
+    $form['hb_modal']['hb_modal_text0'] = [
+      '#title' => $this->t('Title'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('hb_modal_text0') ? $config->get('hb_modal_text0') : '',
+    ];
+
+    $form['hb_modal']['hb_modal_text1'] = [
+      '#title' => $this->t('Text line 1'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('hb_modal_text1') ? $config->get('hb_modal_text1') : '',
+    ];
+
+    $form['hb_modal']['hb_modal_text2'] = [
+      '#title' => $this->t('Text line 2'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('hb_modal_text2') ? $config->get('hb_modal_text2') : '',
+    ];
+
+    $form['hb_modal']['hb_modal_text3'] = [
+      '#title' => $this->t('Text line 3'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('hb_modal_text3') ? $config->get('hb_modal_text3') : '',
+    ];
+
+    $form['hb_modal']['hb_modal_text4'] = [
+      '#title' => $this->t('Close modal button text'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('hb_modal_text4') ? $config->get('hb_modal_text4') : '',
+    ];
+
+    $form['hb_modal']['hb_modal_text5'] = [
+      '#title' => $this->t('Start over button text'),
+      '#type' => 'textfield',
+      '#default_value' => $config->get('hb_modal_text5') ? $config->get('hb_modal_text5') : '',
+    ];
+
     $form['collapse'] = [
       '#type' => 'details',
       '#title' => $this->t('Group collapse settings.'),
@@ -176,27 +218,22 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
     $config = $this->config('openy_activity_finder.settings');
 
     $config->set('backend', $form_state->getValue('backend'))->save();
-
     $config->set('ages', $form_state->getValue('ages'))->save();
-
     $config->set('exclude', $form_state->getValue('exclude'))->save();
-
-    $config->set('disable_search_box', $form_state->getValue('disable_search_box'))
-      ->save();
-
-    $config->set('disable_spots_available', $form_state->getValue('disable_spots_available'))
-      ->save();
-
-    $config->set('schedule_collapse_group', $form_state->getValue('schedule_collapse_group'))
-      ->save();
-    $config->set('category_collapse_group', $form_state->getValue('category_collapse_group'))
-      ->save();
-    $config->set('locations_collapse_group', $form_state->getValue('locations_collapse_group'))
-      ->save();
+    $config->set('disable_search_box', $form_state->getValue('disable_search_box'))->save();
+    $config->set('disable_spots_available', $form_state->getValue('disable_spots_available'))->save();
+    $config->set('hb_modal_text0', $form_state->getValue('hb_modal_text0'))->save();
+    $config->set('hb_modal_text1', $form_state->getValue('hb_modal_text1'))->save();
+    $config->set('hb_modal_text2', $form_state->getValue('hb_modal_text2'))->save();
+    $config->set('hb_modal_text3', $form_state->getValue('hb_modal_text3'))->save();
+    $config->set('hb_modal_text4', $form_state->getValue('hb_modal_text4'))->save();
+    $config->set('hb_modal_text5', $form_state->getValue('hb_modal_text5'))->save();
+    $config->set('schedule_collapse_group', $form_state->getValue('schedule_collapse_group'))->save();
+    $config->set('category_collapse_group', $form_state->getValue('category_collapse_group'))->save();
+    $config->set('locations_collapse_group', $form_state->getValue('locations_collapse_group'))->save();
     $this->cache->deleteAll();
 
     parent::submitForm($form, $form_state);

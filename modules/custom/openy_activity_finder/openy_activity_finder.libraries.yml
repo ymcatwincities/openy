@@ -14,6 +14,7 @@ openy_activity_finder:
     - openy_system/jquery.matchHeight
     - openy_system/polyfill
     - openy_system/moment
+    - core/jquery.cookie
 
 openy_activity_finder_search:
   version: 0.1
@@ -34,3 +35,4 @@ openy_activity_finder_search:
     - openy_system/vue_router
     - openy_system/moment
     - openy_system/addtocal
+    - core/jquery.cookie

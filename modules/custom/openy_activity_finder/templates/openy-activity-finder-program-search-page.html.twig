@@ -111,6 +111,7 @@
                 expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
                 v-on:updated-values="ages = $event"
                 :default='$route.query.ages'
+                :loading="loading"
               ></sidebar-filter>
 
               <sidebar-filter
@@ -122,6 +123,7 @@
                 expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
                 :default='$route.query.days'
                 v-on:updated-values="days = $event"
+                :loading="loading"
               ></sidebar-filter>
               {% if collapse_group %}
                 </div>
@@ -159,6 +161,7 @@
               v-on:updated-values="categories = $event"
               expanded="{{ expanded }}"
               hide_label="true"
+              :loading="loading"
             ></sidebar-filter-single>
             {% else %}
             <sidebar-filter
@@ -172,6 +175,7 @@
               v-on:updated-values="categories = $event"
               expanded="false"
               hide_label="true"
+              :loading="loading"
             ></sidebar-filter>
             {% endif %}
             {% if collapse_group %}
@@ -209,6 +213,7 @@
               v-on:updated-values="locations = $event"
               expanded="true"
               hide_label="true"
+              :loading="loading"
             ></sidebar-filter>
             {% if collapse_group %}
               </div>
