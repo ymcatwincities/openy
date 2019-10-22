@@ -9,6 +9,15 @@ global-styling:
     https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js: {type: external, minified: true}
     dist/js/jquery.matchHeight.min.js: {}
     src/js/openy_carnation.js: {}
+    src/js/openy_carnation_banner.js: {}
+    src/js/openy_carnation_branch.js: {}
+    src/js/openy_carnation_header.js: {}
+    src/js/openy_carnation_menu.js: {}
+    src/js/openy_carnation_mobile.js: {}
+    src/js/openy_carnation_program.js: {}
+    src/js/openy_carnation_scroll.js: {}
+    src/js/openy_carnation_sticky_sidebar.js: {}
+    src/js/openy_carnation_user.js: {}
   dependencies:
     - core/jquery.once
     - core/jquery.ui.datepicker
