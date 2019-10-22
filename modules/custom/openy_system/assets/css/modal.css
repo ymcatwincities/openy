@@ -332,3 +332,26 @@
   margin: 15px 0;
   text-align: center;
 }
+
+/* Home branch unavailable modal styling */
+.schedule-dashboard__modal--home-branch-unavailable .modal-content {
+  max-width: 350px;
+  font: 12px/16px Verdana, Geneva, sans-serif;
+}
+.schedule-dashboard__modal--home-branch-unavailable .schedule-dashboard__modal--body {
+  padding: 15px 15px 0;
+}
+.schedule-dashboard__modal--home-branch-unavailable .schedule-dashboard__modal--body strong {
+  font: bold 14px/18px Verdana, Geneva, sans-serif;
+}
+.schedule-dashboard__modal--home-branch-unavailable .schedule-dashboard__modal--body .btn {
+  width: 100%;
+  margin: 0 0 15px;
+  font-size: 18px;
+  border-width: 2px;
+  border-color: #0060ad;
+  border-style: solid;
+}
+.schedule-dashboard__modal--home-branch-unavailable .schedule-dashboard__modal--body .btn.white-blue {
+  color: #0060ad;
+}

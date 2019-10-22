@@ -11,6 +11,9 @@
       return {
         loading: false,
         isMounted: false,
+        countHomeBranch: 0,
+        homeBranchId: 0,
+        homeBranchLoading: false,
         table: {
           count: 0,
           facets: {
@@ -138,6 +141,9 @@
         component.checkedCategories = [];
         component.checkedLocations = [];
         component.runAjaxRequest();
+        if (component.homeBranchId) {
+          component.runAjaxRequest({'locations': [component.homeBranchId]});
+        }
         // Go to the homepage.
         component.$router.push({ name: 'home', query: {}});
       },
@@ -196,7 +202,7 @@
             initial: component.initialStep
           }});
       },
-      runAjaxRequest: function() {
+      runAjaxRequest: function(params = {}) {
         let component = this,
                 url = drupalSettings.path.baseUrl + 'af/get-data',
                 query = [];
@@ -251,15 +257,30 @@
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
 
+        if (typeof params['locations'] !== 'undefined' && component.homeBranchId) {
+          query.push('locations=' + encodeURIComponent(params['locations'].join(',')));
+          component.homeBranchLoading = true;
+        }
+
         if (query.length > 0) {
           url += '?' + query.join('&');
         }
 
         component.loading = true;
         jQuery.getJSON(url, function(data) {
-          component.table = data;
+          if (typeof params['locations'] !== 'undefined' && component.homeBranchId) {
+            component.countHomeBranch = data.count;
+          }
+          else {
+            component.table = data;
+          }
         }).done(function() {
-          component.loading = false;
+          if (typeof params['locations'] !== 'undefined' && component.homeBranchId) {
+            component.homeBranchLoading = false;
+          }
+          else {
+            component.loading = false;
+          }
         });
       },
       categoryIsNotExcluded: function(value) {
@@ -380,6 +401,12 @@
 
       // Initial run of ajax request.
       component.runAjaxRequest();
+
+      // Initial run of ajax request if Home Branch set.
+      if (typeof jQuery.cookie('home_branch') !== 'undefined' && JSON.parse(jQuery.cookie('home_branch')).id) {
+        component.homeBranchId = JSON.parse(jQuery.cookie('home_branch')).id;
+        component.runAjaxRequest({'locations': [component.homeBranchId]});
+      }
 
       // Listen for events from components.
       component.$on('setInitialStep', function (stepName) {

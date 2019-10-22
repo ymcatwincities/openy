@@ -70,8 +70,22 @@
   color: #d3d2d3;
 }
 
+.openy-card__item label i.fa-home {
+  font-size: 18px;
+  margin-right: 8px;
+  color: #0060ad;
+}
+
 .openy-card__item.selected label i {
   color: inherit;
+}
+
+.openy-card__item.selected label i.fa-home {
+  color: #fff;
+}
+
+.openy-card__item.no-results label i.fa-home {
+  color: #636466;
 }
 
 @media (min-width: 62em) {

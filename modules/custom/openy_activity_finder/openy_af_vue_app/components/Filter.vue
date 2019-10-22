@@ -9,14 +9,14 @@
         <i class="fa fa-minus-circle"></i>
       </a>
       <div :id="'collapse-activity-group-' + topLevelIndex" :class="{'row': true, 'collapse': topLevelCounters[topLevelLabel] == 0}">
-        <div v-for="(secondLevel, secondLevelId, secondLevelIndex) in topLevel" v-if="filterIsNotExcluded(secondLevelId)" v-bind:class="{ 'openy-card__wrapper col-4 col-xs-4 col-sm-3' : colCount == 3, 'openy-card__wrapper col-6 col-xs-6 col-sm-3' : colCount == 2 }">
-          <div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(parseInt(secondLevel.count) === 0 && secondLevel.count !== undefined), 'selected': checked.indexOf(secondLevelId) !== -1 }">
+        <div v-for="(secondLevel, secondLevelIndex) in order[topLevelLabel]" v-if="filterIsNotExcluded(secondLevel)" v-bind:class="{ 'openy-card__wrapper col-4 col-xs-4 col-sm-3' : colCount == 3, 'openy-card__wrapper col-6 col-xs-6 col-sm-3' : colCount == 2 }">
+          <div v-bind:class="{ 'openy-card__item centered': true, 'no-results':(parseInt(topLevel[secondLevel].count) === 0 && topLevel[secondLevel].count !== undefined), 'selected': checked.indexOf(secondLevel + '') > -1 }">
             <label :for="'af-filter-category-' + topLevelIndex + '-'  + secondLevelIndex" data-mh="openy-card__item-label">
-              <input v-if="type === 'single'" v-model="checked" type="radio" :value="secondLevelId" :data-label="secondLevel.label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" class="hidden d-none" name="filter-radios">
-              <input v-if="type === 'multiple'" v-model="checked" type="checkbox" :value="secondLevelId" :data-label="secondLevel.label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" class="hidden d-none" name="filter-checkboxes">
+              <input v-if="type === 'single'" v-model="checked" type="radio" :value="secondLevel" :data-label="topLevel[secondLevel].label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" class="hidden d-none" name="filter-radios">
+              <input v-if="type === 'multiple'" v-model="checked" type="checkbox" :value="secondLevel" :data-label="topLevel[secondLevel].label" :id="'af-filter-category-' + topLevelIndex + '-' + secondLevelIndex" class="hidden d-none" name="filter-checkboxes">
               <div class="d-flex flex-column">
-                <span>{{ secondLevel.label }}</span>
-                <small v-if="secondLevel.count !== undefined">{{ secondLevel.count }} results</small>
+                <span>{{ topLevel[secondLevel].label }}</span>
+                <small v-if="topLevel[secondLevel].count !== undefined">{{ topLevel[secondLevel].count }} results</small>
               </div>
             </label>
           </div>
@@ -41,7 +41,7 @@
   //  }
   export default {
     props: [
-      'options', 'type', 'default', 'excluded', 'col-count'
+      'options', 'order', 'type', 'default', 'excluded', 'col-count'
     ],
     data: function() {
       return {
