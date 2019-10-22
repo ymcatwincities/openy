@@ -125,7 +125,7 @@
         }
       },
       submitSearch: function () {
-        window.location.href = this.programSearchUrl + window.location.search;
+        window.location.href = this.programSearchUrl + '?keywords=' + this.keywords;
       },
       startOver: function () {
         var component = this;
