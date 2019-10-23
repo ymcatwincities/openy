@@ -17,7 +17,7 @@ class DetailsCounter extends FieldPluginBase {
    * {@inheritdoc}
    */
   public function render(ResultRow $values) {
-    /** @var \Drupal\openy_repeat\Entity\ProgramSearchLog $revision */
+    /** @var \Drupal\openy_activity_finder\Entity\ProgramSearchLog $revision */
     $log = $values->_entity;
 
     $query = \Drupal::entityTypeManager()->getStorage('program_search_log_check')->getQuery();

@@ -10,7 +10,6 @@ dependencies:
     - field.field.paragraph.activity_finder.field_prgf_hide_program_categ
     - paragraphs.paragraphs_type.activity_finder
   module:
-    - openy_repeat
     - plugin
 id: paragraph.activity_finder.default
 targetEntityType: paragraph
