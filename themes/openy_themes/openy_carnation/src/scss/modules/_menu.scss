@@ -219,19 +219,8 @@
       }
     }
 
-
-    .menu-item-home {
-      background: url("../img/logo-color.png") center no-repeat;
-      background-size: contain;
-    }
-
     &.affix {
       background-color: $gray-700;
-
-      .menu-item-home {
-        background: url("../img/logo-white.png") center no-repeat;
-        background-size: 65px 50px;
-      }
     }
 
     &.affix.menu-in,
