@@ -55,11 +55,7 @@
         <div class="d-flex w-100">
           <div class="col-auto mr-auto">
             {% block mobile_logo %}
-              {% if (page_class == 'is-camp') and (camp_section_logo_url is not empty) %}
-                <a class="logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                  <img class="logo-img" src="{{ camp_section_logo_url }}" alt="{{ site_slogan|t }}">
-                </a>
-              {% elseif logo_url %}
+              {% if logo_url %}
                 <a class="logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
                   <img class="logo-img" src="{{ logo_url }}" alt="{{ site_slogan|t }}">
                 </a>
@@ -143,13 +139,10 @@
               {% block fullsite_logo %}
                 <div class="col-md-2" style="float: left;">
                   <span style="display: inline-block;height:100%;"></span>
-                  {% if (page_class == 'is-camp') and (camp_section_logo_url is not empty) %}
+                  {% if logo_url %}
                     <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                      <img class="logo-img" src="{{ camp_section_logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
-                    </a>
-                  {% elseif logo_url %}
-                    <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                      <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
+                      <img class="primary-logo" src="{{ logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
+                      <img class="secondary-logo" style="display: none;height: 46px;width: auto;" src="{{ white_background_logo }}" alt="{{ site_slogan|t }}">
                     </a>
                   {% else %}
                     <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>

@@ -11959,14 +11959,8 @@ a[href="#step2"] {
       .without-banner .top-navs:not(.affix) .page-head__main-menu .navbar > li.show > a,
       .without-banner .top-navs:not(.affix) .page-head__main-menu .navbar > li.show > a:focus {
         color: #c6168d; } }
-  .without-banner .top-navs .menu-item-home {
-    background: url("../img/logo-color.png") center no-repeat;
-    background-size: contain; }
   .without-banner .top-navs.affix {
     background-color: #2f2f2f; }
-    .without-banner .top-navs.affix .menu-item-home {
-      background: url("../img/logo-white.png") center no-repeat;
-      background-size: 65px 50px; }
   .without-banner .top-navs.affix.menu-in, .without-banner .top-navs.menu-in {
     background-color: #0089d0; }
 
