@@ -36,6 +36,7 @@
     "grunt-sass": "^2.1.0",
     "grunt-sass-lint": "^0.2.4",
     "postcss": "^7.0.17",
+    "sass-lint-webpack": "^1.0.2",
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "time-grunt": "^2.0.0",
