@@ -10,7 +10,7 @@ module.exports = {
             files: path.resolve(__dirname) + '/src/**/*.scss'
         }),
         new MiniCssExtractPlugin({
-            filename: "./css/stylessss.css",
+            filename: "./css/style.css",
             sourceMap: true,
             options: {
                 sourceMap: true,
@@ -22,7 +22,7 @@ module.exports = {
     mode: 'development',
     devtool: 'source-map',
     output: {
-        sourceMapFilename: 'stylessss.map.css'
+        sourceMapFilename: 'css/style.css.map'
     },
 
     module: {
