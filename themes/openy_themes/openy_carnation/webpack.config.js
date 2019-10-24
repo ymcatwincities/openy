@@ -1,6 +1,7 @@
 const SassLintPlugin = require('sass-lint-webpack')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     entry: './src/scss/style.scss',
@@ -9,6 +10,10 @@ module.exports = {
         new SassLintPlugin({
             files: path.resolve(__dirname) + '/src/**/*.scss'
         }),
+        new CopyWebpackPlugin([
+            { from: 'node_modules/bootstrap/dist/js/bootstrap.js', to: './../src/js' },
+            { from: 'node_modules/jquery-match-height/dist/jquery.matchHeight.js', to: './../src/js' }
+        ]),
         new MiniCssExtractPlugin({
             filename: "./css/style.css",
             sourceMap: true,
