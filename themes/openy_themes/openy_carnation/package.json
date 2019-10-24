@@ -39,5 +39,9 @@
     "stylelint": "^10.1.0",
     "stylelint-config-standard": "^18.3.0",
     "time-grunt": "^2.0.0"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js --debug --output-pathinfo",
+    "watch": "webpack --config webpack.config.js --watch --info-verbosity verbose"
   }
 }
