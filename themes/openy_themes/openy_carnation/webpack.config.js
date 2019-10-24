@@ -3,20 +3,27 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path')
 
 module.exports = {
-    entry: './src/js/webpack.js',
-    //entry: path.resolve(__dirname) + '/src/scss/style.scss',
+    entry: './src/scss/style.scss',
     plugins: [
         ///...
         new SassLintPlugin({
-            ///files: path.resolve(__dirname) + '/src/scss/**/*.scss'
             files: path.resolve(__dirname) + '/src/**/*.scss'
         }),
         new MiniCssExtractPlugin({
             filename: "./css/stylessss.css",
+            sourceMap: true,
+            options: {
+                sourceMap: true,
+                watch: true,
+            }
         }),
     ],
 
     mode: 'development',
+    devtool: 'source-map',
+    output: {
+        sourceMapFilename: 'stylessss.map.css'
+    },
 
     module: {
         rules: [
@@ -28,9 +35,15 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             url: false,
+                            sourceMap: true,
                         }
                     },
-                    'sass-loader'
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        }
+                    },
                 ]
             },
         ]
