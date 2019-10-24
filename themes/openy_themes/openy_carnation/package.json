@@ -27,6 +27,7 @@
     "underscore.string": "^3.3.5"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
     "grunt": "^1.0.4",
     "grunt-autoprefixer": "^3.0.4",
