@@ -75,8 +75,9 @@
         if (this.homeBranchId) {
           var url = this.$parent.programSearchUrl + '?locations=' + this.homeBranchId;
           if (typeof this.$parent.categoriesExclude !== 'undefined' && this.$parent.categoriesExclude.length > 0) {
-            return url + '&exclude=' + this.$parent.categoriesExclude.join(',');
+            url = url + '&exclude=' + this.$parent.categoriesExclude.join(',');
           }
+          return url;
         }
       },
     },
