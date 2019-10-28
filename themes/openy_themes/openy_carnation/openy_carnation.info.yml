@@ -12,10 +12,9 @@ libraries-extend:
     - openy_carnation/carnation_toolbar
 regions:
   header: Header
-  logo: Logo
   primary_menu: Primary Menu
-  secondary_menu: Secondary Menu
-  top_menu: Top menu
+  secondary_menu: User Menu
+  top_menu: Mobile User Menu
   mobile_menu: Mobile menu
   search: Search Form
   content: Content
