@@ -23,7 +23,8 @@ function openy_activity_finder_theme() {
         'categories_type' => '',
         'activities' => [],
         'locations' => [],
-        'is_search_box_disabled' => ''
+        'is_search_box_disabled' => '',
+        'expanderSectionsConfig' => [],
       ],
     ],
     'openy_activity_finder_program_search_page' => [
@@ -35,6 +36,7 @@ function openy_activity_finder_theme() {
         'days' => [],
         'is_search_box_disabled' => '',
         'is_spots_available_disabled' => '',
+        'expanderSectionsConfig' => [],
         'sort_options' => [],
       ],
     ],
