@@ -93,17 +93,7 @@ $breadcrumbColorsLength: length($breadcrumbColors);
 }
 
 body.without-banner {
-  div {
-    div {
-      div {
-        div {
-          div {
-            div.breadcrumbs-wrapper {
-              position: initial;
-            }
-          }
-        }
-      }
-    }
+  .breadcrumbs-wrapper {
+    position: initial;
   }
 }
