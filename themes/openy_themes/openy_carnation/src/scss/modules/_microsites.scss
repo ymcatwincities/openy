@@ -1,28 +1,6 @@
 .microsites-menu.microsites-menu--hide-main-menu {
-  div {
-    div {
-      div {
-        header {
-          div {
-            nav {
-              div {
-                div {
-                  div {
-                    div {
-                      nav {
-                        ul.navbar {
-                          visibility: hidden;
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+  ul.navbar {
+    visibility: hidden;
   }
 }
 
