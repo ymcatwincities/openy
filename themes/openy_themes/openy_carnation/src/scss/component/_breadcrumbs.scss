@@ -91,3 +91,9 @@ $breadcrumbColorsLength: length($breadcrumbColors);
     }
   }
 }
+
+body.without-banner {
+  .breadcrumbs-wrapper {
+    position: initial;
+  }
+}
