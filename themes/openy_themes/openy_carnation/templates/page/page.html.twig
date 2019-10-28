@@ -53,10 +53,15 @@
     <nav class="nav-global navbar-default navbar navbar-dark">
       <div class="container-fluid p-0">
         <div class="d-flex w-100">
-
           <div class="col-auto mr-auto">
-            {% block page_logo %}
-              {{ page.logo }}
+            {% block mobile_logo %}
+              {% if logo_url %}
+                <a class="logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                  <img class="logo-img" src="{{ logo_url }}" alt="{{ site_slogan|t }}">
+                </a>
+              {% else %}
+                <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
+              {% endif %}
             {% endblock %}
           </div>
 
@@ -102,7 +107,11 @@
             {# sitename & secondary menu #}
             <div class="page-head__top-menu d-flex align-items-stretch w-100">
               <div class="col-md-3 site-name">
-               {{ page.logo }}
+                  <span class="d-none d-lg-block">
+                    {% if site_slogan %}
+                      {{ site_slogan }}
+                    {% endif %}
+                  </span>
               </div>
               <div class="col-md">
                 {{ page.secondary_menu }}
@@ -126,7 +135,22 @@
                   </div>
                 </div>
               {% endif %}
-              <div class="page-head__main-menu nav-home nav-desktop">
+
+              {% block fullsite_logo %}
+                <div class="col-md-2" style="float: left;">
+                  <span style="display: inline-block;height:100%;"></span>
+                  {% if logo_url %}
+                    <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                      <img class="primary-logo" src="{{ logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
+                      <img class="secondary-logo" style="display: none;height: 46px;width: auto;" src="{{ white_background_logo }}" alt="{{ site_slogan|t }}">
+                    </a>
+                  {% else %}
+                    <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
+                  {% endif %}
+                </div>
+              {% endblock %}
+
+              <div class="page-head__main-menu nav-home nav-desktop col-md-10" style="float: left;">
                 {{ page.primary_menu }}
               </div>
             </div>

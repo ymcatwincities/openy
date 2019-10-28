@@ -9,6 +9,8 @@ logo:
   path: profiles/contrib/openy/themes/openy_themes/openy_carnation/dist/img/logo-white.png
   url: ''
   use_default: 0
+openy_carnation_camp_section_logo: {  }
+openy_carnation_camp_favicon: {  }
 schemas:
   openy_carnation: 8000
 display_search_form: 1
