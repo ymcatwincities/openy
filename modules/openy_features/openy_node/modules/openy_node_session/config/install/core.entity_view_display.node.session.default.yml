@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.session.field_activity_type
     - field.field.node.session.field_availability
     - field.field.node.session.field_productid
     - field.field.node.session.field_session_class
@@ -42,6 +43,13 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
+  field_activity_type:
+    weight: 120
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
   field_availability:
     weight: 118
     label: above

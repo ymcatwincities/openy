@@ -3,3 +3,9 @@ ages: "6,6mos\r\n12,12mos\r\n18,18mos\r\n24,2yrs\r\n36,3yrs\r\n48,4yrs\r\n60,5yr
 exclude: "61"
 disable_search_box: 0
 disable_spots_available: 0
+hb_modal_text0: "No Results"
+hb_modal_text1: "Oh no you're headed to an empty results page"
+hb_modal_text2: "The options you've selected do not match any activities available at your selected Home Branch."
+hb_modal_text3: "Please select one of the options below to proceed:"
+hb_modal_text4: "View available locations"
+hb_modal_text5: "Adjust my filters"
