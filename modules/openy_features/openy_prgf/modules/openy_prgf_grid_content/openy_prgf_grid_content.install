@@ -71,3 +71,21 @@ function openy_prgf_grid_content_update_8002() {
     'content'
   );
 }
+
+/**
+ * Update Open Y paragraph banner feature configs for OpenY Focal Point support.
+ */
+function openy_prgf_grid_content_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_grid_content') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_form_display.paragraph.grid_columns.default',
+    'core.entity_form_display.paragraph.grid_content.default',
+    'core.entity_view_display.paragraph.grid_columns.default',
+    'core.entity_view_display.paragraph.grid_content.default',
+    'paragraphs.paragraphs_type.grid_columns',
+    'paragraphs.paragraphs_type.grid_content',
+  ]);
+}
