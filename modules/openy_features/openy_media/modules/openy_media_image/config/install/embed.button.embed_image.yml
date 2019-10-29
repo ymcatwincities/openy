@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - media.type.image
+  content:
+    - 'file:file:50af116a-f0a6-45a9-8863-99cbf177ea17'
   module:
     - entity_embed
     - media
@@ -20,4 +22,4 @@ type_settings:
   entity_browser: images_library_embed
   entity_browser_settings:
     display_review: false
-icon_uuid: null
+icon_uuid: 50af116a-f0a6-45a9-8863-99cbf177ea17

@@ -119,3 +119,17 @@ function openy_prgf_teaser_update_8005() {
     }
   }
 }
+
+/**
+ * Update Open Y paragraph banner feature configs for OpenY Focal Point support.
+ */
+function openy_prgf_teaser_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_teaser') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'paragraphs.paragraphs_type.teaser',
+    'core.entity_form_display.paragraph.teaser.default',
+  ]);
+}
