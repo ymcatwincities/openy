@@ -4,9 +4,6 @@ const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 var entry = require('webpack-glob-entry')
 
-let smth = path.resolve(__dirname, './src/js/bootstrap.js')
-console.log(smth)
-
 module.exports = {
     //entry: entry('./src/scss/style.scss', './src/js/**/*.js'),
     entry: './webpack-entry.js',
@@ -42,6 +39,7 @@ module.exports = {
                 enforce: 'pre',
                 exclude: [
                     /node_modules/,
+                    /jshint-loader/,
                     /webpack-entry.js/,
 //                    /.\/src\/js\/bootstrap.js/,
 //                    /jquery.matchHeight.js/,
@@ -49,7 +47,7 @@ module.exports = {
                 ],
                 use: [
                     {
-                        loader: 'jshint-loader',
+                        loader: 'eslint-loader',
                         options: {
                             sourceMap: false,
                             curly: true,
