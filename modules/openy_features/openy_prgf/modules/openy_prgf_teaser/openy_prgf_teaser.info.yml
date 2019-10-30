@@ -6,6 +6,7 @@ package: 'Open Y'
 version: 8.x-1.0
 dependencies:
   - blazy
+  - crop
   - 'drupal:field'
   - 'drupal:image'
   - 'drupal:link'

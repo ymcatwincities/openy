@@ -131,5 +131,7 @@ function openy_prgf_teaser_update_8006() {
   $config_importer->importConfigs([
     'paragraphs.paragraphs_type.teaser',
     'core.entity_form_display.paragraph.teaser.default',
+    'crop.type.crop_260_220',
+    'image.style.prgf_teaser',
   ]);
 }

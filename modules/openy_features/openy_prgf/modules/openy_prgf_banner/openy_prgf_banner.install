@@ -172,5 +172,7 @@ function openy_prgf_banner_update_8009() {
   $config_importer->importConfigs([
     'paragraphs.paragraphs_type.banner',
     'core.entity_form_display.paragraph.banner.default',
+    'image.style.prgf_banner',
+    'crop.type.crop_960_600'
   ]);
 }

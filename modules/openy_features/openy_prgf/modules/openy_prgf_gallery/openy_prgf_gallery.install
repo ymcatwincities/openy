@@ -101,5 +101,7 @@ function openy_prgf_gallery_update_8005() {
   $config_importer->importConfigs([
     'paragraphs.paragraphs_type.gallery',
     'core.entity_form_display.paragraph.gallery.default',
+    'image.style.prgf_gallery',
+    'crop.type.crop_1920_700'
   ]);
 }
