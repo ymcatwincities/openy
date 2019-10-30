@@ -8516,7 +8516,7 @@ html.js .ajax-new-content:empty {
     .breadcrumbs li:first-child a:before {
       display: none; }
 
-body.without-banner div div div div div div.breadcrumbs-wrapper {
+body.without-banner .breadcrumbs-wrapper {
   position: initial; }
 
 .btn-transparent {
@@ -11967,7 +11967,7 @@ a[href="#step2"] {
   .without-banner .top-navs.affix.menu-in, .without-banner .top-navs.menu-in {
     background-color: #0089d0; }
 
-.microsites-menu.microsites-menu--hide-main-menu div div div header div nav div div div div nav ul.navbar {
+.microsites-menu.microsites-menu--hide-main-menu ul.navbar {
   visibility: hidden; }
 
 .camp-menu__wrapper,
@@ -14320,6 +14320,11 @@ body.path-user:not(.user-logged-in) {
 .paragraph--type--upcoming-events > .paragraph-container-wrapper > h2 {
   padding-left: 15px; }
 
+.paragraph--type--upcoming-events header {
+  width: 100%;
+  height: 0;
+  margin-top: 10px; }
+
 .paragraph--type--upcoming-events header a {
   font-family: "Cachet", sans-serif;
   font-weight: 700;
@@ -14330,8 +14335,7 @@ body.path-user:not(.user-logged-in) {
   padding: 0 15px; }
   @media (min-width: 570px) {
     .paragraph--type--upcoming-events header a {
-      float: right;
-      margin-top: -34px; } }
+      float: right; } }
   .paragraph--type--upcoming-events header a:after {
     content: '\f105';
     font-family: "Font Awesome 5 Free";
