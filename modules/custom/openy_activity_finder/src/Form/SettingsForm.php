@@ -47,7 +47,18 @@ class SettingsForm extends ConfigFormBase {
   protected $cache;
 
   /**
-   * {@inheritdoc}
+   * SettingsForm constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The config factory.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler service.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
+   * @param \GuzzleHttp\Client $http_client
+   *   The http_client.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache
+   *   Cache backend.
    */
   public function __construct(ConfigFactoryInterface $config_factory, ModuleHandlerInterface $module_handler, EntityTypeManagerInterface $entity_type_manager, Client $http_client, CacheBackendInterface $cache) {
     parent::__construct($config_factory);
