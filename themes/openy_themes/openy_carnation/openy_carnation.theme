@@ -321,15 +321,6 @@ function openy_carnation_theme_suggestions_page_alter(array &$suggestions, array
 }
 
 /**
- * Implements hook_theme_suggestions_HOOK_alter().
- */
-function openy_carnation_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
-  if($variables['view']->id() === 'latest_event_posts') {
-    $suggestions[] = 'views-view__latest_event_posts';
-  }
-}
-
-/**
  * Implements THEME_preprocess_breadcrumb.
  *
  * Trims long page title breadcrumbs.
