@@ -2,7 +2,7 @@ const SassLintPlugin = require('sass-lint-webpack')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require('path')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-var entry = require('webpack-glob-entry')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
     //entry: entry('./src/scss/style.scss', './src/js/**/*.js'),
@@ -31,7 +31,13 @@ module.exports = {
     output: {
         sourceMapFilename: 'css/style.css.map'
     },
-
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                test: /\.js(\?.*)?$/i,
+            }),
+        ],
+    },
     module: {
         rules: [
             {
@@ -49,6 +55,7 @@ module.exports = {
                     {
                         loader: 'eslint-loader',
                         options: {
+                            quiet: true,
                             sourceMap: false,
                             curly: true,
                             eqeqeq: true,
