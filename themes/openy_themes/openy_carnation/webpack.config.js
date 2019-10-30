@@ -43,9 +43,9 @@ module.exports = {
                 exclude: [
                     /node_modules/,
                     /webpack-entry.js/,
-                    /.\/src\/js\/bootstrap.js/,
-                    /jquery.matchHeight.js/,
-                    path.resolve(__dirname, './src/js/bootstrap.js'),
+//                    /.\/src\/js\/bootstrap.js/,
+//                    /jquery.matchHeight.js/,
+//                    path.resolve(__dirname, './src/js/bootstrap.js'),
                 ],
                 use: [
                     {
@@ -83,6 +83,7 @@ module.exports = {
                             sourceMap: true,
                         }
                     },
+                    //'postcss-loader',
                 ]
             },
         ]
