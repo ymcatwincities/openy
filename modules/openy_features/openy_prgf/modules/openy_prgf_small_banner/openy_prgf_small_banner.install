@@ -181,5 +181,7 @@ function openy_prgf_small_banner_update_8008() {
   $config_importer->importConfigs([
     'paragraphs.paragraphs_type.small_banner',
     'core.entity_form_display.paragraph.small_banner.default',
+    'crop.type.crop_760_400',
+    'image.style.prgf_small_banner'
   ]);
 }
