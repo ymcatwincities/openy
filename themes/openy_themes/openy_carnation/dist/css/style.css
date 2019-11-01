@@ -14157,9 +14157,6 @@ body.path-user:not(.user-logged-in) {
   .banner--small {
     min-height: 120px;
     padding-top: 70px; }
-    @media (min-width: 992px) {
-      .banner--small {
-        padding-top: 0; } }
   .banner--medium {
     min-height: 120px; }
     @media (min-width: 992px) {
