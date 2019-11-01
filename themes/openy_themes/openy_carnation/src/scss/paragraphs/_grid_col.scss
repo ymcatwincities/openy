@@ -1,10 +1,18 @@
 .paragraph--column-in-a-grid {
-  .col-12:first-child h2 {
-    color: $cyan;
+  .col-12:first-child {
+    h2 {
+      color: $cyan;
+    }
+    i.fa {
+      color: $cyan;
+    }
   }
 
   .col-12:nth-child(2) {
     h2 {
+      color: $yellow;
+    }
+    i.fa {
       color: $yellow;
     }
 
@@ -15,6 +23,9 @@
 
   .col-12:last-child {
     h2 {
+      color: $orange;
+    }
+    i.fa {
       color: $orange;
     }
 
