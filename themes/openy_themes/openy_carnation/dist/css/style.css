@@ -11324,8 +11324,7 @@ article .node--view-mode-flexible-content h2 {
   display: inline; }
 
 .embedded-entity img {
-  display: inline-block;
-  padding: 10px 0; }
+  display: inline-block; }
 
 .openy-map-canvas {
   height: 500px; }
