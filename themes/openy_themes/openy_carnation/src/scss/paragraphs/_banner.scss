@@ -40,10 +40,6 @@
   &--small {
     min-height: 120px;
     padding-top: 70px;
-
-    @include media-breakpoint-up(lg) {
-      padding-top: 0;
-    }
   }
 
   // heading + subheading (program nodes)
