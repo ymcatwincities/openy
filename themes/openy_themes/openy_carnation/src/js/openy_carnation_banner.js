@@ -34,7 +34,7 @@
       var bannerCta = $(
         '.banner-zone-node .banner .banner-cta, ' +
         '.banner-zone-node .landing-header, ' +
-        '.banner-zone-node .paragraph-gallery', context);
+        '.banner-zone-node .paragraph-gallery', context).last();
       if (breadCrumbs.length && bannerCta.length) {
         breadCrumbs.once('openy-move-breadcrumbs').appendTo(bannerCta);
       }
