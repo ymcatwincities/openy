@@ -9034,11 +9034,6 @@ body.toolbar-fixed.toolbar-vertical.toolbar-tray-open.toolbar-fixed {
 .addthis {
   margin-top: 10px; }
 
-.paragraph--type--banner .banner-title {
-  font-size: 60px;
-  line-height: normal;
-  letter-spacing: -1.5px; }
-
 @media (min-width: 576px) {
   .block-description--text h2 {
     font-size: 26px; } }
@@ -14175,6 +14170,11 @@ body.path-user:not(.user-logged-in) {
       min-height: 700px; }
       .banner--large .banner-cta {
         min-height: 700px; } }
+
+.paragraph--type--banner .banner-title {
+  font-size: 60px;
+  line-height: normal;
+  letter-spacing: -1.5px; }
 
 .paragraph--type--location-filter-by-amenities .field-amenities-filter .views-field-title {
   font-size: 16px; }
