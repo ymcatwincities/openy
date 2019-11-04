@@ -7,8 +7,9 @@ global-styling:
   js:
     dist/js/popper.min.js: {}
     https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js: {type: external, minified: true}
-    dist/js/jquery.matchHeight.min.js: {}
-    src/js/openy_carnation.js: {}
+    src/js/jquery.matchHeight.min.js: {}
+    dist/js/openy_carnation.js: {}
+    dist/main.js: {}
   dependencies:
     - core/jquery.once
     - core/jquery.ui.datepicker
@@ -19,8 +20,8 @@ global-styling:
 landing:
   version: 0.1
   js:
-    src/js/affix.js: {}
-    src/js/openy_carnation_landing.js: {}
+    dist/js/affix.min.js: {}
+    dist/js/openy_carnation_landing.js: {}
   dependencies:
     - core/jquery
     - core/jquery.once
@@ -30,7 +31,7 @@ landing:
 hb_loc_selector_branch_page_override:
   version: 0.1
   js:
-    src/js/hb-loc-selector-branch-page-override.js: {}
+    dist/js/hb-loc-selector-branch-page-override.js: {}
   dependencies:
     - core/drupalSettings
     - openy_home_branch/loc_selector_branch_page
@@ -38,7 +39,7 @@ hb_loc_selector_branch_page_override:
 hb_menu_selector_override:
   version: 0.1
   js:
-    src/js/hb-menu-selector-override.js: {}
+    dist/js/hb-menu-selector-override.js: {}
   dependencies:
     - core/drupalSettings
     - openy_home_branch/menu_selector
@@ -46,7 +47,7 @@ hb_menu_selector_override:
 hb_location_finder_override:
   version: 0.1
   js:
-    src/js/hb-location-finder-override.js: {}
+    dist/js/hb-location-finder-override.js: {}
   css:
     theme:
       src/css/hb-location-finder-override.css: {}

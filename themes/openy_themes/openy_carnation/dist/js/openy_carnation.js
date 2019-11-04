@@ -95,7 +95,7 @@
    */
   Drupal.behaviors.openyMobileMenu = {
     attach: function (context, settings) {
-      var sidebar = $('#sidebar');
+      var sidebar = jQuery('#sidebar');
       var topNav = $('.top-navs');
 
       sidebar.on('show.bs.collapse', function () {
