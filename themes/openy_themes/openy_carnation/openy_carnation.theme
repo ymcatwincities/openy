@@ -175,6 +175,7 @@ function openy_carnation_preprocess_page(array &$variables) {
   $variables['display_search'] = theme_get_setting('display_search_form');
   $variables['base_path'] = \Drupal::request()->getSchemeAndHttpHost();
   $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
+  $variables['#attached']['drupalSettings']['matchheight']['selectors'] = load_matchheight_selectors();
 
   if (Drupal::hasService('plugin.manager.home_branch_library')) {
     // Fix hb_menu_selector plugin for Open Y Carnation theme.
@@ -182,6 +183,24 @@ function openy_carnation_preprocess_page(array &$variables) {
   }
 
   openy_carnation_preprocess_page_logo($variables);
+}
+
+/**
+ * Returns list of css class selectors to apply jquery.matchheight function to.
+ * @return array
+ */
+function load_matchheight_selectors() {
+  $setting = theme_get_setting('matchheight_css_classes');
+  if(strlen($setting) > 0) {
+    $setting = preg_replace("/\n$/", "", $setting);
+    if(is_string($setting)) {
+      $css_selectors = explode("\n", $setting);
+      if(is_array($css_selectors)) {
+        return $css_selectors;
+      }
+    }
+  }
+  return array();
 }
 
 function openy_carnation_preprocess_page_logo(&$variables) {
@@ -399,6 +418,7 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
   }
 
   openy_carnation_camp_section_settings($form, $form_state);
+  openy_carnation_matchheight_settings($form, $form_state);
 }
 
 /**
@@ -441,6 +461,23 @@ function openy_carnation_camp_section_settings(array &$form, FormStateInterface 
   if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_favicon'))) !== NULL) {
     openy_carnation_set_theme_file_usage($file);
   }
+}
+
+function openy_carnation_matchheight_settings(array &$form, FormStateInterface &$form_state) {
+  $form['matchheight_section'] = array(
+    '#type' => 'details',
+    '#title' => t('jQuery MatchHeight'),
+    '#description' => t('MatchHeight makes the height of all selected elements exactly equal.</br><a href="https://brm.io/jquery-match-height/">https://brm.io/jquery-match-height/</a></br>While this used to be a tricky problem, its advisable to use CSS Flexbox and</br> CSS Grid where possible these days, though this library may still be useful for legacy browsers.'),
+    '#open' => TRUE,
+  );
+  $form['matchheight_section']['matchheight_css_classes'] = array(
+    '#description' => t('CSS selectors for matchheight library'),
+    '#type' => 'textarea',
+    '#rows' => '10',
+    '#cols' => '10',
+    '#resizable' => 'vertical',
+    '#default_value' => theme_get_setting('matchheight_css_classes')
+  );
 }
 
 /**
