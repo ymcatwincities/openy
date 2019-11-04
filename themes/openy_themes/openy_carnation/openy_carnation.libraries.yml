@@ -23,7 +23,6 @@ global-styling:
     - core/jquery.ui.datepicker
     - core/drupal
     - openy_rose/blog_slider
-    - openy_system/jquery.matchHeight
 
 landing:
   version: 0.1
@@ -69,3 +68,11 @@ carnation_toolbar:
     src/js/openy_carnation_toolbar.js: {}
   dependencies:
     - core/toolbar
+
+matchheight:
+  version: 0.1
+  js:
+    src/js/matchheight.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_system/jquery.matchHeight
