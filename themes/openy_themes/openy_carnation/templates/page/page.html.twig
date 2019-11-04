@@ -141,8 +141,7 @@
                   <span style="display: inline-block;height:100%;"></span>
                   {% if logo_url %}
                     <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                      <img class="primary-logo" src="{{ logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
-                      <img class="secondary-logo" style="display: none;height: 46px;width: auto;" src="{{ white_background_logo }}" alt="{{ site_slogan|t }}">
+                      <img class="logo" src="{{ logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
                     </a>
                   {% else %}
                     <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>

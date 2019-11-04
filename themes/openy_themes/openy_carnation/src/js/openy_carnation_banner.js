@@ -13,14 +13,6 @@
       var bannerHeader = $('.paragraph--type--banner, .landing-header, .page-heading');
       if (bannerHeader.length > 0) {
         $('.banner-zone-node').once('openy-move-banners').append(bannerHeader.eq(0));
-        $('body').addClass('with-banner');
-        $('.primary-logo').show();
-        $('.secondary-logo').hide();
-      }
-      else {
-        $('body').addClass('without-banner');
-        $('.primary-logo').hide();
-        $('.secondary-logo').show();
       }
     }
   };

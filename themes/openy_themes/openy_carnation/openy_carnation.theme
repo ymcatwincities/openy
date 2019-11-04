@@ -74,6 +74,13 @@ function openy_carnation_preprocess_html(array &$variables) {
       if (empty($variables['node'])) {
         $variables['node'] = $node;
       }
+
+      $node_type = $node->getType();
+      if(in_array($node_type, array('landing_page','class','blog','news','camp','event','facility','branch','program_subcategory'))) {
+        $variables['body_classes'][] = 'with-banner';
+      } else {
+        $variables['body_classes'][] = 'without-banner';
+      }
     }
   }
 }
@@ -210,35 +217,30 @@ function load_matchheight_selectors() {
 }
 
 function openy_carnation_preprocess_page_logo(&$variables) {
-  $variables['camp_section_logo'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo'));
-  $variables['camp_favicon'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon'));
-  $variables['camp_section_logo_url'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
-  $variables['logo_url'] = file_create_url(theme_get_setting('logo.path'));
-  $white_background_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_white_background_logo'));
-  if ($white_background_logo) {
-    $variables['white_background_logo'] = file_create_url($white_background_logo);
-  }
-  else {
-    $variables['white_background_logo'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
-  }
-
-  // Set special variables for Camp and Branch (Location) nodes.
-  if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
-    $node = $variables['node'];
-    /** @var Drupal\openy_loc_camp\CampService $service */
+  $is_node_camp_related = false;
+  if ($node = \Drupal::routeMatch()
+    ->getParameter('node')) {
     if (\Drupal::hasService('openy_loc_camp.camp_service') && $service = \Drupal::service('openy_loc_camp.camp_service')) {
-      if ($service->nodeHasOrIsCamp($node)) {
-        $variables['page_class'] = 'is-camp';
+      $is_node_camp_related = $service->nodeHasOrIsCamp($node);
+    }
+    $node_type = $node->getType();
+    if(in_array($node_type, array('landing_page','class','blog','news','camp','event','facility','branch','program_subcategory'))) {
+      $variables['logo_url'] = file_create_url(theme_get_setting('logo.path'));
+    } else {
+      $color_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_white_background_logo'));
+      if ($color_logo) {
+        $color_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_white_background_logo'));
+        $variables['logo_url'] = file_create_url($color_logo);
       }
-      if ($node->bundle() == 'branch') {
-        $variables['page_class'] = 'is-branch';
+      else {
+        $variables['logo_url'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
       }
     }
   }
 
-  if (isset($variables['page_class']) && $variables['page_class'] == 'is-camp'
-    && isset($variables['camp_section_logo_url'])) {
-    $variables['logo_url'] = $variables['camp_section_logo_url'];
+  if($is_node_camp_related) {
+    $variables['logo_url'] = file_create_url(openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo')));
+    $variables['camp_favicon'] = file_create_url(openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon')));
   }
 }
 
