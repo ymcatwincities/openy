@@ -171,7 +171,6 @@ function openy_carnation_set_theme_file_usage(FileInterface $file) {
  * Implements hook_preprocess_page().
  */
 function openy_carnation_preprocess_page(array &$variables) {
-  $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
   $variables['display_search'] = theme_get_setting('display_search_form');
   $variables['base_path'] = \Drupal::request()->getSchemeAndHttpHost();
   $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
