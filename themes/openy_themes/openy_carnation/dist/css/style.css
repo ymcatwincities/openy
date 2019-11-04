@@ -11122,8 +11122,14 @@ article .node--view-mode-flexible-content h2 {
     color: #fff;
     font-size: 18px; }
 
-.layout-container .top-navs .logo img {
-  width: 105px; }
+.logo {
+  float: left; }
+  .logo span {
+    display: inline-block;
+    height: 100%; }
+  .logo img {
+    height: 46px;
+    width: auto; }
 
 .layout-container .top-navs.affix {
   background: #fff; }
