@@ -23,12 +23,16 @@ use Drupal\node\NodeInterface;
  * Implements hook_preprocess_html().
  */
 function openy_carnation_preprocess_html(array &$variables) {
-  $variables['theme_name'] = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  $variables['theme_name'] = \Drupal::service('theme.manager')
+    ->getActiveTheme()
+    ->getName();
 
   // Preprocess the node to find all paragraphs and react on them.
   if (!empty($variables['node_type'])) {
     /** @var \Drupal\node\Entity\Node $node */
-    if (($node = \Drupal::routeMatch()->getParameter('node')) || ($node = \Drupal::routeMatch()->getParameter('node_preview'))) {
+    if (($node = \Drupal::routeMatch()
+        ->getParameter('node')) || ($node = \Drupal::routeMatch()
+        ->getParameter('node_preview'))) {
       $paragraph_field_ids = [];
       // Get all the entity reference revisions fields.
       $map = \Drupal::service('entity_field.manager')
@@ -85,7 +89,8 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
       case 'program':
         if (!$node->get('field_program_image')->isEmpty()) {
           $uri = $node->get('field_program_image')->entity->get('field_media_image')->entity->uri->value;
-          $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
+          $variables['header_image'] = ImageStyle::load('prgf_gallery')
+            ->buildUrl($uri);
         }
         break;
 
@@ -93,7 +98,8 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
       case 'program_subcategory':
         if (!$node->get('field_category_image')->isEmpty()) {
           $uri = $node->get('field_category_image')->entity->get('field_media_image')->entity->uri->value;
-          $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
+          $variables['header_image'] = ImageStyle::load('prgf_gallery')
+            ->buildUrl($uri);
         }
         break;
 
@@ -113,7 +119,8 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
   // Add alt attributes to images in subprogram listings.
   if ($view_mode == 'teaser') {
     $entity = $variables['elements']['#node'];
-    if ($entity->hasField('field_category_image') && !$entity->get('field_category_image')->isEmpty()) {
+    if ($entity->hasField('field_category_image') && !$entity->get('field_category_image')
+        ->isEmpty()) {
       $entity->get('field_category_image')->entity->get('field_media_image')->alt = $entity->label();
     }
   }
@@ -208,10 +215,11 @@ function openy_carnation_preprocess_page_logo(&$variables) {
   $variables['camp_section_logo_url'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
   $variables['logo_url'] = file_create_url(theme_get_setting('logo.path'));
   $white_background_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_white_background_logo'));
-  if($white_background_logo) {
+  if ($white_background_logo) {
     $variables['white_background_logo'] = file_create_url($white_background_logo);
-  } else {
-    $variables['white_background_logo'] = file_create_url(drupal_get_path("theme","openy_carnation") . "/dist/img/logo-color.png");
+  }
+  else {
+    $variables['white_background_logo'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
   }
 
   // Set special variables for Camp and Branch (Location) nodes.
@@ -228,8 +236,8 @@ function openy_carnation_preprocess_page_logo(&$variables) {
     }
   }
 
-  if(isset($variables['page_class']) && $variables['page_class'] == 'is-camp'
-      && isset($variables['camp_section_logo_url'])) {
+  if (isset($variables['page_class']) && $variables['page_class'] == 'is-camp'
+    && isset($variables['camp_section_logo_url'])) {
     $variables['logo_url'] = $variables['camp_section_logo_url'];
   }
 }
@@ -244,6 +252,7 @@ function openy_carnation_preprocess_paragraph(array &$variables) {
   if (empty($variables['paragraph'])) {
     return;
   }
+
   if ($variables['paragraph']->getType() == HBLocationFinder::PRGF_TYPE) {
     // Fix theming for hb_location_finder plugin for Open Y Carnation theme.
     $variables['#attached']['library'][] = 'openy_carnation/hb_location_finder_override';
@@ -401,18 +410,18 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
     '#description' => t('Show search form in the header'),
   ];
 
-  $form['logo']['settings']['openy_carnation_white_background_logo'] = array(
+  $form['logo']['settings']['openy_carnation_white_background_logo'] = [
     '#type' => 'managed_file',
     '#title' => t('White background logo'),
     '#description' => t('To display a logo in the header area where background is white.</br>Image size suggested 92 x 70 pixels.'),
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('png jpg jpeg gif svg'),
-    ),
+    '#upload_validators' => [
+      'file_validate_extensions' => ['png jpg jpeg gif svg'],
+    ],
     '#upload_location' => 'public://',
     '#default_value' => theme_get_setting('openy_carnation_white_background_logo'),
-  );
+  ];
 
-  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_white_background_logo'))) !== NULL) {
+  if (($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_white_background_logo'))) !== NULL) {
     openy_carnation_set_theme_file_usage($file);
   }
 
@@ -424,40 +433,40 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
  * Camp section on theme settings page
  */
 function openy_carnation_camp_section_settings(array &$form, FormStateInterface &$form_state) {
-  $form['camp_section'] = array(
+  $form['camp_section'] = [
     '#type' => 'details',
     '#title' => t('Camp section'),
     '#description' => t('Contains theme configuration for camp and camp related content.'),
     '#open' => TRUE,
-  );
-  $form['camp_section']['openy_carnation_camp_section_logo'] = array(
+  ];
+  $form['camp_section']['openy_carnation_camp_section_logo'] = [
     '#type' => 'managed_file',
     '#title' => t('Camp section logo'),
     '#description' => t('To display a logo in the header area on camp pages, and camp related landing pages, upload it here.</br>Image size suggested 92 x 70 pixels.'),
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('png jpg jpeg gif svg'),
-    ),
+    '#upload_validators' => [
+      'file_validate_extensions' => ['png jpg jpeg gif svg'],
+    ],
     '#upload_location' => 'public://',
     '#default_value' => theme_get_setting('openy_carnation_camp_section_logo'),
-  );
-  $form['camp_section']['openy_carnation_camp_favicon'] = array(
+  ];
+  $form['camp_section']['openy_carnation_camp_favicon'] = [
     '#type' => 'managed_file',
     '#title' => t('Camp favicon'),
     '#description' => t('To display a favicon on camp pages, and camp related landing pages, upload it here.</br>Image sizes must be 16×16, 32×32, 48×48, or 64×64 pixels.</br>Accepted file types ico, png, gif.'),
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('ico png gif'),
-    ),
+    '#upload_validators' => [
+      'file_validate_extensions' => ['ico png gif'],
+    ],
     '#upload_location' => 'public://',
     '#default_value' => theme_get_setting('openy_carnation_camp_favicon'),
-  );
+  ];
 
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_carnation theme.
-  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_section_logo'))) !== NULL) {
+  if (($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_section_logo'))) !== NULL) {
     openy_carnation_set_theme_file_usage($file);
   }
-  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_favicon'))) !== NULL) {
+  if (($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_favicon'))) !== NULL) {
     openy_carnation_set_theme_file_usage($file);
   }
 }
@@ -481,6 +490,7 @@ function openy_carnation_matchheight_settings(array &$form, FormStateInterface &
 
 /**
  * @param $fid_array
+ *
  * @return \Drupal\file\Entity\File|null
  */
 function openy_carnation_entity_file_by_fid($fid_array) {
@@ -496,12 +506,13 @@ function openy_carnation_entity_file_by_fid($fid_array) {
 
 /**
  * @param $fid_array
+ *
  * @return uri|''
  */
 function openy_carnation_entity_file_uri_by_fid($fid_array) {
   $file = openy_carnation_entity_file_by_fid($fid_array);
   if ($file !== NULL) {
-      return $file->getFileUri();
+    return $file->getFileUri();
   }
 
   return '';
