@@ -14075,7 +14075,7 @@ body.path-user:not(.user-logged-in) {
         line-height: 25px; } }
   .banner--small {
     min-height: 120px;
-    padding-top: 70px; }
+    padding-top: 44px; }
   .banner--medium {
     min-height: 120px; }
     @media (min-width: 992px) {
