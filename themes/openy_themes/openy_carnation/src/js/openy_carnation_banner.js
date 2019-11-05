@@ -18,22 +18,6 @@
   };
 
   /**
-   * Ensure breadcrumbs are after banners in the DOM
-   */
-  Drupal.behaviors.openyMoveBreadcrumbs = {
-    attach: function (context, settings) {
-      var breadCrumbs = $('.breadcrumbs-wrapper', context);
-      var bannerCta = $(
-        '.banner-zone-node .banner .banner-cta, ' +
-        '.banner-zone-node .landing-header, ' +
-        '.banner-zone-node .paragraph-gallery', context).last();
-      if (breadCrumbs.length && bannerCta.length) {
-        breadCrumbs.once('openy-move-breadcrumbs').appendTo(bannerCta);
-      }
-    }
-  };
-
-  /**
    * Ensure header alerts are after breadcrumbs in the DOM
    */
   Drupal.behaviors.openyMoveHeaderAlerts = {

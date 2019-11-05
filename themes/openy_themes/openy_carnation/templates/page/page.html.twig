@@ -159,8 +159,9 @@
       </div>
     </header>
 
-    {{ page.header }}
-    {{ page.breadcrumb }}
+    {% if render_carnation_breadcrambs %}
+      {{ page.header }}
+    {% endif %}
     {{ page.highlighted }}
     {{ page.help }}
 
