@@ -13,30 +13,6 @@
       var bannerHeader = $('.paragraph--type--banner, .landing-header, .page-heading');
       if (bannerHeader.length > 0) {
         $('.banner-zone-node').once('openy-move-banners').append(bannerHeader.eq(0));
-        $('body').addClass('with-banner');
-        $('.primary-logo').show();
-        $('.secondary-logo').hide();
-      }
-      else {
-        $('body').addClass('without-banner');
-        $('.primary-logo').hide();
-        $('.secondary-logo').show();
-      }
-    }
-  };
-
-  /**
-   * Ensure breadcrumbs are after banners in the DOM
-   */
-  Drupal.behaviors.openyMoveBreadcrumbs = {
-    attach: function (context, settings) {
-      var breadCrumbs = $('.breadcrumbs-wrapper', context);
-      var bannerCta = $(
-        '.banner-zone-node .banner .banner-cta, ' +
-        '.banner-zone-node .landing-header, ' +
-        '.banner-zone-node .paragraph-gallery', context).last();
-      if (breadCrumbs.length && bannerCta.length) {
-        breadCrumbs.once('openy-move-breadcrumbs').appendTo(bannerCta);
       }
     }
   };
