@@ -14287,39 +14287,52 @@ body.path-user:not(.user-logged-in) {
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
-  margin: -20px 0 40px; }
-  .paragraph--type--lto .field-lto-title {
+  width: 100%;
+  margin-bottom: 10px; }
+  .paragraph--type--lto .container {
+    max-width: 100%; }
+    .paragraph--type--lto .container .row {
+      margin-left: 0px; }
+  .paragraph--type--lto .block--title {
     font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #fff;
-    font-size: 28px; }
-    @media (min-width: 576px) {
-      .paragraph--type--lto .field-lto-title {
-        margin: 0 0 0 10px;
+    font-size: 32px; }
+    @media (max-width: 767.98px) {
+      .paragraph--type--lto .block--title {
+        margin: 0px;
+        padding: 0px;
         font-size: 24px; } }
-    @media (min-width: 768px) {
-      .paragraph--type--lto .field-lto-title {
+    @media (min-width: 576px) and (max-width: 991.98px) {
+      .paragraph--type--lto .block--title {
         font-size: 32px; } }
-  .paragraph--type--lto .field-lto-subtitle {
+  .paragraph--type--lto .block--subtitle {
     font-family: "Cachet", sans-serif;
     font-weight: 400;
     color: #fff;
     font-size: 20px;
     padding-bottom: 14px; }
-    @media (min-width: 576px) {
-      .paragraph--type--lto .field-lto-subtitle {
+    @media (min-width: 992px) {
+      .paragraph--type--lto .block--subtitle {
+        padding: 20px 0 0 0; } }
+    @media (min-width: 768px) {
+      .paragraph--type--lto .block--subtitle {
         margin: 0 0 0 10px;
         font-size: 18px; } }
-    @media (min-width: 768px) {
-      .paragraph--type--lto .field-lto-subtitle {
-        padding: 15px 0 0 0; } }
+    @media (max-width: 767.98px) {
+      .paragraph--type--lto .block--subtitle {
+        padding: 0px 0px 14px;
+        font-size: 16px; } }
+  @media (max-width: 767.98px) {
+    .paragraph--type--lto .block--btn {
+      padding-left: 0px; } }
   @media (min-width: 576px) and (max-width: 1199.98px) {
     .paragraph--type--lto .block--subtitle {
       clear: both; }
     .paragraph--type--lto .block--btn {
       display: inline-block;
       float: none;
-      padding: 10px 20px 0 20px; } }
+      padding: 0px 20px 0 20px; } }
   .paragraph--type--lto .btn {
     white-space: normal;
     font-size: 18px;
