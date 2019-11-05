@@ -11336,7 +11336,7 @@ article .node--view-mode-flexible-content h2 {
   height: 500px; }
 
 .openy-map-canvas.openy-map {
-  z-index: 5; }
+  z-index: 1; }
 
 .field-location-address {
   position: relative;

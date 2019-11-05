@@ -207,6 +207,26 @@ function openy_carnation_preprocess_page(array &$variables) {
   }
 
   openy_carnation_preprocess_page_logo($variables);
+
+  if ($node = \Drupal::routeMatch()
+    ->getParameter('node')) {
+    $node_type = $node->getType();
+    if (in_array($node_type, [
+      'landing_page',
+      'class',
+      'blog',
+      'news',
+      'camp',
+      'event',
+      'facility',
+      'branch',
+      'program_subcategory',
+    ])) {
+      $variables['render_carnation_breadcrambs'] = FALSE;
+    } else {
+      $variables['render_carnation_breadcrambs'] = TRUE;
+    }
+  }
 }
 
 /**
