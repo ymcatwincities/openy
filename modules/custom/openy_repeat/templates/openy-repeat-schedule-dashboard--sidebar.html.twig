@@ -10,155 +10,135 @@
 <div class="navbar navbar-default">
   <div class="navbar-header">
 
-    <div class="navbar-controls">
-      <span class="navbar-controls__title hidden-xs"><strong>{{ 'Filters'|t }}</strong></span>
+    <div class="navbar-controls hidden-xs hidden-sm">
+      <span class="navbar-controls__title">
+        <strong>{{ 'Filters'|t }}</strong>
+      </span>
+      <a class="clear-filters" v-on:click="clearFilters()">Clear Filters</a>
       <a href="#" class="clear-all hidden">{{ 'Clear all'|t }}</a>
     </div>
 
-    <div class="row hidden-sm hidden-md hidden-lg">
-
+    <div class="row hidden-md hidden-lg">
       {# mobile toggler button #}
-      <div class="col-xs-5">
-        <button data-toggle="collapse" data-target="#schedules-filters" role="button" class="collapsed button-no-style">
-          <strong>
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <span class="plus">{{ 'Show Filters'|t }}</span>
-            <span class="minus">{{ 'Hide Filters'|t }}</span>
-          </strong>
-        </button>
-      </div>
-
-      <div class="col-xs-7">
-        <a class="btn btn-md btn-block btn-schedule-pdf hidden">{{ 'View PDF Schedule'|t }} <i class="fa fa-print hidden-xs"></i></a>
+      <div class="col-xs-12">
+        <div class="form-group-wrapper mobile-refine-results">
+          <label class="label-mobile-results" type="button" data-toggle="collapse" data-target="#schedules-filters" aria-expanded="false" aria-controls="schedules-filters">
+            <p class="m-0">{{ 'Refine results'|t }}
+              <small v-show="getFiltersCounter('locations') > 0" class="badge">${ getFiltersCounter('locations') }</small>
+            </p>
+            <i class="fa fa-minus-circle minus" aria-hidden="true"></i>
+            <i class="fa fa-minus-circle plus" aria-hidden="true"></i>
+          </label>
+        </div>
       </div>
     </div>
 
   </div>
+  <div class="collapse schedules-filters" id="schedules-filters">
+    <div class="card card-body">
+      <form class="navbar-form schedules-navbar-form" role="search">
+        <div class="navbar-controls navbar-controls-mobile hidden-md hidden-lg">
+      <span class="navbar-controls__title">
+        <strong>{{ 'Filters'|t }}</strong>
+      </span>
+          <a class="clear-filters" v-on:click="clearFilters()">Clear Filters</a>
+          <a href="#" class="clear-all hidden">{{ 'Clear all'|t }}</a>
+        </div>
+        {# date picker #}
+        <div class="form-group-wrapper">
+          <label v-on:click="toggleTab('date')" for="form-group-date" role="button">
+            <p class="m-0">{{ 'Date'|t }}<span class="header-today date" v-cloak>${ dateCalendarFormatted }</span></p>
+            <input type="hidden" id="datepicker2" disabled>
+              <i v-cloak v-if="this.filterTabs.date" class="fa fa-minus-circle minus" aria-hidden="true"></i>
+              <i v-cloak v-if="!this.filterTabs.date" class="fa fa-calendar plus" aria-hidden="true"></i>
+          </label>
 
-  <div id="schedules-filters" class="navbar-collapse collapse">
-    <form class="navbar-form" role="search">
-
-      {# date picker #}
-      <div class="form-group-wrapper">
-        <label for="form-group-date">
-          {{ 'Date'|t }}
-          <button class="show-date-filter" data-toggle="collapse" type="button" data-target=".form-group-date" role="button" aria-label="{{ 'Show date filter'|t }}"><i class="fa fa-calendar date-picker"></i></button>
-        </label>
-        <div class="form-group-date collapse" aria-expanded="false">
-          <div class="date" id="datepicker">
-            {% if calendar_limit > 0 %}
-              <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" data-date-end-date="+{{ calendar_limit }}d" />
-            {% else %}
-              <input id="form-group-date" type="text" class="form-control" v-model="dateFormatted" />
-            {% endif %}
-            <span class="input-group-addon hidden">
-              <span class="fa fa-calendar" aria-hidden="true"></span>
-            </span>
+          <div id="form-group-date" class="form-group-date" :class="{ 'collapse' : this.filterTabs.date === 0}">
+            <div class="date" id="datepicker">
+            </div>
           </div>
         </div>
-      </div>
 
-      {# location select list #}
-      {% if locations is not empty %}
-        <div class="form-group-wrapper">
-          <label class="collapsed" for="form-group-location" data-toggle="collapse" data-target=".skip-t" role="button" aria-expanded="false" aria-controls="form-group-location">
-            {{ 'Location'|t }}
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
-          </label>
-          <div id="form-group-location" class="form-group-location" aria-expanded="true">
-            <div class="checkboxes">
-            {% for location in locations %}
-              {% set loc_checked = "t collapse" %}
-              {% if checked_locations is not empty and location in checked_locations %}
-                {% set loc_checked = "checked" %}
-              {% endif %}
-              <div class="checkbox-wrapper skip-{{ loc_checked }}">
-                <input v-on:click="toggleParentClass($event)" type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box {{ loc_checked }} ">
-                <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
-                <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
-                  <div v-for="roomFilter in getRoomFilter('{{ location }}')">
-                    <input type="checkbox" v-model="room" v-bind:value="'{{ location }}' + '||' + roomFilter" v-bind:id="generateId('{{ location }}' + '||' + roomFilter)"/>
-                    <label v-bind:for="generateId('{{ location }}' + '||' + roomFilter)">
-                      ${ roomFilter }
-                    </label>
+        {# location select list #}
+        {% if locations is not empty %}
+          <div class="form-group-wrapper">
+            <label v-on:click="toggleTab('location')" for="form-group-location" role="button">
+              <p class="m-0">{{ 'Location'|t }}<small v-show="getFiltersCounter('locations') > 0" class="badge">${ getFiltersCounter('locations') }</small></p>
+
+              <i v-cloak v-if="this.filterTabs.location" class="fa fa-minus-circle minus" aria-hidden="true"></i>
+              <i v-cloak v-if="!this.filterTabs.location" class="fa fa-plus-circle plus" aria-hidden="true"></i>
+
+            </label>
+
+            <div id="form-group-location" class="form-group-location" :class="{ 'collapse' : this.filterTabs.location === 0 && this.locations.length === 0}">
+              <div class="checkboxes">
+                {% for location in locations %}
+                  <div v-if="showLocationFilterItem('{{ location }}')" class="checkbox-wrapper">
+                    <input type="checkbox" v-model="locations" value="{{ location }}" id="cb-{{ location|lower|replace(' ', '-') }}" class="box">
+                    <label for="cb-{{ location|lower|replace(' ', '-') }}">{{ location }}</label>
+                    <div v-if="getRoomFilter('{{ location }}')" class="checkbox-room-wrapper" v-cloak>
+                      <div v-for="roomFilter in getRoomFilter('{{ location }}')">
+                        <input type="checkbox" v-model="room" v-bind:value="'{{ location }}' + '||' + roomFilter" v-bind:id="generateId('{{ location }}' + '||' + roomFilter)"/>
+                        <label v-bind:for="generateId('{{ location }}' + '||' + roomFilter)">
+                          ${ roomFilter }
+                        </label>
+                      </div>
+                    </div>
                   </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {# categories select list #}
+        {% if categories is not empty and filters.category %}
+          <div class="form-group-wrapper">
+            <label v-on:click="toggleTab('category')" for="form-group-category" role="button">
+              <p class="m-0">{{ 'Category'|t }}<small v-show="getFiltersCounter('categories') > 0" class="badge">${ getFiltersCounter('categories') }</small></p></p>
+
+              <i v-cloak v-if="this.filterTabs.category" class="fa fa-minus-circle minus" aria-hidden="true"></i>
+              <i v-cloak v-if="!this.filterTabs.category" class="fa fa-plus-circle plus" aria-hidden="true"></i>
+
+            </label>
+            <div id="form-group-category" class="form-group-category" :class="{ 'collapse' : this.filterTabs.category === 0}">
+              <div class="checkboxes">
+                {% for category in categories %}
+                  {% set cat_checked = "t" %}
+                  {% if checked_categories is not empty and category in checked_categories %}
+                    {% set cat_checked = "checked" %}
+                  {% endif %}
+                  <div class="checkbox-wrapper">
+                    <input type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
+                    <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
+        {# class name select list #}
+        {% if filters.classname %}
+          <div v-if="getClassFilter()" class="form-group-wrapper">
+            <label for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" class="expanded" aria-controls="form-group-classname">
+              {{ 'Class name'|t }}
+              <i class="fa fa-minus-circle minus" aria-hidden="true"></i>
+              <i class="fa fa-plus-circle plus" aria-hidden="true"></i>
+            </label>
+            <div id="form-group-classname" class="form-group-classname collapse in" aria-expanded="true">
+              <div class="checkboxes">
+                <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
+                  <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
+                  <label v-bind:for="generateId(classFilter)">
+                    ${ classFilter }
+                  </label>
                 </div>
               </div>
-            {% endfor %}
             </div>
           </div>
-        </div>
-      {% endif %}
-
-      {# categories select list #}
-      {% if categories is not empty and filters.category %}
-        <div class="form-group-wrapper">
-          <label class="collapsed" for="form-group-category" data-toggle="collapse" data-target=".skip-c" role="button"  aria-expanded="false" aria-controls="form-group-category">
-            {{ 'Category'|t }}
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-          </label>
-          <div id="form-group-category" class="form-group-category" aria-expanded="true">
-            <div class="checkboxes">
-              {% for category in categories %}
-                {% set cat_checked = "c collapse" %}
-                {% if checked_categories is not empty and category in checked_categories %}
-                  {% set cat_checked = "checked" %}
-                {% endif %}
-                <div class="checkbox-wrapper skip-{{ cat_checked }}">
-                  <input v-on:click="toggleParentClass($event, 'skip-c')" type="checkbox" v-model="categories" v-bind:class="{ hidden: categoryExcluded('{{ category|replace("'", '`') }}') }" value="{{ category }}" id="cb-{{ category|lower|replace(' ', '-') }}" class="box" {{ cat_checked }}>
-                  <label for="cb-{{ category|lower|replace(' ', '-') }}">{{ category }}</label>
-                </div>
-              {% endfor %}
-            </div>
-          </div>
-        </div>
-      {% endif %}
-
-      {# class name select list #}
-      {% if filters.classname %}
-        <div v-if="getClassFilter()" class="form-group-wrapper">
-          <label class="collapsed" for="form-group-classname" data-toggle="collapse" data-target="#form-group-classname" role="button" aria-expanded="false" aria-controls="form-group-classname">
-            {{ 'Class name'|t }}
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
-          </label>
-          <div id="form-group-classname" class="form-group-classname collapse" aria-expanded="true">
-            <div class="checkboxes">
-              <div v-for="classFilter in getClassFilter()" class="checkbox-wrapper">
-                <input type="checkbox" v-model="className" v-bind:value="classFilter" v-bind:id="generateId(classFilter)" class="box"/>
-                <label v-bind:for="generateId(classFilter)">
-                  ${ classFilter }
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-
-      {# instructors select list #}
-      {% if filters.instructors %}
-        <div v-if="getInstructorFilter()" class="form-group-wrapper">
-          <label for="form-group-instructors" data-toggle="collapse" data-target="#form-group-instructors" aria-expanded="false" role="button" aria-controls="form-group-classname">
-            {{ 'Instructors'|t }}
-            <i class="fa fa-minus minus" aria-hidden="true"></i>
-            <i class="fa fa-plus plus" aria-hidden="true"></i>
-          </label>
-          <div id="form-group-instructors" class="form-group-instructors collapse" aria-expanded="true">
-            <div class="checkboxes">
-              <div v-for="instructorFilter in getInstructorFilter()" class="checkbox-wrapper" v-if="instructorFilter">
-                <input type="checkbox" v-model="instructors" v-bind:value="instructorFilter" v-bind:id="generateId(instructorFilter)" class="box"/>
-                <label v-bind:for="generateId(instructorFilter)">
-                  ${ instructorFilter }
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-
-    </form>
+        {% endif %}
+      </form>
+    </div>
   </div>
 </div>
