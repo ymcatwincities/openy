@@ -6,15 +6,15 @@
  */
 
 /**
- * Implements hook_field_group_build_pre_render_alter().
+ * Implements hook_field_group_form_process_alter().
  */
-function openy_node_landing_field_group_build_pre_render_alter(&$element) {
-  if (!isset($element['group_sidebar_area']) || !isset($element['group_sidebar_area']['#bundle']) || $element['group_sidebar_area']['#bundle'] != 'landing_page') {
+function openy_node_landing_field_group_form_process_alter(array &$element, &$group, &$complete_form) {
+  if ($element['#group_name'] !== 'group_sidebar_area' || !isset($element['#bundle']) || $element['#bundle'] != 'landing_page') {
     return;
   }
   // Set visible states for Landing page form Group Sidebar Area when Layout has
   // a two columns option selected.
-  $element['group_sidebar_area']['#states'] = [
+  $element['#states'] = [
     'visible' => [
       [
         'select[name="field_lp_layout"]' => ['value' => 'two_column'],
