@@ -55,9 +55,9 @@
         <div class="d-flex w-100">
           <div class="col-auto mr-auto">
             {% block mobile_logo %}
-              {% if logo_url %}
+              {% if mobile_logo_url %}
                 <a class="logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                  <img class="logo-img" src="{{ logo_url }}" alt="{{ site_slogan|t }}">
+                  <img src="{{ mobile_logo_url }}" alt="{{ site_slogan|t }}">
                 </a>
               {% else %}
                 <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
@@ -137,12 +137,11 @@
               {% endif %}
 
               {% block fullsite_logo %}
-                <div class="col-md-2" style="float: left;">
-                  <span style="display: inline-block;height:100%;"></span>
+                <div class="col-md-2 logo">
+                  <span></span>
                   {% if logo_url %}
                     <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                      <img class="primary-logo" src="{{ logo_url }}" alt="{{ site_slogan|t }}" style="height: 46px;width: auto;">
-                      <img class="secondary-logo" style="display: none;height: 46px;width: auto;" src="{{ white_background_logo }}" alt="{{ site_slogan|t }}">
+                      <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" />
                     </a>
                   {% else %}
                     <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
@@ -150,7 +149,7 @@
                 </div>
               {% endblock %}
 
-              <div class="page-head__main-menu nav-home nav-desktop col-md-10" style="float: left;">
+              <div class="page-head__main-menu nav-home nav-desktop col-md-10">
                 {{ page.primary_menu }}
               </div>
             </div>
@@ -160,8 +159,9 @@
       </div>
     </header>
 
-    {{ page.header }}
-    {{ page.breadcrumb }}
+    {% if render_carnation_breadcrambs %}
+      {{ page.header }}
+    {% endif %}
     {{ page.highlighted }}
     {{ page.help }}
 
