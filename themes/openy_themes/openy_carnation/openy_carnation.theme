@@ -23,12 +23,16 @@ use Drupal\node\NodeInterface;
  * Implements hook_preprocess_html().
  */
 function openy_carnation_preprocess_html(array &$variables) {
-  $variables['theme_name'] = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  $variables['theme_name'] = \Drupal::service('theme.manager')
+    ->getActiveTheme()
+    ->getName();
 
   // Preprocess the node to find all paragraphs and react on them.
   if (!empty($variables['node_type'])) {
     /** @var \Drupal\node\Entity\Node $node */
-    if (($node = \Drupal::routeMatch()->getParameter('node')) || ($node = \Drupal::routeMatch()->getParameter('node_preview'))) {
+    if (($node = \Drupal::routeMatch()
+        ->getParameter('node')) || ($node = \Drupal::routeMatch()
+        ->getParameter('node_preview'))) {
       $paragraph_field_ids = [];
       // Get all the entity reference revisions fields.
       $map = \Drupal::service('entity_field.manager')
@@ -70,6 +74,24 @@ function openy_carnation_preprocess_html(array &$variables) {
       if (empty($variables['node'])) {
         $variables['node'] = $node;
       }
+
+      $node_type = $node->getType();
+      if (in_array($node_type, [
+        'landing_page',
+        'class',
+        'blog',
+        'news',
+        'camp',
+        'event',
+        'facility',
+        'branch',
+        'program_subcategory',
+      ])) {
+        $variables['body_classes'][] = 'with-banner';
+      }
+      else {
+        $variables['body_classes'][] = 'without-banner';
+      }
     }
   }
 }
@@ -85,7 +107,8 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
       case 'program':
         if (!$node->get('field_program_image')->isEmpty()) {
           $uri = $node->get('field_program_image')->entity->get('field_media_image')->entity->uri->value;
-          $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
+          $variables['header_image'] = ImageStyle::load('prgf_gallery')
+            ->buildUrl($uri);
         }
         break;
 
@@ -93,7 +116,8 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
       case 'program_subcategory':
         if (!$node->get('field_category_image')->isEmpty()) {
           $uri = $node->get('field_category_image')->entity->get('field_media_image')->entity->uri->value;
-          $variables['header_image'] = ImageStyle::load('prgf_gallery')->buildUrl($uri);
+          $variables['header_image'] = ImageStyle::load('prgf_gallery')
+            ->buildUrl($uri);
         }
         break;
 
@@ -113,7 +137,8 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
   // Add alt attributes to images in subprogram listings.
   if ($view_mode == 'teaser') {
     $entity = $variables['elements']['#node'];
-    if ($entity->hasField('field_category_image') && !$entity->get('field_category_image')->isEmpty()) {
+    if ($entity->hasField('field_category_image') && !$entity->get('field_category_image')
+        ->isEmpty()) {
       $entity->get('field_category_image')->entity->get('field_media_image')->alt = $entity->label();
     }
   }
@@ -171,7 +196,6 @@ function openy_carnation_set_theme_file_usage(FileInterface $file) {
  * Implements hook_preprocess_page().
  */
 function openy_carnation_preprocess_page(array &$variables) {
-  $variables['relative_logo_url'] = file_url_transform_relative(file_create_url(theme_get_setting('logo.url')));
   $variables['display_search'] = theme_get_setting('display_search_form');
   $variables['base_path'] = \Drupal::request()->getSchemeAndHttpHost();
   $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
@@ -183,6 +207,26 @@ function openy_carnation_preprocess_page(array &$variables) {
   }
 
   openy_carnation_preprocess_page_logo($variables);
+
+  if ($node = \Drupal::routeMatch()
+    ->getParameter('node')) {
+    $node_type = $node->getType();
+    if (in_array($node_type, [
+      'landing_page',
+      'class',
+      'blog',
+      'news',
+      'camp',
+      'event',
+      'facility',
+      'branch',
+      'program_subcategory',
+    ])) {
+      $variables['render_carnation_breadcrambs'] = FALSE;
+    } else {
+      $variables['render_carnation_breadcrambs'] = TRUE;
+    }
+  }
 }
 
 /**
@@ -203,35 +247,46 @@ function load_matchheight_selectors() {
   return array();
 }
 
+/**
+ * NOT A HOOK. Just helper function for preprocess_page
+ * @param $variables
+ */
 function openy_carnation_preprocess_page_logo(&$variables) {
-  $variables['camp_section_logo'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo'));
-  $variables['camp_favicon'] = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon'));
-  $variables['camp_section_logo_url'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
   $variables['logo_url'] = file_create_url(theme_get_setting('logo.path'));
-  $white_background_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_white_background_logo'));
-  if($white_background_logo) {
-    $variables['white_background_logo'] = file_create_url($white_background_logo);
-  } else {
-    $variables['white_background_logo'] = file_create_url(drupal_get_path("theme","openy_carnation") . "/dist/img/logo-color.png");
-  }
-
-  // Set special variables for Camp and Branch (Location) nodes.
-  if (!empty($variables['node']) && $variables['node'] instanceof NodeInterface) {
-    $node = $variables['node'];
-    /** @var Drupal\openy_loc_camp\CampService $service */
+  $variables['mobile_logo_url'] = $variables['logo_url'];
+  $variables['transparent_logo_url'] = $variables['logo_url'];
+  $is_node_camp_related = FALSE;
+  if ($node = \Drupal::routeMatch()
+    ->getParameter('node')) {
     if (\Drupal::hasService('openy_loc_camp.camp_service') && $service = \Drupal::service('openy_loc_camp.camp_service')) {
-      if ($service->nodeHasOrIsCamp($node)) {
-        $variables['page_class'] = 'is-camp';
+      $is_node_camp_related = $service->nodeHasOrIsCamp($node);
+    }
+    $node_type = $node->getType();
+    if (!in_array($node_type, [
+      'landing_page',
+      'class',
+      'blog',
+      'news',
+      'camp',
+      'event',
+      'facility',
+      'branch',
+      'program_subcategory',
+    ])) {
+      $colored_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('colored_logo'));
+      if ($colored_logo) {
+        $colored_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('colored_logo'));
+        $variables['logo_url'] = file_create_url($colored_logo);
       }
-      if ($node->bundle() == 'branch') {
-        $variables['page_class'] = 'is-branch';
+      else {
+        $variables['logo_url'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
       }
     }
   }
 
-  if(isset($variables['page_class']) && $variables['page_class'] == 'is-camp'
-      && isset($variables['camp_section_logo_url'])) {
-    $variables['logo_url'] = $variables['camp_section_logo_url'];
+  if ($is_node_camp_related) {
+    $variables['logo_url'] = file_create_url(openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo')));
+    $variables['camp_favicon'] = file_create_url(openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon')));
   }
 }
 
@@ -245,6 +300,7 @@ function openy_carnation_preprocess_paragraph(array &$variables) {
   if (empty($variables['paragraph'])) {
     return;
   }
+
   if ($variables['paragraph']->getType() == HBLocationFinder::PRGF_TYPE) {
     // Fix theming for hb_location_finder plugin for Open Y Carnation theme.
     $variables['#attached']['library'][] = 'openy_carnation/hb_location_finder_override';
@@ -402,18 +458,18 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
     '#description' => t('Show search form in the header'),
   ];
 
-  $form['logo']['settings']['openy_carnation_white_background_logo'] = array(
+  $form['logo']['settings']['colored_logo'] = [
     '#type' => 'managed_file',
     '#title' => t('White background logo'),
     '#description' => t('To display a logo in the header area where background is white.</br>Image size suggested 92 x 70 pixels.'),
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('png jpg jpeg gif svg'),
-    ),
+    '#upload_validators' => [
+      'file_validate_extensions' => ['png jpg jpeg gif svg'],
+    ],
     '#upload_location' => 'public://',
-    '#default_value' => theme_get_setting('openy_carnation_white_background_logo'),
-  );
+    '#default_value' => theme_get_setting('colored_logo'),
+  ];
 
-  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_white_background_logo'))) !== NULL) {
+  if (($file = openy_carnation_entity_file_by_fid(theme_get_setting('colored_logo'))) !== NULL) {
     openy_carnation_set_theme_file_usage($file);
   }
 
@@ -425,40 +481,40 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
  * Camp section on theme settings page
  */
 function openy_carnation_camp_section_settings(array &$form, FormStateInterface &$form_state) {
-  $form['camp_section'] = array(
+  $form['camp_section'] = [
     '#type' => 'details',
     '#title' => t('Camp section'),
     '#description' => t('Contains theme configuration for camp and camp related content.'),
     '#open' => TRUE,
-  );
-  $form['camp_section']['openy_carnation_camp_section_logo'] = array(
+  ];
+  $form['camp_section']['openy_carnation_camp_section_logo'] = [
     '#type' => 'managed_file',
     '#title' => t('Camp section logo'),
     '#description' => t('To display a logo in the header area on camp pages, and camp related landing pages, upload it here.</br>Image size suggested 92 x 70 pixels.'),
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('png jpg jpeg gif svg'),
-    ),
+    '#upload_validators' => [
+      'file_validate_extensions' => ['png jpg jpeg gif svg'],
+    ],
     '#upload_location' => 'public://',
     '#default_value' => theme_get_setting('openy_carnation_camp_section_logo'),
-  );
-  $form['camp_section']['openy_carnation_camp_favicon'] = array(
+  ];
+  $form['camp_section']['openy_carnation_camp_favicon'] = [
     '#type' => 'managed_file',
     '#title' => t('Camp favicon'),
     '#description' => t('To display a favicon on camp pages, and camp related landing pages, upload it here.</br>Image sizes must be 16×16, 32×32, 48×48, or 64×64 pixels.</br>Accepted file types ico, png, gif.'),
-    '#upload_validators' => array(
-      'file_validate_extensions' => array('ico png gif'),
-    ),
+    '#upload_validators' => [
+      'file_validate_extensions' => ['ico png gif'],
+    ],
     '#upload_location' => 'public://',
     '#default_value' => theme_get_setting('openy_carnation_camp_favicon'),
-  );
+  ];
 
   // Submission handler is not working on theme form
   // See https://www.drupal.org/node/1862892 & https://www.drupal.org/node/2779947
   // Setting file usage for openy_carnation theme.
-  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_section_logo'))) !== NULL) {
+  if (($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_section_logo'))) !== NULL) {
     openy_carnation_set_theme_file_usage($file);
   }
-  if(($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_favicon'))) !== NULL) {
+  if (($file = openy_carnation_entity_file_by_fid(theme_get_setting('openy_carnation_camp_favicon'))) !== NULL) {
     openy_carnation_set_theme_file_usage($file);
   }
 }
@@ -482,6 +538,7 @@ function openy_carnation_matchheight_settings(array &$form, FormStateInterface &
 
 /**
  * @param $fid_array
+ *
  * @return \Drupal\file\Entity\File|null
  */
 function openy_carnation_entity_file_by_fid($fid_array) {
@@ -497,12 +554,13 @@ function openy_carnation_entity_file_by_fid($fid_array) {
 
 /**
  * @param $fid_array
+ *
  * @return uri|''
  */
 function openy_carnation_entity_file_uri_by_fid($fid_array) {
   $file = openy_carnation_entity_file_by_fid($fid_array);
   if ($file !== NULL) {
-      return $file->getFileUri();
+    return $file->getFileUri();
   }
 
   return '';
