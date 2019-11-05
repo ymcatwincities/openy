@@ -19,6 +19,10 @@
 
 // background on fixed nav
 .with-banner {
+  @include media-breakpoint-down(sm) {
+    padding-top: 78px !important;
+  }
+
   .layout-container .top-navs {
     background-color: rgba($primary, .8);
     transition: background-color 0.5s ease;

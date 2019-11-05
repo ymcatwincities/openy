@@ -62,13 +62,6 @@ hb_location_finder_override:
     - core/drupalSettings
     - openy_home_branch/location_finder
 
-carnation_toolbar:
-  version: 0.1
-  js:
-    dist/js/openy_carnation_toolbar.js: {}
-  dependencies:
-    - core/toolbar
-
 matchheight:
   version: 0.1
   js:
