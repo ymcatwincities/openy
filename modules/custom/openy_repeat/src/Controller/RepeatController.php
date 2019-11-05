@@ -97,6 +97,349 @@ class RepeatController extends ControllerBase {
   }
 
   /**
+   * Get schedules by session.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   Request.
+   * @param string $session
+   *   Session.
+   * @param string $location
+   *   Location.
+   * @param string $date
+   *   Date.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   Response.
+   */
+  public function ajaxSchedulerBySession(Request $request, $session, $location, $date) {
+    $event = $this->entityTypeManager
+      ->getStorage('repeat')
+      ->loadByProperties(['session' => $session]);
+
+    $event = array_shift($event);
+    $class = $event->class->referencedEntities();
+    $class = array_shift($class);
+    return $this->ajaxSchedulerByClass($request, $class->id(), $location, $date);
+  }
+
+  /**
+   * Get schedules by instructor.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   Request.
+   * @param string $instructor
+   *   Instructor.
+   * @param string $location
+   *   Location.
+   * @param $date
+   *   String date.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   Response.
+   */
+  public function ajaxSchedulerByInstructor(Request $request, $instructor, $location, $date) {
+    // Get proper date format.
+    $currentDate = date('Y-m-d');
+    if (!empty($date)) {
+      $parsed = date_parse($date);
+      if (empty($parsed['errors'])) {
+        $currentDate = sprintf('%s-%s-%s', $parsed['year'], $parsed['month'], $parsed['day']);
+      }
+    }
+
+    // The next code is just cruel copy of getData() method.
+    // @todo Refactor into the reusable item.
+    // @todo Function strtotime possibly may cause troubles with timezones.
+    $date = strtotime($currentDate);
+
+    $timestamp_start = $date;
+    // Next week.
+    $timestamp_end = $date + 24 * 60 * 60 * 7;
+
+    $query = $this->database->select('node', 'n');
+    $query->rightJoin('repeat_event', 're', 're.session = n.nid');
+    $query->innerJoin('node_field_data', 'nd', 're.location = nd.nid');
+    $query->innerJoin('node_field_data', 'nds', 'n.nid = nds.nid');
+    $query->addField('n', 'nid');
+    $query->addField('nd', 'title', 'location');
+    $query->addField('nds', 'title', 'name');
+    $query->fields('re', [
+      'class',
+      'session',
+      'room',
+      'instructor',
+      'category',
+      'register_url',
+      'register_text',
+      'duration',
+      'weekday'
+    ]);
+    $query->addField('re', 'start', 'start_timestamp');
+    $query->addField('re', 'end', 'end_timestamp');
+
+    // Query conditions.
+    $query->distinct();
+    $query->condition('n.type', 'session');
+    $query->condition('re.start', $timestamp_end, '<=');
+    $query->condition('re.end', $timestamp_start, '>=');
+
+    // @todo This is the only difference from ajaxSchedulerByClass().
+    $query->condition('re.instructor', $instructor);
+
+    if (!empty($location)) {
+      $query->condition('nd.title', explode(',', $location), 'IN');
+    }
+
+    $query->addTag('openy_repeat_get_data');
+
+    $result = $query->execute()->fetchAll();
+
+    $locations_info = $this->getLocationsInfo();
+
+    $classesIds = [];
+    foreach ($result as $key => $item) {
+      $classesIds[$item->class] = $item->class;
+    }
+    $classes_info = $this->getClassesInfo($classesIds);
+
+    $class_name = [];
+    foreach ($result as $key => $item) {
+      $result[$key]->location_info = $locations_info[$item->location];
+
+      if (isset($classes_info[$item->class]['path'])) {
+        $query = UrlHelper::buildQuery([
+          'location' => $locations_info[$item->location]['nid'],
+        ]);
+        if (!in_array($item->name, $class_name)) {
+          $classes_info[$item->class]['path'] .= '?' . $query;
+          $class_name[] = $item->name;
+        }
+      }
+
+      $result[$key]->class_info = $classes_info[$item->class];
+
+      $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
+
+      // Convert timezones for start_time and end_time.
+      $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:iA');
+      $result[$key]->time_end = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'g:iA');
+
+      // Example of calendar format 2018-08-21 14:15:00.
+      $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->timezone = drupal_get_user_timezone();
+
+      // Durations.
+      $result[$key]->duration_minutes = $item->duration % 60;
+      $result[$key]->duration_hours = ($item->duration - $result[$key]->duration_minutes) / 60;
+
+      // Short date & Day.
+      $result[$key]->day_name = $this->getClassDay($item->weekday);
+      $result[$key]->short_date = $this->getClassShortDate($item->weekday);
+      $result[$key]->sort_time = $this->getClassSortTime($item->weekday);
+    }
+
+    usort($result, function($item1, $item2){
+      if ((int) $item1->sort_time == (int) $item2->sort_time) {
+        return 0;
+      }
+      return (int) $item1->sort_time < (int) $item2->sort_time ? -1 : 1;
+    });
+
+    $this->moduleHandler()->alter('openy_repeat_results', $result, $request);
+
+    return new JsonResponse($result);
+  }
+
+  /**
+   * Get schedules by class.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   Request.
+   * @param string $class
+   *   Class.
+   * @param string $location
+   *   Location.
+   * @param string $date
+   *   date.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   * @throws \Exception
+   */
+  public function ajaxSchedulerByClass(Request $request, $class, $location, $date) {
+    // Get proper date format.
+    $currentDate = date('Y-m-d');
+    if (!empty($date)) {
+      $parsed = date_parse($date);
+      if (empty($parsed['errors'])) {
+        $currentDate = sprintf('%s-%s-%s', $parsed['year'], $parsed['month'], $parsed['day']);
+      }
+    }
+
+    // The next code is just cruel copy of getData() method.
+    // @todo Refactor into the reusable item.
+    // @todo Function strtotime possibly may cause troubles with timezones.
+    $date = strtotime($currentDate);
+
+    $timestamp_start = $date;
+    // Next week.
+    $timestamp_end = $date + 24 * 60 * 60 * 7;
+
+    $query = $this->database->select('node', 'n');
+    $query->rightJoin('repeat_event', 're', 're.session = n.nid');
+    $query->innerJoin('node_field_data', 'nd', 're.location = nd.nid');
+    $query->innerJoin('node_field_data', 'nds', 'n.nid = nds.nid');
+    $query->addField('n', 'nid');
+    $query->addField('nd', 'title', 'location');
+    $query->addField('nds', 'title', 'name');
+    $query->fields('re', [
+      'class',
+      'session',
+      'room',
+      'instructor',
+      'category',
+      'register_url',
+      'register_text',
+      'duration',
+      'weekday',
+    ]);
+    $query->addField('re', 'start', 'start_timestamp');
+    $query->addField('re', 'end', 'end_timestamp');
+
+    // Query conditions.
+    $query->distinct();
+    $query->condition('n.type', 'session');
+    $query->condition('re.start', $timestamp_end, '<=');
+    $query->condition('re.end', $timestamp_start, '>=');
+
+    // @todo This is the only difference from ajaxSchedulerByInstructor().
+    $query->condition('re.class', $class);
+
+    if (!empty($location)) {
+      $query->condition('nd.title', explode(',', $location), 'IN');
+    }
+
+    $query->addTag('openy_repeat_get_data');
+
+    $result = $query->execute()->fetchAll();
+
+    $locations_info = $this->getLocationsInfo();
+
+    $classesIds = [];
+    foreach ($result as $key => $item) {
+      $classesIds[$item->class] = $item->class;
+    }
+    $classes_info = $this->getClassesInfo($classesIds);
+
+    $class_name = [];
+    foreach ($result as $key => $item) {
+      $result[$key]->location_info = $locations_info[$item->location];
+
+      if (isset($classes_info[$item->class]['path'])) {
+        $query = UrlHelper::buildQuery([
+          'location' => $locations_info[$item->location]['nid'],
+        ]);
+        if (!in_array($item->name, $class_name)) {
+          $classes_info[$item->class]['path'] .= '?' . $query;
+          $class_name[] = $item->name;
+        }
+      }
+
+      $result[$key]->class_info = $classes_info[$item->class];
+
+      $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
+
+      // Convert timezones for start_time and end_time.
+      $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:iA');
+      $result[$key]->time_end = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'g:iA');
+
+      // Example of calendar format 2018-08-21 14:15:00.
+      $result[$key]->time_start_calendar = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->time_end_calendar = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'Y-m-d H:i:s');
+      $result[$key]->timezone = drupal_get_user_timezone();
+
+      // Durations.
+      $result[$key]->duration_minutes = $item->duration % 60;
+      $result[$key]->duration_hours = ($item->duration - $result[$key]->duration_minutes) / 60;
+
+      // Short date & Day.
+      $result[$key]->day_name = $this->getClassDay($item->weekday);
+      $result[$key]->short_date = $this->getClassShortDate($item->weekday);
+      $result[$key]->sort_time = $this->getClassSortTime($item->weekday);
+    }
+
+    usort($result, function($item1, $item2){
+      if ((int) $item1->sort_time == (int) $item2->sort_time) {
+        return 0;
+      }
+      return (int) $item1->sort_time < (int) $item2->sort_time ? -1 : 1;
+    });
+
+    $this->moduleHandler()->alter('openy_repeat_results', $result, $request);
+
+    return new JsonResponse($result);
+  }
+
+  /**
+   * Get weekday by its number.
+   *
+   * @param string $weekday
+   *   Weekday number.
+   *
+   * @return mixed
+   *   Weekday name.
+   */
+  private function getClassDay($weekday) {
+    $map = [
+      1 => 'Monday',
+      2 => 'Tuesday',
+      3 => 'Wednesday',
+      4 => 'Thursday',
+      5 => 'Friday',
+      6 => 'Saturday',
+      7 => 'Sunday'
+    ];
+    return $map[$weekday];
+  }
+
+  /**
+   * Get short date for the class.
+   *
+   * @param string $weekday
+   *   Weekday name.
+   *
+   * @return string
+   *   Short date.
+   *
+   * @throws \Exception
+   */
+  private function getClassShortDate($weekday) {
+    $day = $day = $this->getClassDay($weekday);
+    $date = new \DateTime();
+    $date->setTimezone(drupal_get_user_timezone());
+    $date->modify("this $day");
+    return $date->format('M j');
+  }
+
+  /**
+   * Get sort date for the class.
+   *
+   * @param string $weekday
+   *   Weekday name.
+   *
+   * @return int
+   *   Timestamp.
+   *
+   * @throws \Exception
+   */
+  private function getClassSortTime($weekday) {
+    $day = $day = $this->getClassDay($weekday);
+    $date = new \DateTime();
+    $date->setTimezone(drupal_get_user_timezone());
+    $date->modify("this $day");
+    return $date->format('U');
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function getData($request, $location, $date, $category) {
@@ -190,7 +533,6 @@ class RepeatController extends ControllerBase {
 
       if (isset($classes_info[$item->class]['path'])) {
         $query = UrlHelper::buildQuery([
-          'session' => $item->session,
           'location' => $locations_info[$item->location]['nid'],
         ]);
         if (!in_array($item->name, $class_name)) {
@@ -204,7 +546,7 @@ class RepeatController extends ControllerBase {
       $result[$key]->time_start_sort = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'Hi');
 
       // Convert timezones for start_time and end_time.
-      $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:i');
+      $result[$key]->time_start = $this->dateFormatter->format((int)$item->start_timestamp, 'custom', 'g:iA');
       $result[$key]->time_end = $this->dateFormatter->format((int)$item->start_timestamp + $item->duration * 60, 'custom', 'g:iA');
 
       // Example of calendar format 2018-08-21 14:15:00.
