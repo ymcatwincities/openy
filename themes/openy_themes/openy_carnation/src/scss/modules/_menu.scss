@@ -43,6 +43,8 @@
 ** Main "Mega Menu" dropdown
 */
 .nav-home {
+  float: left;
+
   li.dropdown {
     position: static;
     visibility: inherit;

@@ -11762,27 +11762,28 @@ a[href="#step2"] {
 /*
 ** Main "Mega Menu" dropdown
 */
-.nav-home li.dropdown {
-  position: static;
-  visibility: inherit;
-  float: none;
-  display: table-cell;
-  box-sizing: border-box; }
-
-.nav-home .dropdown-menu {
-  background-color: #fff;
-  border: 1px solid #fff;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  width: 100%;
-  position: absolute;
-  top: 100%;
-  overflow: auto;
-  display: none;
-  height: 0; }
-  .nav-home .dropdown-menu.show {
-    display: flex;
-    flex-wrap: wrap;
-    height: auto; }
+.nav-home {
+  float: left; }
+  .nav-home li.dropdown {
+    position: static;
+    visibility: inherit;
+    float: none;
+    display: table-cell;
+    box-sizing: border-box; }
+  .nav-home .dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #fff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    overflow: auto;
+    display: none;
+    height: 0; }
+    .nav-home .dropdown-menu.show {
+      display: flex;
+      flex-wrap: wrap;
+      height: auto; }
 
 .viewport .page-head__main-menu .nav-level-2 {
   font-family: "Cachet", sans-serif;
