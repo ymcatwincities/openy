@@ -71,6 +71,7 @@ function openy_carnation_preprocess_html(array &$variables) {
           }
         }
       }
+
       if (empty($variables['node'])) {
         $variables['node'] = $node;
       }
@@ -248,7 +249,7 @@ function load_matchheight_selectors() {
 }
 
 /**
- * NOT A HOOK. Just helper function for preprocess_page
+ * Helper function for preprocess_page
  * @param $variables
  */
 function openy_carnation_preprocess_page_logo(&$variables) {
@@ -559,7 +560,7 @@ function openy_carnation_entity_file_by_fid($fid_array) {
  */
 function openy_carnation_entity_file_uri_by_fid($fid_array) {
   $file = openy_carnation_entity_file_by_fid($fid_array);
-  if ($file !== NULL) {
+  if (!empty($file)) {
     return $file->getFileUri();
   }
 
