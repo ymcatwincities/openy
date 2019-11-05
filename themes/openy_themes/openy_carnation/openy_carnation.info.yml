@@ -8,9 +8,6 @@ base theme: false
 libraries:
   - openy_carnation/global-styling
   - openy_carnation/matchheight
-libraries-extend:
-  toolbar/toolbar:
-    - openy_carnation/carnation_toolbar
 regions:
   header: Header
   primary_menu: Primary Menu
