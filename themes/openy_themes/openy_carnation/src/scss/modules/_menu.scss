@@ -184,6 +184,22 @@
   }
 }
 
+@include media-breakpoint-down(sm) {
+  body.toolbar-vertical.with-banner {
+    padding-top: 117px !important;
+  }
+  body.toolbar-vertical {
+    .top-navs {
+      margin-top: 39px;
+      z-index: 500;
+      &.affix {
+        margin-top: 0px;
+      }
+    }
+  }
+
+}
+
 // pages without a banner (ex. user account page)
 .without-banner {
 
