@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.session.field_activity_type
     - field.field.node.session.field_availability
     - field.field.node.session.field_productid
     - field.field.node.session.field_session_class
@@ -44,6 +45,7 @@ third_party_settings:
         - field_session_min_age
         - field_session_max_age
         - field_session_reg_link
+        - field_activity_type
       parent_name: ''
       weight: 4
       format_type: tab
@@ -117,9 +119,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_activity_type:
+    weight: 41
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   field_availability:
     type: number
-    weight: 11
+    weight: 16
     region: content
     settings:
       placeholder: ''

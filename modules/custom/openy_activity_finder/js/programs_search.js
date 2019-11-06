@@ -11,13 +11,15 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'default', 'type', 'expanded', 'hide_label'],
+    props: ['title', 'id', 'options', 'expanded', 'default', 'type', 'hide_label', 'expander_sections_config', 'loading'],
     data: function() {
       return {
         checkboxes: [],
         checked: [],
         expanded_checkboxes: {},
+        start_states: {},
         dependencies: {},
+        is_expanded: false,
       }
     },
     created: function() {
@@ -53,6 +55,9 @@
         }
         this.$emit('updated-values', cleanValues);
       }
+    },
+    mounted: function () {
+      this.start_states = [];
     },
     methods: {
       clear: function() {
@@ -218,23 +223,23 @@
     '                 {{ title }}\n' +
     '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>'+
     '                  <i v-if="expanded" class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
-    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' + //checked.indexOf(getOption(checkbox)) != -1
+    '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' +
     '                </label>\n' +
     '                <div v-bind:class="[type]">\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
-    '                     v-show="type != \'tabs\' || expanded"' +
+    '                     v-show="type != \'tabs\' || expanded || loading"' +
     '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsDisabled(title, getOption(checkbox))}">' +
     // No parent checkbox.
-    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
-    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
+    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || loading" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
+    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || loading" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true)" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
     '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                       <a v-show="!collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded"  v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(checkbox)}">' +
-    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
+    '                         <label>{{ getLabel(checkbox) }}<small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
@@ -251,18 +256,21 @@
 
   // Does not yet support flat list of radios. Only two level as for Daxko location.
   Vue.component('sidebar-filter-single', {
-    props: ['title', 'id', 'options', 'default', 'type', 'hide_label'],
+    props: ['title', 'id', 'options', 'default', 'type', 'hide_label', 'expander_sections_config', 'loading'],
     data: function() {
       return {
         radios: [],
         checked: [],
-        expanded: true,
-        expanded_checkboxes: {},
+        expanded: '',
+        expanded_checkboxes: [],
         dependencies: {},
+        is_expanded: false,
+        start_states: {}
       }
     },
     created: function() {
       this.radios = JSON.parse(this.options);
+      this.expander_sections_config = JSON.parse(this.expander_sections_config);
       if (typeof this.default !== 'undefined') {
         this.checked = this.default;
       }
@@ -281,6 +289,9 @@
       checked: function(values) {
         this.$emit('updated-values', [values]);
       }
+    },
+    mounted: function () {
+      this.start_states = [];
     },
     methods: {
       clear: function() {
@@ -342,8 +353,8 @@
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper radio-wrapper">\n' +
-    '                      <input v-if="expanded && !collapseGroup(radio)" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
-    '                      <label v-if="expanded && !collapseGroup(radio)" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
+    '                      <input type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
+    '                      <label :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
@@ -413,11 +424,14 @@
         location_address: '',
         location_phone: '',
         availability_status: '',
+        atc_info: '',
+        activity_type: '',
         availability_note: '',
         link: '',
         learn_more: '',
         more_results: ''
-      }
+      },
+      configSettings: [],
     },
     created: function() {
       var component = this;
@@ -516,6 +530,26 @@
         }
       });
     },
+    updated: function() {
+      if (typeof(addtocalendar) !== 'undefined') {
+        addtocalendar.load();
+      }
+      // Fix accessibility features, make atc calendar accessible by keyboard and screen readers.
+      $(".atcb-link").each(function () {
+        $(this).addClass('btn btn-lg btn-primary');
+        $(this).parent().find('ul').find('.atcb-item-link').attr("tabindex", 0);
+        $(this).attr("tabindex", 0).attr("href", '#').on('click', function (e) {
+          e.preventDefault();
+          if (!$(this).hasClass('open')) {
+            $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+            $(this).addClass('open').parent().find('ul').addClass('active').css('visibility', 'visible !important').find('.atcb-item-link:eq(0)').focus();
+          }
+          else {
+            $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+          }
+        });
+      });
+    },
     methods: {
       arrayFilter: function(array) {
         if (typeof array != 'array') {
@@ -529,7 +563,6 @@
         });
       },
       runAjaxRequest: function(reset_pager) {
-        if (!reset_pager) reset_pager = true;
         var component = this;
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
@@ -586,13 +619,14 @@
           if (typeof pager_info == 'undefined' && typeof this.pages[this.current_page] != 'undefined') {
             query.push('next=' + encodeURIComponent(this.pages[this.current_page]));
           }
-
-          // Reset pager if any of filters has changed in order to load 1st page.
-          if (reset_pager === true) {
-            this.current_page = 1;
-          }
-          query.push('page=' + encodeURIComponent(this.current_page));
         }
+
+        // Reset pager if any of filters has changed in order to load 1st page.
+        if (reset_pager === true) {
+          this.current_page = 1;
+        }
+        query.push('page=' + encodeURIComponent(this.current_page));
+
         if (typeof this.sort != 'undefined' && this.sort !== '') {
           query.push('sort=' + encodeURIComponent(this.sort));
         }
@@ -606,6 +640,7 @@
         $.getJSON(url, function(data) {
           component.table = data.table;
           component.facets = data.facets;
+          component.expanderSectionsConfig = data.expanderSectionsConfig;
           component.count = data.count;
           component.pages[component.current_page + 1] = data.pager;
           component.pager_info = data.pager_info;
@@ -668,6 +703,8 @@
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.activity_type = component.table[index].activity_type;
+          component.moreInfoPopup.atc_info = component.table[index].atc_info;
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
@@ -679,6 +716,8 @@
             component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
           }
           component.availabilityPopup.status = component.table[index].availability_status;
+          component.availabilityPopup.activity_type = component.table[index].activity_type;
+          component.availabilityPopup.atc_info = component.table[index].atc_info;
           component.availabilityPopup.note = component.table[index].availability_note;
           component.availabilityPopup.link = component.table[index].link;
           component.availabilityPopup.price = component.table[index].price;
@@ -708,6 +747,8 @@
           component.table[index].price = data.price;
           component.table[index].availability_note = data.availability_note;
           component.table[index].availability_status = data.availability_status;
+          component.table[index].activity_type = data.activity_type;
+          component.table[index].atc_info = data.atc_info;
           component.table[index].spots_available = data.spots_available;
           component.table[index].ages = data.ages;
           component.table[index].gender = data.gender;
@@ -732,6 +773,8 @@
 
           component.moreInfoPopup.availability_note = component.table[index].availability_note;
           component.moreInfoPopup.availability_status = component.table[index].availability_status;
+          component.moreInfoPopup.activity_type = component.table[index].activity_type;
+          component.moreInfoPopup.atc_info = component.table[index].atc_info;
           component.moreInfoPopup.spots_available = component.table[index].spots_available;
           component.moreInfoPopup.link = component.table[index].link;
           component.moreInfoPopup.learn_more = component.table[index].learn_more.replace('a href=', 'a target="_blank" href=');
@@ -743,6 +786,8 @@
             component.moreInfoPopup.more_results = '?' + 'categories=' + component.table[index].program_id + '&ages=' + component.ages.join(',') + '&locations=' + component.table[index].location_id;
           }
           component.availabilityPopup.status = component.table[index].availability_status;
+          component.availabilityPopup.activity_type = component.table[index].activity_type;
+          component.availabilityPopup.atc_info = component.table[index].atc_info;
           component.availabilityPopup.note = component.table[index].availability_note;
           component.availabilityPopup.link = component.table[index].link;
           component.availabilityPopup.price = component.table[index].price;
@@ -787,5 +832,24 @@
     },
     delimiters: ["${","}"]
   });
+
+  Drupal.behaviors.openyGroupsCollapse = {
+    attach: function (context, settings) {
+      let groups = [
+        'scheduleGroup',
+        'activityGroup',
+        'locationGroup'
+      ];
+      groups.map(function(group) {
+        $('#' + group).on('hide.bs.collapse', function () {
+          $("h3." + group + " > i").removeClass('minus').removeClass('fa-minus').addClass('fa-plus').addClass('plus');
+        });
+
+        $('#' + group).on('show.bs.collapse', function () {
+          $("h3." + group + " > i").removeClass('plus').removeClass('fa-plus').addClass('fa-minus').addClass('minus');
+        });
+      });
+    }
+  }
 
 })(jQuery);

@@ -42,6 +42,7 @@
         <main-filter
           v-if="!this.$parent.loading"
           :options="daysOptions"
+          :order="daysOrder"
           type="multiple"
           :default='$route.query.days'
           v-on:updated-values="checkedDays = $event"
@@ -105,6 +106,15 @@
         return {
           'Day(s)' : options
         };
+      },
+      daysOrder: function() {
+        var order = {};
+
+        order['Day(s)'] = [];
+        for (var dayName in this.daysMap) {
+          order['Day(s)'].push(this.daysMap[dayName]);
+        }
+        return order;
       },
       count: function() {
         return this.$parent.table.count;
