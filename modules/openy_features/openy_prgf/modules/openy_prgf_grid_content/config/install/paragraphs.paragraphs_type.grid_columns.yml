@@ -3,6 +3,3 @@ status: true
 dependencies: {  }
 id: grid_columns
 label: 'Grid columns'
-icon_uuid: null
-description: null
-behavior_plugins: {  }
