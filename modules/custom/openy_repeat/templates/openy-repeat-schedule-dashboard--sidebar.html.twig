@@ -65,7 +65,7 @@
             <label v-on:click="toggleTab('location')" for="form-group-location" role="button">
               <p class="m-0">{{ 'Location'|t }}<small v-show="getFiltersCounter('locations') > 0" class="badge">${ getFiltersCounter('locations') }</small></p>
 
-              <i v-cloak v-if="this.filterTabs.location" class="fa fa-minus-circle minus" aria-hidden="true"></i>
+              <i v-cloak v-if="this.filterTabs.location" class="fa fa-minus-circle" aria-hidden="true"></i>
               <i v-cloak v-if="!this.filterTabs.location" class="fa fa-plus-circle plus" aria-hidden="true"></i>
 
             </label>
