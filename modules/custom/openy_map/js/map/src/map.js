@@ -32,7 +32,7 @@
 
       // Checks if the provider library object has loaded
       libraryIsLoaded: function () {
-        return typeof window.google != 'undefined';
+        return typeof window.google !== 'undefined';
       },
 
       // Normalizes a map-vendor specific representation of
@@ -198,7 +198,7 @@
 
       apply_autocomplete_search: function (event, ui) {
         var locations = [];
-        this.locations.forEach(function (location) {
+        this.locations.forEach(location => {
           if (location.name == ui.item.value) {
             // Get selected location from locations list.
             locations.push(location);
@@ -314,7 +314,7 @@
           }
 
           // Convert single-string tags to array.
-          if (typeof(loc.tags) == typeof( "" )) {
+          if (typeof(loc.tags) === typeof( "" )) {
             loc.tags = [loc.tags];
           }
 
@@ -517,7 +517,7 @@
         if (filterTagsRaw) {
           filterTags = !mapLocation ? '?' : '&';
           filterTags += 'type=';
-          filterTagsRaw.forEach(function (tag) {
+          filterTagsRaw.forEach(tag => {
             filterTags += this.encode_to_url_format(tag) + ',';
           }, this, filterTags);
           filterTags = filterTags.substring(0, filterTags.length - 1);
@@ -525,7 +525,7 @@
         if (filteramenitiesRaw) {
           filteramenities = '&';
           filteramenities += 'amenities=';
-          filteramenitiesRaw.forEach(function (tag) {
+          filteramenitiesRaw.forEach(tag => {
             filteramenities += this.encode_to_url_format(tag) + ',';
           }, this, filteramenities);
           filteramenities = filteramenities.substring(0, filteramenities.length - 1);
@@ -550,7 +550,7 @@
           tags.splice(tags.indexOf('Camps'), 1);
           tags.unshift('Camps');
           tags.unshift('YMCA');
-          tags.forEach(function (tag) {
+          tags.forEach(tag => {
             var filter_checked = '';
             if ($.inArray(tag, this.initial_active_tags) >= 0) {
               filter_checked = 'selected';
@@ -592,7 +592,7 @@
         }
         // Add locations autocomplete to search field.
         var locations = [];
-        this.locations.forEach(function (location) {
+        this.locations.forEach(location => {
           locations.push(location.name);
         });
         this.search_field_el.autocomplete({
@@ -833,7 +833,7 @@
 
       // Checks if the provider library object has loaded
       libraryIsLoaded: function () {
-        return typeof window.L != 'undefined';
+        return typeof window.L !== 'undefined';
       },
 
       // Normalizes a map-vendor specific representation of
@@ -1104,7 +1104,7 @@
           }
 
           // Convert single-string tags to array.
-          if (typeof(loc.tags) == typeof( "" )) {
+          if (typeof(loc.tags) === typeof( "" )) {
             loc.tags = [loc.tags];
           }
 
@@ -1517,7 +1517,7 @@
           };
 
           $(iconOptionsKeys).each(function (key) {
-            if (typeof loc[key] != 'undefined') {
+            if (typeof loc[key] !== 'undefined') {
               icon_options[key] = loc[key];
             }
           });
