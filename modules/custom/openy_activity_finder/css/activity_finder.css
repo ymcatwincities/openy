@@ -112,6 +112,7 @@
 .schedule-dashboard__wrapper > .container {
   max-width: 100%;
   margin-top: 20px;
+  width: auto;
 }
 @media screen and (min-width: 768px) {
   .schedule-dashboard__wrapper > .container {
@@ -170,6 +171,7 @@
 }
 .schedules-data__row--alt {
   color: #231F20;
+  position: relative;
 }
 .schedules-data__row--alt .dates {
   font: 12px/18px Verdana, Geneva, sans-serif;
@@ -220,9 +222,9 @@
 }
 @media screen and (max-width: 767px) {
   .schedules-data__row--alt .availability-wrapper {
-    position: absolute;
-    top: 107px;
-    right: 10px;
+    position: relative;
+    top: 10px;
+    right: 0;
   }
 }
 .schedules-data__row--alt .availability-wrapper .btn {
@@ -240,6 +242,11 @@
 .schedules-data__row--alt .spots-availability.few-spots {
   background: #ff0000;
   border: 1px solid #ff0000;
+  color: #fff;
+}
+.schedules-data__row--alt .spots-availability.few-spots.only-one {
+  background: #000;
+  border: 1px solid #000;
   color: #fff;
 }
 .schedules-data__row--alt .spots-label,
@@ -275,6 +282,9 @@
     padding-bottom: 0;
     overflow: visible !important;
   }
+  .schedule-dashboard__sidebar .collapse.show {
+    padding-bottom: 0;
+  }
 }
 
 #schedules-filters {
@@ -290,10 +300,77 @@
   margin: -1px 0 0;
   padding: 10px 0;
   text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+#schedules-filters > h3 > i {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+}
+
+/* Iphone's fixes*/
+@media only screen
+and (min-device-width: 320px)
+and (max-device-width: 568px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 15px;
+  }
+}
+@media only screen
+and (min-device-width: 414px)
+and (max-device-width: 736px)
+and (-webkit-min-device-pixel-ratio: 3) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+/* Ipads fixes */
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 1) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 3px;
+  }
+}
+@media only screen
+and (min-device-width: 834px)
+and (max-device-width: 1112px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  #schedules-filters > h3 > i {
+    line-height: 15px;
+  }
 }
 
 .schedule-dashboard__wrapper .pager-wrapper {
-  margin: 15px -15px 0;
+  margin: 15px 0 0;
 }
 @media (min-width: 768px) {
   .schedule-dashboard__wrapper .pager-wrapper {
@@ -429,8 +506,8 @@
   }
 }
 .schedule-dashboard__wrapper .schedule-dashboard__sidebar .navbar-header .clear-all {
-  text-decoration: underline;
   font-size: 12px;
+  font-weight: bold;
 }
 .schedule-dashboard__wrapper .schedule-dashboard__sidebar {
   padding: 0;
@@ -455,7 +532,15 @@
   border-color: #939495 !important;
   background-color: #f2f2f2;
   padding: 0;
+  overflow: hidden;
+  height: inherit;
 }
+
+.schedule-dashboard__sidebar .collapse {
+  overflow: hidden;
+  height: inherit;
+}
+
 .schedule-dashboard__sidebar .form-group-wrapper > label {
   background-color: #fff;
   border-bottom: 1px solid #939495;
@@ -695,3 +780,11 @@
   padding: 0 5px;
 }
 
+.activity_type .addtocalendar {
+  display: block;
+}
+
+.activity_type .addtocalendar .atcb-list {
+  left: 0;
+  margin-top: 5px;
+}

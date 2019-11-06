@@ -31,6 +31,7 @@ source:
       price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: sports_classes_and_workshops_youth_homezone_2
       title: 'HomeZone'
@@ -50,6 +51,7 @@ source:
       price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: health_n_wellness_wrkshops_aoa_senior_health_and_fitness_day_2
       title: 'AOA National Senior Health and Fitness Day'
@@ -69,6 +71,7 @@ source:
       price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017_2
       title: 'AOA Brain Agility - Class Fee, Spring 2017'
@@ -87,6 +90,7 @@ source:
       price_nonmember: 15
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: health_n_wellness_wrkshps_aoa_brain_agility_mat_fee_spr_2017_2
       title: 'AOA Brain Agility - Materials Fee, Spring 2017'
@@ -105,6 +109,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: group_exercise_classes_hiit_2
       title: 'HIIT'
@@ -120,6 +125,7 @@ source:
       age_min: 216
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: group_exercise_classes_hiit_metabolic_conditioning_2
       title: 'HIIT - Metabolic Conditioning'
@@ -135,6 +141,7 @@ source:
       age_min: 216
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: group_exercise_classes_moving_for_balance_spr_2017_2
       title: 'Moving for Better Balance - Continuing Spring 2017'
@@ -150,6 +157,7 @@ source:
       age_min: 216
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: smll_grp_training_youth_small_group_training_tween_girl_power_2
       title: 'Small Group Training - Tween Girl Power!'
@@ -169,6 +177,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: 'small group training'
     -
       id: samll_group_training_youth_small_group_training_tween_titans_2
       title: 'Small Group Training - Tween Titans'
@@ -186,6 +195,7 @@ source:
       availability: 8
       price_member: 32
       price_nonmember: 65
+      activity_type: 'small group training'
     -
       id: pilates_reformer_10_private_1hr_sessions_2
       title: 'Pilates Reformer - 10, private 1 hr sessions'
@@ -205,6 +215,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: private_yoga_10_1hour_sessions_2
       title: 'Private Yoga - 10, 1-hour sessions'
@@ -224,6 +235,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: pilates_reformer_duet_10_1hour_sessions_2
       title: 'Pilates Reformer - Duet - 10, 1 hour sessions'
@@ -243,6 +255,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: partner_personal_training_1_session_2
       title: 'Partner Personal Training - 1 session'
@@ -262,6 +275,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: personal
     -
       id: health_improvement_livestrong_at_the_y_2
       title: 'LIVESTRONG at the YMCA'
@@ -281,6 +295,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: health_improvement_nutrition_consultation_initial_2
       title: 'Nutrition Consultation - Initial'
@@ -299,6 +314,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: health_improvement_activly_changing_together_2
       title: 'ACT! Actively Changing Together'
@@ -317,6 +333,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: climbing_adult_rock_climbing_sept_2
       title: 'Climbing - Adult Rock Climbing - September'
@@ -335,6 +352,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: climbing_adult_rock_climbing_oct_2
       title: 'Climbing - Adult Rock Climbing - October'
@@ -353,6 +371,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: climbing_adult_parent_child_sept_2
       title: 'Climbing - Parent/Child Climbing - September'
@@ -389,6 +408,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: small_group_and_specialty_training_adaptive_yoga_2
       title: 'Small Group Training - Adaptive Yoga'
@@ -407,6 +427,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: 'small group training'
     -
       id: smll_grp_and_specialty_training_pilates_reformer_level_1_2
       title: 'Small Group Training - Pilates Reformer Level I'
@@ -425,6 +446,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: 'small group training'
     -
       id: small_group_and_specialty_training_pilates_reformer_intro_2
       title: 'Small Group Training - Pilates Reformer Intro'
@@ -443,6 +465,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: 'small group training'
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1_2_2
       title: 'Small Group Training - Pilates Reformer Level I/II'
@@ -461,6 +484,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: 'small group training'
     -
       id: weight_loss_lose_to_win_men_2
       title: 'Lose to Win for Men - Weight Loss Program'
@@ -479,6 +503,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: weight_loss_lose_to_win_2
       title: 'Lose to Win - Weight Loss Program'
@@ -497,6 +522,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: b4_after_school_child_care_2016_17_woodmoor_non_school_days_2
       title: '2016/17 Woodmoor - (f) Non-School Days'
@@ -516,6 +542,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_plus_2
       title: '2016/17 Woodmoor - (b) After Plus Care'
@@ -535,6 +562,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_2
       title: '2016/17 Woodmoor - (c) After Care'
@@ -554,6 +582,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: before_after_school_child_care_2016_17_sunrise_before_after_2
       title: '2016/17 Sunrise - (a) Before and After Care'
@@ -573,6 +602,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs_2
       title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
@@ -592,6 +622,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: preschool_child_care_2016_17_northshore_preschool_30m_4yr_2
       title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
@@ -611,6 +642,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: discovery_day_camp_drop_off_carol_edwards_ctr_2017_2
       title: 'Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
@@ -630,6 +662,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: discovery_day_camp_drop_off_kenmore_elementary_2017_2
       title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
@@ -649,6 +682,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: discovery_day_camp_drop_off_Northshore_ymca_2017_2
       title: 'Discovery Camp: Drop-off - Northshore YMCA 2017'
@@ -668,6 +702,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: bold_one_wk_expeditions_cascade_challenge_2
       title: 'BOLD Cascade Challenge'
@@ -687,6 +722,7 @@ source:
       price_nonmember: 65
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: bld_1_wk_expeditions_backpacking_adventure_discovery_olympics_2
       title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
@@ -704,6 +740,7 @@ source:
       availability: 0
       price_member: 32
       price_nonmember: 65
+      activity_type: ''
     -
       id: bold_one_wk_expeditions_river_and_rocks_2
       title: 'BOLD Rivers and Rocks'
@@ -723,6 +760,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades_2
       title: 'BOLD Fishing and Backpacking in the North Cascades'
@@ -742,6 +780,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: earth_service_corps_about_yesc_2
       title: 'Earth Service Corps About YESC'
@@ -761,6 +800,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: academic_success_2
       title: 'Academic Success'
@@ -780,6 +820,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_cardio
       title: 'Cardio'
@@ -799,6 +840,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_strength
       title: 'Strength'
@@ -818,6 +860,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_forever_well
       title: 'Forever well'
@@ -837,6 +880,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_pa_1
       title: 'Climbing - Adult Rock Climbing - September'
@@ -856,6 +900,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_pa_2
 #      title: 'Climbing - Adult Rock Climbing - October'
@@ -923,6 +968,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_pa_6
       title: 'AOA National Senior Health and Fitness Day'
@@ -942,6 +988,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_pa_7
 #      title: 'AOA Brain Agility - Class Fee, Spring 2017'
@@ -993,6 +1040,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_pa_10
 #      title: 'Nutrition Consultation - Initial'
@@ -1044,6 +1092,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_pa_13
 #      title: 'Lose to Win - Weight Loss Program'
@@ -1079,6 +1128,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_training_2
 #      title: 'Private Yoga - 10, 1-hour sessions'
@@ -1146,6 +1196,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_training_6
 #      title: 'Small Group Training - Adaptive Yoga'
@@ -1213,6 +1264,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: 'small group training'
 #    -
 #      id: session_training_10
 #      title: 'Small Group Training - Tween Titans'
@@ -1248,6 +1300,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_swim_2
 #      title: 'Swim Lessons - Parent/Child Stage B: Water Explor'
@@ -1283,6 +1336,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_swim_4
 #      title: 'Swim Lessons - Preschool Stage 2: Water Movement'
@@ -1350,6 +1404,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_swim_8
       title: 'Swim Lessons - Teen Advanced'
@@ -1369,6 +1424,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_swim_9
 #      title: 'Swim Lessons - Teen'
@@ -1436,6 +1492,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_swim_13
 #      title: 'Swim Lessons - Youth Stage 5: Stroke Devel'
@@ -1535,6 +1592,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_swim_19
       title: 'Recreational Swim 3ft'
@@ -1554,6 +1612,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_swim_20
 #      title: 'Wade Swim 2ft'
@@ -1669,6 +1728,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_camp_2
 #      title: 'A BOLD Backpacking Adventure: Discovery in the Olympics'
@@ -1736,6 +1796,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_camp_6
 #      title: 'Discovery Camp: Drop-off - Kenmore Elementary 2017'
@@ -1787,6 +1848,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_kids_2
 #      title: 'Academic Success'
@@ -1822,6 +1884,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_kids_4
 #      title: 'April Earth Day Birdhouses'
@@ -1873,6 +1936,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_kids_7
 #      title: '2016/17 Woodmoor - (b) After Plus Care'
@@ -1940,6 +2004,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_kids_11
       title: 'Room Rental'
@@ -1959,6 +2024,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_kids_12
       title: 'Birthday Party'
@@ -1978,6 +2044,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_kids_13
       title: 'Earth Service Corps About YEST'
@@ -1997,6 +2064,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_kids_14
       title: 'Kids Zone 4 wks - 11 yrs'
@@ -2016,6 +2084,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_kids_15
       title: '2016/17 Northshore- Preschool Child Care (30m-4yr)'
@@ -2035,6 +2104,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_kids_16
       title: '2016/17 Northshore - Pre-K Child Care (4 - 5yrs)'
@@ -2054,6 +2124,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
     -
       id: session_kids_17
       title: 'HomeZone'
@@ -2073,6 +2144,7 @@ source:
       price_nonmember: 265
       reg_uri: 'http://www.openymca.org'
       reg_title: 'Register Now'
+      activity_type: ''
 #    -
 #      id: session_kids_18
 #      title: 'Youth Fitness Challenge'
@@ -2138,6 +2210,7 @@ process:
   field_session_reg_link/uri: reg_uri
   field_session_reg_link/title: reg_title
   field_session_plocation: facility
+  field_activity_type: activity_type
 destination:
   plugin: 'entity:node'
   default_bundle: session

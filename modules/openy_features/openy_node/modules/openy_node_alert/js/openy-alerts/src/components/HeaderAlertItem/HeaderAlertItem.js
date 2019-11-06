@@ -36,7 +36,9 @@ class AlertItem extends Component {
       backgroundColor: this.props.bgColor ? `#${this.props.bgColor}` : 'blue',
       color: this.props.txtColor ? `#${this.props.txtColor}` : 'white'
     };
-
+    let alertContentClasses = this.props.linkTitle ?
+      "col-xs-12 col-sm-6 col-md-6 col-lg-6" :
+      "col-xs-12 col-sm-12 col-md-12 col-lg-12";
     return (
       <div className="site-alert site-alert--header">
         <div
@@ -52,7 +54,7 @@ class AlertItem extends Component {
                   <i className="fa fa-exclamation-circle" aria-hidden="true" />
                 </div>
               )}
-              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <div className={alertContentClasses}>
                 <div className="site-alert__title">
                   {parse(this.props.label)}
                 </div>
