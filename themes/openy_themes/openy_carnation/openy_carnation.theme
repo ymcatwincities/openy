@@ -94,6 +94,8 @@ function openy_carnation_preprocess_html(array &$variables) {
         $variables['body_classes'][] = 'without-banner';
       }
     }
+  } else {
+    $variables['body_classes'][] = 'without-banner';
   }
 }
 
@@ -209,6 +211,7 @@ function openy_carnation_preprocess_page(array &$variables) {
 
   openy_carnation_preprocess_page_logo($variables);
 
+  $variables['render_carnation_breadcrambs'] = TRUE;
   if ($node = \Drupal::routeMatch()
     ->getParameter('node')) {
     $node_type = $node->getType();
@@ -221,11 +224,8 @@ function openy_carnation_preprocess_page(array &$variables) {
       'event',
       'facility',
       'branch',
-      'program_subcategory',
     ])) {
       $variables['render_carnation_breadcrambs'] = FALSE;
-    } else {
-      $variables['render_carnation_breadcrambs'] = TRUE;
     }
   }
 }
@@ -253,9 +253,16 @@ function load_matchheight_selectors() {
  * @param $variables
  */
 function openy_carnation_preprocess_page_logo(&$variables) {
-  $variables['logo_url'] = file_create_url(theme_get_setting('logo.path'));
-  $variables['mobile_logo_url'] = $variables['logo_url'];
-  $variables['transparent_logo_url'] = $variables['logo_url'];
+  if ($colored_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('colored_logo'))) {
+    $variables['colored_url'] = file_create_url($colored_logo);
+  }
+  else {
+    $variables['colored_url'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
+  }
+  $variables['logo_url'] = $variables['colored_url'];
+  $variables['transparent_logo_url'] = file_create_url(theme_get_setting('logo.path'));
+  $variables['mobile_logo_url'] = $variables['transparent_logo_url'];
+
   $is_node_camp_related = FALSE;
   if ($node = \Drupal::routeMatch()
     ->getParameter('node')) {
@@ -263,7 +270,7 @@ function openy_carnation_preprocess_page_logo(&$variables) {
       $is_node_camp_related = $service->nodeHasOrIsCamp($node);
     }
     $node_type = $node->getType();
-    if (!in_array($node_type, [
+    if (in_array($node_type, [
       'landing_page',
       'class',
       'blog',
@@ -274,14 +281,7 @@ function openy_carnation_preprocess_page_logo(&$variables) {
       'branch',
       'program_subcategory',
     ])) {
-      $colored_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('colored_logo'));
-      if ($colored_logo) {
-        $colored_logo = openy_carnation_entity_file_uri_by_fid(theme_get_setting('colored_logo'));
-        $variables['logo_url'] = file_create_url($colored_logo);
-      }
-      else {
-        $variables['logo_url'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
-      }
+      $variables['logo_url'] = $variables['transparent_logo_url'];
     }
   }
 
