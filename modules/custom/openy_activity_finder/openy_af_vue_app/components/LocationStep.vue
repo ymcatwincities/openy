@@ -40,6 +40,7 @@
         <main-filter
           v-if="!this.$parent.loading"
           :options="locationsOptions"
+          :order="locationsOrder"
           type="multiple"
           :default='$route.query.locations'
           v-on:updated-values="checkedLocations= $event"
@@ -60,6 +61,28 @@
       </div>
     </div>
 
+    <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--home-branch-unavailable" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="schedule-dashboard__modal--header">
+            <h3>No Results</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+          </div>
+
+          <div class="schedule-dashboard__modal--body row">
+            <div class="col-12 col-xs-12">
+              <p><strong>Oh no you're headed to an empty results page</strong></p>
+              <p>The options you've selected do not match any <br/> activities available at your selected Home Branch.</p>
+              <p>Please select one of the options below to proceed:</p>
+              <button class="btn btn-primary" type="button" data-dismiss="modal" aria-label="View available locations">View available locations</button>
+              <button class="btn btn-primary white-blue" type="button" data-dismiss="modal" aria-label="Adjust my filters" @click.prevent="startOver()">Adjust my filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -74,6 +97,8 @@
         filtersBreadcrumbs: '',
         previousStepFilters: '',
         isStepNextDisabled: true,
+        homeBranchUnavailable: false,
+        executedHomeBranch: false,
       };
     },
     components: {
@@ -84,12 +109,12 @@
       locationsOptions: function() {
         var options = {};
 
-        for (let i in this.$parent.locations) {
-          let topLevelLabel = this.$parent.locations[i].label;
-          let secondLevelOptions = {};
-          for (let j in this.$parent.locations[i].value) {
-            let id = this.$parent.locations[i].value[j].value;
-            let label = this.$parent.locations[i].value[j].label;
+        for (var i in this.$parent.locations) {
+          var topLevelLabel = this.$parent.locations[i].label;
+          var secondLevelOptions = {};
+          for (var j in this.$parent.locations[i].value) {
+            var id = this.$parent.locations[i].value[j].value;
+            var label = this.$parent.locations[i].value[j].label;
             secondLevelOptions[id] = {
               label: label,
               count: this.locationCounter(id)
@@ -100,6 +125,18 @@
         }
         return options;
       },
+      locationsOrder: function() {
+        var order = {};
+
+        for (var i in this.$parent.locations) {
+          var topLevelLabel = this.$parent.locations[i].label;
+          order[topLevelLabel] = [];
+          for (var j in this.$parent.locations[i].value) {
+            order[topLevelLabel].push(this.$parent.locations[i].value[j].value);
+          }
+        }
+        return order;
+      },
       count: function() {
         return this.$parent.table.count;
       },
@@ -109,7 +146,8 @@
           return counters;
         }
         for (var key in this.$parent.table.facets.locations) {
-          counters[this.$parent.table.facets.locations[key].id] = this.$parent.table.facets.locations[key].count;
+          var id = this.$parent.table.facets.locations[key].id;
+          counters[id] = this.$parent.table.facets.locations[key].count;
         }
 
         return counters;
@@ -160,6 +198,57 @@
           return 0;
         }
         return this.locationCounters[locationId];
+      },
+      initHomeBranch: function() {
+        if (!this.$parent.homeBranchId) {
+          return;
+        }
+        if (this.executedHomeBranch) {
+          return;
+        }
+        if (jQuery('input[value="' + this.$parent.homeBranchId + '"]').length === 0) {
+          return;
+        }
+        this.executedHomeBranch = true;
+        var locationId = this.$parent.homeBranchId,
+            el = jQuery('input[value="' + locationId + '"]');
+        if (el.parent().find('.fa-home').length === 0) {
+          el.parent()
+            .find('span')
+            .prepend('<i class="fa fa-home"></i>');
+        }
+        // Check if home branch has some results.
+        if (typeof this.locationCounters[locationId] !== 'undefined' && this.locationCounters[locationId] == 0) {
+          // Show home branch unavailable modal.
+          this.homeBranchUnavailable = true;
+          if (this.homeBranchUnavailable) {
+            jQuery('.schedule-dashboard__modal--home-branch-unavailable').modal('show');
+          }
+        } else {
+          // Open filters and pre-select home branch if there are some results.
+          // Warning: in case of any future modifications, do not update child's filter value if you want to show
+          // alternative results in other locations, not only for home branch.
+          if ( this.locationCounters[locationId] > 0) {
+            var exist = false;
+            for (var i in this.checkedLocations) {
+              if (this.checkedLocations[i] == locationId) {
+                exist = true;
+              }
+            }
+            if (!exist) {
+              this.$set(this.$parent.checkedLocations, this.$parent.checkedLocations.length, locationId);
+            }
+            el.parents('.openy-card__item')
+              .addClass('selected')
+              .parents('.openy-card__wrapper')
+              .detach()
+              .insertBefore(".openy-card__wrapper:eq(0)")
+              .parents('.collapse')
+              .addClass('in')
+              .prev()
+              .removeClass('collapsed');
+          }
+        }
       }
     },
     watch: {
@@ -174,6 +263,9 @@
       jQuery(function() {
         jQuery('*[data-mh="openy-card__item-label"]').matchHeight();
       });
+    },
+    updated: function () {
+      this.initHomeBranch();
     }
   }
 </script>

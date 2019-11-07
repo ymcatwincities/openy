@@ -1,5 +1,5 @@
 <p align="center">
- <!-- Will replace with new Open Y logo soon. <a href="http://www.openymca.org">
+ <!-- Will replace with new Open Y logo soon. <a href="https://openy.org">
     <img alt="Open Y Logo" src="" width="144">
   </a> -->
 </p>

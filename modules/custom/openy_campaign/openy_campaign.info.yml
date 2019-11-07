@@ -3,7 +3,7 @@ type: module
 description: Provides a custom functionality for campaigns.
 core: 8.x
 version: 8.x-1.0-rc1
-package: Open Y (Experimental)
+package: Open Y (Deprecated)
 dependencies:
   - block
   - scheduler
