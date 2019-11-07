@@ -530,24 +530,27 @@ function openy_carnation_camp_section_settings(array &$form, FormStateInterface 
  */
 function openy_carnation_matchheight_settings(array &$form, FormStateInterface &$form_state) {
 
-  $form['matchheight_section'] = array(
+  $form['matchheight_section'] = [
     '#type' => 'details',
     '#title' => t('jQuery MatchHeight'),
     '#description' => t('MatchHeight makes the height of all selected elements exactly equal.</br><a href="https://brm.io/jquery-match-height/">https://brm.io/jquery-match-height/</a></br>While this used to be a tricky problem, its advisable to use CSS Flexbox and</br> CSS Grid where possible these days, though this library may still be useful for legacy browsers.'),
     '#open' => TRUE,
-  );
-  $form['matchheight_section']['matchheight_css_classes'] = array(
+  ];
+
+  $form['matchheight_section']['matchheight_css_classes'] = [
     '#description' => t('CSS selectors for matchheight library'),
     '#type' => 'textarea',
     '#rows' => '10',
     '#cols' => '10',
     '#resizable' => 'vertical',
     '#default_value' => theme_get_setting('matchheight_css_classes')
-  );
+  ];
 
 }
 
 /**
+ * Helper function that prepare's logo image for rendering.
+ *
  * @param $fid_array
  *
  * @return \Drupal\file\Entity\File|null
@@ -564,6 +567,8 @@ function openy_carnation_entity_file_by_fid($fid_array) {
 }
 
 /**
+ * Helper function that generates url to image based on fid.
+ *
  * @param $fid_array
  *
  * @return uri|''
