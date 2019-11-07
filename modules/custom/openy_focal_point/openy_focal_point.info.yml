@@ -3,3 +3,5 @@ type: module
 description: Custom widget for Focal point.
 package: OpenY
 core: '8.x'
+dependencies:
+  - image_widget_crop
