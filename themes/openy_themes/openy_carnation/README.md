@@ -20,3 +20,13 @@ or js, please install Node.js and follow next instructions.
 ##2.3 For final compilation, please use build command.
 
 `npm run build`
+
+##2.4 YARN (alternative to NPM) support
+
+If you prefer yarn rather than npm, it is also supported
+
+To install it, use (`brew install yarn`)
+
+Dev mode: `yarn run dev`
+
+Production build: `yarn run build`
