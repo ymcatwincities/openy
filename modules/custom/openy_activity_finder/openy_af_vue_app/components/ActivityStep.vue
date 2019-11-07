@@ -42,6 +42,7 @@
         <main-filter
           v-if="!this.$parent.loading"
           :options="categoriesOptions"
+          :order="categoriesOrder"
           :type="categoriesType"
           :excluded="categoriesExclude"
           :default='$route.query.categories'
@@ -101,6 +102,18 @@
           options[topLevelLabel] = secondLevelOptions;
         }
         return options;
+      },
+      categoriesOrder: function() {
+        var order = {};
+
+        for (var i in this.$parent.activities) {
+          var topLevelLabel = this.$parent.activities[i].label;
+          order[topLevelLabel] = [];
+          for (var j in this.$parent.activities[i].value) {
+            order[topLevelLabel].push(this.$parent.activities[i].value[j].value);
+          }
+        }
+        return order;
       },
       count: function() {
         return this.$parent.table.count;
