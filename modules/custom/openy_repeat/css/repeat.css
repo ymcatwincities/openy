@@ -610,6 +610,19 @@ body.modal-open .top-navs .nav-global{
   flex: 0 1 auto;
 }
 
+
+.schedules-data__row .register-column a {
+  background: #92278f;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+  padding-top: 10px;
+}
+
+.schedules-data__row .register-column a:hover {
+  background: #92278f;
+}
+
 .btn-schedule-pdf-generate .pdf-link:after {
   content: none;
 }
