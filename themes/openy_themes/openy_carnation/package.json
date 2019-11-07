@@ -23,7 +23,8 @@
     "tar": "^2.2.2",
     "tunnel-agent": "^0.6.0",
     "underscore.string": "^3.3.5",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "@babel/polyfill": "^7.6.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
