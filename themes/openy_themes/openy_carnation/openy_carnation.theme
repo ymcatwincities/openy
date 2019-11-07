@@ -441,6 +441,7 @@ function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array
  * Implements hook_form_system_theme_settings_alter().
  */
 function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInterface $form_state, $form_id = NULL) {
+
   // Work-around for a core bug affecting admin themes. See issue #943212.
   if (isset($form_id)) {
     return;
@@ -482,6 +483,7 @@ function openy_carnation_form_system_theme_settings_alter(&$form, FormStateInter
  * Camp section on theme settings page
  */
 function openy_carnation_camp_section_settings(array &$form, FormStateInterface &$form_state) {
+
   $form['camp_section'] = [
     '#type' => 'details',
     '#title' => t('Camp section'),
@@ -520,7 +522,14 @@ function openy_carnation_camp_section_settings(array &$form, FormStateInterface 
   }
 }
 
+/**
+ * Additional form elements for matchheight section.
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
 function openy_carnation_matchheight_settings(array &$form, FormStateInterface &$form_state) {
+
   $form['matchheight_section'] = array(
     '#type' => 'details',
     '#title' => t('jQuery MatchHeight'),
@@ -535,6 +544,7 @@ function openy_carnation_matchheight_settings(array &$form, FormStateInterface &
     '#resizable' => 'vertical',
     '#default_value' => theme_get_setting('matchheight_css_classes')
   );
+
 }
 
 /**
