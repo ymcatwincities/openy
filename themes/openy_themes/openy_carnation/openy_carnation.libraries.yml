@@ -5,9 +5,10 @@ global-styling:
       //use.fontawesome.com/releases/v5.1.0/css/all.css: {type: external, attributes: { defer: true, async: true} }
       dist/css/style.css: {}
   js:
-    dist/js/popper.min.js: {}
+    dist/main.js: {}
+    dist/js/popper.min.js: {minified: true}
     https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js: {type: external, minified: true}
-    dist/js/openy_carnation.js: {}
+    dist/js/openy_carnation.js: {}ф
     dist/js/openy_carnation_banner.js: {}
     dist/js/openy_carnation_branch.js: {}
     dist/js/openy_carnation_header.js: {}
@@ -26,7 +27,7 @@ global-styling:
 landing:
   version: 0.1
   js:
-    dist/js/affix.js: {}
+    dist/js/affix.min.js: {minified: true}
     dist/js/openy_carnation_landing.js: {}
   dependencies:
     - core/jquery
