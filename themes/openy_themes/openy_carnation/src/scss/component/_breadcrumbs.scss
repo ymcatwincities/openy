@@ -7,10 +7,14 @@ $breadcrumbColorsLength: length($breadcrumbColors);
 
 .breadcrumbs-wrapper {
   position: absolute;
-  bottom: -25px;
+  margin-top: -25px;
   z-index: 10;
   left: 0;
   right: 0;
+}
+
+.banner-cta-content .breadcrumbs-wrapper {
+  margin-top: 23px;
 }
 
 .breadcrumbs {
