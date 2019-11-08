@@ -38,53 +38,52 @@ class OpenYFocalPointCropForm extends FormBase {
 
     $random = new Random();
 
-    foreach ($image_styles as $style) {
-      $style_label = $style->get('label');
-      // We add random to get parameter so every time Preview popup is loaded
-      // fresh images are regenerated and browser cache is bypassed. So if
-      // we edit crop settings, save them and open Preview popup once again
-      // images are regenerated.
-      $focal_point_value .= '-' . $random->name();
-      $url = $this->buildUrl($style, $file, $focal_point_value);
+    $style = reset($image_styles);
+    $style_label = $style->get('label');
+    // We add random to get parameter so every time Preview popup is loaded
+    // fresh images are regenerated and browser cache is bypassed. So if
+    // we edit crop settings, save them and open Preview popup once again
+    // images are regenerated.
+    $focal_point_value .= '-' . $random->name();
+    $url = $this->buildUrl($style, $file, $focal_point_value);
 
-      $derivative_images[$style->id()] = [
-        'style' => $style_label,
-        'url' => $url,
-        'image' => [
-          '#theme' => 'image',
-          '#uri' => $url,
-          '#alt' => $this->t('OpenY Focal Point Preview: %label', ['%label' => $style_label]),
-          '#attributes' => [
-            'class' => ['focal-point-derivative-preview-image'],
-          ],
+    $derivative_images[$style->id()] = [
+      'style' => $style_label,
+      'url' => $url,
+      'image' => [
+        '#theme' => 'image',
+        '#uri' => $url,
+        '#alt' => $this->t('OpenY Focal Point Preview: %label', ['%label' => $style_label]),
+        '#attributes' => [
+          'class' => ['focal-point-derivative-preview-image'],
         ],
-      ];
+      ],
+    ];
 
-      $form['openy_focal_point_preview'] = [
-        '#theme' => "openy_focal_point_preview",
-        '#data' => [
-          'derivative_images' => $derivative_images,
-        ]
-      ];
+    $form['openy_focal_point_preview'] = [
+      '#theme' => "openy_focal_point_preview",
+      '#data' => [
+        'derivative_images' => $derivative_images,
+      ]
+    ];
 
-      // We assume that the last effect is a manual crop.
-      $effects = $style->getEffects()->getConfiguration();
-      $manual = array_pop($effects);
-      $crop_type = $manual['data']['crop_type'];
+    // We assume that the last effect is a manual crop.
+    $effects = $style->getEffects()->getConfiguration();
+    $manual = array_pop($effects);
+    $crop_type = $manual['data']['crop_type'];
 
-      $form_state->set('crop_type', $crop_type);
+    $form_state->set('crop_type', $crop_type);
 
-      $form[$style->id()] = [
-        '#type' => 'image_crop',
-        '#file' => $file,
-        '#crop_type_list' => [$crop_type],
-        '#crop_preview_image_style' => 'crop_thumbnail',
-        '#show_default_crop' => FALSE,
-        '#show_crop_area' => TRUE,
-        '#warn_multiple_usages' => FALSE,
-        '#crop_types_required' => [$crop_type],
-      ];
-    }
+    $form['image_crop'] = [
+      '#type' => 'image_crop',
+      '#file' => $file,
+      '#crop_type_list' => [$crop_type],
+      '#crop_preview_image_style' => 'crop_thumbnail',
+      '#show_default_crop' => FALSE,
+      '#show_crop_area' => TRUE,
+      '#warn_multiple_usages' => FALSE,
+      '#crop_types_required' => [$crop_type],
+    ];
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -122,7 +121,7 @@ class OpenYFocalPointCropForm extends FormBase {
     $crop_type = $form_state->get('crop_type');
 
     $input = $form_state->getUserInput();
-    $crop_properties = $input['prgf_teaser']['crop_wrapper'][$crop_type]['crop_container']['values'];
+    $crop_properties = $input['image_crop']['crop_wrapper'][$crop_type]['crop_container']['values'];
     $x = (int) ($crop_properties['x'] + $crop_properties['width'] / 2);
     $y = (int) ($crop_properties['y'] + $crop_properties['height'] / 2);
 
