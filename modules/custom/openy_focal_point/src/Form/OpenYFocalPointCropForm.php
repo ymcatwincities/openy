@@ -5,12 +5,15 @@ namespace Drupal\openy_focal_point\Form;
 use Drupal\Component\Utility\Random;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseDialogCommand;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Image\ImageFactory;
 use Drupal\crop\Entity\Crop;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\openy_focal_point\Ajax\RerenderThumbnailCommand;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form to create/edit crops in widget's preview popup.
@@ -28,7 +31,6 @@ class OpenYFocalPointCropForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
     $build_info = $form_state->getBuildInfo();
     $file = $build_info['args'][0];
     $image_styles = $build_info['args'][1];
@@ -114,6 +116,9 @@ class OpenYFocalPointCropForm extends FormBase {
     return $form;
   }
 
+  /**
+   * Ajax callback to save Manual Crop.
+   */
   public static function ajaxSave(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\file\Entity\File $file */
     $file = $form_state->get('file');
@@ -162,6 +167,9 @@ class OpenYFocalPointCropForm extends FormBase {
     return $ajax;
   }
 
+  /**
+   * Ajax callback to remove Manual Crop.
+   */
   public static function ajaxRemoveCropping(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\file\Entity\File $file */
     $file = $form_state->get('file');
@@ -170,7 +178,7 @@ class OpenYFocalPointCropForm extends FormBase {
 
     $crop = Crop::findCrop($file->getFileUri(), $crop_type);
     if ($crop) {
-        $crop->delete();
+      $crop->delete();
     }
 
     $image = \Drupal::service('image.factory')->get($file->getFileUri());
@@ -181,6 +189,9 @@ class OpenYFocalPointCropForm extends FormBase {
     return $ajax;
   }
 
+  /**
+   * Ajax callback to close Dialog.
+   */
   public static function closePopup(array $form, FormStateInterface $form_state) {
     $ajax = new AjaxResponse();
     $ajax->addCommand(new CloseDialogCommand());

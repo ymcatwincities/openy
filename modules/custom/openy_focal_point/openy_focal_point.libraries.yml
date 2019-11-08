@@ -1,5 +1,5 @@
 openy_focal_point:
-  version: VERSION
+  version: 0.1
   js:
       js/openy_focal_point.js: {}
   css:
