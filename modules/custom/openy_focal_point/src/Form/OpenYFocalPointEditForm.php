@@ -6,6 +6,8 @@ use Drupal\Component\Utility\Random;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseDialogCommand;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Image\ImageFactory;
+use Drupal\focal_point\FocalPointManagerInterface;
 use Drupal\openy_focal_point\Ajax\RerenderThumbnailCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -13,6 +15,7 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\crop\Entity\Crop;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form to create/edit crops in widget's preview popup.
@@ -20,10 +23,42 @@ use Drupal\image\Entity\ImageStyle;
 class OpenYFocalPointEditForm extends FormBase {
 
   /**
+   * The Image Factory service.
+   *
+   * @var \Drupal\Core\Image\ImageFactory
+   */
+  protected $imageFactory;
+
+  /**
+   * Focal Point Manager.
+   *
+   * @var \Drupal\focal_point\FocalPointManagerInterface
+   */
+  protected $manager;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
     return 'openy_focal_point_edit';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(ImageFactory $image_factory, FocalPointManagerInterface $manager) {
+    $this->imageFactory = $image_factory;
+    $this->manager = $manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('image.factory'),
+      $container->get('focal_point.manager')
+    );
   }
 
   /**
@@ -75,6 +110,8 @@ class OpenYFocalPointEditForm extends FormBase {
       $crop_type = $manual['data']['crop_type'];
       $crop = Crop::findCrop($file->getFileUri(), $crop_type);
       if ($crop) {
+        // We are getting an error about Outdated form. For some reason that happens
+        // when there are multiple ajax forms in dialogs. Lets clean it up.
         \Drupal::messenger()->deleteAll();
 
         \Drupal::messenger()->addWarning('There is manual crop set for this image. It overrides focal point settings');
@@ -91,14 +128,13 @@ class OpenYFocalPointEditForm extends FormBase {
       ];
 
       // From FocalPointImageWidget::createFocalPointField().
-      $crop_type = \Drupal::config('focal_point.settings')->get('crop_type');
+      $crop_type = $this->config('focal_point.settings')->get('crop_type');
       $crop = Crop::findCrop($file->getFileUri(), $crop_type);
-      $image = \Drupal::service('image.factory')->get($file->getFileUri());
+      $image = $this->imageFactory->get($file->getFileUri());
       $width = $image->getWidth();
       $height = $image->getHeight();
 
-      $anchor = \Drupal::service('focal_point.manager')
-        ->absoluteToRelative($crop->x->value, $crop->y->value, $width, $height);
+      $anchor = $this->manager->absoluteToRelative($crop->x->value, $crop->y->value, $width, $height);
       $focal_point_default_value = "{$anchor['x']},{$anchor['y']}";
 
       $form['focal'] = [
@@ -114,7 +150,6 @@ class OpenYFocalPointEditForm extends FormBase {
         '#attributes' => [
           'class' => ['focal-point-indicator'],
           'data-selector' => $focal_point_selector,
-//          'data-delta' => $delta,
         ],
       ];
 
@@ -168,6 +203,9 @@ class OpenYFocalPointEditForm extends FormBase {
     return $form;
   }
 
+  /**
+   * Ajax callback to save Focal Point coordinates.
+   */
   public static function ajaxSave(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\file\Entity\File $file */
     $file = $form_state->get('file');
@@ -201,6 +239,9 @@ class OpenYFocalPointEditForm extends FormBase {
     return $ajax;
   }
 
+  /**
+   * Ajax callback to close Dialog.
+   */
   public static function closePopup(array $form, FormStateInterface $form_state) {
     $ajax = new AjaxResponse();
     $ajax->addCommand(new CloseDialogCommand());

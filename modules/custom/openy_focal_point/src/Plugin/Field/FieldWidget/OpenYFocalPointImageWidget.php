@@ -78,6 +78,9 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
     return $preview_link;
   }
 
+  /**
+   * Create a link to open Dialog with editing Focal Point.
+   */
   private static function createFocalPointEditLink($fid, $field_name, array $element_selectors, $default_focal_point_value, $image_styles) {
     // Replace comma (,) with an x to make javascript handling easier.
     $preview_focal_point_value = str_replace(',', 'x', $default_focal_point_value);
@@ -149,13 +152,6 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
         $used_breakpoints = [
           $image_component['settings']['image_style'],
         ];
-        // This is to pull mobile breakpoints from Blazy formatter. This is
-        // not being used at the moment. Keeping it for the future reference.
-//        foreach ($image_component['settings']['breakpoints'] as $breakpoint) {
-//          if (!empty($breakpoint['image_style'])) {
-//            $used_breakpoints[] = $breakpoint['image_style'];
-//          }
-//        }
 
         $element['preview']['preview_link'] = [
           '#type' => 'inline_template',
