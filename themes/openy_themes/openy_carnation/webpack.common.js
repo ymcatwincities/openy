@@ -1,6 +1,6 @@
 const SassLintPlugin = require('sass-lint-webpack')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require('path')
+
 
 module.exports = {
   entry: './webpack-entry.js',
@@ -38,7 +38,7 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          MiniCssExtractPlugin.loader,
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
