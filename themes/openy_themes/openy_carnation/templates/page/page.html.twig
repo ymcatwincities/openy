@@ -98,7 +98,9 @@
   </div>
 
   <div class="viewport">
-
+    {% if render_carnation_breadcrambs %}
+      {{ drupal_breadcrumb() }}
+    {% endif %}
     <header id="page-head" class="page-head">
       <div class="top-navs fixed-top d-none d-lg-block" data-spy="affix" data-offset-top="1">
         <nav class="nav-global navbar-ymcags navbar p-0">
@@ -159,15 +161,12 @@
       </div>
     </header>
 
-    {% if render_carnation_breadcrambs %}
-      {{ page.header }}
-    {% endif %}
     {{ page.highlighted }}
     {{ page.help }}
 
     <main role="main" class="clearfix">
       <a id="main-content" tabindex="-1"></a>
-      <div class="layout-content mt-lg-5">
+      <div class="layout-content mb-5 mt-lg-5">
         {% block pagecontent %}
           {{ page.content }}
         {% endblock %}
