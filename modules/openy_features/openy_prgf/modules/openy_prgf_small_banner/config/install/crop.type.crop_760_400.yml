@@ -3,9 +3,9 @@ status: true
 dependencies: {  }
 label: 'Crop 760×400'
 id: crop_760_400
-description: ''
-aspect_ratio: ''
+description: 'Used in Small Banner paragraph'
+aspect_ratio: '760:400'
 soft_limit_width: null
 soft_limit_height: null
-hard_limit_width: null
-hard_limit_height: null
+hard_limit_width: 760
+hard_limit_height: 400
