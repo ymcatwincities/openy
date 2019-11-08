@@ -63,7 +63,7 @@ class OpenYFocalPointCropForm extends FormBase {
     ];
 
     $form['openy_focal_point_preview'] = [
-      '#theme' => "openy_focal_point_preview",
+      '#theme' => 'openy_focal_point_preview',
       '#data' => [
         'derivative_images' => $derivative_images,
       ]
