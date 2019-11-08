@@ -1,4 +1,5 @@
 const SassLintPlugin = require('sass-lint-webpack')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require('path')
 
 
