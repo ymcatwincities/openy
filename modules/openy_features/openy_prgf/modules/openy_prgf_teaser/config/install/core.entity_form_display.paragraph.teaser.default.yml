@@ -9,8 +9,8 @@ dependencies:
     - field.field.paragraph.teaser.field_prgf_title
     - paragraphs.paragraphs_type.teaser
   module:
-    - entity_browser
     - link
+    - openy_focal_point
     - text
 id: paragraph.teaser.default
 targetEntityType: paragraph
@@ -36,8 +36,9 @@ content:
       field_widget_display_settings:
         view_mode: thumbnail_for_preview
       open: false
+      field_widget_replace: false
     third_party_settings: {  }
-    type: entity_browser_entity_reference
+    type: openy_focal_point_entity_browser_entity_reference
     region: content
   field_prgf_link:
     weight: 3
