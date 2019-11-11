@@ -96,13 +96,13 @@
       <div class="main-region col-12">
         {% endif %}
         {% if content.field_sidebar_content is not empty %}
-          <div class="main-region col-md-7 col-lg-8">
+          <div class="main-region col-lg-7 col-xl-8">
             {% endif %}
             {{ content.field_class_description }}
             {{ content.field_content }}
             {% if content.field_sidebar_content is not empty %}
           </div>
-          <div class="sidebar-region col-md-5 col-lg-4">
+          <div class="sidebar-region col-lg-5 col-xl-4">
             {% endif %}
             <article{{ sidebar_attributes.addClass(sidebar_classes) }}>
               {{ content.field_sidebar_content }}
