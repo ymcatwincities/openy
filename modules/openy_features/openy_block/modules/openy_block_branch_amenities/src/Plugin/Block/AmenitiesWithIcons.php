@@ -19,13 +19,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class AmenitiesWithIcons extends BlockBase implements ContainerFactoryPluginInterface {
 
+  /**
+   * RouteMatch service instance
+   */
   protected $routeMatch;
 
   /**
    * @param array $configuration
+   *   Plugin config
    * @param string $plugin_id
+   *   Plugin id
    * @param mixed $plugin_definition
+   *   Plugin definition
    * @param $routeMatch
+   *   RouteMatch service instance
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, $routeMatch) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -50,7 +57,6 @@ class AmenitiesWithIcons extends BlockBase implements ContainerFactoryPluginInte
   }
 
   /**
-   * @todo add cache
    * {@inheritdoc}
    */
   public function build() {
@@ -68,5 +74,26 @@ class AmenitiesWithIcons extends BlockBase implements ContainerFactoryPluginInte
 
     return $render_array;
   }
-}
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheTags() {
+    if ($node = $this->routeMatch->getParameter('node')) {
+      //if there is node add its cachetag
+      return Cache::mergeTags(parent::getCacheTags(), ['node:' . $node->id()]);
+    }
+    else {
+      //Return default tags instead.
+      return parent::getCacheTags();
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return Cache::mergeContexts(parent::getCacheContexts(), array('route'));
+  }
+
+}
