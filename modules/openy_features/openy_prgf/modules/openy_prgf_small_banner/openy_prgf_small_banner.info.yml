@@ -1,20 +1,28 @@
-name: Open Y Paragraph Small Banner
-description: Provides a paragraph to display small banner.
+name: 'Open Y Paragraph Small Banner'
+description: 'Provides a paragraph to display small banner.'
 type: module
 core: 8.x
-package: Open Y
+package: 'Open Y'
 version: 8.x-1.0
 dependencies:
-  - drupal:field
-  - drupal:image
-  - drupal:media (>= 8.6)
-  - drupal:taxonomy
-  - drupal:text
   - blazy
+  - crop
   - datalayer
+  - 'drupal:field'
+  - 'drupal:image'
+  - 'drupal:media (>= 8.6)'
+  - 'drupal:taxonomy'
+  - 'drupal:text'
   - entity_browser
+  - field
+  - focal_point
+  - image
   - jquery_colorpicker
+  - media
+  - openy_focal_point
   - openy_media_image
   - openy_prgf
   - openy_txnm_color
   - paragraphs
+  - text
+core_incompatible: false

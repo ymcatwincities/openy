@@ -1041,3 +1041,18 @@ function openy_update_8075() {
     ]);
   }
 }
+
+/**
+ * Enable OpenY Focal Point.
+ */
+function openy_update_8076() {
+  $modules = [
+    'image_widget_crop',
+    'openy_focal_point'
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
