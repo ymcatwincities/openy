@@ -261,3 +261,16 @@ function openy_media_image_update_8010() {
     }
   }
 }
+
+/**
+ * Update feature configs for OpenY Focal Point support.
+ */
+function openy_media_image_update_8011() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_form_display.media.image.default',
+  ]);
+}

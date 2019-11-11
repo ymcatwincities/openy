@@ -9,7 +9,7 @@ dependencies:
     - field.field.media.image.field_media_tags
     - media.type.image
   module:
-    - blazy
+    - image
 id: media.image.icon
 targetEntityType: media
 bundle: image
