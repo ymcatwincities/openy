@@ -203,13 +203,13 @@
 // pages without a banner (ex. user account page)
 .without-banner {
 
+  .layout-container {
+    padding-top: 140px;
+  }
+
   // adjust top margins
   .viewport {
-    margin-top: 140px;
-
-    @include media-breakpoint-up(lg) {
-      margin-top: 200px;
-    }
+    margin-top: 40px;
   }
 
   // change navbar background colours when scrolling
@@ -222,6 +222,9 @@
 
       // adjust main nav link colours
       &:not(.affix) .page-head__main-menu .navbar > li {
+        > button {
+          color: $pink;
+        }
         > a {
           color: $primary;
 
