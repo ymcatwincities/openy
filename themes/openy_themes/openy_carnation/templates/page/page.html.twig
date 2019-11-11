@@ -56,7 +56,7 @@
           <div class="col-auto mr-auto">
             {% block mobile_logo %}
               {% if mobile_logo_url %}
-                <a class="logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                <a class="mobile-logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
                   <img src="{{ mobile_logo_url }}" alt="{{ site_slogan|t }}">
                 </a>
               {% else %}
@@ -144,6 +144,7 @@
                   {% if logo_url %}
                     <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
                       <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" />
+                      <img src="{{ transparent_logo_url }}" alt="{{ site_slogan|t }}" />
                     </a>
                   {% else %}
                     <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>

@@ -100,4 +100,15 @@ body.without-banner {
   .breadcrumbs-wrapper {
     position: initial;
   }
+  &.page-node-type-class {
+    .breadcrumbs-wrapper {
+      margin-top: -225px;
+    }
+  }
+}
+
+.page-node-type-camp {
+  .breadcrumbs-wrapper {
+    margin-top: -101px;
+  }
 }

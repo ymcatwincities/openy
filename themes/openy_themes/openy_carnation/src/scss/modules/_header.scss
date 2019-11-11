@@ -1,3 +1,11 @@
+.mobile-logo {
+  float: left;
+  img {
+    height: 46px;
+    width: auto;
+  }
+}
+
 .logo {
   float: left;
 
@@ -9,11 +17,23 @@
     height: 46px;
     width: auto;
   }
+  img:first-child {
+    display: initial;
+  }
+  img:last-child {
+    display: none;
+  }
 }
 
 .layout-container .top-navs {
   &.affix {
     background: $white;
+    .logo img:first-child {
+      display: none;
+    }
+    .logo img:last-child {
+      display: initial;
+    }
   }
 }
 
