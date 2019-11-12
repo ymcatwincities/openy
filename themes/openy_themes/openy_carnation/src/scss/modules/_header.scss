@@ -1,15 +1,48 @@
-.layout-container .top-navs {
-  .logo img {
-    width: 105px;
+.mobile-logo {
+  float: left;
+  img {
+    height: 46px;
+    width: auto;
   }
+}
 
+.logo {
+  float: left;
+
+  span {
+    display: inline-block;
+    height:100%;
+  }
+  img {
+    height: 46px;
+    width: auto;
+  }
+  img:first-child {
+    display: initial;
+  }
+  img:last-child {
+    display: none;
+  }
+}
+
+.layout-container .top-navs {
   &.affix {
     background: $white;
+    .logo img:first-child {
+      display: none;
+    }
+    .logo img:last-child {
+      display: initial;
+    }
   }
 }
 
 // background on fixed nav
 .with-banner {
+  @include media-breakpoint-down(sm) {
+    padding-top: 78px !important;
+  }
+
   .layout-container .top-navs {
     background-color: rgba($primary, .8);
     transition: background-color 0.5s ease;

@@ -117,4 +117,12 @@ $list-inline-padding:         .5rem !default;
 
 // Font Awesome font-family names.
 $font-awesome: "Font Awesome 5 Free";
-$font-awesome-brands: "Font Awesome 5 Brands"
+$font-awesome-brands: "Font Awesome 5 Brands";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 600px,
+  md: 768px,
+  lg: 1060px,
+  xl: 1200px
+) !default;
