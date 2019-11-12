@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * Set the configuration if it is missing.
+ */
+function openy_focal_point_install() {
+  $config = \Drupal::service('config.factory')->getEditable('image_widget_crop');
+  $save = FALSE;
+  if (empty($config->get('library_url'))) {
+    $config->set('library_url', 'https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.6/cropper.min.js');
+    $save = TRUE;
+  }
+  if (empty($config->get('css_url'))) {
+    $config->set('css_url', 'https://cdnjs.cloudflare.com/ajax/libs/cropper/3.1.6/cropper.min.css');
+    $save = TRUE;
+  }
+  if ($save) {
+    $config->save();
+  }
+}
