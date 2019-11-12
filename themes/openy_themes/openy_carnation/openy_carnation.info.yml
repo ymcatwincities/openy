@@ -3,16 +3,16 @@ type: theme
 description: 'YMCA brand compliant and customizable theme.'
 package: Open Y
 core: 8.x
-version: 8.x-1.x-beta
+version: 8.x-1.2
 base theme: false
 libraries:
   - openy_carnation/global-styling
+  - openy_carnation/matchheight
 regions:
   header: Header
-  logo: Logo
   primary_menu: Primary Menu
-  secondary_menu: Secondary Menu
-  top_menu: Top menu
+  secondary_menu: User Menu
+  top_menu: Mobile User Menu
   mobile_menu: Mobile menu
   search: Search Form
   content: Content

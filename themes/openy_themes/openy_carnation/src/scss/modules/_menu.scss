@@ -1,10 +1,6 @@
 // primary nav (Y Logo)
 .menu-item-home  {
   margin-left: 20px;
-  background: url("../img/logo-white.png") no-repeat;
-  background-size: contain;
-  background-position: center;
-  text-indent: -9999px;
   display: none;
   max-width: 150px;
 
@@ -47,6 +43,8 @@
 ** Main "Mega Menu" dropdown
 */
 .nav-home {
+  float: left;
+
   li.dropdown {
     position: static;
     visibility: inherit;
@@ -186,16 +184,32 @@
   }
 }
 
+@include media-breakpoint-down(sm) {
+  body.toolbar-vertical.with-banner {
+    padding-top: 117px !important;
+  }
+  body.toolbar-vertical {
+    .top-navs {
+      margin-top: 39px;
+      z-index: 500;
+      &.affix {
+        margin-top: 0px;
+      }
+    }
+  }
+
+}
+
 // pages without a banner (ex. user account page)
 .without-banner {
 
+  .layout-container {
+    padding-top: 140px;
+  }
+
   // adjust top margins
   .viewport {
-    margin-top: 140px;
-
-    @include media-breakpoint-up(lg) {
-      margin-top: 200px;
-    }
+    margin-top: 40px;
   }
 
   // change navbar background colours when scrolling
@@ -208,6 +222,9 @@
 
       // adjust main nav link colours
       &:not(.affix) .page-head__main-menu .navbar > li {
+        > button {
+          color: $pink;
+        }
         > a {
           color: $primary;
 
@@ -223,19 +240,8 @@
       }
     }
 
-
-    .menu-item-home {
-      background: url("../img/logo-color.png") center no-repeat;
-      background-size: contain;
-    }
-
     &.affix {
       background-color: $gray-700;
-
-      .menu-item-home {
-        background: url("../img/logo-white.png") center no-repeat;
-        background-size: 65px 50px;
-      }
     }
 
     &.affix.menu-in,
