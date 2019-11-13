@@ -123,7 +123,10 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
     $element = parent::process($element, $form_state, $form);
 
     if (isset($element['focal_point'])) {
-      $element['focal_point']['#access'] = FALSE;
+      // It is important to unset 'focal_point' so field doesn't have values
+      // otherwise focal point values will be overidden on file save.
+      // @see focal_point_entity_update()
+      unset($element['focal_point']);
       $element['preview']['indicator']['#access'] = FALSE;
     }
 
