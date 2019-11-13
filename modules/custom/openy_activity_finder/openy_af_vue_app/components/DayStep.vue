@@ -3,8 +3,7 @@
     <div class="activity-finder__step">
       <div class="activity-finder__step_wrapper">
         <div class="activity-finder__step_header">
-          <div class="activity-finder__step_header--progress">
-            <div class="container">
+          <div class="activity-finder__step_header--progress container">
               <div class="activity-finder__step_header--progress-inner">
                 <div class="d-inline-flex">
                   <span v-if="this.$parent.loading">
@@ -20,11 +19,9 @@
                   <a href="#" @click.prevent="startOver()" class="start_over">Start Over</a>
                 </div>
               </div>
-            </div>
           </div>
 
-          <div class="activity-finder__step_header--actions">
-            <div class="container">
+          <div class="activity-finder__step_header--actions container">
               <div class="row">
                 <div class="col-12 col-xs-12 col-sm-8">
                   <span v-if="filtersBreadcrumbs === ''">What days are you looking to fill?</span>
@@ -35,7 +32,6 @@
                   <button @click.prevent="next()" v-bind:disabled="isStepNextDisabled" class="btn btn-primary btn-lg next btn-disabled">Next</button>
                 </div>
               </div>
-            </div>
           </div>
         </div>
 
@@ -52,15 +48,13 @@
         ></main-filter>
 
         <div class="activity-finder__step_footer">
-          <div class="activity-finder__step_header--actions">
-            <div class="container">
+          <div class="activity-finder__step_header--actions container">
               <div v-if="!this.$parent.loading" class="row">
                 <div class="col-xs-12 col-sm-12 text-right ml-auto actions-buttons">
                   <button @click.prevent="skip()" v-bind:disabled="!isStepNextDisabled" class="btn btn-primary skip btn-lg">Skip</button>
                   <button @click.prevent="next()" v-bind:disabled="isStepNextDisabled" class="btn btn-primary btn-lg next btn-disabled">Next</button>
                 </div>
               </div>
-            </div>
           </div>
         </div>
 
