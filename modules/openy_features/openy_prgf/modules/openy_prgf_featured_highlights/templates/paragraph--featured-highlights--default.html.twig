@@ -42,7 +42,7 @@
 'featured-highlights',
 'paragraph--type--' ~ paragraph.bundle|clean_class,
 view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
-] %}
+]|merge(classes|default([])) %}
 
  {% set columns = content.field_prgf_grid_style.0['#markup'] %}
 

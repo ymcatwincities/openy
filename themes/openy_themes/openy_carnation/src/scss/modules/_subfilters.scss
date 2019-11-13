@@ -27,10 +27,6 @@
   position: relative;
   z-index: 1;
 
-  @include media-breakpoint-up(lg) {
-    padding-top: 60px;
-  }
-
   .controls-wrapper {
     @include media-breakpoint-up(lg) {
       display: none;
@@ -98,7 +94,6 @@
     .select-wrapper:before {
       color: $pink;
       font-size: 24px;
-      right: 0;
       top: 50%;
       margin-top: -18px;
     }
@@ -143,6 +138,19 @@
       }
     }
 
+    .form-select {
+      @include cachet();
+      width: 100%;
+      border: 1px solid $gray-100;
+      border-radius: 8px;
+      color: $gray-500;
+      text-transform: uppercase;
+      padding: 15px;
+      font-size: 14px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
     // date picker field
     &.js-form-item-date .input-wrapper {
       display: flex;
@@ -179,14 +187,17 @@
       color: $gray-500;
       text-transform: uppercase;
       padding: 15px;
-      font-size: 18px;
+      font-size: 14px;
       -webkit-appearance: none;
       -moz-appearance: none;
     }
   }
 
   .form-actions {
-    padding: 0 15px;
+    padding: 0;
+    .btn-primary {
+      padding: 16px;
+    }
   }
 
   // buttons
