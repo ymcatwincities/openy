@@ -53,10 +53,15 @@
     <nav class="nav-global navbar-default navbar navbar-dark">
       <div class="container-fluid p-0">
         <div class="d-flex w-100">
-
           <div class="col-auto mr-auto">
-            {% block page_logo %}
-              {{ page.logo }}
+            {% block mobile_logo %}
+              {% if mobile_logo_url %}
+                <a class="mobile-logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                  <img src="{{ mobile_logo_url }}" alt="{{ site_slogan|t }}">
+                </a>
+              {% else %}
+                <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
+              {% endif %}
             {% endblock %}
           </div>
 
@@ -93,7 +98,9 @@
   </div>
 
   <div class="viewport">
-
+    {% if render_carnation_breadcrambs %}
+      {{ drupal_breadcrumb() }}
+    {% endif %}
     <header id="page-head" class="page-head">
       <div class="top-navs fixed-top d-none d-lg-block" data-spy="affix" data-offset-top="1">
         <nav class="nav-global navbar-ymcags navbar p-0">
@@ -102,7 +109,11 @@
             {# sitename & secondary menu #}
             <div class="page-head__top-menu d-flex align-items-stretch w-100">
               <div class="col-md-3 site-name">
-               {{ page.logo }}
+                  <span class="d-none d-lg-block">
+                    {% if site_slogan %}
+                      {{ site_slogan }}
+                    {% endif %}
+                  </span>
               </div>
               <div class="col-md">
                 {{ page.secondary_menu }}
@@ -126,7 +137,22 @@
                   </div>
                 </div>
               {% endif %}
-              <div class="page-head__main-menu nav-home nav-desktop">
+
+              {% block fullsite_logo %}
+                <div class="col-md-2 logo">
+                  <span></span>
+                  {% if logo_url %}
+                    <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                      <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" />
+                      <img src="{{ transparent_logo_url }}" alt="{{ site_slogan|t }}" />
+                    </a>
+                  {% else %}
+                    <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
+                  {% endif %}
+                </div>
+              {% endblock %}
+
+              <div class="page-head__main-menu nav-home nav-desktop col-md-10">
                 {{ page.primary_menu }}
               </div>
             </div>
@@ -136,14 +162,12 @@
       </div>
     </header>
 
-    {{ page.header }}
-    {{ page.breadcrumb }}
     {{ page.highlighted }}
     {{ page.help }}
 
     <main role="main" class="clearfix">
       <a id="main-content" tabindex="-1"></a>
-      <div class="layout-content py-3 mb-5 my-lg-5">
+      <div class="layout-content mb-5 mt-lg-5">
         {% block pagecontent %}
           {{ page.content }}
         {% endblock %}
