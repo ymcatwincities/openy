@@ -6,8 +6,8 @@
    */
   Drupal.behaviors.openyMatchHeight = {
     attach: function (context, settings) {
-      if(settings.matchheight) {
-        if(settings.matchheight.selectors) {
+      if (settings.matchheight) {
+        if (settings.matchheight.selectors) {
           var selectors = settings.matchheight.selectors;
           // make them all equal heights.
           $.each(selectors, function (index, value) {
