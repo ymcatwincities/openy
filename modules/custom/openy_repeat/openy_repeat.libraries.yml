@@ -6,6 +6,7 @@ openy_repeat:
     base:
       css/repeat.css: {}
       css/print.css: { media: print }
+      css/repeat_mobile.css: {}
   dependencies:
     - openy_system/openy_system.helpers
     - openy_system/openy_system.modal
