@@ -9,7 +9,7 @@ dependencies:
     - image.style.thumbnail_focal_point
     - media.type.image
   module:
-    - focal_point
+    - openy_focal_point
     - path
 id: media.image.default
 targetEntityType: media
@@ -32,7 +32,7 @@ content:
       preview_link: true
       offsets: '50,50'
     third_party_settings: {  }
-    type: image_focal_point
+    type: openy_image_focal_point
     region: content
   field_media_in_library:
     weight: 4
@@ -70,6 +70,13 @@ content:
     weight: 30
     region: content
     settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 100
+    region: content
     third_party_settings: {  }
 hidden:
   created: true
