@@ -1,6 +1,6 @@
 <template>
 
-  <div class="activity-finder__step_content">
+  <div class="activity-finder__step_content container">
     <div v-for="(topLevel, topLevelLabel, topLevelIndex) in options" class="activity-finder__collapse_group">
       <a :class="{'activity-finder__collapse_group__link': true, 'collapsed': topLevelCounters[topLevelLabel] == 0}" data-toggle="collapse" :href="'#collapse-activity-group-' + topLevelIndex">
         <h3>{{ topLevelLabel }}</h3>
