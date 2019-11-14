@@ -8,7 +8,7 @@
   Open Y
 </h3>
 <p align="center">
-  http://openymca.org
+  https://openy.org
 </p>
 <p align="center">
   An open source platform for YMCAs, by YMCAs built on <a href="https://drupal.org">Drupal</a>.

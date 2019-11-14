@@ -1,18 +1,27 @@
-name: Open Y Paragraph Gallery
-description: Provides a paragraph to display gallery content.
+name: 'Open Y Paragraph Gallery'
+description: 'Provides a paragraph to display gallery content.'
 type: module
 core: 8.x
-package: Open Y
+package: 'Open Y'
 version: 8.x-1.0
 dependencies:
-  - drupal:field
-  - drupal:image
-  - drupal:link
-  - drupal:media (>= 8.6)
-  - drupal:text
   - blazy
+  - crop
+  - 'drupal:field'
+  - 'drupal:image'
+  - 'drupal:link'
+  - 'drupal:media (>= 8.6)'
+  - 'drupal:text'
   - entity_browser
   - entity_reference
+  - field
+  - focal_point
+  - image
+  - link
+  - media
+  - openy_focal_point
   - openy_media_image
   - openy_prgf
   - paragraphs
+  - text
+core_incompatible: false

@@ -39,11 +39,7 @@
   // heading only (blog nodes)
   &--small {
     min-height: 120px;
-    padding-top: 70px;
-
-    @include media-breakpoint-up(lg) {
-      padding-top: 0;
-    }
+    padding-top: 44px;
   }
 
   // heading + subheading (program nodes)
@@ -65,4 +61,10 @@
       }
     }
   }
+}
+
+.paragraph--type--banner .banner-title {
+  font-size: 60px;
+  line-height: normal;
+  letter-spacing: -1.5px;
 }

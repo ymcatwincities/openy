@@ -94,7 +94,7 @@ a.direction-link {
     .address-wrapper {
       > h4 {
         @include cachet(500);
-        color: $primary;
+        color: $gray-400;
         font-size: 24px;
         letter-spacing: -1px;
         margin-bottom: 15px;
