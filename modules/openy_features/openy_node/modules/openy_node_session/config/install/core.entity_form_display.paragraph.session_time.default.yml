@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.session_time.field_session_time_date
     - field.field.paragraph.session_time.field_session_time_days
+    - field.field.paragraph.session_time.field_session_time_override
     - paragraphs.paragraphs_type.session_time
   module:
     - content_moderation
@@ -25,6 +26,14 @@ content:
     third_party_settings: {  }
     type: options_buttons
     region: content
+  field_session_time_override:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
     weight: 100

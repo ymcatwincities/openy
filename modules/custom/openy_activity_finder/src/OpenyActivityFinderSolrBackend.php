@@ -296,6 +296,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $dates = $entity->field_session_time->referencedEntities();
       $schedule_items = [];
       foreach ($dates as $date) {
+        $override_time = '';
+        if (isset($date->field_session_time_override)) {
+          $override_time = trim($date->field_session_time_override->getValue()[0]['value']);
+        }
         $_period = $date->field_session_time_date->getValue()[0];
         $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value'] . 'Z'), $this->timezone);
         $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value'] . 'Z'), $this->timezone);
@@ -306,6 +310,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $schedule_items[] = [
           'days' => implode(', ', $days),
           'time' => $_from->format('g:ia') . '-' . $_to->format('g:ia'),
+          'override_text' => $override_time,
         ];
         $full_dates = $_from->format('M d') . '-' . $_to->format('M d');
         $weeks = floor($_from->diff($_to)->days/7);
@@ -334,11 +339,20 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
 
       $price = [];
-      if (!empty($entity->field_session_mbr_price->value)) {
+      $nmbr_price = $entity->field_session_nmbr_price->value;
+      $mbr_price = $entity->field_session_mbr_price->value;
+      if (!empty($entity->field_session_mbr_price->value) && $nmbr_price !== "-1.00" && $mbr_price !== "0.00") {
         $price[] = '$' . $entity->field_session_mbr_price->value . '(member)';
       }
-      if (!empty($entity->field_session_nmbr_price->value)) {
+
+      if (!empty($nmbr_price) && $nmbr_price !== "-1.00" && $mbr_price !== "0.00") {
         $price[] = '$' . $entity->field_session_nmbr_price->value . '(non-member)';
+      }
+
+      if ($nmbr_price == "-1.00") {
+        $price[] = '$' . $mbr_price . '(Member Only)';
+      } elseif ($mbr_price == "0.00") {
+        $price[] = 'Fee ' . '$' . $nmbr_price;
       }
 
       $activity_type = '';
@@ -365,6 +379,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'schedule' => $schedule_items,
         'days' => isset($schedule_items[0]['days']) ? $schedule_items[0]['days'] : '',
         'times' => isset($schedule_items[0]['time']) ? $schedule_items[0]['time'] : '',
+        'override_text' => isset($schedule_items[0]['override_text']) ? $schedule_items[0]['override_text'] : '',
         'location' => $fields['field_session_location']->getValues()[0],
         'location_id' => $locations_info[$fields['field_session_location']->getValues()[0]]['nid'],
         'location_info' => $locations_info[$fields['field_session_location']->getValues()[0]],

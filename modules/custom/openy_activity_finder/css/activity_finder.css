@@ -517,6 +517,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
   }
 }
 .schedule-dashboard__wrapper .schedule-dashboard__sidebar .navbar-header .clear-all {
+  text-decoration: underline;
   font-size: 12px;
   font-weight: bold;
 }
@@ -753,7 +754,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
 }
 .activity-finder__step_header--progress-spacer {
   color: #231F20;
-  font-size: 12px;
+  font-size: 14px;
 }
 .schedule-dashboard__toggle {
   align-items: center;
@@ -791,6 +792,41 @@ and (-webkit-min-device-pixel-ratio: 2) {
   padding: 0 5px;
 }
 
+.af-schedules-empty_results .search-criteria{
+  margin: 15px auto;
+}
+
+.af-schedules-empty_results .mb {
+  margin: 20px 0 40px;
+}
+
+.af-schedules-empty_results .mt {
+  margin-top: 40px;
+}
+
+.schedule-dashboard__modal--body .modal-info-sidebar .more_results a,
+.schedule-dashboard__modal--body .modal-info-sidebar .location_name a {
+  font-size: 12px;
+}
+
+
+.schedules-data__row--alt .spots-availability {
+  border-radius: 3px;
+}
+
+@media (min-width: 768px){
+  .landing-content {
+    padding-top: 0 !important;
+  }
+}
+
+.landing-content {
+  padding-top: 0 !important;
+}
+
+.schedule-dashboard__modal--body .modal-info-sidebar .spots_available {
+  margin: 15px 0;
+}
 .activity_type .addtocalendar {
   display: block;
 }

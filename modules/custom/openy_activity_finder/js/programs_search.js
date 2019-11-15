@@ -12,7 +12,7 @@
 
   Vue.component('sidebar-filter', {
     props: ['title', 'id', 'options', 'expanded', 'default', 'type', 'hide_label', 'expander_sections_config', 'loading'],
-    data: function() {
+    data: function () {
       return {
         checkboxes: [],
         checked: [],
@@ -22,7 +22,7 @@
         is_expanded: false,
       }
     },
-    created: function() {
+    created: function () {
       this.checkboxes = JSON.parse(this.options);
       if (typeof this.default !== 'undefined') {
         this.checked = this.default.split(',').map(function (item) {
@@ -45,7 +45,7 @@
       }
     },
     watch: {
-      checked: function(values) {
+      checked: function (values) {
         // Some of the values could be empty. Clean them up.
         var cleanValues = [];
         for (key in values) {
@@ -60,26 +60,26 @@
       this.start_states = [];
     },
     methods: {
-      clear: function() {
+      clear: function () {
         this.checked = [];
       },
-      getId: function(string) {
+      getId: function (string) {
         return string.replace(/^[0-9a-zA-Z]/g, '-');
       },
-      getOption: function(data) {
+      getOption: function (data) {
         if (!isNaN(data.value)) {
           return data.value * 1;
         }
         return data.value;
       },
-      getLabel: function(data) {
+      getLabel: function (data) {
         return data.label;
       },
-      collapseGroup: function(checkbox) {
+      collapseGroup: function (checkbox) {
         var label = this.getLabel(checkbox);
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
-      collapseAllGroups: function(checkbox) {
+      collapseAllGroups: function (checkbox) {
         var label = this.getLabel(checkbox);
         // Close all other expanded groups.
         for (var i in this.expanded_checkboxes) {
@@ -88,7 +88,7 @@
           }
         }
       },
-      checkboxIsDisabled: function(title, value) {
+      checkboxIsDisabled: function (title, value) {
         var component = this.$parent;
         switch (title) {
           case "Age":
@@ -117,7 +117,7 @@
         }
         return false;
       },
-      checkboxIsExcluded: function(title, value) {
+      checkboxIsExcluded: function (title, value) {
         var component = this.$parent;
         switch (title) {
           case "Category":
@@ -132,7 +132,7 @@
         }
         return false;
       },
-      groupStatus: function(value) {
+      groupStatus: function (value) {
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
         }
@@ -163,13 +163,13 @@
           return 'none';
         }
       },
-      groupCounter: function(group) {
+      groupCounter: function (group) {
         var counter = 0;
         if (typeof group !== 'undefined' && typeof this.dependencies[group] !== 'undefined') {
           for (var i in this.dependencies[group]) {
             for (var j in this.checked) {
               if (this.dependencies[group][i] == this.checked[j]) {
-                counter ++;
+                counter++;
               }
             }
           }
@@ -184,7 +184,7 @@
         }
         return counter;
       },
-      selectDependent: function(value) {
+      selectDependent: function (value) {
         if (typeof this.dependencies[value] == 'undefined') {
           return false;
         }
@@ -221,20 +221,20 @@
     template: '<div class="form-group-wrapper">\n' +
     '                <label v-if="!hide_label" v-on:click="expanded = !expanded">\n' +
     '                 {{ title }}\n' +
-    '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>'+
+    '                  <small v-show="groupCounter() > 0" class="badge">{{ groupCounter() }}</small>' +
     '                  <i v-if="expanded" class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>\n' +
     '                  <i v-if="!expanded" class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>\n' +
     '                </label>\n' +
-    '                <div v-bind:class="[type]">\n' +
+    '                <div v-bind:class="[type]" >\n' +
     '                  <div v-for="checkbox in checkboxes" class="checkbox-wrapper" ' +
-    '                     v-show="type != \'tabs\' || expanded || loading"' +
+    '                     v-show="type != \'tabs\' || expanded"' +
     '                     v-bind:class="{\'col-xs-4 col-sm-2 col-md-4 col-4\': type == \'tabs\', \'disabled\': checkboxIsDisabled(title, getOption(checkbox))}">' +
     // No parent checkbox.
-    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || loading" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
-    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || loading" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
+    '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
+    '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
     '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true)" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true)" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
     '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
@@ -254,10 +254,11 @@
     '              </div>'
   });
 
-  // Does not yet support flat list of radios. Only two level as for Daxko location.
+  // Does not yet support flat list of radios. Only two level as for Daxko
+  // location.
   Vue.component('sidebar-filter-single', {
     props: ['title', 'id', 'options', 'default', 'type', 'hide_label', 'expander_sections_config', 'loading'],
-    data: function() {
+    data: function () {
       return {
         radios: [],
         checked: [],
@@ -268,7 +269,7 @@
         start_states: {}
       }
     },
-    created: function() {
+    created: function () {
       this.radios = JSON.parse(this.options);
       this.expander_sections_config = JSON.parse(this.expander_sections_config);
       if (typeof this.default !== 'undefined') {
@@ -286,7 +287,7 @@
       }
     },
     watch: {
-      checked: function(values) {
+      checked: function (values) {
         this.$emit('updated-values', [values]);
       }
     },
@@ -294,23 +295,23 @@
       this.start_states = [];
     },
     methods: {
-      clear: function() {
+      clear: function () {
         this.checked = '';
       },
-      getId: function(string) {
+      getId: function (string) {
         return string.replace(/^[0-9a-zA-Z]/g, '-');
       },
-      getOption: function(data) {
+      getOption: function (data) {
         return data.value;
       },
-      getLabel: function(data) {
+      getLabel: function (data) {
         return data.label;
       },
-      collapseGroup: function(checkbox) {
+      collapseGroup: function (checkbox) {
         var label = this.getLabel(checkbox);
         return typeof this.expanded_checkboxes[label] == 'undefined' || this.expanded_checkboxes[label] == false;
       },
-      collapseAllGroups: function(checkbox) {
+      collapseAllGroups: function (checkbox) {
         var label = this.getLabel(checkbox);
         // Close all other expanded groups.
         for (var i in this.expanded_checkboxes) {
@@ -319,7 +320,7 @@
           }
         }
       },
-      groupCounter: function(group) {
+      groupCounter: function (group) {
         var counter = 0;
         if (typeof group !== 'undefined' && typeof this.dependencies[group] !== 'undefined') {
           for (var i in this.dependencies[group]) {
@@ -433,7 +434,7 @@
       },
       configSettings: [],
     },
-    created: function() {
+    created: function () {
       var component = this;
 
       if (typeof this.$route.query.locations != 'undefined') {
@@ -494,35 +495,35 @@
       // We add watchers dynamically otherwise initially there will be
       // up to three requests as we are changing values while initializing
       // from GET query parameters.
-      component.$watch('locations', function(newValue, oldValue){
+      component.$watch('locations', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('categories', function(newValue, oldValue){
+      component.$watch('categories', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('ages', function(newValue, oldValue){
+      component.$watch('ages', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('days', function(newValue, oldValue){
+      component.$watch('days', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('sort', function(newValue, oldValue){
+      component.$watch('sort', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
@@ -530,11 +531,12 @@
         }
       });
     },
-    updated: function() {
-      if (typeof(addtocalendar) !== 'undefined') {
+    updated: function () {
+      if (typeof (addtocalendar) !== 'undefined') {
         addtocalendar.load();
       }
-      // Fix accessibility features, make atc calendar accessible by keyboard and screen readers.
+      // Fix accessibility features, make atc calendar accessible by keyboard
+      // and screen readers.
       $(".atcb-link").each(function () {
         $(this).addClass('btn btn-lg btn-primary');
         $(this).parent().find('ul').find('.atcb-item-link').attr("tabindex", 0);
@@ -551,22 +553,25 @@
       });
     },
     methods: {
-      arrayFilter: function(array) {
+      arrayFilter: function (array) {
         if (typeof array != 'array') {
           return array;
         }
-        return array.filter(function(word){ return word.length > 0 && word != 'undefined'; }).map(function (word) {
+        return array.filter(function (word) {
+          return word.length > 0 && word != 'undefined';
+        }).map(function (word) {
           if (isNaN(word)) {
             return word;
           }
           return +word;
         });
       },
-      runAjaxRequest: function(reset_pager) {
+      runAjaxRequest: function (reset_pager) {
         var component = this;
         var url = drupalSettings.path.baseUrl + 'af/get-data';
 
-        // If alternative search provided modify parameters to get some results for most important criteria.
+        // If alternative search provided modify parameters to get some results
+        // for most important criteria.
         if (typeof this.alternativeCriteria !== 'undefined') {
           switch (this.alternativeCriteria) {
             case 'day':
@@ -592,25 +597,33 @@
         }
 
         var query = [],
-        cleanLocations = this.locations.map(function(word){ return word; });
+          cleanLocations = this.locations.map(function (word) {
+            return word;
+          });
         if (cleanLocations.length > 0) {
           query.push('locations=' + encodeURIComponent(cleanLocations.join(',')));
         }
         if (this.keywords.length > 0 && this.keywords != 'undefined') {
           query.push('keywords=' + encodeURIComponent(this.keywords));
         }
-        var cleanCategories = this.categories.map(function(word){ return word; });
+        var cleanCategories = this.categories.map(function (word) {
+          return word;
+        });
         if (cleanCategories.length > 0) {
           query.push('categories=' + encodeURIComponent(cleanCategories.join(',')));
         }
         if (this.categoriesExcluded.length > 0) {
           query.push('exclude=' + encodeURIComponent(this.categoriesExcluded.join(',')));
         }
-        var cleanAges = this.ages.filter(function(word){ return word; });
+        var cleanAges = this.ages.filter(function (word) {
+          return word;
+        });
         if (cleanAges.length > 0) {
           query.push('ages=' + encodeURIComponent(cleanAges.join(',')));
         }
-        var cleanDays = this.days.filter(function(word){ return word; });
+        var cleanDays = this.days.filter(function (word) {
+          return word;
+        });
         if (cleanDays.length > 0) {
           query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
@@ -637,7 +650,7 @@
 
         this.loading = true;
 
-        $.getJSON(url, function(data) {
+        $.getJSON(url, function (data) {
           component.table = data.table;
           component.facets = data.facets;
           component.expanderSectionsConfig = data.expanderSectionsConfig;
@@ -647,42 +660,47 @@
           component.no_results = data.count > 0 ? '0' : '1';
           component.sort = data.sort;
 
-          router.push({ query: {
-            locations: cleanLocations.join(','),
-            categories: cleanCategories.join(','),
-            exclude: component.categoriesExcluded.join(','),
-            ages: cleanAges.join(','),
-            days: cleanDays.join(','),
-            keywords: component.keywords,
-            page: component.page,
-            no_results: component.no_results,
-            sort: component.sort,
-          }});
-        }).done(function() {
+          router.push({
+            query: {
+              locations: cleanLocations.join(','),
+              categories: cleanCategories.join(','),
+              exclude: component.categoriesExcluded.join(','),
+              ages: cleanAges.join(','),
+              days: cleanDays.join(','),
+              keywords: component.keywords,
+              page: component.page,
+              no_results: component.no_results,
+              sort: component.sort,
+            }
+          });
+        }).done(function () {
           component.loading = false;
         });
       },
-      searchAlternativeResults: function(type) {
+      searchAlternativeResults: function (type) {
         this.alternativeCriteria = type;
         this.runAjaxRequest();
       },
-      populatePopupLocation: function(index) {
+      populatePopupLocation: function (index) {
         this.table[index].location_info.address = this.convertAddressField(this.table[index].location_info.address);
         this.locationPopup = this.table[index].location_info;
       },
-      convertAddressField: function(address) {
-        address = address.split(',').map(function(item) {return item.trim()});
+      convertAddressField: function (address) {
+        address = address.split(',').map(function (item) {
+          return item.trim()
+        });
         let address_out = address[0] ? address[0] : '';
         address_out += '<br />';
         address_out += address[1] ? address[1] + ', ' : '';
-        address_out += address[2] ? address[2] + ' ': '';
+        address_out += address[2] ? address[2] + ' ' : '';
         address_out += address[3] ? address[3] : '';
         return address_out;
       },
-      populatePopupMoreInfo: function(index) {
+      populatePopupMoreInfo: function (index) {
         var component = this;
 
-        // This means we already have all data so no need to run extra ajax call.
+        // This means we already have all data so no need to run extra ajax
+        // call.
         if (component.table[index].availability_status !== '') {
           component.moreInfoPopup.name = component.table[index].name;
           component.moreInfoPopup.description = component.table[index].description;
@@ -726,7 +744,8 @@
 
         var url = drupalSettings.path.baseUrl + 'af/more-info';
 
-        // Pass all the query parameters to Details call so we could build the logging.
+        // Pass all the query parameters to Details call so we could build the
+        // logging.
         var query = [];
         query.push('log=' + encodeURIComponent(this.table[index].log_id));
         query.push('details=' + encodeURIComponent(this.table[index].name));
@@ -741,7 +760,7 @@
         }
 
         component.moreInfoPopupLoading = true;
-        $.getJSON(url, function(data) {
+        $.getJSON(url, function (data) {
           component.moreInfoPopupLoading = false;
 
           component.table[index].price = data.price;
@@ -794,7 +813,7 @@
         });
       },
 
-      clearFilters: function() {
+      clearFilters: function () {
         this.runningClearAllFilters = true;
         this.locations = [];
         this.categories = [];
@@ -807,30 +826,30 @@
         this.$refs.days_filter.clear();
         this.runAjaxRequest();
       },
-      loadPrevPage: function() {
+      loadPrevPage: function () {
         this.current_page--;
         this.table = [];
         this.runAjaxRequest(false);
-        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
+        $('html, body').animate({scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200}, 500);
       },
-      loadNextPage: function() {
+      loadNextPage: function () {
         this.current_page++;
         this.table = [];
         this.runAjaxRequest(false);
-        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
+        $('html, body').animate({scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200}, 500);
       },
-      loadPageNumber: function(number) {
+      loadPageNumber: function (number) {
         this.current_page = number;
         this.table = [];
         this.runAjaxRequest(false);
-        $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
+        $('html, body').animate({scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200}, 500);
       },
-      totalGroupCounter: function() {
+      totalGroupCounter: function () {
         // Returns count of of applied filters.
         return this.ages.length + this.days.length + this.categories.length + this.locations.length;
       }
     },
-    delimiters: ["${","}"]
+    delimiters: ["${", "}"]
   });
 
   Drupal.behaviors.openyGroupsCollapse = {
@@ -840,7 +859,7 @@
         'activityGroup',
         'locationGroup'
       ];
-      groups.map(function(group) {
+      groups.map(function (group) {
         $('#' + group).on('hide.bs.collapse', function () {
           $("h3." + group + " > i").removeClass('minus').removeClass('fa-minus').addClass('fa-plus').addClass('plus');
         });

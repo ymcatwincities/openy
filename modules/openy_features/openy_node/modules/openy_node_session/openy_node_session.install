@@ -259,3 +259,36 @@ function openy_node_session_update_8011() {
     'core.entity_form_display.node.session.default',
   ]);
 }
+
+/**
+ * Add field for override session time.
+ */
+function openy_node_session_update_8012() {
+
+  $config_dir = drupal_get_path('module', 'openy_node_session') . '/config/install/';
+
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.storage.paragraph.field_session_time_override',
+    'field.field.paragraph.session_time.field_session_time_override',
+  ]);
+
+  $configs = [
+    'core.entity_form_display.paragraph.session_time.default' =>[
+      'dependencies',
+      'content',
+    ],
+    'core.entity_view_display.paragraph.session_time.default' =>[
+      'dependencies',
+      'content',
+    ],
+  ];
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

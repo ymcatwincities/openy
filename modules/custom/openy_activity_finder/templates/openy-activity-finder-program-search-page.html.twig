@@ -258,8 +258,13 @@
                     </div>
                     <div class="info-wrapper">
                       <div v-for="(item, index) in item.schedule">
-                        <span class="days">${ item.days }</span><br/>
-                        <span class="time">${ item.time }</span>
+                        <template v-if="item.override_text !== ''">
+                          <span class="override-text">${ item.override_text }</span>
+                        </template>
+                        <template v-else>
+                          <span class="days">${ item.days }</span><br/>
+                          <span class="time">${ item.time }</span>
+                        </template>
                       </div>
                     </div>
                   </div>
@@ -274,10 +279,10 @@
                     <div class="availability-wrapper">
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
-                        <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? item.spots_available == 1 ? 'few-spots only-one' : 'few-spots' : '', 'spots-availability']">${ item.spots_available }
-                          <span v-if="item.spots_available == 1">spot</span>
-                          <span v-if="item.spots_available > 1">spots</span>
-                          left</div>
+                        <div class="spots-label" v-if="item.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
+                        <div v-if="item.spots_available <= 10 && item.spots_available > 0" v-bind:class="[item.spots_available <= 3 ? 'few-spots' : '', 'spots-availability']">${ item.spots_available } spots left</div>
+                        <div v-if="item.spots_available <= 0" v-bind:class="[item.spots_available <= 0 ? 'few-spots' : '', 'spots-availability']">{{ 'Full'|t }}</div>
+                        <div v-if="item.spots_available > 10" v-bind:class="['spots-availability']">{{ '10+ Open Spots'|t }}</div>
                       </div>
                       {# if we know that registration is NOT available #}
                       <div v-if="item.availability_status == 'closed'">
@@ -290,15 +295,12 @@
               </div>
 
               <div v-show="table.length == 0 && !loading" class="af-schedules-empty_results">
-                <h2>{{ 'Oh no!'|t }}</h2>
-                <br/>
-                <p>{{ 'We\'re sorry, but no results meet your search criteria'|t }}</p>
-                <br/>
-                <br/>
+                <h2 class="mt">{{ 'Oh no!'|t }}</h2>
+                <p class="mb">{{ 'We\'re sorry, but no results meet your search criteria'|t }}</p>
                 <p><strong>{{ 'What criteria is most important to you?'|t }}</strong></p>
-                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')">{{ 'Day'|t }}</a><br/>
-                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('program')">{{ 'Program'|t }}</a><br/>
-                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('location')">{{ 'Location'|t }}</a><br/>
+                <a class="search-criteria btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')">{{ 'Day'|t }}</a>
+                <a class="search-criteria btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('program')">{{ 'Program'|t }}</a>
+                <a class="search-criteria btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('location')">{{ 'Location'|t }}</a>
               </div>
 
             </div>
@@ -359,8 +361,13 @@
                       <span class="dates">${ moreInfoPopup.dates }</span> (${ moreInfoPopup.weeks }wks)
                     </div>
                     <div v-for="(item, index) in moreInfoPopup.schedule">
-                      <div class="days">${ item.days }</div>
-                      <div class="time">${ item.time }</div>
+                      <template v-if="item.override_text !== ''">
+                        <div class="override-text">${ item.override_text }</div>
+                      </template>
+                      <template v-else>
+                        <div class="days">${ item.days }</div>
+                        <div class="time">${ item.time }</div>
+                      </template>
                     </div>
                     <div v-if="moreInfoPopup.location_name.length > 0" class="location_name">
                       <a v-bind:href="moreInfoPopup.location_url" target="_blank">${ moreInfoPopup.location_name } <i class="fa fa-external-link"></i></a>
@@ -379,10 +386,9 @@
                         <div class="spots-label">{{ 'Free for members'|t }}</div>
                       </div>
                       {% if not is_spots_available_disabled %}
-                        <div v-if="moreInfoPopup.spots_available"  v-bind:class="[moreInfoPopup.spots_available <= 3 ? moreInfoPopup.spots_available == 1 ? 'only-one' : 'few-spots' : '', 'spots_available']">${ moreInfoPopup.spots_available }
-                          <span v-if="moreInfoPopup.spots_available == 1">spot</span>
-                          <span v-if="moreInfoPopup.spots_available > 1">spots</span>
-                          left</div>
+                        <div class="spots-label" v-if="moreInfoPopup.spots_available">{{ 'Purchase of PT sessions required'|t }}</div>
+                        <div v-if="moreInfoPopup.spots_available <= 10 && moreInfoPopup.spots_available != ''" class="spots_available">${ moreInfoPopup.spots_available } spots left</div>
+                        <div v-if="moreInfoPopup.spots_available > 10" class="spots_available">{{ '10+ Open Spots'|t }}</div>
                       {% endif %}
                       <div v-if="moreInfoPopup.activity_type == 'group'" class="availability_status activity_type">
                         <div v-if="moreInfoPopup.atc_info != ''" class="addtocalendar">
