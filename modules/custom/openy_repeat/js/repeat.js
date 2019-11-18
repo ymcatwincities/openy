@@ -272,7 +272,10 @@
         var availableClasses = [];
         this.table.forEach(function(element) {
           if (element.class_info.title) {
-            availableClasses[element.class_info.title] = element.class_info.title;
+            filterTitle = $("<textarea/>")
+                .html(element.class_info.title.replace('/&amp;/g', '&'))
+                .text();
+            availableClasses[filterTitle] = filterTitle;
           }
         });
 
