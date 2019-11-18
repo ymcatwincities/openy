@@ -48,3 +48,7 @@ The syncer consists of the next steps:
 `@openy_pef_gxp_sync.fetcher_debugger` to emulate API response.
 
 2. Use `DEBUG_MODE` constants inside classes to debug specific service.
+
+### Known issues in sync.
+
+1. There is an issue if class in Groupex has category set to "General" - it will not be synced and displayed at PEF.

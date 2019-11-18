@@ -211,7 +211,7 @@ class RepeatController extends ControllerBase {
         ]);
         if (!in_array($item->name, $class_name)) {
           $classes_info[$item->class]['path'] .= '?' . $query;
-          $class_name[] = $item->name;
+          $class_name[] = html_entity_decode($item->name);
         }
       }
 
@@ -903,7 +903,7 @@ class RepeatController extends ControllerBase {
         $weekday = DrupalDateTime::createFromFormat('Y-m-d', $day)->format('l');
         $formatted_result['content'][$session->category . '|' .$session->location][$weekday][$session->time_start . '-' . $session->time_end][] = [
           'room' => $session->room,
-          'name' => $session->name,
+          'name' => html_entity_decode($session->name),
           'category' => $session->category,
           'instructor' => $session->instructor,
         ];

@@ -105,9 +105,10 @@ class SettingsForm extends ConfigFormBase {
 
     $form_state->setCached(FALSE);
 
-    $backend_options = [
-      'openy_activity_finder.solr_backend' => 'Solr Backend (local db)',
-    ];
+    $backend_options = [];
+    if ($this->moduleHandler->moduleExists('search_api')) {
+      $backend_options['openy_activity_finder.solr_backend'] = 'Solr Backend (local db)';
+    }
 
     if ($this->moduleHandler->moduleExists('openy_daxko2')){
       $backend_options['openy_daxko2.openy_activity_finder_backend'] = $this->t('Daxko 2 (live API calls)');
@@ -122,31 +123,33 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Search API backend for Activity Finder'),
     ];
 
-    $search_api_indexes = $this->entityTypeManager
-      ->getStorage('search_api_index')->loadByProperties();
+    if ($this->moduleHandler->moduleExists('search_api')) {
+      $search_api_indexes = $this->entityTypeManager
+        ->getStorage('search_api_index')->loadByProperties();
 
-    $indexes = [];
-    if ($search_api_indexes) {
-      foreach ($search_api_indexes as $index) {
-        $indexes[$index->id()] = $index->get('name');
+      $indexes = [];
+      if ($search_api_indexes) {
+        foreach ($search_api_indexes as $index) {
+          $indexes[$index->id()] = $index->get('name');
+        }
       }
-    }
 
-    $form['index'] = [
-      '#type' => 'select',
-      '#options' => $indexes,
-      '#title' => $this->t('Search API index'),
-      '#default_value' => $config->get('index'),
-      '#description' => $this->t('Search API Index to use for SOLR backend.'),
-      '#states' => [
-        'visible' => [
-          ':input[name="backend"]' => ['value' => 'openy_activity_finder.solr_backend'],
+      $form['index'] = [
+        '#type' => 'select',
+        '#options' => $indexes,
+        '#title' => $this->t('Search API index'),
+        '#default_value' => $config->get('index'),
+        '#description' => $this->t('Search API Index to use for SOLR backend.'),
+        '#states' => [
+          'visible' => [
+            ':input[name="backend"]' => ['value' => 'openy_activity_finder.solr_backend'],
+          ],
+          'required' => [
+            ':input[name="backend"]' => ['value' => 'openy_activity_finder.solr_backend'],
+          ],
         ],
-        'required' => [
-          ':input[name="backend"]' => ['value' => 'openy_activity_finder.solr_backend'],
-        ],
-      ],
-    ];
+      ];
+    }
 
     $form['ages'] = [
       '#type' => 'textarea',
