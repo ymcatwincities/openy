@@ -11,7 +11,7 @@ module.exports = merge(common, {
         exclude: [
           /node_modules/,
           /jshint-loader/,
-          /webpack-entry.js/,
+          /webpack-entry.js/
         ],
         use: {
           loader: "babel-loader"
@@ -26,17 +26,17 @@ module.exports = merge(common, {
             loader: 'css-loader',
             options: {
               url: false,
-              sourceMap: true,
+              sourceMap: true
             }
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
+              sourceMap: true
             }
-          },
+          }
         ]
-      },
+      }
     ]
   }
 });
