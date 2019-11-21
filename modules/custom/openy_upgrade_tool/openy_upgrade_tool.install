@@ -204,3 +204,29 @@ function openy_upgrade_tool_update_8008() {
   $config_importer->importConfigSimple('system.action.apply_active_version');
   $config_importer->importConfigSimple('system.action.apply_openy_version');
 }
+
+/**
+ * Add matchheight default classes
+ */
+function openy_upgrade_tool_update_8009() {
+  $config = Drupal::service('config.factory')->getEditable('openy_carnation.settings');
+  $config->set('matchheight_css_classes', '.viewport .page-head__main-menu .nav-level-3 > a
+.blog-up
+.blog-heading
+.inner-wrapper
+.card
+.card-body
+.card h3
+.card .node__content
+.block-description--text > h2
+.block-description--text > div
+.table-class');
+  $config->save();
+}
+
+/**
+ * Enable Twig Tweak module, it should be installed over composer
+ */
+function openy_upgrade_tool_update_8010() {
+  \Drupal::service('module_installer')->install(array('twig_tweak'), TRUE);
+}

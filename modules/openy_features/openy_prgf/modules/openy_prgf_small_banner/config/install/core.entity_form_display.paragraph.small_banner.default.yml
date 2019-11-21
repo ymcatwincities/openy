@@ -9,7 +9,7 @@ dependencies:
     - field.field.paragraph.small_banner.field_prgf_image
     - paragraphs.paragraphs_type.small_banner
   module:
-    - entity_browser
+    - openy_focal_point
     - text
 id: paragraph.small_banner.default
 targetEntityType: paragraph
@@ -39,7 +39,7 @@ content:
     third_party_settings: {  }
     region: content
   field_prgf_image:
-    type: entity_browser_entity_reference
+    type: openy_focal_point_entity_browser_entity_reference
     weight: 1
     settings:
       entity_browser: images_library
@@ -50,6 +50,7 @@ content:
       field_widget_display_settings:
         view_mode: thumbnail_for_preview
       open: false
+      field_widget_replace: false
     third_party_settings: {  }
     region: content
 hidden:

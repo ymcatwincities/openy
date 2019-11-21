@@ -2,7 +2,7 @@ name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core: 8.x
-version: '8.x-2.2.4-dev'
+version: '8.x-2.3.3'
 distribution:
   name: Open Y
   install:
@@ -59,6 +59,7 @@ dependencies:
   - plugin
   - recaptcha
   - simple_menu_icons
+  - twig_tweak
   # Open Y
   - advanced_help_block
   - openy_autocomplete_path
