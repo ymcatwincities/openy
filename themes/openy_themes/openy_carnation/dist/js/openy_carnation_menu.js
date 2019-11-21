@@ -42,5 +42,18 @@
     }
   };
 
+  Drupal.behaviors.menuTabNav = {
+    attach: function(context, settings) {
+      jQuery('.navbar .row-level-2').each(function(index, value) {
+        var aLast = jQuery(value).find('a').last();
+        var aFirst = jQuery(value).find('a').first();
+        aLast.focusout(function (event) {
+          event.stopPropagation();
+          aFirst.focus();
+        });
+      });
+    }
+  };
+
 
 })(jQuery);
