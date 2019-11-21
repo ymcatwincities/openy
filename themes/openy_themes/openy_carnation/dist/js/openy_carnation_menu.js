@@ -44,13 +44,18 @@
 
   Drupal.behaviors.menuTabNav = {
     attach: function(context, settings) {
-      jQuery('.navbar .row-level-2').each(function(index, value) {
-        var aLast = jQuery(value).find('a').last();
-        var aFirst = jQuery(value).find('a').first();
+      $('.navbar .row-level-2').each(function(index, value) {
+        var aLast = $(value).find('a').last();
+        var aFirst = $(value).find('a').first();
         aLast.focusout(function (event) {
           event.stopPropagation();
           aFirst.focus();
         });
+      });
+
+      $('.navbar .search-input').focusout(function (event) {
+        event.stopPropagation();
+        $('.page-head__search-close').focus();
       });
     }
   };

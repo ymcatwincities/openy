@@ -125,14 +125,14 @@
               {% if display_search %}
                 <div class="page-head__search fade collapse">
                   <div class="search-form-wrapper">
+                    <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle search bar">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
                     <form method="get" action="{{ base_path }}/search/node">
                       <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
                       <input type="search" name="keys" class="search-input" placeholder="Search">
                       <input type="submit" value="Search">
                     </form>
-                    <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle search bar">
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
                   </div>
                 </div>
               {% endif %}
