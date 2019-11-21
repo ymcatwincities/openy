@@ -185,6 +185,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           $days[] = $i['search_value'];
         }
       }
+      $query->addCondition('field_session_time_days', $days, 'IN');
     }
 
     if (!empty($parameters['program_types'])) {
