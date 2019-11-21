@@ -160,7 +160,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    * {@inheritdoc}
    */
   public function doSearchRequest($parameters) {
-    $index = Index::load('default');
+    $index_id = $this->config->get('index') ? $this->config->get('index') : 'default';
+    $index = Index::load($index_id);
     $query = $index->query();
     $parse_mode = \Drupal::service('plugin.manager.search_api.parse_mode')->createInstance('direct');
     $query->getParseMode()->setConjunction('OR');

@@ -5,9 +5,9 @@ dependencies:
     - block_content.type.branch_amenities
     - custom_formatters.formatter.branch_amenities
     - field.field.block_content.branch_amenities.field_branch_am
+    - field.field.block_content.branch_amenities.field_icon_class
     - field.field.block_content.branch_amenities.field_sb_link
     - field.field.block_content.branch_amenities.field_sb_title
-    - field.field.block_content.branch_amenities.field_icon_class
   module:
     - custom_formatters
     - link
@@ -22,6 +22,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: 'custom_formatters:branch_amenities'
+    region: content
+  field_icon_class:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_sb_link:
     weight: 2
     label: hidden
@@ -33,6 +42,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_sb_title:
     weight: 0
     label: hidden
@@ -40,12 +50,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
-  field_icon_class:
-    weight: 1
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
+    region: content
 hidden:
   langcode: true

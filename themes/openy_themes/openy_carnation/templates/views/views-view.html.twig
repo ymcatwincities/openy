@@ -37,7 +37,7 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
     css_name,
     css_name == 'taxonomy-term' ? 'container',
-  ]
+  ]|merge(classes|default([]))
 %}
 <div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}

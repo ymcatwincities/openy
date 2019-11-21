@@ -7,10 +7,14 @@ $breadcrumbColorsLength: length($breadcrumbColors);
 
 .breadcrumbs-wrapper {
   position: absolute;
-  bottom: -25px;
+  margin-top: -25px;
   z-index: 10;
   left: 0;
   right: 0;
+}
+
+.banner-cta-content .breadcrumbs-wrapper {
+  margin-top: 23px;
 }
 
 .breadcrumbs {
@@ -89,5 +93,22 @@ $breadcrumbColorsLength: length($breadcrumbColors);
         display: none;
       }
     }
+  }
+}
+
+body.without-banner {
+  .breadcrumbs-wrapper {
+    position: initial;
+  }
+  &.page-node-type-class {
+    .breadcrumbs-wrapper {
+      margin-top: -225px;
+    }
+  }
+}
+
+.page-node-type-camp {
+  .breadcrumbs-wrapper {
+    margin-top: -101px;
   }
 }

@@ -201,20 +201,6 @@ set classes = [
   </div>
 </article>
 
-{# branch ammenities #}
-{% if content.field_location_amenities|render|trim is not empty %}
-<div class="bg-gray-600 text-white mb-sm-5">
-  <div class="container">
-    <div class="row py-5">
-      <div class="col-12 py-0 py-lg-3">
-        <h5 class="grid-branch-features text-uppercase border-bottom border-gray-400 pb-2 mb-4">{{ 'Branch Amenities'|t }}</h5>
-        {{ content.field_location_amenities }}
-      </div>
-    </div>
-  </div>
-</div>
-{% endif %}
-
 {# Branch content #}
 <div class="container">
   <div class="row">
