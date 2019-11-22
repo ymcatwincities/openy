@@ -1,7 +1,10 @@
+// header banner section
+.banner-zone-node {
+  position: relative;
+}
+
 .banner {
   background-color: $cyan;
-  position: relative;
-
   position: relative;
 
   // main background image
@@ -36,17 +39,6 @@
       content: "";
       opacity: .3;
       z-index: 1;
-    }
-  }
-  .banner {
-    min-height: 70px;
-
-    @include media-breakpoint-up(sm) {
-      min-height: 225px;
-    }
-
-    @include media-breakpoint-up(md) {
-      min-height: 350px;
     }
   }
 
