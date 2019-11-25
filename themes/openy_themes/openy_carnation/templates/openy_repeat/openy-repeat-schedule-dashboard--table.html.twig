@@ -160,7 +160,7 @@
   <div class="modal fade hidden-xs schedule-dashboard__modal schedule-dashboard__modal--location" tabindex="-1" role="dialog"
        aria-labelledby="schedule-dashboard__modal--location-link">
     <div class="modal-cover"></div>
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog px-2" role="document">
       <div class="modal-content">
 
         <div class="schedule-dashboard__modal--header">
@@ -171,10 +171,10 @@
         </div>
 
         <div class="schedule-dashboard__modal--body">
-          <div class="header-border">
+          <div class="header-border p-3">
             <h4><strong>${ locationPopup.title }</strong></h4>
           </div>
-          <table class="table">
+          <table class="table m-3">
             <tr>
               <td><label>{{ 'Address'|t }}</label></td>
               <td>${ locationPopup.address }</td>
@@ -190,7 +190,7 @@
             <tr>
               <td><label>{{ 'Branch hours'|t }}</label></td>
               <td>
-                <table class="table">
+                <table class="table m-3">
                   <tr v-for="row in locationPopup.days">
                     <td>${ row[0] }</td>
                     <td>${ row[1] }</td>
@@ -213,7 +213,7 @@
   <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--class" tabindex="-1" role="dialog"
        aria-labelledby="schedule-dashboard__modal--class-link">
     <div class="modal-cover"></div>
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog px-2" role="document">
       <div class="modal-content">
 
         <div class="schedule-dashboard__modal--header">
@@ -224,7 +224,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--body">
-          <div class="header-border">
+          <div class="header-border p-3">
             <h4><strong>${ classPopup.title }</strong></h4>
             <p class="m-b">${ classPopup.description }</p>
           </div>
@@ -311,7 +311,7 @@
   <div class="modal fade schedule-dashboard__modal schedule-dashboard__modal--instructor" tabindex="-1" role="dialog"
        aria-labelledby="schedule-dashboard__modal--instructor-link">
     <div class="modal-cover"></div>
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog px-2" role="document">
       <div class="modal-content">
         <div class="schedule-dashboard__modal--header">
           <h5 class="modal-title">Activity details</h5>
@@ -321,7 +321,7 @@
         </div>
 
         <div class="schedule-dashboard__modal--body">
-          <div class="header-border">
+          <div class="header-border p-3">
             <h4><strong>${ instructorPopup.name}</strong></h4>
           </div>
           <div v-for="(item, index) in instructorPopup.schedule" class="schedules-data__row">
