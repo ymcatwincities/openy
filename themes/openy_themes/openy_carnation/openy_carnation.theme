@@ -232,14 +232,14 @@ function openy_carnation_preprocess_page(array &$variables) {
 
   openy_carnation_preprocess_page_logo($variables);
 
-  $variables['render_carnation_breadcrambs'] = TRUE;
+  $variables['render_carnation_breadcrumbs'] = TRUE;
   if ($node = \Drupal::routeMatch()
     ->getParameter('node')) {
     $node_type = $node->getType();
     if (in_array($node_type, [
       'program_subcategory',
     ])) {
-      $variables['render_carnation_breadcrambs'] = FALSE;
+      $variables['render_carnation_breadcrumbs'] = FALSE;
     }
   }
 }
