@@ -11,9 +11,9 @@
 <div class="row schedule-dashboard__content--header">
 
   {% block date_wrapper %}
-  <div class="col-sm-12 col-md-4 col-lg-5 day-label">
+  <div class="col-sm-12 col-md-12 col-lg-5 day-label">
     {% endblock %}
-    <h2>
+    <h2 class="d-flex justify-content-between">
       <button v-if="showBackArrow()" v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button"
               aria-label="previous date"><i class="fa fa-angle-left"></i></button>
       <button v-else v-on:click.stop="backOneDay" class="schedule-dashboard__arrow left" role="button"

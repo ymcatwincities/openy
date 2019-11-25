@@ -10,7 +10,7 @@
 <div class="navbar navbar-default">
   <div class="navbar-header">
 
-    <div class="navbar-controls hidden-xs hidden-sm">
+    <div class="navbar-controls d-none d-xl-flex d-lg-flex">
       <span class="navbar-controls__title">
         <strong>{{ 'Filters'|t }}</strong>
       </span>
@@ -37,7 +37,7 @@
   <div class="collapse schedules-filters w-100" id="schedules-filters">
     <div class="card card-body p-0">
       <form class="navbar-form schedules-navbar-form" role="search">
-        <div class="navbar-controls navbar-controls-mobile hidden-md hidden-lg">
+        <div class="navbar-controls navbar-controls-mobile d-lg-none d-xl-none">
       <span class="navbar-controls__title">
         <strong>{{ 'Filters'|t }}</strong>
       </span>
@@ -63,7 +63,7 @@
         {% if locations is not empty %}
           <div class="form-group-wrapper">
             <label v-on:click="toggleTab('location')" for="form-group-location" role="button">
-              <p class="m-0">{{ 'Location'|t }}<small v-show="getFiltersCounter('locations') > 0" class="badge">${ getFiltersCounter('locations') }</small></p>
+              <p class="m-0">{{ 'Location'|t }}<small v-show="getFiltersCounter('locations') > 0" class="badge badge-secondary">${ getFiltersCounter('locations') }</small></p>
 
               <i v-cloak v-if="this.filterTabs.location" class="fa fa-minus-circle" aria-hidden="true"></i>
               <i v-cloak v-if="!this.filterTabs.location" class="fa fa-plus-circle plus" aria-hidden="true"></i>
@@ -95,7 +95,7 @@
         {% if categories is not empty and filters.category %}
           <div class="form-group-wrapper">
             <label v-on:click="toggleTab('category')" for="form-group-category" role="button">
-              <p class="m-0">{{ 'Category'|t }}<small v-show="getFiltersCounter('categories') > 0" class="badge">${ getFiltersCounter('categories') }</small></p></p>
+              <p class="m-0">{{ 'Category'|t }}<small v-show="getFiltersCounter('categories') > 0" class="badge badge-secondary">${ getFiltersCounter('categories') }</small></p></p>
 
               <i v-cloak v-if="this.filterTabs.category" class="fa fa-minus-circle minus" aria-hidden="true"></i>
               <i v-cloak v-if="!this.filterTabs.category" class="fa fa-plus-circle plus" aria-hidden="true"></i>
