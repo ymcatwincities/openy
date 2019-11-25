@@ -1,29 +1,30 @@
 <template>
   <div>
     <div class="text-center">
-      <h1 class="program-search__form--title">Program Search</h1>
-      <form v-if="!isSearchBoxDisabled" class="program-search__form" role="search">
-        <div class="row row-eq-height justify-content-center">
-          <div class="col-12 col-xs-12 col-md-6 col-lg-4 d-flex">
-            <input type="text" class="program-search__keywords" v-model="keywords" id="program-search__keywords" placeholder="Keywords ..."/>
-            <button @click.prevent="submitSearch()" v-bind:disabled="isSearchSubmitDisabled" type="submit" class="btn btn-primary text-white rounded-0">
-              <i class="fa fa-search" aria-hidden="true"><span class="visually-hidden">Submit</span></i>
-            </button>
+      <div v-if="hideProgramBlock === 0" class="program-search-wrapper">
+        <h1 class="program-search__form--title">Program Search</h1>
+        <form v-if="!isSearchBoxDisabled" class="program-search__form" role="search">
+          <div class="row row-eq-height justify-content-center">
+            <div class="col-12 col-xs-12 col-md-6 col-lg-4 d-flex">
+              <input type="text" class="program-search__keywords" v-model="keywords" id="program-search__keywords" placeholder="Keywords ..."/>
+              <button @click.prevent="submitSearch()" v-bind:disabled="isSearchSubmitDisabled" type="submit" class="btn btn-primary text-white rounded-0">
+                <i class="fa fa-search" aria-hidden="true"><span class="visually-hidden">Submit</span></i>
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
 
-      <a v-bind:href="this.programSearchUrlWithExclude" v-if="this.$parent.isMounted" class="program-search__view-all-programs"><strong>View all programs</strong></a>
-      <p v-if="this.$parent.loading">
-        <spinner></spinner>
-      </p>
-      <div v-if="!this.$parent.loading" class="program-search__count-results">{{ count }} results</div>
-
-      <a v-bind:href="this.programSearchUrlWithLocations" v-if="this.$parent.isMounted && this.$parent.homeBranchId" class="program-search__view-all-programs"><strong>View all programs for Home Branch</strong></a>
-      <p v-if="this.$parent.homeBranchLoading && this.$parent.homeBranchId">
-        <spinner></spinner>
-      </p>
-      <div v-if="!this.$parent.homeBranchLoading && this.$parent.homeBranchId" class="program-search__count-results">{{ countHomeBranch }} results</div>
+        <a v-bind:href="this.programSearchUrlWithExclude" v-if="this.$parent.isMounted" class="program-search__view-all-programs"><strong>View all programs</strong></a>
+        <p v-if="this.$parent.loading">
+          <spinner></spinner>
+        </p>
+        <div v-if="!this.$parent.loading" class="program-search__count-results">{{ count }} results</div>
+        <a v-bind:href="this.programSearchUrlWithLocations" v-if="this.$parent.isMounted && this.$parent.homeBranchId" class="program-search__view-all-programs"><strong>View all programs for Home Branch</strong></a>
+        <p v-if="this.$parent.homeBranchLoading && this.$parent.homeBranchId">
+          <spinner></spinner>
+        </p>
+        <div v-if="!this.$parent.homeBranchLoading && this.$parent.homeBranchId" class="program-search__count-results">{{ countHomeBranch }} results</div>
+      </div>
 
       <h2 class="program-search__af-title">Activity Finder</h2>
       <p class="program-search__af-description">
@@ -78,6 +79,17 @@
             url = url + '&exclude=' + this.$parent.categoriesExclude.join(',');
           }
           return url;
+        }
+      },
+      hideProgramBlock: function () {
+        if ('OpenY' in window
+          && typeof window.OpenY.field_prgf_hide_program_block != 'undefined'
+          && typeof window.OpenY.field_prgf_hide_program_block[0] != 'undefined'
+        ) {
+          return window.OpenY.field_prgf_hide_program_block[0]['value'];
+        }
+        else {
+          return 0;
         }
       },
     },
