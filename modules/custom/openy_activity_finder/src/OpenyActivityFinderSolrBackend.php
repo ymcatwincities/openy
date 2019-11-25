@@ -241,9 +241,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $query->range(0, self::TOTAL_RESULTS_PER_PAGE);
     // Use pager if parameter has been provided.
     if (isset($parameters['page'])) {
-      $_from = self::TOTAL_RESULTS_PER_PAGE * $parameters['page'] - self::TOTAL_RESULTS_PER_PAGE;
-      $_to = (self::TOTAL_RESULTS_PER_PAGE - 1) * $parameters['page'] + $parameters['page'];
-      $query->range($_from, $_to);
+      $offset = self::TOTAL_RESULTS_PER_PAGE * $parameters['page'] - self::TOTAL_RESULTS_PER_PAGE;
+      $query->range($offset, self::TOTAL_RESULTS_PER_PAGE);
     }
     // Set up default sort as relevance and expose if manual sort has been provided.
     //$query->sort('search_api_relevance', 'DESC');
