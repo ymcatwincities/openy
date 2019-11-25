@@ -10,10 +10,10 @@
 
 {{ attach_library('openy_repeat/openy_repeat') }}
 
-<div class="schedule-dashboard__wrapper" id="app">
+<div class="schedule-dashboard__wrapper mr-0 ml-0" id="app">
   <div class="container">
     <div class="row">
-      <div class="col-12 schedule-dashboard__top-header">
+      <div class="col-12 ml-0 schedule-dashboard__top-header">
         <div class="col-md-5 col-xs-5">
           <div class="schedule-dashboard__results-count">
             <strong><span v-cloak>${ getResultsCount() }</span> results</strong>
@@ -37,9 +37,9 @@
 
       {# main table #}
       {% block maintable_wrapper %}
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 schedule-dashboard__content main-table">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-9 schedule-dashboard__content main-table">
         {% endblock %}
-        {% include '@openy_repeat/openy-repeat-schedule-dashboard--table.html.twig' %}
+        {% include 'openy-repeat-schedule-dashboard--table.html.twig' %}
       </div>
 
     </div>
