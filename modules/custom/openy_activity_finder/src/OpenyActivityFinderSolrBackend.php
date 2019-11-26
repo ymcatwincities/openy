@@ -190,7 +190,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
 
     if (!empty($parameters['program_types'])) {
       $program_types = explode(',', rawurldecode($parameters['program_types']));
-      $query->addCondition('field_category_program', $program_types, 'IN');
+
     }
 
     $category_program_info = $this->getCategoryProgramInfo();
@@ -199,15 +199,29 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       // Map nids to titles.
       foreach ($categories_nids as $nid) {
         $categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
+
+        // Subcategories with the same title could belong to different categories.
+        // Additional category filter is essential.
+        if (!empty($category_program_info[$nid]['program']['title'])) {
+          $program_types[] = $category_program_info[$nid]['program']['title'];
+        }
+
       }
+
       if ($categories) {
         $query->addCondition('field_activity_category', $categories, 'IN');
       }
+
     }
     // Ignore sessions which don't have referenced activity.
     else {
       $query->addCondition('field_activity_category', NULL, '<>');
     }
+
+    if (!empty($program_types)) {
+      $query->addCondition('field_category_program', $program_types, 'IN');
+    }
+
     // Ensure to exclude categories.
     $exclude_nids = [];
     if (!empty($parameters['exclude'])) {
@@ -241,9 +255,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $query->range(0, self::TOTAL_RESULTS_PER_PAGE);
     // Use pager if parameter has been provided.
     if (isset($parameters['page'])) {
-      $_from = self::TOTAL_RESULTS_PER_PAGE * $parameters['page'] - self::TOTAL_RESULTS_PER_PAGE;
-      $_to = (self::TOTAL_RESULTS_PER_PAGE - 1) * $parameters['page'] + $parameters['page'];
-      $query->range($_from, $_to);
+      $offset = self::TOTAL_RESULTS_PER_PAGE * $parameters['page'] - self::TOTAL_RESULTS_PER_PAGE;
+      $query->range($offset, self::TOTAL_RESULTS_PER_PAGE);
     }
     // Set up default sort as relevance and expose if manual sort has been provided.
     //$query->sort('search_api_relevance', 'DESC');
