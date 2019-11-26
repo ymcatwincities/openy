@@ -45,6 +45,10 @@ field_settings:
     label: 'Ages Min Max'
     property_path: search_api_af_ages_min_max
     type: string
+  af_parts_of_day:
+    label: 'Parts of day'
+    property_path: search_api_af_parts_of_day
+    type: string
   title:
     label: Title
     datasource_id: 'entity:node'
@@ -180,6 +184,7 @@ datasource_settings:
         - en
 processor_settings:
   openy_af_ages_min_max: {  }
+  openy_af_parts_of_day: {  }
   rendered_item: {  }
   add_url: {  }
   aggregated_field: {  }
