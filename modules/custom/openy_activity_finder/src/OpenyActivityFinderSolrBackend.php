@@ -188,6 +188,11 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->addCondition('field_session_time_days', $days, 'IN');
     }
 
+    if (!empty($parameters['times'])) {
+      $times = explode(',', rawurldecode($parameters['times']));
+      $query->addCondition('af_parts_of_day', $times, 'IN');
+    }
+
     if (!empty($parameters['program_types'])) {
       $program_types = explode(',', rawurldecode($parameters['program_types']));
 
@@ -505,6 +510,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       ],
       'days_of_week' => [
         'field' => 'field_session_time_days',
+        'limit' => 0,
+        'operator' => 'AND',
+        'min_count' => 0,
+        'missing' => TRUE,
+      ],
+      'af_parts_of_day' => [
+        'field' => 'af_parts_of_day',
         'limit' => 0,
         'operator' => 'AND',
         'min_count' => 0,
