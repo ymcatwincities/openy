@@ -209,8 +209,10 @@ function openy_upgrade_tool_update_8008() {
  * Add matchheight default classes
  */
 function openy_upgrade_tool_update_8009() {
-  $config = Drupal::service('config.factory')->getEditable('openy_carnation.settings');
-  $config->set('matchheight_css_classes', '.viewport .page-head__main-menu .nav-level-3 > a
+  $activeTheme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  if ($activeTheme == 'openy_carnation') {
+    $config = Drupal::service('config.factory')->getEditable('openy_carnation.settings');
+    $config->set('matchheight_css_classes', '.viewport .page-head__main-menu .nav-level-3 > a
 .blog-up
 .blog-heading
 .inner-wrapper
@@ -221,7 +223,8 @@ function openy_upgrade_tool_update_8009() {
 .block-description--text > h2
 .block-description--text > div
 .table-class');
-  $config->save();
+    $config->save();
+  }
 }
 
 /**
