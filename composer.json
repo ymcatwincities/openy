@@ -236,7 +236,7 @@
         "drupal/views_block_filter_block": "1.x-dev",
         "drupal/plugin": "2.5",
         "drupal/migrate_plus": "^4.0",
-        "drupal/migrate_tools": "~4.0",
+        "drupal/migrate_tools": "^4.4",
         "drupal/migrate_source_csv": "2.2",
         "drupal/verf": "1.0-beta6",
         "drupal/simple_menu_icons": "1.x-dev",
