@@ -209,8 +209,10 @@ function openy_upgrade_tool_update_8008() {
  * Add matchheight default classes
  */
 function openy_upgrade_tool_update_8009() {
+  $carnation = 'openy_carnation';
   $activeTheme = \Drupal::service('theme.manager')->getActiveTheme()->getName();
-  if ($activeTheme == 'openy_carnation') {
+  $baseThemes = \Drupal::service('theme_handler')->listInfo()[$activeTheme]->base_themes;
+  if ($activeTheme == $carnation || (is_array($baseThemes) && isset($baseThemes[$carnation]))) {
     $config = Drupal::service('config.factory')->getEditable('openy_carnation.settings');
     $config->set('matchheight_css_classes', '.viewport .page-head__main-menu .nav-level-3 > a
 .blog-up
