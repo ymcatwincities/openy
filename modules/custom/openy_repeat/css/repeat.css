@@ -381,6 +381,13 @@ body.modal-open .top-navs .nav-global{
 
 .schedule-dashboard__modal--body .header-border {
   border-bottom: 1px solid #636466;
+  padding: 0 20px;
+}
+
+@media (min-width: 992px) {
+  .schedule-dashboard__modal--body .header-border {
+    padding: 0 24px;
+  }
 }
 
 .schedules-data__row:nth-child(even) {
