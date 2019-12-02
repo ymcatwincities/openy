@@ -7,17 +7,6 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: [
-          /node_modules/,
-          /jshint-loader/,
-          /webpack-entry.js/,
-        ],
-        use: {
-          loader: "babel-loader"
-        }
-      },
-      {
         test: /\.s[ac]ss$/i,
         use: [
           'style-loader',

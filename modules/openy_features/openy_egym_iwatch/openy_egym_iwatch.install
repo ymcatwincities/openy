@@ -67,7 +67,8 @@ With your Apple Watch you can browse class schedules to find your next great wor
 
   $prgf_grid_column2 = Paragraph::create(['type' => 'grid_columns']);
   $prgf_grid_column2->get('field_prgf_clm_icon')->setValue($images['2']);
-  $prgf_grid_column2->get('field_prgf_clm_headline')->setValue('JOIN CHALLENGES');
+  $prgf_grid_column2->get('field_prgf_clm_headline')
+    ->setValue('JOIN CHALLENGES');
   $prgf_grid_column2->get('field_prgf_grid_clm_description')->setValue('
 Strive to reach a personal best or the top of the leaderboard.
 
@@ -100,7 +101,8 @@ Siri learns your routines and can make suggestions for classes, training plans a
 
   $prgf_grid_column5 = Paragraph::create(['type' => 'grid_columns']);
   $prgf_grid_column5->get('field_prgf_clm_icon')->setValue($images['5']);
-  $prgf_grid_column5->get('field_prgf_clm_headline')->setValue('TRACK PROGRESS');
+  $prgf_grid_column5->get('field_prgf_clm_headline')
+    ->setValue('TRACK PROGRESS');
   $prgf_grid_column5->get('field_prgf_grid_clm_description')->setValue('
 Keep a record of your workouts to track momentum.
 
@@ -149,7 +151,8 @@ For any training plan created on iPhone, follow along on your Apple Watch. Infor
 
   $prgf_grid_content2 = Paragraph::create(['type' => 'grid_content']);
   $prgf_grid_content2->get('field_prgf_grid_style')->setValue(3);
-  $prgf_grid_content2->get('field_grid_columns')->setValue([$prgf_grid_column7]);
+  $prgf_grid_content2->get('field_grid_columns')
+    ->setValue([$prgf_grid_column7]);
   $prgf_grid_content2->isNew();
   $prgf_grid_content2->save();
 
@@ -176,20 +179,7 @@ For any training plan created on iPhone, follow along on your Apple Watch. Infor
   $node_url = $page_af->toUrl()->setAbsolute()->toString();
 
   \Drupal::messenger()->addMessage(
-    \Drupal::translation()->translate("eGym iWatch Demo page created. <a href='{$node_url}'>Check it out {$node_url}</a>.")
+    \Drupal::translation()
+      ->translate("eGym iWatch Demo page created. <a href='{$node_url}'>Check it out {$node_url}</a>.")
   );
 }
-
-///**
-// * Implements hook_update_dependencies().
-// */
-//function openy_egym_iwatch_update_dependencies() {
-//  $dependencies['openy_egym_iwatch'] = [
-//    8000 => [
-//      'openy_media_image' => 8004,
-//      'openy' => 8042,
-//    ],
-//  ];
-//
-//  return $dependencies;
-//}
