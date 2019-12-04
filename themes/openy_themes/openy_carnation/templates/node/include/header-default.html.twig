@@ -12,7 +12,6 @@
 
 {%
   set header_classes = [
-    'page-heading',
     'w-100',
     node.field_lp_layout.value|clean_class,
   ]
@@ -27,7 +26,7 @@
     </div>
   </article>
 {% else %}
-  <div class="page-heading banner banner--small banner--grey">
+  <div class="banner banner--small banner--grey">
 
     {% if header_image|render|trim is not empty %}
     <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;">
@@ -56,3 +55,7 @@
     </div>
   </div>
 {% endif %}
+
+{{ drupal_breadcrumb() }}
+<div id="openy_alerts_header_placeholder"></div>
+{{ drupal_block('local_tasks_block') }}

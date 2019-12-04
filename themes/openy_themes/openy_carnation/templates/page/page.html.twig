@@ -46,10 +46,8 @@
  */
 #}
 <div class="layout-container {{ camp_class }}">
-
-  <div class="banner-zone-node"></div>
-
-  <div class="top-navs fixed-top d-block d-lg-none">
+  {# mobile menu #}
+  <div class="mobile-menu top-navs fixed-top d-block d-lg-none">
     <nav class="nav-global navbar-default navbar navbar-dark">
       <div class="container-fluid p-0">
         <div class="d-flex w-100">
@@ -76,7 +74,8 @@
     </nav>
   </div>
 
-  <div id="sidebar" class="sidebar sidebar-left fixed-top collapse fade">
+  {# mobile sidebar #}
+  <div id="sidebar" class="mobile-sidebar sidebar sidebar-left fixed-top collapse fade">
     <div class="row px-3 px-lg-0">
 
         {% if display_search %}
@@ -98,15 +97,13 @@
   </div>
 
   <div class="viewport">
-    {% if render_carnation_breadcrambs %}
-      {{ drupal_breadcrumb() }}
-    {% endif %}
     <header id="page-head" class="page-head">
-      <div class="top-navs fixed-top d-none d-lg-block" data-spy="affix" data-offset-top="1">
+
+      <div class="desktop-menu top-navs fixed-top d-none d-lg-block" data-spy="affix" data-offset-top="1">
         <nav class="nav-global navbar-ymcags navbar p-0">
           <div class="container-fluid m-0 p-0">
 
-            {# sitename & secondary menu #}
+            {# sitename & secondary menu(login, google translation) #}
             <div class="page-head__top-menu d-flex align-items-stretch w-100">
               <div class="col-md-3 site-name">
                   <span class="d-none d-lg-block">
@@ -120,40 +117,44 @@
               </div>
             </div>
 
-            {# search #}
+
             <div class="col-md-12 header-content d-none d-sm-block p-0">
-              {% if display_search %}
-                <div class="page-head__search fade collapse">
-                  <div class="search-form-wrapper">
-                    <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle search bar">
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
-                    <form method="get" action="{{ base_path }}/search/node">
-                      <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-                      <input type="search" name="keys" class="search-input" placeholder="Search">
-                      <input type="submit" value="Search">
-                    </form>
+
+                {# search #}
+                {% if display_search %}
+                  <div class="page-head__search fade collapse">
+                    <div class="search-form-wrapper">
+                      <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Toggle search bar">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </button>
+                      <form method="get" action="{{ base_path }}/search/node">
+                        <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
+                        <input type="search" name="keys" class="search-input" placeholder="Search">
+                        <input type="submit" value="Search">
+                      </form>
+                    </div>
                   </div>
-                </div>
-              {% endif %}
+                {% endif %}
 
-              {% block fullsite_logo %}
-                <div class="col-md-2 logo">
-                  <span></span>
-                  {% if logo_url %}
-                    <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                      <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" />
-                      <img src="{{ transparent_logo_url }}" alt="{{ site_slogan|t }}" />
-                    </a>
-                  {% else %}
-                    <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
-                  {% endif %}
-                </div>
-              {% endblock %}
+                {# fullsite logo #}
+                {% block fullsite_logo %}
+                  <div class="col-md-2 logo">
+                    <span></span>
+                    {% if logo_url %}
+                      <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
+                        <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" />
+                        <img src="{{ transparent_logo_url }}" alt="{{ site_slogan|t }}" />
+                      </a>
+                    {% else %}
+                      <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
+                    {% endif %}
+                  </div>
+                {% endblock %}
 
-              <div class="page-head__main-menu nav-home nav-desktop col-md-10">
-                {{ page.primary_menu }}
-              </div>
+                {# main navigation menu #}
+                <div class="page-head__main-menu nav-home nav-desktop col-md-10">
+                  {{ page.primary_menu }}
+                </div>
             </div>
 
           </div>
@@ -164,16 +165,15 @@
     {{ page.highlighted }}
     {{ page.help }}
 
-    <main role="main" class="clearfix">
+    <main role="main" class="clearfix mb-5">
       <a id="main-content" tabindex="-1"></a>
-      <div class="layout-content mb-5 mt-lg-5">
         {% block pagecontent %}
           {{ page.content }}
         {% endblock %}
-      </div>
     </main>
 
     <div class="pre-footer">
+      <div id="openy_alerts_header_placeholder"></div>
       {{ page.pre_footer }}
     </div>
 

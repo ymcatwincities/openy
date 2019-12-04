@@ -12,7 +12,6 @@
 
 {%
 set classes = [
-  'page-heading',
   'banner',
   'banner--medium',
 ]
@@ -25,7 +24,7 @@ set classes = [
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
 
-<div class="page-heading banner banner--small banner--grey" style="background-color: {{ color }}">
+<div class="banner banner--small banner--grey" style="background-color: {{ color }}">
   <div class="banner-cta d-block d-lg-flex">
 
     {% if header_image|render|trim is not empty %}
@@ -45,6 +44,7 @@ set classes = [
 
       </div>
       {{ drupal_breadcrumb() }}
+      {{ drupal_block('local_tasks_block') }}
     </div>
   </div>
 
@@ -54,3 +54,4 @@ set classes = [
     </div>
   {% endif %}
 </div>
+
