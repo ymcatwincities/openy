@@ -42,6 +42,10 @@
     }
   };
 
+  /**
+   * accessibility menu navigation
+   * @type {{attach: Drupal.behaviors.menuTabNav.attach}}
+   */
   Drupal.behaviors.menuTabNav = {
     attach: function(context, settings) {
       $('.navbar .row-level-2').each(function(index, value) {
