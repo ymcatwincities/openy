@@ -17,7 +17,7 @@ use Drupal\openy_myy\PluginManager\MyYDataProfile;
  *   id = "myy_profile_membership_info",
  *   label = @Translation("Membership info"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/profile/membership"
+ *     "canonical" = "/myy-model/data/profile/membership"
  *   }
  * )
  */

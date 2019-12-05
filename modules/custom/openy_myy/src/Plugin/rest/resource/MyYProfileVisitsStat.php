@@ -18,7 +18,7 @@ use Drupal\openy_myy\PluginManager\MyYDataProfile;
  *   id = "myy_profile_visits_stat",
  *   label = @Translation("Stat of user visits"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/profile/visits-stat/{personify_id}/{start}/{finish}"
+ *     "canonical" = "/myy-model/data/profile/visits-stat/{personify_id}/{start}/{finish}"
  *   }
  * )
  */
