@@ -3,9 +3,14 @@
 namespace Drupal\openy_repeat\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides a 'Repeat Schedules' block.
@@ -16,7 +21,67 @@ use Drupal\Core\Url;
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class RepeatSchedulesBlock extends BlockBase {
+class RepeatSchedulesBlock extends BlockBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * The database object.
+   *
+   * @var object
+   */
+  protected $database;
+
+  /**
+   * The route match object.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
+
+  /**
+   * The current request.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+
+  /**
+   * Constructs a new RepeatSchedulesBlock object.
+   *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param \Drupal\Core\Database\Connection $database
+   *   The database service.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+   *   The route match object.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+   *   The request stack.
+   */
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $database, RouteMatchInterface $route_match, RequestStack $request_stack) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition);
+    $this->database = $database;
+    $this->routeMatch = $route_match;
+    $this->request = $request_stack->getCurrentRequest();
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('database'),
+      $container->get('current_route_match'),
+      $container->get('request_stack')
+    );
+  }
 
   /**
    * Return Location from "Session" node type.
@@ -25,7 +90,7 @@ class RepeatSchedulesBlock extends BlockBase {
    */
   public function getLocations() {
 
-    $query = \Drupal::database()->select('node' , 'n');
+    $query = $this->database->select('node' , 'n');
     $query->join('node__field_session_location', 'l', "n.nid = l.entity_id AND l.bundle = 'session'");
     $query->join('node_field_data', 'nfd', 'l.field_session_location_target_id = nfd.nid');
     $query->condition('n.type', 'session');
@@ -48,7 +113,7 @@ class RepeatSchedulesBlock extends BlockBase {
    */
   public function getCategories(array $nids) {
 
-    $query = \Drupal::database()->select('node_field_data', 'nfd');
+    $query = $this->database->select('node_field_data', 'nfd');
     $query->fields('nfd', ['title']);
     $query->condition('type', 'activity');
     $query->condition('status', 1);
@@ -67,8 +132,7 @@ class RepeatSchedulesBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    $request_stack = \Drupal::service('request_stack');
-    $query = $request_stack->getCurrentRequest()->query;
+    $query = $this->request->query;
     $locations = $query->get('locations');
     $categories = $query->get('categories');
     $excluded_categories = [];
@@ -81,7 +145,7 @@ class RepeatSchedulesBlock extends BlockBase {
       $checked_locations = explode(',', $locations);
     }
     // Find repeat_schedules paragraph.
-    if (!$node = \Drupal::routeMatch()->getParameter('node')) {
+    if (!$node = $this->routeMatch->getParameter('node')) {
       return [];
     }
     $paragraphs = $node->field_content->referencedEntities();
