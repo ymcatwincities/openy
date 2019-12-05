@@ -158,5 +158,46 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     return $result;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function cancelChildcareSessions($order_id, $dates) {
+
+    $personifyID = $this->personifyUserHelper->personifyGetId();
+
+    $body = '
+    <StoredProcedureRequest>
+    <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS_DEBUG_UPDATE</StoredProcedureName>
+    <SPParameterList>
+        <StoredProcedureParameter>
+            <Name>@id</Name>
+            <Value>' . $personifyID . '</Value>
+        </StoredProcedureParameter>
+                <StoredProcedureParameter>
+            <Name>@ordDate</Name>
+            <Value>' . $dates[0] . '</Value>
+        </StoredProcedureParameter>
+        <StoredProcedureParameter>
+            <Name>@stype</Name>
+            <Value>AM</Value>
+        </StoredProcedureParameter>
+        <StoredProcedureParameter>
+            <Name>@state</Name>
+            <Value>N</Value>
+        </StoredProcedureParameter>
+    </SPParameterList>
+</StoredProcedureRequest>
+    ';
+
+    $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+    $results = json_decode($data['Data'], TRUE);
+    if ($results['Table']['sflag'] == 'N') {
+      return 'OK';
+    } else {
+      return 'FAIL';
+    }
+
+  }
+
 
 }

@@ -23,4 +23,9 @@ interface MyYDataChildcareInterface {
    */
   public function getChildcareScheduledEvents($start_date, $end_date);
 
+  /**
+   * Cancel scheduled childcare session.
+   */
+  public function cancelChildcareSessions($order_id, $dates);
+
 }
