@@ -24,17 +24,16 @@ class RepeatSchedulesBlock extends BlockBase {
    * @return array
    */
   public function getLocations() {
-    $sql = "SELECT DISTINCT nd.title as location 
-            FROM {node} n
-            INNER JOIN node__field_session_location l ON n.nid = l.entity_id AND l.bundle = 'session'
-            INNER JOIN node_field_data nd ON l.field_session_location_target_id = nd.nid
-            WHERE n.type = 'session'
-            ORDER BY location ASC";
 
-    $connection = \Drupal::database();
-    $query = $connection->query($sql);
+    $query = \Drupal::database()->select('node' , 'n');
+    $query->join('node__field_session_location', 'l', "n.nid = l.entity_id AND l.bundle = 'session'");
+    $query->join('node_field_data', 'nfd', 'l.field_session_location_target_id = nfd.nid');
+    $query->condition('n.type', 'session');
+    $query->fields('nfd', ['title']);
+    $query->orderBy('nfd.title');
+    $query->addTag('repeat_schedules_block_locations');
+    $result = $query->distinct()->execute()->fetchCol();
 
-    $result = $query->fetchCol();
     natsort($result);
     return $result;
   }
@@ -49,21 +48,17 @@ class RepeatSchedulesBlock extends BlockBase {
    */
   public function getCategories(array $nids) {
 
-    $condition = TRUE; // Could feasibly want TRUE under different circumstances
-    if($nids){
-      $condition = "n.nid NOT IN (".implode(',', $nids).")";
+    $query = \Drupal::database()->select('node_field_data', 'nfd');
+    $query->fields('nfd', ['title']);
+    $query->condition('type', 'activity');
+    $query->condition('status', 1);
+    if ($nids) {
+      $query->condition('nid', $nids, 'NOT IN');
     }
+    $query->orderBy('title');
+    $query->addTag('repeat_schedules_block_categories');
+    $result = $query->execute()->fetchCol();
 
-    $sql = "SELECT title 
-            FROM {node_field_data} n
-            WHERE n.type = 'activity'
-            AND " . $condition . "
-            AND n.status = '1'
-            ORDER BY title ASC";
-
-    $connection = \Drupal::database();
-    $query = $connection->query($sql);
-    $result = $query->fetchCol();
     natsort($result);
     return $result;
   }
