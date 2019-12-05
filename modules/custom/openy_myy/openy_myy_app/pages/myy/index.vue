@@ -16,6 +16,27 @@
   </div>
 </template>
 
+<script>
+import MyyHeader from '~/components/MyyHeader.vue'
+import SidebarMenu from '~/components/SidebarMenu.vue'
+import Vue from 'vue'
+import VueCookie from 'vue-cookie';
+
+Vue.use(VueCookie);
+
+export default {
+  middleware ({ store, redirect }) {
+    //if (store.state.isLoggedIn) {
+      return redirect('/myy/dashboard')
+    //}
+  },
+  components: {
+    MyyHeader,
+    SidebarMenu
+  }
+}
+</script>
+
 <style lang="scss">
   .myy-sub-header {
     background-color: #F2F2F2;
