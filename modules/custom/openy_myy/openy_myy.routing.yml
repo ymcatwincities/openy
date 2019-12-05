@@ -6,6 +6,8 @@ openy_myy.myy:
   requirements:
     _permission: 'access content'
   filepath: .+
+  options:
+    no_cache: TRUE
 openy_myy.settings:
   path: '/admin/openy/settings/myy'
   defaults:
