@@ -30,7 +30,7 @@ export default {
       return redirect('/myy/dashboard')
     }
     else {
-      window.location.pathname = '/myy/login';
+      window.location.pathname = '/myy-model/login';
     }
   },
   components: {
