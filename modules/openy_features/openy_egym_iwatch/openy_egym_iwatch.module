@@ -43,8 +43,6 @@ function openy_egym_iwatch_preprocess_paragraph(array &$variables) {
 
 /**
  * Implements hook_module_suggestions_HOOK_alter().
- * @param $suggestions
- * @param array $variables
  */
 function openy_egym_iwatch_theme_suggestions_paragraph_alter(&$suggestions, array $variables) {
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
@@ -60,13 +58,20 @@ function openy_egym_iwatch_theme_suggestions_paragraph_alter(&$suggestions, arra
 }
 
 /**
+ * Helper function that search needed paragraph at the node.
+ *
  * @param $node
+ *   Node object.
  * @param array $paragraph_bundles
+ *   List of paragraph bundles.
  * @param string $node_field_id
+ *  Field where to search.
  *
  * @return array
+ *   Found paragraph.
  */
 function openy_egym_iwatch_search_node_paragraphs(NodeInterface $node, array $paragraph_bundles, $node_field_id = '') {
+
   $found_paragraphs = [];
   $field_ids = [];
   if (empty($node_field_id)) {
@@ -109,12 +114,6 @@ function openy_egym_iwatch_search_node_paragraphs(NodeInterface $node, array $pa
 
 /**
  * Implements hook_system_breadcrumb_alter().
- *
- * Disable breadcrumbs for pages that have banner_fixed paragraph.
- *
- * @param \Drupal\Core\Breadcrumb\Breadcrumb $breadcrumb
- * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
- * @param array $context
  */
 function openy_egym_iwatch_system_breadcrumb_alter(\Drupal\Core\Breadcrumb\Breadcrumb &$breadcrumb, \Drupal\Core\Routing\RouteMatchInterface $route_match, array $context) {
   if ($node = \Drupal::routeMatch()->getParameter('node')) {
@@ -128,8 +127,6 @@ function openy_egym_iwatch_system_breadcrumb_alter(\Drupal\Core\Breadcrumb\Bread
 
 /**
  * Implements hook_preprocess_html().
- *
- * Add igym body class for igym landing pages
  */
 function openy_egym_iwatch_preprocess_html(&$variables) {
   if ($node = Drupal::routeMatch()->getParameter('node')) {
@@ -141,8 +138,6 @@ function openy_egym_iwatch_preprocess_html(&$variables) {
 
 /**
  * Implements hook_preprocess_page().
- *
- * Disable openy_alerts for igym landing pages
  */
 function openy_egym_iwatch_preprocess_page(&$variables) {
   foreach ($variables['#attached']['library'] as $key => $lib) {
