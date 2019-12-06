@@ -209,7 +209,8 @@ class CampService {
       return $select->execute()->fetchall();
     }
     catch (\Exception $e) {
-      $select->catchException($e);
+      // TODO: Convert to DI.
+      \Drupal::logger('haha')->error($e->getMessage());
       return FALSE;
     }
   }
