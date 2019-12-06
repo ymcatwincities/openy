@@ -301,9 +301,12 @@
   }
 
   .top-navs.affix {
-    height: 165px;
-    min-height: 165px;
     border-bottom: none;
+
+    @media (min-width: 992px) {
+      height: 165px;
+      min-height: 165px;
+    }
 
     .page-head__main-menu {
       top: 125px;
