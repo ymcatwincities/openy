@@ -7,6 +7,7 @@ dependencies:
     - field.field.paragraph.activity_finder.field_prgf_af_results_ref
     - field.field.paragraph.activity_finder.field_prgf_block
     - field.field.paragraph.activity_finder.field_prgf_hide_loc_select_step
+    - field.field.paragraph.activity_finder.field_prgf_hide_program_block
     - field.field.paragraph.activity_finder.field_prgf_hide_program_categ
     - paragraphs.paragraphs_type.activity_finder
   module:
@@ -45,13 +46,20 @@ content:
     third_party_settings: {  }
   field_prgf_block:
     type: 'plugin_selector:plugin_select_list'
-    weight: 5
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   field_prgf_hide_loc_select_step:
     type: boolean_checkbox
     weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_prgf_hide_program_block:
+    type: boolean_checkbox
+    weight: 5
     region: content
     settings:
       display_label: true

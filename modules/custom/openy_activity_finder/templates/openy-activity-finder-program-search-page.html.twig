@@ -312,8 +312,8 @@
 
 
               <div  v-if="pager_info.total_pages > 1" class="pager-controls">
-                <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPageNumber(1)" class="btn btn-primary">{{ '|<'|t }}</a>
-                <a v-if="current_page > 0" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ '<'|t }}</a>
+                <a v-if="current_page > 1" href="#" v-on:click.stop.prevent="loadPageNumber(1)" class="btn btn-primary">{{ '|<'|t }}</a>
+                <a v-if="current_page > 1" href="#" v-on:click.stop.prevent="loadPrevPage()" class="btn btn-primary">{{ '<'|t }}</a>
 
                 <div class="page-of">Page ${ current_page } of ${ pager_info.total_pages }</div>
 
