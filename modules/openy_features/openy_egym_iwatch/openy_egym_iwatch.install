@@ -19,7 +19,6 @@ function openy_egym_iwatch_install() {
   foreach ([
              'clock' => 'clock.png',
              'hero' => 'HERO.png',
-             'appstore' => 'appstore.png',
              '1' => '1.png',
              '2' => '2.png',
              '3' => '3.png',
@@ -141,9 +140,9 @@ For any training plan created on iPhone, follow along on your Apple Watch. Infor
     ->setValue('DOWNLOAD THE APP');
   $prgf_grid_column7->get('field_prgf_grid_clm_description')->setValue([
     'value' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-<drupal-entity data-embed-button="embed_image" data-entity-embed-display="view_mode:media.embedded_full" data-entity-embed-display-settings="{&quot;link_url&quot;:&quot;https:\/\/some.url&quot;}" data-entity-type="media" data-entity-uuid="968bcaa9-8c27-4134-b134-649e01c6ad70"></drupal-entity>
+<p><a class="btn btn-default" href="https://appstore.com" target="_blank"><span class="text">Appstore</span></a></p>
 ',
-    'format' => 'code',
+    'format' => 'full_html'
   ]);
 
   $prgf_grid_column7->isNew();
