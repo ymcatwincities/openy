@@ -209,7 +209,7 @@ class CampService {
       return $select->execute()->fetchall();
     }
     catch (\Exception $e) {
-      $this->catchException($e);
+      $select->catchException($e);
       return FALSE;
     }
   }
