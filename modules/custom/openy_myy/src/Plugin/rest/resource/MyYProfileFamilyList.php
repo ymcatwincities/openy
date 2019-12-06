@@ -17,7 +17,7 @@ use Drupal\openy_myy\PluginManager\MyYDataProfile;
  *   id = "myy_profile_family_list",
  *   label = @Translation("List of Family members"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/profile/family-list"
+ *     "canonical" = "/myy-model/data/profile/family-list"
  *   }
  * )
  */

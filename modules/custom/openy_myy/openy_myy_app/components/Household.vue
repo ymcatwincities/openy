@@ -44,7 +44,7 @@
     methods: {
       runAjaxRequest: function() {
         let component = this,
-            url = component.baseUrl + 'myy/data/profile/family-list';
+            url = component.baseUrl + 'myy-model/data/profile/family-list';
 
         component.loading = true;
         jQuery.ajax({

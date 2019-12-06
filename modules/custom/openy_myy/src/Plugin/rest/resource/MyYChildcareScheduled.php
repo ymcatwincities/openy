@@ -17,7 +17,7 @@ use Drupal\openy_myy\PluginManager\MyYDataChildcare;
  *   id = "myy_childcare_scheduled",
  *   label = @Translation("List of scheduled childcare items"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/childcare/scheduled"
+ *     "canonical" = "/myy-model/data/childcare/scheduled"
  *   }
  * )
  */

@@ -26,12 +26,9 @@ Vue.use(VueCookie);
 
 export default {
   middleware ({ store, redirect }) {
-    if (store.state.isLoggedIn) {
+    //if (store.state.isLoggedIn) {
       return redirect('/myy/dashboard')
-    }
-    else {
-      window.location.pathname = '/myy/login';
-    }
+    //}
   },
   components: {
     MyyHeader,

@@ -182,7 +182,7 @@
     methods: {
       runAjaxRequest: function() {
         let component = this;
-        let url = component.baseUrl + 'myy/data/childcare/scheduled';
+        let url = component.baseUrl + 'myy-model/data/childcare/scheduled';
 
         component.loading = true;
         jQuery.ajax({

@@ -19,7 +19,7 @@
             <a @click="logout" href="#" class="sign_out">Sign out</a>
           </div>
           <div v-else class="col-myy-8 col-myy-lg-9 text-right">
-            <a href="/myy/login" class="sign_in">Login</a>
+            <a href="/myy-model/login" class="sign_in">Login</a>
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@
     methods: {
       runAjaxRequest: function() {
         let component = this,
-          url = component.baseUrl + 'myy/data/profile/family-list';
+          url = component.baseUrl + 'myy-model/data/profile/family-list';
 
         component.loading = true;
         jQuery.ajax({
@@ -66,7 +66,7 @@
         Vue.cookie.delete('Drupal.visitor.personify_authorized');
         Vue.cookie.delete('Drupal.visitor.personify_id');
         Vue.cookie.delete('Drupal.visitor.personify_time');
-        window.location.pathname = '/myy/logout';
+        window.location.pathname = '/myy-model/logout';
       }
     },
     mounted: function() {

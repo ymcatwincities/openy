@@ -51,7 +51,7 @@
       runAjaxRequest: function() {
         let component = this,
             query = [],
-            url = window.drupalSettings.path.baseUrl + 'myy/data/childcare/scheduled';
+            url = window.drupalSettings.path.baseUrl + 'myy-model/data/childcare/scheduled';
 
         if (this.$route.query.start_date !== 'undefined') {
           query.push('start_date=' + this.$route.query.start_date);
