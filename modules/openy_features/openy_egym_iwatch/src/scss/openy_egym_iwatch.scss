@@ -294,22 +294,9 @@
 }
 
 .openy_egym_iwatch.rose_based_theme {
-  .affix {
-    .page-head__logo, .page-head__top-menu {
-      display: block;
-    }
-  }
-
-  .top-navs.affix {
-    border-bottom: none;
-
-    @media (min-width: 992px) {
-      height: 165px;
-      min-height: 165px;
-    }
-
-    .page-head__main-menu {
-      top: 125px;
+  @media (min-width: 992px) {
+    .banner-back.affix {
+      margin-top: -123px;
     }
   }
 }
