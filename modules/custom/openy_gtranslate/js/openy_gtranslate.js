@@ -29,16 +29,17 @@
 
     Drupal.behaviors.openy_gtranslate_mobile = {
         attach: function (context, settings) {
-            // Emulate mobile width.
-            if ($(window).width() < 768) {
-                setTimeout(function() {
-                    if ($('.navbar-nav > li.language .openy-google-translate').length == 0) {
-                        $('.navbar-nav > li.language a').hide();
-                        jQuery('#g_translater').detach().appendTo('.navbar-nav > li.language');
-                    }
-                }, 100);
-            }
+          var el = $('#google_translate_element');
 
+          // Emulate mobile width.
+          if ($(window).width() < 768) {
+            setTimeout(function() {
+              $(".navbar-toggler, .navbar-toggle").on('click', function () {
+                $('.navbar-nav > li.language a').hide();
+                el.removeClass('hidden-xs').appendTo('.navbar-nav > li.language');
+              });
+            }, 100);
+          }
         }
     };
 

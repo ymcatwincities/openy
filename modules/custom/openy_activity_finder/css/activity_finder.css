@@ -3,6 +3,17 @@
   margin-bottom: 3rem;
 }
 
+@media (min-width: 992px) {
+  .activity-finder__step_header .start_over {
+    margin-right: 0;
+  }
+}
+
+.activity-finder__step_header--actions {
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
+
 /* Activity Finder > Form (Step 1) */
 .program-search__form--title {
   color: #231F20;

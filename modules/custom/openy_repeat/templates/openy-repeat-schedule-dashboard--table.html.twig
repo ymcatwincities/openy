@@ -258,13 +258,13 @@
             </div>
 
             <div class="col-md-3 col-sm-6 col-xs-6">
-              {{ dump(item.instructor) }}
               {# instructor #}
               <div v-cloak class="instructor-column">
                 <a class="schedule-dashboard__modal--instructor-link" role="button"
                    v-on:click="populatePopupInstructor(item.instructor)" data-toggle="modal"
                    data-target=".schedule-dashboard__modal--instructor">${ item.instructor }</a>
               </div>
+            </div>
 
             <div class="col-md-2 col-sm-6 col-xs-6">
               {# add to calendar #}
