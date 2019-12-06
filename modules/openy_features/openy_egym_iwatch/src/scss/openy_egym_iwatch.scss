@@ -210,9 +210,23 @@
           font-size: 12px;
           line-height: 18px;
 
-          p:first-child {
+          p {
             font-size: 12px;
             line-height: 18px;
+
+            a:first-child {
+              display: block;
+              width: 120px;
+              height: 40px;
+              background-image: url(/profiles/contrib/openy/modules/openy_features/openy_egym_iwatch/demo_images/appstore.png);
+              background-position: center;
+              cursor: pointer;
+              margin-left: calc(50% - 60px);
+
+              span {
+                display: none;
+              }
+            }
           }
         }
       }
