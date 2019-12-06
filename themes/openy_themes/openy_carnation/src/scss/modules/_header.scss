@@ -75,6 +75,10 @@
   background-color: white;
 }
 
+.viewport {
+  background-color: white;
+}
+
 .site-name {
   @include cachet();
   font-size: 20px;
