@@ -183,7 +183,7 @@
     }
   }
 
-  .landing-content .wrapper-field-content div:nth-of-type(3) .paragraph--grid-content-egym {
+  .landing-content .paragraph--grid-content-egym:nth-of-type(3), .landing-content .wrapper-field-content div:nth-of-type(3) .paragraph--grid-content-egym {
     grid-template-columns: 220px;
     background-color: white;
 
