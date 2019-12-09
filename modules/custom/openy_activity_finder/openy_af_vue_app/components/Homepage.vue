@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center">
-      <div v-if="hideProgramBlock === 0" class="program-search-wrapper">
+      <div v-if="hideProgramBlock == 0" class="program-search-wrapper">
         <h1 class="program-search__form--title">Program Search</h1>
         <form v-if="!isSearchBoxDisabled" class="program-search__form" role="search">
           <div class="row row-eq-height justify-content-center">
