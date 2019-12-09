@@ -11,7 +11,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: "./css/openy_egym_iwatch.css",
-      sourceMap: true,
+      sourceMap: false,
       options: {
         sourceMap: false,
         watch: true,
@@ -19,8 +19,5 @@ module.exports = {
     }),
   ],
 
-  devtool: 'source-map',
-  output: {
-    sourceMapFilename: 'css/openy_egym_iwatch.css.map',
-  }
+
 };

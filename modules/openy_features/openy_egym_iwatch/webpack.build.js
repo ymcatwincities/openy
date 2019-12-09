@@ -28,13 +28,13 @@ module.exports = merge(common, {
             loader: 'css-loader',
             options: {
               url: false,
-              sourceMap: true,
+              sourceMap: false,
             }
           },
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
+              sourceMap: false,
             }
           },
         ]
