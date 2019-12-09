@@ -10,4 +10,3 @@
   \*****************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */function(e,t,r){}]);
-//# sourceMappingURL=css/openy_egym_iwatch.css.map
