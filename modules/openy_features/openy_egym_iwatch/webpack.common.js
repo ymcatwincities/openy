@@ -13,7 +13,7 @@ module.exports = {
       filename: "./css/openy_egym_iwatch.css",
       sourceMap: true,
       options: {
-        sourceMap: true,
+        sourceMap: false,
         watch: true,
       }
     }),
