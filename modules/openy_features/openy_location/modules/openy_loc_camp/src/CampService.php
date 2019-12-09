@@ -210,7 +210,7 @@ class CampService {
     }
     catch (\Exception $e) {
       // TODO: Convert to DI.
-      \Drupal::logger('haha')->error($e->getMessage());
+      \Drupal::logger('FIXME')->error($e->getMessage());
       return FALSE;
     }
   }
