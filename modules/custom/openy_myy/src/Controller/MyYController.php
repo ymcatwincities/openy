@@ -18,7 +18,7 @@ class MyYController extends ControllerBase {
    */
   public function myy(Request $request) {
     $config = \Drupal::service('config.factory')->get('openy_myy.settings');
-    if (!$personifyId = \Drupal::service('myy_personify_user_helper')->personifyGetId()) {
+    if (empty($_COOKIE['Drupal_visitor_personify_authorized'])) {
       // Redirect to login page.
       return new RedirectResponse(Url::fromRoute('openy_myy.login')->toString());
     }
