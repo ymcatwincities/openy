@@ -2,31 +2,31 @@
 
 namespace Drupal\openy_myy\Plugin\rest\resource;
 
-use Drupal\openy_myy\PluginManager\MyYDataChildcare;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\rest\Plugin\ResourceBase;
+use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Drupal\rest\ResourceResponse;
+use Drupal\openy_myy\PluginManager\MyYDataOrders;
 
 /**
- * MyY cancel childcare scheduled events rest resource.
+ * MyY get user orders
  *
  * @RestResource(
- *   id = "myy_childcare_session_cancel",
- *   label = @Translation("Cancel sessions for childcare product"),
+ *   id = "myy_orders",
+ *   label = @Translation("My orders"),
  *   uri_paths = {
- *     "canonical" = "/myy-model/data/childcare/session-cancel/{order_id}/{dates}"
+ *     "canonical" = "/myy-model/data/orders/{date_start}/{date_end}/{type}"
  *   }
  * )
  */
-class MyYChildcareSessionCancel extends ResourceBase {
+class MyYProfileDataOrders extends ResourceBase {
 
   /**
-   * @var \Drupal\openy_myy\PluginManager\MyYDataChildcare
+   * @var \Drupal\openy_myy\PluginManager\MyYDataOrders
    */
-  protected $myYDataChildcare;
+  protected $myYDataOrders;
 
   /**
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -34,14 +34,14 @@ class MyYChildcareSessionCancel extends ResourceBase {
   protected $config;
 
   /**
-   * MyYChildcareScheduled constructor.
+   * MyYProfileDataOrders constructor.
    *
    * @param array $configuration
    * @param $plugin_id
    * @param $plugin_definition
    * @param array $serializer_formats
    * @param \Psr\Log\LoggerInterface $logger
-   * @param \Drupal\openy_myy\PluginManager\MyYDataChildcare $myYDataChildcare
+   * @param \Drupal\openy_myy\PluginManager\MyYDataOrders $myYDataOrders
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    */
   public function __construct(
@@ -50,13 +50,13 @@ class MyYChildcareSessionCancel extends ResourceBase {
     $plugin_definition,
     array $serializer_formats,
     LoggerInterface $logger,
-    MyYDataChildcare $myYDataChildcare,
+    MyYDataOrders $myYDataOrders,
     ConfigFactoryInterface $configFactory
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->config = $configFactory->get('openy_myy.settings');
-    $this->myYDataChildcare = $myYDataChildcare;
+    $this->myYDataOrders = $myYDataOrders;
   }
 
   /**
@@ -68,32 +68,30 @@ class MyYChildcareSessionCancel extends ResourceBase {
       $plugin_id,
       $plugin_definition,
       $container->getParameter('serializer.formats'),
-      $container->get('logger.factory')->get('openy_myy_data_childcare'),
-      $container->get('plugin.manager.myy_data_childcare'),
+      $container->get('logger.factory')->get('openy_myy_data_orders'),
+      $container->get('plugin.manager.myy_data_orders'),
       $container->get('config.factory')
     );
   }
 
-  public function get($order_id, $dates) {
-
-    /**
-     * @TODO Add check that order is connected to this user
-     */
+  /**
+   * {@inheritdoc}
+   */
+  public function get($date_start, $date_end, $type = 'A') {
 
     $myy_config = $this->config->getRawData();
-    $myy_authenticator_instances = $this->myYDataChildcare->getDefinitions();
+    $myy_authenticator_instances = $this->myYDataOrders->getDefinitions();
 
-    if (array_key_exists($myy_config['myy_data_childcare'], $myy_authenticator_instances)) {
+    if (array_key_exists($myy_config['myy_data_orders'], $myy_authenticator_instances)) {
       $response = $this
-        ->myYDataChildcare
-        ->createInstance($myy_config['myy_data_childcare'])
-        ->cancelChildcareSessions($order_id, $dates);
+        ->myYDataOrders
+        ->createInstance($myy_config['myy_data_orders'])
+        ->getOrders($date_start, $date_end, $type);
     } else {
       return new NotFoundHttpException();
     }
 
     return new ResourceResponse($response);
-
 
   }
 
