@@ -17,7 +17,7 @@ use Drupal\rest\ResourceResponse;
  *   id = "myy_childcare_session_cancel",
  *   label = @Translation("Cancel sessions for childcare product"),
  *   uri_paths = {
- *     "canonical" = "/myy/data/childcare/session-cancel/{order_id}/{dates}"
+ *     "canonical" = "/myy-model/data/childcare/session-cancel/{order_id}/{dates}"
  *   }
  * )
  */

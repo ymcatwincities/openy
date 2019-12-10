@@ -11,7 +11,7 @@
     </div>
     <div class="row headline">
       <div class="col-myy-sm-6">
-        <h3>Upcoming events</h3>
+        <h4>Upcoming events</h4>
       </div>
       <div class="col-myy-sm-6 text-right">
         <a href="#" class="view_all">View all</a> | <a href="#" class="purchases">Purchases</a>
@@ -48,7 +48,7 @@
               <span class="duration">{{ item.type }}</span>
             </div>
             <div class="col-myy-sm-3 text-right no-padding-right">
-              <a href="#" class="cancel"><strong>Cancel</strong></a>
+              <a class="myy-modal__modal--myy-cancel-link cancel" role="button" href="#" v-on:click="populatePopupCancel(index)" data-toggle="modal" data-target=".myy-modal__modal--myy-cancel"><strong>Cancel</strong></a>
             </div>
           </div>
           <div class="event_add_item row">
@@ -59,112 +59,42 @@
         </div>
       </div>
     </div>
-    <!--<div class="row content">
-      <div class="col-myy">
-        <div class="event_row">
-          <div class="event_head row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small blue">J</span>
-            </div>
-            <div class="col-myy-sm-5">
-              <div class="program_name"><strong>Program Name</strong></div>
-              YMCA at Gaviidae - DT Minneapolis
-            </div>
-            <div class="col-myy-sm-4">
-              <div class="date"><strong>Dec 12-Dec 19</strong></div>
-              <span class="weekdays">Mon - Fri</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <a href="#" class="cancel"><strong>Cancel all</strong></a>
-            </div>
+
+    <!--modal > cancel -->
+    <div class="modal fade myy-modal__modal myy-modal__modal--myy-cancel" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-cancel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+          <div class="myy-modal__modal--header">
+            <h3>Confirm</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
           </div>
-          <div class="event_item row">
-            <div class="col-myy-sm-1 no-padding-left text-center">
-              <i class="fa fa-calendar-check-o"></i>
+
+          <div class="myy-modal__modal--body">
+            <div class="col-myy-sm-12">
+              <p class="text-center"> Are you sure you want to cancel the following session?</p>
+              <div class="info row">
+                <div class="col-myy-sm-2">
+                  <span class="rounded_letter small black">X</span>
+                </div>
+                <div class="col-myy-sm-10">
+                  <p class="program_name"><strong>{{ cancelPopup.program_name }}</strong>
+                  <p class="date"><strong>{{ cancelPopup.order_date }}</strong></p>
+                  <p class="type">{{ cancelPopup.type }}</p>
+                  <p class="location">{{ cancelPopup.branch_id }}</p>
+                </div>
+              </div>
             </div>
-            <div class="col-myy-sm-5 no-padding-left">
-              <span class="date">Wed, 12/15/2029</span>
-            </div>
-            <div class="col-myy-sm-4">
-              <span class="duration">All Day</span>
-            </div>
-            <div class="col-myy-sm-2 text-right no-padding-right">
-              <a href="#" class="cancel"><strong>Cancel</strong></a>
-            </div>
-          </div>
-          <div class="event_item row">
-            <div class="col-myy-sm-1 no-padding-left text-center">
-              <i class="fa fa-calendar-check-o"></i>
-            </div>
-            <div class="col-myy-sm-5 no-padding-left">
-              <span class="date">Wed, 12/16/2029</span>
-            </div>
-            <div class="col-myy-sm-4">
-              <span class="duration">All Day</span>
-            </div>
-            <div class="col-myy-sm-2 text-right no-padding-right">
-              <a href="#" class="cancel"><strong>Cancel</strong></a>
-            </div>
-          </div>
-          <div class="event_add_item row">
-            <div class="col-myy">
-              <i class="fa blue fa-calendar-plus-o"></i> <a href="#"><strong>Add Item</strong></a>
+            <div class="col-myy-sm-12 actions">
+              <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">NO, KEEP IT</button>
+              <button type="button" class="btn btn-primary text-uppercase cancel-action" data-dismiss="modal" @click="cancel(cancelPopup.order_number)">YES, CANCEL</button>
             </div>
           </div>
         </div>
-        <div class="event_row">
-          <div class="event_head row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small purple">D</span>
-            </div>
-            <div class="col-myy-sm-5">
-              <div class="program_name"><strong>Program Name</strong></div>
-              YMCA at Gaviidae - DT Minneapolis
-            </div>
-            <div class="col-myy-sm-4">
-              <div class="date"><strong>Dec 12-Dec 19</strong></div>
-              <span class="weekdays">Mon - Fri</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <a href="#" class="cancel"><strong>Cancel all</strong></a>
-            </div>
-          </div>
-          <div class="event_item row">
-            <div class="col-myy-sm-1 no-padding-left text-center">
-              <i class="fa fa-calendar-check-o"></i>
-            </div>
-            <div class="col-myy-sm-5 no-padding-left">
-              <span class="date">Wed, 12/15/2029</span>
-            </div>
-            <div class="col-myy-sm-4">
-              <span class="duration">All Day</span>
-            </div>
-            <div class="col-myy-sm-2 text-right no-padding-right">
-              <a href="#" class="cancel"><strong>Cancel</strong></a>
-            </div>
-          </div>
-          <div class="event_item row">
-            <div class="col-myy-sm-1 no-padding-left text-center">
-              <i class="fa fa-calendar-check-o"></i>
-            </div>
-            <div class="col-myy-sm-5 no-padding-left">
-              <span class="date">Thu, 12/16/2029</span>
-            </div>
-            <div class="col-myy-sm-4">
-              <span class="duration">All Day</span>
-            </div>
-            <div class="col-myy-sm-2 text-right no-padding-right">
-              <a href="#" class="cancel"><strong>Cancel</strong></a>
-            </div>
-          </div>
-          <div class="event_add_item row">
-            <div class="col-myy">
-              <i class="fa blue fa-calendar-plus-o"></i> <a href="#"><strong>Add Item</strong></a>
-            </div>
-          </div>
-        </div>
+
       </div>
-    </div>-->
+    </div>
+
   </section>
 </template>
 
@@ -176,7 +106,8 @@
         data: {},
         baseUrl: '/',
         childcare_purchase_link_title: '',
-        childcare_purchase_link_url: ''
+        childcare_purchase_link_url: '',
+        cancelPopup: {},
       }
     },
     methods: {
@@ -194,6 +125,23 @@
           component.data = data;
           component.loading = false;
         });
+      },
+      cancel: function(order, date) {
+        let component = this;
+        let url = component.baseUrl + 'myy-model/data/childcare/session-cancel/' + order+ '/' + date;
+
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          component.loading = false;
+        });
+      },
+      populatePopupCancel: function(index) {
+        this.cancelPopup = this.data[index];
       },
     },
     mounted: function() {
@@ -251,7 +199,7 @@
       margin: 0;
       border: 1px solid #636466;
     }
-    h3 {
+    h4 {
       color: #636466;
       font-size: 14px;
       font-weight: bold;
@@ -298,6 +246,50 @@
       }
       .fa {
         font-size: 18px;
+      }
+    }
+  }
+  .myy-modal__modal--myy-cancel {
+    .text-center {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    .info {
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 15px 0 0;
+      font-size: 12px;
+      line-height: 18px;
+      .program_name {
+      }
+      .date {
+        margin: 0;
+      }
+    }
+    .actions {
+      background-color: #f2f2f2;
+      margin-top: 15px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      .close-action {
+        border: 2px solid #0060AF;
+        color: #0060AF;
+        font-family: "Cachet Medium", sans-serif;
+        font-size: 18px;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 20px;
+      }
+      .cancel-action {
+        background-color: #92278F;
+        border: 2px solid #92278F;
+        color: #FFF;
+        float: right;
+        font-family: "Cachet Medium", sans-serif;
+        font-size: 18px;
+        height: 50px;
+        line-height: 50px;
+        padding: 0 20px;
       }
     }
   }
