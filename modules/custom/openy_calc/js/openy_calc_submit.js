@@ -12,8 +12,18 @@
       $('#membership-calc-wrapper').once().each(function () {
         var divPosition = $(this).offset();
         $('html, body').animate({scrollTop: divPosition.top - 100}, "slow");
-        $(this).focus();
       });
+    }
+  };
+
+  /**
+   * This will focus current tab for aria.
+   */
+  Drupal.behaviors.openy_calc_focus = {
+    attach: function (context, settings) {
+      setTimeout(function() {
+        $('a[role="tab"][aria-selected=true]').focus();
+      }, 1000);
     }
   };
 
