@@ -5,6 +5,7 @@ namespace Drupal\myy_personify\Plugin\MyYAuthenticator;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\Core\Url;
+use Drupal\myy_personify\PersonifyUserHelper;
 use Drupal\openy_myy\PluginManager\MyYAuthenticatorInterface;
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -50,6 +51,11 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
   protected $personify_config;
 
   /**
+   * @var \Drupal\myy_personify\PersonifyUserHelper
+   */
+  protected $personifyUserHelper;
+
+  /**
    * PersonifyAuthenticator constructor.
    *
    * @param array $configuration
@@ -67,7 +73,8 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
     PersonifySSO $personifySSO,
     ConfigFactoryInterface $configFactory,
     RequestStack $requestStack,
-    LoggerChannelFactory $loggerChannelFactory
+    LoggerChannelFactory $loggerChannelFactory,
+    PersonifyUserHelper $personifyUserHelper
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
@@ -75,6 +82,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
     $this->personify_config = $configFactory->get('personify.settings')->getRawData();
     $this->request = $requestStack->getCurrentRequest();
     $this->logger = $loggerChannelFactory->get('personify_authenticator');
+    $this->personifyUserHelper = $personifyUserHelper;
   }
 
   /**
@@ -88,7 +96,8 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
       $container->get('personify.sso_client'),
       $container->get('config.factory'),
       $container->get('request_stack'),
-      $container->get('logger.factory')
+      $container->get('logger.factory'),
+      $container->get('myy_personify_user_helper')
     );
   }
 
@@ -96,7 +105,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
    * {@inheritdoc}
    */
   public function getUserId() {
-    // TODO: Implement getUserId() method.
+    return $this->personifyUserHelper->personifyGetId();
   }
 
   /**
