@@ -94,6 +94,7 @@ class RepeatController extends ControllerBase {
    * {@inheritdoc}
    */
   public function ajaxScheduler(Request $request, $location, $date, $category) {
+    $category = str_replace('U+002F', '/', $category);
     $result = $this->getData($request, $location, $date, $category);
     return new JsonResponse($result);
   }
