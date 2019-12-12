@@ -94,7 +94,12 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
    * {@inheritdoc}
    */
   public function getProfileData() {
-    // TODO: Implement getProfileData() method.
+    return $this
+      ->personifyClient
+      ->doAPIcall(
+        'GET',
+        "CustomerInfos(MasterCustomerId='" . $this->personifyUserHelper->personifyGetId() . "',SubCustomerId=0)"
+      );
   }
 
   /**
