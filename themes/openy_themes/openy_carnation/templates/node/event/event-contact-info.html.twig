@@ -25,5 +25,7 @@
     <div class="contact-fax"><i class="fa fa-fax text-gray-300"></i> <a href="tel:{{ info.fax }}">{{ info.fax }}</a></div>
   {% endif %}
 
-  <div class="contact-email"><i class="fa fa-envelope text-gray-300"></i> {{ info.email }}</div>
+  {% if info.email is not empty %}
+    <div class="contact-email"><i class="fa fa-envelope text-gray-300"></i> {{ info.email }}</div>
+  {% endif %}
 </div>
