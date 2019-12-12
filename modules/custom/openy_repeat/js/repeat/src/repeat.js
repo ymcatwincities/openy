@@ -353,7 +353,7 @@
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
         url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
-        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',')) : '/0';
+        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',').replace('/', 'U+002F')) : '/0';
         url += date ? '/' + encodeURIComponent(date) : '';
 
         var query = [];
