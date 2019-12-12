@@ -45,7 +45,7 @@ function openy_calc_preprocess_fieldset(&$variables) {
   /**
    * @var $legend_span \Drupal\Core\Template\Attribute
    */
-  if($variables['element']['#type'] == 'calc_radios') {
+  if ($variables['element']['#type'] == 'calc_radios')  {
     $legend_span = $variables['legend_span']['attributes'];
     $legend_span->setAttribute('tabindex', '0');
   }
