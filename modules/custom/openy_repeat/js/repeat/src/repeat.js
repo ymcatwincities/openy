@@ -591,8 +591,8 @@
 
         return diff < (limit - 1);
       },
-      showAddToCalendar: function (index, event) {
-        $(".atcb-link").each(function (i) {
+      showAddToCalendar: function (index, selector) {
+        $(selector + " .atcb-link").each(function (i) {
           if (index == i) {
             if (!$(this).hasClass('open')) {
               $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
