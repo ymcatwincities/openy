@@ -43,7 +43,7 @@
   };
 
   /**
-   * accessibility menu navigation
+   * Make work with main nav accessible. User could walk through submenu infinitely.
    * @type {{attach: Drupal.behaviors.menuTabNav.attach}}
    */
   Drupal.behaviors.menuTabNav = {
