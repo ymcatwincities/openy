@@ -56,7 +56,7 @@
           aFirst.focus();
         });
       });
-
+  // Add ability to walk through search input and close search buttons at search action.
       $('.navbar .search-input').focusout(function (event) {
         event.stopPropagation();
         $('.page-head__search-close').focus();
