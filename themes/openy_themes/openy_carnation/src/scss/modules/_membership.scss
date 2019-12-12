@@ -112,6 +112,11 @@ a[href="#step2"] {
         background-color: $indigo;
         padding: 9px;
 
+        a, a:hover, a:visited {
+          text-decoration: none;
+          color: white;
+        }
+
         @include media-breakpoint-up(sm) {
           width: calc(100% - 30px);
         }
