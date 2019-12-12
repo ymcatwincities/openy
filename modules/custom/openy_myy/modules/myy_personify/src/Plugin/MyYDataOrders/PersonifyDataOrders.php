@@ -89,20 +89,26 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
     );
   }
 
-  public function getOrders($date_start, $date_end, $type) {
+  /**
+   * {@inheritdoc}
+   */
+  public function getOrders($date_start, $date_end, $type = 'A') {
 
     $personifyID = $this->personifyUserHelper->personifyGetId();
+
+    // $type = A - All, $type= P - Pending.
 
     // Example: /myy-model/data/orders/2019-01-01/2019-09-01/A
     $filters = [
       'ShipMasterCustomerId eq \'' . $personifyID . '\'',
-      'LineStatusCodeString eq \''. $type .'\'',
       'DueDate ge datetime\'' . $date_start .'\'',
       'DueDate le datetime\'' . $date_end . '\''
     ];
+
     $data = $this
       ->personifyClient
       ->doAPIcall('GET', 'WebOrderBalanceViews?$format=json&$filter=' . implode(' and ', $filters));
+
 
     return $data['d'];
   }
