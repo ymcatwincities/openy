@@ -248,7 +248,7 @@
         "library-ckeditor/panelbutton": "4.10.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
-        "library-smonetti/btbutton": "1.0.1",
+        "library-smonetti/btbutton": "1.0.2",
         "library-davekoelle/alphanum": "1.0.0",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
