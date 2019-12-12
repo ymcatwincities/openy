@@ -77,7 +77,7 @@
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
 
-{% if content.field_header_content is not empty %}
+{% if content.field_header_content|render|trim is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
     <div{{ content_attributes.addClass(header_content_classes) }}>
       <div class="main">
