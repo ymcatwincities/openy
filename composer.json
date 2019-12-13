@@ -82,12 +82,12 @@
             "type": "package",
             "package": {
                 "name": "library-smonetti/btbutton",
-                "version": "1.0.1",
+                "version": "1.0.2",
                 "type": "drupal-library",
                 "source": {
                     "url": "https://github.com/smonetti/btbutton",
                     "type": "git",
-                    "reference": "e98f4d74338e7183c8b5e4902a1a91968705d066"
+                    "reference": "ee1fc396231a63201373cb580684e699a696ed62"
                 }
             }
         },
@@ -248,7 +248,7 @@
         "library-ckeditor/panelbutton": "4.10.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
-        "library-smonetti/btbutton": "1.0.1",
+        "library-smonetti/btbutton": "1.0.2",
         "library-davekoelle/alphanum": "1.0.0",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",

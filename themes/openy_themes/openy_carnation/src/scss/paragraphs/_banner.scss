@@ -2,8 +2,6 @@
   background-color: $cyan;
   position: relative;
 
-  position: relative;
-
   // main background image
   .banner-bg,
   .banner--medium .banner-cta {
@@ -36,17 +34,6 @@
       content: "";
       opacity: .3;
       z-index: 1;
-    }
-  }
-  .banner {
-    min-height: 70px;
-
-    @include media-breakpoint-up(sm) {
-      min-height: 225px;
-    }
-
-    @include media-breakpoint-up(md) {
-      min-height: 350px;
     }
   }
 
@@ -106,7 +93,6 @@
   // heading only (blog nodes)
   &--small {
     min-height: 120px;
-    padding-top: 44px;
   }
 
   // heading + subheading (program nodes)
