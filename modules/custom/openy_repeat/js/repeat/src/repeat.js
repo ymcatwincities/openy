@@ -353,7 +353,7 @@
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
         url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
-        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',')) : '/0';
+        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',').replace('/', 'U+002F')) : '/0';
         url += date ? '/' + encodeURIComponent(date) : '';
 
         var query = [];
@@ -590,6 +590,19 @@
         var diff = date.diff(now, 'days');
 
         return diff < (limit - 1);
+      },
+      showAddToCalendar: function (index, selector) {
+        $(selector + " .atcb-link").each(function (i) {
+          if (index == i) {
+            if (!$(this).hasClass('open')) {
+              $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+              $(this).addClass('open').parent().find('ul').addClass('active').css('visibility', 'visible !important').find('.atcb-item-link:eq(0)').focus();
+            }
+            else {
+              $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+            }
+          }
+        });
       }
     },
     updated: function () {
