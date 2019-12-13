@@ -8,6 +8,7 @@
   cursor: pointer;
   background: none;
   border: 0;
+  padding: 0;
 }
 
 .schedule-dashboard__arrow:hover {
@@ -108,6 +109,15 @@ body.modal-open .top-navs .nav-global{
 
 .schedule-dashboard__sidebar .form-group-wrapper.mobile-refine-results label {
   font-size: 14px;
+  padding: 15px 0;
+}
+
+.col-12.schedule-dashboard__sidebar {
+  padding: 0;
+}
+
+.col-12.schedule-dashboard__content {
+  padding: 0;
 }
 
 .schedule-dashboard__sidebar .form-group-wrapper > label {
