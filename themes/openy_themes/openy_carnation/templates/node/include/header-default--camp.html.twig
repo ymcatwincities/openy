@@ -12,13 +12,12 @@
 
 {%
   set header_classes = [
-    'landing-header',
     'w-100',
     node.field_lp_layout.value|clean_class,
   ]
 %}
 
-<div class="page-heading banner banner--small banner--grey">
+<div class="banner banner--small banner--grey">
 
   {% if header_image|render|trim is not empty %}
   <div class="banner-bg" style="background: url('{{ header_image }}') center center; background-size: cover;">
@@ -50,3 +49,8 @@
     {{ content.field_header_content }}
   {% endif %}
 </div>
+
+{{ drupal_breadcrumb() }}
+<div id="openy_alerts_header_placeholder"></div>
+{{ drupal_block('local_tasks_block') }}
+<a id="main-content" tabindex="-1" class="sr-only sr-only-focusable"></a>
