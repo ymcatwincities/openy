@@ -13,25 +13,25 @@ source:
   data_rows:
     -
       id: couple_image
-      name: couple.jpg
+      name: couple.png
     -
       id: adult_image
-      name: adult.jpg
+      name: adult.png
     -
       id: youth_image
-      name: youth.jpg
+      name: youth.png
     -
       id: teen_young_adult_image
-      name: young_adult.jpg
+      name: young_adult.png
     -
       id: family_1_image
-      name: family_1.jpg
+      name: family_1.png
     -
       id: family_2_image
-      name: family_2.jpg
+      name: family_2.png
     -
       id: senior_image
-      name: senior.jpg
+      name: senior.png
   ids:
     id:
       type: string

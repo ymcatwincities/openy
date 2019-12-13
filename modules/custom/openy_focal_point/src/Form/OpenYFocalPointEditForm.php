@@ -215,6 +215,12 @@ class OpenYFocalPointEditForm extends FormBase {
 
     /** @var \Drupal\focal_point\FocalPointManagerInterface $focal_point_manager */
     $focal_point_manager = \Drupal::service('focal_point.manager');
+
+    // If image has no crop info.
+    if (!$crop) {
+      $crop = $focal_point_manager->getCropEntity($file, $crop_type);
+    }
+
     list($x, $y) = explode(',', $form_state->getValue('focal_point'));
     $image = \Drupal::service('image.factory')->get($file->getFileUri());
     $width = $image->getWidth();
