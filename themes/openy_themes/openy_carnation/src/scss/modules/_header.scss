@@ -62,9 +62,13 @@
   }
 }
 
-.viewport .nav-global {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+.viewport {
+  background-color: white;
+
+  .nav-global {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
+  }
 }
 
 .site-name {
@@ -124,14 +128,10 @@
 
   form {
     display: block;
-    margin: 0 10% 0 20%;
+    margin: 0 2% 0 225px;
     position: relative;
     z-index: 1;
     background: transparent;
-
-    @include media-breakpoint-up(lg) {
-      margin: 0 10% 0 15%;
-    }
   }
 
   input[type="submit"] {
@@ -181,7 +181,7 @@
   margin: 24px 0;
   height: 40px;
   position: absolute;
-  right: 40px;
+  left: 180px;
   bottom: 0;
   z-index: 1;
   color: $white;

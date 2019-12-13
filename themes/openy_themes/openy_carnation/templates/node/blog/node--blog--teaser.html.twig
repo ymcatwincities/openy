@@ -95,10 +95,6 @@
     {% endif %}
 
     <div class="blog-heading">
-      <h6 {% if (node.field_blog_style.value == "color") %} {{ attributes.setAttribute('style', color) }} {% endif %}>
-        {{ category }}
-      </h6>
-
       {% if (node.field_blog_style.value == "story") %}
       <div class="story-card">
         <div class="quote">
@@ -111,6 +107,10 @@
           {{ label }}
         </a>
       </h2>
+
+      <h6 {% if (node.field_blog_style.value == "color") %} {{ attributes.setAttribute('style', color) }} {% endif %}>
+        {{ category }}
+      </h6>
     </div>
 
   </div>
