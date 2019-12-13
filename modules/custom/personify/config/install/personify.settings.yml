@@ -1,6 +1,6 @@
 # SSO data.
 prod_wsdl: 'https://***REMOVED***/SSO/webservice/service.asmx?wsdl'
-stage_wsdl: 'https://ygtctst4ebiz.personifycloud.com/SSO/webservice/service.asmx?wsdl'
+stage_wsdl: 'https://ygtc762tstebiz.personifycloud.com/SSO/webservice/service.asmx?wsdl'
 vendor_id: 8
 vendor_username: ClockWork
 vendor_password: ***REMOVED***
@@ -12,7 +12,7 @@ prod_username: ***REMOVED***
 prod_password: ***REMOVED***
 
 # Stage endpoint.
-stage_endpoint: 'https://ygtctst4ebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc/'
+stage_endpoint: 'https://ygtc762tstebiz.personifycloud.com/PersonifyDataServices/PersonifyData.svc/'
 stage_username: ***REMOVED***
 stage_password: ***REMOVED***
 
