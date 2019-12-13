@@ -16,6 +16,7 @@ class App extends Component {
     super(props);
     this.next = this.next.bind(this);
     this.previous = this.previous.bind(this);
+    this.goto = this.goto.bind(this);
   }
 
   next() {
@@ -24,6 +25,10 @@ class App extends Component {
 
   previous() {
     this.slider.slickPrev();
+  }
+
+  goto(num) {
+    this.slider.slickGoTo(num);
   }
 
   componentWillMount() {
@@ -45,6 +50,7 @@ class App extends Component {
     let hil = null;
     const HeaderAlertItemList = () => {
       if (this.props.header) {
+        var idx = 0;
         hil = Object.keys(this.props.header).map(i => {
           return this.props.header[i].map(a => {
             if (
@@ -63,6 +69,8 @@ class App extends Component {
                   description={a.description}
                   txtColor={a.textColor}
                   bgColor={a.bgColor}
+                  focus={this.goto}
+                  index={idx++}
                 />
               );
             } else {
@@ -91,7 +99,7 @@ class App extends Component {
             {this.props.headerPager && (
               <div className="slick__arrow">
                 <a
-                  tabIndex="0"
+                  tabIndex="-1"
                   data-role="none"
                   className="slick-prev slick-arrow"
                   role="button"
@@ -102,7 +110,7 @@ class App extends Component {
                   Previous alert message
                 </a>
                 <a
-                  tabIndex="0"
+                  tabIndex="-1"
                   data-role="none"
                   className="slick-next slick-arrow"
                   role="button"

@@ -80,7 +80,7 @@
               <div class="col-xs-6 col-md-2 col-sm-2">
 
                 {# add to calendar #}
-                <div v-cloak class="calendar-column">
+                <div v-cloak v-on:click="showAddToCalendar(index, '.schedules-data')" class="calendar-column">
                   <span class="addtocalendar">
                     <var class="atc_event">
                       <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
@@ -268,18 +268,18 @@
 
             <div class="col-md-2 col-sm-6 col-xs-6">
               {# add to calendar #}
-              <div v-cloak class="calendar-column">
-            <span class="addtocalendar">
-              <var class="atc_event">
-                <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
-                <var class="atc_date_end">${ addToCalendarDate(item.time_end_calendar) }</var>
-                <var class="atc_timezone">${ item.timezone }</var>
-                <var class="atc_title">${ item.name }</var>
-                <var class="atc_description"></var>
-                <var class="atc_location"></var>
-                <var class="atc_organizer"></var>
-              </var>
-            </span>
+              <div v-cloak v-on:click="showAddToCalendar(index, '.schedule-dashboard__modal--body')" class="calendar-column">
+                <span class="addtocalendar">
+                  <var class="atc_event">
+                    <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
+                    <var class="atc_date_end">${ addToCalendarDate(item.time_end_calendar) }</var>
+                    <var class="atc_timezone">${ item.timezone }</var>
+                    <var class="atc_title">${ item.name }</var>
+                    <var class="atc_description"></var>
+                    <var class="atc_location"></var>
+                    <var class="atc_organizer"></var>
+                  </var>
+                </span>
               </div>
             </div>
 
@@ -375,18 +375,18 @@
 
             <div class="col-md-2 col-sm-12 col-xs-12">
               {# add to calendar #}
-              <div v-cloak class="calendar-column">
-            <span class="addtocalendar">
-              <var class="atc_event">
-                <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
-                <var class="atc_date_end">${ addToCalendarDate(item.time_end_calendar) }</var>
-                <var class="atc_timezone">${ item.timezone }</var>
-                <var class="atc_title">${ item.name }</var>
-                <var class="atc_description"></var>
-                <var class="atc_location"></var>
-                <var class="atc_organizer"></var>
-              </var>
-            </span>
+              <div v-cloak v-on:click="showAddToCalendar(index, '.schedule-dashboard__modal--body')" class="calendar-column">
+                <span class="addtocalendar">
+                  <var class="atc_event">
+                    <var class="atc_date_start">${ addToCalendarDate(item.time_start_calendar) }</var>
+                    <var class="atc_date_end">${ addToCalendarDate(item.time_end_calendar) }</var>
+                    <var class="atc_timezone">${ item.timezone }</var>
+                    <var class="atc_title">${ item.name }</var>
+                    <var class="atc_description"></var>
+                    <var class="atc_location"></var>
+                    <var class="atc_organizer"></var>
+                  </var>
+                </span>
               </div>
             </div>
 
