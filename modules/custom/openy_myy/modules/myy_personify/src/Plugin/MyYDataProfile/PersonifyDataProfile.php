@@ -45,6 +45,11 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
   protected $personifyUserHelper;
 
   /**
+   * @var string
+   */
+  protected $personify_domain;
+
+  /**
    * PersonifyDataProfile constructor.
    *
    * @param array $configuration
@@ -69,8 +74,11 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     $this->personifySSO = $personifySSO;
     $this->personifyClient = $personifyClient;
     $this->config = $configFactory->get('myy_personify.settings');
+
     $this->logger = $loggerChannelFactory->get('personify_authenticator');
     $this->personifyUserHelper = $personifyUserHelper;
+    $personify_config = $configFactory->get('personify.settings')->getRawData();
+    $this->personify_domain = $personify_config[$personify_config['environment'] . '_endpoint'];
   }
 
   /**
@@ -191,7 +199,22 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     foreach ($memberships as $membership) {
 
     }
+    $t = $this->getHouseholdProfileLinks();
     return $memberships;
+  }
+
+  public function getHouseholdProfileLinks() {
+
+    return [
+      $this->personify_domain . '/PersonifyEbusiness/Product-Search' => 'Product Search',
+      $this->personify_domain . '/PersonifyEbusiness/MyY/ChildCare-Attendance-Calendar' => 'My ChildCare Calendar',
+      $this->personify_domain . '/PersonifyEbusiness/MyY/Health-Form' => 'Health Information',
+      $this->personify_domain . '/PersonifyEbusiness/MyY/Emergency-Contact' => 'Emergency Contacts',
+      $this->personify_domain . '/PersonifyEbusiness/MyY/My-Programs' => 'View Programs',
+      $this->personify_domain . '/PersonifyEbusiness/MyY/Member-Visits' => 'View Facility Visits',
+      $this->personify_domain . '/PersonifyEbusiness/MyY/My-Family' => 'Relationships',
+      $this->personify_domain . '/PersonifyEbusiness/MyY/Personal-Information' => 'Profile'
+    ];
   }
 
   /**
