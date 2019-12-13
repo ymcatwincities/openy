@@ -218,7 +218,7 @@
             .prepend('<i class="fa fa-home"></i>');
         }
         // Check if home branch has some results.
-        if (typeof this.locationCounters[locationId] !== 'undefined' && this.locationCounters[locationId] == 0) {
+        if (typeof this.locationCounters[locationId] != 'undefined' && this.locationCounters[locationId] == 0) {
           // Show home branch unavailable modal.
           this.homeBranchUnavailable = true;
           if (this.homeBranchUnavailable) {
