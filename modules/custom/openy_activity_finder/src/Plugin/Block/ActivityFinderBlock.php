@@ -30,6 +30,28 @@ class ActivityFinderBlock extends BlockBase {
       $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id());
     }
 
+    $locationsMapping = [];
+    if ($config->get('backend' == 'openy_daxko2.openy_activity_finder_backend')) {
+      $openy_daxko2_config = \Drupal::service('config.factory')->get('openy_daxko2.settings');
+      if (!empty($openy_daxko2_config->get('locations'))) {
+        $nids = \Drupal::entityQuery('node')
+          ->condition('type', ['branch', 'camp', 'facility'], 'IN')
+          ->condition('status', 1)
+          ->sort('title', 'ASC')
+          ->execute();
+        $locations = \Drupal::service('entity_type.manager')->getStorage('node')->loadMultiple($nids);
+        $config_rows = explode("\n", $openy_daxko2_config->get('locations'));
+        foreach ($config_rows as $row) {
+          $line = explode(', ', $row);
+          foreach ($locations as $nid => $location) {
+            if (isset($line[1]) && $line[1] == $location->getTitle()) {
+              $locationsMapping[$nid] = $line[0];
+            }
+          }
+        }
+      }
+    }
+
     return [
       '#theme' => 'openy_activity_finder_program_search',
       '#data' => [],
@@ -45,6 +67,7 @@ class ActivityFinderBlock extends BlockBase {
           'activityFinder' => [
             'alias' => $alias,
             'is_search_box_disabled' => $config->get('disable_search_box'),
+            'locationsNidToDaxkoIdMapping' => $locationsMapping,
           ],
         ],
       ],
