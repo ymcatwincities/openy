@@ -158,7 +158,7 @@
     position: fixed;
     top: 0;
     visibility: visible;
-    z-index: 40;
+    z-index: 1050;
     &.collapse {
       display: none;
       width: 0 !important;

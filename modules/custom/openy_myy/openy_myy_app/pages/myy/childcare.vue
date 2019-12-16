@@ -4,10 +4,10 @@
     <section class="myy-main">
       <div class="container">
         <div class="row">
-          <div class="col-myy-sm-3 d-none d-md-block visible-md hidden-xs">
+          <div class="col-myy-md-3 d-myy-none d-myy-lg-block">
             <sidebar-menu/>
           </div>
-          <div class="col-myy-sm-12 col-myy-md-9 col-myy-12">
+          <div class="col-myy-12 col-myy-lg-9">
             <childcare/>
           </div>
         </div>

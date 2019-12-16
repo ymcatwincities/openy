@@ -429,6 +429,50 @@
   </section>
 </template>
 
+<script>
+  export default {
+    data () {
+      return {
+        loading: true,
+        data: {},
+        baseUrl: '/',
+      }
+    },
+    methods: {
+      runAjaxRequest: function() {
+        let component = this;
+        let url = component.baseUrl + 'myy-model/data/orders/2019-09-26/2020-09-26/A';
+
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          component.data = data;
+          component.loading = false;
+        });
+      },
+    },
+    mounted: function() {
+      let component = this;
+
+      if (typeof window.drupalSettings === 'undefined') {
+        var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/'
+          }
+        };
+        window.drupalSettings = drupalSettings;
+      }
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+
+      component.runAjaxRequest();
+    }
+  }
+</script>
+
 <style lang="scss">
   .myy-orders-receipts-results {
     .top-line {

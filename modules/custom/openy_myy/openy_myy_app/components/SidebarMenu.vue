@@ -61,6 +61,9 @@
       .fa {
         color: #fff;
       }
+      button {
+        display: inline-block !important;
+      }
     }
   }
   .myy-sidebar_menu__nav {
@@ -164,6 +167,10 @@
     &.show {
       width: 100% !important;
       display: block;
+    }
+    &.collapse.in {
+      display: block;
+      width: 100% !important;
     }
     .myy-sidebar_menu__nav {
       margin: 0 20px;

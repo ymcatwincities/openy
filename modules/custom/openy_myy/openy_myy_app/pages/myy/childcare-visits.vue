@@ -19,7 +19,7 @@
     <section class="myy-main">
       <div class="container">
         <div class="row">
-          <div class="col-myy-sm-3">
+          <div class="col-myy-md-3 d-myy-none d-myy-lg-block">
             <div class="myy-filters">
               <h3>FILTERS</h3>
               <div class="myy-filters__wrapper">
@@ -36,7 +36,7 @@
               </div>
             </div>
           </div>
-          <div class="col-myy-sm-9">
+          <div class="col-myy-12 col-myy-lg-9">
             <childcare-visits/>
           </div>
         </div>

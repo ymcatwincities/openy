@@ -33,7 +33,8 @@ $container-max-widths: (
   }
   .dropdown-menu.select {
     padding: 10px;
-    button {
+    a {
+      display: block;
       margin-bottom: 10px;
     }
   }
@@ -73,3 +74,11 @@ $container-max-widths: (
     }
   }
 }
+
+// Remove delay before loading animation rendering.
+#nuxt-loading {
+  animation: nuxtLoadingIn 0s ease;
+  -webkit-animation: nuxtLoadingIn 0s ease;
+  visibility: visible;
+  opacity: 1 !important;
+ }
