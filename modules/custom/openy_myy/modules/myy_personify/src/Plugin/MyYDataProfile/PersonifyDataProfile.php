@@ -195,14 +195,39 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
         'GET',
         'OrderMembershipInformationViews?$filter=ShipMasterCustomerId%20eq%20%27' . $personifyID . '%27&$format=json'
       );
-    $i=1;
-    foreach ($memberships as $membership) {
 
+    $last_membership = end($memberships['d']);
+    $orderData = $this
+      ->personifyClient
+      ->doAPIcall(
+        'GET',
+        'OrderMasterInfos(%27' . $last_membership['OrderNumber'] . '%27)/OrderDetailInfo?$format=json'
+      );
+
+    $orderType = $productPrice = $order_time = '';
+
+    foreach ($orderData['d'] as $orderLine) {
+      if (strpos(strtolower($orderLine['ProductDescription']), 'membership') !== FALSE) {
+        $orderType = 'Month-to-month';
+        $productPrice = $orderLine['BaseTotalAmount'];
+        $order_time = substr($orderLine['OrderDate'], 6, 10);
+      }
     }
-    $t = $this->getHouseholdProfileLinks();
-    return $memberships;
+
+    return [
+      'title' => $last_membership['Membership'],
+      'status' => $last_membership['FulfillStatusDescr'],
+      'orderType' => $orderType,
+      'productPrice' => $productPrice,
+      'orderDate' => date('Y-m-d', $order_time)
+    ];
+
   }
 
+  /**
+   * Mapping of household links for Personify
+   * @return array
+   */
   public function getHouseholdProfileLinks() {
 
     return [
