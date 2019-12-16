@@ -109,8 +109,37 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
       ->personifyClient
       ->doAPIcall('GET', 'WebOrderBalanceViews?$format=json&$filter=' . implode(' and ', $filters));
 
+    $orders = [];
 
-    return $data['d'];
+    foreach ($data['d'] as $item) {
+
+      $orderData = $this
+        ->personifyClient
+        ->doAPIcall(
+          'GET',
+          'OrderMasterInfos(%27' . $item['OrderNumber'] . '%27)/OrderDetailInfo?$format=json'
+        );
+
+      $payed_amount = $orderData['d'][0]['PaidAmount'];
+
+      if (!$payed_amount) {
+        $payed_amount = '0.00';
+      }
+
+      //@TODO replace it with real one
+      $pay_link = 'https://ygtc762tstebiz.personifycloud.com/personifyebusiness/Default.aspx?TabID=134&OrderNumber=' . $item['OrderNumber'] . '&RenewalMode=false';
+
+      $orders[] = [
+        'title' => $orderData['d'][0]['ProductDescription'],
+        'description' => $orderData['d'][0]['CL_OrderDescription'],
+        'total' => $orderData['d'][0]['BaseTotalAmount'],
+        'payed' => ($payed_amount != $orderData['d'][0]['BaseTotalAmount']) ? 0 : 1,
+        'pay_link' => ($payed_amount != $orderData['d'][0]['BaseTotalAmount']) ? $pay_link : '',
+        'payed_amount' => $payed_amount
+      ];
+    }
+
+    return $orders;
   }
 
 
