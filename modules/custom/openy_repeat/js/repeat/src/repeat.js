@@ -591,6 +591,19 @@
 
         return diff < (limit - 1);
       },
+      showAddToCalendar: function (index, selector) {
+        $(selector + " .atcb-link").each(function (i) {
+          if (index == i) {
+            if (!$(this).hasClass('open')) {
+              $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+              $(this).addClass('open').parent().find('ul').addClass('active').css('visibility', 'visible !important').find('.atcb-item-link:eq(0)').focus();
+            }
+            else {
+              $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+            }
+          }
+        });
+      },
       showEndTime: function () {
         if (window.OpenY.field_prgf_repeat_schedule_end && window.OpenY.field_prgf_repeat_schedule_end.length) {
           return window.OpenY.field_prgf_repeat_schedule_end[0].value || 0;
