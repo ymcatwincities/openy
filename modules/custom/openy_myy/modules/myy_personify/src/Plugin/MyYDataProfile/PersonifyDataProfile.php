@@ -148,7 +148,8 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     $output['household'][] = [
       'name' => $my_data['d']['LabelName'],
       'age' => $now->diff($my_bdate)->format('%y'),
-      'RelationshipCode' => 'ME'
+      'RelationshipCode' => 'ME',
+      'ProfileLinks' => $this->getHouseholdProfileLinks(),
     ];
 
     $relationship_data = $this
@@ -174,7 +175,8 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
         'name' => $relationship['RelatedName'],
         'RelationshipCode' => $relationship['RelationshipCode'],
         'age' => $now->diff($family_member_birthdate)->format('%y'),
-        'RelatedMasterCustomerId' => $relationship['RelatedMasterCustomerId']
+        'RelatedMasterCustomerId' => $relationship['RelatedMasterCustomerId'],
+        'ProfileLinks' => $this->getHouseholdProfileLinks(),
       ];
     }
 

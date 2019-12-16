@@ -18,9 +18,7 @@
                 Select
               </button>
               <div class="dropdown-menu select" aria-labelledby="dropdownMenu1">
-                <button class="dropdown-item" type="button">Action</button>
-                <button class="dropdown-item" type="button">Another action</button>
-                <button class="dropdown-item" type="button">Something else here</button>
+                <a :href="index" class="dropdown-item" type="button" v-for="(item, index) in item.ProfileLinks">{{ item }}</a>
               </div>
             </div>
           </div>
@@ -98,9 +96,10 @@
       border-right: 1px solid #636466;
       border-bottom: 1px solid #636466;
       margin: 0;
-      padding: 20px 5px;
+      padding: 20px 5px 5px;
       .item {
         text-align: center;
+        margin-bottom: 15px;
       }
       .rounded_letter {
         margin-bottom: 10px;
