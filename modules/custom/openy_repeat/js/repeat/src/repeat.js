@@ -590,6 +590,14 @@
         var diff = date.diff(now, 'days');
 
         return diff < (limit - 1);
+      },
+      showEndTime: function () {
+        if (window.OpenY.field_prgf_repeat_schedule_end && window.OpenY.field_prgf_repeat_schedule_end.length) {
+          return window.OpenY.field_prgf_repeat_schedule_end[0].value || 0;
+        }
+        else {
+          return 0;
+        }
       }
     },
     updated: function () {
