@@ -12,7 +12,8 @@
     // Home branch data.
     data: {
       id: null,
-      dontAsk: false
+      dontAsk: false,
+      lastShowTime: 0
     },
 
     // Locations list.
@@ -30,7 +31,6 @@
       // Get locations list.
       var self = this;
       self.locations = drupalSettings.home_branch.hb_menu_selector.locations;
-
       setTimeout(function() {
         self.attachPlugins();
       }, 0);
