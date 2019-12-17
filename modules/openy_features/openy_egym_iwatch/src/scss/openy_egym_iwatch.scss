@@ -209,6 +209,7 @@
         .text {
           font-size: 12px;
           line-height: 18px;
+          text-align: center;
 
           p {
             font-size: 12px;
@@ -233,7 +234,7 @@
     }
 
     @media (min-width: 1060px) {
-      grid-template-columns: 360px;
+      grid-template-columns: 360px 360px;
 
       .grid-item {
         .inner {

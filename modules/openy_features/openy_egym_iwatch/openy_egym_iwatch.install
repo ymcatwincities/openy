@@ -42,14 +42,20 @@ function openy_egym_iwatch_install() {
   }
 
   $prgf_bf = Paragraph::create(['type' => 'banner_fixed']);
-  $prgf_bf->get('field_prgf_headline')->setValue('Smart, wearable fitness');
+  $prgf_bf->get('field_prgf_headline')->setValue('SMART, WEARABLE FITNESS FOR Y MEMBERS');
   $prgf_bf->get('field_prgf_image')->setValue($images['hero']);
   $prgf_bf->isNew();
   $prgf_bf->save();
 
   $prgf_sc = Paragraph::create(['type' => 'simple_content']);
   $prgf_sc->get('field_prgf_description')
-    ->setValue('YMCA members: Enjoy extra workout features in our app for Apple Watch with a tap on your wrist.');
+    ->setValue([
+      'value' => '
+<p><b>The YMCA app for Apple Watch</b></p>
+<p>With the new YMCA app for Apple Watch, members can enjoy extra workout features with a tap on the wrist. The YMCA app for Apple Watch can help you amp up activity—and it’s free to download.</p>
+',
+      'format' => 'full_html'
+    ]);
   $prgf_sc->isNew();
   $prgf_sc->save();
 
@@ -57,9 +63,9 @@ function openy_egym_iwatch_install() {
   $prgf_grid_column1->get('field_prgf_clm_icon')->setValue($images['1']);
   $prgf_grid_column1->get('field_prgf_clm_headline')->setValue('FIND CLASSES');
   $prgf_grid_column1->get('field_prgf_grid_clm_description')->setValue('
-Browse, book, and see recommended classes.
+Browse, book, and see recommended classes
 
-With your Apple Watch you can browse class schedules to find your next great workout, book a class and get class suggestions.
+With the YMCA app for Apple Watch you can browse class schedules to find your next great workout, book a class and get class suggestions based on your interests.
 ');
   $prgf_grid_column1->isNew();
   $prgf_grid_column1->save();
@@ -69,9 +75,9 @@ With your Apple Watch you can browse class schedules to find your next great wor
   $prgf_grid_column2->get('field_prgf_clm_headline')
     ->setValue('JOIN CHALLENGES');
   $prgf_grid_column2->get('field_prgf_grid_clm_description')->setValue('
-Strive to reach a personal best or the top of the leaderboard.
+Strive to reach a personal best or the top of the leaderboard
 
-In just one tap, you can get details on fitness and wellness challenges, join the event and keep track of your standing on the leaderboard.
+In just one tap, you can get details on fitness and wellness challenges, join the event and keep track of your position on the leaderboard.
 ');
   $prgf_grid_column2->isNew();
   $prgf_grid_column2->save();
@@ -80,18 +86,18 @@ In just one tap, you can get details on fitness and wellness challenges, join th
   $prgf_grid_column3->get('field_prgf_clm_icon')->setValue($images['3']);
   $prgf_grid_column3->get('field_prgf_clm_headline')->setValue('GET CONNECTED');
   $prgf_grid_column3->get('field_prgf_grid_clm_description')->setValue('
-Use Apple GymKit-enabled equipment to improve tracking.
+Use connected cardio equipment to improve tracking
 
-TBD. There is currently no detail copy available for this feature.
+At select Y locations, you can connect your Apple Watch to cardio fitness equipment for precise indoor workout tracking.
 ');
   $prgf_grid_column3->isNew();
   $prgf_grid_column3->save();
 
   $prgf_grid_column4 = Paragraph::create(['type' => 'grid_columns']);
   $prgf_grid_column4->get('field_prgf_clm_icon')->setValue($images['4']);
-  $prgf_grid_column4->get('field_prgf_clm_headline')->setValue('USE SHORTCUTS');
+  $prgf_grid_column4->get('field_prgf_clm_headline')->setValue('Use Siri Shortcuts');
   $prgf_grid_column4->get('field_prgf_grid_clm_description')->setValue('
-Get personalized suggestions from Siri based on your activity.
+Get personalized suggestions from Siri based on your activity
 
 Siri learns your routines and can make suggestions for classes, training plans and live tracking of exercise on the lock screen or in search. Or, just ask Siri to run a Shortcut, using your own personal phrase.
 ');
@@ -103,9 +109,9 @@ Siri learns your routines and can make suggestions for classes, training plans a
   $prgf_grid_column5->get('field_prgf_clm_headline')
     ->setValue('TRACK PROGRESS');
   $prgf_grid_column5->get('field_prgf_grid_clm_description')->setValue('
-Keep a record of your workouts to track momentum.
+Keep a record of your workouts to track momentum
 
-Pick from popular exercises, equipment and classes within the Apple Watch app to get started with live tracking. Throughout your workout, see your progress, time spent, calories used and current heart rate.
+Pick from popular exercises, equipment and classes in the YMCA app for Apple Watch to start live tracking. See your progress, time spent, calories burned and current heart rate.
 ');
   $prgf_grid_column5->isNew();
   $prgf_grid_column5->save();
@@ -114,7 +120,7 @@ Pick from popular exercises, equipment and classes within the Apple Watch app to
   $prgf_grid_column6->get('field_prgf_clm_icon')->setValue($images['6']);
   $prgf_grid_column6->get('field_prgf_clm_headline')->setValue('FOLLOW A PLAN');
   $prgf_grid_column6->get('field_prgf_grid_clm_description')->setValue('
-Get step-by-step guidance during your sweat sessions.
+Get step-by-step guidance during your sweat sessions
 
 For any training plan created on iPhone, follow along on your Apple Watch. Information on each exercise is at the ready, including sets, reps, time and instructional images.
 ');
@@ -125,33 +131,41 @@ For any training plan created on iPhone, follow along on your Apple Watch. Infor
   $prgf_grid_content1->get('field_prgf_grid_style')->setValue(3);
   $prgf_grid_content1->get('field_grid_columns')->setValue([
     $prgf_grid_column1,
-    $prgf_grid_column2,
-    $prgf_grid_column3,
     $prgf_grid_column4,
     $prgf_grid_column5,
     $prgf_grid_column6,
+    $prgf_grid_column2,
+    $prgf_grid_column3,
   ]);
   $prgf_grid_content1->isNew();
   $prgf_grid_content1->save();
 
   $prgf_grid_column7 = Paragraph::create(['type' => 'grid_columns']);
-  $prgf_grid_column7->get('field_prgf_clm_icon')->setValue($images['clock']);
   $prgf_grid_column7->get('field_prgf_clm_headline')
     ->setValue('DOWNLOAD THE APP');
   $prgf_grid_column7->get('field_prgf_grid_clm_description')->setValue([
-    'value' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-<p><a class="btn btn-default" href="https://appstore.com" target="_blank"><span class="text">Appstore</span></a></p>
-',
+    'value' => '<p><a class="btn btn-default" href="https://appstore.com" target="_blank"><span class="text">Appstore</span></a></p>',
     'format' => 'full_html'
   ]);
 
   $prgf_grid_column7->isNew();
   $prgf_grid_column7->save();
 
+  $prgf_grid_column8 = Paragraph::create(['type' => 'grid_columns']);
+  $prgf_grid_column8->get('field_prgf_clm_headline')
+    ->setValue('No Apple Watch?');
+  $prgf_grid_column8->get('field_prgf_grid_clm_description')->setValue([
+    'value' => '<p>Check your local YMCA for more info on buying an Apple Watch.</p>',
+    'format' => 'full_html'
+  ]);
+
+  $prgf_grid_column8->isNew();
+  $prgf_grid_column8->save();
+
   $prgf_grid_content2 = Paragraph::create(['type' => 'grid_content']);
   $prgf_grid_content2->get('field_prgf_grid_style')->setValue(3);
   $prgf_grid_content2->get('field_grid_columns')
-    ->setValue([$prgf_grid_column7]);
+    ->setValue([$prgf_grid_column7, $prgf_grid_column8]);
   $prgf_grid_content2->isNew();
   $prgf_grid_content2->save();
 
