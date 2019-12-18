@@ -5931,11 +5931,11 @@ iframe#ga_iframe {
 }
 
 .atcb-link ~ ul.active {
-  visibility: visible;
+  display: block;
 }
 
 .atcb-list {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -6208,9 +6208,23 @@ body .branch-popup + .ui-widget-overlay {
     width: 360px;
   }
 }
-.toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
-.two-column-fixed .affix-bottom {
-  top: 166px;
+@media (min-width: 48em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 150px;
+  }
+}
+@media (min-width: 62em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 186px;
+  }
+}
+@media (min-width: 75em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 196px;
+  }
 }
 
 .embedded-entity .media-image.view-mode-link {
