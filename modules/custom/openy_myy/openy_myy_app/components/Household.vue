@@ -18,7 +18,7 @@
                 Select
               </button>
               <div class="dropdown-menu select" aria-labelledby="dropdownMenu1">
-                <a :href="index" class="dropdown-item" type="button" v-for="(item, index) in item.ProfileLinks">{{ item }}</a>
+                <a :href="index" class="dropdown-item" type="button" v-bind:key="index" v-for="(item, index) in item.ProfileLinks">{{ item }}</a>
               </div>
             </div>
           </div>

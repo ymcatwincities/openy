@@ -1,8 +1,9 @@
 <template>
-  <section class="myy-orders-receipts-results">
+  <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
+  <section v-else class="myy-orders-receipts-results">
     <div class="row top-line">
       <div class="col-myy">
-        <strong>113 results</strong>
+        <strong>{{ data.length }} results</strong>
       </div>
       <div class="col-myy">
         <select class="form-control form-select">
@@ -12,7 +13,7 @@
     </div>
     <div class="row content">
       <div class="col-myy">
-        <div class="result_row">
+<!--        <div class="result_row">
           <div class="row">
             <div class="col-myy-sm-1">
               <span class="rounded_letter small black">X</span>
@@ -91,325 +92,32 @@
               <strong>PAID</strong>
             </div>
           </div>
-        </div>
-        <div class="result_row">
+        </div>-->
+        <div class="result_row" v-for="(item, index) in data" v-bind:key="index">
           <div class="row">
             <div class="col-myy-sm-1">
               <span class="rounded_letter small black">X</span>
             </div>
             <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
+              <div class="type"><strong>{{ item.title }}</strong></div>
+              {{ item.description }}
             </div>
             <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
+              <!--<div><strong>November 2019</strong></div>
+              <span class="weekdays">Monthly</span>-->
             </div>
             <div class="col-myy-sm-2 text-right">
-              $129.00
+              ${{ item.total }}
             </div>
             <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
-            </div>
-          </div>
-        </div>
-        <div class="result_row">
-          <div class="row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <div class="type"><a href="#"><strong>Membership Fees</strong></a></div>
-              Family
-            </div>
-            <div class="col-myy-sm-4">
-              <div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              $129.00
-            </div>
-            <div class="col-myy-sm-2 text-right">
-              <strong>PAID</strong>
+              <strong v-if="item.payed == 1">PAID</strong>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="pager-wrapper">
+    <!-- Uncomment once we need pager -->
+    <!--<div class="pager-wrapper">
       <div>
         <div class="pager-controls row">
           <div class="col-myy">
@@ -425,7 +133,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </section>
 </template>
 
@@ -436,12 +144,16 @@
         loading: true,
         data: {},
         baseUrl: '/',
+        type: 'A'
       }
     },
     methods: {
       runAjaxRequest: function() {
         let component = this;
-        let url = component.baseUrl + 'myy-model/data/orders/2019-09-26/2020-09-26/A';
+        var start = this.$route.query.start == 'undefined' ? '2019-01-01' : this.$route.query.start,
+            end = this.$route.query.end == 'undefined' ? '2021-01-01' : this.$route.query.end;
+
+        let url = component.baseUrl + 'myy-model/data/orders/' + start + '/' + end + '/' + component.type;
 
         component.loading = true;
         jQuery.ajax({
@@ -469,7 +181,15 @@
       component.baseUrl = window.drupalSettings.path.baseUrl;
 
       component.runAjaxRequest();
+    },
+    watch: {
+      '$route': function() {
+        if (typeof this.$route.query.start != 'undefined' && typeof this.$route.query.end != 'undefined') {
+          this.runAjaxRequest();
+        }
+      }
     }
+
   }
 </script>
 
@@ -517,6 +237,9 @@
     .result_row {
       border-bottom: 1px solid #636466;
       padding: 20px 0;
+      .type {
+        color: #0060AF;
+      }
       &:last-child {
         border-bottom: none;
       }
