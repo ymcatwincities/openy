@@ -17,7 +17,7 @@ vue_router:
   version: 0.1
   js:
     /libraries/vue-router/dist/vue-router.min.js: {}
-    
+
 moment:
   version: 0.1
   js:

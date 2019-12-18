@@ -594,12 +594,22 @@
       showAddToCalendar: function (index, selector) {
         $(selector + " .atcb-link").each(function (i) {
           if (index == i) {
-            if (!$(this).hasClass('open')) {
-              $(".atcb-link").removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
-              $(this).addClass('open').parent().find('ul').addClass('active').css('visibility', 'visible !important').find('.atcb-item-link:eq(0)').focus();
-            }
-            else {
-              $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+            var link = $(this);
+            var menu = link.parent().find('ul');
+
+            if (!link.hasClass('open')) {
+              link.removeClass('open');
+              menu.removeClass('active')
+                  .css('display', 'none !important');
+              link.addClass('open');
+              menu.addClass('active')
+                  .css('display', 'block !important')
+                  .find('.atcb-item-link:eq(0)')
+                  .focus();
+            } else {
+              link.removeClass('open');
+              menu.removeClass('active')
+                  .css('display', 'none !important');
             }
           }
         });

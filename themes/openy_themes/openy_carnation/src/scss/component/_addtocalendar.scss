@@ -21,11 +21,11 @@
 }
 
 .atcb-link ~ ul.active {
-  visibility: visible;
+  display: block;
 }
 
 .atcb-list {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
