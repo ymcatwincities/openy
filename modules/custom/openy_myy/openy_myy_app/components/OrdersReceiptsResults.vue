@@ -164,6 +164,7 @@
         }).done(function(data) {
           component.data = data;
           component.loading = false;
+          jQuery('.myy-sub-header .count span').text(data.length);
         });
       },
     },
@@ -198,6 +199,10 @@
     .top-line {
       line-height: 38px;
       margin-bottom: 20px;
+      display: none;
+      @media (min-width: 992px) {
+        display: block;
+      }
     }
     .content {
       border: 1px solid #636466;

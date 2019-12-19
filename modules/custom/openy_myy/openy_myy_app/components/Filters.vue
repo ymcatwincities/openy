@@ -1,5 +1,10 @@
 <template>
   <section class="myy-orders-filters">
+    <a href="#" data-toggle="collapse" data-target=".myy-filters" role="button" class="myy-orders-filters__toggle collapsed" aria-expanded="true">
+      REFINE RESULTS
+      <i aria-hidden="true" class="fa fa-plus-circle plus ml-auto"></i>
+      <i aria-hidden="true" class="fa fa-minus-circle minus ml-auto"></i>
+    </a>
     <div class="myy-filters">
       <h3>FILTERS</h3>
       <div class="myy-filters__wrapper">
@@ -73,11 +78,60 @@
 
 <style lang="scss">
   .myy-orders-filters {
+    margin-bottom: 20px;
+    &__toggle {
+      align-items: center;
+      background-color: #fff;
+      border: 1px solid #636466;
+      color: #636466;
+      display: flex;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 21px;
+      margin: 0 0 -1px;
+      padding: 13px 10px;
+      text-transform: uppercase;
+      @media (min-width: 992px) {
+        display: none;
+      }
+      &:hover,
+      &focus {
+        color: #636466;
+        text-decoration: none;
+      }
+      .fa {
+        font-size: 15px;
+        color: #636466;
+      }
+      .fa-plus-circle {
+        display: none;
+      }
+      &.collapsed {
+        .fa-minus-circle {
+          display: none;
+        }
+        .fa-plus-circle {
+          display: inline-block;
+        }
+      }
+    }
     h3 {
       color: #636466;
       font-size: 18px;
       line-height: 18px;
       margin: 0 0 20px;
+      display: none;
+      @media (min-width: 992px) {
+        display: block;
+      }
+    }
+    .myy-filters {
+      display: none;
+      &.collapsing,
+      &.collapse.in,
+      &.collapse.show {
+        display: block !important;
+      }
     }
   }
 </style>
