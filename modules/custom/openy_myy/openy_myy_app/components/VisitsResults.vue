@@ -30,8 +30,8 @@
             <span class="user_name">{{ item.USR_LAST_FIRST_NAME }}</span>
           </div>
           <div class="col-myy-sm-4">
-            <span class="date">{{ item.ADDDATE }}</span><br/>
-            <span class="duration">{{ item.USR_TIME }}</span>
+            <span class="date">{{ item.CUSTOM_USR_DATE }}</span><br/>
+            <span class="duration">{{ item.CUSTOM_USR_TIME }}</span>
           </div>
           <div class="col-myy-sm-3">
             <span class="branch">{{ item.USR_BRANCH }}</span>

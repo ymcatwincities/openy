@@ -144,6 +144,10 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
       foreach ($results['Table'] as $item) {
         $item['USR_BRANCH_ID'] = $item['USR_BRANCH'];
         $item['USR_BRANCH'] = $this->personifyUserHelper->locationMapping(trim($item['USR_BRANCH']));
+        $date = str_replace('  ', ' ', $item['ADDDATE']);
+        $date = explode(' ', $date);
+        $item['CUSTOM_USR_DATE'] = implode(' ', [$date[0], $date[1], $date[2]]);
+        $item['CUSTOM_USR_TIME'] = !empty($date[4]) ? $date[4] : $date[3];
         $visits[] = $item;
       }
     }
