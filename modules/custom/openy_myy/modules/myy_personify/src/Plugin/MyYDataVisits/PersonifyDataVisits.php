@@ -139,11 +139,16 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
     $results = json_decode($data['Data'], TRUE);
 
+    $visits = [];
     if (!empty($results['Table'])) {
-      return $results['Table'];
+      foreach ($results['Table'] as $item) {
+        $item['USR_BRANCH_ID'] = $item['USR_BRANCH'];
+        $item['USR_BRANCH'] = $this->personifyUserHelper->locationMapping(trim($item['USR_BRANCH']));
+        $visits[] = $item;
+      }
     }
 
-    return [];
+    return $visits;
   }
 
 }
