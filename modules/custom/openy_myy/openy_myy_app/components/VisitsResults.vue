@@ -56,7 +56,7 @@
         var component = this,
             start = this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
             end = this.$route.query.end == 'undefined' ? '2019-12-12' : this.$route.query.end,
-            url = component.baseUrl + 'myy-model/data/profile/visits-details/2015228900,2015228901/' + start + '/' + end;
+            url = component.baseUrl + 'myy-model/data/profile/visits-details/' + component.uid + '/' + start + '/' + end;
 
         component.loading = true;
         jQuery.ajax({
@@ -83,6 +83,8 @@
         window.drupalSettings = drupalSettings;
       }
       component.baseUrl = window.drupalSettings.path.baseUrl;
+      component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
+
 
       component.runAjaxRequest();
     },
