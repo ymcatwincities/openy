@@ -12,9 +12,9 @@
         <li>
           <nuxt-link to="/myy/childcare">childcare</nuxt-link>
         </li>
-        <li class="nav-item">
+<!--        <li class="nav-item">
           <nuxt-link to="/myy/calendar">calendar</nuxt-link>
-        </li>
+        </li>-->
         <li class="nav-item">
           <a href="#submenu-3" class="collapsed" data-toggle="collapse" data-target="#submenu-3">activities <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
           <ul class="collapse" id="submenu-3" aria-expanded="false">
@@ -42,7 +42,7 @@
               <nuxt-link to="/myy/orders-receipts" class="nav-link">Orders & receipts</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link to="/myy/childcare-visits" class="nav-link" href="/">Visits</nuxt-link>
+              <nuxt-link to="/myy/visits" class="nav-link" href="/">Visits</nuxt-link>
             </li>
           </ul>
         </li>

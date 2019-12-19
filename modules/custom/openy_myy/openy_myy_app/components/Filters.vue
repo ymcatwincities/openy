@@ -38,7 +38,7 @@
     },
     created: function() {
       let component = this;
-      component.start = typeof component.$route.query.start == 'undefined' ? '2019-01-01' : component.$route.query.start;
+      component.start = typeof component.$route.query.start == 'undefined' ? '2018-01-01' : component.$route.query.start;
       component.end = typeof component.$route.query.end  == 'undefined' ? '2021-01-01' : component.$route.query.end;
       component.$router.push({query: { start: component.start, end: component.end }});
     },
@@ -66,7 +66,7 @@
         forceParse: false,
         autoclose: true,
         todayHighlight: true
-      }).on('changeDate', function() {
+      }).on('change', function() {
         if (jQuery(this).val() != '') {
           component.end = moment(jQuery(this).datepicker('getDate')).format('YYYY-MM-DD');
           component.$router.push({query: { start: component.start, end: component.end }});
@@ -127,6 +127,9 @@
     }
     .myy-filters {
       display: none;
+      @media (min-width: 992px) {
+        display: block !important;
+      }
       &.collapsing,
       &.collapse.in,
       &.collapse.show {

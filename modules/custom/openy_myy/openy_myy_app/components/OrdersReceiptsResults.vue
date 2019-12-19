@@ -2,12 +2,13 @@
   <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
   <section v-else class="myy-orders-receipts-results">
     <div class="row top-line">
-      <div class="col-myy">
+      <div class="col-myy-6">
         <strong>{{ data.length }} results</strong>
       </div>
-      <div class="col-myy">
+      <div class="col-myy-6">
         <select class="form-control form-select">
-          <option value="sort__date" selected>Sort by date (ascending)</option>
+          <option value="date_ASC">Sort by date (ascending)</option>
+          <option value="date_DESC">Sort by date (descending)</option>
         </select>
       </div>
     </div>
@@ -100,17 +101,16 @@
             </div>
             <div class="col-myy-sm-3">
               <div class="type"><strong>{{ item.title }}</strong></div>
-              {{ item.description }}
             </div>
             <div class="col-myy-sm-4">
-              <!--<div><strong>November 2019</strong></div>
-              <span class="weekdays">Monthly</span>-->
+              <div><strong>{{ item.description }}</strong></div>
             </div>
             <div class="col-myy-sm-2 text-right">
               ${{ item.total }}
             </div>
             <div class="col-myy-sm-2 text-right">
               <strong v-if="item.payed == 1">PAID</strong>
+              <strong v-if="item.payed == 0">PENDING</strong>
             </div>
           </div>
         </div>
@@ -201,7 +201,7 @@
       margin-bottom: 20px;
       display: none;
       @media (min-width: 992px) {
-        display: block;
+        display: flex;
       }
     }
     .content {

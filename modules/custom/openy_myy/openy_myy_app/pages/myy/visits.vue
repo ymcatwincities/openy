@@ -24,7 +24,7 @@
             <filters/>
           </div>
           <div class="col-myy-12 col-myy-lg-9">
-            <childcare-visits/>
+            <visits-results/>
           </div>
         </div>
       </div>
@@ -35,48 +35,15 @@
 <script>
   import MyyHeader from '~/components/MyyHeader.vue'
   import SidebarMenu from '~/components/SidebarMenu.vue'
-  import ChildcareVisits from '~/components/ChildcareVisits.vue'
+  import VisitsResults from '~/components/VisitsResults.vue'
   import Filters from '~/components/Filters.vue'
 
   export default {
     components: {
       MyyHeader,
       SidebarMenu,
-      ChildcareVisits,
+      VisitsResults,
       Filters,
-    },
-    data () {
-      return {
-        start_date: '',
-        end_date: '',
-      }
-    },
-    created: function() {
-    },
-    mounted: function () {
-      var component = this;
-      component.$watch('start_date', function(newValue, oldValue) {
-        this.$router.push({ query: {
-          start_date: newValue,
-          end_date: component.end_date
-        }});
-      });
-      component.$watch('end_date', function(newValue, oldValue) {
-        this.$router.push({ query: {
-          start_date: component.start_date,
-          end_date: newValue,
-        }});
-      });
-      jQuery('#edit-start-date').datepicker({
-        format: 'mm/dd/yy'
-      }).trigger('change').on('change', function () {
-        component.start_date = this.value;
-      });
-      jQuery('#edit-end-date').datepicker({
-        format: 'mm/dd/yy'
-      }).trigger('change').on('change', function () {
-        component.end_date = this.value;
-      });
     }
   }
 </script>

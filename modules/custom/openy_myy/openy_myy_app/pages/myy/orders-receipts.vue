@@ -42,12 +42,7 @@
       MyyHeader,
       OrdersReceiptsResults,
       Filters,
-    },
-    data () {
-      return {
-        count: 0,
-      }
-    },
+    }
   }
 </script>
 
