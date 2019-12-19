@@ -20,4 +20,15 @@ interface MyYDataVisitsInterface {
    */
   public function getVisitsCountByDate($personifyID, $start_date, $finish_date);
 
+  /**
+   * Function that return detailed visits data
+   *
+   * @param array $personifyID
+   * @param $start_date
+   * @param $finish_date
+   *
+   * @return mixed
+   */
+  public function getVisitsDetails($personifyID, $start_date, $finish_date);
+
 }

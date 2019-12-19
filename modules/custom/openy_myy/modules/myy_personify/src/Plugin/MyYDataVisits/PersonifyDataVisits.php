@@ -105,4 +105,45 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     ];
   }
 
+  /**
+   * @param array $personifyIDs
+   * @param $start_date
+   * @param $finish_date
+   *
+   * @return mixed|string
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  public function getVisitsDetails($personifyIDs, $start_date, $finish_date) {
+
+    $body = '
+    <StoredProcedureRequest>
+    <StoredProcedureName>OPENY_GET_VISITS_BY_IDS</StoredProcedureName>
+    <IsUserDefinedFunction>false</IsUserDefinedFunction>
+    <SPParameterList>
+        <StoredProcedureParameter>
+            <Name>@ids</Name>
+            <Value>' . $personifyIDs . '</Value>
+        </StoredProcedureParameter>
+                <StoredProcedureParameter>
+            <Name>@dateStart</Name>
+            <Value>' . $start_date . '</Value>
+        </StoredProcedureParameter>
+        <StoredProcedureParameter>
+            <Name>@dateEnd</Name>
+            <Value>'. $finish_date . '</Value>
+        </StoredProcedureParameter>
+    </SPParameterList>
+    </StoredProcedureRequest>
+    ';
+
+    $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+    $results = json_decode($data['Data'], TRUE);
+
+    if (!empty($results['Table'])) {
+      return $results['Table'];
+    }
+
+    return [];
+  }
+
 }
