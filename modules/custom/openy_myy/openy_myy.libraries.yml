@@ -17,3 +17,4 @@ openy_myy:
     - core/jquery.ui.widget
     - core/jquery.ui.datepicker
     - openy_system/openy_system.modal
+    - openy_system/moment

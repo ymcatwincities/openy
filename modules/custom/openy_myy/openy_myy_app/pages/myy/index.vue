@@ -40,26 +40,59 @@ export default {
 <style lang="scss">
   .myy-sub-header {
     background-color: #F2F2F2;
-    height: 76px;
-    line-height: 76px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: -15px;
+    @media (min-width: 992px) {
+      height: 76px;
+      line-height: 76px;
+      margin-left: 0px;
+    }
     .back-link {
       background-color: #fff;
-      border-radius: 25px;
       display: inline-block;
       height: 50px;
       line-height: 50px;
       text-align: center;
       width: 50px;
+      @media (min-width: 992px) {
+        background-color: #fff;
+        border-radius: 25px;
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        width: 50px;
+      }
       .fa {
         color: #000;
         font-size: 20px;
       }
     }
+    .count {
+      font-size: 12px;
+      margin-left: 10px;
+      color: #231F20;
+      font-family: Verdana, sans-serif;
+      @media (min-width: 992px) {
+        display: none;
+      }
+    }
+    a.purchases {
+      color: #0060AF;
+      font-size: 12px;
+      @media (min-width: 992px) {
+        font-size: 14px;
+      }
+    }
     h2 {
       margin: 0;
-      line-height: 76px;
+      line-height: 50px;
       font-size: 24px;
       font-family: "Cachet Medium",  sans-serif;
+      @media (min-width: 992px) {
+        line-height: 76px;
+      }
     }
   }
   .myy-main {

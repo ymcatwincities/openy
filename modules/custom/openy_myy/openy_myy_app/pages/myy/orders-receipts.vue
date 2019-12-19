@@ -4,13 +4,14 @@
     <div class="myy-sub-header">
       <div class="container">
         <div class="row">
-          <div class="col-myy-sm-3">
+          <div class="col-myy-6 col-myy-lg-3">
             <a @click="$router.go(-1)" class="back-link"><i class="fa fa-arrow-left"></i></a>
+            <strong class="count"><span>0</span> results</strong>
           </div>
-          <div class="col-myy-sm-6 text-center">
+          <div class="col-myy-sm-6 text-center d-myy-none d-myy-lg-block">
             <h2>Orders & receipts</h2>
           </div>
-          <div class="col-myy-sm-3 text-right">
+          <div class="col-myy-6 col-myy-lg-3 text-right">
             <a href="#" class="purchases"><strong>Purchases</strong></a>
           </div>
         </div>
@@ -19,10 +20,10 @@
     <section class="myy-main">
       <div class="container">
         <div class="row">
-          <div class="col-myy-md-3 d-myy-none d-myy-lg-block">
+          <div class="col-myy-lg-3">
             <filters/>
           </div>
-          <div class="col-myy-12 col-myy-lg-9">
+          <div class="col-myy-lg-9">
             <orders-receipts-results/>
           </div>
         </div>
@@ -41,7 +42,12 @@
       MyyHeader,
       OrdersReceiptsResults,
       Filters,
-    }
+    },
+    data () {
+      return {
+        count: 0,
+      }
+    },
   }
 </script>
 

@@ -167,10 +167,10 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
     $body = '
     <StoredProcedureRequest>
-    <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS_DEBUG_UPDATE</StoredProcedureName>
+    <StoredProcedureName>OPENY_GET_ORDERS_BY_CUSTOMER_IDS</StoredProcedureName>
     <SPParameterList>
         <StoredProcedureParameter>
-            <Name>@id</Name>
+            <Name>@ids</Name>
             <Value>' . $personifyID . '</Value>
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
