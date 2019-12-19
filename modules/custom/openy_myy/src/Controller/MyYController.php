@@ -75,6 +75,7 @@ class MyYController extends ControllerBase {
       '#attached' => [
         'drupalSettings' => [
           'myy' => [
+            'uid' => $userID,
             'childcare_purchase_link_title' => $this->config['childcare_purchase_link_title'],
             'childcare_purchase_link_url' => $this->config['childcare_purchase_link_url'],
           ]
