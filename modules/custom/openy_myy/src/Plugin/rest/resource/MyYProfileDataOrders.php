@@ -17,7 +17,7 @@ use Drupal\openy_myy\PluginManager\MyYDataOrders;
  *   id = "myy_orders",
  *   label = @Translation("My orders"),
  *   uri_paths = {
- *     "canonical" = "/myy-model/data/orders/{date_start}/{date_end}/{type}"
+ *     "canonical" = "/myy-model/data/orders/{$ids}/{date_start}/{date_end}"
  *   }
  * )
  */
@@ -77,7 +77,7 @@ class MyYProfileDataOrders extends ResourceBase {
   /**
    * {@inheritdoc}
    */
-  public function get($date_start, $date_end, $type = 'A') {
+  public function get($ids, $date_start, $date_end, $type = 'A') {
 
     $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myYDataOrders->getDefinitions();
@@ -86,7 +86,7 @@ class MyYProfileDataOrders extends ResourceBase {
       $response = $this
         ->myYDataOrders
         ->createInstance($myy_config['myy_data_orders'])
-        ->getOrders($date_start, $date_end, $type);
+        ->getOrders($ids, $date_start, $date_end);
     } else {
       return new NotFoundHttpException();
     }
