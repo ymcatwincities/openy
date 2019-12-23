@@ -83,10 +83,19 @@ class MyYProfileMembershipInfo extends ResourceBase {
     $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myYDataProfile->getDefinitions();
     if (array_key_exists($myy_config['myy_data_profile'], $myy_authenticator_instances)) {
-      $response = $this
-        ->myYDataProfile
-        ->createInstance($myy_config['myy_data_profile'])
-        ->getMembershipInfo();
+
+      $cid = 'myy_data_membership:' . $_SESSION['personify_id'];
+
+      if ($cache = \Drupal::cache()->get($cid)) {
+        $response = $cache->data;
+      } else {
+        $response = $this
+          ->myYDataProfile
+          ->createInstance($myy_config['myy_data_profile'])
+          ->getMembershipInfo();
+        \Drupal::cache()->set($cid, $response, REQUEST_TIME + 3600);
+      }
+
     } else {
       return new NotFoundHttpException();
     }
