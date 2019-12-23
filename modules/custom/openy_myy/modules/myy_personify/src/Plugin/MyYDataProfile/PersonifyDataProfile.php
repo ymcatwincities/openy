@@ -232,15 +232,18 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
    */
   public function getHouseholdProfileLinks() {
 
+    $ddata = parse_url($this->personify_domain);
+    $domain = $ddata['scheme'] . '://' . $ddata['host'];
+
     return [
-      $this->personify_domain . '/PersonifyEbusiness/Product-Search' => 'Product Search',
-      $this->personify_domain . '/PersonifyEbusiness/MyY/ChildCare-Attendance-Calendar' => 'My ChildCare Calendar',
-      $this->personify_domain . '/PersonifyEbusiness/MyY/Health-Form' => 'Health Information',
-      $this->personify_domain . '/PersonifyEbusiness/MyY/Emergency-Contact' => 'Emergency Contacts',
-      $this->personify_domain . '/PersonifyEbusiness/MyY/My-Programs' => 'View Programs',
-      $this->personify_domain . '/PersonifyEbusiness/MyY/Member-Visits' => 'View Facility Visits',
-      $this->personify_domain . '/PersonifyEbusiness/MyY/My-Family' => 'Relationships',
-      $this->personify_domain . '/PersonifyEbusiness/MyY/Personal-Information' => 'Profile'
+      $domain . '/PersonifyEbusiness/Product-Search' => 'Product Search',
+      $domain . '/PersonifyEbusiness/MyY/ChildCare-Attendance-Calendar' => 'My ChildCare Calendar',
+      $domain . '/PersonifyEbusiness/MyY/Health-Form' => 'Health Information',
+      $domain . '/PersonifyEbusiness/MyY/Emergency-Contact' => 'Emergency Contacts',
+      $domain . '/PersonifyEbusiness/MyY/My-Programs' => 'View Programs',
+      $domain . '/PersonifyEbusiness/MyY/Member-Visits' => 'View Facility Visits',
+      $domain . '/PersonifyEbusiness/MyY/My-Family' => 'Relationships',
+      $domain . '/PersonifyEbusiness/MyY/Personal-Information' => 'Profile'
     ];
   }
 
