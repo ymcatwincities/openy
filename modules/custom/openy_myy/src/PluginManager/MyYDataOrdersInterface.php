@@ -16,6 +16,6 @@ interface MyYDataOrdersInterface {
    *
    * @return mixed
    */
-  public function getOrders($date_start, $date_end, $type);
+  public function getOrders($ids, $date_start, $date_end);
 
 }

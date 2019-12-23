@@ -14,7 +14,7 @@ use Drupal\personify\PersonifySSO;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Personify Childcare data plugin.
+ * Personify Orders data data plugin.
  *
  * @MyYDataOrders(
  *   id = "myy_personify_data_orders",
@@ -71,6 +71,8 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
     $this->config = $configFactory->get('myy_personify.settings');
     $this->logger = $loggerChannelFactory->get('personify_data_order');
     $this->personifyUserHelper = $personifyUserHelper;
+    $personify_config = $configFactory->get('personify.settings')->getRawData();
+    $this->personify_domain = $personify_config[$personify_config['environment'] . '_endpoint'];
   }
 
   /**
@@ -92,57 +94,58 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
   /**
    * {@inheritdoc}
    */
-  public function getOrders($date_start, $date_end, $type = 'A') {
+  public function getOrders($ids, $date_start, $date_end) {
 
     $personifyID = $this->personifyUserHelper->personifyGetId();
 
-    // $type = A - All, $type= P - Pending.
-
-    // Example: /myy-model/data/orders/2019-01-01/2019-09-01/A
-    $filters = [
-      'ShipMasterCustomerId eq \'' . $personifyID . '\'',
-      'DueDate ge datetime\'' . $date_start .'\'',
-      'DueDate le datetime\'' . $date_end . '\''
-    ];
-
-    $data = $this
-      ->personifyClient
-      ->doAPIcall('GET', 'WebOrderBalanceViews?$format=json&$filter=' . implode(' and ', $filters));
+    $requested_ids = explode(',', $ids);
 
     $orders = [];
 
-    foreach ($data['d'] as $item) {
+    $body = '
+    <StoredProcedureRequest>
+    <StoredProcedureName>OPENY_GET_ORDERS_BY_CUSTOMER_IDS</StoredProcedureName>
+    <IsUserDefinedFunction>false</IsUserDefinedFunction>
+    <SPParameterList>
+        <StoredProcedureParameter>
+            <Name>@ids</Name>
+            <Value>' . $personifyID . '</Value>
+        </StoredProcedureParameter>
+                <StoredProcedureParameter>
+            <Name>@dateStart</Name>
+            <Value>' . $date_start . '</Value>
+        </StoredProcedureParameter>
+        <StoredProcedureParameter>
+            <Name>@dateEnd</Name>
+            <Value>'. $date_end . '</Value>
+        </StoredProcedureParameter>
+    </SPParameterList>
+    </StoredProcedureRequest>
+    ';
 
-      $orderData = $this
-        ->personifyClient
-        ->doAPIcall(
-          'GET',
-          'OrderMasterInfos(%27' . $item['OrderNumber'] . '%27)/OrderDetailInfo?$format=json'
-        );
+    $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+    $results = json_decode($data['Data'], TRUE);
 
-      $payed_amount = $orderData['d'][0]['PaidAmount'];
+    $ddata = parse_url($this->personify_domain);
+    $domain = $ddata['scheme'] . '://' . $ddata['host'];
 
-      if (!$payed_amount) {
-        $payed_amount = '0.00';
-      }
+    foreach ($results['Table'] as $item) {
 
-      //@TODO replace it with real one
-      $pay_link = 'https://ygtc762tstebiz.personifycloud.com/personifyebusiness/Default.aspx?TabID=134&OrderNumber=' . $item['OrderNumber'] . '&RenewalMode=false';
-
+      $pay_link = $domain . '/personifyebusiness/Default.aspx?TabID=134&OrderNumber=' . $item['OrderNumber'] . '&RenewalMode=false';
+      $due_amount = $item['DUE_AMOUNT'];
       $orders[] = [
-        'title' => $orderData['d'][0]['ProductDescription'],
-        'description' => $orderData['d'][0]['CL_OrderDescription'],
-        'total' => $orderData['d'][0]['BaseTotalAmount'],
-        'payed' => ($payed_amount != $orderData['d'][0]['BaseTotalAmount']) ? 0 : 1,
-        'pay_link' => ($payed_amount != $orderData['d'][0]['BaseTotalAmount']) ? $pay_link : '',
-        'payed_amount' => $payed_amount
+        'title' => 'REPLACE ME',
+        'description' => $item['DESCRIPTION'],
+        'total' => $item['BASE_TOTAL_AMOUNT'],
+        'payed' => empty($due_amount) ? 1 : 0,
+        'pay_link' => !empty($due_amount) ? $pay_link : '',
+        'due_amount' => $due_amount,
+        'due_date' => $item['DUE_DATE'],
       ];
+
     }
 
     return $orders;
   }
-
-
-
 
 }
