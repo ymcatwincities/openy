@@ -17,7 +17,7 @@ use Drupal\openy_myy\PluginManager\MyYDataOrders;
  *   id = "myy_orders",
  *   label = @Translation("My orders"),
  *   uri_paths = {
- *     "canonical" = "/myy-model/data/orders/{$ids}/{date_start}/{date_end}"
+ *     "canonical" = "/myy-model/data/orders/{ids}/{date_start}/{date_end}"
  *   }
  * )
  */
