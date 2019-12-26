@@ -10,9 +10,9 @@ namespace Drupal\openy_myy\PluginManager;
 interface MyYDataOrdersInterface {
 
   /**
+   * @param $ids
    * @param $date_start
    * @param $date_end
-   * @param $type
    *
    * @return mixed
    */

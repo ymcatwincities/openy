@@ -31,4 +31,12 @@ interface MyYDataVisitsInterface {
    */
   public function getVisitsDetails($personifyID, $start_date, $finish_date);
 
+
+  /**
+   * Function that return visits stat for this month.
+   *
+   * @return mixed
+   */
+  public function getVisitsOverview();
+
 }
