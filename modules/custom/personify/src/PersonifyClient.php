@@ -79,6 +79,7 @@ class PersonifyClient {
     try {
 
       $endpoint = $this->endpoint . $method;
+
       $response = $this->client->request($type, $endpoint, $options);
 
       if ($response->getStatusCode() != '200') {

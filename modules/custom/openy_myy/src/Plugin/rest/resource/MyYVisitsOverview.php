@@ -86,7 +86,7 @@ class MyYVisitsOverview extends ResourceBase {
       $response = $this
         ->myYDataVisits
         ->createInstance($myy_config['myy_data_visits'])
-        ->getVisitsOverviw();
+        ->getVisitsOverview();
     } else {
       return new NotFoundHttpException();
     }

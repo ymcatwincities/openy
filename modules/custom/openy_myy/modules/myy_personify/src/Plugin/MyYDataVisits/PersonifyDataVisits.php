@@ -147,7 +147,7 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
     $results = json_decode($data['Data'], TRUE);
-    dump($results);
+
     $visits = [];
     if (!empty($results['Table'])) {
       foreach ($results['Table'] as $item) {
@@ -168,6 +168,52 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
    * {@inheritdoc}
    */
   public function getVisitsOverview() {
+
+    $family = $this->personifyUserData->getFamilyData();
+    $pids = [];
+    $pids[] = $this->personifyUserHelper->personifyGetId();
+    foreach ($family['household'] as $fmember) {
+      if (!empty($fmember['RelatedMasterCustomerId'])) {
+        $pids[] = $fmember['RelatedMasterCustomerId'];
+      }
+    }
+
+    // Get data from the start of the mounth
+    $start_date = date('Y-m-01');
+    $finish_date = date('Y-m-d');
+
+    $body = '
+    <StoredProcedureRequest>
+    <StoredProcedureName>OPENY_GET_VISITS_BY_IDS</StoredProcedureName>
+    <IsUserDefinedFunction>false</IsUserDefinedFunction>
+    <SPParameterList>
+        <StoredProcedureParameter>
+            <Name>@ids</Name>
+            <Value>' . implode(',', $pids) . '</Value>
+        </StoredProcedureParameter>
+                <StoredProcedureParameter>
+            <Name>@dateStart</Name>
+            <Value>' . $start_date . '</Value>
+        </StoredProcedureParameter>
+        <StoredProcedureParameter>
+            <Name>@dateEnd</Name>
+            <Value>'. $finish_date . '</Value>
+        </StoredProcedureParameter>
+    </SPParameterList>
+    </StoredProcedureRequest>
+    ';
+
+    $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+    $results = json_decode($data['Data'], TRUE);
+    $overview = [];
+    foreach ($results['Table'] as $row) {
+      $day = date('d', strtotime($row['ADDDATE']));
+      $overview[$row['MASTER_CUSTOMER_ID']]['total']++;
+      $overview[$row['MASTER_CUSTOMER_ID']]['name'] = $row['USR_LAST_FIRST_NAME'];
+      $overview[$row['MASTER_CUSTOMER_ID']]['unique'][$day]++;
+      $overview[$row['MASTER_CUSTOMER_ID']]['unique_total'] = count($overview[$row['MASTER_CUSTOMER_ID']]['unique']);
+    }
+    return $overview;
 
   }
 
