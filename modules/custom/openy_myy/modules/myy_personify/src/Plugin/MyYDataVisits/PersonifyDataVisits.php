@@ -6,6 +6,7 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\myy_personify\PersonifyUserData;
 use Drupal\myy_personify\PersonifyUserHelper;
 use Drupal\openy_myy\PluginManager\MyYDataVisitsInterface;
 use Drupal\personify\PersonifyClient;
@@ -44,6 +45,11 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
   protected $personifyUserHelper;
 
   /**
+   * @var \Drupal\myy_personify\PersonifyUserData
+   */
+  protected $personifyUserData;
+
+  /**
    * PersonifyDataProfile constructor.
    *
    * @param array $configuration
@@ -62,7 +68,8 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     PersonifyClient $personifyClient,
     ConfigFactoryInterface $configFactory,
     LoggerChannelFactory $loggerChannelFactory,
-    PersonifyUserHelper $personifyUserHelper
+    PersonifyUserHelper $personifyUserHelper,
+    PersonifyUserData $personifyUserData
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
@@ -70,6 +77,7 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     $this->config = $configFactory->get('myy_personify.settings');
     $this->logger = $loggerChannelFactory->get('personify_authenticator');
     $this->personifyUserHelper = $personifyUserHelper;
+    $this->personifyUserData = $personifyUserData;
   }
 
   /**
@@ -84,7 +92,8 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
       $container->get('personify.client'),
       $container->get('config.factory'),
       $container->get('logger.factory'),
-      $container->get('myy_personify_user_helper')
+      $container->get('myy_personify_user_helper'),
+      $container->get('myy_personify_user_data')
     );
   }
 
@@ -138,7 +147,7 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
     $results = json_decode($data['Data'], TRUE);
-
+    dump($results);
     $visits = [];
     if (!empty($results['Table'])) {
       foreach ($results['Table'] as $item) {
@@ -153,6 +162,13 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     }
 
     return $visits;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getVisitsOverview() {
+
   }
 
 }
