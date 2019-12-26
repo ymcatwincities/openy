@@ -139,7 +139,7 @@ class Saver implements SaverInterface {
    *
    * @throws \Exception
    */
-  private function createSession(array $class) {
+  protected function createSession(array $class) {
     // Get/Create class.
     try {
       $sessionClass = $this->getClass($class);
@@ -214,7 +214,7 @@ class Saver implements SaverInterface {
    *
    * @throws \Exception
    */
-  private function getSessionExclusions(array $class) {
+  protected function getSessionExclusions(array $class) {
     $exclusions = [];
     if (isset($class['exclusions'])) {
       foreach ($class['exclusions'] as $exclusion) {
@@ -241,7 +241,7 @@ class Saver implements SaverInterface {
   *
   * @throws \Exception
   */
-  private function getSessionRegLink(array $class) {
+  protected function getSessionRegLink(array $class) {
     $regLink = [];
 
     if (isset($class['reservation_id']) && !empty($class['reservation_id'])) {
@@ -265,7 +265,7 @@ class Saver implements SaverInterface {
    *
    * @throws \Exception
    */
-  private function getSessionTime(array $class) {
+  protected function getSessionTime(array $class) {
     $times = $class['patterns'];
 
     // Convert to UTC timezone to save to database.
@@ -311,7 +311,7 @@ class Saver implements SaverInterface {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function getClass(array $class) {
+  protected function getClass(array $class) {
     $nodeStorage = $this->entityTypeManager->getStorage('node');
 
     // Try to get existing activity.
