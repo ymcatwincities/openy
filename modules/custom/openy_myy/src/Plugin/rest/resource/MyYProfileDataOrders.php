@@ -77,12 +77,12 @@ class MyYProfileDataOrders extends ResourceBase {
   /**
    * {@inheritdoc}
    */
-  public function get($ids, $date_start, $date_end, $type = 'A') {
+  public function get($ids, $date_start, $date_end) {
 
     $myy_config = $this->config->getRawData();
-    $myy_authenticator_instances = $this->myYDataOrders->getDefinitions();
+    $myy_orders_instances = $this->myYDataOrders->getDefinitions();
 
-    if (array_key_exists($myy_config['myy_data_orders'], $myy_authenticator_instances)) {
+    if (array_key_exists($myy_config['myy_data_orders'], $myy_orders_instances)) {
       $response = $this
         ->myYDataOrders
         ->createInstance($myy_config['myy_data_orders'])

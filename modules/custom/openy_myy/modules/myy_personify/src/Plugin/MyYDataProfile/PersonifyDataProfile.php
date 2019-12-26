@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\myy_personify\PersonifyUserData;
 
 /**
  * Personify Profile data plugin.
@@ -50,6 +51,16 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
   protected $personify_domain;
 
   /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
+  protected $config;
+
+  /**
+   * @var \Drupal\myy_personify\PersonifyUserData
+   */
+  protected $personifyUserData;
+
+  /**
    * PersonifyDataProfile constructor.
    *
    * @param array $configuration
@@ -68,7 +79,8 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     PersonifyClient $personifyClient,
     ConfigFactoryInterface $configFactory,
     LoggerChannelFactory $loggerChannelFactory,
-    PersonifyUserHelper $personifyUserHelper
+    PersonifyUserHelper $personifyUserHelper,
+    PersonifyUserData $personifyUserData
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
@@ -79,6 +91,7 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     $this->personifyUserHelper = $personifyUserHelper;
     $personify_config = $configFactory->get('personify.settings')->getRawData();
     $this->personify_domain = $personify_config[$personify_config['environment'] . '_endpoint'];
+    $this->personifyUserData = $personifyUserData;
   }
 
   /**
@@ -93,7 +106,8 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
       $container->get('personify.client'),
       $container->get('config.factory'),
       $container->get('logger.factory'),
-      $container->get('myy_personify_user_helper')
+      $container->get('myy_personify_user_helper'),
+      $container->get('myy_personify_user_data')
     );
   }
 
@@ -132,56 +146,7 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
    * {@inheritdoc}
    */
   public function getFamilyInfo() {
-
-    $personifyID = $this->personifyUserHelper->personifyGetId();
-    $output = [];
-
-    $my_data = $this
-      ->personifyClient
-      ->doAPIcall(
-        'GET',
-        "CustomerInfos(MasterCustomerId='" . $personifyID . "',SubCustomerId=0)"
-      );
-
-    $my_bdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $my_data['d']['CL_BirthDate']) / 1000, 'UTC');
-    $now = new DrupalDateTime();
-    $output['household'][] = [
-      'name' => $my_data['d']['LabelName'],
-      'age' => $now->diff($my_bdate)->format('%y'),
-      'RelationshipCode' => 'ME',
-      'ProfileLinks' => $this->getHouseholdProfileLinks(),
-    ];
-
-    $relationship_data = $this
-      ->personifyClient
-      ->doAPIcall(
-        'GET',
-        "CustomerInfos(MasterCustomerId='" . $personifyID . "',SubCustomerId=0)/Relationships"
-      );
-
-
-    foreach ($relationship_data['d'] as $relationship) {
-
-      $family_member_profile_data = $this
-        ->personifyClient
-        ->doAPIcall(
-          'GET',
-          "CustomerInfos(MasterCustomerId='" . $relationship['RelatedMasterCustomerId'] . "',SubCustomerId=0)"
-        );
-
-      $family_member_birthdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $family_member_profile_data['d']['CL_BirthDate']) / 1000, 'UTC');
-
-      $output['household'][] = [
-        'name' => $relationship['RelatedName'],
-        'RelationshipCode' => $relationship['RelationshipCode'],
-        'age' => $now->diff($family_member_birthdate)->format('%y'),
-        'RelatedMasterCustomerId' => $relationship['RelatedMasterCustomerId'],
-        'ProfileLinks' => $this->getHouseholdProfileLinks(),
-      ];
-    }
-
-    return $output;
-
+    return $this->personifyUserData->getFamilyData();
   }
 
   /**
