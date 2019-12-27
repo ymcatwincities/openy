@@ -113,6 +113,16 @@
               <strong v-if="item.payed == 0">PENDING</strong>
             </div>
           </div>
+          <div v-if="item.due_amount && item.due_date" class="row due-now">
+            <div class="col-myy">
+              <i class="fa fa-exclamation-triangle"></i>
+              <p><strong>Payment due: {{ item.due_date }}</strong></p>
+              <!--<i>Automatic Payments: Visa 1234</i>-->
+            </div>
+            <div class="col-myy text-right">
+              <a class="btn btn-primary" href="item.pay_link">Pay now <i class="fa fa-external-link-square"></i></a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -150,10 +160,11 @@
     methods: {
       runAjaxRequest: function() {
         let component = this;
-        var start = this.$route.query.start == 'undefined' ? '2019-01-01' : this.$route.query.start,
-            end = this.$route.query.end == 'undefined' ? '2021-01-01' : this.$route.query.end;
+        var start = typeof this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
+            end = typeof this.$route.query.end == 'undefined' ? '2021-01-01' : this.$route.query.end,
+            ids = component.uid;
 
-        let url = component.baseUrl + 'myy-model/data/orders/' + start + '/' + end + '/' + component.type;
+        let url = component.baseUrl + 'myy-model/data/orders/' + ids + '/' + start + '/' + end;
 
         component.loading = true;
         jQuery.ajax({
@@ -180,6 +191,7 @@
         window.drupalSettings = drupalSettings;
       }
       component.baseUrl = window.drupalSettings.path.baseUrl;
+      component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
 
       component.runAjaxRequest();
     },

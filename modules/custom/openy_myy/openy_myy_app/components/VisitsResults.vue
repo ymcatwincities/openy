@@ -12,19 +12,11 @@
         </select>
       </div>
     </div>
-    <!--MASTER_CUSTOMER_ID: "2015228900",
-    USR_DATE: "Mar 21 2018 12:00AM",
-    USR_TIME: "15:30:45",
-    USR_BRANCH: "22",
-    ADDDATE: "Mar 21 2018  3:30PM",
-    USR_ACCESS_ALLOWED: "Y",
-    USR_LAST_FIRST_NAME: "Kruger, Terri",
-    USR_CARD_ID: "4000448189"-->
     <div class="row content">
       <div class="col-myy-12">
         <div v-for="(item, index) in data" v-bind:key="index" class="item-row row">
           <div class="col-myy-sm-1 no-padding-left">
-            <span class="rounded_letter small black">X</span>
+            <span :class="'rounded_letter small color-' + getUserColor(item.USR_LAST_FIRST_NAME)" v-if="getUserColor(item.USR_LAST_FIRST_NAME)">{{ item.USR_LAST_FIRST_NAME.charAt(0) }}</span>
           </div>
           <div class="col-myy-sm-4">
             <span class="user_name">{{ item.USR_LAST_FIRST_NAME }}</span>
@@ -48,15 +40,17 @@
       return {
         loading: true,
         baseUrl: '/',
-        data: {}
+        data: {},
+        userColors: []
       }
     },
     methods: {
       runAjaxRequest: function() {
         var component = this,
-            start = this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
-            end = this.$route.query.end == 'undefined' ? '2019-12-12' : this.$route.query.end,
-            url = component.baseUrl + 'myy-model/data/profile/visits-details/' + component.uid + '/' + start + '/' + end;
+            start = typeof this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
+            end = typeof this.$route.query.end == 'undefined' ? '2019-12-12' : this.$route.query.end,
+            ids = component.uid,
+            url = component.baseUrl + 'myy-model/data/profile/visits-details/' + ids + '/' + start + '/' + end;
 
         component.loading = true;
         jQuery.ajax({
@@ -67,9 +61,28 @@
         }).done(function(data) {
           component.data = data;
           component.loading = false;
+          component.mapUserColors();
           jQuery('.myy-sub-header .count span').text(data.length);
         });
       },
+      mapUserColors: function () {
+        var mapUserColors = {},
+            counter = 1;
+        for (var i in this.data) {
+          mapUserColors[this.data[i].USR_LAST_FIRST_NAME] = 1;
+        }
+        for (var j in mapUserColors) {
+          mapUserColors[j] = counter++;
+        }
+        this.userColors = mapUserColors;
+      },
+      getUserColor: function (username) {
+        for (var i in this.userColors) {
+          if (i == username) {
+            return this.userColors[i];
+          }
+        }
+      }
     },
     mounted: function() {
       let component = this;
