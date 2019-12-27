@@ -42,5 +42,27 @@
     }
   };
 
+  /**
+   * Make work with main nav accessible. User could walk through submenu infinitely.
+   * @type {{attach: Drupal.behaviors.menuTabNav.attach}}
+   */
+  Drupal.behaviors.menuTabNav = {
+    attach: function(context, settings) {
+      $('.navbar .row-level-2').each(function(index, value) {
+        var aLast = $(value).find('a').last();
+        var aFirst = $(value).find('a').first();
+        aLast.focusout(function (event) {
+          event.stopPropagation();
+          aFirst.focus();
+        });
+      });
+  // Add ability to walk through search input and close search buttons at search action.
+      $('.navbar .search-input').focusout(function (event) {
+        event.stopPropagation();
+        $('.page-head__search-close').focus();
+      });
+    }
+  };
+
 
 })(jQuery);

@@ -13,7 +13,7 @@ source:
   data_rows:
     -
       id: 1
-      name: 1.jpg
+      name: danielle-cerullo-782570-unsplash.jpg
   ids:
     id:
       type: integer

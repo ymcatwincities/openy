@@ -41,6 +41,8 @@ class HBLocModal extends HomeBranchLibraryBase {
       'modalTitle' => $this->t('Home branch'),
       'modalDescription' => $this->t('Would you like to set a different location as your "home branch"?'),
       'dontAskTitle' => $this->t('Don\'t ask me again'),
+      // Delay until next window display 24h.
+      'modalDelay' => 86400,
       'learnMoreText' => $this->t('
         <h5>Why set your home branch?</h5>
         <p>Many YMCA members primarily visit one YMCA branch. Setting your home branch customizes your experience with schedules and programs for that branch. You are still able to view information for all other branches.</p>
