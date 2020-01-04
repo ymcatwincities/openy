@@ -299,6 +299,7 @@
         "drupal/ckeditor_font": "^1.0",
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.4",
-        "drupal/image_widget_crop": "^2.2"
+        "drupal/image_widget_crop": "^2.2",
+        "drupal/geysir": "^1.1"
     }
 }
