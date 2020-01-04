@@ -19,6 +19,7 @@ use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_preprocess_html().
@@ -588,4 +589,21 @@ function openy_carnation_entity_file_uri_by_fid($fid_array) {
   }
 
   return '';
+}
+
+/**
+ * Implements template_preprocess_links().
+ */
+function openy_carnation_preprocess_links(&$variables) {
+  // @deprecated in Drupal 8.0.x and will be removed before 9.0.0. This feature
+  // of adding a class based on the associative key can cause CSS class name
+  // conflicts.
+  if (!empty($variables['links'])) {
+    foreach ($variables['links'] as $key => $value) {
+      if (!is_numeric($key)) {
+        $class = Html::getClass($key);
+        $variables['links'][$key]['attributes']->addClass($class);
+      }
+    }
+  }
 }

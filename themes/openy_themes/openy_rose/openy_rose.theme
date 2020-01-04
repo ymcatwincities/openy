@@ -5,6 +5,7 @@
  * Theme file.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Form\FormStateInterface;
@@ -435,4 +436,21 @@ function openy_rose_preprocess_paragraph_social_list(&$variables) {
 function openy_rose_preprocess(array &$variables) {
   $variables['base_path'] = base_path();
   $variables['directory'] =  drupal_get_path('theme', 'openy_rose');
+}
+
+/**
+ * Implements template_preprocess_links().
+ */
+function openy_rose_preprocess_links(&$variables) {
+  // @deprecated in Drupal 8.0.x and will be removed before 9.0.0. This feature
+  // of adding a class based on the associative key can cause CSS class name
+  // conflicts.
+  if (!empty($variables['links'])) {
+    foreach ($variables['links'] as $key => $value) {
+      if (!is_numeric($key)) {
+        $class = Html::getClass($key);
+        $variables['links'][$key]['attributes']->addClass($class);
+      }
+    }
+  }
 }
