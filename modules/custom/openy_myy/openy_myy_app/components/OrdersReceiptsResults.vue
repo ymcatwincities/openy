@@ -97,7 +97,7 @@
         <div class="result_row" v-for="(item, index) in data" v-bind:key="index">
           <div class="row">
             <div class="col-myy-sm-1">
-              <span class="rounded_letter small black">X</span>
+              <span :class="'rounded_letter small color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.name.charAt(0) }}</span>
             </div>
             <div class="col-myy-sm-3">
               <div class="type"><strong>{{ item.title }}</strong></div>
@@ -158,7 +158,8 @@
       }
     },
     methods: {
-      runAjaxRequest: function() {
+      runAjaxRequest: function() {        console.log('abuabu');
+
         let component = this;
         var start = typeof this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
             end = typeof this.$route.query.end == 'undefined' ? '2021-01-01' : this.$route.query.end,
@@ -175,9 +176,28 @@
         }).done(function(data) {
           component.data = data;
           component.loading = false;
+          component.mapUserColors();
           jQuery('.myy-sub-header .count span').text(data.length);
         });
       },
+      mapUserColors: function () {
+        var mapUserColors = {},
+          counter = 1;
+        for (var i in this.data) {
+          mapUserColors[this.data[i].name] = 1;
+        }
+        for (var j in mapUserColors) {
+          mapUserColors[j] = counter++;
+        }
+        this.userColors = mapUserColors;
+      },
+      getUserColor: function (username) {
+        for (var i in this.userColors) {
+          if (i == username) {
+            return this.userColors[i];
+          }
+        }
+      }
     },
     mounted: function() {
       let component = this;
@@ -193,12 +213,13 @@
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
 
-      component.runAjaxRequest();
+      //component.runAjaxRequest();
+      component.$parent.$on('runAjaxRequest', component.runAjaxRequest);
     },
     watch: {
       '$route': function() {
-        if (typeof this.$route.query.start != 'undefined' && typeof this.$route.query.end != 'undefined') {
-          this.runAjaxRequest();
+        if (typeof this.$route.query.start != 'undefined' && typeof this.$route.query.end != 'undefined' && typeof this.$route.query.household != 'undefined') {
+          //this.runAjaxRequest();
         }
       }
     }

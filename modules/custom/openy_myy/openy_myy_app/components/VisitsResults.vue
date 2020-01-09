@@ -98,7 +98,6 @@
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
 
-
       component.runAjaxRequest();
     },
     watch: {

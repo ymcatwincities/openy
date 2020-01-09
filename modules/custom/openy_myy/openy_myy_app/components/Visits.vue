@@ -1,41 +1,27 @@
 <template>
-  <section class="myy-visits">
+  <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
+  <section v-else class="myy-visits">
     <div class="row headline">
       <div class="col-myy-6">
         <h3>Visits</h3>
       </div>
       <div class="col-myy-6 text-right">
-        <span class="date">Dec 2019</span> | <a href="#" class="view_all">View all</a>
+        <span class="date">{{ currentMonth }}</span> | <a href="/myy/visits" class="view_all">View all</a>
       </div>
     </div>
     <div class="row content">
-      <div class="col-myy-md-6 col-myy-12">
+      <div v-for="(item, index) in data" v-bind:key="index" class="col-myy-md-6 col-myy-12">
         <div class="row">
           <div class="col-myy-3">
-            <span class="rounded_letter green"> J</span>
+            <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.name.charAt(0) }}</span>
           </div>
           <div class="col-myy-3">
-            <span class="square_number">15</span>
+            <span class="square_number">{{ item.total }}</span>
           </div>
           <div class="col-myy-6">
-            <div class="name">John Doe</div>
-            <div class="unique_visits"> 15 unique visits*</div>
-            <div class="total_visits">17 total visits</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-myy-md-6 col-myy-12">
-        <div class="row">
-          <div class="col-myy-3">
-            <span class="rounded_letter red"> J</span>
-          </div>
-          <div class="col-myy-3">
-            <span class="square_number">11</span>
-          </div>
-          <div class="col-myy-6">
-            <div class="name">Jane Doe</div>
-            <div class="unique_visits"> 11 unique visits*</div>
-            <div class="total_visits">11 total visits</div>
+            <div class="name">{{ item.name }}</div>
+            <div class="unique_visits">{{ item.unique_total }} unique visits*</div>
+            <div class="total_visits">{{ item.total }} total visits</div>
           </div>
         </div>
       </div>
@@ -45,6 +31,74 @@
     </div>
   </section>
 </template>
+
+<script>
+  export default {
+    data () {
+      return {
+        loading: true,
+        baseUrl: '/',
+        data: {},
+        userColors: [],
+        currentMonth: '',
+      }
+    },
+    methods: {
+      runAjaxRequest: function() {
+        var component = this,
+          url = component.baseUrl + 'myy-model/data/profile/visits-overview';
+
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          component.data = data;
+          component.loading = false;
+          component.mapUserColors();
+        });
+      },
+      mapUserColors: function () {
+        var mapUserColors = {},
+          counter = 1;
+        for (var i in this.data) {
+          mapUserColors[this.data[i].name] = 1;
+        }
+        for (var j in mapUserColors) {
+          mapUserColors[j] = counter++;
+        }
+        this.userColors = mapUserColors;
+      },
+      getUserColor: function (username) {
+        for (var i in this.userColors) {
+          if (i == username) {
+            return this.userColors[i];
+          }
+        }
+      }
+    },
+    mounted: function() {
+      let component = this;
+
+      if (typeof window.drupalSettings === 'undefined') {
+        var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/',
+          }
+        };
+        window.drupalSettings = drupalSettings;
+      }
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+      component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
+
+      component.currentMonth = moment().format('MMM YYYY');
+
+      component.runAjaxRequest();
+    }
+  }
+</script>
 
 <style lang="scss">
   .myy-visits {

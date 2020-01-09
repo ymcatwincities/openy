@@ -24,7 +24,9 @@
             <filters/>
           </div>
           <div class="col-myy-lg-9">
-            <orders-receipts-results/>
+            <orders-receipts-results
+              parameters="parameters"
+            />
           </div>
         </div>
       </div>
@@ -42,7 +44,22 @@
       MyyHeader,
       OrdersReceiptsResults,
       Filters,
+    },
+    data () {
+      return {
+        parameters: [],
+        loading: true,
+        data: {},
+        baseUrl: '/',
+        type: 'A'
+      }
+    },
+    methods: {
+      triggerRequest: function () {
+        this.$emit('runAjaxRequest');
+      }
     }
+
   }
 </script>
 
