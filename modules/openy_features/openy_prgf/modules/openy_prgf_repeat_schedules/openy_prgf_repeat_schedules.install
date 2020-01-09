@@ -36,3 +36,19 @@ function openy_prgf_repeat_schedules_update_8002() {
     'field.field.paragraph.repeat_schedules.field_prgf_repeat_loc',
   ]);
 }
+
+/**
+ * Add option to show end time instead of the length.
+ */
+function openy_prgf_repeat_schedules_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_repeat_schedules') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_form_display.paragraph.repeat_schedules.default',
+    'core.entity_view_display.paragraph.repeat_schedules.default',
+    'field.field.paragraph.repeat_schedules.field_prgf_repeat_schedule_end',
+    'field.storage.paragraph.field_prgf_repeat_schedule_end',
+    'paragraphs.paragraphs_type.repeat_schedules',
+  ]);
+}
