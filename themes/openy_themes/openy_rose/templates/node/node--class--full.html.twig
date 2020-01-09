@@ -66,7 +66,7 @@
  * @see template_preprocess_node()
  */
 #}
-{% if content.field_sidebar_content is not empty %}
+{% if content.field_sidebar_content|render|trim is not empty %}
   {% set layout_class = 'has-sidebar' %}
 {% endif %}
 {%
@@ -103,12 +103,12 @@ set sidebar_classes = [
   <div class="row">
     {% endif %}
 
-    {% if content.field_content is not empty %}
+    {% if content.field_content|render|trim is not empty %}
       <div{{ attributes.addClass(content_classes) }}>
-        {% if content.field_sidebar_content is empty %}
+        {% if content.field_sidebar_content|render|trim is empty %}
         <div class="main-region col-sm-12">
           {% endif %}
-          {% if content.field_sidebar_content is not empty %}
+          {% if content.field_sidebar_content|render|trim is not empty %}
           <div class="two-column">
             <section class="main-region col-sm-8">
               {% endif %}
@@ -119,24 +119,24 @@ set sidebar_classes = [
               {{ title_suffix }}
               {{ content.field_class_description }}
               {{ content.field_content }}
-              {% if content.field_sidebar_content is not empty %}
+              {% if content.field_sidebar_content|render|trim is not empty %}
             </section>
             <div class="sidebar-region col-sm-4">
               {% endif %}
               <aside{{ attributes.addClass(sidebar_classes) }}>
                 {{ content.field_sidebar_content }}
               </aside>
-              {% if content.field_sidebar_content is not empty %}
+              {% if content.field_sidebar_content|render|trim is not empty %}
             </div>
           </div>
           {% endif %}
-          {% if content.field_sidebar_content is empty %}
+          {% if content.field_sidebar_content|render|trim is empty %}
         </div>
         {% endif %}
       </div>
     {% endif %}
 
-    {% if content.field_sidebar_content is not empty %}
+    {% if content.field_sidebar_content|render|trim is not empty %}
   </div>
 </div>
 {% endif %}
