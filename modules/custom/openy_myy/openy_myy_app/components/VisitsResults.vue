@@ -49,7 +49,7 @@
         var component = this,
             start = typeof this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
             end = typeof this.$route.query.end == 'undefined' ? '2019-12-12' : this.$route.query.end,
-            ids = component.uid,
+            ids = typeof this.$route.query.household == 'undefined' ? component.uid : this.$route.query.household,
             url = component.baseUrl + 'myy-model/data/profile/visits-details/' + ids + '/' + start + '/' + end;
 
         component.loading = true;
@@ -102,7 +102,7 @@
     },
     watch: {
       '$route': function() {
-        if (typeof this.$route.query.start != 'undefined' && typeof this.$route.query.end != 'undefined') {
+        if (typeof this.$route.query.start != 'undefined' && typeof this.$route.query.end != 'undefined' && typeof this.$route.query.household != 'undefined') {
           this.runAjaxRequest();
         }
       }

@@ -175,10 +175,17 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     foreach ($family['household'] as $fmember) {
       if (!empty($fmember['RelatedMasterCustomerId'])) {
         $pids[] = $fmember['RelatedMasterCustomerId'];
+        // Fill array initially with empty values in order to show all households even with 0 visits.
+        $overview[$fmember['RelatedMasterCustomerId']] = [
+          'total' => 0,
+          'name' => $fmember['name'],
+          'unique' => [],
+          'unique_total' => 0
+        ];
       }
     }
 
-    // Get data from the start of the mounth
+    // Get data from the start of the month.
     $start_date = date('Y-m-01');
     $finish_date = date('Y-m-d');
 
@@ -205,7 +212,6 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
     $results = json_decode($data['Data'], TRUE);
-    $overview = [];
     foreach ($results['Table'] as $row) {
       $day = date('d', strtotime($row['ADDDATE']));
       $overview[$row['MASTER_CUSTOMER_ID']]['total']++;

@@ -1,6 +1,5 @@
 <template>
-  <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
-  <section v-else class="myy-orders-filters">
+  <section class="myy-orders-filters">
     <a href="#" data-toggle="collapse" data-target=".myy-filters" role="button" class="myy-orders-filters__toggle collapsed" aria-expanded="true">
       REFINE RESULTS
       <i aria-hidden="true" class="fa fa-plus-circle plus ml-auto"></i>
@@ -11,30 +10,30 @@
       <div class="myy-filters__wrapper">
         <div class="form-item form-item-date">
           <label for="edit-start-date">Start Date</label>
-          <input class="myy-datepicker start form-text form-control text" data-drupal-selector="edit-start-date" data-disable-refocus="true" type="text" id="edit-start-date" v-model="start" v-on:change="changed" name="start_date" value="" size="60" maxlength="128" />
+          <input class="myy-datepicker start form-text form-control text" data-drupal-selector="edit-start-date" data-disable-refocus="true" type="text" id="edit-start-date" v-model="start" name="start_date" value="" size="60" maxlength="128" />
           <i class="fa fa-calendar"></i>
         </div>
         <div class="form-item form-item-date">
           <label for="edit-end-date">End Date</label>
-          <input class="myy-datepicker end form-text form-control text" data-drupal-selector="edit-end-date" data-disable-refocus="true" type="text" id="edit-end-date" v-model="end" name="end_date" v-on:change="changed" value="" size="60" maxlength="128" />
+          <input class="myy-datepicker end form-text form-control text" data-drupal-selector="edit-end-date" data-disable-refocus="true" type="text" id="edit-end-date" v-model="end" name="end_date" value="" size="60" maxlength="128" />
           <i class="fa fa-calendar"></i>
         </div>
         <div class="form-item form-item-household">
           <div class="checkbox-wrapper">
             <div>
-              <a href="#" class="d-flex checkbox-toggle-subset hidden">
-                <label>Household</label> <i aria-hidden="true" class="fa fa-plus-circle plus ml-auto"></i>
+              <a href="#" v-on:click.prevent class="d-flex checkbox-toggle-subset collapsed" data-toggle="collapse" data-target="#household-filters-wrapper">
+                <label>Household</label> <i aria-hidden="true" class="fa fa-plus-circle plus ml-auto"></i> <i aria-hidden="true" class="fa fa-minus-circle minus ml-auto"></i>
               </a>
-              <a href="#" class="d-flex checkbox-toggle-subset" style="">
-                <label>Household</label> <i aria-hidden="true" class="fa fa-minus-circle minus ml-auto"></i></a>
             </div>
-            <div v-for="(item, index) in data.household" v-bind:key="index" class="item">
-                <div class="checkbox-wrapper">
-                <div>
-                  <input v-if="typeof item.RelatedMasterCustomerId !== 'undefined'" type="checkbox" :id="'checkbox-category-filter-' + item.RelatedMasterCustomerId"  :value="item.RelatedMasterCustomerId" v-on:change="changed">
-                  <input v-else type="checkbox" :id="'checkbox-category-filter-' + uid" :value="uid" v-on:change="changed">
-                  <label v-if="typeof item.RelatedMasterCustomerId !== 'undefined'" :for="'checkbox-category-filter-' + item.RelatedMasterCustomerId">{{ item.name }}</label>
-                  <label v-else :for="'checkbox-category-filter-' + uid">{{ item.name }}</label>
+            <div id="household-filters-wrapper" class="collapse">
+              <div v-if="data.household.length > 0" v-for="(item, index) in data.household" v-bind:key="index" class="item">
+                  <div class="checkbox-wrapper">
+                  <div>
+                    <input v-if="typeof item.RelatedMasterCustomerId !== 'undefined'" v-model="household" type="checkbox" :id="'checkbox-category-filter-' + item.RelatedMasterCustomerId" :value="item.RelatedMasterCustomerId" v-on:change="changed">
+                    <input v-else type="checkbox" :id="'checkbox-category-filter-' + uid" :value="uid" v-model="household" v-on:change="changed">
+                    <label v-if="typeof item.RelatedMasterCustomerId !== 'undefined'" :for="'checkbox-category-filter-' + item.RelatedMasterCustomerId">{{ item.name }}</label>
+                    <label v-else :for="'checkbox-category-filter-' + uid">{{ item.name }}</label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -51,7 +50,7 @@
       return {
         start: '',
         end: '',
-        household: {},
+        household: [],
         loading: true,
         baseUrl: '/',
         data: {
@@ -66,10 +65,43 @@
         component.$router.push({query: {
           start: component.start,
           end: component.end,
-          household: component.household
+          household: component.household.join(',')
         }});
-        component.updateQuery();
-        component.$parent.triggerRequest();
+        //component.updateQuery();
+      },
+      initDatepicker: function() {
+        var component = this;
+        if (jQuery('.myy-datepicker.start').length > 0 && !jQuery('.myy-datepicker.start').hasClass('hasDatepicker')) {
+          jQuery('.myy-datepicker.start').datepicker({
+            format: "YYYY-MM-DD",
+            multidate: false,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            todayHighlight: true
+          }).on('change', function () {
+            if (jQuery(this).val() != '') {
+              component.start = moment(jQuery(this).datepicker('getDate')).format('YYYY-MM-DD');
+              component.$router.push({query: {start: component.start, end: component.end, household: component.household}});
+            }
+          });
+        }
+
+        if (jQuery('.myy-datepicker.end').length > 0 && !jQuery('.myy-datepicker.end').hasClass('hasDatepicker')) {
+          jQuery('.myy-datepicker.end').datepicker({
+            format: "YYYY-MM-DD",
+            multidate: false,
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            todayHighlight: true
+          }).on('change', function () {
+            if (jQuery(this).val() != '') {
+              component.end = moment(jQuery(this).datepicker('getDate')).format('YYYY-MM-DD');
+              component.$router.push({query: {start: component.start, end: component.end, household: component.household}});
+            }
+          });
+        }
       },
       updateQuery: function() {
         let component = this;
@@ -84,11 +116,11 @@
             household.push(component.uid);
           }
         }
-        component.household = household.join(',');
+        component.household = household;
         component.$router.push({query: {
           start: component.start,
           end: component.end,
-          household: component.household
+          household: household.join(',')
         }});
       },
       runAjaxRequest: function() {
@@ -124,35 +156,9 @@
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
 
+      component.initDatepicker();
+
       component.runAjaxRequest();
-
-      jQuery('.myy-datepicker.start').datepicker({
-        format: "YYYY-MM-DD",
-        multidate: false,
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true,
-        todayHighlight: true
-      }).on('change', function() {
-        if (jQuery(this).val() != '') {
-          component.start = moment(jQuery(this).datepicker('getDate')).format('YYYY-MM-DD');
-          component.$router.push({query: { start: component.start, end: component.end }});
-        }
-      });
-
-      jQuery('.myy-datepicker.end').datepicker({
-        format: "YYYY-MM-DD",
-        multidate: false,
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true,
-        todayHighlight: true
-      }).on('change', function() {
-        if (jQuery(this).val() != '') {
-          component.end = moment(jQuery(this).datepicker('getDate')).format('YYYY-MM-DD');
-          component.$router.push({query: { start: component.start, end: component.end }});
-        }
-      });
     }
   }
 </script>
@@ -252,7 +258,7 @@
           height: 50px;
           line-height: 50px;
           color: #231F20;
-          padding: 0 0 0 115px;
+          padding: 0 0 0 105px;
           margin: 0;
           font-style: italic;
           left: 0;
@@ -285,19 +291,50 @@
         line-height: 50px;
         margin: 0;
         position: relative;
-        .checkbox-toggle-subset label {
-          color: #636466;
-          display: inline-block;
-          font-size: 12px;
-          font-weight: bold;
-          line-height: 18px;
-          margin: 0;
-          text-transform: uppercase;
-          padding: 0 10px;
+        .checkbox-toggle-subset {
+          text-decoration: none;
+          .fa {
+            font-size: 17px;
+            color: #636466;
+            float: right;
+            margin-top: 15px;
+            margin-right: 12px;
+          }
+          .fa-plus-circle {
+            display: none;
+          }
+          &.collapsed {
+            .fa-minus-circle {
+              display: none;
+            }
+            .fa-plus-circle {
+              display: inline-block;
+            }
+          }
+          label {
+            color: #636466;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 18px;
+            margin: 0;
+            text-transform: uppercase;
+            padding: 0 10px;
+          }
         }
         .item {
           background-color: #f2f2f2;
           padding: 0 10px;
+          .checkbox-wrapper {
+            line-height: 24px;
+          }
+          label {
+            color: #636466;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 24px;
+            margin: 0;
+          }
         }
       }
     }

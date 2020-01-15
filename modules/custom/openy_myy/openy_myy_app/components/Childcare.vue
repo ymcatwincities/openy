@@ -34,7 +34,7 @@
               <span class="weekdays">Mon - Fri</span>
             </div>
             <div class="col-myy-sm-3 text-right">
-              <a href="#" class="cancel"><strong>Cancel all</strong></a>
+              <!--<a href="#" class="cancel"><strong>Cancel all</strong></a>-->
             </div>
           </div>
           <div v-for="(item, index) in data" v-bind:key="index" class="event_item row">

@@ -11,7 +11,7 @@
         <nuxt-link to="/myy/calendar">calendar</nuxt-link>
       </li>-->
       <li class="nav-item">
-        <a href="#submenu-1" class="collapsed" data-toggle="collapse" data-target="#submenu-1">activities <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
+        <a href="#" v-on:click.prevent class="collapsed" data-toggle="collapse" data-target="#submenu-1">activities <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
         <ul class="collapse" id="submenu-1" aria-expanded="false">
           <li class="nav-item">
             <a class="nav-link" href="/">Group Exercise schedules <i class="fa fa-external-link"></i></a>
@@ -31,13 +31,13 @@
         </ul>
       </li>
       <li class="nav-item">
-        <a href="#submenu-2" class="collapsed" data-toggle="collapse" data-target="#submenu-2">transactions <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
+        <a href="#" v-on:click.prevent class="collapsed" data-toggle="collapse" data-target="#submenu-2">transactions <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
         <ul class="collapse" id="submenu-2" aria-expanded="false">
           <li class="nav-item">
             <nuxt-link to="/myy/orders-receipts" class="nav-link">Orders & receipts</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link to="/myy/visits" class="nav-link" href="/">Visits</nuxt-link>
+            <nuxt-link to="/myy/visits" class="nav-link">Visits</nuxt-link>
           </li>
         </ul>
       </li>

@@ -158,12 +158,11 @@
       }
     },
     methods: {
-      runAjaxRequest: function() {        console.log('abuabu');
-
+      runAjaxRequest: function() {
         let component = this;
         var start = typeof this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
             end = typeof this.$route.query.end == 'undefined' ? '2021-01-01' : this.$route.query.end,
-            ids = component.uid;
+            ids = typeof this.$route.query.household == 'undefined' ? component.uid : this.$route.query.household;
 
         let url = component.baseUrl + 'myy-model/data/orders/' + ids + '/' + start + '/' + end;
 
@@ -213,13 +212,13 @@
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
 
-      //component.runAjaxRequest();
-      component.$parent.$on('runAjaxRequest', component.runAjaxRequest);
+      component.runAjaxRequest();
+      //component.$parent.$on('runAjaxRequest', component.runAjaxRequest);
     },
     watch: {
       '$route': function() {
         if (typeof this.$route.query.start != 'undefined' && typeof this.$route.query.end != 'undefined' && typeof this.$route.query.household != 'undefined') {
-          //this.runAjaxRequest();
+          this.runAjaxRequest();
         }
       }
     }

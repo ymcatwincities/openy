@@ -1,5 +1,6 @@
 <template>
-  <section class="myy-guest-passes">
+  <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
+  <section v-else class="myy-guest-passes">
     <div class="row headline">
       <div class="col-myy">
         <h3>Guest passes<sup>*</sup></h3>
@@ -10,10 +11,10 @@
     </div>
     <div class="row content">
       <div class="col-myy">
-        <span class="square_number small">3</span> <strong>Available</strong>
+        <span class="square_number small">{{ data.available }}</span> <strong>Available</strong>
       </div>
       <div class="col-myy">
-        <span class="square_number small">1</span> <strong>Used</strong>
+        <span class="square_number small">{{ data.used }}</span> <strong>Used</strong>
       </div>
     </div>
     <div class="row description">
@@ -61,3 +62,46 @@
   }
 </style>
 
+<script>
+  export default {
+    data () {
+      return {
+        loading: true,
+        baseUrl: '/',
+        data: {}
+      }
+    },
+    methods: {
+      runAjaxRequest: function() {
+        let component = this,
+          url = component.baseUrl + 'myy-model/data/profile/guest-passes';
+
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          component.data = data;
+          component.loading = false;
+        });
+      },
+    },
+    mounted: function() {
+      let component = this;
+
+      if (typeof window.drupalSettings === 'undefined') {
+        var drupalSettings = {
+          path: {
+            baseUrl: 'http://openy-demo.docksal/',
+          }
+        };
+        window.drupalSettings = drupalSettings;
+      }
+      component.baseUrl = window.drupalSettings.path.baseUrl;
+
+      component.runAjaxRequest();
+    }
+  }
+</script>

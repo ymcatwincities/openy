@@ -6,7 +6,7 @@
         <h3>Visits</h3>
       </div>
       <div class="col-myy-6 text-right">
-        <span class="date">{{ currentMonth }}</span> | <a href="/myy/visits" class="view_all">View all</a>
+        <span class="date">{{ currentMonth }}</span> | <nuxt-link to="/myy/visits" class="view_all">View all</nuxt-link>
       </div>
     </div>
     <div class="row content">
@@ -157,7 +157,6 @@
         @media (min-width: 768px) {
           border-bottom: none;
           padding-bottom: 0;
-          margin-bottom: 0;
         }
       }
       > div:last-child {

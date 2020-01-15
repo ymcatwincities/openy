@@ -8,6 +8,7 @@ use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Driver\Exception\Exception;
 use Drupal\myy_personify\PersonifyUserHelper;
+use Drupal\myy_personify\PersonifyUserData;
 use Drupal\openy_myy\PluginManager\MyYDataOrdersInterface;
 use Drupal\personify\PersonifyClient;
 use Drupal\personify\PersonifySSO;
@@ -45,6 +46,11 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
   protected $personifyUserHelper;
 
   /**
+   * @var \Drupal\myy_personify\PersonifyUserData
+   */
+  protected $personifyUserData;
+
+  /**
    * PersonifyDataProfile constructor.
    *
    * @param array $configuration
@@ -63,7 +69,8 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
     PersonifyClient $personifyClient,
     ConfigFactoryInterface $configFactory,
     LoggerChannelFactory $loggerChannelFactory,
-    PersonifyUserHelper $personifyUserHelper
+    PersonifyUserHelper $personifyUserHelper,
+    PersonifyUserData $personifyUserData
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
@@ -73,6 +80,7 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
     $this->personifyUserHelper = $personifyUserHelper;
     $personify_config = $configFactory->get('personify.settings')->getRawData();
     $this->personify_domain = $personify_config[$personify_config['environment'] . '_endpoint'];
+    $this->personifyUserData = $personifyUserData;
   }
 
   /**
@@ -87,7 +95,8 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
       $container->get('personify.client'),
       $container->get('config.factory'),
       $container->get('logger.factory'),
-      $container->get('myy_personify_user_helper')
+      $container->get('myy_personify_user_helper'),
+      $container->get('myy_personify_user_data')
     );
   }
 
@@ -129,8 +138,18 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
     $ddata = parse_url($this->personify_domain);
     $domain = $ddata['scheme'] . '://' . $ddata['host'];
 
-    foreach ($results['Table'] as $item) {
+    $family = $this->personifyUserData->getFamilyData();
+    $pids = [];
+    foreach ($family['household'] as $fmember) {
+      if (!empty($fmember['RelatedMasterCustomerId'])) {
+        $pids[$fmember['RelatedMasterCustomerId']] = $fmember['name'];
+      }
+      else {
+        $pids[$this->personifyUserHelper->personifyGetId()] = $fmember['name'];
+      }
+    }
 
+    foreach ($results['Table'] as $item) {
       $pay_link = $domain . '/personifyebusiness/Default.aspx?TabID=134&OrderNumber=' . $item['OrderNumber'] . '&RenewalMode=false';
       $due_amount = $item['DUE_AMOUNT'];
       $orders[] = [
@@ -141,6 +160,8 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
         'pay_link' => !empty($due_amount) ? $pay_link : '',
         'due_amount' => $due_amount,
         'due_date' => $item['DUE_DATE'],
+        'ship_master_customer_id' => $item['SHIP_MASTER_CUSTOMER_ID'],
+        'name' => !empty($pids[$item['SHIP_MASTER_CUSTOMER_ID']]) ? $pids[$item['SHIP_MASTER_CUSTOMER_ID']] : '',
       ];
 
     }
