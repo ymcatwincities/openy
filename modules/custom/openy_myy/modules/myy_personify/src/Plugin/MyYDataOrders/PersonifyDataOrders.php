@@ -134,7 +134,7 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
       $pay_link = $domain . '/personifyebusiness/Default.aspx?TabID=134&OrderNumber=' . $item['OrderNumber'] . '&RenewalMode=false';
       $due_amount = $item['DUE_AMOUNT'];
       $orders[] = [
-        'title' => 'REPLACE ME',
+        'title' => $item['SHORT_NAME'],
         'description' => $item['DESCRIPTION'],
         'total' => $item['BASE_TOTAL_AMOUNT'],
         'payed' => empty($due_amount) ? 1 : 0,
