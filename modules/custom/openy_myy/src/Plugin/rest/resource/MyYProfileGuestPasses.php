@@ -14,14 +14,14 @@ use Drupal\openy_myy\PluginManager\MyYDataProfile;
  * FGuest passes rest resource
  *
  * @RestResource(
- *   id = "myy_profile_gest_passes",
+ *   id = "myy_profile_guest_passes",
  *   label = @Translation("Count of guest passes"),
  *   uri_paths = {
  *     "canonical" = "/myy-model/data/profile/guest-passes"
  *   }
  * )
  */
-class MyYProfileGestPasses extends ResourceBase {
+class MyYProfileGuestPasses extends ResourceBase {
 
 
   /**
