@@ -247,5 +247,43 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     // TODO: Implement updateProfilePhoneNumber() method.
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getGuestPasses() {
+
+    // Test user that always has guest passes.
+    //$personifyID = '1000677704';
+    $personifyID = $this->personifyUserHelper->personifyGetId();
+
+    $body = '
+    <StoredProcedureRequest>
+    <StoredProcedureName>OPENY_GET_GUEST_PASSES_BY_IDS</StoredProcedureName>
+    <IsUserDefinedFunction>false</IsUserDefinedFunction>
+    <SPParameterList>
+        <StoredProcedureParameter>
+            <Name>@ids</Name>
+            <Value>' . $personifyID . '</Value>
+        </StoredProcedureParameter>
+    </SPParameterList>
+    </StoredProcedureRequest>
+    ';
+
+    $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+    $results = json_decode($data['Data'], TRUE);
+    $available = $used = 0;
+    foreach ($results['Table'] as $item) {
+      if ($item['USR_GUEST_PASSED_USED']) {
+        $used++;
+      } else {
+        $available++;
+      }
+    }
+
+    return [
+      'available' => $available,
+      'used' => $used,
+    ];
+  }
 
 }

@@ -85,5 +85,9 @@ interface MyYDataProfileInterface {
    */
   public function getMembershipInfo();
 
+  /**
+   * @return mixed
+   */
+  public function getGuestPasses();
 
 }
