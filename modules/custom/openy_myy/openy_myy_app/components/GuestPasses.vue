@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="row description">
-      <i><sup>*</sup>Guest pass balance will renew on MM/DD/YYYY.</i>
+      <i><sup>*</sup>Guest pass balance will reset on Jan 1.</i>
     </div>
   </section>
 </template>

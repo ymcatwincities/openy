@@ -254,6 +254,7 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
 
     // Test user that always has guest passes.
     //$personifyID = '1000677704';
+    $personifyID = '2052259627';
     $personifyID = $this->personifyUserHelper->personifyGetId();
 
     $body = '
@@ -271,15 +272,8 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
     $results = json_decode($data['Data'], TRUE);
-    $available = $used = 0;
-    foreach ($results['Table'] as $item) {
-      if ($item['USR_GUEST_PASSED_USED']) {
-        $used++;
-      } else {
-        $available++;
-      }
-    }
-
+    $available = isset($results['Table'][0]['USR_Y_TOTAL_GUEST_PASS_COUNT']) ? $results['Table'][0]['USR_Y_TOTAL_GUEST_PASS_COUNT'] : 0;
+    $used = isset($results['Table'][0]['USR_GUEST_PASSED_USED']) ? $results['Table'][0]['USR_GUEST_PASSED_USED'] : 0;
     return [
       'available' => $available,
       'used' => $used,
