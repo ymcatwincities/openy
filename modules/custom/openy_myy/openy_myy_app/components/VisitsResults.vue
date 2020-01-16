@@ -6,7 +6,7 @@
         <strong>{{ data.length }} results</strong>
       </div>
       <div class="col-myy-6">
-        <select class="form-control form-select">
+        <select v-model="sort" class="form-control form-select">
           <option value="date_ASC">Sort by date (ascending)</option>
           <option value="date_DESC">Sort by date (descending)</option>
         </select>
@@ -46,7 +46,8 @@
         loading: true,
         baseUrl: '/',
         data: {},
-        userColors: []
+        userColors: [],
+        sort: 'date_ASC',
       }
     },
     methods: {
@@ -55,7 +56,12 @@
             start = typeof this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
             end = typeof this.$route.query.end == 'undefined' ? '2019-12-12' : this.$route.query.end,
             ids = typeof this.$route.query.household == 'undefined' ? component.uid : this.$route.query.household,
+            sort = typeof this.$route.query.sort == 'undefined' ? '' : this.$route.query.sort,
             url = component.baseUrl + 'myy-model/data/profile/visits-details/' + ids + '/' + start + '/' + end;
+
+        if (sort !== '') {
+          url += '?sort=' + sort;
+        }
 
         component.loading = true;
         jQuery.ajax({
@@ -110,6 +116,13 @@
         if (typeof this.$route.query.start != 'undefined' && typeof this.$route.query.end != 'undefined' && typeof this.$route.query.household != 'undefined') {
           this.runAjaxRequest();
         }
+      },
+      'sort': function(newValue, oldValue) {
+        let component = this;
+        var query = component.$route.query;
+        query.sort = newValue;
+        component.$router.push({query: query});
+        component.runAjaxRequest();
       }
     }
   }

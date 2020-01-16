@@ -157,8 +157,24 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
         $date = explode(' ', $date);
         $item['CUSTOM_USR_DATE'] = implode(' ', [$date[0], $date[1], $date[2]]);
         $item['CUSTOM_USR_TIME'] = !empty($date[4]) ? $date[4] : $date[3];
+        $item['ADDDATE_TIMESTAMP'] = strtotime($item['ADDDATE']);
         $visits[] = $item;
       }
+    }
+
+    // Sort results.
+    $request = \Drupal::service('request_stack')->getCurrentRequest();
+    $parameters = $request->query->all();
+    // Sort by date_ASC even if sort query parameter has not passed.
+    if (empty($parameters['sort']) || (!empty($parameters['sort']) && $parameters['sort'] == 'date_ASC')) {
+      usort($visits, function ($a, $b) {
+        return ($a['ADDDATE_TIMESTAMP'] < $b['ADDDATE_TIMESTAMP']) ? -1 : 1;
+      });
+    }
+    if (!empty($parameters['sort']) && $parameters['sort'] == 'date_DESC') {
+      usort($visits, function ($a, $b) {
+        return ($a['ADDDATE_TIMESTAMP'] > $b['ADDDATE_TIMESTAMP']) ? -1 : 1;
+      });
     }
 
     return $visits;

@@ -168,20 +168,19 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
 
     }
 
-    // Optionally sort results.
+    // Sort results.
     $request = \Drupal::service('request_stack')->getCurrentRequest();
     $parameters = $request->query->all();
-    if (!empty($parameters['sort'])) {
-      if ($parameters['sort'] == 'date_asc') {
-        usort($orders, function ($a, $b) {
-          return ($a['order_date'] < $b['order_date']) ? -1 : 1;
-        });
-      }
-      if ($parameters['sort'] == 'date_desc') {
-        usort($orders, function ($a, $b) {
-          return ($a['order_date'] > $b['order_date']) ? -1 : 1;
-        });
-      }
+    // Sort by date_ASC even if sort query parameter has not passed.
+    if (empty($parameters['sort']) || (!empty($parameters['sort']) && $parameters['sort'] == 'date_ASC')) {
+      usort($orders, function ($a, $b) {
+        return ($a['order_date_timestamp'] < $b['order_date_timestamp']) ? -1 : 1;
+      });
+    }
+    if (!empty($parameters['sort']) && $parameters['sort'] == 'date_DESC') {
+      usort($orders, function ($a, $b) {
+        return ($a['order_date_timestamp'] > $b['order_date_timestamp']) ? -1 : 1;
+      });
     }
 
     return $orders;
