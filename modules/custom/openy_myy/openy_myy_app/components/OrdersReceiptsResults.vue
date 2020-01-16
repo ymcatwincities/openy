@@ -12,6 +12,11 @@
         </select>
       </div>
     </div>
+    <div class="row">
+      <div class="col-myy">
+        <p>Note: Visit is only available for prior 18 months, please contact Customer Service Center for longer history at XXX-XXX-XXX</p>
+      </div>
+    </div>
     <div class="row content">
       <div class="col-myy">
 <!--        <div class="result_row">

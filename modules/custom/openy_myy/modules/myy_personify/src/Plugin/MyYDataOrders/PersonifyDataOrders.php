@@ -162,8 +162,26 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
         'due_date' => $item['DUE_DATE'],
         'ship_master_customer_id' => $item['SHIP_MASTER_CUSTOMER_ID'],
         'name' => !empty($pids[$item['SHIP_MASTER_CUSTOMER_ID']]) ? $pids[$item['SHIP_MASTER_CUSTOMER_ID']] : '',
+        'order_date' => $item['ORDER_DATE'],
+        'order_date_timestamp' => strtotime($item['ORDER_DATE']),
       ];
 
+    }
+
+    // Optionally sort results.
+    $request = \Drupal::service('request_stack')->getCurrentRequest();
+    $parameters = $request->query->all();
+    if (!empty($parameters['sort'])) {
+      if ($parameters['sort'] == 'date_asc') {
+        usort($orders, function ($a, $b) {
+          return ($a['order_date'] < $b['order_date']) ? -1 : 1;
+        });
+      }
+      if ($parameters['sort'] == 'date_desc') {
+        usort($orders, function ($a, $b) {
+          return ($a['order_date'] > $b['order_date']) ? -1 : 1;
+        });
+      }
     }
 
     return $orders;
