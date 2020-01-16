@@ -16,7 +16,7 @@
             <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.name.charAt(0) }}</span>
           </div>
           <div class="col-myy-3">
-            <span class="square_number">{{ item.total }}</span>
+            <span class="square_number">{{ item.unique_total }}</span>
           </div>
           <div class="col-myy-6">
             <div class="name">{{ item.name }}</div>
