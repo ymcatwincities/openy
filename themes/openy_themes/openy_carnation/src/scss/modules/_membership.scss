@@ -56,14 +56,6 @@ a[href="#step2"] {
     }
   }
 
-  .form-element-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    position: relative;
-    width: 100%;
-  }
-
   input[name="type"] {
     position: absolute !important;
     clip: rect(1px, 1px, 1px, 1px);
