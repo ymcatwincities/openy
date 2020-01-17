@@ -5,7 +5,7 @@
       <div class="container">
         <div class="row">
           <div class="col-myy-6 col-myy-lg-3">
-            <a @click="$router.go(-1)" class="back-link"><i class="fa fa-arrow-left"></i></a>
+            <nuxt-link to="/myy/dashboard" class="back-link"><i class="fa fa-arrow-left"></i></nuxt-link>
             <strong class="count"><span>0</span> results</strong>
           </div>
           <div class="col-myy-sm-6 text-center d-myy-none d-myy-lg-block">
