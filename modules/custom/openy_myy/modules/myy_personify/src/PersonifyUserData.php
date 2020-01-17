@@ -106,6 +106,11 @@ class PersonifyUserData {
 
       $family_member_birthdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $family_member_profile_data['d']['CL_BirthDate']) / 1000, 'UTC');
 
+      // Hide family members with duplicated status.
+      if ($relationship['RelationshipCode'] == 'MERGED_TO') {
+        continue;
+      }
+
       $output['household'][] = [
         'name' => $relationship['RelatedName'],
         'RelationshipCode' => $relationship['RelationshipCode'],
