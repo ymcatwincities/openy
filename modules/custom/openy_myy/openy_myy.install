@@ -18,9 +18,15 @@ function openy_myy_update_8001() {
   ]);
 
   $permissions = [
+    "restful get myy_childcare_session_cancel",
+    "restful get myy_profile_guest_passes",
     "restful get myy_childcare_scheduled",
     "restful get myy_profile_family_list",
     "restful get myy_profile_visits_stat",
+    "restful get myy_profile_membership_info",
+    "restful get myy_orders",
+    "restful get myy_profile_visits_details",
+    "restful get myy_profile_visits_overview"
   ];
 
   global $_openy_config_import_event;
