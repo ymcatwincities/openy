@@ -30,15 +30,12 @@ class PersonifyUserHelper {
    */
   public function personifyGetId() {
 
-    //@TODO use token check when token verification issue would be resolved.
-    /**if (!empty($_COOKIE['Drupal_visitor_personify_authorized'])) {
+    if (!empty($_COOKIE['Drupal_visitor_personify_authorized'])) {
+      //Terri Kruger
+      //return '2015228900';
       return $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
-    }*/
-    //Terri Kruger
-   // return '2015228900';
-    if (!empty($_SESSION['personify_id'])) {
-      return $_SESSION['personify_id'];
-    } else {
+    }
+     else {
       return 0;
     }
 

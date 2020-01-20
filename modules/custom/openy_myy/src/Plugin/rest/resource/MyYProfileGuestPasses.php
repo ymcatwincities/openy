@@ -3,6 +3,7 @@
 namespace Drupal\openy_myy\Plugin\rest\resource;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\personify\PersonifySSO;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
@@ -35,6 +36,11 @@ class MyYProfileGuestPasses extends ResourceBase {
   protected $config;
 
   /**
+   * @var \Drupal\personify\PersonifySSO
+   */
+  protected $personifySSO;
+
+  /**
    * MyYProfileFamilyList constructor.
    *
    * @param array $configuration
@@ -44,6 +50,7 @@ class MyYProfileGuestPasses extends ResourceBase {
    * @param \Psr\Log\LoggerInterface $logger
    * @param \Drupal\openy_myy\PluginManager\MyYDataProfile $myYDataProfile
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \Drupal\personify\PersonifySSO $personifySSO
    */
   public function __construct(
     array $configuration,
@@ -52,12 +59,14 @@ class MyYProfileGuestPasses extends ResourceBase {
     array $serializer_formats,
     LoggerInterface $logger,
     MyYDataProfile $myYDataProfile,
-    ConfigFactoryInterface $configFactory
+    ConfigFactoryInterface $configFactory,
+    PersonifySSO $personifySSO
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->config = $configFactory->get('openy_myy.settings');
     $this->myYDataProfile = $myYDataProfile;
+    $this->personifySSO = $personifySSO;
   }
 
   /**
@@ -71,7 +80,8 @@ class MyYProfileGuestPasses extends ResourceBase {
       $container->getParameter('serializer.formats'),
       $container->get('logger.factory')->get('openy_myy_data_profile'),
       $container->get('plugin.manager.myy_data_profile'),
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('personify.sso_client')
     );
   }
 
@@ -85,7 +95,8 @@ class MyYProfileGuestPasses extends ResourceBase {
     $myy_authenticator_instances = $this->myYDataProfile->getDefinitions();
     if (array_key_exists($myy_config['myy_data_profile'], $myy_authenticator_instances)) {
 
-      $cid = 'myy_data_profile_guest_passes:' . $_SESSION['personify_id'];
+      $id = $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
+      $cid = 'myy_data_profile_guest_passes:' . $id;
 
       if ($cache = \Drupal::cache()->get($cid)) {
         $response = $cache->data;

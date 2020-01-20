@@ -150,9 +150,6 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
           'personify_time' => REQUEST_TIME,
         ]);
 
-        //@TODO remove after token problem fix.
-        $_SESSION['personify_id'] = $id;
-
         $this->logger->info('A user logged in via Personify.');
 
       }
@@ -177,8 +174,8 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
    */
   public function logoutPage() {
 
-    //@TODO remove after token problem fix.
-    unset($_SESSION['personify_id']);
+    user_cookie_delete('personify_authorized');
+    user_cookie_delete('personify_time');
 
     return new TrustedRedirectResponse('/');
 
