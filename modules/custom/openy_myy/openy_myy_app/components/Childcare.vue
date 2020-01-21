@@ -65,29 +65,47 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-          <div class="myy-modal__modal--header">
-            <h3>Confirm</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
-          </div>
+          <div v-if="cancelPopup.denyCancel">
+            <div class="myy-modal__modal--header">
+              <h3>Cancel</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
 
-          <div class="myy-modal__modal--body">
-            <div class="col-myy-sm-12">
-              <p class="text-center"> Are you sure you want to cancel the following session?</p>
-              <div class="info row">
-                <div class="col-myy-sm-2">
-                  <span class="rounded_letter small black">X</span>
-                </div>
-                <div class="col-myy-sm-10">
-                  <p class="program_name"><strong>{{ cancelPopup.program_name }}</strong>
-                  <p class="date"><strong>{{ cancelPopup.order_date }}</strong></p>
-                  <p class="type">{{ cancelPopup.type }}</p>
-                  <p class="location">{{ cancelPopup.branch_id }}</p>
-                </div>
+            <div class="myy-modal__modal--body">
+              <div class="col-myy-sm-12">
+                <p class="text-center">
+                  Cancellation of all days of <strong>{{ cancelPopup.content.program_name }}</strong> cannot be completed online.
+                  Please contact our Customer Service Center at 612-230-9622 for assistance with your cancellation.
+                </p>
               </div>
             </div>
-            <div class="col-myy-sm-12 actions">
-              <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">NO, KEEP IT</button>
-              <button type="button" class="btn btn-primary text-uppercase cancel-action" data-dismiss="modal" @click="cancel(cancelPopup.order_number)">YES, CANCEL</button>
+          </div>
+
+          <div v-else>
+            <div class="myy-modal__modal--header">
+              <h3>Confirm</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="myy-modal__modal--body">
+              <div class="col-myy-sm-12">
+                <p class="text-center"> Are you sure you want to cancel the following session?</p>
+                <div class="info row">
+                  <div class="col-myy-sm-2">
+                    <span class="rounded_letter small black">X</span>
+                  </div>
+                  <div class="col-myy-sm-10">
+                    <p class="program_name"><strong>{{ cancelPopup.content.program_name }}</strong>
+                    <p class="date"><strong>{{ cancelPopup.content.order_date }}</strong></p>
+                    <p class="type">{{ cancelPopup.content.type }}</p>
+                    <p class="location">{{ cancelPopup.content.branch_id }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-myy-sm-12 actions">
+                <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">NO, KEEP IT</button>
+                <button type="button" class="btn btn-primary text-uppercase cancel-action" data-dismiss="modal" @click="cancel(cancelPopup.content.order_number)">YES, CANCEL</button>
+              </div>
             </div>
           </div>
         </div>
@@ -107,7 +125,10 @@
         baseUrl: '/',
         childcare_purchase_link_title: '',
         childcare_purchase_link_url: '',
-        cancelPopup: {},
+        cancelPopup: {
+          denyCancel: false,
+          content: {}
+        },
       }
     },
     methods: {
@@ -141,7 +162,11 @@
         });
       },
       populatePopupCancel: function(index) {
-        this.cancelPopup = this.data[index];
+        // Check if there only 1 item so user doesn't allow to cancel it.
+        if (this.data.length == 1) {
+          this.cancelPopup.denyCancel = true;
+        }
+        this.cancelPopup.content = this.data[index];
       },
     },
     mounted: function() {
@@ -253,6 +278,7 @@
     .text-center {
       font-size: 12px;
       line-height: 18px;
+      margin: 10px 0;
     }
     .info {
       background-color: #f2f2f2;
