@@ -17,7 +17,7 @@ use Drupal\rest\ResourceResponse;
  *   id = "myy_childcare_session_cancel",
  *   label = @Translation("Cancel sessions for childcare product"),
  *   uri_paths = {
- *     "canonical" = "/myy-model/data/childcare/session-cancel/{order_id}/{dates}"
+ *     "canonical" = "/myy-model/data/childcare/session-cancel/{order_id}/{date}/{type}"
  *   }
  * )
  */
@@ -74,7 +74,7 @@ class MyYChildcareSessionCancel extends ResourceBase {
     );
   }
 
-  public function get($order_id, $dates) {
+  public function get($order_id, $date, $type) {
 
     /**
      * @TODO Add check that order is connected to this user
@@ -87,7 +87,7 @@ class MyYChildcareSessionCancel extends ResourceBase {
       $response = $this
         ->myYDataChildcare
         ->createInstance($myy_config['myy_data_childcare'])
-        ->cancelChildcareSessions($order_id, $dates);
+        ->cancelChildcareSessions($order_id, $date, $type);
     } else {
       return new NotFoundHttpException();
     }
