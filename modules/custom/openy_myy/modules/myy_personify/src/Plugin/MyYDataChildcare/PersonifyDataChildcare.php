@@ -95,7 +95,6 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
     $personifyID = $this->personifyUserHelper->personifyGetId();
 
-    //@TODO Change to real data parameters
     $body = "<StoredProcedureRequest>
     <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS</StoredProcedureName>
     <SPParameterList>
@@ -105,11 +104,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@startDate</Name>
-            <Value>2019-08-26 00:00:00.000</Value>
+            <Value>$start_date 00:00:00.000</Value>
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@endDate</Name>
-            <Value>2019-09-30 00:00:00.000</Value>
+            <Value>$end_date 00:00:00.000</Value>
         </StoredProcedureParameter>
     </SPParameterList>
     </StoredProcedureRequest>";
@@ -117,9 +116,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     $result = [];
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+
     $results = json_decode($data['Data'], TRUE);
     if (!empty($results['Table'])) {
        foreach ($results['Table'] as $childcare_item) {
+         $order_date = new \DateTime($childcare_item['order_date']);
          $result[] = [
            'order_number' => $childcare_item['order_number'],
            'usr_day' => $childcare_item['usr_day'],
@@ -132,7 +133,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
            'program_code' => $childcare_item['pcode'],
            'product_id' => $childcare_item['pid'],
            'branch_id' => $childcare_item['branch_id'],
-           'child_id' => $childcare_item['prtcpnt_id']
+           'child_id' => $childcare_item['prtcpnt_id'],
+           'date' => $order_date->format('Y-m-d')
          ];
        }
     }
@@ -143,14 +145,20 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
   /**
    * {@inheritdoc}
    */
-  public function getChildcareScheduledEvents($start_date, $end_date) {
+  public function getChildcareScheduledEvents() {
 
-    $items = $this->getChildcareEvents($start_date, $end_date);
+    $start_date_string = '2019-08-01';
+    //$start_date_string = date('Y-m-d');
+    $start_date  = new \DateTime($start_date_string);
+
+    $end_date = $start_date->modify('+6 months');
+
+    $items = $this->getChildcareEvents($start_date_string, $end_date->format('Y-m-d'));
 
     $result = [];
 
     foreach ($items as $item) {
-      if (($item['attended'] == 'N') && ($item['scheduled'] == 'Y')) {
+      if (($item['attended'] == 'N')) {
         $result[] = $item;
       }
     }
@@ -161,13 +169,13 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
   /**
    * {@inheritdoc}
    */
-  public function cancelChildcareSessions($order_id, $dates) {
+  public function cancelChildcareSessions($order_id, $date, $type) {
 
     $personifyID = $this->personifyUserHelper->personifyGetId();
 
     $body = '
     <StoredProcedureRequest>
-    <StoredProcedureName>OPENY_GET_ORDERS_BY_CUSTOMER_IDS</StoredProcedureName>
+    <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS_UPDATE</StoredProcedureName>
     <SPParameterList>
         <StoredProcedureParameter>
             <Name>@ids</Name>
@@ -175,11 +183,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@ordDate</Name>
-            <Value>' . $dates[0] . '</Value>
+            <Value>' . $date . '</Value>
         </StoredProcedureParameter>
         <StoredProcedureParameter>
             <Name>@stype</Name>
-            <Value>AM</Value>
+            <Value>' . $type . '</Value>
         </StoredProcedureParameter>
         <StoredProcedureParameter>
             <Name>@state</Name>
@@ -188,6 +196,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     </SPParameterList>
 </StoredProcedureRequest>
     ';
+
 
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
     $results = json_decode($data['Data'], TRUE);
@@ -199,5 +208,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function addChildcareSessions($order_id, $data) {
+    return [];
+  }
 
 }
