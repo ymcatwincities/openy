@@ -275,7 +275,7 @@ class PersonifyDataProfile extends PluginBase implements MyYDataProfileInterface
     $available = isset($results['Table'][0]['USR_Y_TOTAL_GUEST_PASS_COUNT']) ? $results['Table'][0]['USR_Y_TOTAL_GUEST_PASS_COUNT'] : 0;
     $used = isset($results['Table'][0]['USR_GUEST_PASSED_USED']) ? $results['Table'][0]['USR_GUEST_PASSED_USED'] : 0;
     return [
-      'available' => $available,
+      'available' => ($available-$used),
       'used' => $used,
     ];
   }

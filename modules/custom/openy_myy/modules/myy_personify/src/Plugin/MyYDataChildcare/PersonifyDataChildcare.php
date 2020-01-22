@@ -194,7 +194,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
    */
   private function updateChildCareData($data) {
     $personifyID = $this->personifyUserHelper->personifyGetId();
- 
+
     $body = '
     <StoredProcedureRequest>
     <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS_UPDATE</StoredProcedureName>
