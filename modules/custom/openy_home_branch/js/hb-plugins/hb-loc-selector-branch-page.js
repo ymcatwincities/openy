@@ -43,7 +43,7 @@
       },
       handleChangeLink: function () {
         $('.hb-branch-selector-change').on('click', function () {
-          Drupal.homeBranch.showModal();
+          Drupal.homeBranch.showModal(true);
           return false;
         });
       },
