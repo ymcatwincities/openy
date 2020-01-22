@@ -17,7 +17,7 @@ use Drupal\rest\ResourceResponse;
  *   id = "myy_childcare_sessions_add",
  *   label = @Translation("Add sessions for childcare product"),
  *   uri_paths = {
- *     "canonical" = "/myy-model/data/childcare/session-add/{order_id}/{data}"
+ *     "canonical" = "/myy-model/data/childcare/session-add/{data}"
  *   }
  * )
  */
@@ -77,7 +77,7 @@ class MyYChildcareSessionsAdd extends ResourceBase {
   /**
    * {@inheritdoc}
    */
-  public function get($order_id, $data) {
+  public function get($data) {
 
     $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myYDataChildcare->getDefinitions();
@@ -86,7 +86,7 @@ class MyYChildcareSessionsAdd extends ResourceBase {
       $response = $this
         ->myYDataChildcare
         ->createInstance($myy_config['myy_data_childcare'])
-        ->addChildcareSessions($order_id, $data);
+        ->addChildcareSessions($data);
     } else {
       return new NotFoundHttpException();
     }

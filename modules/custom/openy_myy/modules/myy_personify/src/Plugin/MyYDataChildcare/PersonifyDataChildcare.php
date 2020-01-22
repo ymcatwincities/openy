@@ -169,41 +169,66 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
   /**
    * {@inheritdoc}
    */
-  public function cancelChildcareSessions($order_id, $date, $type) {
+  public function cancelChildcareSessions($date, $type) {
 
+    $result = $this->updateChildCareData([
+      'date' => $date,
+      'type' => $type,
+      'value' => 'N'
+    ]);
+
+    if ($result['sflag'] == 'N') {
+      return [
+        'status' => 'ok',
+      ];
+    } else {
+      return [
+        'status' => 'fail'
+      ];
+    }
+
+  }
+
+  /**
+   * @param $data
+   */
+  private function updateChildCareData($data) {
     $personifyID = $this->personifyUserHelper->personifyGetId();
-
+ 
     $body = '
     <StoredProcedureRequest>
     <StoredProcedureName>OPENY_GET_MYY_CHILDCARE_SESSIONS_UPDATE</StoredProcedureName>
     <SPParameterList>
         <StoredProcedureParameter>
-            <Name>@ids</Name>
+            <Name>@id</Name>
             <Value>' . $personifyID . '</Value>
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@ordDate</Name>
-            <Value>' . $date . '</Value>
+            <Value>' . $data['date'] . '</Value>
         </StoredProcedureParameter>
         <StoredProcedureParameter>
             <Name>@stype</Name>
-            <Value>' . $type . '</Value>
+            <Value>' . $data['type'] . '</Value>
         </StoredProcedureParameter>
         <StoredProcedureParameter>
             <Name>@state</Name>
-            <Value>N</Value>
+            <Value>' . $data['value'] .'</Value>
         </StoredProcedureParameter>
     </SPParameterList>
 </StoredProcedureRequest>
     ';
 
+    $result = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
+    $results = json_decode($result['Data'], TRUE);
 
-    $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
-    $results = json_decode($data['Data'], TRUE);
-    if ($results['Table']['sflag'] == 'N') {
-      return 'OK';
+    if (isset($results['Table'][0])) {
+      return $results['Table'][0];
     } else {
-      return 'FAIL';
+      return [
+        'error' => 1,
+        'data' => $data
+      ];
     }
 
   }
@@ -211,8 +236,22 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
   /**
    * {@inheritdoc}
    */
-  public function addChildcareSessions($order_id, $data) {
-    return [];
+  public function addChildcareSessions($data) {
+    $chunks = explode(',', $data);
+    $result = [];
+    foreach ($chunks as $chunk) {
+      $info = explode(' ', $chunk);
+      $data = [
+        'date' => $info[0],
+        'type' => $info[1],
+        'value' => $info[2]
+      ];
+
+      $result[] = $this->updateChildCareData($data);
+
+    }
+
+    return $result;
   }
 
 }
