@@ -435,9 +435,19 @@
         $('.schedule-dashboard__modal--instructor')
           .on('shown.bs.modal', function () {
             $('.nav-global').addClass('hidden-xs');
+            $('body').addClass('scroll-not');
           })
           .on('hidden.bs.modal', function () {
             $('.nav-global').removeClass('hidden-xs');
+            $('body').removeClass('scroll-not');
+          });
+
+        $('.schedule-dashboard__modal--class')
+          .on('shown.bs.modal', function () {
+            $('body').addClass('scroll-not');
+          })
+          .on('hidden.bs.modal', function () {
+            $('body').removeClass('scroll-not');
           });
 
         var bySessionUrl = drupalSettings.path.baseUrl + 'schedules/get-event-data-by-session/';
