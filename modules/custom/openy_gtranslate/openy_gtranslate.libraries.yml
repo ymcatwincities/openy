@@ -1,7 +1,8 @@
 translate:
-  version: 8.0.1
+  version: 8.0.2
   js:
     js/openy_gtranslate.js: {}
+    //translate.google.com/translate_a/element.js?cb=googleTranslateElementInit: { type: external, minified: true, attributes: { defer: true, async: true }}
   dependencies:
     - core/jquery
     - core/drupal
