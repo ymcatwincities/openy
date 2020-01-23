@@ -1,162 +1,226 @@
 <template>
-  <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
-  <section v-else class="myy-childcare">
-    <div class="row title-area">
-      <div class="col-myy-sm-6">
-        <h2>Childcare</h2>
+  <section class="myy-childcare">
+    <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
+    <div v-else>
+      <div class="row title-area">
+        <div class="col-myy-sm-6">
+          <h2>Childcare</h2>
+        </div>
+        <div class="col-myy-sm-6 text-right">
+         <a :href="childcare_purchase_link_url" class="btn btn-primary text-uppercase">{{ childcare_purchase_link_title }} <i class="fa fa-external-link-square"></i></a>
+        </div>
       </div>
-      <div class="col-myy-sm-6 text-right">
-       <a :href="childcare_purchase_link_url" class="btn btn-primary text-uppercase">{{ childcare_purchase_link_title }} <i class="fa fa-external-link-square"></i></a>
+      <div class="row headline" v-if="data.length > 0">
+        <div class="col-myy-sm-6">
+          <h4>Upcoming events</h4>
+        </div>
+        <div class="col-myy-sm-6 text-right">
+          <a href="#" class="view_all">View all</a> | <a href="#" class="purchases">Purchases</a>
+        </div>
       </div>
-    </div>
-    <div class="row headline">
-      <div class="col-myy-sm-6">
-        <h4>Upcoming events</h4>
+      <div v-else>
+        <p>You have not purchased any childcare sessions.</p>
       </div>
-      <div class="col-myy-sm-6 text-right">
-        <a href="#" class="view_all">View all</a> | <a href="#" class="purchases">Purchases</a>
-      </div>
-    </div>
 
-    <div class="row content">
-      <div class="col-myy-sm-12">
-        <div class="event_row">
-          <div class="event_head row">
-            <div class="col-myy-sm-1">
-              <span class="rounded_letter small blue">J</span>
+      <div class="row content" v-if="data.length > 0">
+        <div class="col-myy-sm-12">
+          <div class="event_row">
+            <div class="event_head row">
+              <div class="col-myy-sm-1">
+                <span class="rounded_letter small blue">J</span>
+              </div>
+              <div class="col-myy-sm-5">
+                <div class="program_name"><strong>{{ data[0].program_name }}</strong></div>
+                {{ data[0].branch_id }}
+              </div>
+              <div class="col-myy-sm-3">
+                <div class="date"><strong>Dec 12-Dec 19</strong></div>
+                <span class="weekdays">Mon - Fri</span>
+              </div>
+              <div class="col-myy-sm-3 text-right">
+                <!--<a href="#" class="cancel"><strong>Cancel all</strong></a>-->
+              </div>
             </div>
-            <div class="col-myy-sm-5">
-              <div class="program_name" v-if="data.length > 0"><strong>{{ data[0].program_name }}</strong></div>
-              {{ data[0].branch_id }}
+            <div v-for="(item, index) in data" v-bind:key="index" class="event_item row">
+              <div class="col-myy-sm-1 no-padding-left text-center">
+                <i class="fa fa-calendar-check-o"></i>
+              </div>
+              <div class="col-myy-sm-5 no-padding-left">
+                <span class="date">{{ item.usr_day }}, {{ item.order_date }}</span>
+              </div>
+              <div class="col-myy-sm-3">
+                <span class="duration">{{ item.type }}</span>
+              </div>
+              <div class="col-myy-sm-3 text-right no-padding-right">
+                <a class="myy-modal__modal--myy-cancel-link cancel" role="button" href="#" v-on:click="populatePopupCancel(index)" data-toggle="modal" data-target=".myy-modal__modal--myy-cancel"><strong>Cancel</strong></a>
+              </div>
             </div>
-            <div class="col-myy-sm-3">
-              <div class="date"><strong>Dec 12-Dec 19</strong></div>
-              <span class="weekdays">Mon - Fri</span>
-            </div>
-            <div class="col-myy-sm-3 text-right">
-              <!--<a href="#" class="cancel"><strong>Cancel all</strong></a>-->
-            </div>
-          </div>
-          <div v-for="(item, index) in data" v-bind:key="index" class="event_item row">
-            <div class="col-myy-sm-1 no-padding-left text-center">
-              <i class="fa fa-calendar-check-o"></i>
-            </div>
-            <div class="col-myy-sm-5 no-padding-left">
-              <span class="date">{{ item.usr_day }}, {{ item.order_date }}</span>
-            </div>
-            <div class="col-myy-sm-3">
-              <span class="duration">{{ item.type }}</span>
-            </div>
-            <div class="col-myy-sm-3 text-right no-padding-right">
-              <a class="myy-modal__modal--myy-cancel-link cancel" role="button" href="#" v-on:click="populatePopupCancel(index)" data-toggle="modal" data-target=".myy-modal__modal--myy-cancel"><strong>Cancel</strong></a>
-            </div>
-          </div>
-          <div class="event_add_item row">
-            <div class="col-myy-sm-12">
-              <i class="fa blue fa-calendar-plus-o"></i>
-              <a class="myy-modal__modal--myy-additem-link additem" role="button" href="#" v-on:click="populatePopupAdditem" data-toggle="modal" data-target=".myy-modal__modal--myy-additem"><strong>Add Item</strong></a>
+            <div class="event_add_item row">
+              <div class="col-myy-sm-12">
+                <i class="fa blue fa-calendar-plus-o"></i>
+                <a class="myy-modal__modal--myy-additem-link additem" role="button" href="#" v-on:click="populatePopupAdditem" data-toggle="modal" data-target=".myy-modal__modal--myy-additem"><strong>Add Item</strong></a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!--modal > cancel -->
-    <div class="modal fade myy-modal__modal myy-modal__modal--myy-cancel" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-cancel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
+      <!--modal > cancel -->
+      <div class="modal fade myy-modal__modal myy-modal__modal--myy-cancel" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-cancel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
 
-          <div v-if="cancelPopup.denyCancel">
-            <div class="myy-modal__modal--header">
-              <h3>Cancel</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <div v-if="cancelPopup.denyCancel">
+              <div class="myy-modal__modal--header">
+                <h3>Cancel</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+
+              <div class="myy-modal__modal--body">
+                <div class="col-myy-sm-12">
+                  <p class="text-center">
+                    Cancellation of all days of <strong>{{ cancelPopup.content.program_name }}</strong> cannot be completed online.
+                    Please contact our Customer Service Center at 612-230-9622 for assistance with your cancellation.
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <div class="myy-modal__modal--body">
-              <div class="col-myy-sm-12">
-                <p class="text-center">
-                  Cancellation of all days of <strong>{{ cancelPopup.content.program_name }}</strong> cannot be completed online.
-                  Please contact our Customer Service Center at 612-230-9622 for assistance with your cancellation.
-                </p>
+            <div v-else>
+              <div class="myy-modal__modal--header">
+                <h3>Confirm</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+              </div>
+
+              <div class="myy-modal__modal--body">
+                <div class="col-myy-sm-12">
+                  <p class="text-center"> Are you sure you want to cancel the following session?</p>
+                  <div class="info row">
+                    <div class="col-myy-sm-2">
+                      <span class="rounded_letter small black">X</span>
+                    </div>
+                    <div class="col-myy-sm-10">
+                      <p class="program_name"><strong>{{ cancelPopup.content.program_name }}</strong>
+                      <p class="date"><strong>{{ cancelPopup.content.order_date }}</strong></p>
+                      <p class="type">{{ cancelPopup.content.type }}</p>
+                      <p class="location">{{ cancelPopup.content.branch_id }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-myy-sm-12 actions">
+                  <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">NO, KEEP IT</button>
+                  <button type="button" class="btn btn-primary text-uppercase cancel-action" data-dismiss="modal" @click="cancel(cancelPopup.content.date, cancelPopup.content.type)">YES, CANCEL</button>
+                </div>
               </div>
             </div>
           </div>
 
-          <div v-else>
+        </div>
+      </div>
+
+      <!--modal > add item -->
+      <div class="modal fade myy-modal__modal myy-modal__modal--myy-additem" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-additem">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+
             <div class="myy-modal__modal--header">
-              <h3>Confirm</h3>
+              <h3>Add Item</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
             </div>
 
-            <div class="myy-modal__modal--body">
+            <div v-if="addItemPopup.content.length > 0" class="myy-modal__modal--body">
               <div class="col-myy-sm-12">
-                <p class="text-center"> Are you sure you want to cancel the following session?</p>
-                <div class="info row">
-                  <div class="col-myy-sm-2">
-                    <span class="rounded_letter small black">X</span>
+                <div class="event_row">
+                  <div class="event_head row">
+                    <div class="col-myy-sm-2">
+                      <span class="rounded_letter small blue">J</span>
+                    </div>
+                    <div class="col-myy-sm-10">
+                      <div class="program_name" v-if="addItemPopup.content.length > 0"><strong>{{ addItemPopup.content[0].program_name }}</strong></div>
+                      {{ addItemPopup.content[0].branch_id }}
+                      <div class="date"><strong>Dec 12-Dec 19</strong></div>
+                      <span class="weekdays">Mon - Fri</span>
+                    </div>
                   </div>
-                  <div class="col-myy-sm-10">
-                    <p class="program_name"><strong>{{ cancelPopup.content.program_name }}</strong>
-                    <p class="date"><strong>{{ cancelPopup.content.order_date }}</strong></p>
-                    <p class="type">{{ cancelPopup.content.type }}</p>
-                    <p class="location">{{ cancelPopup.content.branch_id }}</p>
+                  <div v-for="(item, index) in addItemPopup.content" v-bind:key="index" class="event_item row">
+                    <div class="col-myy-sm-2 no-padding-left text-center">
+                      <input type="checkbox" v-bind:checked="item.scheduled == 'Y'" v-model="addItemChecked" :value="item.date + '+' + item.type" :id="'checkbox-' + item.date + '+' + item.type" />
+                    </div>
+                    <div class="col-myy-sm-10 no-padding-left">
+                      <div class="date">{{ item.usr_day }}, {{ item.order_date }}</div>
+                      <div class="duration">{{ item.type }}</div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col-myy-sm-12 actions">
-                <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">NO, KEEP IT</button>
-                <button type="button" class="btn btn-primary text-uppercase cancel-action" data-dismiss="modal" @click="cancel(cancelPopup.content.date, cancelPopup.content.type)">YES, CANCEL</button>
+                <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn-primary text-uppercase additem-action" :disabled="addItemPopup.disableScheduleButton" data-dismiss="modal" @click="scheduleItems()">Schedule</button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 
-    <!--modal > add item -->
-    <div class="modal fade myy-modal__modal myy-modal__modal--myy-additem" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-additem">
+    <!--modal > cancel ok -->
+    <div class="modal fade myy-modal__modal myy-modal__modal--myy-cancel-ok" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-cancel-ok">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-
           <div class="myy-modal__modal--header">
-            <h3>Add Item</h3>
+            <h3>Message</h3>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
           </div>
 
-          <div v-if="addItemPopup.content.length > 0" class="myy-modal__modal--body">
+          <div class="myy-modal__modal--body">
             <div class="col-myy-sm-12">
-              <div class="event_row">
-                <div class="event_head row">
-                  <div class="col-myy-sm-2">
-                    <span class="rounded_letter small blue">J</span>
-                  </div>
-                  <div class="col-myy-sm-10">
-                    <div class="program_name" v-if="addItemPopup.content.length > 0"><strong>{{ addItemPopup.content[0].program_name }}</strong></div>
-                    {{ addItemPopup.content[0].branch_id }}
-                    <div class="date"><strong>Dec 12-Dec 19</strong></div>
-                    <span class="weekdays">Mon - Fri</span>
-                  </div>
-                </div>
-                <div v-for="(item, index) in addItemPopup.content" v-bind:key="index" class="event_item row">
-                  <div class="col-myy-sm-2 no-padding-left text-center">
-                    <input type="checkbox" v-bind:checked="item.scheduled == 'Y'" v-model="addItemChecked" :value="item.date + '+' + item.type" :id="'checkbox-' + item.date + '+' + item.type" />
-                  </div>
-                  <div class="col-myy-sm-10 no-padding-left">
-                    <div class="date">{{ item.usr_day }}, {{ item.order_date }}</div>
-                    <div class="duration">{{ item.type }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-myy-sm-12 actions">
-              <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">Cancel</button>
-              <button type="button" class="btn btn-primary text-uppercase additem-action" :disabled="addItemPopup.disableScheduleButton" data-dismiss="modal" @click="scheduleItems()">Schedule</button>
+              <p class="text-center">
+                You've successfully canceled a session.
+              </p>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
+    <!--modal > cancel fail -->
+    <div class="modal fade myy-modal__modal myy-modal__modal--myy-cancel-fail" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-cancel-fail">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="myy-modal__modal--header">
+            <h3>Error</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+          </div>
+
+          <div class="myy-modal__modal--body">
+            <div class="col-myy-sm-12">
+              <p class="text-center">
+                Something went wrong.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--modal > add item ok -->
+    <div class="modal fade myy-modal__modal myy-modal__modal--myy-add-item-ok" tabindex="-1" role="dialog" aria-labelledby="myy-modal__modal--myy-add-item-ok">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="myy-modal__modal--header">
+            <h3>Message</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
+          </div>
+
+          <div class="myy-modal__modal--body">
+            <div class="col-myy-sm-12">
+              <p class="text-center">
+                You've successfully updated the schedule.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </section>
@@ -210,16 +274,17 @@
             withCredentials: true
           }
         }).done(function(data) {
+          component.runAjaxRequest();
           if (typeof data.status !== 'undefined') {
             if (data.status == 'ok') {
-              //@todo: show modal window with ok message.
+              // Show modal window with ok message.
+              jQuery('.myy-modal__modal--myy-cancel-ok').modal();
             }
             if (data.status == 'fail') {
-              //@todo: show modal window with error.
+              // Show modal window with fail message.
+              jQuery('.myy-modal__modal--myy-cancel-fail').modal();
             }
           }
-          component.loading = false;
-          component.runAjaxRequest();
         });
       },
       scheduleItems: function() {
@@ -249,11 +314,15 @@
             withCredentials: true
           }
         }).done(function(data) {
-          if (typeof data[0].error !== 'undefined') {
-            //@todo: show modal window with error.
-          }
-          component.loading = false;
           component.runAjaxRequest();
+          if (typeof data[0].error !== 'undefined') {
+            // Show modal window with fail message.
+            jQuery('.myy-modal__modal--myy-cancel-fail').modal();
+          }
+          else {
+            // Show modal window with ok message.
+            jQuery('.myy-modal__modal--myy-add-item-ok').modal();
+          }
         });
       },
       populatePopupCancel: function(index) {
@@ -390,11 +459,6 @@
     }
   }
   .myy-modal__modal--myy-cancel {
-    .text-center {
-      font-size: 12px;
-      line-height: 18px;
-      margin: 10px 0;
-    }
     .info {
       background-color: #f2f2f2;
       margin: 0;

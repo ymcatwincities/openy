@@ -73,6 +73,13 @@ $container-max-widths: (
       }
     }
   }
+  &__body {
+    .text-center {
+      font-size: 12px;
+      line-height: 18px;
+      margin: 10px 0;
+    }
+  }
 }
 
 // Remove delay before loading animation rendering.
