@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains module routines.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_google_search_theme($existing, $type, $theme, $path) {
+  return [
+    'openy_google_search' => [],
+  ];
+}
