@@ -41,7 +41,8 @@
                 <!--<a href="#" class="cancel"><strong>Cancel all</strong></a>-->
               </div>
             </div>
-            <div v-for="(item, index) in data" v-bind:key="index" class="event_item row">
+            <div v-for="(item, index) in data" v-bind:key="index">
+              <div v-if="item.scheduled == 'Y'" class="event_item row">
               <div class="col-myy-sm-1 no-padding-left text-center">
                 <i class="fa fa-calendar-check-o"></i>
               </div>
@@ -53,6 +54,7 @@
               </div>
               <div class="col-myy-sm-3 text-right no-padding-right">
                 <a class="myy-modal__modal--myy-cancel-link cancel" role="button" href="#" v-on:click="populatePopupCancel(index)" data-toggle="modal" data-target=".myy-modal__modal--myy-cancel"><strong>Cancel</strong></a>
+              </div>
               </div>
             </div>
             <div class="event_add_item row">
