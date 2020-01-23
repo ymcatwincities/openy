@@ -454,3 +454,29 @@ function openy_rose_preprocess_links(&$variables) {
     }
   }
 }
+
+/**
+ * Implements template_preprocess_input__image_button().
+ */
+function openy_rose_preprocess_input__image_button(&$variables) {
+  $path = drupal_get_path('theme', 'openy_rose') . '/img/geysir/';
+  $geySirIconsMap = [
+    '1 column' => $path . '1-column.svg',
+    '2 columns' => $path . '2-column.svg',
+    '3 columns' => $path . '3-column.svg',
+    '4 columns' => $path . '4-column.svg',
+    'Banner' => $path . 'banner.svg',
+    'FAQ' => $path . 'faq.svg',
+    'Gallery' => $path . 'gallery.svg',
+    'Grid Content' => $path . 'grid-content.svg',
+    'Promo Card' => $path . 'promo-card.svg',
+    'Secondary Description and Sidebar' => $path . 'secondary-description.svg',
+    'Simple content' => $path . 'simple-content.svg',
+    'Story Card' => $path . 'story-card.svg',
+    'Teaser' => $path . 'teaser.svg',
+    'Small Banner' => $path . 'small-banner.svg',
+  ];
+  if (!empty($geySirIconsMap[$variables['attributes']['value']])) {
+    $variables['attributes']['src'] = $geySirIconsMap[$variables['attributes']['value']];
+  }
+}
