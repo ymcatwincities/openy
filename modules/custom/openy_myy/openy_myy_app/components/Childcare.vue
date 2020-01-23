@@ -105,7 +105,7 @@
               </div>
               <div class="col-myy-sm-12 actions">
                 <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">NO, KEEP IT</button>
-                <button type="button" class="btn btn-primary text-uppercase cancel-action" data-dismiss="modal" @click="cancel(cancelPopup.content.order_number, cancelPopup.content.date)">YES, CANCEL</button>
+                <button type="button" class="btn btn-primary text-uppercase cancel-action" data-dismiss="modal" @click="cancel(cancelPopup.content.date, cancelPopup.content.type)">YES, CANCEL</button>
               </div>
             </div>
           </div>
@@ -139,8 +139,8 @@
                   </div>
                 </div>
                 <div v-for="(item, index) in addItemPopup.content" v-bind:key="index" class="event_item row">
-                  <div class="col-myy-sm-2 no-padding-left text-center"><!--v-model="checked"--> <!--:value="getOption(checkbox)"-->
-                    <input type="checkbox" v-bind:checked="item.scheduled == 'Y'" v-model="addItemChecked" :value="item.order_number + '_' + item.date + '+' + item.type" :id="'checkbox-' + item.order_number + '_' + item.date + '+' + item.type" />
+                  <div class="col-myy-sm-2 no-padding-left text-center">
+                    <input type="checkbox" v-bind:checked="item.scheduled == 'Y'" v-model="addItemChecked" :value="item.date + '+' + item.type" :id="'checkbox-' + item.date + '+' + item.type" />
                   </div>
                   <div class="col-myy-sm-10 no-padding-left">
                     <div class="date">{{ item.usr_day }}, {{ item.order_date }}</div>
@@ -163,7 +163,6 @@
 </template>
 
 <script>
-  import split from "../../../../../../../../libraries/vue/test/ssr/fixtures/split";
 
   export default {
     data () {
@@ -200,9 +199,9 @@
           component.loading = false;
         });
       },
-      cancel: function(order, date) {
+      cancel: function(date, type) {
         let component = this;
-        let url = component.baseUrl + 'myy-model/data/childcare/session-cancel/' + order+ '/' + date;
+        let url = component.baseUrl + 'myy-model/data/childcare/session-cancel/' + date+ '/' + type;
 
         component.loading = true;
         jQuery.ajax({
@@ -211,7 +210,16 @@
             withCredentials: true
           }
         }).done(function(data) {
+          if (typeof data.status !== 'undefined') {
+            if (data.status == 'ok') {
+              //@todo: show modal window with ok message.
+            }
+            if (data.status == 'fail') {
+              //@todo: show modal window with error.
+            }
+          }
           component.loading = false;
+          component.runAjaxRequest();
         });
       },
       scheduleItems: function() {
@@ -219,7 +227,7 @@
 
         var newScheduled = {};
         for (var i in component.data) {
-          newScheduled[component.data[i].order_number + '_' + component.data[i].date + '+' + component.data[i].type] = 'N';
+          newScheduled[component.data[i].date + '+' + component.data[i].type] = 'N';
         }
         for (var j in newScheduled) {
           for (var k in component.addItemChecked) {
@@ -228,29 +236,25 @@
             }
           }
         }
-        var dataToSend = {};
+        var dataToSend = [];
         for (var l in newScheduled) {
-          var id = l.split('_')[0];
-          if (typeof dataToSend[id] == 'undefined') {
-            dataToSend[id] = '';
-          }
-          dataToSend[id] = dataToSend[id] + ',' + l.split('_')[1] + '+' + newScheduled[l];
+          dataToSend.push(l + '+' + newScheduled[l]);
         }
-        for (var order_id in dataToSend) {
-          let url = component.baseUrl + 'myy-model/childcare/additem/' + order_id + '}/' + dataToSend[order_id];
+        let url = component.baseUrl + 'myy-model/data/childcare/session-add/' + dataToSend.join(',');
 
-          component.loading = true;
-          jQuery.ajax({
-            url: url,
-            xhrFields: {
-              withCredentials: true
-            }
-          }).done(function(data) {
-          });
-        }
-        // @todo: Reload main content with runAjaxRequest??
-        component.loading = false;
-        component.runAjaxRequest();
+        component.loading = true;
+        jQuery.ajax({
+          url: url,
+          xhrFields: {
+            withCredentials: true
+          }
+        }).done(function(data) {
+          if (typeof data[0].error !== 'undefined') {
+            //@todo: show modal window with error.
+          }
+          component.loading = false;
+          component.runAjaxRequest();
+        });
       },
       populatePopupCancel: function(index) {
         // Check if there only 1 item so user doesn't allow to cancel it.
@@ -263,7 +267,7 @@
         if (this.addItemChecked.length === 0) {
           for (var i in this.data) {
             if (this.data[i].scheduled == 'Y') {
-              this.addItemChecked.push(this.data[i].order_number + '_' + this.data[i].date + '+' +this.data[i].type);
+              this.addItemChecked.push(this.data[i].date + '+' +this.data[i].type);
             }
           }
         }
