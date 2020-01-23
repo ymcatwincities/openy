@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.google_search.field_prgf_block
+    - paragraphs.paragraphs_type.google_search
+  module:
+    - plugin
+id: paragraph.google_search.default
+targetEntityType: paragraph
+bundle: google_search
+mode: default
+content:
+  field_prgf_block:
+    type: plugin_block_built
+    weight: 0
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  search_api_excerpt: true
+  uid: true
