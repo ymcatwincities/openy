@@ -147,11 +147,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
    */
   public function getChildcareScheduledEvents() {
 
-    $start_date_string = '2019-08-01';
-    //$start_date_string = date('Y-m-d');
+    $start_date_string = '2019-12-01';
+    $start_date_string = date('Y-m-d');
     $start_date  = new \DateTime($start_date_string);
 
-    $end_date = $start_date->modify('+6 months');
+    $end_date = $start_date->modify('+3 month');
 
     $items = $this->getChildcareEvents($start_date_string, $end_date->format('Y-m-d'));
 
