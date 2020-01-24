@@ -1240,13 +1240,18 @@
         }
         var filtered_locations = [];
         for (var i = 0; i < locations.length; i++) {
-          var loc = locations[i];
+          var loc = locations[i],
+              matched_amenities = 0;
           for (var j = 0; j < this.amenities_filters.length; j++) {
             var amenities_filter = this.amenities_filters[j];
             if ($.inArray(amenities_filter, loc.amenities) >= 0) {
-              filtered_locations.push(loc);
+              matched_amenities++;
               continue;  // If any tag matches, skip checking other tags
             }
+          }
+          // All selected tags should match.
+          if (matched_amenities === this.amenities_filters.length) {
+            filtered_locations.push(loc);
           }
         }
         return filtered_locations;
