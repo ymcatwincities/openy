@@ -1,18 +1,17 @@
-uuid: 32fa8958-20d7-41e0-9e7c-a5768bf6dfac
 langcode: en
 status: true
 dependencies:
   module:
     - openy_gtranslate
-id: openy_carnation_googletranslate
-theme: openy_carnation
-region: secondary_menu
-weight: 50
+id: openy_lily_gtranslate_mobile
+theme: openy_lily
+region: mobile_menu
+weight: 49
 provider: null
 plugin: openy_gtranslate_block
 settings:
   id: openy_gtranslate_block
-  label: 'OpenY Google Translate'
+  label: 'OpenY Google Translate (mobile)'
   provider: openy_gtranslate
   label_display: '0'
 visibility: {  }

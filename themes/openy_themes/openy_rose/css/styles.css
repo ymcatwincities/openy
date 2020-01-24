@@ -844,11 +844,6 @@ body {
   margin-left: 150px;
 }
 
-.translated-ltr .top-navs,
-.translated-rtl .top-navs {
-  margin-top: 39px;
-}
-
 .nav.dropdown-menu {
   background-color: #0060af;
   border: 1px solid #fff;
@@ -1004,6 +999,10 @@ body {
   .viewport .page-head__top-menu {
     padding-right: 15px;
   }
+}
+.viewport .page-head__top-menu > div {
+  display: flex;
+  align-items: center;
 }
 @media (min-width: 62em) {
   .viewport .page-head__top-menu > div > nav {
@@ -6208,9 +6207,23 @@ body .branch-popup + .ui-widget-overlay {
     width: 360px;
   }
 }
-.toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
-.two-column-fixed .affix-bottom {
-  top: 166px;
+@media (min-width: 48em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 150px;
+  }
+}
+@media (min-width: 62em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 186px;
+  }
+}
+@media (min-width: 75em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 196px;
+  }
 }
 
 .embedded-entity .media-image.view-mode-link {
@@ -7858,25 +7871,56 @@ article .node--view-mode-flexible-content h2 a span {
 
 .openy-gtranslate {
   display: inline-block;
-  vertical-align: bottom;
   height: 39px;
+  vertical-align: bottom;
 }
 
 .openy-google-translate select {
   background: transparent;
-  border: none;
-  max-width: 145px;
-  text-transform: uppercase;
+  border: 0;
   color: #fff;
   font-size: 12px;
   margin-top: 6px;
+  text-transform: uppercase;
 }
 .openy-google-translate select option {
   color: #636466;
 }
 
-.nav .language .openy-google-translate select {
-  margin-left: 10px;
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+.goog-te-gadget .goog-logo-link, .goog-te-gadget span {
+  display: none;
+}
+
+.translated-ltr body, .translated-rtl body {
+  top: 0 !important;
+}
+@media (min-width: 48em) {
+  .translated-ltr .top-navs, .translated-rtl .top-navs {
+    margin-top: 39px;
+  }
+}
+
+.goog-te-banner-frame {
+  display: none;
+}
+@media (min-width: 48em) {
+  .goog-te-banner-frame {
+    display: block;
+  }
+}
+
+@media (min-width: 48em) {
+  .sidebar .openy-google-translate {
+    display: none;
+  }
+}
+.sidebar .openy-google-translate select {
+  margin-left: -5px;
+  margin-top: 6px;
+  margin-bottom: 9px;
 }
 
 .paragraph-1c-wrapper {
