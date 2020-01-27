@@ -6,6 +6,7 @@ dependencies:
   module:
     - dropzonejs_eb_widget
     - media
+    - media_directories_ui
     - views
 name: images_library
 label: 'Images Library'

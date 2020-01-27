@@ -23,6 +23,7 @@ dependencies:
   - focal_point
   - image
   - media
+  - media_directories_ui
   - openy_focal_point
   - openy_media
   - openy_media_image
