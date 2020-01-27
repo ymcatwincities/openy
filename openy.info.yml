@@ -60,7 +60,6 @@ dependencies:
   - recaptcha
   - simple_menu_icons
   - twig_tweak
-  - media_directories
   # Open Y
   - advanced_help_block
   - openy_autocomplete_path

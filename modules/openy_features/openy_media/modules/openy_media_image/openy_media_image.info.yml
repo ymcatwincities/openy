@@ -30,5 +30,4 @@ dependencies:
   - taxonomy
   - user
   - views
-  - media_directories
 core_incompatible: false
