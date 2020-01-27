@@ -849,6 +849,40 @@ body {
   margin-top: 39px;
 }
 
+.header-search-wrapper {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+}
+.header-search-wrapper form {
+  position: relative;
+}
+.header-search-wrapper input.search-input {
+  height: 32px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding: 3px 20px 3px 10px;
+  position: absolute;
+  right: 0;
+  transition: width 400ms;
+  width: 180px;
+}
+.header-search-wrapper input.search-input:focus {
+  width: 633px;
+}
+@media (min-width: 75em) {
+  .header-search-wrapper input.search-input:focus {
+    width: 707px;
+  }
+}
+.header-search-wrapper .search-input-decoration {
+  top: 0;
+  right: 14px;
+}
+.header-search-wrapper input[type="submit"] {
+  display: none;
+}
+
 .nav.dropdown-menu {
   background-color: #0060af;
   border: 1px solid #fff;
@@ -6208,9 +6242,23 @@ body .branch-popup + .ui-widget-overlay {
     width: 360px;
   }
 }
-.toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
-.two-column-fixed .affix-bottom {
-  top: 166px;
+@media (min-width: 48em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 150px;
+  }
+}
+@media (min-width: 62em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 186px;
+  }
+}
+@media (min-width: 75em) {
+  .toolbar-fixed .two-column-fixed .affix, .toolbar-fixed
+  .two-column-fixed .affix-bottom {
+    top: 196px;
+  }
 }
 
 .embedded-entity .media-image.view-mode-link {
