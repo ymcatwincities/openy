@@ -325,7 +325,7 @@ function openy_rose_preprocess_page(array &$variables) {
   $variables['page']['secondary_menu']['search'] = [
     '#theme' => 'top_menu_search',
     '#base_path' => base_path(),
-    '#display_search' => isset($variables['display_search']) ? $variables['display_search'] : FALSE,
+    '#display_search' => $variables['display_search'] ?? FALSE,
   ];
 }
 
