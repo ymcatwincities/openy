@@ -13,3 +13,19 @@ function openy_google_search_theme($existing, $type, $theme, $path) {
     'openy_google_search' => [],
   ];
 }
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function openy_google_search_preprocess_page(&$variables) {
+  // Enable search form on page when module enabled.
+  $variables['display_search'] = TRUE;
+}
+
+/**
+ * Implements hook_preprocess_menu().
+ */
+function openy_google_search_preprocess_menu__account(&$variables) {
+  // Enable search form in account menu when module enabled.
+  $variables['display_search'] = TRUE;
+}
