@@ -6,19 +6,6 @@
  */
 
 /**
- * Implements hook_update_dependencies().
- */
-function openy_node_news_update_dependencies() {
-  $dependencies['openy_node_news'] = [
-    8006 => [
-      'openy_media_image' => 8011,
-    ],
-  ];
-
-  return $dependencies;
-}
-
-/**
  * Update config for the image style after focal point support was added.
  */
 function openy_node_news_update_8001() {
@@ -118,16 +105,4 @@ function openy_node_news_update_8005() {
       $config_updater->update($config, $config_name, $param);
     }
   }
-}
-
-/**
- * Update node news image field widget.
- */
-function openy_node_news_update_8006() {
-  $config_dir = drupal_get_path('module', 'openy_node_news') . '/config/install';
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'core.entity_form_display.node.news.default',
-  ]);
 }
