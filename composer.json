@@ -119,6 +119,18 @@
         {
             "type": "package",
             "package": {
+                "name": "library-vakata/jstree",
+                "version": "3.3.8",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/vakata/jstree/archive/3.3.8.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "vuejs/vue",
                 "version": "2.6.10",
                 "type": "drupal-library",
@@ -250,6 +262,7 @@
         "library-ckeditor/font": "4.12.1",
         "library-smonetti/btbutton": "1.0.2",
         "library-davekoelle/alphanum": "1.0.0",
+        "library-vakata/jstree": "^3.3",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
