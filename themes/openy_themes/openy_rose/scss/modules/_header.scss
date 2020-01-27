@@ -581,3 +581,41 @@
     margin-top: 39px;
   }
 }
+
+.header-search-wrapper {
+  display: inline-block;
+  vertical-align: top;
+  width: 200px;
+
+  form {
+    position: relative;
+  }
+
+  input.search-input {
+    height: 32px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding: 3px 20px 3px 10px;
+    position: absolute;
+    right: 0;
+    transition: width 400ms;
+    width: 180px;
+
+    &:focus {
+      width: 633px;
+
+      @include breakpoint($screen-lg-desktop) {
+        width: 707px;
+      }
+    }
+  }
+
+  .search-input-decoration {
+    top: 0;
+    right: 14px;
+  }
+
+  input[type="submit"] {
+    display: none;
+  }
+}

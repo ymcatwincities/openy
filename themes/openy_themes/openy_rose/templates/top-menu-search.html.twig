@@ -1,0 +1,21 @@
+{#
+/**
+/**
+ * @file
+ * Contains top menu site search form static template.
+ *
+ * Available variables:
+ * - base_path - the website's base path.
+ * - display_search - flag to enable display search.
+ */
+#}
+
+{% if display_search %}
+  <div class="header-search-wrapper">
+    <form method="get" action="{{ base_path }}search">
+      <input type="search" name="query" class="search-input" placeholder="Search">
+      <input type="submit" value="Search">
+      <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
+    </form>
+  </div>
+{% endif %}
