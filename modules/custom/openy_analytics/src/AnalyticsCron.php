@@ -6,6 +6,7 @@ use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\openy_socrates\OpenyCronServiceInterface;
+use Drupal\paragraphs\Entity\Paragraph;
 
 class AnalyticsCron implements OpenyCronServiceInterface {
 
@@ -121,9 +122,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
     $field_ids = [];
     // Get all the entity reference revisions fields.
-//    $map = $this->entityFieldManager->getFieldMapByFieldType('entity_reference_revisions');
-    $map = \Drupal::service('entity_field.manager')
-      ->getFieldMapByFieldType('entity_reference_revisions');
+    $map = $this->entityFieldManager->getFieldMapByFieldType('entity_reference_revisions');
 
     // Get all fields of the node with paragraphs.
     foreach ($map['node'] as $name => $data) {
@@ -190,10 +189,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
     try {
       $response = $this->httpClient->post($this->endpoint, [
-        'json' => $data
+        'form_params' => $data
       ]);
       $body = $response->getBody();
-      $data = json_decode($body->getContents());
+      $data = json_decode($body->getContents(), true);
 
       var_dump($data);
     }
