@@ -121,24 +121,30 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
     if (!empty($results['Table'])) {
        foreach ($results['Table'] as $childcare_item) {
+
          $order_date = new \DateTime($childcare_item['order_date']);
          $week = $order_date->format('W');
-         $result[$childcare_item['prtcpnt_id']][$week] = [
-           'order_number' => $childcare_item['order_number'],
-           'usr_day' => $childcare_item['usr_day'],
-           'od_order_date' => $childcare_item['od_order_date'],
-           'order_date' => $childcare_item['order_date'],
-           'scheduled' => $childcare_item['sflag'],
-           'attended' => $childcare_item['aflag'],
-           'type' => $childcare_item['stype'],
-           'program_name' => $childcare_item['pname'],
-           'program_code' => $childcare_item['pcode'],
-           'product_id' => $childcare_item['pid'],
-           'branch_id' => $childcare_item['branch_id'],
-           'branch' => $this->personifyUserHelper->locationMapping($childcare_item['branch_id']),
-           'child_id' => $childcare_item['prtcpnt_id'],
-           'date' => $order_date->format('Y-m-d')
-         ];
+
+         // Adding only not attended items.
+         if ($childcare_item['aflag'] == 'N') {
+           $result[$childcare_item['prtcpnt_id']][$week][] = [
+             'order_number' => $childcare_item['order_number'],
+             'usr_day' => $childcare_item['usr_day'],
+             'od_order_date' => $childcare_item['od_order_date'],
+             'order_date' => $childcare_item['order_date'],
+             'scheduled' => $childcare_item['sflag'],
+             'attended' => $childcare_item['aflag'],
+             'type' => $childcare_item['stype'],
+             'program_name' => $childcare_item['pname'],
+             'program_code' => $childcare_item['pcode'],
+             'product_id' => $childcare_item['pid'],
+             'branch_id' => $childcare_item['branch_id'],
+             'branch' => $this->personifyUserHelper->locationMapping($childcare_item['branch_id']),
+             'child_id' => $childcare_item['prtcpnt_id'],
+             'date' => $order_date->format('Y-m-d')
+           ];
+         }
+
        }
     }
 
@@ -158,15 +164,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
     $items = $this->getChildcareEvents($start_date_string, $end_date->format('Y-m-d'));
 
-    $result = [];
 
-    foreach ($items as $item) {
-      if (($item['attended'] == 'N')) {
-        $result[] = $item;
-      }
-    }
-
-    return $result;
+    return $items;
   }
 
   /**
