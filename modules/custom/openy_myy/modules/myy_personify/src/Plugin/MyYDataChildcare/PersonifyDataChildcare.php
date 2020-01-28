@@ -104,11 +104,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@startDate</Name>
-            <Value>$start_date 00:00:00.000</Value>
+            <Value>$start_date</Value>
         </StoredProcedureParameter>
                 <StoredProcedureParameter>
             <Name>@endDate</Name>
-            <Value>$end_date 00:00:00.000</Value>
+            <Value>$end_date</Value>
         </StoredProcedureParameter>
     </SPParameterList>
     </StoredProcedureRequest>";
@@ -118,10 +118,12 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     $data = $this->personifyClient->doAPIcall('POST', 'GetStoredProcedureDataJSON?$format=json', $body, 'xml');
 
     $results = json_decode($data['Data'], TRUE);
+
     if (!empty($results['Table'])) {
        foreach ($results['Table'] as $childcare_item) {
          $order_date = new \DateTime($childcare_item['order_date']);
-         $result[] = [
+         $week = $order_date->format('W');
+         $result[$childcare_item['prtcpnt_id']][$week] = [
            'order_number' => $childcare_item['order_number'],
            'usr_day' => $childcare_item['usr_day'],
            'od_order_date' => $childcare_item['od_order_date'],
@@ -133,6 +135,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
            'program_code' => $childcare_item['pcode'],
            'product_id' => $childcare_item['pid'],
            'branch_id' => $childcare_item['branch_id'],
+           'branch' => $this->personifyUserHelper->locationMapping($childcare_item['branch_id']),
            'child_id' => $childcare_item['prtcpnt_id'],
            'date' => $order_date->format('Y-m-d')
          ];
@@ -147,7 +150,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
    */
   public function getChildcareScheduledEvents() {
 
-    $start_date_string = '2019-12-01';
+    //$start_date_string = '2019-12-01';
     $start_date_string = date('Y-m-d');
     $start_date  = new \DateTime($start_date_string);
 
