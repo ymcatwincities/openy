@@ -127,7 +127,16 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
          // Adding only not attended items.
          if ($childcare_item['aflag'] == 'N') {
-           $result[$childcare_item['prtcpnt_id']][$week][] = [
+           if (empty($result[$childcare_item['prtcpnt_id']][$childcare_item['pcode']]['data'])) {
+             $result[$childcare_item['prtcpnt_id']][$childcare_item['pcode']]['program_data'] = [
+               'program_name' => $childcare_item['pname'],
+               'program_code' => $childcare_item['pcode'],
+               'product_id' => $childcare_item['pid'],
+               'branch' => $this->personifyUserHelper->locationMapping($childcare_item['branch_id']),
+             ];
+           }
+
+           $result[$childcare_item['prtcpnt_id']][$childcare_item['pcode']]['weeks'][$week][] = [
              'order_number' => $childcare_item['order_number'],
              'usr_day' => $childcare_item['usr_day'],
              'od_order_date' => $childcare_item['od_order_date'],
@@ -135,12 +144,6 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
              'scheduled' => $childcare_item['sflag'],
              'attended' => $childcare_item['aflag'],
              'type' => $childcare_item['stype'],
-             'program_name' => $childcare_item['pname'],
-             'program_code' => $childcare_item['pcode'],
-             'product_id' => $childcare_item['pid'],
-             'branch_id' => $childcare_item['branch_id'],
-             'branch' => $this->personifyUserHelper->locationMapping($childcare_item['branch_id']),
-             'child_id' => $childcare_item['prtcpnt_id'],
              'date' => $order_date->format('Y-m-d')
            ];
          }
