@@ -1,0 +1,28 @@
+<?php
+
+use Drupal\openy_analytics\Controller\OpenyAnalyticsDataCollector;
+
+function openy_analytics_cron() {
+  openy_analytics_report_send();
+}
+
+function openy_analytics_data_process() {
+  $data = openy_analytics_data_collect();
+  openy_analytics_data_save($data);
+}
+
+function openy_analytics_report_send() {
+  $url = 'http://openy-analytics.docksal/openy_analytics/api/v1/post.json';
+  $data = OpenyAnalyticsDataCollector::collectData();
+  ddm(json_encode($data));
+  return;
+  $client = \Drupal::httpClient();
+  $request = $client->post($url, [
+    'json' => $data,
+  ]);
+  $response = $request->getBody();
+}
+
+function openy_analytics_data_save($data) {
+
+}
