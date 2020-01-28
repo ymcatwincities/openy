@@ -25,3 +25,13 @@ function hook_openy_repeat_results_alter(&$result, $request) {
 function hook_query_openy_repeat_get_data_alter(Drupal\Core\Database\Query\AlterableInterface $query) {
   $query->condition('re.actual', 1);
 }
+
+/**
+ * Modify locations info for Repeat Schedules block.
+ *
+ * @param array $data
+ *   The array of locations data.
+ */
+function hook_openy_repeat_locations_info_alter(array &$data) {
+
+}
