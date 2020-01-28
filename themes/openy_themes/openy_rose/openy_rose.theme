@@ -179,6 +179,19 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
     return;
   }
 
+  $form['search'] = [
+    '#type' => 'details',
+    '#title' => t('Search'),
+    '#open' => TRUE,
+  ];
+
+  $form['search']['display_search_form'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display the search form'),
+    '#default_value' => theme_get_setting('display_search_form'),
+    '#description' => t('Show search form in the header'),
+  ];
+
   $form['logo']['openy_rose_footer_logo'] = array(
     '#type' => 'managed_file',
     '#title' => t('Footer Logo'),
@@ -321,11 +334,11 @@ function openy_rose_preprocess_page(array &$variables) {
       }
     }
   }
-
+  $variables['display_search'] = theme_get_setting('display_search_form');
   $variables['page']['secondary_menu']['search'] = [
     '#theme' => 'top_menu_search',
     '#base_path' => base_path(),
-    '#display_search' => $variables['display_search'] ?? FALSE,
+    '#display_search' => $variables['display_search'],
   ];
 }
 
