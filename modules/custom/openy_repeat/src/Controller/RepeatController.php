@@ -640,6 +640,9 @@ class RepeatController extends ControllerBase {
           }
         }
       }
+
+      $this->moduleHandler()->alter('openy_repeat_locations_info', $data);
+
       $this->cache->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
 

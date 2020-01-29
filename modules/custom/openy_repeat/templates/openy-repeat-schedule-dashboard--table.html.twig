@@ -38,7 +38,10 @@
             {# time #}
             <div class="time-column" v-cloak>
               <strong class="time">${ item.time_start }</strong>
-              <p>
+              <p v-if="showEndTime() == 1">
+                <strong class="time">${ item.time_end }</strong>
+              </p>
+              <p v-else>
                 <span v-if="item.duration_hours > 0">${ item.duration_hours }{{ 'h'|t }}</span>
                 <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
               </p>
@@ -242,7 +245,10 @@
               {# time #}
               <div class="time-column" v-cloak>
                 <strong class="time">${ item.time_start }</strong>
-                <p>
+                <p v-if="showEndTime() == 1">
+                  <strong class="time">${ item.time_end }</strong>
+                </p>
+                <p v-else>
                   <span v-if="item.duration_hours > 0">${ item.duration_hours }{{ 'h'|t }}</span>
                   <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
                 </p>
@@ -348,7 +354,10 @@
               {# time #}
               <div class="time-column" v-cloak>
                 <strong class="time">${ item.time_start }</strong>
-                <p>
+                <p v-if="showEndTime() == 1">
+                  <strong class="time">${ item.time_end }</strong>
+                </p>
+                <p v-else>
                   <span v-if="item.duration_hours > 0">${ item.duration_hours }{{ 'h'|t }}</span>
                   <span v-if="item.duration_minutes > 0">${ item.duration_minutes }{{ 'min'|t }}</span>
                 </p>
