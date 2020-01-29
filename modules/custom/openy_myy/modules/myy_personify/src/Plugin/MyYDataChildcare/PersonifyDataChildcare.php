@@ -133,7 +133,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
       if (!empty($fmember['RelatedMasterCustomerId'])) {
         $fullname = explode(', ', $fmember['name']);
         $familyMap[$fmember['RelatedMasterCustomerId']] = [
-          'name' => $fullname[0][0] . ',' . $fullname[1][0],
+          'name' => $fullname[0][0] . ' ' . $fullname[1][0],
         ];
       }
     }

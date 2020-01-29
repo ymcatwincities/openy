@@ -34,18 +34,15 @@
                 <div class="program_name"><strong>{{ item2.program_data.program_name }}</strong></div>
                {{ item2.program_data.branch }}
               </div>
-              <div class="col-myy-sm-3">
+              <div class="col-myy-sm-4">
                 <div class="date"><strong>{{ item2.program_data.start_date }}-{{ item2.program_data.end_date }}</strong></div>
-                <!--<span class="weekdays">Mon - Fri</span>-->
               </div>
-              <div class="col-myy-sm-2 text-right">
+              <div class="col-myy-sm-1 text-right">
                 <!--<a href="#" class="cancel"><strong>Cancel all</strong></a>-->
               </div>
             </div>
-            <div class="event_week">
-              Week 1 - Week {{ getWeeksNumber(item2.weeks) }}
-            </div>
             <div v-for="(week, weekday_id) in item2.weeks" v-bind:key="weekday_id">
+              <div class="weekday-number">Week {{ getWeekNumber(item2.weeks, weekday_id) }}</div>
               <div v-for="(order, index3) in week" v-bind:key="index3">
                 <div v-if="order.scheduled == 'Y'" class="event_item row">
                   <div class="col-myy-sm-1 no-padding-left text-center">
@@ -68,7 +65,9 @@
                   </div>
                 </div>
               </div>
-              <div v-if="!ifAllSessionsScheduled(week)">empty week (all items are unscheduled)</div>
+              <div v-if="!ifAllSessionsScheduled(week)" class="event_empty_week">
+                empty week (all items are unscheduled)
+              </div>
               <div class="event_add_item row">
                 <div class="col-myy-sm-12">
                   <i class="fa blue fa-calendar-plus-o"></i>
@@ -397,12 +396,14 @@
           branch: branch,
         };
       },
-      getWeeksNumber: function (weeks) {
-        var length = 0;
+      getWeekNumber: function (weeks, weekday_id) {
+        var count = 0;console.log(weeks);console.log(weekday_id);
         for (var i in weeks) {
-          length++;
+          count++;
+          if (i == weekday_id) {
+            return count;
+          }
         }
-        return length;
       },
       ifAllSessionsScheduled: function (week) {
         var scheduled = false;
@@ -525,9 +526,16 @@
           margin-left: 5px;
         }
       }
+      .weekday-number {
+        background-color: #F2F2F2;
+        padding: 10px 30px;
+      }
       .event_add_item {
         padding: 20px 0;
         margin: 0 20px 20px 20px;
+      }
+      .event_empty_week {
+        margin: 20px 20px 5px 30px;
       }
       .fa {
         font-size: 18px;
