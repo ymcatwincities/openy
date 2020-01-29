@@ -83,10 +83,11 @@
       hide: function () {
         this.element.addClass('hidden');
       },
-      show: function () {
+      show: function (forceShow = false) {
         var timestamp = Math.floor(Date.now() / 1000);
         var lastShowTime = Drupal.homeBranch.getValue('lastShowTime');
-        if (this.areCookiesEnabled() && timestamp > lastShowTime + this.delay) {
+        var allowToShow = timestamp > lastShowTime + this.delay;
+        if (this.areCookiesEnabled() && (allowToShow || forceShow)) {
           this.element.removeClass('hidden');
           Drupal.homeBranch.setValue('lastShowTime', timestamp);
         }
@@ -136,8 +137,8 @@
 
         // Let HomeBranch know how to call the modal window.
         var self = this;
-        Drupal.homeBranch.showModal = function () {
-          self.show();
+        Drupal.homeBranch.showModal = function (force) {
+          self.show(force);
         };
       },
       // Check that cookies enabled in browser.

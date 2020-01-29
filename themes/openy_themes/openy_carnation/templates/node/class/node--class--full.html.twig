@@ -66,7 +66,7 @@
  * @see template_preprocess_node()
  */
 #}
-{% if content.field_sidebar_content is not empty %}
+{% if content.field_sidebar_content|render|trim is not empty %}
   {% set layout_class = 'has-sidebar' %}
 {% endif %}
 
@@ -86,37 +86,37 @@
 {# default header #}
 {% include '@openy_carnation/node/include/header-default.html.twig' %}
 
-{% if content.field_sidebar_content is not empty %}
+{% if content.field_sidebar_content|render|trim is not empty %}
 <div class="container">
   {% endif %}
-  {% if content.field_content is not empty %}
+  {% if content.field_content|render|trim is not empty %}
     <article{{ content_attributes.addClass(content_classes) }}>
 
-      {% if content.field_sidebar_content is empty %}
+      {% if content.field_sidebar_content|render|trim is empty %}
       <div class="main-region col-12">
         {% endif %}
-        {% if content.field_sidebar_content is not empty %}
+        {% if content.field_sidebar_content|render|trim is not empty %}
           <div class="main-region col-lg-7 col-xl-8">
             {% endif %}
             {{ content.field_class_description }}
             {{ content.field_content }}
-            {% if content.field_sidebar_content is not empty %}
+            {% if content.field_sidebar_content|render|trim is not empty %}
           </div>
           <div class="sidebar-region col-lg-5 col-xl-4">
             {% endif %}
             <article{{ sidebar_attributes.addClass(sidebar_classes) }}>
               {{ content.field_sidebar_content }}
             </article>
-            {% if content.field_sidebar_content is not empty %}
+            {% if content.field_sidebar_content|render|trim is not empty %}
           </div>
         {% endif %}
-        {% if content.field_sidebar_content is empty %}
+        {% if content.field_sidebar_content|render|trim is empty %}
       </div>
       {% endif %}
 
     </article>
   {% endif %}
-  {% if content.field_sidebar_content is not empty %}
+  {% if content.field_sidebar_content|render|trim is not empty %}
 </div>
 {% endif %}
 
