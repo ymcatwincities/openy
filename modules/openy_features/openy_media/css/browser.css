@@ -19,6 +19,10 @@ nav.eb-tabs ~ div .browser {
   height: calc(100vh - 41px);
 }
 
+.browser-toolbar .browser-toolbar__item:first-child {
+  display: none;
+}
+
 .view.eb-media .views-exposed-form {
   padding: 1.5em;
   background-color: #efefef;
