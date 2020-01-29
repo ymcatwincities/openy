@@ -1015,7 +1015,7 @@ function openy_update_8069() {
     $config_importer->update($config, 'openy_carnation.settings', 'display_search_form');
   }
 }
- 
+
  /**
  * Import config with T&C.
  */
@@ -1054,5 +1054,23 @@ function openy_update_8076() {
     \Drupal::service('module_installer')->install([
       $module,
     ]);
+  }
+}
+
+/**
+ * Update themes settings: add search form query key.
+ */
+function openy_update_8077() {
+  $themes_list = [
+    'openy_lily',
+    'openy_carnation'
+  ];
+  foreach ($themes_list as $theme) {
+    if (\Drupal::service('theme_handler')->themeExists($theme)) {
+      $config = drupal_get_path('theme', $theme) . '/config/install/' . $theme . '.settings.yml';
+      /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+      $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+      $config_importer->update($config, $theme . '.settings', 'search_query_key');
+    }
   }
 }
