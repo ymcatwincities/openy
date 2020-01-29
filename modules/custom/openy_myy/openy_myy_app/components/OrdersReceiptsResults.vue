@@ -125,7 +125,6 @@
               <!--<i>Automatic Payments: Visa 1234</i>-->
             </div>
             <div class="col-myy text-right">
-              <a class="btn btn-primary" href="{{ item.pay_link }}" target="_blank">Pay now <i class="fa fa-external-link-square"></i></a>
             </div>
           </div>
         </div>

@@ -127,7 +127,7 @@ export default {
     color: #fff;
     display: inline-block;
     font-family: "Cachet Medium", sans-serif;
-    font-size: 36px;
+    font-size: 24px;
     height: 60px;
     line-height: 60px;
     text-align: center;
@@ -135,7 +135,7 @@ export default {
     @media (min-width: 992px) {
       height: 80px;
       line-height: 80px;
-      font-size: 48px;
+      font-size: 32px;
       width: 80px;
     }
     &.green {
@@ -200,7 +200,7 @@ export default {
     }
     &.small {
       border-radius: 20px;
-      font-size: 24px;
+      font-size: 18px;
       height: 40px;
       line-height: 40px;
       width: 40px;

@@ -6,6 +6,7 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\myy_personify\PersonifyUserData;
 use Drupal\myy_personify\PersonifyUserHelper;
 use Drupal\openy_myy\PluginManager\MyYDataChildcareInterface;
 use Drupal\personify\PersonifyClient;
@@ -44,6 +45,11 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
   protected $personifyUserHelper;
 
   /**
+   * @var \Drupal\myy_personify\PersonifyUserData
+   */
+  protected $personifyUserData;
+
+  /**
    * PersonifyDataProfile constructor.
    *
    * @param array $configuration
@@ -62,7 +68,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     PersonifyClient $personifyClient,
     ConfigFactoryInterface $configFactory,
     LoggerChannelFactory $loggerChannelFactory,
-    PersonifyUserHelper $personifyUserHelper
+    PersonifyUserHelper $personifyUserHelper,
+    PersonifyUserData $personifyUserData
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->personifySSO = $personifySSO;
@@ -70,6 +77,7 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
     $this->config = $configFactory->get('myy_personify.settings');
     $this->logger = $loggerChannelFactory->get('personify_data_childcare');
     $this->personifyUserHelper = $personifyUserHelper;
+    $this->personifyUserData = $personifyUserData;
   }
 
   /**
@@ -84,7 +92,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
       $container->get('personify.client'),
       $container->get('config.factory'),
       $container->get('logger.factory'),
-      $container->get('myy_personify_user_helper')
+      $container->get('myy_personify_user_helper'),
+      $container->get('myy_personify_user_data')
     );
   }
 
@@ -119,8 +128,18 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
     $results = json_decode($data['Data'], TRUE);
 
+    $family = $this->personifyUserData->getFamilyData();
+    foreach ($family['household'] as $fmember) {
+      if (!empty($fmember['RelatedMasterCustomerId'])) {
+        $fullname = explode(', ', $fmember['name']);
+        $familyMap[$fmember['RelatedMasterCustomerId']] = [
+          'name' => $fullname[0][0] . ',' . $fullname[1][0],
+        ];
+      }
+    }
+
     if (!empty($results['Table'])) {
-       foreach ($results['Table'] as $childcare_item) {
+       foreach ($results['Table'] as $id => $childcare_item) {
 
          $order_date = new \DateTime($childcare_item['order_date']);
          $week = $order_date->format('W');
@@ -129,10 +148,13 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
          if ($childcare_item['aflag'] == 'N') {
            if (empty($result[$childcare_item['prtcpnt_id']][$childcare_item['pcode']]['data'])) {
              $result[$childcare_item['prtcpnt_id']][$childcare_item['pcode']]['program_data'] = [
+               'family_member' => isset($familyMap[$childcare_item['prtcpnt_id']]['name']) ? $familyMap[$childcare_item['prtcpnt_id']]['name'] : '',
                'program_name' => $childcare_item['pname'],
                'program_code' => $childcare_item['pcode'],
                'product_id' => $childcare_item['pid'],
                'branch' => $this->personifyUserHelper->locationMapping($childcare_item['branch_id']),
+               'start_date' => date("M d", strtotime($start_date)),
+               'end_date' => date("M d", strtotime($end_date)),
              ];
            }
 

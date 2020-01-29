@@ -10,7 +10,7 @@
          <a :href="childcare_purchase_link_url" class="btn btn-primary text-uppercase">{{ childcare_purchase_link_title }} <i class="fa fa-external-link-square"></i></a>
         </div>
       </div>
-      <div class="row headline" v-if="data.length > 0">
+      <div class="row headline" v-if="data">
         <div class="col-myy-sm-6">
           <h4>Upcoming events</h4>
         </div>
@@ -22,48 +22,69 @@
         <p>You have not purchased any childcare sessions.</p>
       </div>
 
-      <div class="row content" v-if="data.length > 0">
-        <div class="col-myy-sm-12">
+      <div class="row content" v-if="data">
+        <div v-for="(item, index) in data" v-bind:key="index">
+          <div class="col-myy-sm-12" v-for="(item2, index2) in item" v-bind:key="index2">
           <div class="event_row">
             <div class="event_head row">
-              <div class="col-myy-sm-1">
-                <span class="rounded_letter small blue">J</span>
+              <div class="col-myy-sm-2">
+                <span class="rounded_letter blue">{{ item2.program_data.family_member }}</span>
               </div>
               <div class="col-myy-sm-5">
-                <div class="program_name"><strong>{{ data[0].program_name }}</strong></div>
-                {{ data[0].branch_id }}
+                <div class="program_name"><strong>{{ item2.program_data.program_name }}</strong></div>
+               {{ item2.program_data.branch }}
               </div>
               <div class="col-myy-sm-3">
-                <div class="date"><strong>Dec 12-Dec 19</strong></div>
-                <span class="weekdays">Mon - Fri</span>
+                <div class="date"><strong>{{ item2.program_data.start_date }}-{{ item2.program_data.end_date }}</strong></div>
+                <!--<span class="weekdays">Mon - Fri</span>-->
               </div>
-              <div class="col-myy-sm-3 text-right">
+              <div class="col-myy-sm-2 text-right">
                 <!--<a href="#" class="cancel"><strong>Cancel all</strong></a>-->
               </div>
             </div>
-            <div v-for="(item, index) in data" v-bind:key="index">
-              <div v-if="item.scheduled == 'Y'" class="event_item row">
-              <div class="col-myy-sm-1 no-padding-left text-center">
-                <i class="fa fa-calendar-check-o"></i>
-              </div>
-              <div class="col-myy-sm-5 no-padding-left">
-                <span class="date">{{ item.usr_day }}, {{ item.order_date }}</span>
-              </div>
-              <div class="col-myy-sm-3">
-                <span class="duration">{{ item.type }}</span>
-              </div>
-              <div class="col-myy-sm-3 text-right no-padding-right">
-                <a class="myy-modal__modal--myy-cancel-link cancel" role="button" href="#" v-on:click="populatePopupCancel(index)" data-toggle="modal" data-target=".myy-modal__modal--myy-cancel"><strong>Cancel</strong></a>
-              </div>
-              </div>
+            <div class="event_week">
+              Week 1 - Week {{ getWeeksNumber(item2.weeks) }}
             </div>
-            <div class="event_add_item row">
-              <div class="col-myy-sm-12">
-                <i class="fa blue fa-calendar-plus-o"></i>
-                <a class="myy-modal__modal--myy-additem-link additem" role="button" href="#" v-on:click="populatePopupAdditem" data-toggle="modal" data-target=".myy-modal__modal--myy-additem"><strong>Add Item</strong></a>
+            <div v-for="(week, weekday_id) in item2.weeks" v-bind:key="weekday_id">
+              <div v-for="(order, index3) in week" v-bind:key="index3">
+                <div v-if="order.scheduled == 'Y'" class="event_item row">
+                  <div class="col-myy-sm-1 no-padding-left text-center">
+                    <i class="fa fa-calendar-check-o"></i>
+                  </div>
+                  <div class="col-myy-sm-5 no-padding-left">
+                    <span class="date">{{ order.usr_day }}, {{ order.order_date }}</span>
+                  </div>
+                  <div class="col-myy-sm-3">
+                    <span class="duration">{{ order.type }}</span>
+                  </div>
+                  <div class="col-myy-sm-3 text-right no-padding-right">
+                    <a class="myy-modal__modal--myy-cancel-link cancel" role="button" href="#" v-on:click="populatePopupCancel(
+                      week,
+                      order,
+                      item2.program_data.program_name,
+                      item2.program_data.family_member,
+                      item2.program_data.branch
+                    )" data-toggle="modal" data-target=".myy-modal__modal--myy-cancel"><strong>Cancel</strong></a>
+                  </div>
+                </div>
+              </div>
+              <div v-if="!ifAllSessionsScheduled(week)">empty week (all items are unscheduled)</div>
+              <div class="event_add_item row">
+                <div class="col-myy-sm-12">
+                  <i class="fa blue fa-calendar-plus-o"></i>
+                  <a class="myy-modal__modal--myy-additem-link additem" role="button" href="#" v-on:click="populatePopupAdditem(
+                    week,
+                    item2.program_data.program_name,
+                    item2.program_data.family_member,
+                    item2.program_data.start_date,
+                    item2.program_data.end_date,
+                    item2.program_data.branch
+                    )" data-toggle="modal" data-target=".myy-modal__modal--myy-additem"><strong>Add Item</strong></a>
+                </div>
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
 
@@ -99,13 +120,13 @@
                   <p class="text-center"> Are you sure you want to cancel the following session?</p>
                   <div class="info row">
                     <div class="col-myy-sm-2">
-                      <span class="rounded_letter small black">X</span>
+                      <span class="rounded_letter small blue">{{ cancelPopup.info.family_member }}</span>
                     </div>
                     <div class="col-myy-sm-10">
-                      <p class="program_name"><strong>{{ cancelPopup.content.program_name }}</strong>
+                      <p class="program_name"><strong>{{ cancelPopup.info.program_name }}</strong>
                       <p class="date"><strong>{{ cancelPopup.content.order_date }}</strong></p>
                       <p class="type">{{ cancelPopup.content.type }}</p>
-                      <p class="location">{{ cancelPopup.content.branch_id }}</p>
+                      <p class="location">{{ cancelPopup.info.branch }}</p>
                     </div>
                   </div>
                 </div>
@@ -135,13 +156,12 @@
                 <div class="event_row">
                   <div class="event_head row">
                     <div class="col-myy-sm-2">
-                      <span class="rounded_letter small blue">J</span>
+                      <span class="rounded_letter small blue">{{ addItemPopup.info.family_member }}</span>
                     </div>
                     <div class="col-myy-sm-10">
-                      <div class="program_name" v-if="addItemPopup.content.length > 0"><strong>{{ addItemPopup.content[0].program_name }}</strong></div>
-                      {{ addItemPopup.content[0].branch_id }}
-                      <div class="date"><strong>Dec 12-Dec 19</strong></div>
-                      <span class="weekdays">Mon - Fri</span>
+                      <div class="program_name" v-if="addItemPopup.content.length > 0"><strong>{{ addItemPopup.info.program_name }}</strong></div>
+                      {{ addItemPopup.info.branch }}
+                      <div class="date"><strong>{{ addItemPopup.info.start_date }}-{{ addItemPopup.info.end_date }}</strong></div>
                     </div>
                   </div>
                   <div v-for="(item, index) in addItemPopup.content" v-bind:key="index" class="event_item row">
@@ -157,7 +177,7 @@
               </div>
               <div class="col-myy-sm-12 actions">
                 <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Close">Cancel</button>
-                <button type="button" class="btn btn-primary text-uppercase additem-action" :disabled="addItemPopup.disableScheduleButton" data-dismiss="modal" @click="scheduleItems()">Schedule</button>
+                <button type="button" class="btn btn-primary text-uppercase additem-action" :disabled="addItemPopup.disableScheduleButton" data-dismiss="modal" @click="scheduleItems(addItemPopup.content)">Schedule</button>
               </div>
             </div>
           </div>
@@ -240,11 +260,13 @@
         childcare_purchase_link_url: '',
         cancelPopup: {
           denyCancel: false,
+          info: {},
           content: {}
         },
         addItemPopup: {
           content: {},
-          disableScheduleButton:false
+          info: {},
+          disableScheduleButton: false
         },
         addItemChecked: [],
       }
@@ -261,7 +283,7 @@
             withCredentials: true
           }
         }).done(function(data) {
-          component.data = data;
+          component.data = data;console.log(data);
           component.loading = false;
         });
       },
@@ -289,12 +311,12 @@
           }
         });
       },
-      scheduleItems: function() {
+      scheduleItems: function(week) {
         let component = this;
 
         var newScheduled = {};
-        for (var i in component.data) {
-          newScheduled[component.data[i].date + '+' + component.data[i].type] = 'N';
+        for (var i in week) {
+          newScheduled[week[i].date + '+' + week[i].type] = 'N';
         }
         for (var j in newScheduled) {
           for (var k in component.addItemChecked) {
@@ -327,23 +349,71 @@
           }
         });
       },
-      populatePopupCancel: function(index) {
+      populatePopupCancel: function(
+        week,
+        order,
+        program_name,
+        family_member,
+        branch
+      ) {
+        var numberOfScheduled = 0;
         // Check if there only 1 item so user doesn't allow to cancel it.
-        if (this.data.length == 1) {
+        for (var i in week) {
+          if (week[i].scheduled == 'Y') {
+            numberOfScheduled++;
+          }
+        }
+        if (numberOfScheduled == 1) {
           this.cancelPopup.denyCancel = true;
         }
-        this.cancelPopup.content = this.data[index];
+        this.cancelPopup.content = order;
+        this.cancelPopup.info = {
+          program_name: program_name,
+          family_member: family_member,
+          branch: branch,
+        };
       },
-      populatePopupAdditem: function() {
+      populatePopupAdditem: function(
+        week,
+        program_name,
+        family_member,
+        start_date,
+        end_date,
+        branch
+      ) {
         if (this.addItemChecked.length === 0) {
-          for (var i in this.data) {
-            if (this.data[i].scheduled == 'Y') {
-              this.addItemChecked.push(this.data[i].date + '+' +this.data[i].type);
+          for (var i in week) {
+            if (week[i].scheduled == 'Y') {
+              this.addItemChecked.push(week[i].date + '+' + week[i].type);
             }
           }
         }
-        this.addItemPopup.content = this.data;
+        this.addItemPopup.content = week;
+        this.addItemPopup.info = {
+          program_name: program_name,
+          family_member: family_member,
+          start_date: start_date,
+          end_date: end_date,
+          branch: branch,
+        };
       },
+      getWeeksNumber: function (weeks) {
+        var length = 0;
+        for (var i in weeks) {
+          length++;
+        }
+        return length;
+      },
+      ifAllSessionsScheduled: function (week) {
+        var scheduled = false;
+        for (var i in week) {
+          // If at least 1 item is scheduled mark week as scheduled.
+          if (week[i].scheduled == 'Y') {
+            scheduled = true;
+          }
+        }
+        return scheduled;
+      }
     },
     watch: {
       addItemChecked: function(newValue, oldValue) {
@@ -443,6 +513,10 @@
           font-size: 12px;
         }
       }
+      .event_week {
+        padding: 10px 0;
+        margin: 10px 20px;
+      }
       .event_item {
         padding: 20px 0;
         border-bottom: 1px solid #636466;
@@ -453,7 +527,7 @@
       }
       .event_add_item {
         padding: 20px 0;
-        margin: 0 20px;
+        margin: 0 20px 20px 20px;
       }
       .fa {
         font-size: 18px;
