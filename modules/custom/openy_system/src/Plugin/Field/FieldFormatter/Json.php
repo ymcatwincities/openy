@@ -90,7 +90,7 @@ class Json extends FormatterBase implements ContainerFactoryPluginInterface {
 
     foreach ($items as $delta => $item) {
       $view_value = [
-        '#markup' => print_r(json_decode($item->value),1)
+        '#markup' => print_r(json_decode($item->value, TRUE),1)
       ];
 
       $elements[$delta] = $view_value;
