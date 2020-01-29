@@ -15,6 +15,10 @@ nav.eb-tabs ul li.active a {
   background-color: #d6d6d6;
 }
 
+nav.eb-tabs ~ div .browser {
+  height: calc(100vh - 41px);
+}
+
 .view.eb-media .views-exposed-form {
   padding: 1.5em;
   background-color: #efefef;
