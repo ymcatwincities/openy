@@ -397,12 +397,12 @@
         };
       },
       getWeekNumber: function (weeks, weekday_id) {
-        var count = 0;
+        var count = 1;
         for (var i in weeks) {
-          count++;
           if (i === weekday_id) {
             return count;
           }
+          count++;
         }
       },
       ifAllSessionsScheduled: function (week) {
