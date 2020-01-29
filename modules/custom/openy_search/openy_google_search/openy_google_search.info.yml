@@ -4,3 +4,5 @@ description: Provides a Google Custom search Engine for Open Y.
 core: 8.x
 package: Open Y
 version: 8.x-1.0
+dependencies:
+  - openy_search

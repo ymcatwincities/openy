@@ -4,18 +4,3 @@
  * @file
  * Module installation file.
  */
-
-/**
- * Implements hook_install().
- */
-function openy_google_search_install() {
-  /** @var \Drupal\Core\Config\ConfigFactoryInterface $config_factory */
-  $config_factory = \Drupal::configFactory();
-  $themes_list = [
-    'openy_rose',
-    'openy_carnation'
-  ];
-  foreach ($themes_list as $theme) {
-    $config_factory->getEditable($theme . '.settings')->set('display_search_form', '1')->save();
-  }
-}
