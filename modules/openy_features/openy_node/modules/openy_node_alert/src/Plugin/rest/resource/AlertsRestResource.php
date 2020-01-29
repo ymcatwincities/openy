@@ -5,7 +5,7 @@ namespace Drupal\openy_node_alert\Plugin\rest\resource;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\path_alias\AliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Path\PathMatcherInterface;
 use Drupal\Core\Session\AccountProxyInterface;
@@ -40,7 +40,7 @@ class AlertsRestResource extends ResourceBase {
   /**
    * The alias manager that caches alias lookups based on the request.
    *
-   * @var \Drupal\Core\Path\AliasManagerInterface
+   * @var \Drupal\path_alias\AliasManagerInterface
    */
   protected $aliasManager;
 
@@ -87,7 +87,7 @@ class AlertsRestResource extends ResourceBase {
    *   A logger instance.
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   A current user instance.
-   * @param \Drupal\Core\Path\AliasManagerInterface $alias_manager
+   * @param \Drupal\path_alias\AliasManagerInterface $alias_manager
    *   The alias manager.
    * @param \Drupal\Core\Path\PathMatcherInterface $path_matcher
    *   The Path Matcher.
@@ -131,7 +131,7 @@ class AlertsRestResource extends ResourceBase {
       $container->getParameter('serializer.formats'),
       $container->get('logger.factory')->get('openy_node_alert'),
       $container->get('current_user'),
-      $container->get('path.alias_manager'),
+      $container->get('path_alias.manager'),
       $container->get('path.matcher'),
       $container->get('path.current'),
       $container->get('entity_type.manager'),
