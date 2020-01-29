@@ -28,6 +28,7 @@
       modalDescription: drupalSettings.home_branch.hb_loc_modal.modalDescription,
       dontAskTitle: drupalSettings.home_branch.hb_loc_modal.dontAskTitle,
       learnMoreText: drupalSettings.home_branch.hb_loc_modal.learnMoreText,
+      delay: drupalSettings.home_branch.hb_loc_modal.modalDelay,
       init: function () {
         if (!this.element) {
           return;
@@ -82,8 +83,14 @@
       hide: function () {
         this.element.addClass('hidden');
       },
-      show: function () {
-        this.element.removeClass('hidden');
+      show: function (forceShow = false) {
+        var timestamp = Math.floor(Date.now() / 1000);
+        var lastShowTime = Drupal.homeBranch.getValue('lastShowTime');
+        var allowToShow = timestamp > lastShowTime + this.delay;
+        if (this.areCookiesEnabled() && (allowToShow || forceShow)) {
+          this.element.removeClass('hidden');
+          Drupal.homeBranch.setValue('lastShowTime', timestamp);
+        }
       },
       addMarkup: function (context) {
         // Save created element in plugin.
@@ -130,9 +137,21 @@
 
         // Let HomeBranch know how to call the modal window.
         var self = this;
-        Drupal.homeBranch.showModal = function () {
-          self.show();
+        Drupal.homeBranch.showModal = function (force) {
+          self.show(force);
         };
+      },
+      // Check that cookies enabled in browser.
+      areCookiesEnabled: function () {
+        try {
+          document.cookie = 'cookietest=1';
+          var cookiesEnabled = document.cookie.indexOf('cookietest=') !== -1;
+          document.cookie = 'cookietest=1; expires=Thu, 01-Jan-1970 00:00:01 GMT';
+          return cookiesEnabled;
+        }
+        catch (e) {
+          return false;
+        }
       },
     }
   });
