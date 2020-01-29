@@ -18,9 +18,14 @@ class AnalyticsCron implements OpenyCronServiceInterface {
   protected $entityTypeManager;
 
   protected $database;
+
   protected $configFactory;
+
   protected $extensionListModule;
+
   protected $entityFieldManager;
+
+  protected $entityManager;
 
   /**
    * @var \GuzzleHttp\Client
@@ -29,13 +34,14 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   protected $endpoint = 'http://rose.docksal/receiver.php';
 
-  public function __construct(EntityTypeManager $entity_type_manager, $database, ConfigFactory $config_factory, $extension_list_module, $entity_field_manager, $http_client) {
+  public function __construct(EntityTypeManager $entity_type_manager, $database, ConfigFactory $config_factory, $extension_list_module, $entity_field_manager, $http_client, $entityManager) {
     $this->entityTypeManager = $entity_type_manager;
     $this->database = $database;
     $this->configFactory = $config_factory;
     $this->extensionListModule = $extension_list_module;
     $this->entityFieldManager = $entity_field_manager;
     $this->httpClient = $http_client;
+    $this->entityManager = $entityManager;
   }
 
   function getLastChangedNode() {
@@ -47,8 +53,8 @@ class AnalyticsCron implements OpenyCronServiceInterface {
   }
 
   function getServerInfo() {
-    $sql_version = $this->database->query('select version();')->fetchField();
-    $sql_detailed_version = $this->database->query("SHOW VARIABLES LIKE '%version%';")
+    $db_version = $this->database->query('select version();')->fetchField();
+    $db_detailed_version = $this->database->query("SHOW VARIABLES LIKE '%version%';")
       ->fetchAllKeyed();
     $server_software = $_SERVER['SERVER_SOFTWARE'];
     $php_version = $_SERVER['PHP_VERSION'];
@@ -56,9 +62,9 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     return [
       'server_software' => $server_software,
       'php_version' => $php_version,
-      'sql_version' => $sql_version,
-      'sql_detailed_version' => $sql_detailed_version,
-      'sql_driver' => $conn_options['driver'],
+      'db_version' => $db_version,
+      'db_detailed_version' => $db_detailed_version,
+      'db_driver' => $conn_options['driver'],
     ];
   }
 
@@ -80,6 +86,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
       'openy' => [],
       'custom' => [],
       'contrib' => [],
+      'profile' => '',
     ];
 
     function contains($needle, $haystack) {
@@ -93,6 +100,12 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
       $module_name = $module->info['name'];
       $module_ver = $module->info['version'];
+
+      if ($module->getType() == 'profile') {
+        $modules['profile'] = $module_ver;
+        continue;
+      }
+
       if (contains('profiles/contrib/openy', $module->getPathname())) {
         $module_type = 'openy';
       }
@@ -103,10 +116,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         $module_type = 'custom';
       }
 
-      $modules[$module_type][] = [
-        'name' => $module_name,
-        'version' => $module_ver,
-      ];
+      $modules[$module_type][$module_name] = $module_ver;
     }
 
     return $modules;
@@ -158,7 +168,20 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     $statement->addExpression('COUNT(type)', 'count');
     $paragraphs_counted = $statement->execute()->fetchAllKeyed();
 
-    return $paragraphs_counted;
+    $bundles = array_keys($this->entityManager->getBundleInfo('paragraph'));
+
+    $bundles_counted = [];
+    foreach ($bundles as $bundle) {
+      if (isset($paragraphs_counted[$bundle])) {
+        $bundles_counted[$bundle] = (int) $paragraphs_counted[$bundle];
+      }
+      else {
+        $bundles_counted[$bundle] = 0;
+      }
+    }
+    arsort($bundles_counted);
+
+    return $bundles_counted;
   }
 
   function getBundleUsage() {
@@ -178,25 +201,59 @@ class AnalyticsCron implements OpenyCronServiceInterface {
    */
   public function runCronServices() {
     $data = [
+      'title' => $_SERVER['HTTP_HOST'],
       'last_changed_node' => $this->getLastChangedNode(),
       'server_info' => $this->getServerInfo(),
       'theme_info' => $this->getThemeInfo(),
       'modules' => $this->getModules(),
       'frontpage_paragraphs' => $this->getFrontpageParagraphs(),
       'paragraphs_usage' => $this->getParagraphsUsage(),
-      'bundle_usage' => $this->getBundleUsage()
+      'bundle_usage' => $this->getBundleUsage(),
     ];
 
     try {
-      $response = $this->httpClient->post($this->endpoint, [
-        'form_params' => $data
-      ]);
-      $body = $response->getBody();
-      $data = json_decode($body->getContents(), true);
+      //      $response = $this->httpClient->post($this->endpoint, [
+      //        'form_params' => $data
+      //      ]);
+      //      $body = $response->getBody();
+      //      $data = json_decode($body->getContents(), true);
+      //
+      //      var_dump($data);
 
-      var_dump($data);
-    }
-    catch (\Exception $e) {
+      $serialized_entity = json_encode([
+        'title' => [['value' => $data['title']]],
+        'type' => [['target_id' => 'analytics']],
+        'field_db' => [['value' => $data['server_info']['db_version']]],
+        'field_db_detailed' => [['value' => json_encode($data['server_info']['db_detailed_version'], TRUE)]],
+        'field_php' => [['value' => $data['server_info']['php_version']]],
+        'field_server' => [['value' => $data['server_info']['server_software']]],
+
+        'field_contrib_modules_enabled' => [['value' => json_encode($data['modules']['contrib'], TRUE)]],
+        'field_custom_modules_enabled' => [['value' => json_encode($data['modules']['custom'], TRUE)]],
+        'field_openy_modules_enabled' => [['value' => json_encode($data['modules']['openy'], TRUE)]],
+
+        'field_last_node_edit_timestamp' => [['value' => date('Y-m-d\TH:i:sP', $data['last_changed_node']['changed'])]],
+        'field_nodes_usage' => [['value' => json_encode($data['bundle_usage'], TRUE)]],
+        'field_paragraph_usage' => [['value' => json_encode($data['paragraphs_usage'], TRUE)]],
+
+        'field_profile' => [['value' => $data['modules']['profile']]],
+        'field_theme' => [['value' => json_encode($data['theme_info'], TRUE)]],
+        '_links' => [
+          'type' => [
+            'href' => 'http://carnation.demo.ixm.ca/rest/type/node/analytics',
+          ],
+        ],
+      ]);
+
+      $this->httpClient->post('http://carnation.demo.ixm.ca/node?_format=hal_json', [
+        'auth' => ['klausi', 'secret'],
+        'body' => $serialized_entity,
+        'headers' => [
+          'Content-Type' => 'application/hal+json',
+          'X-CSRF-Token' => 'KTn4LVl2FdL1dFq2h9AT96mx66djIPNpilon6uIdtVk',
+        ],
+      ]);
+    } catch (\Exception $e) {
       watchdog_exception('openy_analytics', $e);
       return NULL;
     }
