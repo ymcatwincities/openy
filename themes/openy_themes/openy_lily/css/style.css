@@ -7419,6 +7419,59 @@ article .node--view-mode-flexible-content h2 a span {
   background-color: #999;
 }
 
+.ui-dialog.geysir-dialog .ui-dialog-titlebar-close:before {
+  content: "\f410";
+  font-family: "Font Awesome 5 Free";
+}
+.ui-dialog.geysir-dialog .geysir-add-type {
+  border: none;
+  display: inline-block;
+  margin-right: 0;
+  min-width: auto;
+  padding: 0;
+  vertical-align: top;
+  width: auto;
+}
+.ui-dialog.geysir-dialog .geysir-add-type .input-wrapper {
+  border: 2px solid #ffffff;
+  display: inline-block;
+  margin-right: 30px;
+  min-width: 100px;
+  padding: 10px;
+  width: 100px;
+}
+.ui-dialog.geysir-dialog .geysir-add-type > span {
+  display: none;
+}
+.ui-dialog.geysir-dialog .geysir-add-type span.title {
+  display: block;
+}
+.ui-dialog.geysir-dialog .form-item {
+  margin: 1em 0;
+}
+.ui-dialog.geysir-dialog .js-text-format-wrapper > .form-item {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+.ui-dialog.geysir-dialog .help-block, .ui-dialog.geysir-dialog .control-group .help-inline {
+  color: inherit;
+}
+.ui-dialog.geysir-dialog .filter-wrapper {
+  background-color: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  height: auto;
+  padding: 0.5em 0.666em;
+  border: 1px solid #ccc;
+  border-top: 0;
+}
+.ui-dialog.geysir-dialog .filter-wrapper ul {
+  margin-bottom: 0;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
