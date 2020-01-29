@@ -20,6 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   label = @Translation("Json to array"),
  *   field_types = {
  *     "string",
+ *     "string_long",
  *     "text",
  *     "text_long",
  *   },
