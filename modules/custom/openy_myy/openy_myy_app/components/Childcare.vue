@@ -397,10 +397,10 @@
         };
       },
       getWeekNumber: function (weeks, weekday_id) {
-        var count = 0;console.log(weeks);console.log(weekday_id);
+        var count = 0;
         for (var i in weeks) {
           count++;
-          if (i == weekday_id) {
+          if (i === weekday_id) {
             return count;
           }
         }
