@@ -90,7 +90,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
       'profile' => '',
     ];
 
-    function contains($needle, $haystack) {
+    function string_contains($needle, $haystack) {
       return strpos($haystack, $needle) !== FALSE;
     }
 
@@ -107,10 +107,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         continue;
       }
 
-      if (contains('profiles/contrib/openy', $module->getPathname())) {
+      if (string_contains('profiles/contrib/openy', $module->getPathname())) {
         $module_type = 'openy';
       }
-      elseif (contains('modules/contrib', $module->getPathname())) {
+      elseif (string_contains('modules/contrib', $module->getPathname())) {
         $module_type = 'contrib';
       }
       else {
