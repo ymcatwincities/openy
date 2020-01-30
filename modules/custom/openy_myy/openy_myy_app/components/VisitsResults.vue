@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <div class="col-myy">
-        <p>Note: Visit is only available for prior 18 months, please contact Customer Service Center for longer history at XXX-XXX-XXX</p>
+        <p>Note: Visit history is only available online for the previous 18 months. Please contact our Customer Service Center at 612-230-9622 for full visit history.</p>
       </div>
     </div>
     <div class="row content">
