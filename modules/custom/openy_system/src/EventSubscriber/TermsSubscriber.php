@@ -7,16 +7,27 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Session\AccountInterface;
 
 /**
- * Openy event subscriber.
+ * Class TermsSubscriber
+ *
+ * @package Drupal\openy_system\EventSubscriber
  */
 class TermsSubscriber implements EventSubscriberInterface {
 
+  /**
+   * @var \Drupal\Core\Config\ImmutableConfig
+   */
   protected $config;
+
+  /**
+   * @var \Drupal\Core\Session\AccountInterface
+   */
   protected $currentUser;
 
-  public function __construct($config_factory, $current_user) {
+  public function __construct(ConfigFactoryInterface $config_factory, AccountInterface $current_user) {
     $this->config = $config_factory->get('openy.terms_and_conditions.schema');
     $this->currentUser = $current_user;
   }
