@@ -219,7 +219,7 @@ class TermsOfUseForm extends FormBase {
       $config->save();
 
       $this->messenger->addMessage($this->t('Open Y Terms and Conditions have been accepted.'));
-      $form_state->setRedirect('<front>');
+      $form_state->setRedirect('openy_system.openy_terms_and_conditions');
     }
   }
 
