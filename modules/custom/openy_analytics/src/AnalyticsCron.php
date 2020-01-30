@@ -199,6 +199,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
   }
 
   /**
+   * Returns array of paragraph bundles used on homepage
    * @return array
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
@@ -211,19 +212,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     $node = $this->entityTypeManager->getStorage('node')
       ->load($nid);
 
-    $field_ids = [];
-    // Get all the entity reference revisions fields.
-    $map = $this->entityFieldManager->getFieldMapByFieldType('entity_reference_revisions');
-
-    // Get all fields of the node with paragraphs.
-    foreach ($map['node'] as $name => $data) {
-      $target_type = FieldStorageConfig::loadByName('node', $name)
-        ->getSetting('target_type');
-
-      if ($target_type == 'paragraph' && $node->hasField($name)) {
-        $field_ids[] = $name;
-      }
-    }
+    $field_ids = ['field_bottom_content', 'field_content', 'field_header_content', 'field_sidebar_content'];
 
     $found_paragraphs = [];
     foreach ($field_ids as $field_id) {
@@ -239,6 +228,44 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     }
 
     return $found_paragraphs;
+  }
+
+  /**
+   * Returns array of fields allowed paragraphs settings
+   * @return array
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
+  function getLandingPageParagraphsAllowedSettings() {
+    $front_page = $this->configFactory->get('system.site')->get('page.front');
+    $front_page = explode('/', $front_page);
+    $nid = end($front_page);
+
+    $node = $this->entityTypeManager->getStorage('node')
+      ->load($nid);
+
+    $field_ids = ['field_bottom_content', 'field_content', 'field_header_content', 'field_sidebar_content'];
+
+    $node_fields_settings = [];
+    foreach ($field_ids as $field_id) {
+      if (!$node->hasField($field_id)) {
+        continue;
+      }
+      /**
+       * @var \Drupal\Core\Field\FieldItemList $field
+       */
+      $field = $node->get($field_id);
+      $fieldConfig = $field->getFieldDefinition();
+      $settings = $fieldConfig->getSettings();
+      $negate = $settings['handler_settings']['negate'];
+      $target_bundles = $settings['handler_settings']['target_bundles'];
+      $node_fields_settings[$field_id] = [
+        $negate,
+        $target_bundles
+      ];
+    }
+
+    return $node_fields_settings;
   }
 
   /**
@@ -320,6 +347,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         'theme_info' => $this->getThemeInfo(),
         'enabled_modules' => $this->getEnabledModules(),
         'frontpage_paragraphs' => $this->getFrontpageParagraphs(),
+        'landing_page_settings' => $this->getLandingPageParagraphsAllowedSettings(),
         'paragraphs_usage' => $this->getParagraphsUsage(),
         'content_type_bundle_usage' => $this->getContentTypeBundleUsage(),
       ];
@@ -335,6 +363,9 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         'field_contrib_modules_enabled' => [['value' => json_encode($data['enabled_modules']['contrib'], TRUE)]],
         'field_custom_modules_enabled' => [['value' => json_encode($data['enabled_modules']['custom'], TRUE)]],
         'field_openy_modules_enabled' => [['value' => json_encode($data['enabled_modules']['openy'], TRUE)]],
+
+        'frontpage_paragraphs' => [['value' => json_encode($data['frontpage_paragraphs'], TRUE)]],
+        'landing_page_settings' => [['value' => json_encode($data['landing_page_settings'], TRUE)]],
 
         'field_last_node_edit_timestamp' => [['value' => date('Y-m-d\TH:i:sP', $data['last_changed_node']['changed'])]],
         'field_nodes_usage' => [['value' => json_encode($data['content_type_bundle_usage'], TRUE)]],
