@@ -193,6 +193,13 @@ news_ext:
     - openy_prgf_news_camp
     - openy_prgf_news_listing
 
+optimize:
+  name: 'Optimize'
+  description: 'Optimize package provides an ability to integrate the website with Google Optimize tool.'
+  help: '<p>Using Optimize package you can configure an integration with <a href="https://optimize.google.com/" target="_blank">Google Optimize</a>.</p>'
+  modules:
+    - google_optimize
+
 popups:
   name: 'Popups'
   description: 'Popups package provides an ability to display popups with branch selection.'
