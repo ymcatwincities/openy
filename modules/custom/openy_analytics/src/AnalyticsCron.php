@@ -68,8 +68,6 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   protected $endpoint = 'http://openy.org:1880/analytics';
 
-  protected $entityType = 'http://openy.org:1880/rest/type/node/analytics';
-
   /**
    * AnalyticsCron constructor.
    *
