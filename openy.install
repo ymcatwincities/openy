@@ -865,8 +865,8 @@ function openy_update_8057() {
   $query->addField('n', 'nid');
   $resultField = $query->execute()->fetchField();
   if ($resultField) {
-    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and 
-      delete "Search by Amenities" Limited Time Offer paragraph in Header area. 
+    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and
+      delete "Search by Amenities" Limited Time Offer paragraph in Header area.
       With Sidebar "Amenities" filter it became redundant.');
     drupal_set_message($message, 'warning');
   }
@@ -1015,7 +1015,7 @@ function openy_update_8069() {
     $config_importer->update($config, 'openy_carnation.settings', 'display_search_form');
   }
 }
- 
+
  /**
  * Import config with T&C.
  */
@@ -1055,4 +1055,16 @@ function openy_update_8076() {
       $module,
     ]);
   }
+}
+
+/**
+ * Enable openy analytics module
+ */
+function openy_update_8077() {
+  $config = drupal_get_path('profile', 'openy') . '/config/optional/openy.terms_and_conditions.schema.yml';
+  /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'openy.terms_and_conditions.schema', 'analytics');
+
+  \Drupal::service('module_installer')->install(['openy_analytics']);
 }

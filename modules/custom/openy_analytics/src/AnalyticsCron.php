@@ -32,7 +32,8 @@ class AnalyticsCron implements OpenyCronServiceInterface {
    */
   protected $httpClient;
 
-  protected $endpoint = 'http://rose.docksal/receiver.php';
+  protected $endpoint = 'http://carnation.demo.ixm.ca/node?_format=hal_json';
+  protected $entityType = 'http://carnation.demo.ixm.ca/rest/type/node/analytics';
 
   public function __construct(EntityTypeManager $entity_type_manager, $database, ConfigFactory $config_factory, $extension_list_module, $entity_field_manager, $http_client, $entityManager) {
     $this->entityTypeManager = $entity_type_manager;
@@ -196,29 +197,37 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     return $bundles_counted;
   }
 
+  function isEnabled() {
+    $analytics_enabled = $this->configFactory->get('openy.terms_and_conditions.schema')
+      ->get('analytics');
+
+    if ($analytics_enabled) {
+      return TRUE;
+    }
+    else {
+      return FALSE;
+    }
+  }
+
   /**
    * @inheritDoc
    */
   public function runCronServices() {
-    $data = [
-      'title' => $_SERVER['HTTP_HOST'],
-      'last_changed_node' => $this->getLastChangedNode(),
-      'server_info' => $this->getServerInfo(),
-      'theme_info' => $this->getThemeInfo(),
-      'modules' => $this->getModules(),
-      'frontpage_paragraphs' => $this->getFrontpageParagraphs(),
-      'paragraphs_usage' => $this->getParagraphsUsage(),
-      'bundle_usage' => $this->getBundleUsage(),
-    ];
+    if(!$this->isEnabled()) {
+      return;
+    }
 
     try {
-      //      $response = $this->httpClient->post($this->endpoint, [
-      //        'form_params' => $data
-      //      ]);
-      //      $body = $response->getBody();
-      //      $data = json_decode($body->getContents(), true);
-      //
-      //      var_dump($data);
+      $data = [
+        'title' => $_SERVER['HTTP_HOST'],
+        'last_changed_node' => $this->getLastChangedNode(),
+        'server_info' => $this->getServerInfo(),
+        'theme_info' => $this->getThemeInfo(),
+        'modules' => $this->getModules(),
+        'frontpage_paragraphs' => $this->getFrontpageParagraphs(),
+        'paragraphs_usage' => $this->getParagraphsUsage(),
+        'bundle_usage' => $this->getBundleUsage(),
+      ];
 
       $serialized_entity = json_encode([
         'title' => [['value' => $data['title']]],
@@ -240,17 +249,15 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         'field_theme' => [['value' => json_encode($data['theme_info'], TRUE)]],
         '_links' => [
           'type' => [
-            'href' => 'http://carnation.demo.ixm.ca/rest/type/node/analytics',
+            'href' => $this->entityType,
           ],
         ],
       ]);
 
-      $this->httpClient->post('http://carnation.demo.ixm.ca/node?_format=hal_json', [
-        'auth' => ['klausi', 'secret'],
+      $response = $this->httpClient->post($this->endpoint, [
         'body' => $serialized_entity,
         'headers' => [
           'Content-Type' => 'application/hal+json',
-          'X-CSRF-Token' => 'KTn4LVl2FdL1dFq2h9AT96mx66djIPNpilon6uIdtVk',
         ],
       ]);
     } catch (\Exception $e) {
