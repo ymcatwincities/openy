@@ -199,6 +199,9 @@
                 You've successfully canceled a session.
               </p>
             </div>
+            <div class="col-myy-sm-12 actions">
+              <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Ok">Ok</button>
+            </div>
           </div>
         </div>
       </div>
@@ -218,6 +221,9 @@
               <p class="text-center">
                 Something went wrong.
               </p>
+            </div>
+            <div class="col-myy-sm-12 actions">
+              <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Ok">Ok</button>
             </div>
           </div>
         </div>
@@ -555,32 +561,6 @@
         margin: 0;
       }
     }
-    .actions {
-      background-color: #f2f2f2;
-      margin-top: 15px;
-      padding-top: 15px;
-      padding-bottom: 15px;
-      .close-action {
-        border: 2px solid #0060AF;
-        color: #0060AF;
-        font-family: "Cachet Medium", sans-serif;
-        font-size: 18px;
-        height: 50px;
-        line-height: 50px;
-        padding: 0 20px;
-      }
-      .cancel-action {
-        background-color: #92278F;
-        border: 2px solid #92278F;
-        color: #FFF;
-        float: right;
-        font-family: "Cachet Medium", sans-serif;
-        font-size: 18px;
-        height: 50px;
-        line-height: 50px;
-        padding: 0 20px;
-      }
-    }
   }
   .myy-modal__modal--myy-additem {
     .modal-dialog {
@@ -608,11 +588,18 @@
         }
       }
     }
+  }
+
+  .myy-modal__modal {
+    .text-center {
+      margin: 10px 0;
+    }
     .actions {
       background-color: #f2f2f2;
       margin-top: 15px;
       padding-top: 15px;
       padding-bottom: 15px;
+
       .close-action {
         border: 2px solid #0060AF;
         border-radius: 4px;
@@ -623,7 +610,12 @@
         line-height: 50px;
         padding: 0 20px;
         text-transform: uppercase;
+        &:hover {
+          color: #FFF;
+        }
       }
+
+      .cancel-action,
       .additem-action {
         background-color: #92278F;
         border: 2px solid #92278F;
@@ -637,6 +629,12 @@
         padding: 0 20px;
         text-transform: uppercase;
       }
+    }
+  }
+  .myy-modal__modal--myy-cancel-ok,
+  .myy-modal__modal--myy-cancel-fail {
+    .actions {
+      text-align: center;
     }
   }
 
