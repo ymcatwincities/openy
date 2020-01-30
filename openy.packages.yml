@@ -193,13 +193,6 @@ news_ext:
     - openy_prgf_news_camp
     - openy_prgf_news_listing
 
-optimizely:
-  name: 'Optimizely'
-  description: 'Optimizely package provides an ability to integrate the website with experimentation platform - Optimizely.'
-  help: '<p>Using Optimizely package you can configure an integration with experimentation platform - <a href="https://www.optimizely.com/" target="_blank">www.optimizely.com/</a>.</p>'
-  modules:
-    - optimizely
-
 popups:
   name: 'Popups'
   description: 'Popups package provides an ability to display popups with branch selection.'
