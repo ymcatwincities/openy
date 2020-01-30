@@ -13,9 +13,6 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-myy">
-        <p>Note: Visit is only available for prior 18 months, please contact Customer Service Center for longer history at XXX-XXX-XXX</p>
-      </div>
     </div>
     <div class="row content">
       <div class="col-myy">
@@ -32,7 +29,7 @@
               <span class="weekdays">20 sessions</span>
             </div>
             <div class="col-myy-sm-2 text-right">
-              $1,009.00
+              $1,009.00K
             </div>
             <div class="col-myy-sm-2 text-right">
               <strong>PENDING</strong>
