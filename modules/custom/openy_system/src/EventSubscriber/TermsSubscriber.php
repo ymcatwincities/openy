@@ -13,8 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class TermsSubscriber implements EventSubscriberInterface {
 
-  protected $configFactory;
-
+  protected $config;
   protected $currentUser;
 
   public function __construct($config_factory, $current_user) {
