@@ -6,12 +6,15 @@ use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Logger\RfcLogLevel;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\openy_socrates\OpenyCronServiceInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Extension\ExtensionList;
 use GuzzleHttp\Client;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Utility\Error;
 
 /**
  * Class AnalyticsCron
@@ -57,33 +60,49 @@ class AnalyticsCron implements OpenyCronServiceInterface {
    */
   protected $entityTypeBundleInfo;
 
+  /**
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
 
-  protected $endpoint = 'http://carnation.demo.ixm.ca/node?_format=hal_json';
-  protected $entityType = 'http://carnation.demo.ixm.ca/rest/type/node/analytics';
+
+  protected $endpoint = 'http://openy.org:1880/analytics';
+
+  protected $entityType = 'http://openy.org:1880/rest/type/node/analytics';
 
   /**
    * AnalyticsCron constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    * @param \Drupal\Core\Database\Connection $database
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   * @param \Drupal\Core\Extension\ExtensionList $extension_list_module
-   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
-   * @param \GuzzleHttp\Client $http_client
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \Drupal\Core\Extension\ExtensionList $extensionListModule
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entityFieldManager
+   * @param \GuzzleHttp\Client $httpClient
    * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entityTypeBundleInfo
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerFactory
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, Connection $database, ConfigFactoryInterface $config_factory, ExtensionList $extension_list_module, EntityFieldManagerInterface $entity_field_manager, Client $http_client, EntityTypeBundleInfoInterface $entityTypeBundleInfo) {
-    $this->entityTypeManager = $entity_type_manager;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager,
+                              Connection $database,
+                              ConfigFactoryInterface $configFactory,
+                              ExtensionList $extensionListModule,
+                              EntityFieldManagerInterface $entityFieldManager,
+                              Client $httpClient,
+                              EntityTypeBundleInfoInterface $entityTypeBundleInfo,
+                              LoggerChannelFactoryInterface $loggerFactory) {
+    $this->entityTypeManager = $entityTypeManager;
     $this->database = $database;
-    $this->configFactory = $config_factory;
-    $this->extensionListModule = $extension_list_module;
-    $this->entityFieldManager = $entity_field_manager;
-    $this->httpClient = $http_client;
+    $this->configFactory = $configFactory;
+    $this->extensionListModule = $extensionListModule;
+    $this->entityFieldManager = $entityFieldManager;
+    $this->httpClient = $httpClient;
     $this->entityTypeBundleInfo = $entityTypeBundleInfo;
+    $this->loggerFactory = $loggerFactory;
   }
 
   /**
    * Returns last changed node information
+   *
    * @return mixed
    */
   function getLastChangedNode() {
@@ -96,6 +115,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   /**
    * Returns server, php and db versions
+   *
    * @return array
    */
   function getServerInfo() {
@@ -116,6 +136,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   /**
    * Returns current theme and base theme
+   *
    * @return array
    */
   function getThemeInfo() {
@@ -131,6 +152,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   /**
    * Returns array of enabled modules with their versions
+   *
    * @return array
    */
   function getEnabledModules() {
@@ -221,6 +243,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   /**
    * Returns statistics of paragraphs used on the site
+   *
    * @return array
    */
   function getParagraphsUsage() {
@@ -249,6 +272,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   /**
    * Returns statistics of content type bundles used on the site
+   *
    * @return mixed
    */
   function getContentTypeBundleUsage() {
@@ -265,6 +289,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
   /**
    * Checks is site owner agreed to collect analytics
+   *
    * @return bool
    */
   function isEnabled() {
@@ -283,7 +308,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
    * @inheritDoc
    */
   public function runCronServices() {
-    if(!$this->isEnabled()) {
+    if (!$this->isEnabled()) {
       return;
     }
 
@@ -331,7 +356,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         ],
       ]);
     } catch (\Exception $e) {
-      watchdog_exception('openy_analytics', $e);
+      $message = '%type: @message in %function (line %line of %file).';
+      $variables = Error::decodeException($e);
+      $this->loggerFactory->get('openy_analytics')
+        ->log(RfcLogLevel::ERROR, $message, $variables);
       return NULL;
     }
   }
