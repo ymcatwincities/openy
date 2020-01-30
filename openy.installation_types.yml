@@ -4,6 +4,7 @@ standard:
     - alerts
     - editorial
     - news
+    - search
     - seo
     - webform
 
@@ -21,6 +22,7 @@ extended:
     - social_sharing
     - translation
     - seo
+    - search
     - webform
 
 complete:
@@ -50,6 +52,7 @@ complete:
     - programs
 #    @todo Uncomment this code when errors with Retention Campaign modules will be fixed.
 #    - retention_campaign
+    - search
     - seo
     - social
     - social_sharing
