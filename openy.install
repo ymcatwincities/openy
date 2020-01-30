@@ -1065,6 +1065,7 @@ function openy_update_8077() {
   /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config_importer->update($config, 'openy.terms_and_conditions.schema', 'analytics');
+  $config_importer->update($config, 'openy.terms_and_conditions.schema', 'analytics_optin');
 
   \Drupal::service('module_installer')->install(['openy_analytics']);
 }
