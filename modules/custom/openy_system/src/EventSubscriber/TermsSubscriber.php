@@ -45,7 +45,7 @@ class TermsSubscriber implements EventSubscriberInterface {
     $is_accepted_terms = $this->config->get('accepted_version');
     $is_analytics_state_decided = $this->config->get('analytics_optin');
 
-    if(!$is_authenticated_user || $is_on_terms_page) {
+    if (!$is_authenticated_user || $is_on_terms_page) {
       return;
     }
 
