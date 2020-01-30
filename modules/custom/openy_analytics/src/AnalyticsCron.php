@@ -355,9 +355,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
       $json = json_encode($data, true);
 
       $response = $this->httpClient->post($this->endpoint, [
-        'body' => $data,
+        'body' => $json,
+        'multipart',
         'headers' => [
-          'Content-Type' => 'application/hal+json',
+          'Content-Type' => 'application/json',
         ],
       ]);
     } catch (\Exception $e) {
