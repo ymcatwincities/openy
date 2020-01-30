@@ -2,49 +2,90 @@
 
 namespace Drupal\openy_analytics;
 
-use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Database\Connection;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\openy_socrates\OpenyCronServiceInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Extension\ExtensionList;
+use GuzzleHttp\Client;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 
+/**
+ * Class AnalyticsCron
+ *
+ * @package Drupal\openy_analytics
+ */
 class AnalyticsCron implements OpenyCronServiceInterface {
 
   /**
-   * Entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
+  /**
+   * @var \Drupal\Core\Database\Connection
+   */
   protected $database;
 
+  /**
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
   protected $configFactory;
 
+  /**
+   * @var \Drupal\Core\Extension\ExtensionList
+   */
   protected $extensionListModule;
 
+  /**
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
   protected $entityFieldManager;
-
-  protected $entityManager;
 
   /**
    * @var \GuzzleHttp\Client
    */
   protected $httpClient;
 
+  /**
+   * The entity type bundle info.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
+   */
+  protected $entityTypeBundleInfo;
+
+
   protected $endpoint = 'http://carnation.demo.ixm.ca/node?_format=hal_json';
   protected $entityType = 'http://carnation.demo.ixm.ca/rest/type/node/analytics';
 
-  public function __construct(EntityTypeManager $entity_type_manager, $database, ConfigFactory $config_factory, $extension_list_module, $entity_field_manager, $http_client, $entityManager) {
+  /**
+   * AnalyticsCron constructor.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Database\Connection $database
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   * @param \Drupal\Core\Extension\ExtensionList $extension_list_module
+   * @param \Drupal\Core\Entity\EntityFieldManagerInterface $entity_field_manager
+   * @param \GuzzleHttp\Client $http_client
+   * @param \Drupal\Core\Entity\EntityTypeBundleInfoInterface $entityTypeBundleInfo
+   */
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, Connection $database, ConfigFactoryInterface $config_factory, ExtensionList $extension_list_module, EntityFieldManagerInterface $entity_field_manager, Client $http_client, EntityTypeBundleInfoInterface $entityTypeBundleInfo) {
     $this->entityTypeManager = $entity_type_manager;
     $this->database = $database;
     $this->configFactory = $config_factory;
     $this->extensionListModule = $extension_list_module;
     $this->entityFieldManager = $entity_field_manager;
     $this->httpClient = $http_client;
-    $this->entityManager = $entityManager;
+    $this->entityTypeBundleInfo = $entityTypeBundleInfo;
   }
 
+  /**
+   * Returns last changed node information
+   * @return mixed
+   */
   function getLastChangedNode() {
     $statement = $this->database->select('node_field_data')
       ->fields('node_field_data', ['type', 'langcode', 'status', 'changed'])
@@ -53,6 +94,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     return $statement->execute()->fetchAssoc();
   }
 
+  /**
+   * Returns server, php and db versions
+   * @return array
+   */
   function getServerInfo() {
     $db_version = $this->database->query('select version();')->fetchField();
     $db_detailed_version = $this->database->query("SHOW VARIABLES LIKE '%version%';")
@@ -69,6 +114,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     ];
   }
 
+  /**
+   * Returns current theme and base theme
+   * @return array
+   */
   function getThemeInfo() {
     $default_theme = $this->configFactory->get('system.theme')->get('default');
     $base_theme = \Drupal::service('theme_handler')
@@ -80,7 +129,11 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     ];
   }
 
-  function getModules() {
+  /**
+   * Returns array of enabled modules with their versions
+   * @return array
+   */
+  function getEnabledModules() {
     $all_modules = $this->extensionListModule->getList();
 
     $modules = [
@@ -123,6 +176,11 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     return $modules;
   }
 
+  /**
+   * @return array
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   */
   function getFrontpageParagraphs() {
     $front_page = $this->configFactory->get('system.site')->get('page.front');
     $front_page = explode('/', $front_page);
@@ -161,6 +219,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     return $found_paragraphs;
   }
 
+  /**
+   * Returns statistics of paragraphs used on the site
+   * @return array
+   */
   function getParagraphsUsage() {
     $statement = $this->database->select('paragraphs_item')
       ->fields('paragraphs_item', ['type'])
@@ -169,7 +231,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     $statement->addExpression('COUNT(type)', 'count');
     $paragraphs_counted = $statement->execute()->fetchAllKeyed();
 
-    $bundles = array_keys($this->entityManager->getBundleInfo('paragraph'));
+    $bundles = array_keys($this->entityTypeBundleInfo->getBundleInfo('paragraph'));
 
     $bundles_counted = [];
     foreach ($bundles as $bundle) {
@@ -185,10 +247,14 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     return $bundles_counted;
   }
 
-  function getBundleUsage() {
+  /**
+   * Returns statistics of content type bundles used on the site
+   * @return mixed
+   */
+  function getContentTypeBundleUsage() {
     $statement = $this->database->select('node_field_data')
       ->fields('node_field_data', ['type'])
-      ->where('status=1')
+      ->condition('status', 1)
       ->groupBy('type')
       ->orderBy('count', 'DESC');
     $statement->addExpression('COUNT(type)', 'count');
@@ -197,6 +263,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     return $bundles_counted;
   }
 
+  /**
+   * Checks is site owner agreed to collect analytics
+   * @return bool
+   */
   function isEnabled() {
     $analytics_enabled = $this->configFactory->get('openy.terms_and_conditions.schema')
       ->get('analytics');
@@ -223,10 +293,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         'last_changed_node' => $this->getLastChangedNode(),
         'server_info' => $this->getServerInfo(),
         'theme_info' => $this->getThemeInfo(),
-        'modules' => $this->getModules(),
+        'enabled_modules' => $this->getEnabledModules(),
         'frontpage_paragraphs' => $this->getFrontpageParagraphs(),
         'paragraphs_usage' => $this->getParagraphsUsage(),
-        'bundle_usage' => $this->getBundleUsage(),
+        'content_type_bundle_usage' => $this->getContentTypeBundleUsage(),
       ];
 
       $serialized_entity = json_encode([
@@ -237,12 +307,12 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         'field_php' => [['value' => $data['server_info']['php_version']]],
         'field_server' => [['value' => $data['server_info']['server_software']]],
 
-        'field_contrib_modules_enabled' => [['value' => json_encode($data['modules']['contrib'], TRUE)]],
-        'field_custom_modules_enabled' => [['value' => json_encode($data['modules']['custom'], TRUE)]],
-        'field_openy_modules_enabled' => [['value' => json_encode($data['modules']['openy'], TRUE)]],
+        'field_contrib_modules_enabled' => [['value' => json_encode($data['enabled_modules']['contrib'], TRUE)]],
+        'field_custom_modules_enabled' => [['value' => json_encode($data['enabled_modules']['custom'], TRUE)]],
+        'field_openy_modules_enabled' => [['value' => json_encode($data['enabled_modules']['openy'], TRUE)]],
 
         'field_last_node_edit_timestamp' => [['value' => date('Y-m-d\TH:i:sP', $data['last_changed_node']['changed'])]],
-        'field_nodes_usage' => [['value' => json_encode($data['bundle_usage'], TRUE)]],
+        'field_nodes_usage' => [['value' => json_encode($data['content_type_bundle_usage'], TRUE)]],
         'field_paragraph_usage' => [['value' => json_encode($data['paragraphs_usage'], TRUE)]],
 
         'field_profile' => [['value' => $data['modules']['profile']]],
