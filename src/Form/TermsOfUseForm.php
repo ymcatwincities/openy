@@ -215,6 +215,7 @@ class TermsOfUseForm extends FormBase {
       $config->set('version', static::TERMS_OF_USE_VERSION);
       $config->set('accepted_version', time());
       $config->set('analytics', $form_state->getValue('analytics'));
+      $config->set('analytics_optin', 1);
       $config->save();
 
       $this->messenger->addMessage($this->t('Open Y Terms and Conditions have been accepted.'));
