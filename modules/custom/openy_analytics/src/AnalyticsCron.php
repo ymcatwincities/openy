@@ -352,36 +352,10 @@ class AnalyticsCron implements OpenyCronServiceInterface {
         'content_type_bundle_usage' => $this->getContentTypeBundleUsage(),
       ];
 
-      $serialized_entity = json_encode([
-        'title' => [['value' => $data['title']]],
-        'type' => [['target_id' => 'analytics']],
-        'field_db' => [['value' => $data['server_info']['db_version']]],
-        'field_db_detailed' => [['value' => json_encode($data['server_info']['db_detailed_version'], TRUE)]],
-        'field_php' => [['value' => $data['server_info']['php_version']]],
-        'field_server' => [['value' => $data['server_info']['server_software']]],
-
-        'field_contrib_modules_enabled' => [['value' => json_encode($data['enabled_modules']['contrib'], TRUE)]],
-        'field_custom_modules_enabled' => [['value' => json_encode($data['enabled_modules']['custom'], TRUE)]],
-        'field_openy_modules_enabled' => [['value' => json_encode($data['enabled_modules']['openy'], TRUE)]],
-
-        'frontpage_paragraphs' => [['value' => json_encode($data['frontpage_paragraphs'], TRUE)]],
-        'landing_page_settings' => [['value' => json_encode($data['landing_page_settings'], TRUE)]],
-
-        'field_last_node_edit_timestamp' => [['value' => date('Y-m-d\TH:i:sP', $data['last_changed_node']['changed'])]],
-        'field_nodes_usage' => [['value' => json_encode($data['content_type_bundle_usage'], TRUE)]],
-        'field_paragraph_usage' => [['value' => json_encode($data['paragraphs_usage'], TRUE)]],
-
-        'field_profile' => [['value' => $data['modules']['profile']]],
-        'field_theme' => [['value' => json_encode($data['theme_info'], TRUE)]],
-        '_links' => [
-          'type' => [
-            'href' => $this->entityType,
-          ],
-        ],
-      ]);
+      $json = json_encode($data, true);
 
       $response = $this->httpClient->post($this->endpoint, [
-        'body' => $serialized_entity,
+        'body' => $data,
         'headers' => [
           'Content-Type' => 'application/hal+json',
         ],
