@@ -102,8 +102,8 @@
               <div class="myy-modal__modal--body">
                 <div class="col-myy-sm-12">
                   <p class="text-center">
-                    Cancellation of all days of <strong>{{ cancelPopup.content.program_name }}</strong> cannot be completed online.
-                    Please contact our Customer Service Center at 612-230-9622 for assistance with your cancellation.
+                    Cancelation of all days of <strong>{{ cancelPopup.content.program_name }}</strong> cannot be completed online.
+                    Please contact our Customer Service Center at 612-230-9622 for assistance with your cancelation.
                   </p>
                 </div>
               </div>
