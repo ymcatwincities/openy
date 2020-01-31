@@ -83,7 +83,7 @@
 
 {# Program header #}
 <article{{ attributes.addClass('program-header') }}>
-  {% if content.field_header_content is not empty %}
+  {% if content.field_header_content|render|trim is not empty %}
     <div class="main">
       {{ content.field_header_content }}
     </div>
