@@ -40,6 +40,7 @@ class OpenySearchOverrides implements ConfigFactoryOverrideInterface {
       if (in_array($default_theme . '.settings', $names)) {
         $overrides[$default_theme . '.settings'] = [
           'search_query_key' => 'q',
+          'search_page_alias' => 'search',
           'display_search_form' => 1,
         ];
       }
