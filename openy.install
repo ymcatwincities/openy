@@ -1058,12 +1058,13 @@ function openy_update_8076() {
 }
 
 /**
- * Update themes settings: add search form query key.
+ * Update themes settings with search form query key and search page alias.
  */
 function openy_update_8077() {
   $themes_list = [
     'openy_lily',
-    'openy_carnation'
+    'openy_carnation',
+    'openy_rose',
   ];
   foreach ($themes_list as $theme) {
     if (\Drupal::service('theme_handler')->themeExists($theme)) {
@@ -1071,6 +1072,7 @@ function openy_update_8077() {
       /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
       $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
       $config_importer->update($config, $theme . '.settings', 'search_query_key');
+      $config_importer->update($config, $theme . '.settings', 'search_page_alias');
     }
   }
 }
