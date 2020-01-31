@@ -7,6 +7,8 @@ openy_rose_image_fields:
 css_enabled: 1
 css: ""
 display_search_form: 1
+search_query_key: q
+search_page_alias: search
 plaintext_enabled: 0
 autopreview_enabled: 0
 preview_path: ''
