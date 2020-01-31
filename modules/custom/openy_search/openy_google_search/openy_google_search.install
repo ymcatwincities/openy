@@ -76,7 +76,7 @@ function openy_google_search_install() {
   $page = $node_storage->create([
     'type' => 'landing_page',
     'title' => 'Search results',
-    'field_lp_layout' => 'one_column_clean',
+    'field_lp_layout' => 'one_column',
     'langcode' => 'en',
     'uid' => '1',
     'field_content' => [
