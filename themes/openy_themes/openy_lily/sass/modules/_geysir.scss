@@ -58,3 +58,14 @@
     }
   }
 }
+
+.geysir-field-paragraph-wrapper {
+  &.hide-geysir-links {
+    &:hover {
+      outline: none;
+    }
+    &:after {
+      display: none !important;
+    }
+  }
+}
