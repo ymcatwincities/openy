@@ -7472,6 +7472,13 @@ article .node--view-mode-flexible-content h2 a span {
   margin-bottom: 0;
 }
 
+.geysir-field-paragraph-wrapper.hide-geysir-links:hover {
+  outline: none;
+}
+.geysir-field-paragraph-wrapper.hide-geysir-links:after {
+  display: none !important;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
