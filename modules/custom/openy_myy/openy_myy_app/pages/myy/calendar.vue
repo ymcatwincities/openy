@@ -12,11 +12,15 @@
 </template>
 
 <script>
+  import MyyHeader from '~/components/MyyHeader.vue'
   import SidebarMenu from '~/components/SidebarMenu.vue'
+  import MobileMenu from '~/components/MobileMenu.vue'
 
   export default {
     components: {
-      SidebarMenu
+      MyyHeader,
+      MobileMenu,
+      SidebarMenu,
     }
   }
 </script>

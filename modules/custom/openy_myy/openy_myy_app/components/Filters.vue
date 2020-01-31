@@ -187,7 +187,7 @@
         text-decoration: none;
       }
       .fa {
-        font-size: 15px;
+        font-size: 20px;
         color: #636466;
       }
       .fa-plus-circle {

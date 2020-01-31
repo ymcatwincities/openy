@@ -150,6 +150,11 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
     }
 
     foreach ($results['Table'] as $item) {
+      $short_name = '';
+      if (!empty($pids[$item['SHIP_MASTER_CUSTOMER_ID']])) {
+        $name = explode(' ', $pids[$item['SHIP_MASTER_CUSTOMER_ID']]);
+        $short_name = $name[0][0] . ' ' . $name[1][0];
+      }
       $pay_link = $domain . '/personifyebusiness/Default.aspx?TabID=134&OrderNumber=' . $item['OrderNumber'] . '&RenewalMode=false';
       $due_amount = $item['DUE_AMOUNT'];
       $orders[] = [
@@ -162,6 +167,7 @@ class PersonifyDataOrders extends PluginBase implements MyYDataOrdersInterface, 
         'due_date' => $item['DUE_DATE'],
         'ship_master_customer_id' => $item['SHIP_MASTER_CUSTOMER_ID'],
         'name' => !empty($pids[$item['SHIP_MASTER_CUSTOMER_ID']]) ? $pids[$item['SHIP_MASTER_CUSTOMER_ID']] : '',
+        'short_name' => !empty($short_name) ? $short_name : '',
         'order_date' => $item['ORDER_DATE'],
         'order_date_timestamp' => strtotime($item['ORDER_DATE']),
       ];

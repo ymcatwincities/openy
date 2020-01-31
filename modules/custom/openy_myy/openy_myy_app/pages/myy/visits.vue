@@ -1,6 +1,7 @@
 <template>
   <div>
     <myy-header/>
+    <mobile-menu/>
     <div class="myy-sub-header">
       <div class="container">
         <div class="row">

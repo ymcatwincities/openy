@@ -23,10 +23,10 @@
           <div class="col-myy-sm-1 no-padding-left">
             <span :class="'rounded_letter small color-' + getUserColor(item.USR_LAST_FIRST_NAME)" v-if="getUserColor(item.USR_LAST_FIRST_NAME)">{{ item.USR_LAST_FIRST_NAME.charAt(0) }}</span>
           </div>
-          <div class="col-myy-sm-4">
+          <div class="col-myy-sm-4 user_name_wrapper">
             <span class="user_name">{{ item.USR_LAST_FIRST_NAME }}</span>
           </div>
-          <div class="col-myy-sm-4">
+          <div class="col-myy-sm-4 date_wrapper">
             <span class="date">{{ item.CUSTOM_USR_DATE }}</span><br/>
             <span class="duration">{{ item.CUSTOM_USR_TIME }}</span>
           </div>
@@ -177,23 +177,44 @@
       &:last-child {
         border-bottom: none;
       }
+      .user_name_wrapper {
+        margin-bottom: 5px;
+      }
       .user_name {
         font-weight: bold;
-        line-height: 21px;
+        line-height: 18px;
+        @media (min-width: 992px) {
+          line-height: 21px;
+        }
+      }
+      .date_wrapper {
+        margin-bottom: 5px;
       }
       .date {
         font-weight: bold;
-        line-height: 21px;
+        line-height: 18px;
+        @media (min-width: 992px) {
+          line-height: 21px;
+        }
       }
       .duration {
-        line-height: 21px;
+        line-height: 18px;
+        @media (min-width: 992px) {
+          line-height: 21px;
+        }
       }
       .branch {
-        line-height: 21px;
+        line-height: 18px;
+        @media (min-width: 992px) {
+          line-height: 21px;
+        }
       }
       .status {
         font-weight: bold;
-        line-height: 21px;
+        line-height: 18px;
+        @media (min-width: 992px) {
+          line-height: 21px;
+        }
       }
     }
   }

@@ -3,18 +3,18 @@
     <div v-if="loading" id="nuxt-loading" aria-live="polite" role="status"><div>Loading...</div></div>
     <div v-else>
       <div class="row title-area">
-        <div class="col-myy-sm-6">
+        <div class="col-myy-6">
           <h2>Childcare</h2>
         </div>
-        <div class="col-myy-sm-6 text-right">
+        <div class="col-myy-6 text-right">
          <a :href="childcare_purchase_link_url" class="btn btn-primary text-uppercase">{{ childcare_purchase_link_title }} <i class="fa fa-external-link-square"></i></a>
         </div>
       </div>
       <div class="row headline" v-if="data">
-        <div class="col-myy-sm-6">
-          <h4>Upcoming events</h4>
+        <div class="col-myy-5">
+          <h4>Upcoming <span class="d-myy-none d-myy-lg-inline">events</span></h4>
         </div>
-        <div class="col-myy-sm-6 text-right">
+        <div class="col-myy-7 text-right">
           <a href="#" class="view_all">View all</a> | <a href="#" class="purchases">Purchases</a>
         </div>
       </div>
@@ -27,8 +27,8 @@
           <div class="col-myy-sm-12" v-for="(item2, index2) in item" v-bind:key="index2">
           <div class="event_row">
             <div class="event_head row">
-              <div class="col-myy-sm-2">
-                <span class="rounded_letter blue">{{ item2.program_data.family_member }}</span>
+              <div class="col-myy-sm-1 user-icon-wrapper">
+                <span class="rounded_letter small blue">{{ item2.program_data.family_member }}</span>
               </div>
               <div class="col-myy-sm-5">
                 <div class="program_name"><strong>{{ item2.program_data.program_name }}</strong></div>
@@ -45,16 +45,17 @@
               <div class="weekday-number">Week {{ getWeekNumber(item2.weeks, weekday_id) }}</div>
               <div v-for="(order, index3) in week" v-bind:key="index3">
                 <div v-if="order.scheduled == 'Y'" class="event_item row">
-                  <div class="col-myy-sm-1 no-padding-left text-center">
+                  <div class="col-myy-2 col-myy-lg-1 no-padding-left no-padding-right text-center">
                     <i class="fa fa-calendar-check-o"></i>
                   </div>
-                  <div class="col-myy-sm-5 no-padding-left">
+                  <div class="col-myy-7 col-myy-lg-5 no-padding-left">
                     <span class="date">{{ order.usr_day }}, {{ order.order_date }}</span>
+                    <div class="duration d-myy-lg-none">{{ order.type }}</div>
                   </div>
-                  <div class="col-myy-sm-3">
+                  <div class="col-myy-3 col-myy-lg-3 d-myy-none d-myy-lg-block">
                     <span class="duration">{{ order.type }}</span>
                   </div>
-                  <div class="col-myy-sm-3 text-right no-padding-right">
+                  <div class="col-myy-3 col-myy-lg-3 text-right no-padding-right">
                     <a class="myy-modal__modal--myy-cancel-link cancel" role="button" href="#" v-on:click="populatePopupCancel(
                       week,
                       order,
@@ -154,20 +155,20 @@
               <div class="col-myy-sm-12">
                 <div class="event_row">
                   <div class="event_head row">
-                    <div class="col-myy-sm-2">
+                    <div class="col-myy-2">
                       <span class="rounded_letter small blue">{{ addItemPopup.info.family_member }}</span>
                     </div>
-                    <div class="col-myy-sm-10">
+                    <div class="col-myy-10">
                       <div class="program_name" v-if="addItemPopup.content.length > 0"><strong>{{ addItemPopup.info.program_name }}</strong></div>
                       {{ addItemPopup.info.branch }}
                       <div class="date"><strong>{{ addItemPopup.info.start_date }}-{{ addItemPopup.info.end_date }}</strong></div>
                     </div>
                   </div>
                   <div v-for="(item, index) in addItemPopup.content" v-bind:key="index" class="event_item row">
-                    <div class="col-myy-sm-2 no-padding-left text-center">
+                    <div class="col-myy-2 no-padding-left text-center">
                       <input type="checkbox" v-bind:checked="item.scheduled == 'Y'" v-model="addItemChecked" :value="item.date + '+' + item.type" :id="'checkbox-' + item.date + '+' + item.type" />
                     </div>
-                    <div class="col-myy-sm-10 no-padding-left">
+                    <div class="col-myy-10 no-padding-left">
                       <div class="date">{{ item.usr_day }}, {{ item.order_date }}</div>
                       <div class="duration">{{ item.type }}</div>
                     </div>
@@ -199,7 +200,7 @@
                 You've successfully canceled a session.
               </p>
             </div>
-            <div class="col-myy-sm-12 actions">
+            <div class="col-myy-sm-12 actions text-center">
               <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Ok">Ok</button>
             </div>
           </div>
@@ -222,7 +223,7 @@
                 Something went wrong.
               </p>
             </div>
-            <div class="col-myy-sm-12 actions">
+            <div class="col-myy-sm-12 actions text-center">
               <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Ok">Ok</button>
             </div>
           </div>
@@ -244,6 +245,9 @@
               <p class="text-center">
                 You've successfully updated the schedule.
               </p>
+            </div>
+            <div class="col-myy-sm-12 actions text-center">
+              <button type="button" class="btn btn-primary close-action" data-dismiss="modal" aria-label="Ok">Ok</button>
             </div>
           </div>
         </div>
@@ -362,6 +366,7 @@
         branch
       ) {
         var numberOfScheduled = 0;
+        this.cancelPopup.denyCancel = false;
         // Check if there only 1 item so user doesn't allow to cancel it.
         for (var i in week) {
           if (week[i].scheduled == 'Y') {
@@ -462,30 +467,46 @@
     margin-bottom: 40px;
     h2 {
       font-family: "Cachet Medium", sans-serif;
-      font-size: 36px;
-      line-height: 48px;
+      font-size: 24px;
+      line-height: 36px;
       margin: 0;
       color: #636466;
+      @media (min-width: 992px) {
+        font-size: 36px;
+        line-height: 48px;
+      }
     }
     .title-area {
-      margin-bottom: 40px;
+      margin-bottom: 20px;
+      @media (min-width: 992px) {
+        margin-bottom: 40px;
+      }
       .btn {
         background-color: #92278F;
         border-color: #92278F;
+        border-radius: 5px;
         color: #fff;
         font-family: "Cachet Medium", sans-serif;
-        font-size: 18px;
-        line-height: 38px;
-        padding: 6px 25px;
+        font-size: 14px;
+        line-height: 27px;
+        padding: 6px 15px;
+        @media (min-width: 992px) {
+          font-size: 18px;
+          line-height: 38px;
+          padding: 6px 25px;
+        }
         &:hover {
           color: #fff;
         }
       }
     }
     .headline {
-      padding: 20px 5px;
+      padding: 15px 0;
       margin: 0;
       border: 1px solid #636466;
+      @media (min-width: 992px) {
+        padding: 20px 5px;
+      }
     }
     h4 {
       color: #636466;
@@ -504,7 +525,10 @@
       border-right: 1px solid #636466;
       border-bottom: 1px solid #636466;
       margin: 0;
-      padding: 20px 5px;
+      padding: 15px 0px;
+      @media (min-width: 992px) {
+        padding: 20px 5px;
+      }
       .row {
         margin: 0;
       }
@@ -514,8 +538,22 @@
       margin-bottom: 20px;
       .event_head {
         background-color: #F2F2F2;
-        padding: 20px 5px;
+        padding: 10px 5px 10px 55px;
         line-height: 21px;
+        position: relative;
+        @media (min-width: 992px) {
+          padding: 20px 5px;
+        }
+        .user-icon-wrapper {
+          position: absolute;
+          left: 0;
+          top: 10px;
+          @media (min-width: 992px) {
+            position: static;
+            left: 0;
+            top: 0;
+          }
+        }
         .weekdays {
           font-size: 12px;
         }
@@ -525,20 +563,35 @@
         margin: 10px 20px;
       }
       .event_item {
-        padding: 20px 0;
+        padding: 10px 0;
         border-bottom: 1px solid #636466;
-        margin: 0 20px;
+        margin: 0 15px;
+        @media (min-width: 992px) {
+          padding: 20px 0;
+          margin: 0 20px;
+        }
         .date {
-          margin-left: 5px;
+          margin-left: 0px;
+          @media (min-width: 992px) {
+            margin-left: 5px;
+          }
         }
       }
       .weekday-number {
         background-color: #F2F2F2;
-        padding: 10px 30px;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        @media (min-width: 992px) {
+          padding: 10px 30px;
+        }
       }
       .event_add_item {
-        padding: 20px 0;
-        margin: 0 20px 20px 20px;
+        padding: 15px 0;
+        margin: 0 15px 20px;
+        @media (min-width: 992px) {
+          padding: 20px 0;
+          margin: 0 20px 20px 20px;
+        }
       }
       .event_empty_week {
         margin: 20px 20px 5px 30px;
@@ -579,7 +632,7 @@
       }
       .event_item {
         padding: 10px 0;
-        margin: 10px 0;
+        margin: 0;
         &:last-child {
           border-bottom: none;
         }
@@ -591,8 +644,10 @@
   }
 
   .myy-modal__modal {
-    .text-center {
-      margin: 10px 0;
+    .myy-modal__modal--body {
+      .text-center {
+        margin: 10px 0;
+      }
     }
     .actions {
       background-color: #f2f2f2;
@@ -629,12 +684,6 @@
         padding: 0 20px;
         text-transform: uppercase;
       }
-    }
-  }
-  .myy-modal__modal--myy-cancel-ok,
-  .myy-modal__modal--myy-cancel-fail {
-    .actions {
-      text-align: center;
     }
   }
 

@@ -98,19 +98,19 @@
         </div>-->
         <div class="result_row" v-for="(item, index) in data" v-bind:key="index">
           <div class="row">
-            <div class="col-myy-sm-1">
-              <span :class="'rounded_letter small color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.name.charAt(0) }}</span>
+            <div class="col-myy-sm-1 user-icon-wrapper no-padding-left">
+              <span :class="'rounded_letter small color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.short_name }}</span>
             </div>
-            <div class="col-myy-sm-3">
+            <div class="col-myy-sm-4 title-wrapper">
               <div class="type"><strong>{{ item.title }}</strong></div>
             </div>
-            <div class="col-myy-sm-4">
+            <div class="col-myy-sm-5 description-wrapper">
               <div><strong>{{ item.description }}</strong></div>
             </div>
-            <div class="col-myy-sm-2 text-right">
+            <div class="col-myy-sm-2 total-wrapper">
               ${{ item.total }}
             </div>
-            <div class="col-myy-sm-2 text-right">
+            <div class="col-myy-sm-2 text-right status-wrapper no-padding-right">
               <strong v-if="item.payed == 1">PAID</strong>
               <strong v-if="item.payed == 0">PENDING</strong>
             </div>
@@ -252,7 +252,13 @@
     .content {
       border: 1px solid #636466;
       margin: 0;
-      padding: 0 5px;
+      @media (min-width: 992px) {
+        padding: 5px;
+      }
+      > .col-myy {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
     .due-now {
       margin-top: 20px;
@@ -286,7 +292,32 @@
     }
     .result_row {
       border-bottom: 1px solid #636466;
-      padding: 20px 0;
+      padding: 5px 70px 10px 50px;
+      position: relative;
+      @media (min-width: 576px) {
+        padding: 5px 70px 10px 60px;
+      }
+      .user-icon-wrapper {
+        position: absolute;
+        left: 0;
+        top: 10px;
+      }
+      .title-wrapper {
+        margin-bottom: 10px;
+      }
+      .description-wrapper {
+        margin-bottom: 10px;
+      }
+      .total-wrapper {
+        @media (min-width: 576px) {
+          text-align: right;
+        }
+      }
+      .status-wrapper {
+        position: absolute;
+        right: 0;
+        top: 10px;
+      }
       .type {
         color: #0060AF;
       }

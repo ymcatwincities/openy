@@ -1,6 +1,7 @@
 <template>
   <div>
     <myy-header/>
+    <mobile-menu/>
     <section class="myy-main">
       <div class="container">
         <div class="row">
@@ -20,10 +21,12 @@
   import MyyHeader from '~/components/MyyHeader.vue'
   import SidebarMenu from '~/components/SidebarMenu.vue'
   import Childcare from '~/components/Childcare.vue'
+  import MobileMenu from '~/components/MobileMenu.vue'
 
   export default {
     components: {
       MyyHeader,
+      MobileMenu,
       SidebarMenu,
       Childcare,
     }
