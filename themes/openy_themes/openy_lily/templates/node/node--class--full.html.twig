@@ -103,35 +103,35 @@ set sidebar_classes = [
   <div class="row">
     {% endif %}
 
-    {% if content.field_content is not empty %}
+    {% if content.field_content|render|trim is not empty %}
       <article{{ attributes.addClass(content_classes) }}>
-        {% if content.field_sidebar_content is empty %}
+        {% if content.field_sidebar_content|render|trim is empty %}
         <div class="main-region col-sm-12">
           {% endif %}
-          {% if content.field_sidebar_content is not empty %}
+          {% if content.field_sidebar_content|render|trim is not empty %}
           <div class="two-column">
             <div class="main-region col-sm-8">
               {% endif %}
               {{ content.field_class_description }}
               {{ content.field_content }}
-              {% if content.field_sidebar_content is not empty %}
+              {% if content.field_sidebar_content|render|trim is not empty %}
             </div>
             <div class="sidebar-region col-sm-4">
               {% endif %}
               <article{{ attributes.addClass(sidebar_classes) }}>
                 {{ content.field_sidebar_content }}
               </article>
-              {% if content.field_sidebar_content is not empty %}
+              {% if content.field_sidebar_content|render|trim is not empty %}
             </div>
           </div>
           {% endif %}
-          {% if content.field_sidebar_content is empty %}
+          {% if content.field_sidebar_content|render|trim is empty %}
         </div>
         {% endif %}
       </article>
     {% endif %}
 
-    {% if content.field_sidebar_content is not empty %}
+    {% if content.field_sidebar_content|render|trim is not empty %}
   </div>
 </div>
 {% endif %}

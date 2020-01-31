@@ -694,3 +694,7 @@ body.modal-open .top-navs .nav-global{
 .schedule-dashboard__top-header a[href*=".pdf?"]:after {
   display: none;
 }
+
+.scroll-not {
+  overflow-y: hidden;
+}
