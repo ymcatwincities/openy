@@ -6,6 +6,7 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ConfigFactoryOverrideInterface;
 use Drupal\Core\Config\StorageInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * OpenY Search configuration override.
@@ -20,13 +21,23 @@ class OpenySearchOverrides implements ConfigFactoryOverrideInterface {
   private $configFactory;
 
   /**
+   * The module handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  private $moduleHandler;
+
+  /**
    * Constructs a DomainConfigSubscriber object.
    *
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   Configuration factory.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   Module handler.
    */
-  public function __construct(ConfigFactory $config_factory) {
+  public function __construct(ConfigFactory $config_factory, ModuleHandlerInterface $module_handler) {
     $this->configFactory = $config_factory;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -35,8 +46,7 @@ class OpenySearchOverrides implements ConfigFactoryOverrideInterface {
   public function loadOverrides($names) {
     $default_theme = $this->configFactory->getEditable('system.theme')->getOriginal('default');
     $overrides = [];
-    $moduleHandler = \Drupal::service('module_handler');
-    if ($moduleHandler->moduleExists('openy_google_search')) {
+    if ($this->moduleHandler->moduleExists('openy_google_search')) {
       if (in_array($default_theme . '.settings', $names)) {
         $overrides[$default_theme . '.settings'] = [
           'search_query_key' => 'q',
