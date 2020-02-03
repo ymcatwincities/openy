@@ -24,8 +24,9 @@ function openy_google_search_install() {
   if (!$module_installer->install(['openy_prgf_google_search'])) {
     return;
   }
-  $paragraph_storage = \Drupal::entityTypeManager()->getStorage('paragraph');
-  $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $paragraph_storage = $entity_type_manager->getStorage('paragraph');
+  $node_storage = $entity_type_manager->getStorage('node');
 
   $search_paragraph = $paragraph_storage->create([
     'type' => 'google_search',
@@ -49,19 +50,20 @@ function openy_google_search_install() {
     'paragraph__field_prgf_block',
     'paragraph_revision__field_prgf_block',
   ];
+  $connection = \Drupal::database();
   foreach ($tables as $table) {
-    if (!\Drupal::database()->schema()->tableExists($table)) {
+    if (!$connection->schema()->tableExists($table)) {
       continue;
     }
     // Select google_search paragraphs that have "broken" as plugin_id.
-    $query = \Drupal::database()->select($table, 'ptable');
+    $query = $connection->select($table, 'ptable');
     $query->fields('ptable');
     $query->condition('ptable.field_prgf_block_plugin_id', 'broken');
     $query->condition('ptable.bundle', 'google_search');
     $broken_paragraphs = $query->execute()->fetchAll();
     foreach ($broken_paragraphs as $paragraph) {
       $data = unserialize($paragraph->field_prgf_block_plugin_configuration);
-      $query = \Drupal::database()->update($table);
+      $query = $connection->update($table);
       $query->fields([
         'field_prgf_block_plugin_id' => $data['id'],
       ]);
@@ -92,7 +94,10 @@ function openy_google_search_install() {
     ],
   ]);
   if ($page->save()) {
-    \Drupal::configFactory()->getEditable('openy_google_search.settings')->set('search_page_id', $page->id())->save();
+    \Drupal::configFactory()
+      ->getEditable('openy_google_search.settings')
+      ->set('search_page_id', $page->id())
+      ->save();
   }
 }
 
@@ -100,7 +105,9 @@ function openy_google_search_install() {
  * Implements hook_uninstall().
  */
 function openy_google_search_uninstall() {
-  if ($nid = \Drupal::configFactory()->get('openy_google_search.settings')->get('search_page_id')) {
+  if ($nid = \Drupal::configFactory()
+    ->get('openy_google_search.settings')
+    ->get('search_page_id')) {
     $node_storage = \Drupal::entityTypeManager()->getStorage('node');
     if ($node = $node_storage->load($nid)) {
       $node->delete();
