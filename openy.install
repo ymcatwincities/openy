@@ -139,14 +139,6 @@ function openy_update_8006() {
 }
 
 /**
- * Enable Optimizely module.
- */
-function openy_update_8007() {
-  // Enable module.
-  \Drupal::service('module_installer')->install(['optimizely']);
-}
-
-/**
  * Add user and main menu blocks to sidebar region.
  */
 function openy_update_8008() {
@@ -1055,4 +1047,30 @@ function openy_update_8076() {
       $module,
     ]);
   }
+}
+
+/**
+ * Delete lndr and optimizely modules data.
+ */
+function openy_update_8077() {
+
+  $configs = [
+    'optimizely.settings',
+    'lndr.settings',
+    'tour.tour.tour-lndr'
+  ];
+  foreach ($configs as $config) {
+    $config = \Drupal::configFactory()->getEditable($config);
+    $config->delete();
+  }
+  \Drupal::database()->schema()->dropTable('optimizely');
+  \Drupal::database()->delete('key_value')
+    ->condition('collection', 'system.schema')
+    ->condition('name', ['optimizely', 'lndr'] , 'IN')
+    ->execute();
+
+  $config = \Drupal::configFactory()->getEditable('core.extension');
+  $config->clear('module.lndr');
+  $config->clear('module.optimizely');
+  $config->save();
 }

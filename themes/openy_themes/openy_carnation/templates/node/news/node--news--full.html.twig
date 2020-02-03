@@ -99,7 +99,7 @@
 
           {{ content.field_news_description }}
 
-          {% if content.addthis is not empty %}
+          {% if content.addthis|render|trim is not empty %}
             {{ content.addthis }}
           {% endif %}
 
