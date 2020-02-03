@@ -49,7 +49,7 @@ set classes = [
     </div>
   </div>
 
-  {% if content.field_header_content is not empty %}
+  {% if content.field_header_content|render|trim is not empty %}
     <div class="sub-header--filters bg-white">
       {{ content.field_header_content }}
     </div>

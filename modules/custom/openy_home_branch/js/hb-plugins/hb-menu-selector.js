@@ -40,7 +40,7 @@
         var selected = Drupal.homeBranch.getValue('id');
         if (!selected) {
           // Show HB locations modal.
-          Drupal.homeBranch.showModal();
+          Drupal.homeBranch.showModal(true);
         }
         else {
           // Redirect to branch page.
