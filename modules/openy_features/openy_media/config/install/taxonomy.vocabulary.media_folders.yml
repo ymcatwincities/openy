@@ -3,5 +3,5 @@ status: true
 dependencies: {  }
 name: 'Media folders'
 vid: media_folders
-description: ''
+description: 'Folders for organizing media objects.'
 weight: 0
