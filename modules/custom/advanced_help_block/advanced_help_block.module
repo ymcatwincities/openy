@@ -122,7 +122,7 @@ function advanced_help_block_check_visibility(AdvancedHelpBlock $entity) {
   // with different case. Ex: /Page, /page, /PAGE.
   // Compare the lowercase path alias (if any) and internal path.
   $current_path = \Drupal::service('path.current')->getPath();
-  $path = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
+  $path = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
   $path = Unicode::strtolower($path);
 
   // Do not trim a trailing slash if that is the complete path.
