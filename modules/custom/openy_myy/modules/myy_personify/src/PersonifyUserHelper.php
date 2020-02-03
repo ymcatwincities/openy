@@ -9,7 +9,7 @@ use Drupal\personify\PersonifySSO;
  *
  * @package Drupal\myy_personify
  */
-class PersonifyUserHelper {
+class PersonifyUserHelper implements PersonifyUserHelperfInterface {
 
   /**
    * @var \Drupal\personify\PersonifySSO
@@ -26,27 +26,21 @@ class PersonifyUserHelper {
   }
 
   /**
-   * @return int|mixed
+   * {@inheritdoc}
    */
   public function personifyGetId() {
 
     if (!empty($_COOKIE['Drupal_visitor_personify_authorized'])) {
-      //Terri Kruger
-      //return '2015228900';
       return $this->personifySSO->getCustomerIdentifier($_COOKIE['Drupal_visitor_personify_authorized']);
     }
      else {
-      return 0;
+      return NULL;
     }
 
   }
 
   /**
-   * Helper function that get's
-   *
-   * @param $branch_id
-   *
-   * @return mixed
+   * {@inheritdoc}
    */
   public function locationMapping($branch_id) {
 

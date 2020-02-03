@@ -13,7 +13,7 @@ use Drupal\Core\Datetime\DrupalDateTime;
  *
  * @package Drupal\myy_personify
  */
-class PersonifyUserData {
+class PersonifyUserData implements PersonifyUserDataInterface {
 
   /**
    * @var \Drupal\personify\PersonifySSO
@@ -63,8 +63,7 @@ class PersonifyUserData {
   }
 
   /**
-   * @return array
-   * @throws \GuzzleHttp\Exception\GuzzleException
+   * {@inheritdoc}
    */
   public function getFamilyData() {
 
@@ -124,8 +123,7 @@ class PersonifyUserData {
   }
 
   /**
-   * Mapping of household links for Personify
-   * @return array
+   * {@inheritdoc}
    */
   public function getHouseholdProfileLinks() {
 
