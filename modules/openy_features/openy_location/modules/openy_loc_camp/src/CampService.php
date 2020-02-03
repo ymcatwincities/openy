@@ -140,7 +140,10 @@ class CampService {
       // aliases are linked also.
       if ($aliases = $this->lookupPathAliases($system_path, $langcode)) {
         foreach ($aliases as $alias) {
-          $group->condition('field_camp_menu_links', 'internal:' . $alias->alias);
+          if(empty($alias->alias->value)) {
+            continue;
+          }
+          $group->condition('field_camp_menu_links', 'internal:' . $alias->alias->value);
           // Checking to see if the alias is the front page config value.
           $is_front = ($front == $alias->alias) ? TRUE : $is_front;
         }
@@ -180,36 +183,18 @@ class CampService {
    * @return string|false
    *   A path alias, or FALSE if no path was found.
    *
-   * @see \Drupal\Core\Path\AliasManagerInterface
-   * @see \Drupal\Core\Path\AliasStorageInterface
-   * @see \Drupal\Core\Path\AliasStorage::lookupPathAlias
+   * @see \Drupal\path_alias\AliasManagerInterface
+   * @see \Drupal\path_alias\PathAliasStorage
+   * @see \Drupal\path_alias\AliasManager::getAliasByPath()
    */
   public function lookupPathAliases($path, $langcode) {
     $source = $this->connection->escapeLike($path);
     $langcode_list = [$langcode, LanguageInterface::LANGCODE_NOT_SPECIFIED];
-    $alias_table = 'url_alias';
 
-    // See the queries above. Use LIKE for case-insensitive matching.
-    $select = $this->connection->select($alias_table)
-      ->fields($alias_table, ['alias'])
-      ->condition('source', $source, 'LIKE');
-    if ($langcode == LanguageInterface::LANGCODE_NOT_SPECIFIED) {
-      array_pop($langcode_list);
-    }
-    elseif ($langcode > LanguageInterface::LANGCODE_NOT_SPECIFIED) {
-      $select->orderBy('langcode', 'DESC');
-    }
-    else {
-      $select->orderBy('langcode', 'ASC');
-    }
-
-    $select->orderBy('pid', 'DESC');
-    $select->condition('langcode', $langcode_list, 'IN');
     try {
-      return $select->execute()->fetchall();
-    }
-    catch (\Exception $e) {
-      $this->catchException($e);
+      return $this->entityTypeManager->getStorage('path_alias')
+        ->loadByProperties(['path' => $path, 'langcode' => $langcode_list]);
+    } catch (\Exception $e) {
       return FALSE;
     }
   }
