@@ -139,14 +139,6 @@ function openy_update_8006() {
 }
 
 /**
- * Enable Optimizely module.
- */
-function openy_update_8007() {
-  // Enable module.
-  \Drupal::service('module_installer')->install(['optimizely']);
-}
-
-/**
  * Add user and main menu blocks to sidebar region.
  */
 function openy_update_8008() {
@@ -1058,9 +1050,35 @@ function openy_update_8076() {
 }
 
 /**
- * Enable openy analytics module
+ * Delete lndr and optimizely modules data.
  */
 function openy_update_8077() {
+
+  $configs = [
+    'optimizely.settings',
+    'lndr.settings',
+    'tour.tour.tour-lndr'
+  ];
+  foreach ($configs as $config) {
+    $config = \Drupal::configFactory()->getEditable($config);
+    $config->delete();
+  }
+  \Drupal::database()->schema()->dropTable('optimizely');
+  \Drupal::database()->delete('key_value')
+    ->condition('collection', 'system.schema')
+    ->condition('name', ['optimizely', 'lndr'] , 'IN')
+    ->execute();
+
+  $config = \Drupal::configFactory()->getEditable('core.extension');
+  $config->clear('module.lndr');
+  $config->clear('module.optimizely');
+  $config->save();
+}
+
+/**
+ * Enable openy analytics module
+ */
+function openy_update_8078() {
   $config = drupal_get_path('profile', 'openy') . '/config/optional/openy.terms_and_conditions.schema.yml';
   /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
