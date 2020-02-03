@@ -85,7 +85,7 @@ class BranchContactsInfo extends BlockBase implements ContainerFactoryPluginInte
       $render_array = ['#theme' => 'block_branch_contacts_info'];
 
       $address = $node->get('field_location_address')->get(0);
-      if($address) {
+      if ($address) {
         $address_array = $address->toArray();
         $location_address = "{$address_array['address_line1']} {$address_array['locality']}, {$address_array['administrative_area']} {$address_array['postal_code']}";
         $directions_url = Url::fromUri('https://www.google.com/maps/dir/', [
@@ -100,7 +100,7 @@ class BranchContactsInfo extends BlockBase implements ContainerFactoryPluginInte
       }
 
       $phone = $node->get('field_location_phone')->get(0);
-      if($phone) {
+      if ($phone) {
         $render_array['#phone'] = $phone->getString();
       }
 
@@ -124,11 +124,11 @@ class BranchContactsInfo extends BlockBase implements ContainerFactoryPluginInte
    */
   public function getCacheTags() {
     if ($node = $this->routeMatch->getParameter('node')) {
-      //if there is node add its cachetag
+      // If there is node add its cachetag.
       return Cache::mergeTags(parent::getCacheTags(), ['node:' . $node->id()]);
     }
     else {
-      //Return default tags instead.
+      // Return default tags instead.
       return parent::getCacheTags();
     }
   }

@@ -17,7 +17,7 @@ function openy_block_branch_contacts_info_theme($existing, $type, $theme, $path)
         'address_title' => '',
         'directions_url' => '',
         'openy_branch_selector' => '',
-        'branch_hours' => ''
+        'branch_hours' => '',
       ],
       'template' => 'block-branch-contacts-info',
     ],
