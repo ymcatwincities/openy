@@ -404,7 +404,13 @@
 
       // Initial run of ajax request if Home Branch set.
       if (typeof jQuery.cookie('home_branch') !== 'undefined' && JSON.parse(jQuery.cookie('home_branch')).id) {
-        component.homeBranchId = JSON.parse(jQuery.cookie('home_branch')).id;
+        var homeBranchId = JSON.parse(jQuery.cookie('home_branch')).id;
+        if (typeof drupalSettings.activityFinder.locationsNidToDaxkoIdMapping !== 'undefined') {
+          if (typeof drupalSettings.activityFinder.locationsNidToDaxkoIdMapping[homeBranchId] !== 'undefined') {
+            homeBranchId = drupalSettings.activityFinder.locationsNidToDaxkoIdMapping[homeBranchId];
+          }
+        }
+        component.homeBranchId = homeBranchId;
         component.runAjaxRequest({'locations': [component.homeBranchId]});
       }
 
