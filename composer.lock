@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "399c6ff26174f9ae646194c0fc2c41ef",
+    "content-hash": "ce9276723696e1273c88097ee7f4327a",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1239,6 +1239,10 @@
                     "homepage": "https://www.drupal.org/user/386230"
                 },
                 {
+                    "name": "jsacksick",
+                    "homepage": "https://www.drupal.org/user/972218"
+                },
+                {
                     "name": "mglaman",
                     "homepage": "https://www.drupal.org/user/2416470"
                 },
@@ -2099,7 +2103,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.0-rc1",
-                    "datestamp": "1516298515",
+                    "datestamp": "1578492183",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -2387,10 +2391,10 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/datalayer.git",
-                "reference": "9da78488dbb587789e5dc0c2ca47845260b9823b"
+                "reference": "b775d5262691df4e79f10e3f1364d4082a1cc2bc"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8.0 || ^9.0"
             },
             "type": "drupal-module",
             "extra": {
@@ -2398,8 +2402,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-beta1+19-dev",
-                    "datestamp": "1523749384",
+                    "version": "8.x-1.0-beta1+22-dev",
+                    "datestamp": "1579986185",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -2412,8 +2416,9 @@
             ],
             "authors": [
                 {
-                    "name": "WidgetsBurritos",
-                    "homepage": "https://www.drupal.org/user/2508346"
+                    "name": "Josh Lind",
+                    "homepage": "https://www.drupal.org/u/doublejosh",
+                    "role": "Maintainer"
                 },
                 {
                     "name": "bighappyface",
@@ -2426,14 +2431,23 @@
                 {
                     "name": "doublejosh",
                     "homepage": "https://www.drupal.org/user/199720"
+                },
+                {
+                    "name": "josephdpurcell",
+                    "homepage": "https://www.drupal.org/user/2944035"
                 }
             ],
             "description": "Output page meta data for client-side availability.",
             "homepage": "https://www.drupal.org/project/datalayer",
+            "keywords": [
+                "Data Layer",
+                "Drupal"
+            ],
             "support": {
-                "source": "https://git.drupalcode.org/project/datalayer"
+                "source": "https://git.drupalcode.org/project/datalayer",
+                "issues": "https://www.drupal.org/project/issues/datalayer"
             },
-            "time": "2019-08-05T17:51:29+00:00"
+            "time": "2020-01-25T21:00:25+00:00"
         },
         {
             "name": "drupal/domain",
@@ -2653,10 +2667,10 @@
                 },
                 "drupal": {
                     "version": "8.x-2.0-alpha4",
-                    "datestamp": "1555407785",
+                    "datestamp": "1578497283",
                     "security-coverage": {
                         "status": "not-covered",
-                        "message": "Project has not opted into security advisory coverage!"
+                        "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 }
             },
@@ -3314,7 +3328,7 @@
                 },
                 "drupal": {
                     "version": "8.x-3.0-rc2",
-                    "datestamp": "1574279719",
+                    "datestamp": "1580250787",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "RC releases are not covered by Drupal security advisories."
@@ -3339,12 +3353,12 @@
                     "homepage": "https://www.drupal.org/user/591438"
                 },
                 {
-                    "name": "swentel",
-                    "homepage": "https://www.drupal.org/user/107403"
+                    "name": "nils.destoop",
+                    "homepage": "https://www.drupal.org/user/361625"
                 },
                 {
-                    "name": "zuuperman",
-                    "homepage": "https://www.drupal.org/user/361625"
+                    "name": "swentel",
+                    "homepage": "https://www.drupal.org/user/107403"
                 }
             ],
             "description": "Provides the field_group module.",
@@ -3583,6 +3597,54 @@
             }
         },
         {
+            "name": "drupal/google_optimize",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/google_optimize.git",
+                "reference": "8.x-1.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/google_optimize-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "fbb1e89cf7693cb471f74298b538c5f35d5d7587"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/google_analytics": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.4",
+                    "datestamp": "1573056785",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "webfaqtory",
+                    "homepage": "https://www.drupal.org/user/241985"
+                }
+            ],
+            "description": "Adds the Google Optimize functionality",
+            "homepage": "https://www.drupal.org/project/google_optimize",
+            "support": {
+                "source": "https://git.drupalcode.org/project/google_optimize"
+            }
+        },
+        {
             "name": "drupal/google_tag",
             "version": "1.3.0",
             "source": {
@@ -3684,6 +3746,10 @@
                     "homepage": "https://www.drupal.org/user/3057985"
                 },
                 {
+                    "name": "phenaproxima",
+                    "homepage": "https://www.drupal.org/user/205645"
+                },
+                {
                     "name": "slashrsm",
                     "homepage": "https://www.drupal.org/user/744628"
                 },
@@ -3753,12 +3819,16 @@
                     "homepage": "https://www.drupal.org/user/99340"
                 },
                 {
-                    "name": "geek.merlin aka axel.rutz",
+                    "name": "geek-merlin",
                     "homepage": "https://www.drupal.org/user/229048"
                 },
                 {
                     "name": "joachim",
                     "homepage": "https://www.drupal.org/user/107701"
+                },
+                {
+                    "name": "jsacksick",
+                    "homepage": "https://www.drupal.org/user/972218"
                 },
                 {
                     "name": "kaythay",
@@ -3897,65 +3967,6 @@
                 "irc": "irc://irc.freenode.org/drupal-contribute"
             },
             "time": "2019-06-25T07:35:46+00:00"
-        },
-        {
-            "name": "drupal/lndr",
-            "version": "1.15.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/lndr.git",
-                "reference": "8.x-1.15"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/lndr-8.x-1.15.zip",
-                "reference": "8.x-1.15",
-                "shasum": "445f40472413a179590fff005d7d69ba7f1e4e94"
-            },
-            "require": {
-                "drupal/core": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.15",
-                    "datestamp": "1519175583",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "changx",
-                    "homepage": "https://www.drupal.org/user/2835131"
-                },
-                {
-                    "name": "ricardosuna",
-                    "homepage": "https://www.drupal.org/user/2770981"
-                },
-                {
-                    "name": "spheresh",
-                    "homepage": "https://www.drupal.org/user/624860"
-                },
-                {
-                    "name": "xcf33",
-                    "homepage": "https://www.drupal.org/user/412941"
-                }
-            ],
-            "description": "Lndr page bulider agent",
-            "homepage": "https://www.drupal.org/project/lndr",
-            "support": {
-                "source": "https://git.drupalcode.org/project/lndr"
-            }
         },
         {
             "name": "drupal/media_directories",
@@ -4320,7 +4331,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.10",
-                    "datestamp": "1567099985",
+                    "datestamp": "1576870683",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4492,7 +4503,7 @@
                 "shasum": "06390b359bf53c50a30f2d6dc4c7542bfb1fe7ca"
             },
             "require": {
-                "drupal/core": "^8.3",
+                "drupal/core": "^8 || ^9",
                 "drupal/migrate_plus": "^4 || ^5"
             },
             "require-dev": {
@@ -4546,61 +4557,6 @@
                 "source": "http://cgit.drupalcode.org/migrate_tools",
                 "issues": "http://drupal.org/project/migrate_tools",
                 "irc": "irc://irc.freenode.org/drupal-migrate"
-            }
-        },
-        {
-            "name": "drupal/optimizely",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/optimizely.git",
-                "reference": "8.x-3.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/optimizely-8.x-3.1.zip",
-                "reference": "8.x-3.1",
-                "shasum": "c521d894fc602ee194ada30f67230b5c4cd59cf1"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-3.x": "3.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-3.1",
-                    "datestamp": "1523248085",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "DeeZone",
-                    "homepage": "https://www.drupal.org/user/288060"
-                },
-                {
-                    "name": "tz_earl",
-                    "homepage": "https://www.drupal.org/user/2531114"
-                },
-                {
-                    "name": "yannisc",
-                    "homepage": "https://www.drupal.org/user/1145950"
-                }
-            ],
-            "description": "Manages loading Optimizely generated project javascript files to enable A/B testing.\n",
-            "homepage": "https://www.drupal.org/project/optimizely",
-            "support": {
-                "source": "https://git.drupalcode.org/project/optimizely"
             }
         },
         {
@@ -4966,7 +4922,7 @@
                 },
                 "drupal": {
                     "version": "8.x-2.4",
-                    "datestamp": "1548967980",
+                    "datestamp": "1580340616",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5610,7 +5566,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.5",
-                    "datestamp": "1537557481",
+                    "datestamp": "1577708583",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -5786,10 +5742,10 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/tzfield.git",
-                "reference": "e5023fa011ca72089c7b89468b3e087e3131b69e"
+                "reference": "f48016556f7d530ef772baca41b8b91aa614e5cc"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
@@ -5797,8 +5753,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0+1-dev",
-                    "datestamp": "1542071580",
+                    "version": "8.x-1.1+1-dev",
+                    "datestamp": "1578636787",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -5824,7 +5780,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/tzfield"
             },
-            "time": "2019-08-08T03:39:17+00:00"
+            "time": "2020-01-10T06:11:27+00:00"
         },
         {
             "name": "drupal/verf",
@@ -6004,10 +5960,10 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/views_block_filter_block.git",
-                "reference": "bd95554e9564c7fa5e9a4cbe33a64b9f471c7a86"
+                "reference": "b8c5de9c2d6a6ab38c78fe7fe6b4fe4905382dc6"
             },
             "require": {
-                "drupal/core": "*"
+                "drupal/core": "^8 || ^9"
             },
             "type": "drupal-module",
             "extra": {
@@ -6062,7 +6018,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/views_block_filter_block"
             },
-            "time": "2019-11-30T15:47:37+00:00"
+            "time": "2020-01-13T11:58:18+00:00"
         },
         {
             "name": "drupal/views_data_export",
@@ -6297,7 +6253,7 @@
                 },
                 "drupal": {
                     "version": "8.x-5.6",
-                    "datestamp": "1575331086",
+                    "datestamp": "1579208583",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9361,6 +9317,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2019-08-06T17:53:53+00:00"
         },
         {
@@ -9406,6 +9363,7 @@
                 "escaper",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-escaper",
             "time": "2019-09-05T20:03:20+00:00"
         },
         {
@@ -9469,6 +9427,7 @@
                 "feed",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-feed",
             "time": "2019-03-05T20:08:49+00:00"
         },
         {
@@ -9515,6 +9474,7 @@
                 "stdlib",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-stdlib",
             "time": "2018-08-28T21:34:05+00:00"
         }
     ],
