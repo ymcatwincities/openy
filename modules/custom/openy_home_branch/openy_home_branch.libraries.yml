@@ -76,14 +76,6 @@ loc_selector_branch_page:
     - openy_home_branch/menu_selector
     - openy_home_branch/hb_checkbox
 
-activity_finder_location:
-  version: 0.1
-  js:
-    js/hb-plugins/hb-activity-finder-location.js: {}
-  dependencies:
-    - core/drupalSettings
-    - openy_home_branch/cookies_storage
-
 hb_checkbox:
   version: 0.1
   css:
