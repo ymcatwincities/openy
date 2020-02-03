@@ -84,23 +84,28 @@ class BranchContactsInfo extends BlockBase implements ContainerFactoryPluginInte
     if ($node instanceof NodeInterface && $node->getType() == 'branch') {
       $render_array = ['#theme' => 'block_branch_contacts_info'];
 
-      $address_array = $node->get('field_location_address')->get(0)->toArray();
-      $location_address = "{$address_array['address_line1']} {$address_array['locality']}, {$address_array['administrative_area']} {$address_array['postal_code']}";
-      $directions_url = Url::fromUri('https://www.google.com/maps/dir/', [
-        'query' => [
-          'api' => 1,
-          'destination' => $this->alias_cleaner
-            ->cleanString($location_address),
-        ],
-      ])->toString();
+      $address = $node->get('field_location_address')->get(0);
+      if ($address) {
+        $address_array = $address->toArray();
+        $location_address = "{$address_array['address_line1']} {$address_array['locality']}, {$address_array['administrative_area']} {$address_array['postal_code']}";
+        $directions_url = Url::fromUri('https://www.google.com/maps/dir/', [
+          'query' => [
+            'api' => 1,
+            'destination' => $this->alias_cleaner
+              ->cleanString($location_address),
+          ],
+        ])->toString();
+        $render_array['#directions_url'] = $directions_url;
+        $render_array['#address_title'] = $location_address;
+      }
+
+      $phone = $node->get('field_location_phone')->get(0);
+      if ($phone) {
+        $render_array['#phone'] = $phone->getString();
+      }
+
 
       $render_array['#branch_title'] = $node->getTitle();
-      $render_array['#phone'] = $node->get('field_location_phone')
-        ->get(0)
-        ->getString();
-      $render_array['#address_title'] = $location_address;
-      $render_array['#directions_url'] = $directions_url;
-
       $branch_selector = openy_branch_selector_get_link($node->id());
       $render_array['#openy_branch_selector'] = $this->renderer->render($branch_selector);
 
@@ -119,11 +124,11 @@ class BranchContactsInfo extends BlockBase implements ContainerFactoryPluginInte
    */
   public function getCacheTags() {
     if ($node = $this->routeMatch->getParameter('node')) {
-      //if there is node add its cachetag
+      // If there is node add its cachetag.
       return Cache::mergeTags(parent::getCacheTags(), ['node:' . $node->id()]);
     }
     else {
-      //Return default tags instead.
+      // Return default tags instead.
       return parent::getCacheTags();
     }
   }

@@ -15,10 +15,10 @@ function openy_block_branch_contacts_info_install() {
     'core.entity_view_display.paragraph.branch_contacts_info.default',
     'field.field.paragraph.branch_contacts_info.field_branch_contacts_info',
     'field.storage.paragraph.field_branch_contacts_info',
-    'paragraphs.paragraphs_type.branch_contacts_info'
+    'paragraphs.paragraphs_type.branch_contacts_info',
   ];
 
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer = Drupal::service('openy_upgrade_tool.importer');
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs($configs);
 }
