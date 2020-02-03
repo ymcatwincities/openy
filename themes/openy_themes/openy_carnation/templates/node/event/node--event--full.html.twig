@@ -80,7 +80,7 @@
 %}
 
 {% set main_class = '' %}
-{% if content.field_sidebar_content|render is not empty %}
+{% if content.field_sidebar_content|render|trim is not empty %}
   {% set main_class = 'col-sm-8' %}
 {% endif %}
 
