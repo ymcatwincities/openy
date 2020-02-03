@@ -142,13 +142,7 @@ class PersonifyClient {
       ],
     ];
 
-    $body = "<CL_GetFacilityVisitCountByDateInput>
-      <MasterCustomerId>$masterId</MasterCustomerId>
-      <DateFrom>2018-01-01</DateFrom>
-      <DateTo>2020-01-01</DateTo>
-    </CL_GetFacilityVisitCountByDateInput>";
-
-    $results = $this->doAPIcall('POST', 'CL_GetFacilityVisitCountByDate?$format=json', $body, 'xml');
+    $results = $this->doAPIcall('CL_GetFacilityVisitCountByDate', $json);
     if (empty($results)) {
       return [];
     }
