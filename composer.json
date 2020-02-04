@@ -191,6 +191,7 @@
                 "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
             },
             "drupal/geysir": {
+                "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
             }
         }
