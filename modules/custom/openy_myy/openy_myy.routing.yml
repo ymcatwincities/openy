@@ -21,15 +21,27 @@ openy_myy.login:
     _controller: '\Drupal\openy_myy\Controller\MyYAuthenticatorController::login'
   requirements:
     _permission: 'access content'
+  options:
+    no_cache: TRUE
 openy_myy.logout:
   path: '/myy-model/logout'
   defaults:
     _controller: '\Drupal\openy_myy\Controller\MyYAuthenticatorController::logout'
   requirements:
     _permission: 'access content'
+  options:
+    no_cache: TRUE
 openy_myy.account:
   path: '/myy-model/auth'
   defaults:
     _controller: '\Drupal\openy_myy\Controller\MyYAuthenticatorController::auth'
   requirements:
     _permission: 'access content'
+openy_myy.check_login:
+  path: '/myy-model/check-login'
+  defaults:
+    _controller: '\Drupal\openy_myy\Controller\MyYAuthenticatorController::checkLogin'
+  requirements:
+    _permission: 'access content'
+  options:
+    no_cache: TRUE

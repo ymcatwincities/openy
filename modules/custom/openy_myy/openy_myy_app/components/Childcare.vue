@@ -282,18 +282,31 @@
     },
     methods: {
       runAjaxRequest: function() {
-        let component = this;
-        let url = component.baseUrl + 'myy-model/data/childcare/scheduled';
-
-        component.loading = true;
+        var component = this;
+        // Check if user still logged in first.
         jQuery.ajax({
-          url: url,
+          url: component.baseUrl + 'myy-model/check-login',
           xhrFields: {
             withCredentials: true
           }
         }).done(function(data) {
-          component.data = data;console.log(data);
-          component.loading = false;
+          if (data.isLogined  ===  1) {
+            var url = component.baseUrl + 'myy-model/data/childcare/scheduled';
+
+            component.loading = true;
+            jQuery.ajax({
+              url: url,
+              xhrFields: {
+                withCredentials: true
+              }
+            }).done(function(data) {
+              component.data = data;
+              component.loading = false;
+            });
+          } else {
+            // Redirect user to login page.
+            window.location.pathname = component.baseUrl + 'myy-model/login'
+          }
         });
       },
       cancel: function(date, type) {

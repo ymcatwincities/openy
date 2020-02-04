@@ -52,28 +52,41 @@
     },
     methods: {
       runAjaxRequest: function() {
-        var component = this,
-            start = typeof this.$route.query.start == 'undefined' ? '2018-01-01' : this.$route.query.start,
-            end = typeof this.$route.query.end == 'undefined' ? '2019-12-12' : this.$route.query.end,
-            ids = typeof this.$route.query.household == 'undefined' ? component.uid : this.$route.query.household,
-            sort = typeof this.$route.query.sort == 'undefined' ? '' : this.$route.query.sort,
-            url = component.baseUrl + 'myy-model/data/profile/visits-details/' + ids + '/' + start + '/' + end;
-
-        if (sort !== '') {
-          url += '?sort=' + sort;
-        }
-
-        component.loading = true;
+        var component = this;
+        // Check if user still logged in first.
         jQuery.ajax({
-          url: url,
+          url: component.baseUrl + 'myy-model/check-login',
           xhrFields: {
             withCredentials: true
           }
         }).done(function(data) {
-          component.data = data;
-          component.loading = false;
-          component.mapUserColors();
-          jQuery('.myy-sub-header .count span').text(data.length);
+          if (data.isLogined  ===  1) {
+            var start = typeof component.$route.query.start == 'undefined' ? '2018-01-01' : component.$route.query.start,
+                end = typeof component.$route.query.end == 'undefined' ? '2019-12-12' : component.$route.query.end,
+                ids = typeof component.$route.query.household == 'undefined' ? component.uid : component.$route.query.household,
+                sort = typeof component.$route.query.sort == 'undefined' ? '' : component.$route.query.sort,
+                url = component.baseUrl + 'myy-model/data/profile/visits-details/' + ids + '/' + start + '/' + end;
+
+            if (sort !== '') {
+              url += '?sort=' + sort;
+            }
+
+            component.loading = true;
+            jQuery.ajax({
+              url: url,
+              xhrFields: {
+                withCredentials: true
+              }
+            }).done(function(data) {
+              component.data = data;
+              component.loading = false;
+              component.mapUserColors();
+              jQuery('.myy-sub-header .count span').text(data.length);
+            });
+          } else {
+            // Redirect user to login page.
+            window.location.pathname = component.baseUrl + 'myy-model/login'
+          }
         });
       },
       mapUserColors: function () {

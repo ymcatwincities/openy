@@ -13,6 +13,7 @@ use Drupal\personify\PersonifySSO;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Personify instance of Authenticator plugin.
@@ -179,6 +180,15 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
 
     return new TrustedRedirectResponse('/');
 
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function checkLogin() {
+    return new JsonResponse([
+      'isLogined' => $this->personifyUserHelper->personifyGetId() ? 1 : 0,
+    ]);
   }
 
 }

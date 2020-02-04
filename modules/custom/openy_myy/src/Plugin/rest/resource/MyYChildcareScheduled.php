@@ -3,6 +3,8 @@
 namespace Drupal\openy_myy\Plugin\rest\resource;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Routing\TrustedRedirectResponse;
+use Drupal\Core\Url;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
@@ -78,7 +80,6 @@ class MyYChildcareScheduled extends ResourceBase {
    * {@inheritdoc}
    */
   public function get() {
-
     $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myYDataChildcare->getDefinitions();
     if (array_key_exists($myy_config['myy_data_childcare'], $myy_authenticator_instances)) {

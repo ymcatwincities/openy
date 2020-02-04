@@ -45,19 +45,32 @@
     },
     methods: {
       runAjaxRequest: function() {
-        var component = this,
-          url = component.baseUrl + 'myy-model/data/profile/visits-overview';
-
-        component.loading = true;
+        var component = this;
+        // Check if user still logged in first.
         jQuery.ajax({
-          url: url,
+          url: component.baseUrl + 'myy-model/check-login',
           xhrFields: {
             withCredentials: true
           }
         }).done(function(data) {
-          component.data = data;
-          component.loading = false;
-          component.mapUserColors();
+          if (data.isLogined === 1) {
+            var url = component.baseUrl + 'myy-model/data/profile/visits-overview';
+
+            component.loading = true;
+            jQuery.ajax({
+              url: url,
+              xhrFields: {
+                withCredentials: true
+              }
+            }).done(function (data) {
+              component.data = data;
+              component.loading = false;
+              component.mapUserColors();
+            });
+          } else {
+            // Redirect user to login page.
+            window.location.pathname = component.baseUrl + 'myy-model/login'
+          }
         });
       },
       mapUserColors: function () {
