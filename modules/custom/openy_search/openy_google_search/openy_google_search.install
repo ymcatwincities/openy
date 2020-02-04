@@ -74,7 +74,7 @@ function openy_google_search_install() {
       $query->execute();
     }
   }
-
+  drupal_flush_all_caches();
   $page = $node_storage->create([
     'type' => 'landing_page',
     'title' => 'Search results',
