@@ -11,6 +11,9 @@
 
         if (contentHeight >= sidebarHeight) {
           var $sidebar = $('.landing-content.two-column-fixed .wrapper-field-sidebar-content');
+          if($sidebar.length == 0) {
+            return;
+          }
           $sidebar.unbind();
           var $headerHeight = $('.wrapper-field-header-content').height();
           var top = 0;

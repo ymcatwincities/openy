@@ -5,6 +5,7 @@
  * Theme file.
  */
 
+use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Form\FormStateInterface;
