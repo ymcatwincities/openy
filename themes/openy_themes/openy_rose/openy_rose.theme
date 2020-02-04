@@ -8,6 +8,7 @@
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\Component\Utility\UrlHelper;
@@ -44,8 +45,9 @@ function openy_rose_theme($existing, $type, $theme, $path) {
   return [
     'top_menu_search' => [
       'variables' => [
-        'base_path' => NULL,
         'display_search' => NULL,
+        'search_key' => NULL,
+        'search_results_path' => NULL,
       ],
     ],
   ];
@@ -335,10 +337,14 @@ function openy_rose_preprocess_page(array &$variables) {
     }
   }
   $variables['display_search'] = theme_get_setting('display_search_form');
+  $variables['search_key'] = theme_get_setting('search_query_key');
+  $search_alias = 'internal:/' . theme_get_setting('search_page_alias');
+  $variables['search_results_path'] = Url::fromUri($search_alias)->toString();
   $variables['page']['secondary_menu']['search'] = [
     '#theme' => 'top_menu_search',
-    '#base_path' => base_path(),
     '#display_search' => $variables['display_search'],
+    '#search_key' => $variables['search_key'],
+    '#search_results_path' => $variables['search_results_path'],
   ];
 }
 

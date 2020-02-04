@@ -12,7 +12,7 @@ bundle: google_search
 mode: default
 content:
   field_prgf_block:
-    type: 'plugin_selector:plugin_autocomplete_list'
+    type: 'plugin_selector:plugin_select_list'
     weight: 0
     region: content
     settings: {  }
