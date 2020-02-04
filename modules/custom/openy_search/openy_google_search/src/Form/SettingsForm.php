@@ -37,6 +37,7 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Google Search Engine ID'),
       '#size' => 40,
       '#default_value' => !empty($config->get('google_engine_id')) ? $config->get('google_engine_id') : '',
+      '#required' => TRUE,
     ];
 
     return parent::buildForm($form, $form_state);
