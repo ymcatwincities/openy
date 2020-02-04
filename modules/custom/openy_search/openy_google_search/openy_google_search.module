@@ -10,6 +10,9 @@
  */
 function openy_google_search_theme($existing, $type, $theme, $path) {
   return [
-    'openy_google_search' => [],
+    'openy_google_search' => [
+      'variables' => [],
+      'template' => 'openy-google-search',
+    ],
   ];
 }

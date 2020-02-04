@@ -341,9 +341,9 @@ function openy_lily_preprocess_page(&$variables) {
     $variables['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
   }
   else {
-    // @todo move out from the theme.
-    $variables['search_view_content_path'] = Url::fromUri('internal:/search')
-      ->toString();
+    $variables['search_view_content_path'] = Url::fromUri(
+      'internal:/' . theme_get_setting('search_page_alias')
+    )->toString();
   }
 
   // Adds page title for login and register pages.

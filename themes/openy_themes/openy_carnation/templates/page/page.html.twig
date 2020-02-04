@@ -80,7 +80,7 @@
 
         {% if display_search %}
           <div class="search-form-wrapper col-12 border-top border-bottom">
-            <form method="get" action="{{ base_path }}/search">
+            <form method="get" action="{{ search_results_path }}">
               <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
               <input type="search" name="{{ search_key }}" class="search-input" placeholder="{{ 'Search'|t }}">
               <input type="submit" type="submit" value="Search">
@@ -121,7 +121,7 @@
                 {% if display_search %}
                   <div class="page-head__search fade collapse">
                     <div class="search-form-wrapper">
-                      <form method="get" action="{{ base_path }}/search">
+                      <form method="get" action="{{ search_results_path }}">
                         <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
                         <input type="search" name="{{ search_key }}" class="search-input" placeholder="{{ 'Search'|t }}">
                         <input type="submit" value="Search">

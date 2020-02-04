@@ -17,6 +17,7 @@ css_enabled: 1
 css: ""
 display_search_form: 1
 search_query_key: search
+search_page_alias: search
 plaintext_enabled: 0
 autopreview_enabled: 0
 preview_path: ''
