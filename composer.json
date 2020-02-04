@@ -317,6 +317,6 @@
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
         "drupal/geysir": "^1.1",
-        "drupal/media_directories": "1.x-dev"
+        "drupal/media_directories": "^1.0"
     }
 }
