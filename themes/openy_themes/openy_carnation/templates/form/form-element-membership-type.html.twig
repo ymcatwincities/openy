@@ -76,8 +76,6 @@
 %}
 <div{{ attributes.addClass(classes) }}>
   <div class="card text-center">
-    <div class="card-body">
-
       {% if label_display in ['before', 'invisible'] %}
         <h3 class="card-title">{{ label }}</h3>
       {% endif %}
@@ -120,7 +118,5 @@
           {{ description.content }}
         </div>
       {% endif %}
-
-    </div>
   </div>
 </div>

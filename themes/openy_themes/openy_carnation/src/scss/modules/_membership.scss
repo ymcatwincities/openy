@@ -3,8 +3,24 @@ a[href="#step2"] {
 }
 
 #membership-calc-wrapper {
-  fieldset {
+
+  form fieldset {
     margin: 0 0 2rem 0;
+
+    .fieldset-wrapper .form-radios {
+      .card {
+        height: 100%;
+        padding: 1.25rem;
+        .form-element-wrapper {
+          display: grid;
+          grid-template-columns: 1fr;
+          height: 100%;
+          .card-text {
+            display: none;
+          }
+        }
+      }
+    }
   }
 
   .description,
@@ -38,14 +54,6 @@ a[href="#step2"] {
     &:after {
       content: ":";
     }
-  }
-
-  .form-element-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction:column;
-    position: relative;
-    width: 100%;
   }
 
   input[name="type"] {
