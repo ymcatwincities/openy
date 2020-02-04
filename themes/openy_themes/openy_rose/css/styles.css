@@ -542,7 +542,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 100%;
-  height: 40px;
+  height: 32px;
   line-height: 26px;
   padding: 7px 10px 7px 35px;
 }
@@ -634,6 +634,10 @@ body {
   border-top: 1px solid #979797;
   padding-bottom: 22px;
   padding-top: 22px;
+}
+.sidebar .search-form-wrapper .search-input-decoration {
+  margin-top: 9px;
+  margin-left: 4px;
 }
 @media (min-width: 62em) {
   body .sidebar {
@@ -876,6 +880,7 @@ body {
   }
 }
 .header-search-wrapper .search-input-decoration {
+  border: none;
   top: 0;
   right: 14px;
 }
@@ -930,16 +935,16 @@ body {
   padding-top: 10px;
 }
 .sidebar .search-form-wrapper input[type="search"]:-moz-placeholder {
-  font-size: 18px;
+  font-size: 14px;
 }
 .sidebar .search-form-wrapper input[type="search"]::-moz-placeholder {
-  font-size: 18px;
+  font-size: 14px;
 }
 .sidebar .search-form-wrapper input[type="search"]:-ms-input-placeholder {
-  font-size: 18px;
+  font-size: 14px;
 }
 .sidebar .search-form-wrapper input[type="search"]::-webkit-input-placeholder {
-  font-size: 18px;
+  font-size: 14px;
 }
 .sidebar .caret {
   margin-left: 7px;
