@@ -84,7 +84,7 @@ body {
   width: 0;
   position: fixed;
   z-index: 9999;
-  top: 52px;
+  top: 85px;
   left: 0;
   overflow: auto;
   transition: 0.2s;
@@ -279,7 +279,7 @@ header#page-head {
                   -webkit-transform: scale(0);
                   transform: scale(0);
                 }
-                &:last-child {
+                &:nth-child(3) {
                   -webkit-transform: translate(0px, -6px) rotate(35deg);
                   transform: translate(0px, -6px) rotate(35deg);
                   -webkit-transform-origin: 50%;
@@ -583,20 +583,6 @@ header#page-head {
         li {
           a {
             line-height: 19px;
-          }
-        }
-      }
-      #block-topmenu2,
-      #block-openy-lily-user-menu,
-      #block-anonymoususersmenu,
-      #block-anonymoususersmenu--2 {
-        ul {
-          li {
-            &:first-child {
-              a {
-                margin: 9px 5px 0 0;
-              }
-            }
           }
         }
       }
