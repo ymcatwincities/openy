@@ -202,6 +202,9 @@
             },
             "drupal/migrate_tools": {
                 "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
+            },
+            "drupal/geysir": {
+                "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
             }
         }
     },
@@ -299,6 +302,7 @@
         "drupal/ckeditor_font": "^1.0",
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.4",
-        "drupal/image_widget_crop": "^2.2"
+        "drupal/image_widget_crop": "^2.2",
+        "drupal/geysir": "^1.1"
     }
 }
