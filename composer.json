@@ -81,6 +81,19 @@
         {
             "type": "package",
             "package": {
+                "name": "library-smonetti/btbutton",
+                "version": "1.0.2",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/smonetti/btbutton",
+                    "type": "git",
+                    "reference": "ee1fc396231a63201373cb580684e699a696ed62"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "grt107/grt-youtube-popup",
                 "version": "1.0.0",
                 "type": "drupal-library",
@@ -201,6 +214,9 @@
             },
             "drupal/migrate_tools": {
                 "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
+            },
+            "drupal/geysir": {
+                "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
             }
         }
     },
@@ -247,7 +263,7 @@
         "library-ckeditor/panelbutton": "4.10.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
-        "library-smonetti/btbutton": "1.0.1",
+        "library-smonetti/btbutton": "1.0.2",
         "library-davekoelle/alphanum": "1.0.0",
         "library-vakata/jstree": "^3.3",
         "grt107/grt-youtube-popup": "^1.0",
@@ -300,6 +316,7 @@
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
+        "drupal/geysir": "^1.1",
         "drupal/media_directories": "1.x-dev"
     }
 }

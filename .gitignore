@@ -9,6 +9,7 @@
 ./build/reports
 ./docroot
 node_modules
+package-lock.json
 vendor
 bin
 build/reports
