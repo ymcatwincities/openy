@@ -49,30 +49,43 @@
     },
     methods: {
       runAjaxRequest: function() {
-        let component = this,
-            query = [],
-            url = window.drupalSettings.path.baseUrl + 'myy-model/data/childcare/scheduled';
-
-        if (this.$route.query.start_date !== 'undefined') {
-          query.push('start_date=' + this.$route.query.start_date);
-        }
-        if (this.$route.query.end_date !== 'undefined') {
-          query.push('end_date=' + this.$route.query.end_date);
-        }
-
-        if (query.length > 0) {
-          url += '?' + query.join('&');
-        }
-
-        component.loading = true;
+        var component = this;
+        // Check if user still logged in first.
         jQuery.ajax({
-          url: url,
+          url: component.baseUrl + 'myy-model/check-login',
           xhrFields: {
             withCredentials: true
           }
         }).done(function(data) {
-          component.data = data;
-          component.loading = false;
+          if (data.isLogined  ===  1) {
+            var query = [],
+            url = window.drupalSettings.path.baseUrl + 'myy-model/data/childcare/scheduled';
+
+          if (this.$route.query.start_date !== 'undefined') {
+            query.push('start_date=' + this.$route.query.start_date);
+          }
+          if (this.$route.query.end_date !== 'undefined') {
+            query.push('end_date=' + this.$route.query.end_date);
+          }
+
+          if (query.length > 0) {
+            url += '?' + query.join('&');
+          }
+
+          component.loading = true;
+          jQuery.ajax({
+            url: url,
+            xhrFields: {
+              withCredentials: true
+            }
+          }).done(function(data) {
+            component.data = data;
+            component.loading = false;
+          });
+          } else {
+            // Redirect user to login page.
+            window.location.pathname = component.baseUrl + 'myy-model/login'
+          }
         });
       },
     },

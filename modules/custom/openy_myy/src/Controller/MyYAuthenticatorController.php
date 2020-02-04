@@ -105,4 +105,15 @@ class MyYAuthenticatorController extends ControllerBase {
     return $this->createPluginInstance('authPage');
   }
 
+  /**
+   * MyY check login.
+   *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *
+   * @return array
+   */
+  public function checkLogin(Request $request) {
+    return $this->createPluginInstance('checkLogin');
+  }
+
 }
