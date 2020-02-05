@@ -635,6 +635,28 @@ body {
   padding-bottom: 22px;
   padding-top: 22px;
 }
+.sidebar .search-form-wrapper .search-input-decoration {
+  margin-top: 9px;
+  margin-left: 4px;
+}
+.sidebar .search-form-wrapper .search-input {
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  height: 31px;
+  line-height: 31px;
+  padding: 0 10px 0 10px;
+  outline: none;
+}
+.sidebar .nav li a {
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 30px;
+}
+.sidebar .openy-google-translate {
+  padding: 10px 17px;
+}
+
 @media (min-width: 62em) {
   body .sidebar {
     display: none !important;
