@@ -45,9 +45,9 @@ source:
       layout: one_column
       header_content_ids:
         -
-          header_content_id: give_microsites_menu
-        -
           header_content_id: give_gallery
+        -
+          header_content_id: give_microsites_menu
       content_ids:
         -
           content_id: give_simple
