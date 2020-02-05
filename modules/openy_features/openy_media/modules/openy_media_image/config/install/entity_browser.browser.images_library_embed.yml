@@ -28,7 +28,7 @@ widgets:
     uuid: 38e9e569-85ca-4ce8-b968-bece772c66dd
     weight: -10
     label: Browser
-    id: directory_browser
+    id: media_directories_browser_widget
   eaf0fa61-65c5-4c7c-a3d6-ef077a075918:
     settings:
       form_mode: default
