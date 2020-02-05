@@ -151,6 +151,8 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     $visits = [];
     if (!empty($results['Table'])) {
       foreach ($results['Table'] as $item) {
+        $name = explode(' ', $item['USR_LAST_FIRST_NAME']);
+        $short_name = $name[1][0] . ' ' . $name[0][0];
         $item['USR_BRANCH_ID'] = $item['USR_BRANCH'];
         $item['USR_BRANCH'] = $this->personifyUserHelper->locationMapping(trim($item['USR_BRANCH']));
         $date = str_replace('  ', ' ', $item['ADDDATE']);
@@ -158,6 +160,7 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
         $item['CUSTOM_USR_DATE'] = implode(' ', [$date[0], $date[1], $date[2]]);
         $item['CUSTOM_USR_TIME'] = !empty($date[4]) ? $date[4] : $date[3];
         $item['ADDDATE_TIMESTAMP'] = strtotime($item['ADDDATE']);
+        $item['SHORT_NAME'] = $short_name;
         $visits[] = $item;
       }
     }
@@ -190,11 +193,14 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
     $pids[] = $this->personifyUserHelper->personifyGetId();
     foreach ($family['household'] as $fmember) {
       if (!empty($fmember['RelatedMasterCustomerId'])) {
+        $name = explode(', ', $fmember['name']);
+        $short_name = $name[1][0] . ' ' . $name[0][0];
         $pids[] = $fmember['RelatedMasterCustomerId'];
         // Fill array initially with empty values in order to show all households even with 0 visits.
         $overview[$fmember['RelatedMasterCustomerId']] = [
           'total' => 0,
           'name' => $fmember['name'],
+          'short_name' => $short_name,
           'unique' => [],
           'unique_total' => 0
         ];

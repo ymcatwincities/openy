@@ -79,8 +79,11 @@ class PersonifyUserData implements PersonifyUserDataInterface {
 
     $my_bdate = DrupalDateTime::createFromTimestamp(preg_replace('/[^0-9]/', '', $my_data['d']['CL_BirthDate']) / 1000, 'UTC');
     $now = new DrupalDateTime();
+    $name = explode(' ', $my_data['d']['LabelName']);
+    $short_name = $name[0][0] . ' ' . $name[1][0];
     $output['household'][] = [
       'name' => $my_data['d']['LabelName'],
+      'short_name' => $short_name,
       'age' => $now->diff($my_bdate)->format('%y'),
       'RelationshipCode' => 'ME',
       'ProfileLinks' => $this->getHouseholdProfileLinks(),
@@ -110,8 +113,11 @@ class PersonifyUserData implements PersonifyUserDataInterface {
         continue;
       }
 
+      $name = explode(', ', $relationship['RelatedName']);
+      $short_name = $name[1][0] . ' ' . $name[0][0];
       $output['household'][] = [
         'name' => $relationship['RelatedName'],
+        'short_name' => $short_name,
         'RelationshipCode' => $relationship['RelationshipCode'],
         'age' => $now->diff($family_member_birthdate)->format('%y'),
         'RelatedMasterCustomerId' => $relationship['RelatedMasterCustomerId'],
