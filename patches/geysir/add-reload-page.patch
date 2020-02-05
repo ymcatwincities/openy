@@ -1,0 +1,36 @@
+diff --git a/js/geysir.js b/js/geysir.js
+index b671d6b..3c416f1 100644
+--- a/js/geysir.js
++++ b/js/geysir.js
+@@ -53,4 +53,11 @@
+     }
+   };
+ 
++  /**
++   * Triggered by AJAX action for page reload.
++   */
++  $.fn.reloadPageAjaxAction = function() {
++    location.reload();
++  };
++
+ })(jQuery, Drupal, drupalSettings);
+diff --git a/src/Form/GeysirModalParagraphForm.php b/src/Form/GeysirModalParagraphForm.php
+index 7139904..b00678c 100644
+--- a/src/Form/GeysirModalParagraphForm.php
++++ b/src/Form/GeysirModalParagraphForm.php
+@@ -4,6 +4,7 @@ namespace Drupal\geysir\Form;
+ 
+ use Drupal\Core\Ajax\AjaxResponse;
+ use Drupal\Core\Ajax\HtmlCommand;
++use Drupal\Core\Ajax\InvokeCommand;
+ use Drupal\Core\Form\FormStateInterface;
+ use Drupal\geysir\Ajax\GeysirCloseModalDialogCommand;
+ 
+@@ -92,6 +93,7 @@ class GeysirModalParagraphForm extends GeysirParagraphForm {
+       );
+ 
+       $response->addCommand(new GeysirCloseModalDialogCommand());
++      $response->addCommand(new InvokeCommand(NULL, 'reloadPageAjaxAction'));
+     }
+ 
+     return $response;

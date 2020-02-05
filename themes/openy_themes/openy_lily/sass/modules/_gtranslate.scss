@@ -11,20 +11,37 @@
   font-size: 16px;
 }
 
-.nav {
-  .language {
-    .openy-google-translate {
-      select {
-        @include cachet();
-        margin-left: 10px;
-        text-transform: uppercase;
-        color: $white;
-        font-size: 18px !important;
-        font-weight: bold;
+.goog-te-gadget {
+  font-size: 0 !important;
 
-        option {
-          color: $default-grey;
-        }
+  .goog-logo-link, span {
+    display: none;
+  }
+}
+
+.goog-te-banner-frame {
+  display: none;
+
+  @include breakpoint($screen-sm) {
+    display: block;
+  }
+}
+
+.mobile_menu {
+  .openy-google-translate {
+    @include breakpoint($screen-sm) {
+      display: none;
+    }
+    select {
+      @include cachet();
+      color: $white;
+      font-size: 18px !important;
+      font-weight: bold;
+      margin-left: 10px;
+      text-transform: uppercase;
+
+      option {
+        color: $default-grey;
       }
     }
   }

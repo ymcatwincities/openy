@@ -935,7 +935,7 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
  *
  * @param $variables
  */
-function openy_rose_preprocess_paragraph_social_list(&$variables) {
+function openy_lily_preprocess_paragraph_social_list(&$variables) {
   $block = $variables['content']['field_prgrf_sl_block'];
   if (isset($block[0]['#name']) && isset($block[0]['#display_id'])) {
     $variables['content']['posts'] = \Drupal::service('renderer')
