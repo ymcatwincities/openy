@@ -42,7 +42,7 @@
               </div>
             </div>
             <div v-for="(week, weekday_id) in item2.weeks" v-bind:key="weekday_id">
-              <div class="weekday-number">Week {{ getWeekNumber(item2.weeks, weekday_id) }}</div>
+              <div class="weekday-number">{{ weekday_id }}</div>
               <div v-for="(order, index3) in week" v-bind:key="index3">
                 <div v-if="order.scheduled == 'Y'" class="event_item row">
                   <div class="col-myy-2 col-myy-lg-1 no-padding-left no-padding-right text-center">
