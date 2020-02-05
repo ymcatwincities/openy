@@ -318,6 +318,26 @@
       margin-top: 9px;
       margin-left: 4px;
     }
+
+    .search-input {
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      height: 31px;
+      line-height: 31px;
+      padding: 0 10px 0 14px;
+      outline: none;
+    }
+  }
+
+  .nav li a {
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 30px;
+  }
+
+  .openy-google-translate {
+    padding: 10px 17px;
   }
 
   @include breakpoint($screen-desktop) {
