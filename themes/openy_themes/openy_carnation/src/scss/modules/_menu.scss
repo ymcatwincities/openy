@@ -13,6 +13,16 @@
   }
 }
 
+.desktop-menu {
+  .page-head__top-menu {
+    .col-md > div {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}
+
 // primary nav > first level
 .page-head__main-menu .navbar > li {
   > a,
