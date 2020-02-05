@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e0a35753dcacdef5539b0fa36e07378",
+    "content-hash": "3dd02ec11284ae38f0d9c506832f7c32",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -11531,7 +11531,6 @@
         "drupal/libraries": 20,
         "drupal/datalayer": 20,
         "drupal/tzfield": 20,
-        "drupal/media_directories": 15,
         "drupal/tqextension": 20
     },
     "prefer-stable": true,
