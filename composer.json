@@ -278,7 +278,7 @@
         "drupal/metatag": "~1.8",
         "drupal/scheduler": "1.0",
         "drupal/webform": "~5.0",
-        "drupal/captcha": "1.0-beta1",
+        "drupal/captcha": "1.0-beta4",
         "drupal/recaptcha": "~2.3",
         "drupal/rabbit_hole": "~1.0-beta4",
         "drupal/admin_toolbar": "~1.25",
