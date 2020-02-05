@@ -21,7 +21,7 @@
       <div class="col-myy-12">
         <div v-for="(item, index) in data" v-bind:key="index" class="item-row row">
           <div class="col-myy-sm-1 no-padding-left">
-            <span :class="'rounded_letter small color-' + getUserColor(item.USR_LAST_FIRST_NAME)" v-if="getUserColor(item.USR_LAST_FIRST_NAME)">{{ item.USR_LAST_FIRST_NAME.charAt(0) }}</span>
+            <span :class="'rounded_letter small color-' + getUserColor(item.USR_LAST_FIRST_NAME)" v-if="getUserColor(item.USR_LAST_FIRST_NAME)">{{ item.SHORT_NAME }}</span>
           </div>
           <div class="col-myy-sm-4 user_name_wrapper">
             <span class="user_name">{{ item.USR_LAST_FIRST_NAME }}</span>

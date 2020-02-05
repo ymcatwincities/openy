@@ -13,7 +13,7 @@
       <div v-for="(item, index) in data" v-bind:key="index" class="col-myy-md-6 col-myy-12">
         <div class="row">
           <div class="col-myy-3">
-            <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.name.charAt(0) }}</span>
+            <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.short_name }}</span>
           </div>
           <div class="col-myy-3">
             <span class="square_number">{{ item.unique_total }}</span>

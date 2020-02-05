@@ -10,7 +10,7 @@
       <div class="col-myy-sm-12 col-myy-12">
         <div class="row">
           <div v-for="(item, index) in data.household" v-bind:key="index" class="item col-myy-md-3 col-myy-6 col-myy-md-3">
-            <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.name.charAt(0) }}</span>
+            <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.short_name }}</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
             <div class="dropdown">
