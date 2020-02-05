@@ -139,14 +139,6 @@ function openy_update_8006() {
 }
 
 /**
- * Enable Optimizely module.
- */
-function openy_update_8007() {
-  // Enable module.
-  \Drupal::service('module_installer')->install(['optimizely']);
-}
-
-/**
  * Add user and main menu blocks to sidebar region.
  */
 function openy_update_8008() {
@@ -865,8 +857,8 @@ function openy_update_8057() {
   $query->addField('n', 'nid');
   $resultField = $query->execute()->fetchField();
   if ($resultField) {
-    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and 
-      delete "Search by Amenities" Limited Time Offer paragraph in Header area. 
+    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and
+      delete "Search by Amenities" Limited Time Offer paragraph in Header area.
       With Sidebar "Amenities" filter it became redundant.');
     drupal_set_message($message, 'warning');
   }
@@ -1058,9 +1050,35 @@ function openy_update_8076() {
 }
 
 /**
- * Update themes settings with search form query key and search page alias.
+ * Delete lndr and optimizely modules data.
  */
 function openy_update_8077() {
+
+  $configs = [
+    'optimizely.settings',
+    'lndr.settings',
+    'tour.tour.tour-lndr'
+  ];
+  foreach ($configs as $config) {
+    $config = \Drupal::configFactory()->getEditable($config);
+    $config->delete();
+  }
+  \Drupal::database()->schema()->dropTable('optimizely');
+  \Drupal::database()->delete('key_value')
+    ->condition('collection', 'system.schema')
+    ->condition('name', ['optimizely', 'lndr'] , 'IN')
+    ->execute();
+
+  $config = \Drupal::configFactory()->getEditable('core.extension');
+  $config->clear('module.lndr');
+  $config->clear('module.optimizely');
+  $config->save();
+}
+
+/**
+ * Update themes settings with search form query key and search page alias.
+ */
+function openy_update_8078() {
   $themes_list = [
     'openy_lily',
     'openy_carnation',

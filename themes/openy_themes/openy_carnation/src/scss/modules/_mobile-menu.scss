@@ -1,19 +1,19 @@
 /*
 ** Mobile menu
 */
-.sidebar {
-  position: fixed;
-  top: 70px;
+.mobile-sidebar {
+  background: $primary;
   bottom: 0;
-  z-index: 40;
   display: block;
-  visibility: visible;
+  height: auto;
   overflow: hidden;
+  -webkit-overflow-scrolling: touch;
   overflow-y: auto;
   padding-right: inherit;
-  height: auto;
-  background: $primary;
-  -webkit-overflow-scrolling: touch;
+  position: fixed;
+  top: 70px;
+  visibility: visible;
+  z-index: 40;
 
   &.collapse {
     width: 0;
@@ -24,7 +24,7 @@
   }
 
   &.collapsing-out {
-    transition: visibility 0s 0.4s linear;
+    transition: visibility 0s .4s linear;
   }
 
   .search-form-wrapper {
@@ -129,5 +129,11 @@
   .dropdown-menu > li > a:hover,
   .dropdown-menu > li > a:focus {
     background: none;
+  }
+}
+
+.toolbar-vertical {
+  .mobile-sidebar {
+    top: 117px;
   }
 }

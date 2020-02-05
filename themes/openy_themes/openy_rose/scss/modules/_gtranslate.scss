@@ -1,29 +1,60 @@
 .openy-gtranslate {
   display: inline-block;
-  vertical-align: bottom;
   height: 39px;
+  vertical-align: bottom;
 }
 
 .openy-google-translate select {
   background: transparent;
-  border: none;
-  max-width: 145px;
-  text-transform: uppercase;
+  border: 0;
   color: $white;
   font-size: 12px;
   margin-top: 6px;
+  text-transform: uppercase;
 
   option {
     color: $default-grey;
   }
 }
 
-.nav {
-  .language {
-    .openy-google-translate {
-      select {
-        margin-left: 10px;
-      }
+.goog-te-gadget {
+  font-size: 0 !important;
+
+  .goog-logo-link, span {
+    display: none;
+  }
+}
+
+// Google translate styles.
+.translated-ltr, .translated-rtl {
+  body {
+    top: 0 !important;
+  }
+
+  @include breakpoint($screen-sm) {
+    .top-navs {
+      margin-top: 39px;
+    }
+  }
+}
+
+.goog-te-banner-frame {
+  display: none;
+
+  @include breakpoint($screen-sm) {
+    display: block;
+  }
+}
+
+.sidebar {
+  .openy-google-translate {
+    @include breakpoint($screen-sm) {
+      display: none;
+    }
+    select {
+      margin-left: -5px;
+      margin-top: 6px;
+      margin-bottom: 9px;
     }
   }
 }

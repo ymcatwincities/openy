@@ -7,7 +7,7 @@ dependencies:
 id: openy_carnation_googletranslate
 theme: openy_carnation
 region: secondary_menu
-weight: -7
+weight: 50
 provider: null
 plugin: openy_gtranslate_block
 settings:

@@ -8,5 +8,5 @@ services:
     arguments:
       - '@plugin.manager.entity_reference_selection'
       - '@entity_type.manager'
-      - '@path.alias_manager'
+      - '@path_alias.manager'
       - '@entity.manager'
