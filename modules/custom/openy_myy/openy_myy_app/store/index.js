@@ -8,7 +8,7 @@ Vue.use(Vuex);
 const store = () => new Vuex.Store({
 
   state: {
-    isLoggedIn: Vue.cookie.get('Drupal.visitor.personify_authorized'),
+    isLoggedIn: Vue.cookie.get('Drupal.visitor.personify_authorized')
   },
   mutations: {
     logout (state) {

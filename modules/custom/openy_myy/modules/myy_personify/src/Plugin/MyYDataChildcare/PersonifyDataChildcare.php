@@ -133,7 +133,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
       if (!empty($fmember['RelatedMasterCustomerId'])) {
         $fullname = explode(', ', $fmember['name']);
         $familyMap[$fmember['RelatedMasterCustomerId']] = [
-          'name' => $fullname[1][0] . ' ' . $fullname[0][0],
+          'name' => $fullname[0] . ', ' . $fullname[1],
+          'short_name' => $fullname[1][0] . ' ' . $fullname[0][0],
         ];
       }
     }
@@ -157,7 +158,8 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
          if ($childcare_item['aflag'] == 'N') {
            if (empty($result[$childcare_item['prtcpnt_id']][$childcare_item['pcode']]['data'])) {
              $result[$childcare_item['prtcpnt_id']][$childcare_item['pcode']]['program_data'] = [
-               'family_member' => isset($familyMap[$childcare_item['prtcpnt_id']]['name']) ? $familyMap[$childcare_item['prtcpnt_id']]['name'] : '',
+               'family_member' => isset($familyMap[$childcare_item['prtcpnt_id']]['short_name']) ? $familyMap[$childcare_item['prtcpnt_id']]['short_name'] : '',
+               'family_member_name' => isset($familyMap[$childcare_item['prtcpnt_id']]['name']) ? $familyMap[$childcare_item['prtcpnt_id']]['name'] : '',
                'program_name' => $childcare_item['pname'],
                'program_code' => $childcare_item['pcode'],
                'product_id' => $childcare_item['pid'],

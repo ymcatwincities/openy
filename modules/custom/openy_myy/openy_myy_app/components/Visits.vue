@@ -13,7 +13,7 @@
       <div v-for="(item, index) in data" v-bind:key="index" class="col-myy-md-6 col-myy-12">
         <div class="row">
           <div class="col-myy-3">
-            <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.short_name }}</span>
+            <span :class="'rounded_letter ' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.short_name }}</span>
           </div>
           <div class="col-myy-3">
             <span class="square_number">{{ item.unique_total }}</span>
@@ -39,7 +39,6 @@
         loading: true,
         baseUrl: '/',
         data: {},
-        userColors: [],
         currentMonth: '',
       }
     },
@@ -65,7 +64,6 @@
             }).done(function (data) {
               component.data = data;
               component.loading = false;
-              component.mapUserColors();
             });
           } else {
             // Redirect user to login page.
@@ -73,21 +71,10 @@
           }
         });
       },
-      mapUserColors: function () {
-        var mapUserColors = {},
-          counter = 1;
-        for (var i in this.data) {
-          mapUserColors[this.data[i].name] = 1;
-        }
-        for (var j in mapUserColors) {
-          mapUserColors[j] = counter++;
-        }
-        this.userColors = mapUserColors;
-      },
       getUserColor: function (username) {
-        for (var i in this.userColors) {
+        for (var i in this.householdColors) {
           if (i == username) {
-            return this.userColors[i];
+            return this.householdColors[i];
           }
         }
       }
@@ -105,6 +92,7 @@
       }
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
+      component.householdColors = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.householdColors : [];
 
       component.currentMonth = moment().format('MMM YYYY');
 

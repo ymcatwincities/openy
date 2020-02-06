@@ -82,11 +82,12 @@ class PersonifyUserData implements PersonifyUserDataInterface {
     $name = explode(' ', $my_data['d']['LabelName']);
     $short_name = $name[0][0] . ' ' . $name[1][0];
     $output['household'][] = [
-      'name' => $my_data['d']['LabelName'],
+      'name' =>  $name[1] . ', ' . $name[0],
       'short_name' => $short_name,
       'age' => $now->diff($my_bdate)->format('%y'),
       'RelationshipCode' => 'ME',
       'ProfileLinks' => $this->getHouseholdProfileLinks(),
+      'color' => 'color-0',
     ];
 
     $relationship_data = $this
@@ -96,7 +97,7 @@ class PersonifyUserData implements PersonifyUserDataInterface {
         "CustomerInfos(MasterCustomerId='" . $personifyID . "',SubCustomerId=0)/Relationships"
       );
 
-
+    $color = 1;
     foreach ($relationship_data['d'] as $relationship) {
 
       $family_member_profile_data = $this
@@ -122,6 +123,7 @@ class PersonifyUserData implements PersonifyUserDataInterface {
         'age' => $now->diff($family_member_birthdate)->format('%y'),
         'RelatedMasterCustomerId' => $relationship['RelatedMasterCustomerId'],
         'ProfileLinks' => $this->getHouseholdProfileLinks(),
+        'color' => 'color-' . $color++,
       ];
     }
 
