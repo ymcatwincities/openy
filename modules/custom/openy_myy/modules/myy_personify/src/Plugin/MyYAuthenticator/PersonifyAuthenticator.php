@@ -141,10 +141,11 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
    * {@inheritdoc}
    */
   public function authPage() {
+
     $query = $this->request->query->all();
     if (isset($query['ct']) && !empty($query['ct'])) {
       $decrypted_token = $this->personifySSO->decryptCustomerToken($query['ct']);
-      $id = $this->personifySSO->getCustomerIdentifier($decrypted_token);
+
       if ($token = $this->personifySSO->validateCustomerToken($decrypted_token)) {
         user_cookie_save([
           'personify_authorized' => $token,
@@ -167,7 +168,6 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
     $redirect = new TrustedRedirectResponse($redirect_url);
     $redirect->send();
 
-    exit();
   }
 
   /**
