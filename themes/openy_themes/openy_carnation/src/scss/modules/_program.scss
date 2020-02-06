@@ -583,3 +583,45 @@
     }
   }
 }
+
+.page-node-type-program-subcategory {
+  .banner {
+    .banner-background {
+      height: 70px;
+      position: static;
+
+      @include media-breakpoint-up(md) {
+        height: 350px;
+      }
+    }
+
+    .banner-desktop-title {
+      padding-top: 250px;
+    }
+
+    .banner-mobile-title {
+      height: 84px;
+      margin-bottom: 0;
+      padding-top: 25px;
+      text-align: center;
+
+      @include media-breakpoint-up(md) {
+        margin-left: 40px;
+        padding-top: 20px;
+        text-align: left;
+      }
+
+      h1 {
+        font-size: 32px;
+        line-height: 36px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+
+        @include media-breakpoint-up(md) {
+          font-size: 40px;
+          line-height: 44px;
+        }
+      }
+    }
+  }
+}

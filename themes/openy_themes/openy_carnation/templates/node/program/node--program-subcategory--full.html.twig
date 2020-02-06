@@ -70,7 +70,37 @@
 #}
 
 {# program subcategory header #}
-{% include '@openy_carnation/node/include/header-default--program-subcategory.html.twig' %}
+{% if content.field_category_color is empty %}
+  {% set bg_color = '' %}
+{% else %}
+  {% set color = '#' ~ content.field_category_color['#items'].entity.field_color.value %}
+  {% set bg_color = 'background-color: '  ~  color %}
+{% endif %}
+
+<div class="banner banner--grey" style="background-color: {{ color }}">
+    <div class="banner-background" style="background: url('{{ header_image }}') center center; background-size: cover;">
+      {% if not content.field_category_program.isEmpty() %}
+        <div class="banner-desktop-title d-none d-lg-block container">
+          <h1 class="text-uppercase m-0 text-white">{{ content.field_category_program }}</h1>
+        </div>
+      {% endif %}
+    </div>
+    {% if not content.field_category_program.isEmpty() %}
+      <div class="banner-mobile-title d-block d-lg-none">
+        <h1 class="text-uppercase m-0 text-white">{{ content.field_category_program }}</h1>
+      </div>
+    {% endif %}
+</div>
+
+{{ drupal_breadcrumb() }}
+{{ drupal_block('local_tasks_block') }}
+<a id="main-content" tabindex="-1" class="sr-only sr-only-focusable"></a>
+
+{% if content.field_header_content|render|trim is not empty %}
+  <div class="sub-header--filters bg-white">
+    {{ content.field_header_content }}
+  </div>
+{% endif %}
 
 {# Filters #}
 {% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
