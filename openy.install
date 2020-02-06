@@ -61,6 +61,12 @@ function openy_update_dependencies() {
       'simple_sitemap' => 8217,
     ],
   ];
+
+  $dependencies['openy_gtranslate'] = [
+    8001 => [
+      'openy' => 8077,
+    ],
+  ];
   return $dependencies;
 }
 
