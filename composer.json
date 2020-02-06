@@ -81,6 +81,19 @@
         {
             "type": "package",
             "package": {
+                "name": "library-smonetti/btbutton",
+                "version": "1.0.2",
+                "type": "drupal-library",
+                "source": {
+                    "url": "https://github.com/smonetti/btbutton",
+                    "type": "git",
+                    "reference": "ee1fc396231a63201373cb580684e699a696ed62"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "grt107/grt-youtube-popup",
                 "version": "1.0.0",
                 "type": "drupal-library",
@@ -189,6 +202,10 @@
             },
             "drupal/migrate_tools": {
                 "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
+            },
+            "drupal/geysir": {
+                "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
+                "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
             }
         }
     },
@@ -235,7 +252,7 @@
         "library-ckeditor/panelbutton": "4.10.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
-        "library-smonetti/btbutton": "1.0.1",
+        "library-smonetti/btbutton": "1.0.2",
         "library-davekoelle/alphanum": "1.0.0",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
@@ -249,7 +266,7 @@
         "drupal/metatag": "~1.8",
         "drupal/scheduler": "1.0",
         "drupal/webform": "~5.0",
-        "drupal/captcha": "1.0-beta1",
+        "drupal/captcha": "1.0-beta4",
         "drupal/recaptcha": "~2.3",
         "drupal/rabbit_hole": "~1.0-beta4",
         "drupal/admin_toolbar": "~1.25",
@@ -286,6 +303,7 @@
         "drupal/ckeditor_font": "^1.0",
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.4",
-        "drupal/image_widget_crop": "^2.2"
+        "drupal/image_widget_crop": "^2.2",
+        "drupal/geysir": "^1.1"
     }
 }
