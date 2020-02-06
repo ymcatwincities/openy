@@ -115,6 +115,18 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "library-vakata/jstree",
+                "version": "3.3.8",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/vakata/jstree/archive/3.3.8.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "scripts": {
@@ -180,6 +192,7 @@
                 "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
             },
             "drupal/geysir": {
+                "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
             }
         }
@@ -229,6 +242,7 @@
         "library-ckeditor/font": "4.12.1",
         "library-smonetti/btbutton": "1.0.2",
         "library-davekoelle/alphanum": "1.0.0",
+        "library-vakata/jstree": "^3.3",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
         "drupal/libraries": "3.x-dev",
@@ -277,6 +291,7 @@
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
-        "drupal/geysir": "^1.1"
+        "drupal/geysir": "^1.1",
+        "drupal/media_directories": "^1.0"
     }
 }
