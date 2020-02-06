@@ -8,31 +8,9 @@
 use Drupal\menu_link_content\Entity\MenuLinkContent;
 
 /**
- * Implements hook_install().
+ * Delete language menu items
  */
-function openy_gtranslate_install() {
-  $config = \Drupal::config('system.theme');
-  $menuName = (!empty($config->get('default')) && $config->get('default') == 'openy_lily') ? 'main' : 'account';
-  $menuLink = MenuLinkContent::create([
-    'title' => t('Language'),
-    'link' => [
-      'uri' => 'internal:/',
-      'options' => [
-        'attributes' => [
-          'class' => ['language hidden-md hidden-lg d-block d-md-none'],
-        ],
-      ],
-    ],
-    'menu_name' => $menuName,
-    'weight' => 50,
-  ]);
-  $menuLink->save();
-}
-
-/**
- * Implements hook_uninstall().
- */
-function openy_gtranslate_uninstall() {
+function openy_gtranslate_update_8001() {
   $config = \Drupal::config('system.theme');
   $menuName = (!empty($config->get('default')) && $config->get('default') == 'openy_lily') ? 'main' : 'account';
 
@@ -49,5 +27,40 @@ function openy_gtranslate_uninstall() {
   if (!empty($res)) {
     $menuLink = MenuLinkContent::load($res);
     $menuLink->delete();
+  }
+}
+
+/**
+ * Insert gtranslate block into mobile menu
+ */
+function openy_gtranslate_update_8002() {
+  if (\Drupal::service('theme_handler')->themeExists('openy_carnation')) {
+    $config = drupal_get_path('theme', 'openy_carnation') . '/config/optional';
+    /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+    $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+    $config_importer->setDirectory($config);
+    $config_importer->importConfigs([
+      'block.block.openy_carnation_gtranslate_mobile',
+    ]);
+  }
+
+  if (\Drupal::service('theme_handler')->themeExists('openy_lily')) {
+    $config = drupal_get_path('theme', 'openy_lily') . '/config/optional';
+    /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+    $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+    $config_importer->setDirectory($config);
+    $config_importer->importConfigs([
+      'block.block.openy_lily_gtranslate_mobile',
+    ]);
+  }
+
+  if (\Drupal::service('theme_handler')->themeExists('openy_rose')) {
+    $config = drupal_get_path('theme', 'openy_rose') . '/config/optional';
+    /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+    $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+    $config_importer->setDirectory($config);
+    $config_importer->importConfigs([
+      'block.block.openy_rose_gtranslate_mobile',
+    ]);
   }
 }

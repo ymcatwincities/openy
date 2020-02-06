@@ -49,7 +49,7 @@
 
 <div{{ attributes.addClass(classes) }} {% if color is not empty %} style="background-color: {{ color }}" {% endif %}>
 
-  {% if paragraph.field_prgf_image is not empty %}
+  {% if not paragraph.field_prgf_image.isEmpty() %}
     <div class="banner-bg" style="background: url('{{ file_url(paragraph.field_prgf_image.entity.field_media_image.entity.uri.value) }}') center center; background-size: cover;">
       <span></span>
     </div>
@@ -59,7 +59,7 @@
     <div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">
       <div class="banner-cta-section">
 
-        {% if content.field_prgf_headline|render|trim is not empty %}
+        {% if not content.field_prgf_headline.isEmpty() %}
         <h1 class="banner-title text-uppercase m-0 text-white">
           {{ content.field_prgf_headline }}
         </h1>

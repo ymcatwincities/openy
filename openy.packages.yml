@@ -86,6 +86,7 @@ editorial_adv:
     - openy_prgf_story_card
     - openy_block_flexible_content
     - openy_prgf_microsites_menu
+    - openy_inline_editing
 
 embeddable_header_footer:
   name: 'Embeddable header & footer'
@@ -193,12 +194,12 @@ news_ext:
     - openy_prgf_news_camp
     - openy_prgf_news_listing
 
-optimizely:
-  name: 'Optimizely'
-  description: 'Optimizely package provides an ability to integrate the website with experimentation platform - Optimizely.'
-  help: '<p>Using Optimizely package you can configure an integration with experimentation platform - <a href="https://www.optimizely.com/" target="_blank">www.optimizely.com/</a>.</p>'
+optimize:
+  name: 'Optimize'
+  description: 'Optimize package provides an ability to integrate the website with Google Optimize tool.'
+  help: '<p>Using Optimize package you can configure an integration with <a href="https://optimize.google.com/" target="_blank">Google Optimize</a>.</p>'
   modules:
-    - optimizely
+    - google_optimize
 
 popups:
   name: 'Popups'
