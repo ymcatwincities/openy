@@ -143,10 +143,15 @@ class PersonifyDataChildcare extends PluginBase implements MyYDataChildcareInter
 
          $order_date = new \DateTime($childcare_item['order_date']);
          $week_number = $order_date->format('W');
+
+         $dfrom = new \DateTime();
+         $dfrom->setISODate($order_date->format('Y'), $week_number);
+         $week_start_date = $dfrom->format('F d');
+
          $dto = new \DateTime();
-         $dto->setISODate($order_date->format('Y'), $week_number);
-         $week_start_date = $dto->format('F d');
-         $week = 'Week ' . $week_number . ' - ' . $week_start_date;
+         $dto->setISODate($order_date->format('Y'), $week_number)->modify('+6 days');
+         $week_end_date = $dto->format('F d');
+         $week = $week_start_date . ' - ' . $week_end_date;
 
          // Adding only not attended items.
          if ($childcare_item['aflag'] == 'N') {
