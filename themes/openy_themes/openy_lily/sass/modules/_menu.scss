@@ -201,8 +201,10 @@
 
   @include breakpoint($screen-md) {
     .secondary_menu {
-      max-height: 100px;
+      align-items: center;
+      display: flex;
       float: right;
+
       nav, .openy-gtranslate {
         display: inline-block;
       }

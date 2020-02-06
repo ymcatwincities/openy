@@ -800,6 +800,7 @@
         this.categories = [];
         this.ages = [];
         this.days = [];
+        this.keywords = "";
         this.runningClearAllFilters = false;
         this.$refs.ages_filter.clear();
         this.$refs.locations_filter.clear();
