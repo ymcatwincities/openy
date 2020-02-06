@@ -31,7 +31,6 @@ class PersonifySettingsForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('personify.settings')->getRawData();
-
     $form['environment'] = [
       '#type' => 'select',
       '#options' => [
@@ -50,7 +49,7 @@ class PersonifySettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
     /* @var $config \Drupal\Core\Config\Config */
-    $config = \Drupal::service('config.factory')->getEditable('personify.settings');
+    $config = $this->config($this->getEditableConfigNames());
 
     $config->set('environment', $form_state->getValue('environment'))->save();
 
