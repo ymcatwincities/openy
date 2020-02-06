@@ -2,21 +2,12 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.google_search.field_prgf_block
     - paragraphs.paragraphs_type.google_search
-  module:
-    - plugin
 id: paragraph.google_search.default
 targetEntityType: paragraph
 bundle: google_search
 mode: default
-content:
-  field_prgf_block:
-    type: 'plugin_selector:plugin_select_list'
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
+content: {  }
 hidden:
   created: true
   status: true
