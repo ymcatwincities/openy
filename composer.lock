@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e0a35753dcacdef5539b0fa36e07378",
+    "content-hash": "ff0e717ab817e532ead326a20d629ff0",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -9179,24 +9179,6 @@
                 "stream-wrapper"
             ],
             "time": "2019-12-10T11:53:27+00:00"
-        },
-        {
-            "name": "vuejs/vue",
-            "version": "2.6.10",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/vuejs/vue/archive/v2.6.10.zip"
-            },
-            "type": "drupal-library"
-        },
-        {
-            "name": "vuejs/vue-router",
-            "version": "3.0.6",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/vuejs/vue-router/archive/v3.0.6.zip"
-            },
-            "type": "drupal-library"
         },
         {
             "name": "zendframework/zend-diactoros",
