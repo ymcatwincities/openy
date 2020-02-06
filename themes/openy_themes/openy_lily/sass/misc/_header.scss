@@ -583,6 +583,20 @@ header#page-head {
           }
         }
       }
+      #block-topmenu2,
+      #block-openy-lily-user-menu,
+      #block-anonymoususersmenu,
+      #block-anonymoususersmenu--2 {
+        ul {
+          li {
+            &:first-child {
+              a {
+                margin: 9px 5px 0 0;
+              }
+            }
+          }
+        }
+      }
       #block-openy-lily-main-menu {
         .nav-level-2 {
           > a {
