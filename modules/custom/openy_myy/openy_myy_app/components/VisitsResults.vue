@@ -21,7 +21,7 @@
       <div class="col-myy-12">
         <div v-for="(item, index) in data" v-bind:key="index" class="item-row row">
           <div class="col-myy-sm-1 no-padding-left">
-            <span :class="'rounded_letter small color-' + getUserColor(item.USR_LAST_FIRST_NAME)" v-if="getUserColor(item.USR_LAST_FIRST_NAME)">{{ item.SHORT_NAME }}</span>
+            <span :class="'rounded_letter small ' + getUserColor(item.USR_LAST_FIRST_NAME)" v-if="getUserColor(item.USR_LAST_FIRST_NAME)">{{ item.SHORT_NAME }}</span>
           </div>
           <div class="col-myy-sm-4 user_name_wrapper">
             <span class="user_name">{{ item.USR_LAST_FIRST_NAME }}</span>
@@ -80,7 +80,6 @@
             }).done(function(data) {
               component.data = data;
               component.loading = false;
-              component.mapUserColors();
               jQuery('.myy-sub-header .count span').text(data.length);
             });
           } else {
@@ -89,21 +88,10 @@
           }
         });
       },
-      mapUserColors: function () {
-        var mapUserColors = {},
-            counter = 1;
-        for (var i in this.data) {
-          mapUserColors[this.data[i].USR_LAST_FIRST_NAME] = 1;
-        }
-        for (var j in mapUserColors) {
-          mapUserColors[j] = counter++;
-        }
-        this.userColors = mapUserColors;
-      },
       getUserColor: function (username) {
-        for (var i in this.userColors) {
+        for (var i in this.householdColors) {
           if (i == username) {
-            return this.userColors[i];
+            return this.householdColors[i];
           }
         }
       }
@@ -121,6 +109,7 @@
       }
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
+      component.householdColors = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.householdColors : [];
 
       component.runAjaxRequest();
     },

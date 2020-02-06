@@ -28,7 +28,7 @@
           <div class="event_row">
             <div class="event_head row">
               <div class="col-myy-sm-1 user-icon-wrapper">
-                <span class="rounded_letter small blue">{{ item2.program_data.family_member }}</span>
+                <span :class="'rounded_letter small ' + getUserColor(item2.program_data.family_member_name)" v-if="getUserColor(item2.program_data.family_member_name)">{{ item2.program_data.family_member }}</span>
               </div>
               <div class="col-myy-sm-5">
                 <div class="program_name"><strong>{{ item2.program_data.program_name }}</strong></div>
@@ -61,6 +61,7 @@
                       order,
                       item2.program_data.program_name,
                       item2.program_data.family_member,
+                      item2.program_data.family_member_name,
                       item2.program_data.branch
                     )" data-toggle="modal" data-target=".myy-modal__modal--myy-cancel"><strong>Cancel</strong></a>
                   </div>
@@ -76,6 +77,7 @@
                     week,
                     item2.program_data.program_name,
                     item2.program_data.family_member,
+                    item2.program_data.family_member_name,
                     item2.program_data.start_date,
                     item2.program_data.end_date,
                     item2.program_data.branch
@@ -120,7 +122,7 @@
                   <p class="text-center"> Are you sure you want to cancel the following session?</p>
                   <div class="info row">
                     <div class="col-myy-sm-2">
-                      <span class="rounded_letter small blue">{{ cancelPopup.info.family_member }}</span>
+                      <span :class="'rounded_letter small ' + getUserColor(cancelPopup.info.family_member_name)" v-if="getUserColor(cancelPopup.info.family_member_name)">{{ cancelPopup.info.family_member }}</span>
                     </div>
                     <div class="col-myy-sm-10">
                       <p class="program_name"><strong>{{ cancelPopup.info.program_name }}</strong>
@@ -156,7 +158,7 @@
                 <div class="event_row">
                   <div class="event_head row">
                     <div class="col-myy-2">
-                      <span class="rounded_letter small blue">{{ addItemPopup.info.family_member }}</span>
+                      <span :class="'rounded_letter small '+ getUserColor(addItemPopup.info.family_member_name)" v-if="getUserColor(addItemPopup.info.family_member_name)">{{ addItemPopup.info.family_member }}</span>
                     </div>
                     <div class="col-myy-10">
                       <div class="program_name" v-if="addItemPopup.content.length > 0"><strong>{{ addItemPopup.info.program_name }}</strong></div>
@@ -376,6 +378,7 @@
         order,
         program_name,
         family_member,
+        family_member_name,
         branch
       ) {
         var numberOfScheduled = 0;
@@ -393,6 +396,7 @@
         this.cancelPopup.info = {
           program_name: program_name,
           family_member: family_member,
+          family_member_name: family_member_name,
           branch: branch,
         };
       },
@@ -400,6 +404,7 @@
         week,
         program_name,
         family_member,
+        family_member_name,
         start_date,
         end_date,
         branch
@@ -415,6 +420,7 @@
         this.addItemPopup.info = {
           program_name: program_name,
           family_member: family_member,
+          family_member_name: family_member_name,
           start_date: start_date,
           end_date: end_date,
           branch: branch,
@@ -438,6 +444,13 @@
           }
         }
         return scheduled;
+      },
+      getUserColor: function (username) {
+        for (var i in this.householdColors) {
+          if (i == username) {
+            return this.householdColors[i];
+          }
+        }
       }
     },
     watch: {
@@ -450,7 +463,7 @@
         }
       }
     },
-    mounted: function() {
+    mounted: function() {console.log(this.$store.state);
       let component = this;
 
       if (typeof window.drupalSettings === 'undefined') {
@@ -468,6 +481,7 @@
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.childcare_purchase_link_title = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.childcare_purchase_link_title : '';
       component.childcare_purchase_link_url = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.childcare_purchase_link_url : '';
+      component.householdColors = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.householdColors : [];
 
       component.runAjaxRequest();
     }

@@ -10,7 +10,7 @@
       <div class="col-myy-sm-12 col-myy-12">
         <div class="row">
           <div v-for="(item, index) in data.household" v-bind:key="index" class="item col-myy-md-3 col-myy-6 col-myy-md-3">
-            <span :class="'rounded_letter color-' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.short_name }}</span>
+            <span :class="'rounded_letter ' + getUserColor(item.name)" v-if="getUserColor(item.name)">{{ item.short_name }}</span>
             <div class="name">{{ item.name }}</div>
             <div class="age">{{ item.age }}</div>
             <div class="dropdown">
@@ -60,7 +60,6 @@
               }
             }).done(function(data) {
               component.data = data;
-              component.mapUserColors();
               component.loading = false;
             });
           } else {
@@ -69,21 +68,10 @@
           }
         });
       },
-      mapUserColors: function () {
-        var mapUserColors = {},
-            counter = 1;
-        for (var i in this.data.household) {
-          mapUserColors[this.data.household[i].name] = 1;
-        }
-        for (var j in mapUserColors) {
-          mapUserColors[j] = counter++;
-        }
-        this.userColors = mapUserColors;
-      },
       getUserColor: function (username) {
-        for (var i in this.userColors) {
+        for (var i in this.householdColors) {
           if (i == username) {
-            return this.userColors[i];
+            return this.householdColors[i];
           }
         }
       }
@@ -100,6 +88,7 @@
         window.drupalSettings = drupalSettings;
       }
       component.baseUrl = window.drupalSettings.path.baseUrl;
+      component.householdColors = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.householdColors : [];
 
       component.runAjaxRequest();
     }
