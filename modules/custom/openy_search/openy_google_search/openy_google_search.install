@@ -19,62 +19,17 @@ function openy_google_search_install() {
   if ($path_alias_storage->aliasExists($alias, 'en')) {
     return;
   }
-  /** @var \Drupal\Core\Extension\ModuleInstallerInterface $module_installer */
-  $module_installer = \Drupal::service('module_installer');
-  if (!$module_installer->install(['openy_prgf_google_search'])) {
-    return;
-  }
   $entity_type_manager = \Drupal::entityTypeManager();
   $paragraph_storage = $entity_type_manager->getStorage('paragraph');
   $node_storage = $entity_type_manager->getStorage('node');
 
   $search_paragraph = $paragraph_storage->create([
     'type' => 'google_search',
-    'field_prgf_block' => [
-      [
-        'plugin_id' => 'google_search_block',
-        'plugin_configuration' => [
-          'id' => 'google_search_block',
-          'label' => 'Google search',
-          'provider' => 'openy_google_search',
-          'label_display' => 'hidden',
-        ],
-      ],
-    ],
   ]);
   if (!$search_paragraph->save()) {
     return;
   }
-  // Fix broken block plugin id.
-  $tables = [
-    'paragraph__field_prgf_block',
-    'paragraph_revision__field_prgf_block',
-  ];
-  $connection = \Drupal::database();
-  foreach ($tables as $table) {
-    if (!$connection->schema()->tableExists($table)) {
-      continue;
-    }
-    // Select google_search paragraphs that have "broken" as plugin_id.
-    $query = $connection->select($table, 'ptable');
-    $query->fields('ptable');
-    $query->condition('ptable.field_prgf_block_plugin_id', 'broken');
-    $query->condition('ptable.bundle', 'google_search');
-    $broken_paragraphs = $query->execute()->fetchAll();
-    foreach ($broken_paragraphs as $paragraph) {
-      $data = unserialize($paragraph->field_prgf_block_plugin_configuration);
-      $query = $connection->update($table);
-      $query->fields([
-        'field_prgf_block_plugin_id' => $data['id'],
-      ]);
-      $query->condition('bundle', $paragraph->bundle);
-      $query->condition('entity_id', $paragraph->entity_id);
-      $query->condition('revision_id', $paragraph->revision_id);
-      $query->condition('langcode', $paragraph->langcode);
-      $query->execute();
-    }
-  }
-  drupal_flush_all_caches();
+
   $page = $node_storage->create([
     'type' => 'landing_page',
     'title' => 'Search results',
@@ -99,6 +54,7 @@ function openy_google_search_install() {
       ->set('search_page_id', $page->id())
       ->save();
   }
+  drupal_flush_all_caches();
 }
 
 /**

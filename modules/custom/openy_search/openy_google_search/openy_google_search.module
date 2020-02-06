@@ -5,6 +5,9 @@
  * Contains module routines.
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+
 /**
  * Implements hook_theme().
  */
@@ -13,6 +16,39 @@ function openy_google_search_theme($existing, $type, $theme, $path) {
     'openy_google_search' => [
       'variables' => [],
       'template' => 'openy-google-search',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function openy_google_search_entity_view_alter(&$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  // Render template with google custom search tags in google_search paragraph.
+  if ($entity->getEntityTypeId() != 'paragraph') {
+    return;
+  }
+  if ($entity->bundle() != 'google_search') {
+    return;
+  }
+  $engine_id = \Drupal::config('openy_google_search.settings')->get('google_engine_id');
+  if (empty($engine_id)) {
+    \Drupal::messenger()
+      ->addError('Please set ENGINE_ID in the search settings.');
+    return;
+  }
+
+  $build['google_search'] = [
+    '#theme' => 'openy_google_search',
+    '#cache' => [
+      'max-age' => -1,
+      'tags' => ['config:openy_google_search.settings'],
+    ],
+    '#attached' => [
+      'library' => ['openy_google_search/google_search'],
+      'drupalSettings' => [
+        'engine_id' => $engine_id,
+      ],
     ],
   ];
 }
