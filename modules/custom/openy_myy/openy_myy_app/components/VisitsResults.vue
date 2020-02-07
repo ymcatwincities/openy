@@ -61,8 +61,8 @@
           }
         }).done(function(data) {
           if (data.isLogined  ===  1) {
-            var start = typeof component.$route.query.start == 'undefined' ? '2018-01-01' : component.$route.query.start,
-                end = typeof component.$route.query.end == 'undefined' ? '2019-12-12' : component.$route.query.end,
+            var start = typeof component.$route.query.start == 'undefined' ? moment().subtract(12, 'months').format('YYYY-MM-DD') : component.$route.query.start,
+                end = typeof component.$route.query.end == 'undefined' ? moment().format('YYYY-MM-DD') : component.$route.query.end,
                 ids = typeof component.$route.query.household == 'undefined' ? component.uid : component.$route.query.household,
                 sort = typeof component.$route.query.sort == 'undefined' ? '' : component.$route.query.sort,
                 url = component.baseUrl + 'myy-model/data/profile/visits-details/' + ids + '/' + start + '/' + end;
@@ -99,14 +99,6 @@
     mounted: function() {
       let component = this;
 
-      if (typeof window.drupalSettings === 'undefined') {
-        var drupalSettings = {
-          path: {
-            baseUrl: 'http://openy-demo.docksal/',
-          }
-        };
-        window.drupalSettings = drupalSettings;
-      }
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
       component.householdColors = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.householdColors : [];

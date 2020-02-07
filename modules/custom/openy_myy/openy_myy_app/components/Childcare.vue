@@ -37,9 +37,6 @@
               <div class="col-myy-sm-4">
                 <div class="date"><strong>{{ item2.program_data.start_date }}-{{ item2.program_data.end_date }}</strong></div>
               </div>
-              <div class="col-myy-sm-1 text-right">
-                <!--<a href="#" class="cancel"><strong>Cancel all</strong></a>-->
-              </div>
             </div>
             <div v-for="(week, weekday_id) in item2.weeks" v-bind:key="weekday_id">
               <div class="weekday-number">{{ weekday_id }}</div>
@@ -168,7 +165,7 @@
                   </div>
                   <div v-for="(item, index) in addItemPopup.content" v-bind:key="index" class="event_item row">
                     <div class="col-myy-2 no-padding-left text-center">
-                      <input type="checkbox" v-bind:checked="item.scheduled == 'Y'" v-model="addItemChecked" :value="item.date + '+' + item.type" :id="'checkbox-' + item.date + '+' + item.type" />
+                      <input type="checkbox" v-model="addItemChecked" :value="item.date + '+' + item.type" :id="'checkbox-' + item.date + '+' + item.type" />
                     </div>
                     <div class="col-myy-10 no-padding-left">
                       <div class="date">{{ item.usr_day }}, {{ item.order_date }}</div>
@@ -409,12 +406,14 @@
         end_date,
         branch
       ) {
-        if (this.addItemChecked.length === 0) {
-          for (var i in week) {
-            if (week[i].scheduled == 'Y') {
-              this.addItemChecked.push(week[i].date + '+' + week[i].type);
-            }
+        this.addItemChecked = [];
+        for (var i in week) {
+          if (week[i].scheduled == 'Y') {
+            this.addItemChecked.push(week[i].date + '+' + week[i].type);
           }
+        }
+        if (this.addItemChecked.length === 0) {
+          this.addItemPopup.disableScheduleButton = true;
         }
         this.addItemPopup.content = week;
         this.addItemPopup.info = {
@@ -463,21 +462,9 @@
         }
       }
     },
-    mounted: function() {console.log(this.$store.state);
+    mounted: function() {
       let component = this;
 
-      if (typeof window.drupalSettings === 'undefined') {
-        var drupalSettings = {
-          path: {
-            baseUrl: 'http://openy-demo.docksal/'
-          },
-          myy: {
-          childcare_purchase_link_title: 'Purchase Care',
-          childcare_purchase_link_url: '/myy'
-          }
-        };
-        window.drupalSettings = drupalSettings;
-      }
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.childcare_purchase_link_title = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.childcare_purchase_link_title : '';
       component.childcare_purchase_link_url = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.childcare_purchase_link_url : '';

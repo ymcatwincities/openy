@@ -190,21 +190,22 @@ class PersonifyDataVisits extends PluginBase implements MyYDataVisitsInterface, 
 
     $family = $this->personifyUserData->getFamilyData();
     $pids = [];
-    $pids[] = $this->personifyUserHelper->personifyGetId();
     foreach ($family['household'] as $fmember) {
+      $id = $this->personifyUserHelper->personifyGetId();
       if (!empty($fmember['RelatedMasterCustomerId'])) {
-        $name = explode(', ', $fmember['name']);
-        $short_name = $name[1][0] . ' ' . $name[0][0];
-        $pids[] = $fmember['RelatedMasterCustomerId'];
-        // Fill array initially with empty values in order to show all households even with 0 visits.
-        $overview[$fmember['RelatedMasterCustomerId']] = [
-          'total' => 0,
-          'name' => $fmember['name'],
-          'short_name' => $short_name,
-          'unique' => [],
-          'unique_total' => 0
-        ];
+        $id = $fmember['RelatedMasterCustomerId'];
       }
+      $name = explode(', ', $fmember['name']);
+      $short_name = $name[1][0] . ' ' . $name[0][0];
+      $pids[] = $id;
+      // Fill array initially with empty values in order to show all households even with 0 visits.
+      $overview[$id] = [
+        'total' => 0,
+        'name' => $fmember['name'],
+        'short_name' => $short_name,
+        'unique' => [],
+        'unique_total' => 0
+      ];
     }
 
     // Get data from the start of the month.

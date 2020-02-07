@@ -16,7 +16,8 @@
     </div>
     <div class="row content">
       <div class="col-myy">
-<!--        <div class="result_row">
+      <!-- @todo Uncomment once we have info with payments data -->
+      <!-- <div class="result_row">
           <div class="row">
             <div class="col-myy-sm-1">
               <span class="rounded_letter small black">X</span>
@@ -119,7 +120,6 @@
             <div class="col-myy">
               <i class="fa fa-exclamation-triangle"></i>
               <p><strong>Payment due: {{ item.due_date }}</strong></p>
-              <!--<i>Automatic Payments: Visa 1234</i>-->
             </div>
             <div class="col-myy text-right">
             </div>
@@ -127,7 +127,7 @@
         </div>
       </div>
     </div>
-    <!-- Uncomment once we need pager -->
+    <!-- @todo Uncomment once we need pager -->
     <!--<div class="pager-wrapper">
       <div>
         <div class="pager-controls row">
@@ -170,8 +170,8 @@
           }
         }).done(function(data) {
           if (data.isLogined  ===  1) {
-            var start = typeof component.$route.query.start == 'undefined' ? '2018-01-01' : component.$route.query.start,
-                end = typeof component.$route.query.end == 'undefined' ? '2021-01-01' : component.$route.query.end,
+            var start = typeof component.$route.query.start == 'undefined' ? moment().subtract(12, 'months').format('YYYY-MM-DD') : component.$route.query.start,
+                end = typeof component.$route.query.end == 'undefined' ? moment().format('YYYY-MM-DD') : component.$route.query.end,
                 ids = typeof component.$route.query.household == 'undefined' ? component.uid : component.$route.query.household,
                 sort = typeof component.$route.query.sort == 'undefined' ? '' : component.$route.query.sort,
                 url = component.baseUrl + 'myy-model/data/orders/' + ids + '/' + start + '/' + end;
@@ -220,19 +220,10 @@
     mounted: function() {
       let component = this;
 
-      if (typeof window.drupalSettings === 'undefined') {
-        var drupalSettings = {
-          path: {
-            baseUrl: 'http://openy-demo.docksal/'
-          }
-        };
-        window.drupalSettings = drupalSettings;
-      }
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
 
       component.runAjaxRequest();
-      //component.$parent.$on('runAjaxRequest', component.runAjaxRequest);
     },
     watch: {
       '$route': function() {

@@ -35,15 +35,6 @@
       SidebarMenu,
       Visits,
       Household
-    },
-    created: function() {
-      // @todo Only for dev purposes, remove before launch.
-      if (typeof Drupal === 'undefined') {
-        this.$cookie.set('Drupal.visitor.personify_authorized', '203dcb9c-b2d3-4163-b59a-eb83437d41a4');
-        this.$cookie.set('Drupal.visitor.personify_id', '2052596923');
-        this.$cookie.set('Drupal.visitor.personify_time', '1567520392');
-        this.$cookie.set('SESS1d4a7c030a658eb491c69621ef4614db', '7oVaupY_R7YG9UZbvLX7xbakurIjZmWsPKXfBHaQX-E');
-      }
     }
   }
 </script>

@@ -82,14 +82,6 @@
     mounted: function() {
       let component = this;
 
-      if (typeof window.drupalSettings === 'undefined') {
-        var drupalSettings = {
-          path: {
-            baseUrl: 'http://openy-demo.docksal/',
-          }
-        };
-        window.drupalSettings = drupalSettings;
-      }
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
       component.householdColors = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.householdColors : [];
