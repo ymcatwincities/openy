@@ -1,2 +1,4 @@
 version: '2.0'
 accepted_version:
+analytics: 0
+analytics_optin: 0

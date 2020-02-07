@@ -62,3 +62,27 @@ function openy_media_update_8004() {
     );
   }
 }
+
+
+/**
+ * Install media directories modules.
+ */
+function openy_media_update_8005() {
+  $extensions = [
+    'openy',
+    'media_library',
+    'media_directories',
+    'media_directories_ui'
+  ];
+  foreach ($extensions as $extension) {
+    \Drupal::service('module_installer')->install([$extension]);
+  }
+  $config_dir = drupal_get_path('module', 'openy_media') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'media_directories.settings',
+    'taxonomy.vocabulary.media_folders',
+  ]);
+}

@@ -61,6 +61,12 @@ function openy_update_dependencies() {
       'simple_sitemap' => 8217,
     ],
   ];
+
+  $dependencies['openy_gtranslate'] = [
+    8001 => [
+      'openy' => 8077,
+    ],
+  ];
   return $dependencies;
 }
 
@@ -136,14 +142,6 @@ function openy_update_8006() {
     $importer = \Drupal::service('openy_migrate.importer');
     $importer->import('openy_demo_node_facility');
   }
-}
-
-/**
- * Enable Optimizely module.
- */
-function openy_update_8007() {
-  // Enable module.
-  \Drupal::service('module_installer')->install(['optimizely']);
 }
 
 /**
@@ -865,8 +863,8 @@ function openy_update_8057() {
   $query->addField('n', 'nid');
   $resultField = $query->execute()->fetchField();
   if ($resultField) {
-    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and 
-      delete "Search by Amenities" Limited Time Offer paragraph in Header area. 
+    $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and
+      delete "Search by Amenities" Limited Time Offer paragraph in Header area.
       With Sidebar "Amenities" filter it became redundant.');
     drupal_set_message($message, 'warning');
   }
@@ -1015,7 +1013,7 @@ function openy_update_8069() {
     $config_importer->update($config, 'openy_carnation.settings', 'display_search_form');
   }
 }
- 
+
  /**
  * Import config with T&C.
  */
@@ -1055,4 +1053,43 @@ function openy_update_8076() {
       $module,
     ]);
   }
+}
+
+/**
+ * Delete lndr and optimizely modules data.
+ */
+function openy_update_8077() {
+
+  $configs = [
+    'optimizely.settings',
+    'lndr.settings',
+    'tour.tour.tour-lndr'
+  ];
+  foreach ($configs as $config) {
+    $config = \Drupal::configFactory()->getEditable($config);
+    $config->delete();
+  }
+  \Drupal::database()->schema()->dropTable('optimizely');
+  \Drupal::database()->delete('key_value')
+    ->condition('collection', 'system.schema')
+    ->condition('name', ['optimizely', 'lndr'] , 'IN')
+    ->execute();
+
+  $config = \Drupal::configFactory()->getEditable('core.extension');
+  $config->clear('module.lndr');
+  $config->clear('module.optimizely');
+  $config->save();
+}
+
+/**
+ * Enable openy analytics module
+ */
+function openy_update_8078() {
+  $config = drupal_get_path('profile', 'openy') . '/config/optional/openy.terms_and_conditions.schema.yml';
+  /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_importer->update($config, 'openy.terms_and_conditions.schema', 'analytics');
+  $config_importer->update($config, 'openy.terms_and_conditions.schema', 'analytics_optin');
+
+  \Drupal::service('module_installer')->install(['openy_analytics']);
 }
