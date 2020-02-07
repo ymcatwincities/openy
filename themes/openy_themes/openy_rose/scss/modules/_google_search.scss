@@ -3,6 +3,16 @@
  */
 
 .viewport {
+  .paragraph.paragraph--type--google-search {
+    margin: 20px 0;
+  }
+
+  .cse .gsc-control-cse,
+  .gsc-control-cse {
+    padding: 1em 0;
+    width: auto;
+  }
+
   .gsc-control-cse,
   .gsc-control-cse .gsc-table-result {
     width: 100%;
@@ -65,11 +75,13 @@
     color: #23527C
   }
 
-  .gcsc-find-more-on-google {
-    color: #337AB8
-  }
   .gs-spelling a {
     color: #337AB8;
   }
-
+  .gcsc-find-more-on-google {
+    color: #337AB8
+  }
+  .gcsc-find-more-on-google-magnifier {
+    fill: #337AB8;
+  }
 }
