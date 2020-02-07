@@ -1,6 +1,6 @@
 # Google Custom Search configuration
 
-The February 11, 2020 Open Y release introduces Google Custom Search for the website out of the box.
+The Open Y release **8.2.4** introduces Google Custom Search for the website out of the box.
 
 ## Enabling the module
 
