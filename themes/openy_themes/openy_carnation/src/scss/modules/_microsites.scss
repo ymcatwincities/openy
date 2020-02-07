@@ -13,7 +13,7 @@
     color: inherit;
     text-transform: uppercase;
     font-size: 16px;
-    margin: 10px 30px 10px 0;
+    margin: 18px 30px 18px 0;
 
     &:hover {
       color: inherit;
@@ -26,6 +26,8 @@
   }
 
   .wrapper-field-menu-block-links {
-    justify-content: normal !important;
+    justify-content: flex-end !important;
+    z-index: 1050;
+    padding-left: 200px;
   }
 }

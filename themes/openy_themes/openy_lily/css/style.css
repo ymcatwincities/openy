@@ -948,6 +948,8 @@ body {
 }
 @media (min-width: 62em) {
   .viewport .secondary_menu {
+    align-items: center;
+    display: flex;
     float: right;
   }
   .viewport .secondary_menu nav, .viewport .secondary_menu .openy-gtranslate {
@@ -7364,15 +7366,36 @@ article .node--view-mode-flexible-content h2 a span {
   font-size: 16px;
 }
 
-.nav .language .openy-google-translate select {
+.goog-te-gadget {
+  font-size: 0 !important;
+}
+.goog-te-gadget .goog-logo-link, .goog-te-gadget span {
+  display: none;
+}
+
+.goog-te-banner-frame {
+  display: none;
+}
+@media (min-width: 48em) {
+  .goog-te-banner-frame {
+    display: block;
+  }
+}
+
+@media (min-width: 48em) {
+  .mobile_menu .openy-google-translate {
+    display: none;
+  }
+}
+.mobile_menu .openy-google-translate select {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
-  margin-left: 10px;
-  text-transform: uppercase;
   color: #fff;
   font-size: 18px !important;
   font-weight: bold;
+  margin-left: 10px;
+  text-transform: uppercase;
 }
-.nav .language .openy-google-translate select option {
+.mobile_menu .openy-google-translate select option {
   color: #636466;
 }
 
@@ -7394,6 +7417,66 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .hb-loc-modal__modal--footer .btn.action-cancel, .hb-loc-modal__modal--footer .action-cancel.button {
   background-color: #999;
+}
+
+.ui-dialog.geysir-dialog .ui-dialog-titlebar-close:before {
+  content: "\f410";
+  font-family: "Font Awesome 5 Free";
+}
+.ui-dialog.geysir-dialog .geysir-add-type {
+  border: none;
+  display: inline-block;
+  margin-right: 0;
+  min-width: auto;
+  padding: 0;
+  vertical-align: top;
+  width: auto;
+}
+.ui-dialog.geysir-dialog .geysir-add-type .input-wrapper {
+  border: 2px solid #ffffff;
+  display: inline-block;
+  margin-right: 30px;
+  min-width: 100px;
+  padding: 10px;
+  width: 100px;
+}
+.ui-dialog.geysir-dialog .geysir-add-type > span {
+  display: none;
+}
+.ui-dialog.geysir-dialog .geysir-add-type span.title {
+  display: block;
+}
+.ui-dialog.geysir-dialog .form-item {
+  margin: 1em 0;
+}
+.ui-dialog.geysir-dialog .js-text-format-wrapper > .form-item {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+.ui-dialog.geysir-dialog .help-block, .ui-dialog.geysir-dialog .control-group .help-inline {
+  color: inherit;
+}
+.ui-dialog.geysir-dialog .filter-wrapper {
+  background-color: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  height: auto;
+  padding: 0.5em 0.666em;
+  border: 1px solid #ccc;
+  border-top: 0;
+}
+.ui-dialog.geysir-dialog .filter-wrapper ul {
+  margin-bottom: 0;
+}
+
+.geysir-field-paragraph-wrapper.hide-geysir-links:hover {
+  outline: none;
+}
+.geysir-field-paragraph-wrapper.hide-geysir-links:after {
+  display: none !important;
 }
 
 .paragraph-1c-wrapper {
@@ -8094,9 +8177,6 @@ body.toolbar-fixed.toolbar-horizontal.toolbar-tray-open.tiny-header .viewport .t
   margin: 0;
   padding-top: 7px;
 }
-#side-area ul.nav-level-1 {
-  min-height: 650px;
-}
 #side-area ul li {
   display: block;
 }
@@ -8631,15 +8711,16 @@ header#page-head.expanded-search.tiny .main-nav.affix {
   background-image: url(../img/ymca-logo-full.png);
 }
 
-.translated-ltr header#page-head .top-navs .nav-global,
-.translated-rtl header#page-head .top-navs .nav-global {
-  margin-top: 39px !important;
+@media (min-width: 48em) {
+  .translated-ltr header#page-head .top-navs .nav-global,
+  .translated-rtl header#page-head .top-navs .nav-global {
+    margin-top: 39px !important;
+  }
+  .translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
+  .translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
+    top: 139px;
+  }
 }
-.translated-ltr header#page-head .top-navs .nav-wrapper .main-nav.affix,
-.translated-rtl header#page-head .top-navs .nav-wrapper .main-nav.affix {
-  top: 139px;
-}
-
 .viewport .nav-level-2.open {
   border: none;
 }
