@@ -36,16 +36,22 @@ function openy_google_search_entity_view_alter(&$build, EntityInterface $entity,
   $config = \Drupal::config('openy_google_search.settings');
   $engine_id = $config->get('google_engine_id');
   if (empty($engine_id)) {
+    $url = Url::fromRoute('openy_google_search.settings');
     $args = [
-      ':search_settings' => Url::fromRoute('openy_google_search.settings')->toString(),
+      ':search_settings' => $url->toString(),
     ];
     $message = t('Please set ENGINE_ID at the <a href=":search_settings">search settings page</a> in order to use Google Search.', $args);
-    \Drupal::messenger()->addError($message);
-    return [
+
+    $build['message'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $message,
       '#cache' => [
         'tags' => $config->getCacheTags(),
       ],
     ];
+
+    return $build;
   }
 
   $build['google_search'] = [
