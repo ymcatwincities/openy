@@ -8043,6 +8043,67 @@ article .node--view-mode-flexible-content h2 a span {
   display: none !important;
 }
 
+/*
+ Override Google custom search classes
+ */
+.viewport .gsc-control-cse,
+.viewport .gsc-control-cse .gsc-table-result {
+  width: 100%;
+  font-family: Verdana, arial, sans-serif;
+  font-size: 14px;
+}
+.viewport .gsc-results .gsc-cursor-box {
+  text-align: center;
+  margin: 10px;
+}
+.viewport .gsc-results .gsc-cursor-box .gsc-cursor-page {
+  font-size: 15px;
+  border-radius: 0;
+  cursor: pointer;
+  color: #0060ac;
+  text-decoration: none;
+  padding: 5px 10px;
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.viewport .gsc-results .gsc-cursor-box .gsc-cursor-page:hover, .viewport .gsc-results .gsc-cursor-box .gsc-cursor-page:active {
+  text-decoration: none;
+  background-color: #eeeeee;
+}
+.viewport .gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+  color: #636466;
+  font-size: 15px;
+  font-weight: 500;
+}
+.viewport .gs-webResult.gs-result a.gs-title:link,
+.viewport .gs-webResult.gs-result a.gs-title:link b,
+.viewport .gs-imageResult a.gs-title:link,
+.viewport .gs-imageResult a.gs-title:link b {
+  color: #337AB8;
+}
+.viewport .gs-webResult.gs-result a.gs-title:visited,
+.viewport .gs-webResult.gs-result a.gs-title:visited b,
+.viewport .gs-imageResult a.gs-title:visited,
+.viewport .gs-imageResult a.gs-title:visited b {
+  color: #337AB8;
+}
+.viewport .gs-webResult.gs-result a.gs-title:hover,
+.viewport .gs-webResult.gs-result a.gs-title:hover b,
+.viewport .gs-imageResult a.gs-title:hover,
+.viewport .gs-imageResult a.gs-title:hover b {
+  color: #23527C;
+}
+.viewport .gs-webResult.gs-result a.gs-title:active,
+.viewport .gs-webResult.gs-result a.gs-title:active b,
+.viewport .gs-imageResult a.gs-title:active,
+.viewport .gs-imageResult a.gs-title:active b {
+  color: #23527C;
+}
+.viewport .gcsc-find-more-on-google {
+  color: #337AB8;
+}
+
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
 }
