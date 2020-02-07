@@ -7527,25 +7527,26 @@ article .node--view-mode-flexible-content h2 a span {
 /*
  Override Google custom search classes
  */
-.viewport .paragraph.paragraph--type--google-search {
+.paragraph.paragraph--type--google-search {
   margin: 20px 0;
+  background: none;
 }
-.viewport .cse .gsc-control-cse,
-.viewport .gsc-control-cse {
+.paragraph.paragraph--type--google-search .cse .gsc-control-cse,
+.paragraph.paragraph--type--google-search .gsc-control-cse {
   padding: 1em 0;
   width: auto;
 }
-.viewport .gsc-control-cse,
-.viewport .gsc-control-cse .gsc-table-result {
+.paragraph.paragraph--type--google-search .gsc-control-cse,
+.paragraph.paragraph--type--google-search .gsc-control-cse .gsc-table-result {
   width: 100%;
   font-family: Verdana, arial, sans-serif;
   font-size: 14px;
 }
-.viewport .gsc-results .gsc-cursor-box {
+.paragraph.paragraph--type--google-search .gsc-results .gsc-cursor-box {
   text-align: center;
   margin: 10px;
 }
-.viewport .gsc-results .gsc-cursor-box .gsc-cursor-page {
+.paragraph.paragraph--type--google-search .gsc-results .gsc-cursor-box .gsc-cursor-page {
   font-size: 15px;
   border-radius: 0;
   cursor: pointer;
@@ -7556,46 +7557,46 @@ article .node--view-mode-flexible-content h2 a span {
   background-color: #fff;
   border: 1px solid #ddd;
 }
-.viewport .gsc-results .gsc-cursor-box .gsc-cursor-page:hover, .viewport .gsc-results .gsc-cursor-box .gsc-cursor-page:active {
+.paragraph.paragraph--type--google-search .gsc-results .gsc-cursor-box .gsc-cursor-page:hover, .paragraph.paragraph--type--google-search .gsc-results .gsc-cursor-box .gsc-cursor-page:active {
   text-decoration: none;
   background-color: #eeeeee;
 }
-.viewport .gsc-results .gsc-cursor-box .gsc-cursor-current-page {
+.paragraph.paragraph--type--google-search .gsc-results .gsc-cursor-box .gsc-cursor-current-page {
   color: #636466;
   font-size: 15px;
   font-weight: 500;
 }
-.viewport .gs-webResult.gs-result a.gs-title:link,
-.viewport .gs-webResult.gs-result a.gs-title:link b,
-.viewport .gs-imageResult a.gs-title:link,
-.viewport .gs-imageResult a.gs-title:link b {
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:link,
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:link b,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:link,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:link b {
   color: #337AB8;
 }
-.viewport .gs-webResult.gs-result a.gs-title:visited,
-.viewport .gs-webResult.gs-result a.gs-title:visited b,
-.viewport .gs-imageResult a.gs-title:visited,
-.viewport .gs-imageResult a.gs-title:visited b {
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:visited,
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:visited b,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:visited,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:visited b {
   color: #337AB8;
 }
-.viewport .gs-webResult.gs-result a.gs-title:hover,
-.viewport .gs-webResult.gs-result a.gs-title:hover b,
-.viewport .gs-imageResult a.gs-title:hover,
-.viewport .gs-imageResult a.gs-title:hover b {
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:hover,
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:hover b,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:hover,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:hover b {
   color: #23527C;
 }
-.viewport .gs-webResult.gs-result a.gs-title:active,
-.viewport .gs-webResult.gs-result a.gs-title:active b,
-.viewport .gs-imageResult a.gs-title:active,
-.viewport .gs-imageResult a.gs-title:active b {
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:active,
+.paragraph.paragraph--type--google-search .gs-webResult.gs-result a.gs-title:active b,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:active,
+.paragraph.paragraph--type--google-search .gs-imageResult a.gs-title:active b {
   color: #23527C;
 }
-.viewport .gs-spelling a {
+.paragraph.paragraph--type--google-search .gs-spelling a {
   color: #337AB8;
 }
-.viewport .gcsc-find-more-on-google {
+.paragraph.paragraph--type--google-search .gcsc-find-more-on-google {
   color: #337AB8;
 }
-.viewport .gcsc-find-more-on-google-magnifier {
+.paragraph.paragraph--type--google-search .gcsc-find-more-on-google-magnifier {
   fill: #337AB8;
 }
 

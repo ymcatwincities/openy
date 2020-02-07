@@ -2,10 +2,9 @@
  Override Google custom search classes
  */
 
-.viewport {
-  .paragraph.paragraph--type--google-search {
-    margin: 20px 0;
-  }
+.paragraph.paragraph--type--google-search {
+  margin: 20px 0;
+  background: none;
 
   .cse .gsc-control-cse,
   .gsc-control-cse {
@@ -69,7 +68,6 @@
   .gsc-control-cse .gs-spelling, .gsc-control-cse .gs-result .gs-title,
   .gsc-control-cse .gs-result .gs-title * {
     text-decoration: none;
-    font-weight: bold;
     font-size: 25px;
     color: #0089d0;
   }
@@ -113,5 +111,16 @@
   }
   .gcsc-find-more-on-google-magnifier {
     fill: #0089d0;
+  }
+
+  .gs-web-image-box, .gs-promotion-image-box {
+    margin-right: 10px;
+  }
+
+  .gsc-result-info {
+    font-size: 16px;
+  }
+  .gsc-selected-option {
+    font-size: 16px;
   }
 }
