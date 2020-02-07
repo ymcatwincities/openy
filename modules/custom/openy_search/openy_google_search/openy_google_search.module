@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_theme().
@@ -31,18 +32,25 @@ function openy_google_search_entity_view_alter(&$build, EntityInterface $entity,
   if ($entity->bundle() != 'google_search') {
     return;
   }
-  $engine_id = \Drupal::config('openy_google_search.settings')->get('google_engine_id');
+  $config = \Drupal::config('openy_google_search.settings');
+  $engine_id = $config->get('google_engine_id');
   if (empty($engine_id)) {
-    \Drupal::messenger()
-      ->addError('Please set ENGINE_ID in the search settings.');
-    return;
+    $args = [
+      ':search_settings' => Url::fromRoute('openy_google_search.settings')->toString(),
+    ];
+    $message = t('Please set ENGINE_ID at the <a href=":search_settings">search settings page</a> in order to use Google Search.', $args);
+    \Drupal::messenger()->addError($message);
+    return [
+      '#cache' => [
+        'tags' => $config->getCacheTags(),
+      ],
+    ];
   }
 
   $build['google_search'] = [
     '#theme' => 'openy_google_search',
     '#cache' => [
-      'max-age' => -1,
-      'tags' => ['config:openy_google_search.settings'],
+      'tags' => $config->getCacheTags(),
     ],
     '#attached' => [
       'library' => ['openy_google_search/google_search'],
