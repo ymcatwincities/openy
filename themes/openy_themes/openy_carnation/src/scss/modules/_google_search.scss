@@ -21,18 +21,18 @@
 
   .cse .gsc-search-button-v2, .gsc-search-button-v2 {
     border: none;
-    background-color: #c6168d;
-    height: 50px;
     padding: 6px 40px;
   }
 
-  .gsc-search-box-tools .gsc-search-box .gsc-input {
-    height: 50px;
-    padding-right: 0;
-  }
-
-  .gsc-search-button {
-    margin-left: 0;
+  .gsc-search-box-tools .gsc-search-box {
+    .gsc-input {
+      height: 50px;
+      padding-right: 0;
+    }
+    .gsc-search-button {
+      background: #c6168d;
+      border-radius: 0 10px 10px 0;
+    }
   }
 
   .gsc-results .gsc-cursor-box {
@@ -123,4 +123,9 @@
   .gsc-selected-option {
     font-size: 16px;
   }
+
+  .gsc-tabHeader {
+    font-size: 16px;
+  }
+
 }
