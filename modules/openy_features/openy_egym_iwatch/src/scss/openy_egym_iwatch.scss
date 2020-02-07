@@ -312,6 +312,10 @@
   .pre-footer {
     margin: -50px;
   }
+
+  .clearfix::before, .clearfix::after {
+    display: none;
+  }
 }
 
 .openy_egym_iwatch.rose_based_theme {
@@ -319,5 +323,9 @@
     .banner-back.affix {
       margin-top: -123px;
     }
+  }
+
+  .pre-footer {
+    margin: -10px;
   }
 }
