@@ -7599,6 +7599,9 @@ article .node--view-mode-flexible-content h2 a span {
 .paragraph.paragraph--type--google-search .gcsc-find-more-on-google-magnifier {
   fill: #337AB8;
 }
+.paragraph.paragraph--type--google-search .gs-web-image-box, .paragraph.paragraph--type--google-search .gs-promotion-image-box {
+  margin-right: 10px;
+}
 
 .paragraph-1c-wrapper {
   padding-bottom: 30px;
