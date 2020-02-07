@@ -2,10 +2,9 @@
  Override Google custom search classes
  */
 
-.viewport {
-  .paragraph.paragraph--type--google-search {
-    margin: 20px 0;
-  }
+.paragraph.paragraph--type--google-search {
+  margin: 20px 0;
+  background: none;
 
   .cse .gsc-control-cse,
   .gsc-control-cse {
