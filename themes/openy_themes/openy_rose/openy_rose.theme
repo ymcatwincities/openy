@@ -390,6 +390,10 @@ function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $va
  * Implements hook_preprocess_html().
  */
 function openy_rose_preprocess_html(&$variables) {
+  $variables['theme_name'] = \Drupal::service('theme.manager')
+    ->getActiveTheme()
+    ->getName();
+  
   // Preprocess the node to find all paragraphs and react on them.
   if (!empty($variables['node_type'])) {
     /** @var \Drupal\node\Entity\Node $node */
