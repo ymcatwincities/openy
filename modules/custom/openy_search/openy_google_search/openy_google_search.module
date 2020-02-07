@@ -72,7 +72,7 @@ function openy_google_search_entity_view_alter(&$build, EntityInterface $entity,
  * Implements hook_help().
  */
 function openy_google_search_help($route_name, RouteMatchInterface $route_match) {
-  if ($route_name == 'help.page.openy_google_search') {
+  if ($route_name == 'help.page.openy_google_search' || $route_name == 'openy_google_search.settings') {
     return '<p>' . t('Read <a href="https://github.com/fivejars/openy/blob/google-search-documentation/docs/Development/GoogleCustomSearchConfiguration.md">this topic</a> in Open Y online documentation to get information about Google Custom Search configuration.') . '</p>';
   }
 }
