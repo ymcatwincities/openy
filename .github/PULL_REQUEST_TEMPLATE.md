@@ -13,8 +13,7 @@ If there is a new feature or this is a bug fix - use 8.x-2.x branch. We'll tag f
 - [ ] Please provide steps for review here.
 
 ## General checks
-- [ ] All coding styles are fulfilled and there are no any issues reported by CodeSniffer CI. <br/><img src="https://raw.githubusercontent.com/ymcatwincities/openy/8.x-1.x/.github/assets/ci-errors.png" width="200" alt="CI code sniffer errors">
-- [ ] All tests are running and there are no failed tests reported by CI. <br/><img src="https://raw.githubusercontent.com/ymcatwincities/openy/8.x-1.x/.github/assets/behat.png" width="200" alt="Behat test results">
+- [ ] All coding styles are fulfilled and there are no any issues reported by CodeSniffer. See [Code of Conduct](https://github.com/ymcatwincities/openy/wiki/Open-Y-Code-of-Conduct-and-Best-Practices).
 - [ ] [Documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs) has been updated according to PR changes.
 - [ ] [Steps for review](https://github.com/ymcatwincities/openy/pull/94#issue-204580200) have been provided according to PR changes. <br/><img src="https://raw.githubusercontent.com/ymcatwincities/openy/8.x-1.x/.github/assets/steps-for-review.png" width="200" alt="Steps for review"/>
 - [ ] Make sure you've provided all necessary hook\_update\_N to [support upgrade path](https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Upgrade%20path.md).

@@ -100,7 +100,7 @@
           </div>
         </article>
       </div>
-      {% if content.field_news_related is not empty or content.field_sidebar_content is not empty %}
+      {% if content.field_news_related|render|trim is not empty or content.field_sidebar_content|render|trim is not empty %}
         <div class="sidebar-region col-sm-4">
           {{ content.field_news_related }}
           {{ content.field_sidebar_content }}

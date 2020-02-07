@@ -98,7 +98,7 @@
   ]
 %}
 
-{% if content.field_header_content is not empty %}
+{% if content.field_header_content|render|trim is not empty %}
   <div{{ header_attributes.addClass(header_classes) }}>
     <div{{ content_attributes }}>
       <div class="main">
@@ -117,7 +117,7 @@
   <div class="row">
     {% endif %}
 
-    {% if content.field_content is not empty %}
+    {% if content.field_content|render|trim is not empty %}
       <div{{ content_attributes.addClass(content_classes) }}>
         {% if node.field_lp_layout.value == "one_column" %}
         <div class="main-region col-sm-12">

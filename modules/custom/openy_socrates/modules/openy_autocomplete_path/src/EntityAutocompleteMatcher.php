@@ -8,7 +8,7 @@ use Drupal\Core\Entity\EntityAutocompleteMatcher as SystemEntityAutocompleteMatc
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\path_alias\AliasManagerInterface;
 
 /**
  * Class EntityAutocompleteMatcher.
@@ -34,7 +34,7 @@ class EntityAutocompleteMatcher extends SystemEntityAutocompleteMatcher {
   /**
    * Alias manager interface.
    *
-   * @var \Drupal\Core\Path\AliasManagerInterface
+   * @var \Drupal\path_alias\AliasManagerInterface
    */
   protected $aliasManager;
 
@@ -51,7 +51,7 @@ class EntityAutocompleteMatcher extends SystemEntityAutocompleteMatcher {
    *   The entity reference selection handler plugin manager.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   Entity type manager.
-   * @param \Drupal\Core\Path\AliasManagerInterface $aliasManager
+   * @param \Drupal\path_alias\AliasManagerInterface $aliasManager
    *   Alias manager.
    * @param \Drupal\Core\Entity\EntityManagerInterface $entityManager
    *   Entity manager.
