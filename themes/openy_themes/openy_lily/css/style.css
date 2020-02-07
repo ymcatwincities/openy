@@ -7527,6 +7527,14 @@ article .node--view-mode-flexible-content h2 a span {
 /*
  Override Google custom search classes
  */
+.viewport .paragraph.paragraph--type--google-search {
+  margin: 20px 0;
+}
+.viewport .cse .gsc-control-cse,
+.viewport .gsc-control-cse {
+  padding: 1em 0;
+  width: auto;
+}
 .viewport .gsc-control-cse,
 .viewport .gsc-control-cse .gsc-table-result {
   width: 100%;
@@ -7581,11 +7589,14 @@ article .node--view-mode-flexible-content h2 a span {
 .viewport .gs-imageResult a.gs-title:active b {
   color: #23527C;
 }
+.viewport .gs-spelling a {
+  color: #337AB8;
+}
 .viewport .gcsc-find-more-on-google {
   color: #337AB8;
 }
-.viewport .gs-spelling a {
-  color: #337AB8;
+.viewport .gcsc-find-more-on-google-magnifier {
+  fill: #337AB8;
 }
 
 .paragraph-1c-wrapper {
