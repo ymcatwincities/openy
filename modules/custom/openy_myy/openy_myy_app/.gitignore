@@ -8,3 +8,8 @@ npm-debug.log
 .nuxt
 
 # Nuxt generate
+dist
+nuxt-dist/*
+nuxt-dist/dist/server
+!nuxt-dist/dist
+

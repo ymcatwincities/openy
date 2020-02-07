@@ -19,9 +19,9 @@
           </div>
           <div class="col-myy text-right">
             <span class="status">{{ data.status }}</span>
-            <!--<a href="#" class="details"><strong>Details</strong></a>-->
           </div>
         </div>
+        <!--@todo: uncomment once we have info about payment methods -->
         <!--<div class="row due-now">
           <div class="col-myy">
             <i class="fa fa-exclamation-triangle red"></i>
@@ -79,14 +79,6 @@
     mounted: function() {
       let component = this;
 
-      if (typeof window.drupalSettings === 'undefined') {
-        var drupalSettings = {
-          path: {
-            baseUrl: 'http://openy-demo.docksal/',
-          }
-        };
-        window.drupalSettings = drupalSettings;
-      }
       component.baseUrl = window.drupalSettings.path.baseUrl;
 
       component.runAjaxRequest();

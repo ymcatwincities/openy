@@ -67,7 +67,6 @@
           end: component.end,
           household: component.household.join(',')
         }});
-        //component.updateQuery();
       },
       initDatepicker: function() {
         var component = this;
@@ -105,8 +104,8 @@
       },
       updateQuery: function() {
         let component = this;
-        component.start = typeof component.$route.query.start == 'undefined' ? '2018-01-01' : component.$route.query.start;
-        component.end = typeof component.$route.query.end  == 'undefined' ? '2021-01-01' : component.$route.query.end;
+        component.start = typeof component.$route.query.start == 'undefined' ? moment().subtract(12, 'months').format('YYYY-MM-DD') : component.$route.query.start;
+        component.end = typeof component.$route.query.end  == 'undefined' ? moment().format('YYYY-MM-DD') : component.$route.query.end;
         var household = [];
         for (var i in component.data.household) {
           if (typeof component.data.household[i].RelatedMasterCustomerId != 'undefined') {
@@ -158,14 +157,6 @@
     mounted: function() {
       let component = this;
 
-      if (typeof window.drupalSettings === 'undefined') {
-        var drupalSettings = {
-          path: {
-            baseUrl: 'http://openy-demo.docksal/',
-          }
-        };
-        window.drupalSettings = drupalSettings;
-      }
       component.baseUrl = window.drupalSettings.path.baseUrl;
       component.uid = typeof window.drupalSettings.myy !== 'undefined' ? window.drupalSettings.myy.uid : '';
 

@@ -23,7 +23,6 @@
   import MyyHeader from '~/components/MyyHeader.vue'
   import SidebarMenu from '~/components/SidebarMenu.vue'
   import MobileMenu from '~/components/MobileMenu.vue'
-  import PendingPayments from '~/components/PendingPayments.vue'
   import Membership from '~/components/Membership.vue'
   import Household from '~/components/Household.vue'
   import GuestPasses from '~/components/GuestPasses.vue'
@@ -33,7 +32,6 @@
       MyyHeader,
       MobileMenu,
       SidebarMenu,
-      PendingPayments,
       Membership,
       Household,
       GuestPasses

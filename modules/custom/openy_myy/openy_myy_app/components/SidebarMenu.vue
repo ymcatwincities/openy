@@ -7,9 +7,6 @@
       <li>
         <nuxt-link to="/myy/childcare">childcare</nuxt-link>
       </li>
-      <!--<li class="nav-item">
-        <nuxt-link to="/myy/calendar">calendar</nuxt-link>
-      </li>-->
       <li class="nav-item">
         <a href="#" v-on:click.prevent class="collapsed" data-toggle="collapse" data-target="#submenu-1">activities <i class="fa fa-chevron-up"></i><i class="fa fa-chevron-down"></i></a>
         <ul class="collapse" id="submenu-1" aria-expanded="false">

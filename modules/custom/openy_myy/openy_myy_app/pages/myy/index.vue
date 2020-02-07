@@ -26,9 +26,7 @@ Vue.use(VueCookie);
 
 export default {
   middleware ({ store, redirect }) {
-    //if (store.state.isLoggedIn) {
-      return redirect('/myy/dashboard')
-    //}
+    return redirect('/myy/dashboard')
   },
   components: {
     MyyHeader,
