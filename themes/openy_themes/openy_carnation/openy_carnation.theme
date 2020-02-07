@@ -51,7 +51,7 @@ function openy_carnation_preprocess_html(array &$variables) {
         $variables['node'] = $node;
       }
 
-      $banner_paragraphs = search_node_paragraphs($node, ['gallery', 'banner', 'small_banner'], 'field_header_content');
+      $banner_paragraphs = search_node_paragraphs($node, ['gallery', 'banner', 'small_banner', 'banner_fixed'], 'field_header_content');
       $any_paragraphs = search_node_paragraphs($node, [], 'field_header_content');
       $node_type = $node->getType();
       if($node_type == 'program') {
@@ -277,7 +277,7 @@ function openy_carnation_preprocess_page_logo(&$variables) {
     if (\Drupal::hasService('openy_loc_camp.camp_service') && $service = \Drupal::service('openy_loc_camp.camp_service')) {
       $is_node_camp_related = $service->nodeHasOrIsCamp($node);
     }
-    $banner_paragraphs = search_node_paragraphs($node, ['gallery', 'banner','small_banner'], 'field_header_content');
+    $banner_paragraphs = search_node_paragraphs($node, ['gallery','banner','small_banner','banner_fixed'], 'field_header_content');
     $any_paragraphs = search_node_paragraphs($node, [], 'field_header_content');
     $node_type = $node->getType();
     if($node_type == 'program') {
