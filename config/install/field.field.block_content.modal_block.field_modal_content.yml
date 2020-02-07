@@ -1,0 +1,26 @@
+uuid: ed9149e2-d28c-4c1b-b99a-14f2c079b5d1
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.modal_block
+    - field.storage.block_content.field_modal_content
+  module:
+    - datalayer
+    - text
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_modal_content
+id: block_content.modal_block.field_modal_content
+field_name: field_modal_content
+entity_type: block_content
+bundle: modal_block
+label: 'Modal Content'
+description: 'This field should contain content for modal windows.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

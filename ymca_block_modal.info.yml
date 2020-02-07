@@ -1,0 +1,11 @@
+name: YMCA Modal Block
+description: Implements a simple block with a body and title that will be used to display modal windows.
+type: module
+core: 8.x
+package: YMCA
+version: 8.x-1.0
+dependencies:
+  - block_content
+  - field
+  - ymca_blocks
+  - text
