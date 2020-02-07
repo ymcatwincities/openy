@@ -338,3 +338,10 @@ integration:
   Initially, this package was used for enabling domains with different themes (design) per domain.</p>'
   modules:
     - openy_development
+
+egym_iwatch:
+  name: 'eGym iWatch Landing page'
+  description: 'Iwatch landing page'
+  help: ''
+  modules:
+    - openy_egym_iwatch
