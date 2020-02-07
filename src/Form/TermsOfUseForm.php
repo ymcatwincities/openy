@@ -56,6 +56,7 @@ class TermsOfUseForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('openy.terms_and_conditions.schema');
     $isAccepted = $config->get('accepted_version');
+    $analytics = $config->get('analytics');
     $route_name = $this->getRouteMatch()->getRouteName();
 
     $form['#title'] = $this->t('Terms and Conditions');
@@ -113,9 +114,23 @@ class TermsOfUseForm extends FormBase {
       '#disabled' => ($isAccepted) ? 1 : 0,
     ];
 
+    $form['optional'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'h1',
+      '#weight' => 6,
+      '#value' => $this->t('Optional Permissions'),
+    ];
+
+    $form['analytics'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('We agree to share non-sensitive analytics information including, but not limited to, webpage URL, Open Y version number, enabled website components, with Open Y, LLC in order to improve the platform experience for all YMCA association users. This data will be for informational use only and will not be resold or distributed outside of Open Y, LLC.'),
+      '#default_value' => ($analytics) ? 1 : 0,
+      '#weight' => 7,
+    ];
+
     $form['agree_openy_terms'] = [
       '#type' => 'hidden',
-      '#weight' => 6,
+      '#weight' => 8,
     ];
 
     if (!$isAccepted) {
@@ -138,6 +153,13 @@ class TermsOfUseForm extends FormBase {
           ],
         ],
       ];
+    } else {
+      $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Update optional permissions'),
+        '#weight' => 15,
+        '#button_type' => 'primary'
+      ];
     }
 
     return $form;
@@ -152,6 +174,9 @@ class TermsOfUseForm extends FormBase {
     if (!$form_state->getValue('agree_openy_terms')) {
       $values = $form_state->getValues();
       foreach ($values as $key => $value) {
+        if ($key == 'analytics') {
+          continue;
+        }
         if ($value === 0) {
           $form_state->setErrorByName($key, $this->t('Select all checkboxes to indicate that you have read and agree to the Terms and Conditions.'));
         }
@@ -189,10 +214,12 @@ class TermsOfUseForm extends FormBase {
         ->getEditable('openy.terms_and_conditions.schema');
       $config->set('version', static::TERMS_OF_USE_VERSION);
       $config->set('accepted_version', time());
+      $config->set('analytics', $form_state->getValue('analytics'));
+      $config->set('analytics_optin', 1);
       $config->save();
 
       $this->messenger->addMessage($this->t('Open Y Terms and Conditions have been accepted.'));
-      $form_state->setRedirect('<front>');
+      $form_state->setRedirect('openy_system.openy_terms_and_conditions');
     }
   }
 

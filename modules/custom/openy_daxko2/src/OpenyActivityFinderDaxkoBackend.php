@@ -351,7 +351,20 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
         foreach ($facets['locations'] as $fl) {
           if ($fl['id'] == $location['value']) {
             $locations[$key]['count'] += $fl['count'];
+            $locationsWithResults[] = $location['value'];
           }
+        }
+      }
+    }
+
+    foreach ($locations as $key => $group) {
+      foreach ($group['value'] as $location) {
+        if (!in_array($location['value'], $locationsWithResults)) {
+          $facets['locations'][] = [
+            'id' => $location['value'],
+            'filter' => $location['label'],
+            'count' => 0
+          ];
         }
       }
     }
