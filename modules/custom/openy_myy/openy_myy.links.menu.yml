@@ -1,0 +1,5 @@
+openy_myy.admin:
+  title: 'MyY settings'
+  parent: openy_system.openy_settings
+  route_name: openy_myy.settings
+  weight: 0
