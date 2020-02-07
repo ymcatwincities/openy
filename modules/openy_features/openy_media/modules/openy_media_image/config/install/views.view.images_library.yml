@@ -2,13 +2,15 @@ langcode: en
 status: true
 dependencies:
   config:
-    - image.style.browser_thumbnail
+    - image.style.medium
     - media.type.image
+    - taxonomy.vocabulary.media_folders
     - taxonomy.vocabulary.media_tags
   module:
     - entity_browser
     - image
     - media
+    - media_directories
     - taxonomy
     - user
 id: images_library
@@ -139,7 +141,7 @@ display:
           click_sort_column: target_id
           type: image
           settings:
-            image_style: browser_thumbnail
+            image_style: medium
             image_link: ''
           group_column: ''
           group_columns: {  }
@@ -205,46 +207,6 @@ display:
           entity_type: media
           plugin_id: entity_browser_select
       filters:
-        name:
-          id: name
-          table: media_field_data
-          field: name
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: contains
-          value: ''
-          group: 1
-          exposed: true
-          expose:
-            operator_id: name_op
-            label: 'Image name'
-            description: ''
-            use_operator: false
-            operator: name_op
-            identifier: name
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          entity_type: media
-          entity_field: name
-          plugin_id: string
         bundle:
           id: bundle
           table: media_field_data
@@ -285,46 +247,6 @@ display:
           entity_type: media
           entity_field: bundle
           plugin_id: bundle
-        status:
-          id: status
-          table: media_field_data
-          field: status
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: '1'
-          group: 1
-          exposed: true
-          expose:
-            operator_id: ''
-            label: 'Publishing status'
-            description: ''
-            use_operator: false
-            operator: status_op
-            identifier: status
-            required: true
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: boolean
-          entity_type: media
-          entity_field: status
         field_media_in_library_value:
           id: field_media_in_library_value
           table: media__field_media_in_library
@@ -361,6 +283,94 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           plugin_id: boolean
+        name:
+          id: name
+          table: media_field_data
+          field: name
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: name_op
+            label: 'Image name'
+            description: ''
+            use_operator: false
+            operator: name_op
+            identifier: name
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: media
+          entity_field: name
+          plugin_id: string
+        status:
+          id: status
+          table: media_field_data
+          field: status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value: '1'
+          group: 1
+          exposed: true
+          expose:
+            operator_id: ''
+            label: 'Publishing status'
+            description: ''
+            use_operator: false
+            operator: status_op
+            identifier: status
+            required: true
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+          is_grouped: true
+          group_info:
+            label: Published
+            description: ''
+            identifier: status
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Published
+                operator: '='
+                value: '1'
+              2:
+                title: Unpublished
+                operator: '='
+                value: '0'
+          plugin_id: boolean
+          entity_type: media
+          entity_field: status
         field_media_tags_target_id:
           id: field_media_tags_target_id
           table: media__field_media_tags
@@ -406,6 +416,50 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: taxonomy_index_tid
+        directory:
+          id: directory
+          table: media_field_data
+          field: directory
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: directory_op
+            label: Directory
+            description: ''
+            use_operator: false
+            operator: directory_op
+            identifier: directory
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              contributor: '0'
+              editor: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          entity_type: media
+          entity_field: directory
+          plugin_id: media_directory
       sorts:
         created:
           id: created
