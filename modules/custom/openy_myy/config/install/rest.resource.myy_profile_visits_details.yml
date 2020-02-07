@@ -1,0 +1,9 @@
+id: myy_profile_visits_details
+plugin_id: myy_profile_visits_details
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
