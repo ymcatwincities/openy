@@ -86,6 +86,7 @@ editorial_adv:
     - openy_prgf_story_card
     - openy_block_flexible_content
     - openy_prgf_microsites_menu
+    - openy_inline_editing
 
 embeddable_header_footer:
   name: 'Embeddable header & footer'

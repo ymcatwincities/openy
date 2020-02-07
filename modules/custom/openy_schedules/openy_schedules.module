@@ -2,13 +2,8 @@
 
 /**
  * @file
- * Contains openy_branch module hooks.
+ * Contains openy_schedules module hooks.
  */
-
-use Drupal\node\NodeInterface;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\openy_branch\Utility\UpdatesQueueProvisioner;
 
 /**
  * Implements hook_theme().
