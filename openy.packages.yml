@@ -243,6 +243,13 @@ scheduler:
   modules:
     - scheduler
 
+search:
+  name: 'Search'
+  description: 'Search package provides a set of modules for search.'
+  help: ""
+  modules:
+    - openy_google_search
+
 seo:
   name: 'SEO'
   description: 'SEO package allows improving compatibility with different search engines.'
