@@ -14,5 +14,7 @@ openy_carnation_camp_favicon: {  }
 schemas:
   openy_carnation: 8000
 display_search_form: 1
+search_query_key: keys
+search_page_alias: search/node
 colored_logo: {  }
 matchheight_css_classes: ".viewport .page-head__main-menu .nav-level-3 > a\r\n.blog-up\r\n.blog-heading\r\n.inner-wrapper\r\n.card\r\n.card-body\r\n.card h3\r\n.card .node__content\r\n.block-description--text > h2\r\n.block-description--text > div\r\n.table-class"

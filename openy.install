@@ -1093,3 +1093,23 @@ function openy_update_8078() {
 
   \Drupal::service('module_installer')->install(['openy_analytics']);
 }
+
+/**
+ * Update themes settings with search form query key and search page alias.
+ */
+function openy_update_8079() {
+  $themes_list = [
+    'openy_lily',
+    'openy_carnation',
+    'openy_rose',
+  ];
+  foreach ($themes_list as $theme) {
+    if (\Drupal::service('theme_handler')->themeExists($theme)) {
+      $config = drupal_get_path('theme', $theme) . '/config/install/' . $theme . '.settings.yml';
+      /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+      $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+      $config_importer->update($config, $theme . '.settings', 'search_query_key');
+      $config_importer->update($config, $theme . '.settings', 'search_page_alias');
+    }
+  }
+}
