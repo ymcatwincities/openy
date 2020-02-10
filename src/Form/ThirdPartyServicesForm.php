@@ -113,6 +113,19 @@ class ThirdPartyServicesForm extends FormBase {
       ];
     }
 
+    // Google Custom Search Engine ID.
+    if (\Drupal::moduleHandler()->moduleExists('openy_google_search')) {
+      // Get Google Search Engine ID settings container.
+      $gs_config = $this->configFactory->get('openy_google_search.settings');
+      $form['google_search_engine_id'] = [
+        '#title' => $this->t('Google Search Engine ID'),
+        '#description' => $this->t('The ID assigned to this website by Google Custom Search engine. To get a engine ID, <a href="https://cse.google.com//">sign up for Google Custom Search</a> and create search engine for your website.'),
+        '#default_value' => $gs_config->get('google_engine_id'),
+        '#maxlength' => 40,
+        '#type' => 'textfield',
+      ];
+    }
+
     // Recaptcha keys.
     if (\Drupal::moduleHandler()->moduleExists('recaptcha')) {
       // Get Recaptcha settings container.
@@ -247,6 +260,13 @@ class ThirdPartyServicesForm extends FormBase {
     if (!empty($form_state->getValue('google_analytics_account'))) {
       $ga_config = $this->configFactory->getEditable('google_analytics.settings');
       $ga_config->set('account', $form_state->getValue('google_analytics_account'));
+      $ga_config->save();
+    }
+
+    // Set Google Custom Search Engine ID.
+    if (!empty($form_state->getValue('google_search_engine_id'))) {
+      $ga_config = $this->configFactory->getEditable('openy_google_search.settings');
+      $ga_config->set('google_engine_id', $form_state->getValue('google_search_engine_id'));
       $ga_config->save();
     }
 

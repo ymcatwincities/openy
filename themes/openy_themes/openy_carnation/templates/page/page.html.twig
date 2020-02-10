@@ -80,9 +80,9 @@
 
         {% if display_search %}
           <div class="search-form-wrapper col-12 border-top border-bottom">
-            <form method="get" action="{{ base_path }}/search/node">
+            <form method="get" action="{{ search_results_path }}">
               <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-              <input type="search" name="keys" class="search-input" placeholder="Search">
+              <input type="search" name="{{ search_key }}" class="search-input" placeholder="{{ 'Search'|t }}">
               <input type="submit" type="submit" value="Search">
             </form>
           </div>
@@ -98,7 +98,6 @@
 
   <div class="viewport">
     <header id="page-head" class="page-head">
-
       <div class="desktop-menu top-navs fixed-top d-none d-lg-block" data-spy="affix" data-offset-top="1">
         <nav class="nav-global navbar-ymcags navbar p-0">
           <div class="container-fluid m-0 p-0">
@@ -116,22 +115,20 @@
                 {{ page.secondary_menu }}
               </div>
             </div>
-
-
             <div class="col-md-12 header-content d-none d-sm-block p-0">
 
                 {# search #}
                 {% if display_search %}
                   <div class="page-head__search fade collapse">
                     <div class="search-form-wrapper">
+                      <form method="get" action="{{ search_results_path }}">
+                        <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
+                        <input type="search" name="{{ search_key }}" class="search-input" placeholder="{{ 'Search'|t }}">
+                        <input type="submit" value="Search">
+                      </form>
                       <button class="navbar-toggler page-head__search-close text-white" type="button" data-toggle="collapse" data-target=".page-head__search" aria-controls="page-head__search" aria-expanded="false" aria-label="Hide search bar">
                         <i class="fa fa-times" aria-hidden="true"></i>
                       </button>
-                      <form method="get" action="{{ base_path }}/search/node">
-                        <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-                        <input type="search" name="keys" class="search-input" placeholder="Search">
-                        <input type="submit" value="Search">
-                      </form>
                     </div>
                   </div>
                 {% endif %}

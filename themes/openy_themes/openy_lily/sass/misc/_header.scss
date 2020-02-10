@@ -84,7 +84,7 @@ body {
   width: 0;
   position: fixed;
   z-index: 9999;
-  top: 52px;
+  top: 85px;
   left: 0;
   overflow: auto;
   transition: 0.2s;
@@ -276,7 +276,7 @@ header#page-head {
                   -webkit-transform: scale(0);
                   transform: scale(0);
                 }
-                &:last-child {
+                &:nth-child(3) {
                   -webkit-transform: translate(0px, -6px) rotate(35deg);
                   transform: translate(0px, -6px) rotate(35deg);
                   -webkit-transform-origin: 50%;

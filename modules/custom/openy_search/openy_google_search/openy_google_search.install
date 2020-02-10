@@ -1,0 +1,72 @@
+<?php
+
+/**
+ * @file
+ * Module installation file.
+ */
+
+use Drupal\node\NodeInterface;
+use Drupal\pathauto\PathautoState;
+
+/**
+ * Implements hook_install().
+ */
+function openy_google_search_install() {
+
+  $alias = '/search';
+  /** @var \Drupal\Core\Path\AliasStorageInterface $path_alias_storage */
+  $path_alias_storage = \Drupal::service('path.alias_storage');
+  if ($path_alias_storage->aliasExists($alias, 'en')) {
+    return;
+  }
+  $entity_type_manager = \Drupal::entityTypeManager();
+  $paragraph_storage = $entity_type_manager->getStorage('paragraph');
+  $node_storage = $entity_type_manager->getStorage('node');
+
+  $search_paragraph = $paragraph_storage->create([
+    'type' => 'google_search',
+  ]);
+  if (!$search_paragraph->save()) {
+    return;
+  }
+
+  $page = $node_storage->create([
+    'type' => 'landing_page',
+    'title' => 'Search results',
+    'field_lp_layout' => 'one_column',
+    'langcode' => 'en',
+    'uid' => '1',
+    'field_content' => [
+      [
+        'target_id' => $search_paragraph->id(),
+        'target_revision_id' => $search_paragraph->getRevisionId(),
+      ],
+    ],
+    'status' => NodeInterface::PUBLISHED,
+    'path' => [
+      'pathauto' => PathautoState::SKIP,
+      'alias' => $alias,
+    ],
+  ]);
+  if ($page->save()) {
+    \Drupal::configFactory()
+      ->getEditable('openy_google_search.settings')
+      ->set('search_page_id', $page->id())
+      ->save();
+  }
+  drupal_flush_all_caches();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function openy_google_search_uninstall() {
+  if ($nid = \Drupal::configFactory()
+    ->get('openy_google_search.settings')
+    ->get('search_page_id')) {
+    $node_storage = \Drupal::entityTypeManager()->getStorage('node');
+    if ($node = $node_storage->load($nid)) {
+      $node->delete();
+    }
+  }
+}
