@@ -193,6 +193,19 @@ function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInte
     return;
   }
 
+  $form['search'] = [
+    '#type' => 'details',
+    '#title' => t('Search'),
+    '#open' => TRUE,
+  ];
+
+  $form['search']['display_search_form'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display the search form'),
+    '#default_value' => theme_get_setting('display_search_form'),
+    '#description' => t('Show search form in the header'),
+  ];
+
   $form['camp_section'] = array(
     '#type' => 'details',
     '#title' => t('Camp section'),
@@ -328,9 +341,9 @@ function openy_lily_preprocess_page(&$variables) {
     $variables['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
   }
   else {
-    // @todo move out from the theme.
-    $variables['search_view_content_path'] = Url::fromUri('internal:/search')
-      ->toString();
+    $variables['search_view_content_path'] = Url::fromUri(
+      'internal:/' . theme_get_setting('search_page_alias')
+    )->toString();
   }
 
   // Adds page title for login and register pages.
@@ -423,6 +436,10 @@ function openy_lily_preprocess_page(&$variables) {
       'menuSelector' => '.nav-global .secondary_menu ul.navbar-nav, .mobile_menu ul.nav-level-1',
     ]);
   }
+
+  $variables['display_search'] = theme_get_setting('display_search_form');
+  $variables['search_key'] = theme_get_setting('search_query_key');
+
 }
 
 /**
@@ -457,7 +474,14 @@ function openy_lily_theme_suggestions_form_alter(array &$suggestions, array $var
 }
 
 /**
- * Implements hook_preprocess_HOOK() for footer menus.
+ * Implements hook_preprocess_menu_HOOK() for account menu.
+ */
+function openy_lily_preprocess_menu__account(&$variables) {
+  $variables['display_search'] = theme_get_setting('display_search_form');
+}
+
+/**
+ * Implements hook_preprocess_menu_HOOK() for footer menus.
  */
 function openy_lily_preprocess_menu__footer_menus(&$variables) {
   $variables['#cache']['contexts'][] = 'url.path';
