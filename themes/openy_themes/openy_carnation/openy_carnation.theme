@@ -10,6 +10,8 @@
 use Drupal\block\Entity\Block;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Url;
 use Drupal\Core\Template\Attribute;
 use Drupal\field\Entity\FieldStorageConfig;
@@ -19,6 +21,7 @@ use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_preprocess_html().
@@ -48,7 +51,7 @@ function openy_carnation_preprocess_html(array &$variables) {
         $variables['node'] = $node;
       }
 
-      $banner_paragraphs = search_node_paragraphs($node, ['gallery', 'banner', 'small_banner'], 'field_header_content');
+      $banner_paragraphs = search_node_paragraphs($node, ['gallery', 'banner', 'small_banner', 'banner_fixed'], 'field_header_content');
       $any_paragraphs = search_node_paragraphs($node, [], 'field_header_content');
       $node_type = $node->getType();
       if($node_type == 'program') {
@@ -221,6 +224,9 @@ function openy_carnation_set_theme_file_usage(FileInterface $file) {
  */
 function openy_carnation_preprocess_page(array &$variables) {
   $variables['display_search'] = theme_get_setting('display_search_form');
+  $variables['search_key'] = theme_get_setting('search_query_key');
+  $search_alias = 'internal:/' . theme_get_setting('search_page_alias');
+  $variables['search_results_path'] = Url::fromUri($search_alias)->toString();
   $variables['base_path'] = \Drupal::request()->getSchemeAndHttpHost();
   $variables['site_slogan'] = \Drupal::config('system.site')->get('slogan');
   $variables['#attached']['drupalSettings']['matchheight']['selectors'] = load_matchheight_selectors();
@@ -231,8 +237,6 @@ function openy_carnation_preprocess_page(array &$variables) {
   }
 
   openy_carnation_preprocess_page_logo($variables);
-
-
 }
 
 /**
@@ -274,7 +278,7 @@ function openy_carnation_preprocess_page_logo(&$variables) {
     if (\Drupal::hasService('openy_loc_camp.camp_service') && $service = \Drupal::service('openy_loc_camp.camp_service')) {
       $is_node_camp_related = $service->nodeHasOrIsCamp($node);
     }
-    $banner_paragraphs = search_node_paragraphs($node, ['gallery', 'banner','small_banner'], 'field_header_content');
+    $banner_paragraphs = search_node_paragraphs($node, ['gallery','banner','small_banner','banner_fixed'], 'field_header_content');
     $any_paragraphs = search_node_paragraphs($node, [], 'field_header_content');
     $node_type = $node->getType();
     if($node_type == 'program') {
@@ -294,7 +298,9 @@ function openy_carnation_preprocess_page_logo(&$variables) {
   }
 
   if ($is_node_camp_related) {
-    $variables['logo_url'] = file_create_url(openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo')));
+    if ($camp_logo_uri = openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_section_logo'))) {
+      $variables['logo_url'] = file_create_url($camp_logo_uri);
+    }
     $variables['camp_favicon'] = file_create_url(openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon')));
   }
 }

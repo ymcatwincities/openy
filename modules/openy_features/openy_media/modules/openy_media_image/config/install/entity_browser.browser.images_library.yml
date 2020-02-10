@@ -3,10 +3,10 @@ status: true
 dependencies:
   config:
     - media.type.image
-    - views.view.images_library
   module:
     - dropzonejs_eb_widget
     - media
+    - media_directories_ui
     - views
 name: images_library
 label: 'Images Library'
@@ -21,16 +21,14 @@ selection_display_configuration: {  }
 widget_selector: tabs
 widget_selector_configuration: {  }
 widgets:
-  066bf7d9-6d8d-46cd-ac5c-a0944058e8c4:
+  10756ac1-98d9-4354-8a3c-c855e92a11d4:
     settings:
-      view: images_library
-      view_display: images_library
-      submit_text: 'Select images'
-      auto_select: false
-    uuid: 066bf7d9-6d8d-46cd-ac5c-a0944058e8c4
-    weight: -8
-    label: 'All Images'
-    id: view
+      submit_text: 'Select media'
+      auto_select: 0
+    uuid: 10756ac1-98d9-4354-8a3c-c855e92a11d4
+    weight: -10
+    label: Browser
+    id: media_directories_browser_widget
   89e6e16d-6b22-45f4-b91a-f37edaa85f64:
     settings:
       form_mode: default
@@ -47,6 +45,6 @@ widgets:
       thumbnail_method: contain
       submit_text: 'Select images'
     uuid: 89e6e16d-6b22-45f4-b91a-f37edaa85f64
-    weight: -10
+    weight: -9
     label: 'Upload images'
     id: dropzonejs_media_entity_inline_entity_form

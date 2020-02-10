@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Contains module routines.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_google_search_theme($existing, $type, $theme, $path) {
+  return [
+    'openy_google_search' => [
+      'variables' => [],
+      'template' => 'openy-google-search',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function openy_google_search_entity_view_alter(&$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  // Render template with google custom search tags in google_search paragraph.
+  if ($entity->getEntityTypeId() != 'paragraph') {
+    return;
+  }
+  if ($entity->bundle() != 'google_search') {
+    return;
+  }
+  $config = \Drupal::config('openy_google_search.settings');
+  $engine_id = $config->get('google_engine_id');
+  if (empty($engine_id)) {
+    $url = Url::fromRoute('openy_google_search.settings');
+    $args = [
+      ':search_settings' => $url->toString(),
+    ];
+    $message = t('Please set ENGINE_ID at the <a href=":search_settings">search settings page</a> in order to use Google Search.', $args);
+
+    $build['message'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'p',
+      '#value' => $message,
+      '#cache' => [
+        'tags' => $config->getCacheTags(),
+      ],
+    ];
+
+    return $build;
+  }
+
+  $build['google_search'] = [
+    '#theme' => 'openy_google_search',
+    '#cache' => [
+      'tags' => $config->getCacheTags(),
+    ],
+    '#attached' => [
+      'library' => ['openy_google_search/google_search'],
+      'drupalSettings' => [
+        'engine_id' => $engine_id,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_help().
+ */
+function openy_google_search_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name == 'help.page.openy_google_search' || $route_name == 'openy_google_search.settings') {
+    return '<p>' . t('Read <a href="https://github.com/fivejars/openy/blob/google-search-documentation/docs/Development/GoogleCustomSearchConfiguration.md">this topic</a> in Open Y online documentation to get information about Google Custom Search configuration.') . '</p>';
+  }
+}

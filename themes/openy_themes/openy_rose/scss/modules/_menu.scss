@@ -58,7 +58,7 @@
 
     input[type="search"] {
       @include input-placeholder {
-        font-size: 18px;
+        font-size: 14px;
       }
     }
   }
@@ -185,6 +185,11 @@
   .page-head__top-menu {
     @include breakpoint($screen-lg-desktop) {
       padding-right: 15px;
+    }
+
+    > div {
+      display: flex;
+      align-items: center;
     }
 
     @include breakpoint($screen-md) {

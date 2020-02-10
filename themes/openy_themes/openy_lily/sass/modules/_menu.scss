@@ -1,10 +1,6 @@
-
 .nav.dropdown-menu {
   background-color: $dark-blue;
   border: 1px solid $white;
-  //height: 442px;
-  //object-fit: contain;
-  //width: 1200px;
 }
 
 .nav-home {
@@ -193,9 +189,22 @@
     }
   }
 
+  @media (min-width: 768px) {
+    .secondary_menu {
+      max-height: 100px;
+      float: right;
+      nav {
+        display: inline-block !important;
+      }
+    }
+  }
+
   @include breakpoint($screen-md) {
     .secondary_menu {
+      align-items: center;
+      display: flex;
       float: right;
+
       nav, .openy-gtranslate {
         display: inline-block;
       }
