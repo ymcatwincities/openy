@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Open Y Block Branch Contacts Info module file.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_block_branch_contacts_info_theme($existing, $type, $theme, $path) {
+  return [
+    'block_branch_contacts_info' => [
+      'variables' => [
+        'branch_title' => '',
+        'content' => '',
+        'phone' => '',
+        'address_title' => '',
+        'directions_url' => '',
+        'openy_branch_selector' => '',
+        'branch_hours' => '',
+      ],
+      'template' => 'block-branch-contacts-info',
+    ],
+  ];
+}

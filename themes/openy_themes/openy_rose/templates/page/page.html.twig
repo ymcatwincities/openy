@@ -69,8 +69,17 @@
   </div>
 
   <div id="sidebar" class="sidebar sidebar-left collapse width" aria-hidden="true">
+    {% if display_search %}
+      <div class="search-form-wrapper col-xs-12">
+        <form method="get" action="{{ search_results_path }}">
+          <input type="search" name="{{ search_key }}" class="search-input" placeholder="{{ 'Search'|t }}">
+          <input type="submit" value="Search">
+        </form>
+      </div>
+    {% endif %}
     <div class="col-xs-12 page-head__top-menu">
       {{ page.mobile_menu.openy_rose_useraccountmenu }}
+      {{ page.mobile_menu.openy_rose_gtranslate_mobile }}
     </div>
     <div class="col-xs-12 page-head__main-menu nav-home">
       {{ page.mobile_menu.openy_rose_mainnavigation }}
@@ -96,20 +105,6 @@
               </a>
 
               <div class="col-md-12 header-content hidden-xs">
-                <div class="page-head__search collapse">
-                  <div class="search-form-wrapper">
-                    {{ page.search }}
-                    <form method="get" action="{{ base_path }}search">
-                      <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-                      <input type="search" name="query" class="search-input" placeholder="Search">
-                      <input type="submit" value="Search">
-                    </form>
-                    <a href="#" data-target=".page-head__search" data-toggle="collapse" class="page-head__search-close">
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                      {{ "Cancel"|t }}
-                    </a>
-                  </div>
-                </div>
                 <div class="clearfix page-head__top-menu">
                   {{ page.secondary_menu }}
                 </div>

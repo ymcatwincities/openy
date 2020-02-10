@@ -14,7 +14,7 @@ body.toolbar-fixed {
   .fixed-top {
     top: 39px;
 
-    &.sidebar {
+    &.mobile-sidebar {
       top: 109px;
     }
   }
@@ -23,7 +23,7 @@ body.toolbar-fixed {
   &.toolbar-horizontal.toolbar-tray-open .fixed-top {
     top: 79px;
 
-    &.sidebar {
+    &.mobile-sidebar {
       top: 149px;
     }
   }

@@ -1,0 +1,131 @@
+/*
+ Override Google custom search classes
+ */
+
+.paragraph.paragraph--type--google-search {
+  margin: 20px 0;
+  background: none;
+
+  .cse .gsc-control-cse,
+  .gsc-control-cse {
+    padding: 1em 0;
+    width: auto;
+  }
+
+  .gsc-control-cse,
+  .gsc-control-cse .gsc-table-result {
+    width: 100%;
+    font-family: Verdana, arial, sans-serif;
+    font-size : 16px;
+  }
+
+  .cse .gsc-search-button-v2, .gsc-search-button-v2 {
+    border: none;
+    padding: 6px 40px;
+  }
+
+  .gsc-search-box-tools .gsc-search-box {
+    .gsc-input {
+      height: 50px;
+      padding-right: 0;
+    }
+    .gsc-search-button {
+      background: #c6168d;
+      border-radius: 0 10px 10px 0;
+    }
+  }
+
+  .gsc-results .gsc-cursor-box {
+    text-align: center;
+    margin: 10px;
+
+    .gsc-cursor-page {
+      border-radius: 8px;
+      background-color: #f8f8f8;
+      border: solid 1px #f8f8f8;
+      color: #c6168d;
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      line-height: 50px;
+      font-family: "Cachet",Arial,sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      display: inline-block;
+      text-decoration: none;
+
+      &:hover, &:active {
+        text-decoration: none;
+      }
+    }
+    .gsc-cursor-current-page {
+      text-decoration: none;
+      color: #363435;
+      font-weight: bold;
+    }
+  }
+
+  .gsc-control-cse .gs-spelling, .gsc-control-cse .gs-result .gs-title,
+  .gsc-control-cse .gs-result .gs-title * {
+    text-decoration: none;
+    font-size: 25px;
+    color: #0089d0;
+  }
+
+  .gs-webResult.gs-result a.gs-title:link,
+  .gs-webResult.gs-result a.gs-title:link b,
+  .gs-imageResult a.gs-title:link,
+  .gs-imageResult a.gs-title:link b {
+    color: #0089d0;
+  }
+
+  .gs-webResult.gs-result a.gs-title:visited,
+  .gs-webResult.gs-result a.gs-title:visited b,
+  .gs-imageResult a.gs-title:visited,
+  .gs-imageResult a.gs-title:visited b {
+    color: #0089d0;
+  }
+
+  .gs-webResult.gs-result a.gs-title:hover,
+  .gs-webResult.gs-result a.gs-title:hover b,
+  .gs-imageResult a.gs-title:hover,
+  .gs-imageResult a.gs-title:hover b {
+    text-decoration: underline;
+    color: #6c6c6c;
+  }
+
+  .gs-webResult.gs-result a.gs-title:active,
+  .gs-webResult.gs-result a.gs-title:active b,
+  .gs-imageResult a.gs-title:active,
+  .gs-imageResult a.gs-title:active b {
+    text-decoration: underline;
+    color: #6c6c6c;
+  }
+
+  .gs-spelling a {
+    color: #0089d0;
+  }
+
+  .gcsc-find-more-on-google {
+    color: #0089d0
+  }
+  .gcsc-find-more-on-google-magnifier {
+    fill: #0089d0;
+  }
+
+  .gs-web-image-box, .gs-promotion-image-box {
+    margin-right: 10px;
+  }
+
+  .gsc-result-info {
+    font-size: 16px;
+  }
+  .gsc-selected-option {
+    font-size: 16px;
+  }
+
+  .gsc-tabHeader {
+    font-size: 16px;
+  }
+
+}

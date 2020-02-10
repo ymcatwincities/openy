@@ -86,6 +86,7 @@ editorial_adv:
     - openy_prgf_story_card
     - openy_block_flexible_content
     - openy_prgf_microsites_menu
+    - openy_inline_editing
 
 embeddable_header_footer:
   name: 'Embeddable header & footer'
@@ -242,6 +243,13 @@ scheduler:
   modules:
     - scheduler
 
+search:
+  name: 'Search'
+  description: 'Search package provides a set of modules for search.'
+  help: ""
+  modules:
+    - openy_google_search
+
 seo:
   name: 'SEO'
   description: 'SEO package allows improving compatibility with different search engines.'
@@ -337,3 +345,10 @@ integration:
   Initially, this package was used for enabling domains with different themes (design) per domain.</p>'
   modules:
     - openy_development
+
+egym_iwatch:
+  name: 'eGym iWatch Landing page'
+  description: 'Iwatch landing page'
+  help: ''
+  modules:
+    - openy_egym_iwatch

@@ -1,0 +1,31 @@
+name: 'Open Y eGym iWatch'
+description: 'Implements eGym iWatch landing page and banner_fixed paragraph.'
+type: module
+core: 8.x
+package: 'Open Y'
+version: 8.x-1.0
+dependencies:
+  - blazy
+  - crop
+  - datalayer
+  - 'drupal:field'
+  - 'drupal:image'
+  - 'drupal:link'
+  - 'drupal:media (>= 8.6)'
+  - 'drupal:taxonomy'
+  - 'drupal:text'
+  - entity_browser
+  - field
+  - focal_point
+  - image
+  - jquery_colorpicker
+  - link
+  - media
+  - openy_prgf_grid_content
+  - openy_focal_point
+  - openy_media_image
+  - openy_prgf
+  - openy_txnm_color
+  - paragraphs
+  - text
+core_incompatible: false
