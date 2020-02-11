@@ -37,23 +37,22 @@
 
   <div class="js-locations-row row">
     {% if locations is not empty %}
-      {% for partlocations in locations|batch(locations|length / 3, '') %}
-        <div class="row-items">
-          {% for loc in partlocations %}
-            {% if loc is not empty %}
-                <div class="col-sm-4">
-                  <div class="openy-card__item">
-                    <label>
-                      <i class="fa fa-map-marker"></i>
-                      <input type="checkbox" value="{{ loc }}" class="box js-location-box d-none hidden">
-                      {{ loc }}
-                    </label>
-                  </div>
-                </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endfor %}
+      <div class="row-items">
+        {% for loc in locations %}
+          {% if loc is not empty %}
+            <div class="col-sm-4">
+              <div class="openy-card__item">
+                <label>
+                  <i class="fa fa-map-marker"></i>
+                  <input type="checkbox" value="{{ loc.location }}" class="box js-location-box d-none hidden">
+                  {{ loc.location }}<br>
+                  {{ loc.address }}, {{ loc.locality }}
+                </label>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 </div>
