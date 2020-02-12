@@ -1,0 +1,8 @@
+modal-block:
+  version: 1.x
+  css:
+    theme:
+      css/modal-block.css: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

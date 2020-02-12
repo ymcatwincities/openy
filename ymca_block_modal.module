@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains ymca_block_modal.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ymca_block_modal_theme($existing, $type, $theme, $path) {
+  return [
+    'modal_block' => [
+      'variables' => [
+        'header' => NULL,
+        'content' => NULL,
+        'entity' => NULL,
+      ],
+      'template' => 'modal-block',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function ymca_block_modal_block_content_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  /** @var \Drupal\block_content\Entity\BlockContent $entity */
+
+  switch ($entity->bundle()) {
+    case 'modal_block':
+      $content = $entity->field_modal_content->get(0);
+      if (!$content) {
+        \Drupal::logger('ymca_blocks')->notice(t('Content(expander block) is not found for entity: @id', ['@id' => $entity->id()]));
+        break;
+      }
+      $build['modal'] = array(
+        '#theme' => 'modal_block',
+        '#header' => $entity->field_modal_header->value,
+        '#content' => array(
+          '#type' => 'processed_text',
+          '#text' => $content->value,
+          '#format' => $content->format,
+          '#langcode' => $content->getLangcode(),
+        ),
+        '#entity' => $entity,
+        '#cache' => [
+          'tags' => ['ymca_cron']
+        ],
+      );
+
+      // TODO: Not required now, should live in theme.
+      $build['#attached']['library'][] = 'ymca_block_modal/modal-block';
+      break;
+  }
+}
+
