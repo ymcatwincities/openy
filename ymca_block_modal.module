@@ -33,10 +33,7 @@ function ymca_block_modal_block_content_view_alter(array &$build, EntityInterfac
   switch ($entity->bundle()) {
     case 'modal_block':
       $content = $entity->field_modal_content->get(0);
-      if (!$content) {
-        \Drupal::logger('ymca_blocks')->notice(t('Content(expander block) is not found for entity: @id', ['@id' => $entity->id()]));
-        break;
-      }
+
       $build['modal'] = array(
         '#theme' => 'modal_block',
         '#header' => $entity->field_modal_header->value,
@@ -51,8 +48,6 @@ function ymca_block_modal_block_content_view_alter(array &$build, EntityInterfac
           'tags' => ['ymca_cron']
         ],
       );
-
-      // TODO: Not required now, should live in theme.
       $build['#attached']['library'][] = 'ymca_block_modal/modal-block';
       break;
   }

@@ -3,6 +3,3 @@ modal-block:
   css:
     theme:
       css/modal-block.css: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
