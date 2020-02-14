@@ -15,8 +15,6 @@
 }
 
 .modal-body .sub_header {
-  background: #5a2b8b;
-  color: #fff;
   padding: 10px;
 }
 
@@ -47,7 +45,7 @@
 .modal-body .sub_header a.directions {
   overflow: hidden;
   border-radius: 3px;
-  color: #fff;
+  color: #333;
   text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -80,4 +78,10 @@
 .close {
   opacity: 1 !important;
   background: #fff !important;
+}
+
+@media screen and (max-width: 767px) {
+  .modal-dialog {
+    width: 100% !important;
+  }
 }
