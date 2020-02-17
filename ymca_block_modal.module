@@ -34,22 +34,21 @@ function ymca_block_modal_block_content_view_alter(array &$build, EntityInterfac
     case 'modal_block':
       $content = $entity->field_modal_content->get(0);
 
-      $build['modal'] = array(
+      $build['modal'] = [
         '#theme' => 'modal_block',
         '#header' => $entity->field_modal_header->value,
-        '#content' => array(
+        '#content' => [
           '#type' => 'processed_text',
           '#text' => $content->value,
           '#format' => $content->format,
           '#langcode' => $content->getLangcode(),
-        ),
+        ],
         '#entity' => $entity,
         '#cache' => [
-          'tags' => ['ymca_cron']
+          'tags' => ['ymca_cron'],
         ],
-      );
+      ];
       $build['#attached']['library'][] = 'ymca_block_modal/modal-block';
       break;
   }
 }
-
