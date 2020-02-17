@@ -83,7 +83,8 @@ function paragraph_skins_entity_base_field_info(EntityTypeInterface $entity_type
  *
  * @see options_allowed_values()
  */
-function paragraph_skins_allowed_values_function(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, &$cacheable = TRUE) {
+function paragraph_skins_allowed_values_function(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, &$cacheable = FALSE) {
+  $cacheable = FALSE;
   $skinList = [
     'none' => t('None'),
   ];
@@ -149,9 +150,11 @@ function hook_paragraph_skins(array &$data) {
  *
  * {@inheritDoc}
  */
-function openy_skins_preprocess_paragraph(&$variables) {
+function paragraph_skins_preprocess_paragraph(&$variables) {
   // Get skin's library from paragraph.
-  $skin = $variables['paragraph']->get('skin')->getValue()[0]['value'];
+  if ($variables['paragraph']->get('skin')->getValue()) {
+    $skin = $variables['paragraph']->get('skin')->getString();
+  }
 
   // Check $skin for none type.
   if ($skin == 'none') {
@@ -161,23 +164,12 @@ function openy_skins_preprocess_paragraph(&$variables) {
   // Get data from module hook.
   $skinListData = get_data();
 
-  /**
-   * Replace names to css class.
-   *
-   * @param string $paragraphName
-   *   Paragraph name.
-   * @param string $skinName
-   *   Skin name.
-   *
-   * @return string
-   *   Css class.
-   */
-  function create_css_class(string $paragraphName, string $skinName) {
+  $create_paragraph_css_class = function (string $paragraphName, string $skinName) {
     // Create valid css class.
     return strtolower($paragraphName)
       . '-' .
       str_replace(' ', '-', strtolower($skinName));
-  }
+  };
 
   // Get active theme.
   $activeTheme = Drupal::service('theme.manager')
@@ -187,13 +179,19 @@ function openy_skins_preprocess_paragraph(&$variables) {
   $paragraphName = $variables['paragraph']->getType();
 
   if (isset($skinListData[$paragraphName]) && isset($skinListData[$paragraphName][$skin])) {
-    if (!empty($skin) && key($skinListData[$paragraphName][$skin]) == $skin) {
-      $class = create_css_class((string) $paragraphName, (string) $skin);
-      $library = $skinListData[$paragraphName][$skin]['library'];
+    foreach ($skinListData[$paragraphName] as $skin_name => $skin_data) {
+      if (!empty($skin) && $skin_name == $skin) {
+        $class = $create_paragraph_css_class($paragraphName, $skin_name);
+        $library = $skinListData[$paragraphName][$skin]['library'];
+      }
     }
-    elseif (isset($skinListData[$paragraphName][$skin]['theme']) && $skinListData[$paragraphName][$skin]['theme'] == $activeTheme) {
-      $class = create_css_class((string) $paragraphName, (string) key($skinListData[$paragraphName][$skin]));
-      $library = $skinListData[$paragraphName][$skin]['library'];
+  }
+  elseif (isset($skinListData[$paragraphName])) {
+    foreach ($skinListData[$paragraphName] as $paragraph_skin_name => $paragraph_skin) {
+      if ($paragraph_skin['theme'] == $activeTheme) {
+        $class = $create_paragraph_css_class($paragraphName, $paragraph_skin_name);
+        $library = $paragraph_skin['library'];
+      }
     }
   }
 
