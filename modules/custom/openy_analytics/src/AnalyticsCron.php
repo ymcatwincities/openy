@@ -118,7 +118,7 @@ class AnalyticsCron {
     $db_detailed_version = $this->database->query("SHOW VARIABLES LIKE '%version%';")
       ->fetchAllKeyed();
     $server_software = $_SERVER['SERVER_SOFTWARE'];
-    $php_version = $_SERVER['PHP_VERSION'];
+    $php_version = phpversion();
     $conn_options = $this->database->getConnectionOptions();
     return [
       'server_software' => $server_software,
