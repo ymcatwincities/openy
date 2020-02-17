@@ -115,4 +115,9 @@
   {% include "@openy_lily/node/include/node--landing-page--two-columns.html.twig" %}
 {% endif %}
 
+{# Two columns with left sidebar #}
+{% if node.field_lp_layout.value == "two_column_left" %}
+  {% include "@openy_lily/node/include/node--landing-page--two-columns-left.html.twig" %}
+{% endif %}
+
 {{ content.field_bottom_content }}
