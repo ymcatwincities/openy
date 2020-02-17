@@ -239,3 +239,18 @@ function openy_node_landing_update_8010() {
     }
   }
 }
+
+/**
+ * New column-left layout
+ */
+function openy_node_landing_update_8011() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_landing');
+  $config .= '/config/install/';
+  $config .= 'field.storage.node.field_lp_layout.yml';
+  $config_importer->update(
+    $config,
+    'field.storage.node.field_lp_layout',
+    'settings.allowed_values'
+  );
+}
