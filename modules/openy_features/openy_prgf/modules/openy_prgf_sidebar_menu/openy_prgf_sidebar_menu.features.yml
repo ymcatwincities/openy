@@ -1,0 +1,5 @@
+excluded:
+  - metatag.metatag_defaults.node__article
+  - metatag.metatag_defaults.node__camp
+  - metatag.metatag_defaults.node__location
+required: true
