@@ -16,6 +16,7 @@ function ymca_block_modal_theme($existing, $type, $theme, $path) {
     'modal_block' => [
       'variables' => [
         'header' => NULL,
+        'modalId' => NULL,
         'content' => NULL,
         'entity' => NULL,
       ],
@@ -33,10 +34,10 @@ function ymca_block_modal_block_content_view_alter(array &$build, EntityInterfac
   switch ($entity->bundle()) {
     case 'modal_block':
       $content = $entity->field_modal_content->get(0);
-
       $build['modal'] = [
         '#theme' => 'modal_block',
         '#header' => $entity->field_modal_header->value,
+        '#modalId' => $entity->id(),
         '#content' => [
           '#type' => 'processed_text',
           '#text' => $content->value,
