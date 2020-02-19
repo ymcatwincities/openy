@@ -16,7 +16,8 @@ function openy_google_search_install() {
   $alias = '/search';
   /** @var \Drupal\Core\Path\AliasStorageInterface $path_alias_storage */
   $path_alias_storage = \Drupal::service('path.alias_storage');
-  if ($path_alias_storage->aliasExists($alias, 'en')) {
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
+  if ($path_alias_storage->aliasExists($alias, $language)) {
     return;
   }
   $entity_type_manager = \Drupal::entityTypeManager();
