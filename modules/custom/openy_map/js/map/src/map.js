@@ -1604,6 +1604,10 @@
               map.baseLayer = Drupal.baseLayerWikimedia;
               break;
           }
+          let override = settings.openyMapSettings.base_layer_override;
+          if (override.enable && !!override.pattern) {
+            map.baseLayer.tilePattern = override.pattern;
+          }
           break;
       }
 

@@ -41,7 +41,7 @@ class OpenYMap extends RenderElement {
       case 'gmaps':
         $element['#attached']['library'][] = 'openy_map/gmaps';
         $element['#attached']['drupalSettings']['openyMapSettings']['engine'] = 'gmaps';
-      break;
+        break;
 
       case 'leaflet':
       default:
@@ -52,7 +52,8 @@ class OpenYMap extends RenderElement {
         $mapSettings['search_icon'] = $settings->get('leaflet.search_icon');
         $mapSettings['search_icon_retina'] = $settings->get('leaflet.search_icon_retina');
         $mapSettings['base_layer'] = $settings->get('leaflet.base_layer');
-      break;
+        $mapSettings['base_layer_override'] = $settings->get('leaflet.base_layer_override');
+        break;
     }
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];
     $tags = $settings->get('default_tags');
