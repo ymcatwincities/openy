@@ -1,0 +1,87 @@
+.fade.in {
+  background: rgba(0, 0, 0, 1);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+}
+.modal-body {
+  padding: 0;
+}
+
+.modal-body .content_group {
+  padding: 15px;
+}
+
+.modal-body .sub_header {
+  padding: 10px;
+}
+
+.address .plaintext:before {
+  position: relative;
+  top: -0.1em;
+  margin-right: .3em;
+  content: "\e062";
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 1em;
+  font-family: 'Glyphicons Halflings';
+}
+
+.phone .plaintext:before {
+  position: relative;
+  top: -0.1em;
+  margin-right: .3em;
+  content: "\e182";
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 1em;
+  font-family: 'Glyphicons Halflings';
+}
+
+.modal-body .sub_header a.directions {
+  overflow: hidden;
+  border-radius: 3px;
+  color: #333;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-transition: background-color .2s ease-out;
+  -moz-transition: background-color .2s ease-out;
+  -ms-transition: background-color .2s ease-out;
+  transition: background-color .2s ease-out;
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.1);
+  top: -2px;
+  position: relative;
+}
+
+.modal-body .sub_header  a.directions:after {
+  position: relative;
+  top: -0.1em;
+  margin-left: .3em;
+  content: "\e066";
+  vertical-align: middle;
+  text-transform: none;
+  font-weight: normal;
+  font-size: 1em;
+  font-family: 'Glyphicons Halflings';
+}
+
+.close {
+  opacity: 1 !important;
+  background: #fff !important;
+}
+
+@media screen and (max-width: 767px) {
+  .modal-dialog {
+    width: 100% !important;
+  }
+}

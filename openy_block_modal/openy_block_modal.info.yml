@@ -1,0 +1,10 @@
+name: Open Y Modal Block
+description: Implements a simple block with a body and title that will be used to display modal windows.
+type: module
+core: 8.x
+package: Open Y
+dependencies:
+  - block_content
+  - field
+  - openy_block
+  - text

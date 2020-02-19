@@ -1,0 +1,35 @@
+{#
+/**
+ * @file
+ * Modal block template.
+ *
+ * Available variables:
+ * - header: Block header.
+ * - content: Block content.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="container">
+  <div class="text-center">
+    <a href="#" data-toggle="modal" data-target="#modalBlock{{ modalId }}">{{ header }}</a>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalBlock{{ modalId }}" role="dialog">
+    <div class="content_wrapper modal-container modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header content_wrapper">
+          <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+          <h2 class="modal-title">{{ header }}</h2>
+        </div>
+        <div class="modal-body content_wrapper">
+          <p>{{ content }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

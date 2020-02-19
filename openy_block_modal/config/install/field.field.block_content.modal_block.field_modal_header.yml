@@ -1,0 +1,25 @@
+uuid: 767ec56d-8f43-4eb1-a4d3-10894a405230
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.modal_block
+    - field.storage.block_content.field_modal_header
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_modal_header
+id: block_content.modal_block.field_modal_header
+field_name: field_modal_header
+entity_type: block_content
+bundle: modal_block
+label: 'Modal Header'
+description: 'This field should contain a modal title.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

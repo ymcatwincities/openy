@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_block_modal.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_block_modal_theme($existing, $type, $theme, $path) {
+  return [
+    'modal_block' => [
+      'variables' => [
+        'header' => NULL,
+        'modalId' => NULL,
+        'content' => NULL,
+        'entity' => NULL,
+      ],
+      'template' => 'modal-block',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view_alter().
+ */
+function openy_block_modal_block_content_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  /** @var \Drupal\block_content\Entity\BlockContent $entity */
+
+  switch ($entity->bundle()) {
+    case 'modal_block':
+      $content = $entity->field_modal_content->get(0);
+      $build['modal'] = [
+        '#theme' => 'modal_block',
+        '#header' => $entity->field_modal_header->value,
+        '#modalId' => $entity->id(),
+        '#content' => [
+          '#type' => 'processed_text',
+          '#text' => $content->value,
+          '#format' => $content->format,
+          '#langcode' => $content->getLangcode(),
+        ],
+        '#entity' => $entity,
+        '#cache' => [
+          'tags' => ['openy_cron'],
+        ],
+      ];
+      $build['#attached']['library'][] = 'openy_block_modal/modal-block';
+      break;
+  }
+}

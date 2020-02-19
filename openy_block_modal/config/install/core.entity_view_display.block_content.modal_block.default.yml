@@ -1,0 +1,18 @@
+uuid: e01ef73e-d79e-433f-8d93-6e0230980fcd
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.modal_block
+    - field.field.block_content.modal_block.field_modal_content
+    - field.field.block_content.modal_block.field_modal_header
+id: block_content.modal_block.default
+targetEntityType: block_content
+bundle: modal_block
+mode: default
+content: {  }
+hidden:
+  field_modal_content: true
+  field_modal_header: true
+  langcode: true
+  search_api_excerpt: true
