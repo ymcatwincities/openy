@@ -1,0 +1,11 @@
+name: Open Y Location filter
+description: Provides a Location filter
+type: module
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+dependencies:
+  - openy_loc_branch
+  - openy_loc_camp
+  - openy_location
+  - openy_node

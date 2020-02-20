@@ -1,0 +1,9 @@
+openy_location_filter:
+  version: VERSION
+  js:
+    js/location_filter.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings

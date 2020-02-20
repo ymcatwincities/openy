@@ -1,0 +1,88 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\openy_loc_filter\Form\LocationFilterSettingsForm;
+
+/**
+* Implements hook_preprocess_HOOK().
+*
+* To show Branch and Camp checkboxes separated by group titles.
+*/
+function openy_loc_filter_preprocess_checkboxes(&$variables) {
+  if (!(isset($variables['element']['#branches']) || isset($variables['element']['#camps']))) {
+    return;
+  }
+
+  $variables['children'] = [];
+
+  if (!empty($variables['element']['#all'])) {
+    foreach ($variables['element']['#all'] as $id => $value) {
+      $variables['children'][] = [
+        '#markup' => $variables['element'][$id]['#markup'],
+      ];
+    }
+  }
+
+  if (!empty($variables['element']['#branches'])) {
+    $variables['children'][] = [
+      '#markup' => '<h3>' . t('Branches') . '</h3>',
+    ];
+    foreach ($variables['element']['#branches'] as $id => $value) {
+      $variables['children'][] = [
+        '#markup' => $variables['element'][$id]['#markup'],
+      ];
+    }
+  }
+
+  if (!empty($variables['element']['#camps'])) {
+    $variables['children'][] = [
+      '#markup' => '<h3>' . t('Camps') . '</h3>',
+    ];
+    foreach ($variables['element']['#camps'] as $id => $value) {
+      $variables['children'][] = [
+        '#markup' => $variables['element'][$id]['#markup'],
+      ];
+    }
+  }
+}
+
+/**
+* Implements hook_form_alter().
+*/
+function openy_loc_filter_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  echo '<pre>'; print_r($form_id); echo '</pre>';
+  switch ($form_id) {
+    // To show Branches and Camps enabled in Location Filter settings form.
+    case 'openy_popups_branches_form':
+    case 'calc_block_form':
+    case 'views_exposed_form':
+      if (
+        'views_exposed_form' == $form_id &&
+        'views-exposed-form-classes-listing-search-form' == $form['#id']
+      ) {
+        $locations = &$form['location']['#options'];
+        $groups = ['branches', 'camps'];
+      }
+      elseif ($form_id != 'views_exposed_form') {
+        $locations = &$form['branch'];
+        $groups = ['#options', '#branches', '#camps'];
+      }
+      if (!empty($groups) && !empty($locations)) {
+        $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
+          ->get('locations');
+      if (!empty($allowed_locations)) {
+        foreach ($groups as $group) {
+          foreach ($locations[$group] as $key => $location) {
+            if ($key != 'All' && !in_array($key, $allowed_locations)) {
+              unset($locations[$group][$key]);
+            }
+          }
+          if (empty($locations[$group])) {
+            unset($locations[$group]);
+          }
+        }
+      }
+    }
+    break;
+  }
+}
