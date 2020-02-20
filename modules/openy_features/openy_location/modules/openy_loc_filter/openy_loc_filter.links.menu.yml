@@ -1,0 +1,5 @@
+openy_loc_filter.admin:
+  title: 'Open Y Location Filter settings'
+  parent: system.admin_config_content
+  route_name: openy_loc_filter.location_filter_settings
+  weight: 101

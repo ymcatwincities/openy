@@ -1113,3 +1113,10 @@ function openy_update_8079() {
     }
   }
 }
+
+/**
+ * Enable openy location filter module
+ */
+function openy_update_8080() {
+  \Drupal::service('module_installer')->install(['openy_loc_filter']);
+}
