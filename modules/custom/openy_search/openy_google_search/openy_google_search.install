@@ -16,7 +16,7 @@ function openy_google_search_install() {
   $alias = '/search';
   /** @var \Drupal\Core\Path\AliasStorageInterface $path_alias_storage */
   $path_alias_storage = \Drupal::service('path.alias_storage');
-  $alias_exists = \Drupal::service('path.alias_storage')->aliasExists($alias, 'en');
+  $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
   if ($path_alias_storage->aliasExists($alias, 'en')) {
     return;
   }
@@ -46,7 +46,7 @@ function openy_google_search_install() {
     'status' => NodeInterface::PUBLISHED,
   ];
 
-  if (!$alias_exists) {
+  if (!$path_alias_storage->aliasExists($alias, $language)) {
     $landing_page['path'] = [
       'pathauto' => PathautoState::SKIP,
       'alias' => $alias,
