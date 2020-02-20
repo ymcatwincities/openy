@@ -16,6 +16,7 @@ function openy_google_search_install() {
   $alias = '/search';
   /** @var \Drupal\Core\Path\AliasStorageInterface $path_alias_storage */
   $path_alias_storage = \Drupal::service('path.alias_storage');
+  $alias_exists = \Drupal::service('path.alias_storage')->aliasExists($alias, 'en');
   if ($path_alias_storage->aliasExists($alias, 'en')) {
     return;
   }
@@ -30,7 +31,7 @@ function openy_google_search_install() {
     return;
   }
 
-  $page = $node_storage->create([
+  $landing_page = [
     'type' => 'landing_page',
     'title' => 'Search results',
     'field_lp_layout' => 'one_column',
@@ -43,11 +44,16 @@ function openy_google_search_install() {
       ],
     ],
     'status' => NodeInterface::PUBLISHED,
-    'path' => [
+  ];
+
+  if (!$alias_exists) {
+    $landing_page['path'] = [
       'pathauto' => PathautoState::SKIP,
       'alias' => $alias,
-    ],
-  ]);
+    ];
+  }
+
+  $page = $node_storage->create($landing_page);
   if ($page->save()) {
     \Drupal::configFactory()
       ->getEditable('openy_google_search.settings')
