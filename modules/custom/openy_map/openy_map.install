@@ -83,7 +83,7 @@ function openy_map_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_map') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'views.view.locations' =>[
+    'views.view.locations' => [
       'display',
     ],
   ];
@@ -95,4 +95,15 @@ function openy_map_update_8003() {
       $config_updater->update($config, $config_name, $param);
     }
   }
+}
+
+/**
+ * Add Leaflet base layer override configuration.
+ */
+function openy_map_update_8004() {
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_dir = drupal_get_path('module', 'openy_map') . '/config/install/';
+  $config_name = 'openy_map.settings';
+  $config_path = $config_dir . $config_name . '.yml';
+  $config_updater->update($config_path, $config_name, 'leaflet.base_layer_override');
 }
