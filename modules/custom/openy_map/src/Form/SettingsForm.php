@@ -120,21 +120,59 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => _openy_map_get_default_location(),
     ];
 
-    $options = ['Wikimedia', 'Esri.WorldStreetMap', 'Esri.NatGeoWorldMap', 'OpenStreetMap.Mapnik'];
-    $options = array_combine($options, $options);
+    $options = [
+      'Wikimedia' => [
+        'name' => 'Wikimedia',
+        'pattern' => 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+      ],
+      'Esri.WorldStreetMap' => [
+        'name' => 'Esri.WorldStreetMap',
+        'pattern' => 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+      ],
+      'Esri.NatGeoWorldMap' => [
+        'name' => 'Esri.NatGeoWorldMap',
+        'pattern' => 'https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}',
+      ],
+      'OpenStreetMap.Mapnik' => [
+        'name' => 'OpenStreetMap.Mapnik',
+        'pattern' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      ],
+    ];
     array_walk($options, function (&$value) {
       $link = Link::fromTextAndUrl('preview',
         Url::fromUri('https://leaflet-extras.github.io/leaflet-providers/preview/', [
           'attributes' => ['target' => '_blank'],
-          'fragment' => 'filter=' . $value,
+          'fragment' => 'filter=' . $value['name'],
         ]))->toString();
-      $value .= ' <small>(' . $link . ')</small>';
+      $link_prefix = ' <small>(' . $link . ')</small>';
+      $pattern_prefix = '<br><small>' . $this->t('Default tile URL pattern') . ' <i>' . $value['pattern'] . '</i></small>';
+      $value = $value['name'] . $link_prefix . $pattern_prefix;
     });
     $form['leaflet']['base_layer'] = [
       '#type' => 'radios',
       '#title' => $this->t('Base layer'),
       '#options' => $options,
       '#default_value' => !empty($config->get('leaflet.base_layer')) ? $config->get('leaflet.base_layer') : 'Wikimedia',
+    ];
+    $form['leaflet']['base_layer_override'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Base layer override'),
+      '#open' => !empty($config->get('leaflet.base_layer_override.enable')),
+    ];
+    $form['leaflet']['base_layer_override']['enable'] = [
+      '#type' => 'markup',
+      '#markup' => '<p>' . $this->t('The tile providers limit the usage of their servers. This might result in that map tiles do not load. If that happens for your website you have to use a tile caching server and redirect the requests to that server.'). '</p>',
+    ];
+    $form['leaflet']['base_layer_override']['enable'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable override'),
+      '#default_value' => !empty($config->get('leaflet.base_layer_override.enable')),
+    ];
+    $form['leaflet']['base_layer_override']['pattern'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Base layer tile URL pattern'),
+      '#default_value' => !empty($config->get('leaflet.base_layer_override.pattern')) ? $config->get('leaflet.base_layer_override.pattern') : '',
+      '#description' => $this->t('Find the default pattern for the selected provider next to its name. The pattern must at least contain {x}, {y} and {z} masks.')
     ];
 
     $form['title'] = [
@@ -253,6 +291,7 @@ class SettingsForm extends ConfigFormBase {
     $config->set('map_engine', $form_state->getValue('map_engine'));
     $config->set('leaflet.location', $form_state->getValue('leaflet')['location']);
     $config->set('leaflet.base_layer', $form_state->getValue('leaflet')['base_layer']);
+    $config->set('leaflet.base_layer_override', $form_state->getValue('leaflet')['base_layer_override']);
     $config->set('default_tags', $default_tags);
     $config->set('active_types', $active_types);
     $config->set('type_labels', $type_labels);
