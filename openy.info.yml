@@ -50,6 +50,7 @@ dependencies:
   - captcha
   - ckeditor_bootstrap_buttons
   - config_import
+  - editor_advanced_link
   - features
   - fontyourface
   - image_captcha
