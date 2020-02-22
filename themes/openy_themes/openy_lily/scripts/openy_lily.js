@@ -1,8 +1,7 @@
 /**
  * @file
- * OpenY Lily Theme javascript logic.
+ * Theme javascrip logic.
  */
-
 (function ($, Drupal, drupalSettings) {
 
   'use strict';
@@ -57,7 +56,7 @@
         $('.blog-up').matchHeight();
         $('.blog-heading').matchHeight();
       });
-      $(document).ajaxComplete(function (event, xhr, settings) {
+      $(document).ajaxComplete(function(event, xhr, settings) {
         $(".news-more-teaser, .blog-more-teaser").each(function () {
           $('.blog-up').matchHeight();
           $('.blog-heading').matchHeight();
@@ -212,7 +211,7 @@
   Drupal.behaviors.trimDesc = {
     attach: function (context, settings) {
       $(context).find('.paragraph--type--gallery .field-prgf-description p').once('glrySld').each(function () {
-        $(this).text(function (index, currentText) {
+        $(this).text(function(index, currentText) {
           return currentText.substr(0, 175) + '...';
         });
       });
@@ -227,7 +226,7 @@
       $(".paragraph--type--classes-listing", context).each(function () {
         $('.activity-item').matchHeight();
       });
-      $(document).ajaxComplete(function (event, xhr, settings) {
+      $(document).ajaxComplete(function(event, xhr, settings) {
         $(".paragraph--type--classes-listing", context).each(function () {
           $('.activity-item').matchHeight();
         });
@@ -337,20 +336,6 @@
         }
         else {
           $(this).attr('aria-expanded', 'false');
-        }
-      });
-    }
-  };
-
-  /**
-   * Fill ckeditor table cell padding with value for cellpadding.
-   */
-  Drupal.behaviors.ckeditorTablePadding = {
-    attach: function (context, settings) {
-      $("table", context).each(function () {
-        var padding = $(this).attr("cellpadding");
-        if (padding !== 0) {
-          $(this).find("td").css("padding", padding);
         }
       });
     }
