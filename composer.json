@@ -292,6 +292,7 @@
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
         "drupal/geysir": "^1.1",
-        "drupal/media_directories": "^1.0"
+        "drupal/media_directories": "^1.0",
+        "drupal/editor_advanced_link": "^1.6"
     }
 }
