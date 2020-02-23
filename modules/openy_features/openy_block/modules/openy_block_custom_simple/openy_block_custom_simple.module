@@ -1,0 +1,7 @@
+<?php
+
+function openy_block_custom_simple_paragraph_skins(array &$data) {
+  $data['1c']['default'] = [
+    'library' => 'openy_block_custom_simple/default',
+  ];
+}
