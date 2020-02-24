@@ -17,11 +17,27 @@ vue_router:
   version: 0.1
   js:
     /libraries/vue-router/dist/vue-router.min.js: { minified: true }
-    
+
 moment:
-  version: 2.13.0
+  remote: https://github.com/moment/moment/
+  version: 2.24.0
+  license:
+    name: MIT License
+    url: https://github.com/moment/moment/blob/master/LICENSE
+    gpl-compatible: true
   js:
-    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js: { type: external, minified: true }
+    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js: { type: external, minified: true }
+
+moment-timezone:
+  remote: https://github.com/moment/moment-timezone
+  version: 0.5.27
+  license:
+    name: MIT License
+    url: https://github.com/moment/moment-timezone/blob/master/LICENSE
+    gpl-compatible: true
+  js:
+    https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.27/moment-timezone.min.js: { type: external, minified: true }
+    https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.27/moment-timezone-with-data.min.js: { type: external, minified: true }
 
 jquery.matchHeight:
   version: 0.7.2
