@@ -50,16 +50,13 @@ function openy_loc_filter_preprocess_checkboxes(&$variables) {
 * Implements hook_form_alter().
 */
 function openy_loc_filter_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  echo '<pre>'; print_r($form_id); echo '</pre>';
   switch ($form_id) {
     // To show Branches and Camps enabled in Location Filter settings form.
     case 'openy_popups_branches_form':
     case 'calc_block_form':
     case 'views_exposed_form':
-      if (
-        'views_exposed_form' == $form_id &&
-        'views-exposed-form-classes-listing-search-form' == $form['#id']
-      ) {
+      if ('views_exposed_form' == $form_id &&
+        'views-exposed-form-classes-listing-search-form' == $form['#id']) {
         $locations = &$form['location']['#options'];
         $groups = ['branches', 'camps'];
       }
@@ -67,22 +64,25 @@ function openy_loc_filter_form_alter(&$form, FormStateInterface $form_state, $fo
         $locations = &$form['branch'];
         $groups = ['#options', '#branches', '#camps'];
       }
-      if (!empty($groups) && !empty($locations)) {
-        $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
-          ->get('locations');
-      if (!empty($allowed_locations)) {
-        foreach ($groups as $group) {
-          foreach ($locations[$group] as $key => $location) {
-            if ($key != 'All' && !in_array($key, $allowed_locations)) {
-              unset($locations[$group][$key]);
-            }
-          }
-          if (empty($locations[$group])) {
-            unset($locations[$group]);
+
+      $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
+        ->get('locations');
+
+      if (empty($groups) && empty($locations) && empty($allowed_locations)) {
+        break;
+      }
+
+      foreach ($groups as $group) {
+        foreach ($locations[$group] as $key => $location) {
+          if ($key != 'All' && !in_array($key, $allowed_locations)) {
+            unset($locations[$group][$key]);
           }
         }
+        if (empty($locations[$group])) {
+          unset($locations[$group]);
+        }
       }
-    }
+
     break;
   }
 }
