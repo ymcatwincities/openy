@@ -117,6 +117,20 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Bottom Area'
+    group_branch_amenities:
+      children:
+        - field_location_amenities
+      parent_name: ''
+      weight: 20
+      format_type: tab
+      region: hidden
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+        formatter: closed
+      label: 'Branch Amenities'
 id: node.branch.default
 targetEntityType: node
 bundle: branch
