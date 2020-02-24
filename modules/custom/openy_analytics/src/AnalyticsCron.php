@@ -8,8 +8,6 @@ use Drupal\Core\Database\Connection;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\RfcLogLevel;
-use Drupal\field\Entity\FieldStorageConfig;
-use Drupal\openy_socrates\OpenyCronServiceInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Extension\ExtensionList;
 use GuzzleHttp\Client;
@@ -21,7 +19,7 @@ use Drupal\Core\Utility\Error;
  *
  * @package Drupal\openy_analytics
  */
-class AnalyticsCron implements OpenyCronServiceInterface {
+class AnalyticsCron {
 
   /**
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
@@ -64,7 +62,6 @@ class AnalyticsCron implements OpenyCronServiceInterface {
    * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
    */
   protected $loggerFactory;
-
 
   protected $endpoint = 'http://openy.org:1880/analytics';
 
@@ -121,7 +118,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
     $db_detailed_version = $this->database->query("SHOW VARIABLES LIKE '%version%';")
       ->fetchAllKeyed();
     $server_software = $_SERVER['SERVER_SOFTWARE'];
-    $php_version = $_SERVER['PHP_VERSION'];
+    $php_version = phpversion();
     $conn_options = $this->database->getConnectionOptions();
     return [
       'server_software' => $server_software,
@@ -339,7 +336,7 @@ class AnalyticsCron implements OpenyCronServiceInterface {
 
     try {
       $data = [
-        'title' => $_SERVER['HTTP_HOST'],
+        'http_host' => $_SERVER['HTTP_HOST'],
         'last_changed_node' => $this->getLastChangedNode(),
         'server_info' => $this->getServerInfo(),
         'theme_info' => $this->getThemeInfo(),
