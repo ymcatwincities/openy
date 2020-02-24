@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\Component\Utility\UrlHelper;
@@ -26,7 +27,7 @@ function openy_rose_preprocess_node(array &$variables) {
 }
 
 /**
- * Implement hook_preprocess_paragraph().
+ * Implements hook_preprocess_paragraph().
  */
 function openy_rose_preprocess_paragraph(array &$variables) {
   if (function_exists(__FUNCTION__ . '_' . $variables['paragraph']->bundle())) {
@@ -36,6 +37,21 @@ function openy_rose_preprocess_paragraph(array &$variables) {
   if ($node = \Drupal::request()->attributes->get('node')) {
     $variables['label'] = $node->title->value;
   }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function openy_rose_theme($existing, $type, $theme, $path) {
+  return [
+    'top_menu_search' => [
+      'variables' => [
+        'display_search' => NULL,
+        'search_key' => NULL,
+        'search_results_path' => NULL,
+      ],
+    ],
+  ];
 }
 
 /**
@@ -165,6 +181,19 @@ function openy_rose_form_system_theme_settings_alter(array &$form, FormStateInte
   if (isset($form_id)) {
     return;
   }
+
+  $form['search'] = [
+    '#type' => 'details',
+    '#title' => t('Search'),
+    '#open' => TRUE,
+  ];
+
+  $form['search']['display_search_form'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display the search form'),
+    '#default_value' => theme_get_setting('display_search_form'),
+    '#description' => t('Show search form in the header'),
+  ];
 
   $form['logo']['openy_rose_footer_logo'] = array(
     '#type' => 'managed_file',
@@ -308,6 +337,16 @@ function openy_rose_preprocess_page(array &$variables) {
       }
     }
   }
+  $variables['display_search'] = theme_get_setting('display_search_form');
+  $variables['search_key'] = theme_get_setting('search_query_key');
+  $search_alias = 'internal:/' . theme_get_setting('search_page_alias');
+  $variables['search_results_path'] = Url::fromUri($search_alias)->toString();
+  $variables['page']['secondary_menu']['search'] = [
+    '#theme' => 'top_menu_search',
+    '#display_search' => $variables['display_search'],
+    '#search_key' => $variables['search_key'],
+    '#search_results_path' => $variables['search_results_path'],
+  ];
 }
 
 /**
@@ -351,6 +390,10 @@ function openy_rose_theme_suggestions_slick_alter(array &$suggestions, array $va
  * Implements hook_preprocess_html().
  */
 function openy_rose_preprocess_html(&$variables) {
+  $variables['theme_name'] = \Drupal::service('theme.manager')
+    ->getActiveTheme()
+    ->getName();
+  
   // Preprocess the node to find all paragraphs and react on them.
   if (!empty($variables['node_type'])) {
     /** @var \Drupal\node\Entity\Node $node */

@@ -1,0 +1,9 @@
+name: Open Y Google Search
+type: module
+description: Provides a Google Custom search Engine for Open Y.
+core: 8.x
+package: Open Y
+version: 8.x-1.0
+configure: openy_google_search.settings
+dependencies:
+  - openy_search

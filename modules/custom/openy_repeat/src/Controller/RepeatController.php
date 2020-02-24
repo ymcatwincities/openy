@@ -418,7 +418,7 @@ class RepeatController extends ControllerBase {
   private function getClassShortDate($weekday) {
     $day = $day = $this->getClassDay($weekday);
     $date = new \DateTime();
-    $date->setTimezone(drupal_get_user_timezone());
+    $date->setTimezone(new \DateTimeZone(drupal_get_user_timezone()));
     $date->modify("this $day");
     return $date->format('M j');
   }
@@ -437,7 +437,7 @@ class RepeatController extends ControllerBase {
   private function getClassSortTime($weekday) {
     $day = $day = $this->getClassDay($weekday);
     $date = new \DateTime();
-    $date->setTimezone(drupal_get_user_timezone());
+    $date->setTimezone(new \DateTimeZone(drupal_get_user_timezone()));
     $date->modify("this $day");
     return $date->format('U');
   }

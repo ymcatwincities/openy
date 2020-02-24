@@ -5,7 +5,3 @@ services:
                 '@config.factory', '@extension.list.module',
                 '@entity_field.manager', '@http_client',
                 '@entity_type.bundle.info', '@logger.factory']
-    tags:
-      -
-        name: openy_cron_service
-        periodicity: 604800

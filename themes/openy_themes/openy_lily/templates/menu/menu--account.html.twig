@@ -20,7 +20,9 @@
  * @ingroup themeable
  */
 #}
-<div class="search-toggle"><span class="glyphicon glyphicon-search"></span></div>
+{% if display_search %}
+ <div class="search-toggle"><span class="glyphicon glyphicon-search"></span></div>
+{% endif %}
 {% import _self as menus %}
 
 {#
