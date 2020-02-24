@@ -13,6 +13,8 @@ openy_activity_finder:
     - openy_system/openy_system.stepper
     - openy_system/jquery.matchHeight
     - openy_system/polyfill
+    - openy_system/vue
+    - openy_system/vue-router
     - openy_system/moment
     - core/jquery.cookie
 
@@ -32,7 +34,7 @@ openy_activity_finder_search:
     - openy_system/openy_system.stepper
     - openy_system/polyfill
     - openy_system/vue
-    - openy_system/vue_router
+    - openy_system/vue-router
     - openy_system/moment
     - openy_system/addtocal
     - core/jquery.cookie
