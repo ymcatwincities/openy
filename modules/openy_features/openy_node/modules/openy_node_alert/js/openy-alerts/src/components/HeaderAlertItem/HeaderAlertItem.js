@@ -31,8 +31,7 @@ class AlertItem extends Component {
     let focusItem = () => {
       this.props.focus(parseInt(this.props.index));
       let slicks = document.getElementsByClassName("slick-list");
-      for (let i in slicks) {
-        let slick = slicks[i];
+      for (let slick of slicks) {
         slick.scrollLeft = 0;
         // Additionally reset horizontal scroll for screen readers.
         setTimeout(() => { slick.scrollLeft = 0; }, 100);
