@@ -14,3 +14,4 @@ dependencies:
   - entity_browser
   - openy_block
   - openy_media_image
+  - paragraph_skins

@@ -1,0 +1,10 @@
+name: 'Open Y Sidebar Menu'
+description: 'SideBar menu for referencing menu blocks and using in SideBars across different pages. '
+type: module
+core: 8.x
+dependencies:
+  - field
+  - metatag
+  - paragraphs
+  - plugin
+version: 8.x-1.0

@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.sidebar_menu.field_prgf_sidebar_menu_ref
+    - paragraphs.paragraphs_type.sidebar_menu
+  module:
+    - plugin
+id: paragraph.sidebar_menu.default
+targetEntityType: paragraph
+bundle: sidebar_menu
+mode: default
+content:
+  field_prgf_sidebar_menu_ref:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: plugin_block_built
+    region: content
+hidden:
+  created: true
+  uid: true

@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: sidebar_menu
+label: 'Sidebar Menu'
+behavior_plugins: {  }

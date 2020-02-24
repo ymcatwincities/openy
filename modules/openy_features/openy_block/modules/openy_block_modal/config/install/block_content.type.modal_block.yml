@@ -1,0 +1,8 @@
+uuid: 3a9c6c03-baf7-4c95-a8d8-aaa4f1ebebd1
+langcode: en
+status: true
+dependencies: {  }
+id: modal_block
+label: 'Modal Block'
+revision: 1
+description: 'This is a simple block with a body and title that will be used to display modal windows.'
