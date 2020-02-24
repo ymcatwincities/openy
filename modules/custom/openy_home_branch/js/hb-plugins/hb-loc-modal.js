@@ -83,7 +83,7 @@
       hide: function () {
         this.element.addClass('hidden');
       },
-      show: function (forceShow = false) {
+      show: function (forceShow) {
         var timestamp = Math.floor(Date.now() / 1000);
         var lastShowTime = Drupal.homeBranch.getValue('lastShowTime');
         var allowToShow = timestamp > lastShowTime + this.delay;
