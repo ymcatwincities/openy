@@ -4,6 +4,10 @@ namespace Drupal\openy_loc_filter\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
+use Drupal\Core\Database\Connection;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use \Drupal\Core\Cache\Cache;
 
 /**
 * Location Filter settings form.
@@ -11,6 +15,30 @@ use Drupal\Core\Form\FormStateInterface;
 class LocationFilterSettingsForm extends ConfigFormBase {
 
   const CONFIG_NAME = 'openy_loc_filter.location_filter_settings';
+
+  /**
+   * The database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
+  protected $connection;
+
+  /**
+   * Constructs a new LocationFilterSettingsForm.
+   *
+   * @param \Drupal\Core\Database\Connection $database
+   *   Database connection.
+   */
+  public function __construct(Connection $database) {
+    $this->connection = $database;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('database'));
+  }
 
   /**
   * {@inheritdoc}
@@ -43,7 +71,7 @@ class LocationFilterSettingsForm extends ConfigFormBase {
 
     $form['locations'] = [
       '#type' => 'checkboxes',
-      '#prefix' => '<div class="fieldgroup form-item form-wrapper"><h2 class="fieldset-legend">' . t('Select locations available for Location filters') . '</h2><div class="fieldset-wrapper">',
+      '#prefix' => '<div class="fieldgroup form-item form-wrapper"><h2 class="fieldset-legend">' . $this->t('Select locations available for Location filters') . '</h2><div class="fieldset-wrapper">',
       '#suffix' => '</div></div>',
       '#default_value' => $selected_locations,
       '#options' => ['All' => 'All'] + $locations,
@@ -70,12 +98,11 @@ class LocationFilterSettingsForm extends ConfigFormBase {
       'camp' => [],
     ];
 
-    $db = \Drupal::database();
     /** @var \Drupal\Core\Database\Query\SelectInterface $query */
-    $query = $db->select('node_field_data', 'n')
+    $query = $this->connection->select('node_field_data', 'n')
       ->fields('n', ['nid', 'title', 'type'])
       ->condition('type', ['branch', 'camp'], 'IN')
-      ->condition('status', 1);
+      ->condition('status', NodeInterface::PUBLISHED);
     $items = $query->execute()->fetchAll();
     foreach ($items as $item) {
       $branches_list[$item->type][$item->nid] = $item->title;
@@ -95,6 +122,7 @@ class LocationFilterSettingsForm extends ConfigFormBase {
       return $key !== 'All' && !empty($value);
     }, ARRAY_FILTER_USE_BOTH);
     $config->set('locations', $locations)->save();
+    Cache::invalidateTags(['config:core.entity_view_display.node.program_subcategory.default']);
 
     parent::submitForm($form, $form_state);
   }
