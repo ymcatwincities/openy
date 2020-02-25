@@ -4,9 +4,9 @@
   \**************************/
 /*! no exports provided */
 /*! all exports used */
-/*! ModuleConcatenation bailout: Module is an entry point */function(e,t,r){"use strict";r.r(t);r(/*! ./src/scss/openy_block_custom_simple.scss */1)},
-/*!*************************************************!*\
-  !*** ./src/scss/openy_block_custom_simple.scss ***!
-  \*************************************************/
+/*! ModuleConcatenation bailout: Module is an entry point */function(e,t,r){"use strict";r.r(t);r(/*! ./src/scss/rounded-image.scss */1)},
+/*!*************************************!*\
+  !*** ./src/scss/rounded-image.scss ***!
+  \*************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */function(e,t,r){}]);
