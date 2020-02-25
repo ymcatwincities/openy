@@ -1,7 +1,0 @@
-default:
-  version: 1.x
-
-  css:
-    theme:
-      dist/css/openy_block_custom_simple.css: { minified: true}
-

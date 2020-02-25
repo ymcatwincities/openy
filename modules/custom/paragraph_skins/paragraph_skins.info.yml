@@ -1,0 +1,7 @@
+name: 'Paragraphs Skins'
+type: module
+description: 'Implement skins for paragraphs'
+core: 8.x
+package: 'Paragraphs'
+dependencies:
+  - paragraphs
