@@ -5,14 +5,15 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
+  - drupal:block_content
+  - drupal:content_moderation
+  - drupal:datalayer
   - drupal:field
   - drupal:language
   - drupal:link
   - drupal:media (>= 8.6)
   - drupal:text
-  - block_content
-  - content_moderation
-  - datalayer
-  - entity_browser
-  - openy_block
-  - openy_media_image
+  - entity_browser:entity_browser
+  - link_attributes:link_attributes
+  - openy:openy_block
+  - openy:openy_media_image
