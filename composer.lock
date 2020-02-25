@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3dd02ec11284ae38f0d9c506832f7c32",
+    "content-hash": "5396c787471afb1535c3ecbaa73a2e40",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -1458,7 +1458,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-beta4",
-                    "datestamp": "1571689089",
+                    "datestamp": "1582292983",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Beta releases are not covered by Drupal security advisories."
@@ -1602,6 +1602,10 @@
             ],
             "authors": [
                 {
+                    "name": "cobenash",
+                    "homepage": "https://www.drupal.org/user/2138470"
+                },
+                {
                     "name": "darol100",
                     "homepage": "https://www.drupal.org/user/2667123"
                 },
@@ -1661,6 +1665,10 @@
                     "name": "Kevin Quillen (kevinquillen)",
                     "homepage": "https://www.drupal.org/u/kevinquillen",
                     "role": "Maintainer"
+                },
+                {
+                    "name": "ddrozdik",
+                    "homepage": "https://www.drupal.org/user/574124"
                 },
                 {
                     "name": "kevinquillen",
@@ -3521,6 +3529,7 @@
                     }
                 },
                 "patches_applied": {
+                    "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
                     "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
                 }
             },
@@ -4014,7 +4023,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.0-rc1",
-                    "datestamp": "1580596903",
+                    "datestamp": "1580658637",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Project has not opted into security advisory coverage!"
@@ -5219,7 +5228,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.3",
-                    "datestamp": "1575044885",
+                    "datestamp": "1581606078",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -9245,24 +9254,6 @@
                 "stream-wrapper"
             ],
             "time": "2019-12-10T11:53:27+00:00"
-        },
-        {
-            "name": "vuejs/vue",
-            "version": "2.6.10",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/vuejs/vue/archive/v2.6.10.zip"
-            },
-            "type": "drupal-library"
-        },
-        {
-            "name": "vuejs/vue-router",
-            "version": "3.0.6",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/vuejs/vue-router/archive/v3.0.6.zip"
-            },
-            "type": "drupal-library"
         },
         {
             "name": "zendframework/zend-diactoros",

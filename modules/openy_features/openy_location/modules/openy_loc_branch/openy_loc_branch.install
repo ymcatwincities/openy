@@ -377,3 +377,14 @@ function openy_loc_branch_update_8017() {
     }
   }
 }
+
+/**
+ * Update feature configs.
+ */
+function openy_loc_branch_update_8018() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.branch.default';
+  $config_importer->update($config, 'third_party_settings.field_group');
+}
