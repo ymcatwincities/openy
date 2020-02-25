@@ -1113,3 +1113,18 @@ function openy_update_8079() {
     }
   }
 }
+
+/**
+ * Enable Link Atributes and Editor Advanced Link modules.
+ */
+function openy_update_8080() {
+  $modules = [
+    'link_attributes',
+    'editor_advanced_link'
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
+}
