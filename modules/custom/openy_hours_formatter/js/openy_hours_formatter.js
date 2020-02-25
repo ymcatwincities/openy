@@ -32,21 +32,17 @@
     refreshTimer: false,
 
     /**
-     * See https://moment.github.io/luxon/docs/manual/formatting.
-     *
      * @returns {string}
      */
     getDayOfWeek: function (tz) {
-      return luxon.DateTime.local().setZone(tz).toFormat('c');
+      return moment().tz(tz).format('d');
     },
 
     /**
-     * See https://moment.github.io/luxon/docs/manual/formatting.
-     *
      * @returns {string}
      */
     getDate: function (tz) {
-      return luxon.DateTime.local().setZone(tz).toFormat('yyyy-LL-dd');
+      return moment().tz(tz).format('YYYY-MM-DD');
     },
 
     /**
@@ -61,7 +57,7 @@
       var hoursData = [];
       var branchHours = drupalSettings.openy_hours_formatter.branch_hours || [];
       var tz = drupalSettings.openy_hours_formatter.tz || 'America/New York';
-
+      tz = tz.replace(/ /g,"_");
       // Prioritize these arbitrary hours names first.
       ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function (name) {
         if (typeof branchHours[name] != 'undefined') {

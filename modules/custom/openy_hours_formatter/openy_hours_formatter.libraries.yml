@@ -6,12 +6,5 @@ openy_hours_formatter:
     - core/jquery
     - core/drupal
     - core/drupalSettings
-    - openy_hours_formatter/openy_hours_formatter.luxon
-openy_hours_formatter.luxon:
-  version: 1.11.2
-  license:
-    name: MIT
-    url: https://github.com/moment/luxon/blob/master/license.md
-    gpl-compatible: true
-  js:
-    js/luxon/luxon.min.js: { minified: true }
+    - openy_system/moment
+    - openy_system/moment-timezone
