@@ -1,0 +1,7 @@
+rounded-image:
+  version: 1.x
+
+  css:
+    theme:
+      dist/css/rounded-image.css: { minified: true}
+

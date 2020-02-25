@@ -157,7 +157,7 @@ function paragraph_skins_preprocess_paragraph(&$variables) {
   }
 
   // Check $skin for none type.
-  if ($skin == 'none') {
+  if (isset($skin) && $skin == 'none') {
     return;
   }
 

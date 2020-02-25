@@ -10,7 +10,7 @@ module.exports = {
       files: path.resolve(__dirname) + '/src/**/*.scss'
     }),
     new MiniCssExtractPlugin({
-      filename: "./css/openy_block_custom_simple.css",
+      filename: "./css/rounded-image.css",
       sourceMap: false,
       options: {
         sourceMap: false,
