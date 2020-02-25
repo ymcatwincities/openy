@@ -14,7 +14,7 @@ dependencies:
     - field.field.paragraph.repeat_schedules.field_prgf_rs_pdf_only_view
     - paragraphs.paragraphs_type.repeat_schedules
   module:
-    - link
+    - link_attributes
 id: paragraph.repeat_schedules.default
 targetEntityType: paragraph
 bundle: repeat_schedules
@@ -26,6 +26,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
@@ -37,6 +38,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   field_prgf_repeat_schedule_end:
     weight: 6
@@ -51,6 +53,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
@@ -72,8 +75,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_prgf_repeat_schedules_pref:
     type: entity_reference_autocomplete
@@ -83,6 +95,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
   field_prgf_rs_pdf_only_view:
     weight: 8

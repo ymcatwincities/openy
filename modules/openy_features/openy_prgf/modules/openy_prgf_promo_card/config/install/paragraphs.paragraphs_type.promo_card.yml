@@ -3,3 +3,6 @@ status: true
 dependencies: {  }
 id: promo_card
 label: 'Promo Card'
+icon_uuid: null
+description: null
+behavior_plugins: {  }

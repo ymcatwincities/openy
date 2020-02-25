@@ -14,7 +14,7 @@ dependencies:
   module:
     - entity_browser_entity_form
     - inline_entity_form
-    - link
+    - link_attributes
     - text
 id: paragraph.4c.default
 targetEntityType: paragraph
@@ -93,8 +93,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_prgf_description:
     weight: 2
