@@ -1,5 +1,5 @@
 name: Open Y Location filter
-description: Provides a Location filter
+description: Provides the ability to limit the list of branches displayed in various popups and filters.
 type: module
 core: 8.x
 package: Open Y
