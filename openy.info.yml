@@ -55,6 +55,7 @@ dependencies:
   - fontyourface
   - image_captcha
   - local_fonts
+  - link_attributes
   - metatag
   - metatag_open_graph
   - plugin
