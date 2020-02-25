@@ -1,0 +1,43 @@
+<?php
+
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Implements hook_install().
+ */
+function paragraph_skins_install() {
+  $storage_definition = BaseFieldDefinition::create('list_string')
+    ->setLabel(t('Skin'))
+    ->setDescription(t('The skin for current paragraph.'))
+    ->setSettings([
+      'allowed_values' => [],
+      'allowed_values_function' => 'paragraph_skins_allowed_values_function',
+      'max_length' => 255,
+      'locked' => FALSE,
+      'cardinality' => 1,
+    ])
+    ->setDisplayOptions('view', [
+      'region' => 'hidden',
+      'weight' => -5,
+    ])
+    ->setDisplayOptions('form', [
+      'weight' => -5,
+      'type' => 'options_select',
+    ])
+    ->setDisplayConfigurable('form', FALSE);
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('skin', 'paragraph', 'paragraph', $storage_definition);
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * @throws \Drupal\Core\Entity\EntityStorageException
+ */
+function paragraph_skins_uninstall() {
+  $field = FieldStorageConfig::loadByName('paragraphs', 'skin');
+  if ($field) {
+    $field->delete();
+  }
+}

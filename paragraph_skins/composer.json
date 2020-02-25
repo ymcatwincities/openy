@@ -1,0 +1,13 @@
+{
+    "name": "paragraph_skins",
+    "type": "drupal-module",
+    "description": "Implement skins for paragraphs",
+    "keywords": [
+    ],
+    "homepage": "https://www.drupal.org/project/paragraph_skins",
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/paragraph_skins",
+        "source": "http://cgit.drupalcode.org/paragraph_skins"
+    }
+}

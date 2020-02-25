@@ -1,0 +1,203 @@
+<?php
+
+/**
+ * @file
+ * Contains paragraph_skins.module.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Entity\FieldableEntityInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ *
+ * {@inheritDoc}
+ */
+function paragraph_skins_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the paragraph_skins module.
+    case 'help.page.paragraph_skins':
+      $output = '';
+      $output .= '<h3>' . t('Paragraph Skins') . '</h3>';
+      $output .= '<p>' . t('This module implements custom styles for the paragraph bundle by adding select fields with custom libraries.') . '</p>';
+      $output .= '<p>' . t('Frontend developer uses Paragraph Skins to implement various CSS or js library for one paragraph type.') . '</p>';
+      $output .= '<h3>' . t('How to use:') . '</h3>';
+      $output .= '<p>' . t('You can add in your custom module hook_paragraph_skins, and override skins data.') . '</p>';
+      $output .= '<p>' . t('The library with your styles should be implemented in your module how drupal library.') . '</p>';
+      $output .= '<p>' . t(' In CSS library you can select paragraph by HTML class: paragraph-type-skin-label,
+        generated from paragraph machine name in lower register and skin label in lower register and replace space by a hyphen') . '</p>';
+      $output .= '<p>' . t('Data structure is the standard php array.') . '</p>';
+      return $output;
+  }
+  return '';
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ *
+ * {@inheritDoc}
+ */
+function paragraph_skins_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  // Add a 'Skin' base field to all paragraph types.
+  if ($entity_type->id() === 'paragraph') {
+    $fields['skin'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('Skin'))
+      ->setDescription(t('The skin for current paragraph.'))
+      ->setSettings([
+        'allowed_values' => [],
+        'allowed_values_function' => 'paragraph_skins_allowed_values_function',
+        'max_length' => 255,
+        'locked' => FALSE,
+        'cardinality' => 1,
+      ])
+      ->setDisplayOptions('view', [
+        'region' => 'hidden',
+        'weight' => -5,
+      ])
+      ->setDisplayOptions('form', [
+        'weight' => -5,
+        'type' => 'options_select',
+      ])
+      ->setDisplayConfigurable('form', FALSE);
+  }
+  return $fields;
+}
+
+/**
+ * Set dynamic allowed values for the alignment field.
+ *
+ * @param \Drupal\Core\Field\FieldStorageDefinitionInterface $definition
+ *   The field definition.
+ * @param \Drupal\Core\Entity\FieldableEntityInterface $entity
+ *   The entity being created if applicable.
+ * @param bool $cacheable
+ *   Boolean indicating if the results are cacheable.
+ *
+ * @return array
+ *   An array of possible key and value options.
+ *
+ * @see options_allowed_values()
+ */
+function paragraph_skins_allowed_values_function(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, &$cacheable = FALSE) {
+  $cacheable = FALSE;
+  $skinList = [
+    'none' => t('None'),
+  ];
+  if (isset($entity)) {
+    // Get data from module hook.
+    $skinListData = get_data();
+
+    foreach ($skinListData as $paragraphName => $paragraph) {
+      if ($entity->getType() == $paragraphName) {
+        foreach ($paragraph as $skinName => $skin) {
+          $skinList[$skinName] = $skinName;
+        }
+      }
+    }
+  }
+  return $skinList;
+}
+
+/**
+ * Implements hook_field_widget_form_alter().
+ *
+ * {@inheritDoc}
+ */
+function paragraph_skins_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
+  // Change " - None - " option label to "Default".
+  if (isset($element['#paragraph_type']) && !empty($element['#paragraph_type']) && isset($element['subform']['skin'])) {
+    $element['subform']['skin']['widget']['#options']['_none'] = "Default";
+  }
+}
+
+/**
+ * Set default data for module.
+ *
+ * @return array
+ *   Data structure:
+ *   $data = [
+ *   'paragraph type' =>
+ *      'Skin Label' =>
+ *        'library' => 'module_name/library_name',
+ *         // Theme name for attaching library when theme active
+ *         // and paragraph skin set to default.
+ *        'theme' => 'theme_name'
+ *   ];
+ */
+function get_data() {
+  $skinListData = [];
+  $module_handler = Drupal::moduleHandler();
+  $module_handler->invokeAll('paragraph_skins', [&$skinListData]);
+  return $skinListData;
+}
+
+/**
+ * {@inheritDoc}
+ */
+function hook_paragraph_skins(array &$data) {
+  if (!$data) {
+    $data = [];
+  }
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ *
+ * {@inheritDoc}
+ */
+function paragraph_skins_preprocess_paragraph(&$variables) {
+  // Get skin's library from paragraph.
+  if ($variables['paragraph']->get('skin')->getValue()) {
+    $skin = $variables['paragraph']->get('skin')->getString();
+  }
+
+  // Check $skin for none type.
+  if ($skin == 'none') {
+    return;
+  }
+
+  // Get data from module hook.
+  $skinListData = get_data();
+
+  $create_paragraph_css_class = function (string $paragraphName, string $skinName) {
+    // Create valid css class.
+    return strtolower($paragraphName)
+      . '-' .
+      str_replace(' ', '-', strtolower($skinName));
+  };
+
+  // Get active theme.
+  $activeTheme = Drupal::service('theme.manager')
+    ->getActiveTheme()
+    ->getName();
+
+  $paragraphName = $variables['paragraph']->getType();
+
+  if (isset($skinListData[$paragraphName]) && isset($skinListData[$paragraphName][$skin])) {
+    foreach ($skinListData[$paragraphName] as $skin_name => $skin_data) {
+      if (!empty($skin) && $skin_name == $skin) {
+        $class = $create_paragraph_css_class($paragraphName, $skin_name);
+        $library = $skinListData[$paragraphName][$skin]['library'];
+      }
+    }
+  }
+  elseif (isset($skinListData[$paragraphName])) {
+    foreach ($skinListData[$paragraphName] as $paragraph_skin_name => $paragraph_skin) {
+      if ($paragraph_skin['theme'] == $activeTheme) {
+        $class = $create_paragraph_css_class($paragraphName, $paragraph_skin_name);
+        $library = $paragraph_skin['library'];
+      }
+    }
+  }
+
+  // Attaching library for current paragraph and set class.
+  if (!empty($class) && !empty($library)) {
+    $variables['attributes']['class'] = $class;
+    $variables['#attached']['library'][] = $library;
+  }
+}
