@@ -105,3 +105,25 @@ function openy_prgf_gallery_update_8005() {
     'crop.type.crop_1920_700'
   ]);
 }
+
+/**
+ * Update Open Y Paragraph Gallery feature to use link attributes widget.
+ */
+function openy_prgf_gallery_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.gallery.default' =>[
+      'content.field_prgf_link.settings.enabled_attributes',
+      'content.field_prgf_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

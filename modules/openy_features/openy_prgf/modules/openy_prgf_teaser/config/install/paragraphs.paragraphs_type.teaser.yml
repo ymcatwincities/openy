@@ -3,4 +3,6 @@ status: true
 dependencies: {  }
 id: teaser
 label: Teaser
+description : null
+icon_uuid : null
 behavior_plugins: {  }

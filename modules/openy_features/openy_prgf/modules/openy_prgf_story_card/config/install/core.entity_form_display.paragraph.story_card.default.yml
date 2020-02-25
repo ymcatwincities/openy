@@ -7,7 +7,7 @@ dependencies:
     - field.field.paragraph.story_card.field_prgf_title
     - paragraphs.paragraphs_type.story_card
   module:
-    - link
+    - link_attributes
 id: paragraph.story_card.default
 targetEntityType: paragraph
 bundle: story_card
@@ -20,13 +20,24 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_prgf_link:
     weight: 2
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
+    region: content
   field_prgf_title:
     weight: 0
     settings:
@@ -34,6 +45,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
 hidden:
   created: true
   status: true
