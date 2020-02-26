@@ -166,7 +166,7 @@ function paragraph_skins_preprocess_paragraph(&$variables) {
 
   $create_paragraph_css_class = function (string $paragraphName, string $skinName) {
     // Create valid css class.
-    return strtolower($paragraphName)
+    return 'ps-' . strtolower($paragraphName)
       . '-' .
       str_replace(' ', '-', strtolower($skinName));
   };

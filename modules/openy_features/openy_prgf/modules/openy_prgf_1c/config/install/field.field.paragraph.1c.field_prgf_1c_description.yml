@@ -12,7 +12,7 @@ entity_type: paragraph
 bundle: 1c
 label: 'Paragraph Description'
 description: 'Enter description to display under the 1 column paragraph title.'
-required: true
+required: false
 translatable: true
 default_value: {  }
 default_value_callback: ''

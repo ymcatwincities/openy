@@ -1,4 +1,4 @@
-.featured_highlights-rounded-image {
+.ps-featured_highlights-rounded-image {
   .block-description--text {
     display: grid;
     grid-template-columns: 100px 1fr;
@@ -16,6 +16,9 @@
     }
 
     h4 {
+      grid-column: 2;
+      grid-row: 1;
+
       color: gray;
       font-size: 20px;
       font-weight: bold;
@@ -23,6 +26,9 @@
     }
 
     div.field-sb-body {
+      grid-column: 2;
+      grid-row: 2;
+
       margin-left: 10px;
       color: gray;
       font-size: 14px;

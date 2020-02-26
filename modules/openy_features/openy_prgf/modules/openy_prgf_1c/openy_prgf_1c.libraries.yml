@@ -1,0 +1,7 @@
+feature-card:
+  version: 1.x
+
+  css:
+    theme:
+      dist/css/feature-card.css: { minified: true}
+

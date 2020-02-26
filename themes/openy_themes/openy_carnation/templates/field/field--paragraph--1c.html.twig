@@ -56,6 +56,7 @@
   {% else %}
     {% for item in items %}
       <div{{ attributes.addClass(classes) }}>
+        <div class="item">
         {% set icon_class = item.content.field_icon_class.0 ? item.content.field_icon_class.0 : '' %}
         {% set icon = item.content.field_icon.0 ? item.content.field_icon.0 : '' %}
         {% if icon_class %}
@@ -69,6 +70,7 @@
             {{ item.content.field_prgf_1c_title|raw|render }}
           </h4>
         {% endif %}
+        </div>
         {{ item.content|without('field_icon', 'field_icon_class', 'field_prgf_1c_title') }}
       </div>
     {% endfor %}
