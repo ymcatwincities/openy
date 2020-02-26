@@ -4023,20 +4023,20 @@ html.js .branch__updates_queue__button {
 .node--type-camp.node--view-mode-teaser .location-item--title ~ .field-location-state {
   margin: 20px 0 33px;
 }
-.node--location-content-type.node--view-mode-teaser .branch-hours,
-.node--type-facility.node--view-mode-teaser .branch-hours,
-.node--type-branch.node--view-mode-teaser .branch-hours,
-.node--type-branch.node--view-mode-sidebar-teaser .branch-hours,
-.node--type-branch.node--view-mode-class-location .branch-hours,
-.node--type-camp.node--view-mode-teaser .branch-hours {
+.node--location-content-type.node--view-mode-teaser .field-branch-hours,
+.node--type-facility.node--view-mode-teaser .field-branch-hours,
+.node--type-branch.node--view-mode-teaser .field-branch-hours,
+.node--type-branch.node--view-mode-sidebar-teaser .field-branch-hours,
+.node--type-branch.node--view-mode-class-location .field-branch-hours,
+.node--type-camp.node--view-mode-teaser .field-branch-hours {
   margin-top: 15px;
 }
-.node--location-content-type.node--view-mode-teaser .branch-hours td:first-child,
-.node--type-facility.node--view-mode-teaser .branch-hours td:first-child,
-.node--type-branch.node--view-mode-teaser .branch-hours td:first-child,
-.node--type-branch.node--view-mode-sidebar-teaser .branch-hours td:first-child,
-.node--type-branch.node--view-mode-class-location .branch-hours td:first-child,
-.node--type-camp.node--view-mode-teaser .branch-hours td:first-child {
+.node--location-content-type.node--view-mode-teaser .field-branch-hours td:first-child,
+.node--type-facility.node--view-mode-teaser .field-branch-hours td:first-child,
+.node--type-branch.node--view-mode-teaser .field-branch-hours td:first-child,
+.node--type-branch.node--view-mode-sidebar-teaser .field-branch-hours td:first-child,
+.node--type-branch.node--view-mode-class-location .field-branch-hours td:first-child,
+.node--type-camp.node--view-mode-teaser .field-branch-hours td:first-child {
   padding-right: 10px;
 }
 .node--location-content-type.node--view-mode-teaser .field-location-area,

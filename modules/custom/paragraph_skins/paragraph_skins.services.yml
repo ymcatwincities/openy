@@ -1,0 +1,8 @@
+services:
+  plugin.manager.paragraph_skins:
+    class: Drupal\paragraph_skins\SkinManager
+    arguments: ['@module_handler', '@cache.discovery', '@plugin.manager.paragraph_skins_group']
+
+  plugin.manager.paragraph_skins_group:
+    class: Drupal\paragraph_skins\SkinGroupManager
+    arguments: ['@module_handler', '@cache.discovery']

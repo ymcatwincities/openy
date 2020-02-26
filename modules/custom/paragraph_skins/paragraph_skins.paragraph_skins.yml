@@ -1,0 +1,18 @@
+banner:
+  label: 'Carnation variant of Banner'
+  paragraph_type: banner
+  library: 'paragraph_skins/banner'
+  theme: 'carnation'
+  group: general
+activity_finder:
+  label: 'Carnation finder test'
+  paragraph_type: activity_finder
+  library: 'paragraph_skins/activity_finder'
+  theme: 'rose'
+  group: general
+camp_menu:
+  label: 'Camp menu test'
+  paragraph_type: camp_menu
+  library: 'paragraph_skins/camp_menu'
+  theme: 'lily'
+  group: general
