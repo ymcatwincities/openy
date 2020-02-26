@@ -31,7 +31,7 @@ function openy_google_search_install() {
     return;
   }
 
-  $landing_page = [
+  $page = $node_storage->create([
     'type' => 'landing_page',
     'title' => 'Search results',
     'field_lp_layout' => 'one_column',
@@ -44,16 +44,10 @@ function openy_google_search_install() {
       ],
     ],
     'status' => NodeInterface::PUBLISHED,
-  ];
-
-  if (!$path_alias_storage->aliasExists($alias, $language)) {
-    $landing_page['path'] = [
-      'pathauto' => PathautoState::SKIP,
+    'path' => [
       'alias' => $alias,
-    ];
-  }
-
-  $page = $node_storage->create($landing_page);
+    ],
+  ]);
   if ($page->save()) {
     \Drupal::configFactory()
       ->getEditable('openy_google_search.settings')
