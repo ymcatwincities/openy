@@ -133,6 +133,7 @@ function get_data() {
   $skinListData = [];
   $module_handler = Drupal::moduleHandler();
   $module_handler->invokeAll('paragraph_skins', [&$skinListData]);
+  $skins = Drupal::service('plugin.manager.paragraph_skins')->getDefinitionsByParagraphType();
   return $skinListData;
 }
 

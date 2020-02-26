@@ -1,0 +1,5 @@
+test:
+  label: Test
+  paragraph_type: test
+  library: 'paragraph_skins/general'
+  theme: 'Carnation'

@@ -1,0 +1,8 @@
+plugin_skins:
+  label: Paragraph Skin
+  plugin_manager_service_id: plugin.manager.paragraph_skins
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
+plugin_skins_group:
+  label: Paragraph Skin Group
+  plugin_manager_service_id: plugin.manager.paragraph_skins_group
+  plugin_definition_decorator_class: \Drupal\plugin\PluginDefinition\ArrayPluginDefinitionDecorator
