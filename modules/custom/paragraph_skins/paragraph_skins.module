@@ -161,22 +161,12 @@ function paragraph_skins_preprocess_paragraph(&$variables) {
     ->getName();
 
   $skin_theme_data = Drupal::service('plugin.manager.paragraph_skins')
-    ->getDefinitionsByThemeAndParagraphKey($variables['paragraph']->getType(), 'lily');
+    ->getDefinitionsByThemeAndParagraphKey($variables['paragraph']->getType(), 'carnation');
 
-  if (isset($skinListData[$paragraphName]) && isset($skinListData[$paragraphName][$skin])) {
-    foreach ($skinListData[$paragraphName] as $skin_name => $skin_data) {
-      if (!empty($skin) && $skin_name == $skin) {
-        $class = $create_paragraph_css_class($paragraphName, $skin_name);
-        $library = $skinListData[$paragraphName][$skin]['library'];
-      }
-    }
-  }
-  elseif (isset($skinListData[$paragraphName])) {
-    foreach ($skinListData[$paragraphName] as $paragraph_skin_name => $paragraph_skin) {
-      if ($paragraph_skin['theme'] == $activeTheme) {
-        $class = $create_paragraph_css_class($paragraphName, $paragraph_skin_name);
-        $library = $paragraph_skin['library'];
-      }
+  foreach ($skin_theme_data as $skin_name => $skin_data) {
+    if (!empty($skin) && $skin_name == $skin) {
+      $class = $create_paragraph_css_class($paragraphName, $skin_name);
+      $library = $skin_theme_data[$skin]['library'];
     }
   }
 
