@@ -13,11 +13,24 @@ interface SkinManagerInterface extends PluginManagerInterface {
    * Gets the definitions filtered by paragraph type.
    *
    * @param string $type_id
-   *   The entity type ID.
+   *   The paragraph type ID.
    *
    * @return array
    *   The definitions.
    */
-  public function getDefinitionsByParagraphType($type_id = NULL);
+  public function getDefinitionsByParagraphType($type_id = '');
+
+  /**
+   * Gets the definitions filtered by theme and paragraph keys.
+   *
+   * @param string $type_id
+   *   The paragraph type ID.
+   * @param string $theme_key
+   *   Theme key to search.
+   *
+   * @return array
+   *   The definitions
+   */
+  public function getDefinitionsByThemeAndParagraphKey($type_id = '', $theme_key = '');
 
 }

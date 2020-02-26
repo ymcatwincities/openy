@@ -28,6 +28,7 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
     'label' => '',
     'theme' => '',
     'library' => '',
+    'group' => '',
   ];
 
   /**
@@ -65,8 +66,28 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getDefinitionsByParagraphType($type_id = NULL) {
+  public function getDefinitionsByParagraphType($type_id = '') {
     $definitions = $this->getDefinitions();
+    if ($type_id) {
+      $definitions = array_filter($definitions, function ($definition) use ($type_id) {
+        return $definition['paragraph_type'] == $type_id;
+      });
+    }
+
+    return $definitions;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDefinitionsByThemeAndParagraphKey($type_id = '', $theme_key = '') {
+    $definitions = $this->getDefinitions();
+    if ($theme_key) {
+      $definitions = array_filter($definitions, function ($definition) use ($theme_key) {
+        return $definition['theme'] == $theme_key;
+      });
+    }
+
     if ($type_id) {
       $definitions = array_filter($definitions, function ($definition) use ($type_id) {
         return $definition['paragraph_type'] == $type_id;
