@@ -116,28 +116,6 @@ function paragraph_skins_field_widget_form_alter(&$element, FormStateInterface $
 }
 
 /**
- * Set default data for module.
- *
- * @return array
- *   Data structure:
- *   $data = [
- *   'paragraph type' =>
- *      'Skin Label' =>
- *        'library' => 'module_name/library_name',
- *         // Theme name for attaching library when theme active
- *         // and paragraph skin set to default.
- *        'theme' => 'theme_name'
- *   ];
- */
-function get_data() {
-  $skinListData = [];
-  $module_handler = Drupal::moduleHandler();
-  $module_handler->invokeAll('paragraph_skins', [&$skinListData]);
-  $skins = Drupal::service('plugin.manager.paragraph_skins')->getDefinitionsByParagraphType();
-  return $skinListData;
-}
-
-/**
  * {@inheritDoc}
  */
 function hook_paragraph_skins(array &$data) {
@@ -152,6 +130,7 @@ function hook_paragraph_skins(array &$data) {
  * {@inheritDoc}
  */
 function paragraph_skins_preprocess_paragraph(&$variables) {
+
   // Get skin's library from paragraph.
   if ($variables['paragraph']->get('skin')->getValue()) {
     $skin = $variables['paragraph']->get('skin')->getString();
@@ -162,8 +141,12 @@ function paragraph_skins_preprocess_paragraph(&$variables) {
     return;
   }
 
+  $paragraphName = $variables['paragraph']->getType();
+
   // Get data from module hook.
-  $skinListData = get_data();
+  $skinListData = Drupal::service('plugin.manager.paragraph_skins')
+    ->getDefinitionsByParagraphType($variables['paragraph']->getType());
+
 
   $create_paragraph_css_class = function (string $paragraphName, string $skinName) {
     // Create valid css class.
@@ -177,7 +160,8 @@ function paragraph_skins_preprocess_paragraph(&$variables) {
     ->getActiveTheme()
     ->getName();
 
-  $paragraphName = $variables['paragraph']->getType();
+  $skin_theme_data = Drupal::service('plugin.manager.paragraph_skins')
+    ->getDefinitionsByThemeAndParagraphKey($variables['paragraph']->getType(), 'lily');
 
   if (isset($skinListData[$paragraphName]) && isset($skinListData[$paragraphName][$skin])) {
     foreach ($skinListData[$paragraphName] as $skin_name => $skin_data) {
