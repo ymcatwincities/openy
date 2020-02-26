@@ -1,14 +1,14 @@
-banner:
-  label: 'Carnation variant of Banner'
-  paragraph_type: banner
-  library: 'paragraph_skins/banner'
+feature-card:
+  label: 'Feature-card'
+  paragraph_type: 1c
+  library: 'openy_prgf_1c/feature-card'
   theme: 'carnation'
   group: general
-activity_finder:
-  label: 'Carnation finder test'
-  paragraph_type: activity_finder
-  library: 'paragraph_skins/activity_finder'
-  theme: 'rose'
+rounded-image:
+  label: 'Rounded corners for simple block on featured_highlights'
+  paragraph_type: featured_highlights
+  library: 'openy_prgf_featured_highlights/rounded-image'
+  theme: 'carnation'
   group: general
 camp_menu:
   label: 'Camp menu test'

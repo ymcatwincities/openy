@@ -52,9 +52,11 @@
   {% else %}
     {% for item in items %}
       {% if item.content['#url'] is not empty %}
-      <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-primary-darker">
-        {{ item.content['#title'] }}
-      </a>
+        <div class="item">
+          <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-primary-darker">
+            {{ item.content['#title'] }}
+          </a>
+        </div>
       {% endif %}
     {% endfor %}
   {% endif %}
@@ -66,9 +68,11 @@
       {% endif %}
       {% for item in items %}
         {% if item.content['#url'] is not empty %}
-        <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-primary-darker">
-          {{ item.content['#title'] }}
-        </a>
+          <div class="item">
+            <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-primary-darker">
+              {{ item.content['#title'] }}
+            </a>
+          </div>
         {% endif %}
       {% endfor %}
       {% if multiple %}
