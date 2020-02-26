@@ -90,14 +90,11 @@ function paragraph_skins_allowed_values_function(FieldStorageDefinitionInterface
   ];
   if (isset($entity)) {
     // Get data from module hook.
-    $skinListData = get_data();
+    $skin_theme_data = Drupal::service('plugin.manager.paragraph_skins')
+      ->getDefinitionsByThemeAndParagraphKey($entity->getType(), 'carnation');
 
-    foreach ($skinListData as $paragraphName => $paragraph) {
-      if ($entity->getType() == $paragraphName) {
-        foreach ($paragraph as $skinName => $skin) {
-          $skinList[$skinName] = $skinName;
-        }
-      }
+    foreach ($skin_theme_data as $skinName => $skin) {
+      $skinList[$skinName] = $skinName;
     }
   }
   return $skinList;
