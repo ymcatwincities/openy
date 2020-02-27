@@ -8,6 +8,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\DefaultPluginManager;
 use Drupal\Core\Plugin\Discovery\ContainerDerivativeDiscoveryDecorator;
 use Drupal\Core\Plugin\Discovery\YamlDiscovery;
+use Drupal\Core\Theme\ThemeManager;
 
 
 /**
@@ -32,15 +33,28 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
   ];
 
   /**
+   * @var \Drupal\Core\Theme\ThemeManager
+   */
+  protected $theme_manager;
+
+  /**
+   * @var string
+   */
+  protected $base_theme_name;
+
+  /**
    * Constructs a new ParagraphSkins object.
    *
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
    * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
    *   The cache backend.
+   * @param Drupal\Core\Theme\ThemeManager $theme_manager
+   *   Theme manager.
    */
-  public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend) {
+  public function __construct(ModuleHandlerInterface $module_handler, CacheBackendInterface $cache_backend, ThemeManager $theme_manager) {
     $this->moduleHandler = $module_handler;
+    $this->theme_manager = $theme_manager;
     $this->setCacheBackend($cache_backend, 'paragraph_skins', ['paragraph_skins']);
     $this->alterInfo('paragraph_skins');
   }
@@ -68,9 +82,10 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
    */
   public function getDefinitionsByParagraphType($type_id = '') {
     $definitions = $this->getDefinitions();
+    $definitions = $definitions['paragraph_skins'];
     if ($type_id) {
       $definitions = array_filter($definitions, function ($definition) use ($type_id) {
-        return $definition['paragraph_type'] == $type_id;
+        return isset($definition['paragraph_type']) && $definition['paragraph_type'] == $type_id;
       });
     }
 
@@ -80,21 +95,42 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function getDefinitionsByThemeAndParagraphKey($type_id = '', $theme_key = '') {
+  public function getLibraries($type_id, $skin_name) {
     $definitions = $this->getDefinitions();
-    if ($theme_key) {
-      $definitions = array_filter($definitions, function ($definition) use ($theme_key) {
-        return $definition['theme'] == $theme_key;
-      });
+    $definitions = array_filter($definitions['paragraph_skins'], function ($definition) use ($type_id, $skin_name) {
+      return isset($definition['paragraph_type'])
+        && $definition['paragraph_type'] == $type_id
+        && $definition['name'] == $skin_name;
+    });
+
+    $base_theme_name = $this->getBaseTheme();
+
+    $libraries = [];
+    foreach ($definitions as $definition) {
+      if(isset($definition['library'])) {
+        $libraries[] = $definition['library'];
+      }
+      if(isset($definition['theme_library'][$base_theme_name])) {
+        $libraries[] = $definition['theme_library'][$base_theme_name];
+      }
     }
 
-    if ($type_id) {
-      $definitions = array_filter($definitions, function ($definition) use ($type_id) {
-        return $definition['paragraph_type'] == $type_id;
-      });
-    }
-
-    return $definitions;
+    return $libraries;
   }
 
+  public function getBaseTheme() {
+    if(!empty($this->base_theme_name)) {
+      return $this->base_theme_name;
+    }
+
+    $active_theme = $this->theme_manager->getActiveTheme();
+
+    foreach ($active_theme->getBaseThemeExtensions() as $base_theme) {
+      $this->base_theme_name = $base_theme->getName();
+      return $this->base_theme_name;
+    }
+
+    $this->base_theme_name = $active_theme->getName();
+    return $this->base_theme_name;
+  }
 }

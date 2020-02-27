@@ -1,18 +1,20 @@
-feature-card:
-  label: 'Feature-card'
-  paragraph_type: 1c
-  library: 'openy_prgf_1c/feature-card'
-  theme: 'carnation'
-  group: general
-rounded-image:
-  label: 'Rounded corners for simple block on featured_highlights'
-  paragraph_type: featured_highlights
-  library: 'openy_prgf_featured_highlights/rounded-image'
-  theme: 'carnation'
-  group: general
-camp_menu:
-  label: 'Camp menu test'
-  paragraph_type: camp_menu
-  library: 'paragraph_skins/camp_menu'
-  theme: 'lily'
-  group: general
+paragraph_skins:
+  - name: feature-card
+    label: 'Feature card'
+    paragraph_type: 1c
+    library: 'openy_prgf_1c/feature-card'
+    theme_library:
+      openy_carnation: 'openy_carnation/feature-card'
+    group: general
+  - name: rounded-image
+    label: 'Rounded image'
+    paragraph_type: featured_highlights
+    library: 'openy_prgf_featured_highlights/rounded-image'
+    theme: 'openy_carnation'
+    group: general
+  - name: camp_menu
+    label: 'Camp menu test'
+    paragraph_type: camp_menu
+    library: 'paragraph_skins/camp_menu'
+    theme: 'openy_lily'
+    group: general

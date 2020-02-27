@@ -21,7 +21,7 @@ interface SkinManagerInterface extends PluginManagerInterface {
   public function getDefinitionsByParagraphType($type_id = '');
 
   /**
-   * Gets the definitions filtered by theme and paragraph keys.
+   * Gets the libraries filtered by skin name and paragraph keys.
    *
    * @param string $type_id
    *   The paragraph type ID.
@@ -31,6 +31,6 @@ interface SkinManagerInterface extends PluginManagerInterface {
    * @return array
    *   The definitions
    */
-  public function getDefinitionsByThemeAndParagraphKey($type_id = '', $theme_key = '');
+  public function getLibraries($type_id, $skin_name);
 
 }

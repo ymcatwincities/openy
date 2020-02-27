@@ -14,8 +14,6 @@ use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
  * Implements hook_help().
- *
- * {@inheritDoc}
  */
 function paragraph_skins_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
@@ -27,8 +25,8 @@ function paragraph_skins_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<p>' . t('Frontend developer uses Paragraph Skins to implement various CSS or js library for one paragraph type.') . '</p>';
       $output .= '<h3>' . t('How to use:') . '</h3>';
       $output .= '<p>' . t('You can add in your custom module hook_paragraph_skins, and override skins data.') . '</p>';
-      $output .= '<p>' . t('The library with your styles should be implemented in your module how drupal library.') . '</p>';
-      $output .= '<p>' . t(' In CSS library you can select paragraph by HTML class: paragraph-type-skin-label,
+      $output .= '<p>' . t('The library with your styles should be implemented in your module as drupal library.') . '</p>';
+      $output .= '<p>' . t(' In CSS library you can select paragraph by HTML class: ps-paragraph-type-skin-label,
         generated from paragraph machine name in lower register and skin label in lower register and replace space by a hyphen') . '</p>';
       $output .= '<p>' . t('Data structure is the standard php array.') . '</p>';
       return $output;
@@ -38,8 +36,6 @@ function paragraph_skins_help($route_name, RouteMatchInterface $route_match) {
 
 /**
  * Implements hook_entity_base_field_info().
- *
- * {@inheritDoc}
  */
 function paragraph_skins_entity_base_field_info(EntityTypeInterface $entity_type) {
   $fields = [];
@@ -85,25 +81,23 @@ function paragraph_skins_entity_base_field_info(EntityTypeInterface $entity_type
  */
 function paragraph_skins_allowed_values_function(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, &$cacheable = FALSE) {
   $cacheable = FALSE;
-  $skinList = [
+  $skin_list = [
     'none' => t('None'),
   ];
   if (isset($entity)) {
     // Get data from module hook.
     $skin_theme_data = Drupal::service('plugin.manager.paragraph_skins')
-      ->getDefinitionsByThemeAndParagraphKey($entity->getType(), 'carnation');
+      ->getDefinitionsByParagraphType($entity->getType());
 
-    foreach ($skin_theme_data as $skinName => $skin) {
-      $skinList[$skinName] = $skinName;
+    foreach ($skin_theme_data as $skin) {
+      $skin_list[$skin['name']] = $skin['label'];
     }
   }
-  return $skinList;
+  return $skin_list;
 }
 
 /**
  * Implements hook_field_widget_form_alter().
- *
- * {@inheritDoc}
  */
 function paragraph_skins_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
   // Change " - None - " option label to "Default".
@@ -113,63 +107,33 @@ function paragraph_skins_field_widget_form_alter(&$element, FormStateInterface $
 }
 
 /**
- * {@inheritDoc}
- */
-function hook_paragraph_skins(array &$data) {
-  if (!$data) {
-    $data = [];
-  }
-}
-
-/**
  * Implements hook_preprocess_paragraph().
- *
- * {@inheritDoc}
  */
 function paragraph_skins_preprocess_paragraph(&$variables) {
 
   // Get skin's library from paragraph.
   if ($variables['paragraph']->get('skin')->getValue()) {
     $skin = $variables['paragraph']->get('skin')->getString();
-  }
-
-  // Check $skin for none type.
-  if (isset($skin) && $skin == 'none') {
+  } else {
     return;
   }
 
-  $paragraphName = $variables['paragraph']->getType();
-
-  // Get data from module hook.
-  $skinListData = Drupal::service('plugin.manager.paragraph_skins')
-    ->getDefinitionsByParagraphType($variables['paragraph']->getType());
-
-
-  $create_paragraph_css_class = function (string $paragraphName, string $skinName) {
-    // Create valid css class.
-    return 'ps-' . strtolower($paragraphName)
-      . '-' .
-      str_replace(' ', '-', strtolower($skinName));
-  };
-
-  // Get active theme.
-  $activeTheme = Drupal::service('theme.manager')
-    ->getActiveTheme()
-    ->getName();
-
-  $skin_theme_data = Drupal::service('plugin.manager.paragraph_skins')
-    ->getDefinitionsByThemeAndParagraphKey($variables['paragraph']->getType(), 'carnation');
-
-  foreach ($skin_theme_data as $skin_name => $skin_data) {
-    if (!empty($skin) && $skin_name == $skin) {
-      $class = $create_paragraph_css_class($paragraphName, $skin_name);
-      $library = $skin_theme_data[$skin]['library'];
-    }
+  // Check $skin for none type.
+  if ($skin == 'none') {
+    return;
   }
 
-  // Attaching library for current paragraph and set class.
-  if (!empty($class) && !empty($library)) {
-    $variables['attributes']['class'] = $class;
-    $variables['#attached']['library'][] = $library;
+  $paragraph_name = $variables['paragraph']->getType();
+
+  $skin_libraries = Drupal::service('plugin.manager.paragraph_skins')
+    ->getLibraries($variables['paragraph']->getType(), $skin);
+
+  $class = 'ps-' . strtolower($paragraph_name)
+    . '-' . str_replace(' ', '-', strtolower($skin));
+
+  $variables['attributes']['class'][] = $class;
+
+  foreach ($skin_libraries as $skin_library) {
+    $variables['#attached']['library'][] = $skin_library;
   }
 }
