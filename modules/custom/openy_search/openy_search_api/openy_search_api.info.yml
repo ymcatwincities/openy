@@ -5,5 +5,10 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - search_api
-  - search_api_db
+  - drupal:node
+  - drupal:user
+  - openy:openy_search
+  - paragraphs:paragraphs
+  - search_api:search_api
+  - search_api:search_api_db
+  - search_api:search_api_solr
