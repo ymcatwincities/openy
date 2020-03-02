@@ -76,3 +76,14 @@ function openy_google_search_help($route_name, RouteMatchInterface $route_match)
     return '<p>' . t('Read <a href="https://github.com/ymcatwincities/openy/blob/8.x-2.x/docs/Development/GoogleCustomSearchConfiguration.md">this topic</a> in Open Y online documentation to get information about Google Custom Search configuration.') . '</p>';
   }
 }
+
+/**
+ * Implements hook_openy_search_configuration_overrides_alter().
+ */
+function openy_google_search_openy_search_configuration_overrides_alter(&$overrides) {
+  $overrides = [
+    'search_query_key' => 'q',
+    'search_page_alias' => 'search',
+    'display_search_form' => 1,
+  ];
+}
