@@ -260,12 +260,11 @@ function openy_install_features(array &$install_state) {
  *   Batch.
  */
 function openy_install_search(array &$install_state) {
-  \Drupal::state()->set('openy_hide_solr_config', '1');
   $module = $install_state['openy']['search']['service'];
   if (isset($install_state['openy']['search']['search_api_server'])) {
     $server = $install_state['openy']['search']['search_api_server'];
     if ($module == 'openy_search_api' && $server == 'solr') {
-      \Drupal::state()->set('openy_hide_solr_config', '0');
+      \Drupal::state()->set('openy_show_solr_config', '1');
     }
   };
 
@@ -709,9 +708,7 @@ function openy_install_tasks_alter(&$tasks, &$install_state) {
       unset($tasks["openy_third_party_services"]);
   }
   // Remove Solr configure installation task for non search_api sorl service.
-  if (!empty(\Drupal::state()->get('openy_hide_solr_config')) &&
-    \Drupal::state()->get('openy_hide_solr_config') == '1' &&
-    isset($tasks["openy_solr_search"])) {
+  if (!\Drupal::state()->get('openy_show_solr_config') && isset($tasks["openy_solr_search"])) {
       unset($tasks["openy_solr_search"]);
   }
 }

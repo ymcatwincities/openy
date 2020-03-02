@@ -49,10 +49,10 @@ class SearchSelectForm extends FormBase {
 
     $form['search_api_server'] = [
       '#type' => 'select',
-      '#title' => t('Select your preferred Search API Server:'),
+      '#title' => $this->t('Select your preferred Search API Server:'),
       '#options' => [
-        'database' => t('Database'),
-        'solr' => t('Solr'),
+        'database' => $this->t('Database'),
+        'solr' => $this->t('Solr'),
       ],
       '#default_value' => 'database',
       '#states' => [
