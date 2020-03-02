@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Contains module routines.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+function openy_search_api_entity_view_alter(&$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  // Render search content results view if search_api paragraph displayed.
+  if ($entity->getEntityTypeId() != 'paragraph' || $entity->bundle() != 'search_api') {
+    return;
+  }
+
+  $build['search_api_block'] = views_embed_view('search_content', 'search_content');
+  $build['search_api_block']['#cache']['max-age'] = 0;
+}
+
+/**
+ * Implements hook_help().
+ */
+function openy_search_api_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name == 'help.page.openy_search_api') {
+    return '<p>' . t('Read <a href="https://www.drupal.org/docs/8/modules/search-api">Search API online documentation</a> at Drupal.org to get information about Search configuration.') . '</p>';
+  }
+}
