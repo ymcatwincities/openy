@@ -30,3 +30,15 @@ function openy_search_api_help($route_name, RouteMatchInterface $route_match) {
     return '<p>' . t('Read <a href="https://www.drupal.org/docs/8/modules/search-api">Search API online documentation</a> at Drupal.org to get information about Search configuration.') . '</p>';
   }
 }
+
+
+/**
+ * Implements hook_openy_search_configuration_overrides_alter().
+ */
+function openy_search_api_openy_search_configuration_overrides_alter(&$overrides) {
+  $overrides = [
+    'search_query_key' => 'query',
+    'search_page_alias' => 'search',
+    'display_search_form' => 1,
+  ];
+}
