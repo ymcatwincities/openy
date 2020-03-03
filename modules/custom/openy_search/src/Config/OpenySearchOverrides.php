@@ -48,7 +48,7 @@ class OpenySearchOverrides implements ConfigFactoryOverrideInterface {
     $overrides = [];
     if (in_array($default_theme . '.settings', $names)) {
       // Allow other modules to alter the theme search configuration.
-      $this->moduleHandler->alter('openy_search_configuration_overrides', $overrides[$default_theme . '.settings']);
+      $this->moduleHandler->alter('openy_search_theme_configuration', $overrides[$default_theme . '.settings']);
     }
     return $overrides;
   }

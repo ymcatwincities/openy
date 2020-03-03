@@ -15,7 +15,7 @@
  *
  * @see \Drupal\openy_search\Config\OpenySearchOverrides::loadOverrides()
  */
-function hook_openy_search_configuration_overrides_alter(&$search_config) {
+function hook_openy_search_theme_configuration_alter(&$search_config) {
   $search_config = [
     'search_query_key' => 'q',
     'search_page_alias' => 'search',
