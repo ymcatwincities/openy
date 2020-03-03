@@ -228,6 +228,9 @@ class SearchSolrForm extends FormBase {
       $solr_server_config->set('backend_config.connector_config.password', $values['password']);
     }
     $solr_server_config->save();
+    // Attach search index to solr server.
+    $search_index_config = $this->configFactory->getEditable('search_api.index.search_content');
+    $search_index_config->set('server', 'solr_search')->save();
   }
 
 }
