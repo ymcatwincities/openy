@@ -217,6 +217,7 @@ class SearchSolrForm extends FormBase {
     $solr_server_config->set('backend_config.connector_config.index_timeout', $values['index_timeout']);
     $solr_server_config->set('backend_config.connector_config.optimize_timeout', $values['optimize_timeout']);
     $solr_server_config->set('backend_config.connector_config.commit_within', $values['commit_within']);
+    $solr_server_config->set('status', 1);
     // For basic_auth also save username and password.
     if ('basic_auth' == $values['connector']) {
       // Ignore empty password submissions if the user didn't change username.
@@ -231,6 +232,9 @@ class SearchSolrForm extends FormBase {
     // Attach search index to solr server.
     $search_index_config = $this->configFactory->getEditable('search_api.index.search_content');
     $search_index_config->set('server', 'solr_search')->save();
+    // Disable database search server.
+    $db_search_config = $this->configFactory->getEditable('search_api.server.database_search');
+    $db_search_config->set('status', 0)->save();
   }
 
 }
