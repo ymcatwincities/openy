@@ -80,10 +80,11 @@ function openy_google_search_help($route_name, RouteMatchInterface $route_match)
 /**
  * Implements hook_openy_search_configuration_overrides_alter().
  */
-function openy_google_search_openy_search_configuration_overrides_alter(&$overrides) {
+function openy_google_search_openy_search_theme_configuration_alter(&$overrides) {
+  $search_config = \Drupal::configFactory()->get('openy_google_search.settings');
   $overrides = [
-    'search_query_key' => 'q',
-    'search_page_alias' => 'search',
+    'search_query_key' => $search_config->get('search_query_key'),
+    'search_page_alias' => $search_config->get('search_page_alias'),
     'display_search_form' => 1,
   ];
 }
