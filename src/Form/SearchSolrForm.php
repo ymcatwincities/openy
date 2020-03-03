@@ -51,8 +51,8 @@ class SearchSolrForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $solr_server_config = $this->configFactory->get('search_api.server.solr_search');
     $solr_connector_options = [
-      'standard' => 'Standard',
-      'basic_auth' => 'Basic Auth',
+      'standard' => $this->t('Standard'),
+      'basic_auth' => $this->t('Basic Auth'),
     ];
     $form['#title'] = $this->t('Configure Solr server');
     $form['connector'] = [
@@ -219,10 +219,9 @@ class SearchSolrForm extends FormBase {
     $solr_server_config->set('backend_config.connector_config.commit_within', $values['commit_within']);
     // For basic_auth also save username and password.
     if ('basic_auth' == $values['connector']) {
-      // Ignore empty password submissions if the user didn't change it.
-      if (($values['password'] === '')
-        && $solr_server_config->get('backend_config.connector_config.username') !== ''
-        && $values['username'] === $solr_server_config->get('backend_config.connector_config.username')) {
+      // Ignore empty password submissions if the user didn't change username.
+      $saved_username = $solr_server_config->get('backend_config.connector_config.username');
+      if ($values['password'] === '' && $saved_username !== '' && $values['username'] === $saved_username) {
         $values['password'] = $solr_server_config->get('backend_config.connector_config.password');
       }
       $solr_server_config->set('backend_config.connector_config.username', $values['username']);
