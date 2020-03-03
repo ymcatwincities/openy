@@ -260,16 +260,17 @@ function openy_install_features(array &$install_state) {
  *   Batch.
  */
 function openy_install_search(array &$install_state) {
+  $state = \Drupal::state();
   $module = $install_state['openy']['search']['service'];
   if (isset($install_state['openy']['search']['search_api_server'])) {
     $server = $install_state['openy']['search']['search_api_server'];
     if ($module == 'openy_search_api' && $server == 'solr') {
-      \Drupal::state()->set('openy_show_solr_config', '1');
+      $state->set('openy_show_solr_config', '1');
     }
   };
 
   if (isset($install_state['openy']['search']['google_search_engine_id'])) {
-    \Drupal::state()->set('google_search_engine_id', $install_state['openy']['search']['google_search_engine_id']);
+    $state->set('google_search_engine_id', $install_state['openy']['search']['google_search_engine_id']);
   };
   $files = \Drupal::service('extension.list.module')->getList();
   if ($files[$module]->requires) {
@@ -708,7 +709,7 @@ function openy_install_tasks_alter(&$tasks, &$install_state) {
       unset($tasks["openy_third_party_services"]);
   }
   // Remove Solr configure installation task for non search_api sorl service.
-  if (!\Drupal::state()->get('openy_show_solr_config') && isset($tasks["openy_solr_search"])) {
+  if (!\Drupal::state()->get('openy_show_solr_config')) {
       unset($tasks["openy_solr_search"]);
   }
 }
