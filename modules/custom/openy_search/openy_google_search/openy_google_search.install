@@ -12,7 +12,6 @@ use Drupal\node\NodeInterface;
  */
 function openy_google_search_install() {
   // Create search results page for google custom search.
-  $langcode = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $entity_type_manager = \Drupal::entityTypeManager();
   $paragraph_storage = $entity_type_manager->getStorage('paragraph');
   $node_storage = $entity_type_manager->getStorage('node');
@@ -39,11 +38,9 @@ function openy_google_search_install() {
     'status' => NodeInterface::PUBLISHED,
   ]);
   if ($page->save()) {
-    $alias = ltrim(Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $page->id(), $langcode), '/');
     Drupal::configFactory()
       ->getEditable('openy_google_search.settings')
       ->set('search_page_id', $page->id())
-      ->set('search_page_alias', $alias)
       ->save();
   }
   drupal_flush_all_caches();
