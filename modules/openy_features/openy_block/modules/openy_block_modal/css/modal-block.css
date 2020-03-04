@@ -85,3 +85,7 @@
     width: 100% !important;
   }
 }
+
+.ui-dialog {
+  z-index: 1500 !important;
+}

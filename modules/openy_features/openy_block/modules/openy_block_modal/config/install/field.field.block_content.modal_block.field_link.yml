@@ -3,22 +3,25 @@ status: true
 dependencies:
   config:
     - block_content.type.modal_block
-    - field.storage.block_content.field_modal_header
+    - field.storage.block_content.field_link
   module:
     - datalayer
+    - link
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_modal_header
-id: block_content.modal_block.field_modal_header
-field_name: field_modal_header
+    label: field_link
+id: block_content.modal_block.field_link
+field_name: field_link
 entity_type: block_content
 bundle: modal_block
-label: 'Modal Header'
-description: 'This field should contain a modal title.'
+label: Link
+description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: string
+settings:
+  link_type: 1
+  title: 1
+field_type: link

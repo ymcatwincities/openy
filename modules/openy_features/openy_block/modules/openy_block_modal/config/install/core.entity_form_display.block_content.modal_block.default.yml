@@ -1,19 +1,28 @@
-uuid: a7dcd8d5-964a-4f1a-945f-4fc065d76eea
 langcode: en
 status: true
 dependencies:
   config:
     - block_content.type.modal_block
+    - field.field.block_content.modal_block.field_link
     - field.field.block_content.modal_block.field_modal_content
     - field.field.block_content.modal_block.field_modal_header
+    - field.field.block_content.modal_block.field_mode
   module:
-    - content_moderation
+    - link
     - text
 id: block_content.modal_block.default
 targetEntityType: block_content
 bundle: modal_block
 mode: default
 content:
+  field_link:
+    weight: 27
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
   field_modal_content:
     weight: 3
     settings:
@@ -29,6 +38,12 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_mode:
+    weight: 26
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
   info:
     type: string_textfield

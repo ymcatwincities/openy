@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.modal_block
+    - field.storage.block_content.field_mode
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_mode
+id: block_content.modal_block.field_mode
+field_name: field_mode
+entity_type: block_content
+bundle: modal_block
+label: Mode
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: static
+default_value_callback: ''
+settings: {  }
+field_type: list_string
