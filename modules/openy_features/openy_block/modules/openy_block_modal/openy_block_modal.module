@@ -56,7 +56,7 @@ function openy_block_modal_block_content_view_alter(array &$build, EntityInterfa
         ],
       ];
       $build['#attached']['library'][] = 'openy_block_modal/modal-block';
-      $build['#attached']['library'][] = 'drupal/ajax';
+      $build['#attached']['library'][] = 'core/drupal.ajax';
       break;
   }
 }
