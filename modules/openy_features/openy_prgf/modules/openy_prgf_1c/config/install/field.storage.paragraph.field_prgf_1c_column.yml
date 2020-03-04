@@ -1,12 +1,9 @@
-uuid: ee13555c-484c-4181-8eee-943d37568999
 langcode: en
 status: true
 dependencies:
   module:
     - block_content
     - paragraphs
-_core:
-  default_config_hash: 8O8YU9Syft7SzmJDfJ3NszSSfJwqB9GQLw4qp56a_Ek
 id: paragraph.field_prgf_1c_column
 field_name: field_prgf_1c_column
 entity_type: paragraph
