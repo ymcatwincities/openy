@@ -61,3 +61,15 @@ function openy_prgf_2c_update_8004() {
     'paragraphs.paragraphs_type.2c',
   ]);
 }
+
+/**
+ * Update configs of the entity reference fields.
+ */
+function openy_prgf_2c_update_8005() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_2c') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'field.field.paragraph.2c.field_prgf_2c_left',
+  ]);
+}

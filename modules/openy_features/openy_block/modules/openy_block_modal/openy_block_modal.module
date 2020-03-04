@@ -19,6 +19,9 @@ function openy_block_modal_theme($existing, $type, $theme, $path) {
         'modalId' => NULL,
         'content' => NULL,
         'entity' => NULL,
+        'mode' => NULL,
+        'ajaxLink' => NULL,
+        'ajaxLinkTitle' => NULL,
       ],
       'template' => 'modal-block',
     ],
@@ -44,12 +47,16 @@ function openy_block_modal_block_content_view_alter(array &$build, EntityInterfa
           '#format' => $content->format,
           '#langcode' => $content->getLangcode(),
         ],
+        '#mode' => $entity->field_mode->value,
+        '#ajaxLink' => $entity->field_link->get(0)->getUrl(),
+        '#ajaxLinkTitle' => $entity->field_link->title,
         '#entity' => $entity,
         '#cache' => [
           'tags' => ['openy_cron'],
         ],
       ];
       $build['#attached']['library'][] = 'openy_block_modal/modal-block';
+      $build['#attached']['library'][] = 'drupal/ajax';
       break;
   }
 }

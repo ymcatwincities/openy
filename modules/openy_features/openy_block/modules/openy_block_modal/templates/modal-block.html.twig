@@ -6,30 +6,65 @@
  * Available variables:
  * - header: Block header.
  * - content: Block content.
+ * - mode: Modal mode - static, ajax.
+ * - ajaxLink: Link Uri
+ * - ajaxLinkTitle: Link Title
  *
  * @ingroup themeable
  */
 #}
-<div class="container">
-  <div class="text-center">
-    <a href="#" data-toggle="modal" data-target="#modalBlock{{ modalId }}">{{ header }}</a>
-  </div>
+{% if mode == 'static' %}
+  <div class="container">
+    <div class="text-center">
+      <a href="#" data-toggle="modal" data-target="#modalBlock{{ modalId }}">{{ header }}</a>
+    </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="modalBlock{{ modalId }}" role="dialog">
-    <div class="content_wrapper modal-container modal-dialog">
+    <!-- Modal -->
+    <div class="modal fade" id="modalBlock{{ modalId }}" role="dialog">
+      <div class="content_wrapper modal-container modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header content_wrapper">
-          <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
-          <h2 class="modal-title">{{ header }}</h2>
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header content_wrapper">
+            <h2 class="modal-title">{{ header }}</h2>
+            <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body content_wrapper">
+            <p>{{ content }}</p>
+          </div>
         </div>
-        <div class="modal-body content_wrapper">
-          <p>{{ content }}</p>
-        </div>
+
       </div>
-
     </div>
   </div>
-</div>
+{% elseif mode == 'ajax' %}
+  <div class="container">
+    <div class="field-title">
+      {{ header }}
+    </div>
+    <div class="field-description">
+      {{ content }}
+    </div>
+    <div class="field-link text-center">
+      <a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;z-index&quot;:1500&comma;&quot;width&quot;:600&comma; &quot;height&quot;:600}" href="{{ ajaxLink }}">{{ ajaxLinkTitle }}</a>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalBlock{{ modalId }}" role="dialog">
+      <div class="content_wrapper modal-container modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header content_wrapper">
+            <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">{{ header }}</h2>
+          </div>
+          <div class="modal-body content_wrapper">
+            <p>{{ content }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endif %}

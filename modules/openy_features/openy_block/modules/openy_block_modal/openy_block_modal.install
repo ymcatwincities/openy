@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Open Y Block Flexible Content install file.
+ */
+
+/**
+ * Update configs for Drupal Core upgrade.
+ */
+function openy_block_modal_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_block_modal') . '/config/install/';
+  $configs = [
+    'core.entity_form_display.block_content.modal_block.default',
+    'core.entity_view_display.block_content.modal_block.default',
+    'field.field.block_content.modal_block.field_link',
+    'field.field.block_content.modal_block.field_mode',
+  ];
+
+  // Import new configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs($configs);
+}
