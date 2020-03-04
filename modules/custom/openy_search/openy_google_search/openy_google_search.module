@@ -82,9 +82,13 @@ function openy_google_search_help($route_name, RouteMatchInterface $route_match)
  */
 function openy_google_search_openy_search_theme_configuration_alter(&$overrides) {
   $search_config = \Drupal::configFactory()->get('openy_google_search.settings');
+  $search_page_id = $search_config->get('search_page_id');
+  $langcode = Drupal::languageManager()->getCurrentLanguage()->getId();
+  $alias = ltrim(Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $search_page_id, $langcode), '/');
+
   $overrides = [
     'search_query_key' => $search_config->get('search_query_key'),
-    'search_page_alias' => $search_config->get('search_page_alias'),
+    'search_page_alias' => $alias,
     'display_search_form' => 1,
   ];
 }

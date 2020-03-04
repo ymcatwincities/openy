@@ -13,7 +13,6 @@ use Drupal\node\NodeInterface;
  */
 function openy_search_api_install() {
   // Create search results page for default search api.
-  $langcode = Drupal::languageManager()->getCurrentLanguage()->getId();
   $entity_type_manager = Drupal::entityTypeManager();
   $paragraph_storage = $entity_type_manager->getStorage('paragraph');
   $node_storage = $entity_type_manager->getStorage('node');
@@ -40,11 +39,9 @@ function openy_search_api_install() {
     'status' => NodeInterface::PUBLISHED,
   ]);
   if ($page->save()) {
-    $alias = ltrim(Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $page->id(), $langcode), '/');
     Drupal::configFactory()
       ->getEditable('openy_search_api.settings')
       ->set('search_page_id', $page->id())
-      ->set('search_page_alias', $alias)
       ->save();
   }
   drupal_flush_all_caches();
