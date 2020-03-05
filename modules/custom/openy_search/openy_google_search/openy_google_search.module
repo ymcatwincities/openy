@@ -16,7 +16,9 @@ use Drupal\Core\Url;
 function openy_google_search_theme($existing, $type, $theme, $path) {
   return [
     'openy_google_search' => [
-      'variables' => [],
+      'variables' => [
+        'search_page_url' => '',
+      ],
       'template' => 'openy-google-search',
     ],
   ];
@@ -56,6 +58,7 @@ function openy_google_search_entity_view_alter(&$build, EntityInterface $entity,
 
   $build['google_search'] = [
     '#theme' => 'openy_google_search',
+    '#search_page_url' => openy_google_search_get_alias(),
     '#cache' => [
       'tags' => $config->getCacheTags(),
     ],
@@ -82,13 +85,22 @@ function openy_google_search_help($route_name, RouteMatchInterface $route_match)
  */
 function openy_google_search_openy_search_theme_configuration_alter(&$overrides) {
   $search_config = \Drupal::configFactory()->get('openy_google_search.settings');
-  $search_page_id = $search_config->get('search_page_id');
-  $langcode = Drupal::languageManager()->getCurrentLanguage()->getId();
-  $alias = ltrim(Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $search_page_id, $langcode), '/');
-
   $overrides = [
     'search_query_key' => $search_config->get('search_query_key'),
-    'search_page_alias' => $alias,
+    'search_page_alias' => openy_google_search_get_alias(),
     'display_search_form' => 1,
   ];
+}
+
+/**
+ * Gets alias for results search page id saved in module settings config.
+ */
+function openy_google_search_get_alias() {
+  $langcode = Drupal::languageManager()->getCurrentLanguage()->getId();
+  $search_config = Drupal::configFactory()->get('openy_google_search.settings');
+  $page_id = $search_config->get('search_page_id');
+  /** @var \Drupal\Core\Path\AliasManager $alias_manager */
+  $alias_manager = Drupal::service('path.alias_manager');
+  $search_alias = $alias_manager->getAliasByPath('/node/' . $page_id, $langcode);
+  return ltrim($search_alias, '/');
 }
