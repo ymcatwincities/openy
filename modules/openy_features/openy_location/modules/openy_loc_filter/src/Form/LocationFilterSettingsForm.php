@@ -10,8 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use \Drupal\Core\Cache\Cache;
 
 /**
-* Location Filter settings form.
-*/
+ * Location Filter settings form.
+ */
 class LocationFilterSettingsForm extends ConfigFormBase {
 
   const CONFIG_NAME = 'openy_loc_filter.location_filter_settings';
@@ -41,15 +41,15 @@ class LocationFilterSettingsForm extends ConfigFormBase {
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function getFormId() {
     return 'openy_loc_filter_location_filter_settings';
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   protected function getEditableConfigNames() {
     return [
       self::CONFIG_NAME,
@@ -57,8 +57,8 @@ class LocationFilterSettingsForm extends ConfigFormBase {
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config(self::CONFIG_NAME);
     $selected_locations = $config->get('locations') ? $config->get('locations') : [];
@@ -66,16 +66,24 @@ class LocationFilterSettingsForm extends ConfigFormBase {
     $branches_list = $this->getBranchesList();
     $locations = $branches_list['branch'] + $branches_list['camp'];
     if (count($selected_locations) == count($locations)) {
-      $selected_locations['All'] = 'All';
+      $selected_locations['All'] = $this->t('All');
     }
+
+    $form['description'] = array(
+      '#type'=>'markup',
+      '#markup' => $this->t('On this page, you can limit the list of branches and camps,
+        which displayed in popups and filters on the programs and schedules page. This form will affect
+        only the filters which are related to the scheduling, classes, and sessions. By default, all branches
+        and camps displayed. If you want to limit the list, you should choose only those you want to show.'),
+    );
 
     $form['locations'] = [
       '#type' => 'checkboxes',
       '#prefix' => '<div class="fieldgroup form-item form-wrapper"><h2 class="fieldset-legend">' . $this->t('Select locations available for Location filters') . '</h2><div class="fieldset-wrapper">',
       '#suffix' => '</div></div>',
       '#default_value' => $selected_locations,
-      '#options' => ['All' => 'All'] + $locations,
-      '#all' => ['All' => 'All'],
+      '#options' => ['All' => $this->t('All')] + $locations,
+      '#all' => ['All' => $this->t('All')],
       '#branches' => $branches_list['branch'],
       '#camps' => $branches_list['camp'],
       '#description' => $this->t('All locations are not selected = All locations are selected.'),
@@ -87,11 +95,10 @@ class LocationFilterSettingsForm extends ConfigFormBase {
   }
 
   /**
-  * Get Branches list.
-  *
-  * @return array
-  *   Array of Branch and Camp node id's.
-  */
+   *
+   * @return array
+   *   Array of Branch and Camp node id's.
+   */
   public function getBranchesList() {
     $branches_list = [
       'branch' => [],
@@ -112,17 +119,18 @@ class LocationFilterSettingsForm extends ConfigFormBase {
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     /** @var \Drupal\Core\Config\Config $config */
     $config = $this->config(self::CONFIG_NAME);
     $locations = $form_state->getValue('locations');
-    $locations = array_filter($locations, function ($value, $key) {
-      return $key !== 'All' && !empty($value);
-    }, ARRAY_FILTER_USE_BOTH);
+    if (array_key_exists('ALL', $locations)) {
+      $branches_list = $this->getBranchesList();
+      $locations = $branches_list['branch'] + $branches_list['camp'];
+    }
     $config->set('locations', $locations)->save();
-    Cache::invalidateTags(['config:core.entity_view_display.node.program_subcategory.default']);
+    Cache::invalidateTags(['rendered']);
 
     parent::submitForm($form, $form_state);
   }

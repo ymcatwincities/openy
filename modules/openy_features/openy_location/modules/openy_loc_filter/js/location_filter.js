@@ -4,7 +4,7 @@
    /**
    * Makes all checkboxes checked or unchecked when the state of the checkbox 'All' is changed.
    */
-   Drupal.behaviors.ymcali_location_filter = {
+   Drupal.behaviors.openy_location_filter = {
     attach: function(context, settings) {
       $('#edit-locations-all', context).on('change', function() {
         var checkboxAll = this;

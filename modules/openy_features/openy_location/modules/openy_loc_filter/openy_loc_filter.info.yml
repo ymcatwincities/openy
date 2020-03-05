@@ -1,9 +1,10 @@
 name: Open Y Location filter
-description: Provides the ability to limit the list of branches displayed in various popups and filters.
+description: Provides the ability to limit the list of branches displayed in various popups and filters across programs and schedules pages.
 type: module
 core: 8.x
 package: Open Y
 version: 8.x-1.0
+configure: openy_loc_filter.location_filter_settings
 dependencies:
   - openy_loc_branch
   - openy_loc_camp
