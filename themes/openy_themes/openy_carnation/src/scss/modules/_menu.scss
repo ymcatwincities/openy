@@ -213,8 +213,11 @@
 // pages without a banner (ex. user account page)
 .without-banner {
 
-  .layout-container {
-    padding-top: 140px;
+  // @todo must be fixed with regions positions. This is a quick fix.
+  &.user-logged-in {
+    .layout-container {
+      padding-top: 140px;
+    }
   }
 
   // adjust top margins
