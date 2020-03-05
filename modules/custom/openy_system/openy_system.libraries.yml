@@ -1,7 +1,7 @@
 polyfill:
-  version: 0.1
+  version: 3
   js:
-    https://cdn.polyfill.io/v2/polyfill.min.js: { type: external, minified: true }
+    https://cdn.polyfill.io/v3/polyfill.min.js: { type: external, minified: true }
 
 addtocal:
   version: 0.1
