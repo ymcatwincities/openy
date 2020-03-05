@@ -165,15 +165,6 @@
       margin: -10px -10px -10px 10px;
     }
   }
-
-  .zip-code,
-  .distance {
-    display: none;
-
-    @include media-breakpoint-up(xs) {
-      display: initial;
-    }
-  }
 }
 
 .tag_filters img {
