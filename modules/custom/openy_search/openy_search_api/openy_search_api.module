@@ -7,6 +7,7 @@
 
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -45,4 +46,18 @@ function openy_search_api_openy_search_theme_configuration_alter(&$overrides) {
     'search_page_alias' => $alias,
     'display_search_form' => 1,
   ];
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function openy_search_api_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form['#id'] == 'views-exposed-form-search-content-search-content') {
+    $user_input = $form_state->getUserInput();
+    if (!empty($user_input['query'])) {
+      $message = t('Showing Results for "%term"', ['%term' => $user_input['query']]);
+      $form['query']['#prefix'] = '<h2 class="view-results-summary">' . $message . '</h2>';
+    }
+    $form['query']['#placeholder'] = t('Search again');
+  }
 }
