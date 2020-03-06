@@ -1,14 +1,18 @@
+langcode: en
+status: true
 dependencies:
   module:
     - openy_media_image
   enforced:
-      module:
-        - openy_demo_nbranch
+    module:
+      - openy_demo_nbranch
 id: openy_demo_nbranch_media_image
-migration_tags: { }
-# No need to add migration tag, migration started by dependency.
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: {  }
 migration_group: openy_demo_nbranch
-label: Import demo blog branch images
+label: 'Import demo blog branch images'
 source:
   plugin: embedded_data
   data_rows:

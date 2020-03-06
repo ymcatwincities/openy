@@ -1,3 +1,5 @@
+langcode: en
+status: true
 dependencies:
   module:
     - file
@@ -5,8 +7,10 @@ dependencies:
     module:
       - openy_demo_nbranch
 id: openy_demo_nbranch_file
-migration_tags: { }
-# No need to add migration tag, migration started by dependency.
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: {  }
 migration_group: openy_demo_nbranch
 label: 'Import demo branch files'
 source:

@@ -5,15 +5,17 @@ dependencies:
     module:
       - openy_demo_nbranch
 id: openy_demo_prgf_gallery
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags: {  }
-# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nbranch
 label: 'Create Gallery paragraphs for branches'
 source:
   plugin: embedded_data
   data_rows:
     -
-      id: 1
+      id: openy_demo_prgf_gallery_1
       parent_id: 1
       images:
         - 1
@@ -23,7 +25,7 @@ source:
       description: 'Gallery for West YMCA'
       headline: 'West YMCA'
     -
-      id: 2
+      id: openy_demo_prgf_gallery_2
       parent_id: 2
       images:
         - 5
@@ -33,7 +35,7 @@ source:
       description: 'Gallery for Downtown YMCA'
       headline: 'Downtown YMCA'
     -
-      id: 3
+      id: openy_demo_prgf_gallery_3
       parent_id: 3
       images:
         - 9
@@ -43,7 +45,7 @@ source:
       description: 'Gallery for East YMCA'
       headline: 'East YMCA'
     -
-      id: 4
+      id: openy_demo_prgf_gallery_4
       parent_id: 4
       images:
         - 13
@@ -54,7 +56,7 @@ source:
       headline: 'South YMCA'
   ids:
     id:
-      type: integer
+      type: string
 process:
   langcode:
     -
@@ -96,8 +98,13 @@ process:
     -
       plugin: get
       source: headline
+  type:
+    plugin: skip_if_bundle_not_exist
+    method: row
+    entity: paragraph
+    bundle: gallery
 destination:
-  plugin: entity:paragraph
+  plugin: 'entity:paragraph'
   default_bundle: gallery
 migration_dependencies:
   required:
