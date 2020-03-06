@@ -5,11 +5,12 @@ dependencies:
     module:
       - openy_demo_nbranch
 id: openy_demo_prgf_branch_contacts_info
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags: {  }
-# No need to add migration tag, migration started by dependency.
 migration_group: openy_demo_nbranch
 label: 'Create Branch Contacts Info paragraph(s) for demo branch page nodes'
-migration_dependencies: {  }
 source:
   plugin: embedded_data
   data_rows:
@@ -47,7 +48,6 @@ process:
   parent_type:
     plugin: default_value
     default_value: node
-  # TODO: get parent_field_name from data?
   parent_field_name:
     plugin: default_value
     default_value: field_header_content
@@ -59,3 +59,4 @@ process:
 destination:
   plugin: 'entity:paragraph'
   default_bundle: branch_contacts_info
+migration_dependencies: {  }
