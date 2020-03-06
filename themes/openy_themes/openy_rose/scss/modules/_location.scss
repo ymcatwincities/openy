@@ -55,13 +55,6 @@
       margin: -10px -10px -10px 10px;
     }
   }
-
-  .zip-code,
-  .distance {
-    @include breakpoint(0 $screen-xs) {
-      display: none;
-    }
-  }
 }
 
 .locations-list {

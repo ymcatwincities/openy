@@ -1,5 +1,5 @@
 'use strict'
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 module.exports = {
   entry: [
     './js/script.js'
@@ -39,10 +39,14 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     }
   },
+  externals: {
+    'vue': 'Vue',
+    'vue-router': 'VueRouter'
+  },
   plugins: [
     new VueLoaderPlugin()
   ],
   performance: {
     hints: false
   }
-};
+}

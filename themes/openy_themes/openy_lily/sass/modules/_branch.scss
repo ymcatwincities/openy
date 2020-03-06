@@ -835,13 +835,6 @@ html.js {
       margin: -10px -10px -10px 10px;
     }
   }
-
-  .zip-code,
-  .distance {
-    @include breakpoint(0 $screen-xs) {
-      display: none;
-    }
-  }
 }
 
 .tag_filters img {
@@ -973,7 +966,7 @@ html.js {
       margin: 20px 0 33px;
     }
   }
-  .branch-hours {
+  .field-branch-hours {
     margin-top: 15px;
     td:first-child {
       padding-right: 10px;
