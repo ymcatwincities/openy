@@ -15,7 +15,7 @@ id: paragraph.branch_contacts_info.field_branch_contacts_info
 field_name: field_branch_contacts_info
 entity_type: paragraph
 bundle: branch_contacts_info
-label: ''
+label: 'Branch Contacts Info Block'
 description: ''
 required: false
 translatable: false
@@ -23,7 +23,7 @@ default_value:
   -
     plugin_id: branch_contacts_info
     plugin_configuration:
-      id: branch_amenities_icons
+      id: branch_contacts_info
       label: 'Branch Contacts Info Block'
       provider: openy_block_branch_contacts_info
       label_display: '0'

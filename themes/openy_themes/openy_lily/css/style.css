@@ -2956,6 +2956,9 @@ body {
 .branch-header .ajax-progress-throbber {
   display: none;
 }
+.branch-header .label-for-field-branch-hours {
+  display: none;
+}
 .branch-header .desktop {
   background-color: #92288d;
   color: #fff;
@@ -3013,6 +3016,9 @@ body {
 }
 .branch-header .desktop a {
   color: #fff;
+}
+.branch-header .desktop .wrapper-field-branch-hours {
+  display: inline-block;
 }
 .branch-header .desktop .today-hours .today {
   margin-right: 10px;
@@ -3213,6 +3219,10 @@ body {
 }
 .branch-header .field-location-fax {
   display: inline;
+}
+
+.label-for-field-branch-contacts-info {
+  display: none;
 }
 
 .branch__updates_queue {
@@ -13141,7 +13151,6 @@ a.sports-icon.floor-hockey {
   margin: 0;
   width: 100%;
   color: white;
-  white-space: nowrap;
   font-size: 15px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 -1px rgba(0, 0, 0, 0.1);
@@ -13252,12 +13261,6 @@ a.sports-icon.floor-hockey {
 .branch-header .location-details #directions-hours-mobile .address {
   font-size: 19px;
   line-height: 1.4em;
-}
-.branch-header .location-details #directions-hours-mobile .address .plaintext {
-  display: inline-block;
-}
-.branch-header .location-details #directions-hours-mobile .address .glyphicon-map-marker {
-  top: -23px;
 }
 .branch-header .location-details #directions-hours-mobile .address .directions {
   margin-top: 5px;
