@@ -7,6 +7,9 @@ dependencies:
     module:
       - openy_demo_nbranch
 id: openy_demo_node_branch
+class: null
+field_plugin_method: null
+cck_plugin_method: null
 migration_tags:
   - openy_extended_installation
   - openy_complete_installation
@@ -48,6 +51,8 @@ source:
         - 26
       content_ids:
         -
+          content_id: openy_demo_prgf_gallery_1
+        -
           content_id: branch_contacts_info_1
         -
           content_id: branch_3c_1
@@ -87,6 +92,8 @@ source:
         - 24
       content_ids:
         -
+          content_id: openy_demo_prgf_gallery_2
+        -
           content_id: branch_contacts_info_2
         -
           content_id: branch_3c_2
@@ -114,24 +121,26 @@ source:
       prgf_blog_branch: 3
       prgf_gallery: 3
       amnts_ids:
-      - 2
-      - 3
-      - 4
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-      - 14
-      - 17
-      - 18
-      - 20
-      - 22
-      - 24
-      - 26
+        - 2
+        - 3
+        - 4
+        - 6
+        - 7
+        - 8
+        - 9
+        - 10
+        - 11
+        - 12
+        - 14
+        - 17
+        - 18
+        - 20
+        - 22
+        - 24
+        - 26
       content_ids:
+        -
+          content_id: openy_demo_prgf_gallery_3
         -
           content_id: branch_contacts_info_3
         -
@@ -165,6 +174,8 @@ source:
         - 9
         - 22
       content_ids:
+        -
+          content_id: openy_demo_prgf_gallery_4
         -
           content_id: branch_contacts_info_4
         -
@@ -254,62 +265,41 @@ process:
       migration: openy_demo_taxonomy_term_amenities
       source: amnts_ids
   field_content:
-      plugin: iterator
-                    source: content_ids
-                    process:
-                      target_id:
-                        plugin: migration
-                        migration:
-                          - openy_demo_prgf_branch_contacts_info
-                          - openy_demo_prgf_news_branch
-                          - openy_demo_prgf_grid_content
-                          - openy_demo_prgf_group_schedules
-                          - openy_demo_prgf_3c_branch
-                        source: content_id
-                      target_revision_id:
-                        plugin: migration
-                        migration:
-                          - openy_demo_prgf_branch_contacts_info
-                          - openy_demo_prgf_news_branch
-                          - openy_demo_prgf_grid_content
-                          - openy_demo_prgf_group_schedules
-                          - openy_demo_prgf_3c_branch
-                        source: content_id
-  field_header_content/target_id:
     plugin: iterator
-      source: content_ids
-      process:
-        target_id:
-          plugin: migration
-          migration:
-            - openy_demo_prgf_branch_contacts_info
-            - openy_demo_prgf_news_branch
-            - openy_demo_prgf_grid_content
-            - openy_demo_prgf_group_schedules
-            - openy_demo_prgf_3c_branch
-          source: content_id
-        target_revision_id:
-          plugin: migration
-          migration:
-            - openy_demo_prgf_branch_contacts_info
-            - openy_demo_prgf_news_branch
-            - openy_demo_prgf_grid_content
-            - openy_demo_prgf_group_schedules
-            - openy_demo_prgf_3c_branch
-          source: content_id
-    -
-      plugin: migration
-      migration: openy_demo_prgf_gallery
-      source: prgf_gallery
-  field_header_content/target_revision_id:
-    -
-      plugin: migration
-      migration: openy_demo_prgf_branch_contacts_info
-      source: content_id
-    -
-      plugin: migration
-      migration: openy_demo_prgf_gallery
-      source: prgf_gallery
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_news_branch
+          - openy_demo_prgf_grid_content
+          - openy_demo_prgf_group_schedules
+          - openy_demo_prgf_3c_branch
+        source: content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_news_branch
+          - openy_demo_prgf_grid_content
+          - openy_demo_prgf_group_schedules
+          - openy_demo_prgf_3c_branch
+        source: content_id
+  field_header_content:
+    plugin: iterator
+    source: content_ids
+    process:
+      target_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_gallery
+          - openy_demo_prgf_branch_contacts_info
+        source: content_id
+      target_revision_id:
+        plugin: migration
+        migration:
+          - openy_demo_prgf_gallery
+          - openy_demo_prgf_branch_contacts_info
+        source: content_id
 destination:
   plugin: 'entity:node'
 migration_dependencies:
