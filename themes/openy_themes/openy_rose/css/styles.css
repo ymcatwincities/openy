@@ -7468,12 +7468,6 @@ article .node--view-mode-flexible-content h2 a span {
     margin: -10px -10px -10px 10px;
   }
 }
-@media (min-width: 0) and (max-width: 30em) {
-  .form__locations .zip-code,
-  .form__locations .distance {
-    display: none;
-  }
-}
 
 .locations-list {
   margin: -20px;
