@@ -51,10 +51,6 @@ source:
         - 26
       content_ids:
         -
-          content_id: openy_demo_prgf_gallery_1
-        -
-          content_id: branch_contacts_info_1
-        -
           content_id: branch_3c_1
         -
           content_id: news_branch_1
@@ -62,6 +58,12 @@ source:
           content_id: group_schedules_1
         -
           content_id: branch_lower_grid_1
+      header_content_ids:
+        -
+          content_id: openy_demo_prgf_gallery_1
+        -
+          content_id: branch_contacts_info_1
+
     -
       id: 2
       title: 'Downtown YMCA'
@@ -92,10 +94,6 @@ source:
         - 24
       content_ids:
         -
-          content_id: openy_demo_prgf_gallery_2
-        -
-          content_id: branch_contacts_info_2
-        -
           content_id: branch_3c_2
         -
           content_id: news_branch_2
@@ -103,6 +101,11 @@ source:
           content_id: group_schedules_2
         -
           content_id: branch_lower_grid_2
+      header_content_ids:
+        -
+          content_id: openy_demo_prgf_gallery_2
+        -
+          content_id: branch_contacts_info_2
     -
       id: 3
       title: 'East YMCA'
@@ -140,10 +143,6 @@ source:
         - 26
       content_ids:
         -
-          content_id: openy_demo_prgf_gallery_3
-        -
-          content_id: branch_contacts_info_3
-        -
           content_id: branch_3c_3
         -
           content_id: news_branch_3
@@ -151,6 +150,11 @@ source:
           content_id: group_schedules_3
         -
           content_id: branch_lower_grid_3
+      header_content_ids:
+        -
+          content_id: openy_demo_prgf_gallery_3
+        -
+          content_id: branch_contacts_info_3
     -
       id: 4
       title: 'South YMCA'
@@ -175,10 +179,6 @@ source:
         - 22
       content_ids:
         -
-          content_id: openy_demo_prgf_gallery_4
-        -
-          content_id: branch_contacts_info_4
-        -
           content_id: branch_3c_4
         -
           content_id: news_branch_4
@@ -186,6 +186,11 @@ source:
           content_id: group_schedules_4
         -
           content_id: branch_lower_grid_4
+      header_content_ids:
+        -
+          content_id: openy_demo_prgf_gallery_4
+        -
+          content_id: branch_contacts_info_4
   ids:
     id:
       type: integer
@@ -286,7 +291,7 @@ process:
         source: content_id
   field_header_content:
     plugin: iterator
-    source: content_ids
+    source: header_content_ids
     process:
       target_id:
         plugin: migration
