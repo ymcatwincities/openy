@@ -199,6 +199,11 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           $times = date('g:ia', $start) . '-' . date('g:ia', $end);
         }
       }
+      /**
+       * added +1 day because DateTime::diff counts difference between
+       * 2020-08-01 00:00:00.000000 and 2020-08-22 00:00:00.000000
+       * as 21 day, not 22
+       */
       $end_date->modify('+1 day');
       $weeks = $start_date->diff($end_date)->days/7;
       $weeks = ceil($weeks);
