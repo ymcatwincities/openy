@@ -3,6 +3,6 @@ status: true
 dependencies: {  }
 id: teaser
 label: Teaser
-description : null
+description : 'Paragraph to display teaser content.'
 icon_uuid : null
 behavior_plugins: {  }
