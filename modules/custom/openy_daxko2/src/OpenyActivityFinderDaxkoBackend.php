@@ -199,7 +199,9 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           $times = date('g:ia', $start) . '-' . date('g:ia', $end);
         }
       }
-      $weeks = floor($start_date->diff($end_date)->days/7);
+      $end_date->modify('+1 day');
+      $weeks = $start_date->diff($end_date)->days/7;
+      $weeks = ceil($weeks);
       $weeks = $weeks != 0 ? $weeks : '';
       $days = [];
       if (isset($row['days_offered'][0])) {
