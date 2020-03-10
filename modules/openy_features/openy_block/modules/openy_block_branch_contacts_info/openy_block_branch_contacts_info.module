@@ -11,13 +11,18 @@ function openy_block_branch_contacts_info_theme($existing, $type, $theme, $path)
   return [
     'block_branch_contacts_info' => [
       'variables' => [
+        'node_bundle' => '',
         'branch_title' => '',
         'content' => '',
         'phone' => '',
+        'fax' => '',
+        'email' => '',
         'address_title' => '',
         'directions_url' => '',
         'openy_branch_selector' => '',
         'branch_hours' => '',
+        'directions_field_title' => '',
+        'directions_field_url' => '',
       ],
       'template' => 'block-branch-contacts-info',
     ],
