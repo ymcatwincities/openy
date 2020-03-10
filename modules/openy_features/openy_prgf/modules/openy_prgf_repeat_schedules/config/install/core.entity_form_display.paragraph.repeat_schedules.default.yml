@@ -24,9 +24,9 @@ content:
     weight: 4
     settings:
       match_operator: CONTAINS
+      match_limit: 0
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
@@ -36,9 +36,9 @@ content:
     region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 0
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
   field_prgf_repeat_schedule_end:
     weight: 6
@@ -51,9 +51,9 @@ content:
     weight: 7
     settings:
       match_operator: CONTAINS
+      match_limit: 0
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
@@ -93,9 +93,9 @@ content:
     region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 0
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
   field_prgf_rs_pdf_only_view:
     weight: 8
