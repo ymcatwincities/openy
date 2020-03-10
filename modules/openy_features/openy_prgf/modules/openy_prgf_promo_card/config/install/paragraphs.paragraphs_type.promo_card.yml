@@ -4,5 +4,5 @@ dependencies: {  }
 id: promo_card
 label: 'Promo Card'
 icon_uuid: null
-description: null
+description: 'Paragraph to display Promo Cards.'
 behavior_plugins: {  }
