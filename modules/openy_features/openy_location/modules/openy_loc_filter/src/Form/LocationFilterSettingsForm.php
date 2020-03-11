@@ -69,13 +69,13 @@ class LocationFilterSettingsForm extends ConfigFormBase {
       $selected_locations['All'] = $this->t('All');
     }
 
-    $form['description'] = array(
+    $form['description'] = [
       '#type'=>'markup',
       '#markup' => $this->t('On this page, you can limit the list of branches and camps,
         which displayed in popups and filters on the programs and schedules page. This form will affect
         only the filters which are related to the scheduling, classes, and sessions. By default, all branches
         and camps displayed. If you want to limit the list, you should choose only those you want to show.'),
-    );
+    ];
 
     $form['locations'] = [
       '#type' => 'checkboxes',
@@ -125,7 +125,7 @@ class LocationFilterSettingsForm extends ConfigFormBase {
     /** @var \Drupal\Core\Config\Config $config */
     $config = $this->config(self::CONFIG_NAME);
     $locations = $form_state->getValue('locations');
-    if (array_key_exists('ALL', $locations)) {
+    if (isset($locations['ALL'])) {
       $branches_list = $this->getBranchesList();
       $locations = $branches_list['branch'] + $branches_list['camp'];
     }

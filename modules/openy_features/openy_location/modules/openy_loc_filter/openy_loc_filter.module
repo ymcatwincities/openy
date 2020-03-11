@@ -92,7 +92,6 @@ function openy_loc_filter_form_alter(&$form, FormStateInterface $form_state, $fo
 
 /**
  * Implements hook_query_TAG_alter().
- * @param \Drupal\Core\Database\Query\AlterableInterface $query
  */
 function openy_loc_filter_query_repeat_schedules_block_locations_alter(AlterableInterface $query) {
   $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
@@ -102,7 +101,6 @@ function openy_loc_filter_query_repeat_schedules_block_locations_alter(Alterable
 
 /**
  * Implements hook_query_TAG_alter().
- * @param \Drupal\Core\Database\Query\AlterableInterface $query
  */
 function openy_loc_filter_query_data_wrapper_locations_alter(AlterableInterface $query) {
   $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
@@ -117,6 +115,8 @@ function openy_loc_filter_query_data_wrapper_locations_alter(AlterableInterface 
  */
 function openy_loc_filter_module_implements_alter(&$implementations, $hook) {
   if ($hook == 'form_alter') {
+    // Move form_alter() to the end of the list. This is so
+    // to use form_alter() if the module is enabled.
     $group = $implementations['openy_loc_filter'];
     unset($implementations['openy_loc_filter']);
     $implementations['openy_loc_filter'] = $group;
