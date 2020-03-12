@@ -18,12 +18,14 @@
 }
 
 .label-for-field-location-fax,
-.label-for-field-location-phone {
+.label-for-field-location-phone,
+.label-for-field-location-email {
   text-transform: lowercase;
   display: inline;
 }
 .field-location-fax,
-.field-location-phone {
+.field-location-phone,
+.field-location-email {
   display: inline;
 }
 

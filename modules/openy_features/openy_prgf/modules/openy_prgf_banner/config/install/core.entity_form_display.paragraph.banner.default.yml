@@ -10,8 +10,8 @@ dependencies:
     - field.field.paragraph.banner.field_prgf_link
     - paragraphs.paragraphs_type.banner
   module:
-    - entity_browser
     - link
+    - openy_focal_point
     - text
 id: paragraph.banner.default
 targetEntityType: paragraph
@@ -51,8 +51,9 @@ content:
       field_widget_display_settings:
         view_mode: thumbnail_for_preview
       open: false
+      field_widget_replace: false
     third_party_settings: {  }
-    type: entity_browser_entity_reference
+    type: openy_focal_point_entity_browser_entity_reference
     region: content
   field_prgf_link:
     weight: 4

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies';
-import renderHTML from 'react-render-html';
+import parse from 'html-react-parser';
 import { closeAlert } from '../../actions/helpers';
 import connect from 'react-redux/es/connect/connect';
 
@@ -28,6 +28,16 @@ class AlertItem extends Component {
       this.props.closeAlert(parseInt(this.props.alertId));
     };
 
+    let focusItem = () => {
+      this.props.focus(parseInt(this.props.index));
+      let slicks = document.getElementsByClassName("slick-list");
+      for (let slick of slicks) {
+        slick.scrollLeft = 0;
+        // Additionally reset horizontal scroll for screen readers.
+        setTimeout(() => { slick.scrollLeft = 0; }, 100);
+      }
+    };
+
     let linkStyle = {
       color: this.props.txtColor ? `#${this.props.txtColor}` : 'white',
       borderColor: this.props.txtColor ? `#${this.props.txtColor}` : 'white'
@@ -36,7 +46,9 @@ class AlertItem extends Component {
       backgroundColor: this.props.bgColor ? `#${this.props.bgColor}` : 'blue',
       color: this.props.txtColor ? `#${this.props.txtColor}` : 'white'
     };
-
+    let alertContentClasses = this.props.linkTitle ?
+      "col-xs-12 col-sm-6 col-md-6 col-lg-6" :
+      "col-xs-12 col-sm-12 col-md-12 col-lg-12";
     return (
       <div className="site-alert site-alert--header">
         <div
@@ -44,6 +56,9 @@ class AlertItem extends Component {
           data-nid={this.props.alertId}
           style={alertStyle}
           className={`alert${this.props.alertId}`}
+          tabindex="0"
+          data-idx={this.props.index}
+          onFocus={() => focusItem()}
         >
           <div className="container header-alert">
             <div className="row site-alert__wrapper">
@@ -52,12 +67,12 @@ class AlertItem extends Component {
                   <i className="fa fa-exclamation-circle" aria-hidden="true" />
                 </div>
               )}
-              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <div className={alertContentClasses}>
                 <div className="site-alert__title">
-                  {renderHTML(this.props.label)}
+                  {parse(this.props.label)}
                 </div>
                 <div className="site-alert__content header-alert__content">
-                  {renderHTML(this.props.description)}
+                  {parse(this.props.description)}
                 </div>
               </div>
               {this.props.linkTitle && (
@@ -74,10 +89,12 @@ class AlertItem extends Component {
                 href="#close"
                 className="site-alert__dismiss"
                 onClick={() => closeItem()}
+                aria-label="Close alert"
+                onFocus={() => focusItem()}
               >
                 <i className="fa fa-times" aria-hidden="true">
                   <span className="visually-hidden">
-                    Close alert {renderHTML(this.props.label)}
+                    Close alert {parse(this.props.label)}
                   </span>
                 </i>
               </a>

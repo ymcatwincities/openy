@@ -20,14 +20,12 @@
   cursor: pointer;
 }
 
-.atcb-link:focus ~ ul,
-.atcb-link:active ~ ul,
-.atcb-list:hover {
-  visibility: visible;
+.atcb-link ~ ul.active {
+  display: block;
 }
 
 .atcb-list {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -79,7 +77,7 @@
 /* Blue */
 .atc-style-blue .atcb-link:before {
   margin-right: 8px;
-  font-family: FontAwesome;
+  font-family: $font-awesome;
   content: "\f073";
   font-size: 14px;
   speak: none;

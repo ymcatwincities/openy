@@ -32,7 +32,7 @@ function openy_node_alert_entity_presave(EntityInterface $entity) {
     ) {
 
       $visibility_paths = $entity->get('field_alert_visibility_pages')->getValue();
-      $path_matcher = \Drupal::service('path.alias_manager');
+      $path_matcher = \Drupal::service('path_alias.manager');
       $cacheTags = [];
       foreach ($visibility_paths as $visibility_path) {
         $canonical_path = $path_matcher->getPathByAlias($visibility_path['value']);

@@ -145,7 +145,7 @@
 
     &:before {
       color: $white;
-      font-family: "FontAwesome";
+      font-family: $font-awesome;
       font-size: 30px;
       font-weight: bold;
       -webkit-font-smoothing: antialiased;
@@ -234,7 +234,7 @@
     }
 
     &:before {
-      content: "\f104";
+      content: "\f053";
     }
   }
 
@@ -257,11 +257,15 @@
     }
 
     &:before {
-      content: "\f105";
+      content: "\f054";
     }
   }
 }
 
 .header-alerts-list .slick-track, .footer-alerts-list .slick-track {
   display: flex !important;
+}
+
+#openy_alerts_header_placeholder {
+  margin-bottom: 23px;
 }

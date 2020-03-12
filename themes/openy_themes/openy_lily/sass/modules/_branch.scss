@@ -2,6 +2,11 @@
   .ajax-progress-throbber {
     display: none;
   }
+
+  .label-for-field-branch-hours {
+    display: none;
+  }
+
   .desktop {
     background-color: $purple;
     color: $white;
@@ -56,6 +61,10 @@
 
     a {
       color: $white;
+    }
+
+    .wrapper-field-branch-hours {
+      display: inline-block;
     }
 
     .today-hours {
@@ -286,6 +295,10 @@
   .field-location-fax {
     display: inline;
   }
+}
+
+.label-for-field-branch-contacts-info {
+  display: none;
 }
 
 .branch__updates_queue {
@@ -822,13 +835,6 @@ html.js {
       margin: -10px -10px -10px 10px;
     }
   }
-
-  .zip-code,
-  .distance {
-    @include breakpoint(0 $screen-xs) {
-      display: none;
-    }
-  }
 }
 
 .tag_filters img {
@@ -960,7 +966,7 @@ html.js {
       margin: 20px 0 33px;
     }
   }
-  .branch-hours {
+  .field-branch-hours {
     margin-top: 15px;
     td:first-child {
       padding-right: 10px;

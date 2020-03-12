@@ -50,6 +50,17 @@ function openy_lily_preprocess_node_blog(&$variables) {
 }
 
 /**
+ * Implements hook_preprocess_node() for the Branch Content Type.
+ */
+function openy_lily_preprocess_node_branch(&$variables) {
+  // Check that home branch enabled.
+  if (\Drupal::hasService('plugin.manager.home_branch_library') && $variables['node']->getType() == 'branch' && $variables['page']) {
+    // Fix hb_loc_selector_branch_page plugin for Open Y Lily theme.
+    $variables['#attached']['library'][] = 'openy_lily/hb_loc_selector_branch_page_override';
+  }
+}
+
+/**
  * Implements hook_preprocess_paragraph().
  */
 function openy_lily_preprocess_paragraph(&$variables) {
@@ -181,6 +192,19 @@ function openy_lily_form_system_theme_settings_alter(array &$form, FormStateInte
   if (isset($form_id)) {
     return;
   }
+
+  $form['search'] = [
+    '#type' => 'details',
+    '#title' => t('Search'),
+    '#open' => TRUE,
+  ];
+
+  $form['search']['display_search_form'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Display the search form'),
+    '#default_value' => theme_get_setting('display_search_form'),
+    '#description' => t('Show search form in the header'),
+  ];
 
   $form['camp_section'] = array(
     '#type' => 'details',
@@ -317,9 +341,9 @@ function openy_lily_preprocess_page(&$variables) {
     $variables['search_view_content_path'] = Url::fromRoute('view.site_search.search_results');
   }
   else {
-    // @todo move out from the theme.
-    $variables['search_view_content_path'] = Url::fromUri('internal:/search')
-      ->toString();
+    $variables['search_view_content_path'] = Url::fromUri(
+      'internal:/' . theme_get_setting('search_page_alias')
+    )->toString();
   }
 
   // Adds page title for login and register pages.
@@ -403,6 +427,19 @@ function openy_lily_preprocess_page(&$variables) {
   }
   // Camp logo.
   $variables['camp_section_image'] = !empty($variables['camp_section_logo']) ? file_create_url($variables['camp_section_logo']) : '';
+
+  // Add home branch support to Open Y Lily theme.
+  if (\Drupal::hasService('plugin.manager.home_branch_library')) {
+    $hb_plugin_service = \Drupal::service('plugin.manager.home_branch_library');
+    $hb_plugin_service->attachHbLibrarySettings($variables, 'hb_menu_selector', [
+      // Fix hb_menu_selector classes.
+      'menuSelector' => '.nav-global .secondary_menu ul.navbar-nav, .mobile_menu ul.nav-level-1',
+    ]);
+  }
+
+  $variables['display_search'] = theme_get_setting('display_search_form');
+  $variables['search_key'] = theme_get_setting('search_query_key');
+
 }
 
 /**
@@ -437,7 +474,14 @@ function openy_lily_theme_suggestions_form_alter(array &$suggestions, array $var
 }
 
 /**
- * Implements hook_preprocess_HOOK() for footer menus.
+ * Implements hook_preprocess_menu_HOOK() for account menu.
+ */
+function openy_lily_preprocess_menu__account(&$variables) {
+  $variables['display_search'] = theme_get_setting('display_search_form');
+}
+
+/**
+ * Implements hook_preprocess_menu_HOOK() for footer menus.
  */
 function openy_lily_preprocess_menu__footer_menus(&$variables) {
   $variables['#cache']['contexts'][] = 'url.path';
@@ -541,20 +585,21 @@ function openy_lily_preprocess_expander_block(&$variables) {
 function openy_lily_preprocess_html(&$variables) {
   // Preprocess landing page.
   if (!empty($variables['node_type']) && $variables['node_type'] == 'landing_page') {
-    $node = \Drupal::routeMatch()->getParameter('node');
-    // Load page header paragraphs.
-    if ($header = $node->field_header_content->getValue()) {
-      foreach ($header as $p) {
-        if ($paragraph = \Drupal::service('entity.manager')
-          ->getStorage('paragraph')
-          ->load($p['target_id'])
-        ) {
-          // Take action for microsites_menu paragraph.
-          if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
-            // Add class to the body.
-            $variables['attributes']['class'][] = 'microsites-menu';
-            if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
-              $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
+    if (($node = \Drupal::routeMatch()->getParameter('node')) || ($node = \Drupal::routeMatch()->getParameter('node_preview'))) {
+      // Load page header paragraphs.
+      if ($header = $node->field_header_content->getValue()) {
+        foreach ($header as $p) {
+          if ($paragraph = \Drupal::service('entity.manager')
+            ->getStorage('paragraph')
+            ->load($p['target_id'])
+          ) {
+            // Take action for microsites_menu paragraph.
+            if ($paragraph && $paragraph->bundle() == 'microsites_menu') {
+              // Add class to the body.
+              $variables['attributes']['class'][] = 'microsites-menu';
+              if ($paragraph->field_prgf_ms_menu_hide_menu->value) {
+                $variables['attributes']['class'][] = 'microsites-menu--hide-main-menu';
+              }
             }
           }
         }
@@ -890,7 +935,7 @@ function openy_lily_preprocess_field__node__field_location_directions(array &$va
  *
  * @param $variables
  */
-function openy_rose_preprocess_paragraph_social_list(&$variables) {
+function openy_lily_preprocess_paragraph_social_list(&$variables) {
   $block = $variables['content']['field_prgrf_sl_block'];
   if (isset($block[0]['#name']) && isset($block[0]['#display_id'])) {
     $variables['content']['posts'] = \Drupal::service('renderer')

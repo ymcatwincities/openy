@@ -2,17 +2,69 @@ global-styling:
   version: 1.x
   css:
     base:
-      //use.fontawesome.com/releases/v5.1.0/css/all.css: { type: external, minified: true }
+      //use.fontawesome.com/releases/v5.1.0/css/all.css: {type: external, attributes: { defer: true, async: true} }
       dist/css/style.css: {}
   js:
-    //use.fontawesome.com/95fd5fcc01.js: { type: external, minified: true }
-    dist/js/popper.min.js: {}
-    dist/js/bootstrap.min.js: {}
-    dist/js/jquery.matchHeight.min.js: {}
-    src/js/openy_carnation.js: {}
+    dist/main.js: {}
+    dist/js/popper.min.js: {minified: true}
+    https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js: {type: external, minified: true}
+    dist/js/openy_carnation.js: {}
+    dist/js/openy_carnation_branch.js: {}
+    dist/js/openy_carnation_header.js: {}
+    dist/js/openy_carnation_menu.js: {}
+    dist/js/openy_carnation_mobile.js: {}
+    dist/js/openy_carnation_program.js: {}
+    dist/js/openy_carnation_scroll.js: {}
+    dist/js/openy_carnation_sticky_sidebar.js: {}
+    dist/js/openy_carnation_user.js: {}
   dependencies:
     - core/jquery.once
     - core/jquery.ui.datepicker
     - core/drupal
     - openy_rose/blog_slider
+
+landing:
+  version: 0.1
+  js:
+    dist/js/affix.min.js: {minified: true}
+    dist/js/openy_carnation_landing.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.once
+    - core/drupal
+    - core/drupalSettings
+
+hb_loc_selector_branch_page_override:
+  version: 0.1
+  js:
+    dist/js/hb-loc-selector-branch-page-override.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/loc_selector_branch_page
+
+hb_menu_selector_override:
+  version: 0.1
+  js:
+    dist/js/hb-menu-selector-override.js: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/menu_selector
+
+hb_location_finder_override:
+  version: 0.1
+  js:
+    dist/js/hb-location-finder-override.js: {}
+  css:
+    theme:
+      src/css/hb-location-finder-override.css: {}
+  dependencies:
+    - core/drupalSettings
+    - openy_home_branch/location_finder
+
+matchheight:
+  version: 0.1
+  js:
+    dist/js/matchheight.js: {}
+  dependencies:
+    - core/drupalSettings
     - openy_system/jquery.matchHeight

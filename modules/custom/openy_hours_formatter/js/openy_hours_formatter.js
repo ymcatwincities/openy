@@ -3,7 +3,7 @@
   "use strict";
   Drupal.behaviors.openy_hours_formatter = {
     attach: function (context, settings) {
-      $('.today-hours .show-link').once().on('click', function(e) {
+      $('.today-hours .show-link').once().on('click', function (e) {
         e.preventDefault();
         $(this)
           .addClass('hidden')
@@ -12,7 +12,7 @@
           .parent()
           .find('.branch-hours').removeClass('hidden');
       });
-      $('.today-hours .hide-link').once().on('click', function(e) {
+      $('.today-hours .hide-link').once().on('click', function (e) {
         e.preventDefault();
         $(this)
           .addClass('hidden')
@@ -32,25 +32,23 @@
     refreshTimer: false,
 
     /**
-     * See https://moment.github.io/luxon/docs/manual/formatting.
      * @returns {string}
      */
-    getDayOfWeek(tz) {
-      return luxon.DateTime.local().setZone(tz).toFormat('c');
+    getDayOfWeek: function (tz) {
+      return moment().tz(tz).format('d');
     },
 
     /**
-     * See https://moment.github.io/luxon/docs/manual/formatting.
      * @returns {string}
      */
-    getDate(tz) {
-      return luxon.DateTime.local().setZone(tz).toFormat('yyyy-LL-dd');
+    getDate: function (tz) {
+      return moment().tz(tz).format('YYYY-MM-DD');
     },
 
     /**
      * Primary method for updating the today hours.
      */
-    updateTodayHours() {
+    updateTodayHours: function () {
       if (typeof drupalSettings.openy_hours_formatter != 'undefined') {
         drupalSettings.openy_hours_formatter = {};
       }
@@ -59,9 +57,9 @@
       var hoursData = [];
       var branchHours = drupalSettings.openy_hours_formatter.branch_hours || [];
       var tz = drupalSettings.openy_hours_formatter.tz || 'America/New York';
-
+      tz = tz.replace(/ /g,"_");
       // Prioritize these arbitrary hours names first.
-      ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function(name) {
+      ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function (name) {
         if (typeof branchHours[name] != 'undefined') {
           hoursData = branchHours[name];
         }
@@ -105,7 +103,7 @@
         // into memory on a phone the hour will always be correct.
         this.refreshTimer = setInterval(this.updateTodayHours, 60 * 1000);
 
-        // RUn for the first time
+        // Run for the first time.
         this.updateTodayHours();
         $todayHours.addClass(onceClass);
       }

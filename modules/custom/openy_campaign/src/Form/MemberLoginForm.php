@@ -22,20 +22,22 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class MemberLoginForm extends FormBase {
 
   /**
-   * The entity type manager.
+   * The node storage.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\node\NodeStorageInterface
    */
-  protected $entityTypeManager;
+  protected $nodeStorage;
 
   /**
    * MemberLoginForm constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
+   *   Entity type manager.
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   *   Thrown if the storage handler couldn't be loaded.
    */
   public function __construct(EntityTypeManagerInterface $entity_type_manager) {
-    $this->entityTypeManager = $entity_type_manager;
+    $this->nodeStorage = $entity_type_manager->getStorage('node');
   }
 
   /**
@@ -79,6 +81,14 @@ class MemberLoginForm extends FormBase {
       '#value' => $landing_page_id,
     ];
 
+    /** @var \Drupal\node\Entity\Node $campaign */
+    $campaign = $this->nodeStorage->load($campaign_id);
+    $extended_registration = $campaign->field_campaign_ext_registration->value;
+    $form['extended_registration'] = [
+      '#type' => 'hidden',
+      '#value' => $extended_registration,
+    ];
+
     // The id on the membership card.
     $form['membership_id'] = [
       '#type' => 'textfield',
@@ -95,6 +105,10 @@ class MemberLoginForm extends FormBase {
         [$this, 'elementValidateRequired'],
       ],
     ];
+    if ($extended_registration) {
+      $form['membership_id']['#attributes']['placeholder'] = $this->t('Your member ID / Invite code');
+      $form['membership_id']['#element_required_error'] = $this->t('Member ID / Invite code is required.');
+    }
     // Member ID text.
     $settings = $this->config('openy_campaign.general_settings');
     $msgMemberIdText = $settings->get('register_form_text');
@@ -131,23 +145,26 @@ class MemberLoginForm extends FormBase {
 
     $campaignID = $form_state->getValue('campaign_id');
     $membershipID = $form_state->getValue('membership_id');
+    $extended_registration = $form_state->getValue('extended_registration');
 
     /** @var \Drupal\node\Entity\Node $campaign Current campaign. */
-    $campaign = $this->entityTypeManager->getStorage('node')->load($campaignID);
+    $campaign = $this->nodeStorage->load($campaignID);
 
     // Don't allow inactive members to login.
     $member = Member::loadMemberFromCRMData($membershipID);
-    $isInactiveMember = empty($member->order_number->value);
-    if ($isInactiveMember) {
-      $msgMemberInactive = $config->get('error_msg_member_is_inactive');
-      $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
-      // Get error from Campaign node.
-      if (!empty($campaign->field_error_member_is_inactive->value)) {
-        $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
-      }
+    if (!$extended_registration || ($member instanceof Member)) {
+      $isInactiveMember = empty($member->order_number->value);
+      if ($isInactiveMember) {
+        $msgMemberInactive = $config->get('error_msg_member_is_inactive');
+        $errorMemberInactive = check_markup($msgMemberInactive['value'], $msgMemberInactive['format']);
+        // Get error from Campaign node.
+        if (!empty($campaign->field_error_member_is_inactive->value)) {
+          $errorMemberInactive = check_markup($campaign->field_error_member_is_inactive->value, $campaign->field_error_member_is_inactive->format);
+        }
 
-      $form_state->setErrorByName('membership_id', $errorMemberInactive);
-      return;
+        $form_state->setErrorByName('membership_id', $errorMemberInactive);
+        return;
+      }
     }
 
     $msgMembershipId = $config->get('error_msg_membership_id');
@@ -246,7 +263,7 @@ class MemberLoginForm extends FormBase {
       $landingPageId = $form_state->getValue('landing_page_id');
       $queryParameters = [];
       if (!empty($landingPageId)) {
-        $landingPage = $this->entityTypeManager->getStorage('node')->load($landingPageId);
+        $landingPage = $this->nodeStorage->load($landingPageId);
         $queryParameters = [trim($landingPage->toUrl()->toString(), "/")];
       }
 

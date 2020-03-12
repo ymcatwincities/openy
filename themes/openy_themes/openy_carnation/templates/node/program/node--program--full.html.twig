@@ -77,7 +77,7 @@
   {% set bg_color = 'background-color: '  ~  color %}
 {% endif %}
 
-{% if content.field_header_content is not empty %}
+{% if content.field_header_content|render|trim is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
     <div{{ content_attributes.addClass(header_content_classes) }}>
       <div class="main">
@@ -86,7 +86,7 @@
     </div>
   </article>
 {% else %}
-  <div{{ attributes.addClass('landing-header program-header banner banner--small') }}>
+  <div{{ attributes.addClass('program-header banner banner--small') }}>
     <div{{ content_attributes.addClass('banner-cta d-block d-lg-flex', overlay_class).setAttribute('style', bg_color) }}>
 
       {% if header_image|render|trim is not empty %}
@@ -115,6 +115,10 @@
     </div>
   </div>
 {% endif %}
+
+{{ drupal_breadcrumb() }}
+{{ drupal_block('local_tasks_block') }}
+<a id="main-content" tabindex="-1" class="sr-only sr-only-focusable"></a>
 
 {% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
 

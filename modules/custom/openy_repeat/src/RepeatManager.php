@@ -172,35 +172,40 @@ class RepeatManager implements SessionInstanceManagerInterface {
         continue;
       }
       // Program Subcategory reference.
-      if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
-        $program_subcategory = reset($program_subcategory);
-
-        // Some instances may require unpublished references.
-        // Do not skip program subcategory in that case.
-        if (!$this->config->get('allow_unpublished_references')) {
-          if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
-            // Skip activity due to unpublished program subcategory.
-            continue;
-          }
-        }
-
-        // Program reference.
-        if ($program = $program_subcategory->field_category_program->referencedEntities()) {
-          $program = reset($program);
+      try {
+        if (!$activity->field_activity_category->isEmpty() && $program_subcategory = $activity->field_activity_category->referencedEntities()) {
+          $program_subcategory = reset($program_subcategory);
 
           // Some instances may require unpublished references.
-          // Do not skip program in that case.
+          // Do not skip program subcategory in that case.
           if (!$this->config->get('allow_unpublished_references')) {
-            if (!$moderation_wrapper->entity_moderation_status($program)) {
-              // Skip activity due to unpublished program.
+            if (!$moderation_wrapper->entity_moderation_status($program_subcategory)) {
+              // Skip activity due to unpublished program subcategory.
               continue;
             }
           }
 
-          $activity_ids[] = $activity->id();
-          $program_subcategory_ids[] = $program_subcategory->id();
-          $program_ids[] = $program->id();
+          // Program reference.
+          if ($program = $program_subcategory->field_category_program->referencedEntities()) {
+            $program = reset($program);
+
+            // Some instances may require unpublished references.
+            // Do not skip program in that case.
+            if (!$this->config->get('allow_unpublished_references')) {
+              if (!$moderation_wrapper->entity_moderation_status($program)) {
+                // Skip activity due to unpublished program.
+                continue;
+              }
+            }
+
+            $activity_ids[] = $activity->id();
+            $program_subcategory_ids[] = $program_subcategory->id();
+            $program_ids[] = $program->id();
+          }
         }
+      }
+      catch (\Exception $e) {
+        $this->logger->error($e->getMessage());
       }
     }
 
@@ -285,6 +290,12 @@ class RepeatManager implements SessionInstanceManagerInterface {
           $from_time = strtotime(date('Y-m-d') .' '. $schedule_item['time']['from']);
           $duration = round(abs($to_time - $from_time) / 60,2);
 
+          $day = $weekday_mapping[$weekDay];
+          // Monthly events don't have exact week day, but the day of month.
+          if ($schedule_item['recurring'] && $schedule_item['recurring'] == 'monthly') {
+            $day = '*';
+          }
+
           $session_instances[] = [
             'start' => strtotime($date['from']),
             'end' => strtotime($date['to']),
@@ -292,7 +303,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
             'month' => '*',
             'day' => '*',
             'week' => '*',
-            'weekday' => $weekday_mapping[$weekDay],
+            'weekday' => $day,
             'duration'=> $duration,
           ];
         }
@@ -383,6 +394,16 @@ class RepeatManager implements SessionInstanceManagerInterface {
 
     // Do not forget to close last period.
     $period = array_pop($resultingPeriods);
+    $reversExclusions = array_reverse($exclusions);
+    foreach ($reversExclusions as $exclusion) {
+      $endExclusion = $exclusion['to']->format('Y-m-d');
+      $startExclusion = $exclusion['from']->format('Y-m-d');
+      $endOrigin = $end->format('Y-m-d');
+
+      if ($endExclusion == $endOrigin || $startExclusion == $endOrigin) {
+        $end->modify('-1 week');
+      }
+    }
     $period['to'] = $end;
     array_push($resultingPeriods, $period);
 
@@ -445,6 +466,11 @@ class RepeatManager implements SessionInstanceManagerInterface {
       }
       if (!isset($schedule['to']) || $schedule_item['period']['to'] > $schedule['to']) {
         $schedule['to'] = $schedule_item['period']['to'];
+      }
+
+      $schedule_item['recurring'] = FALSE;
+      if ($date->hasField('field_session_recurring') && !$date->get('field_session_recurring')->isEmpty()) {
+        $schedule_item['recurring'] = $date->get('field_session_recurring')->value;
       }
 
       foreach ($date->field_session_time_days->getValue() as $value) {

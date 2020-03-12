@@ -84,7 +84,7 @@ body {
   width: 0;
   position: fixed;
   z-index: 9999;
-  top: 52px;
+  top: 85px;
   left: 0;
   overflow: auto;
   transition: 0.2s;
@@ -127,9 +127,6 @@ body {
     border-top: 1px solid #979797;
     margin: 0;
     padding-top: 7px;
-    &.nav-level-1 {
-      min-height: 650px;
-    }
     li {
       display: block;
       .dropdown-menu {
@@ -279,7 +276,7 @@ header#page-head {
                   -webkit-transform: scale(0);
                   transform: scale(0);
                 }
-                &:last-child {
+                &:nth-child(3) {
                   -webkit-transform: translate(0px, -6px) rotate(35deg);
                   transform: translate(0px, -6px) rotate(35deg);
                   -webkit-transform-origin: 50%;
@@ -635,10 +632,10 @@ header#page-head {
   display: block;
   overflow: hidden;
   box-sizing: content-box;
-  margin: 7px 0 5px 0;
+  margin: 12px 0 5px 0;
   padding: 5px 0 0 30px;
   width: 220px;
-  height: 72%;
+  height: 62%;
   background: url(../img/ymca-logo-full.svg) no-repeat 12px 0;
   background-size: contain;
   @include breakpoint(0 $tablet-start) {
@@ -667,14 +664,17 @@ header#page-head {
 }
 
 // Google translate styles.
-.translated-ltr,
-.translated-rtl {
-  header#page-head .top-navs {
-    .nav-global {
-      margin-top: 39px !important;
-    }
-    .nav-wrapper .main-nav.affix {
-      top: 139px;
+@include breakpoint($screen-sm) {
+  .translated-ltr,
+  .translated-rtl {
+    header#page-head .top-navs {
+      .nav-global {
+        margin-top: 39px !important;
+      }
+
+      .nav-wrapper .main-nav.affix {
+        top: 139px;
+      }
     }
   }
 }

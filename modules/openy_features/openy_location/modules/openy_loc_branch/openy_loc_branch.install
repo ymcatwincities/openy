@@ -354,3 +354,37 @@ function openy_loc_branch_update_8016() {
     'core.entity_view_display.node.branch.full',
   ]);
 }
+
+/**
+ * Update Branch with field_location_email.
+ */
+function openy_loc_branch_update_8017() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.node.branch.full' =>[
+      'content',
+      'hidden',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update feature configs.
+ */
+function openy_loc_branch_update_8018() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  $config .= '/config/install/';
+  $config .= 'core.entity_form_display.node.branch.default';
+  $config_importer->update($config, 'third_party_settings.field_group');
+}

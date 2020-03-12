@@ -66,6 +66,7 @@ editorial:
     - openy_prgf_simple_content
     - openy_prgf_small_banner
     - openy_prgf_teaser
+    - openy_block_branch_contacts_info
 
 editorial_ext:
   name: 'Editorial Extended'
@@ -86,6 +87,7 @@ editorial_adv:
     - openy_prgf_story_card
     - openy_block_flexible_content
     - openy_prgf_microsites_menu
+    - openy_inline_editing
 
 embeddable_header_footer:
   name: 'Embeddable header & footer'
@@ -157,6 +159,7 @@ locations:
     - openy_field_hours
     - openy_field_custom_hours
     - openy_field_holiday_hours
+    - openy_block_branch_contacts_info
 
 locations_ext:
   name: 'Locations Extended'
@@ -193,12 +196,12 @@ news_ext:
     - openy_prgf_news_camp
     - openy_prgf_news_listing
 
-optimizely:
-  name: 'Optimizely'
-  description: 'Optimizely package provides an ability to integrate the website with experimentation platform - Optimizely.'
-  help: '<p>Using Optimizely package you can configure an integration with experimentation platform - <a href="https://www.optimizely.com/" target="_blank">www.optimizely.com/</a>.</p>'
+optimize:
+  name: 'Optimize'
+  description: 'Optimize package provides an ability to integrate the website with Google Optimize tool.'
+  help: '<p>Using Optimize package you can configure an integration with <a href="https://optimize.google.com/" target="_blank">Google Optimize</a>.</p>'
   modules:
-    - optimizely
+    - google_optimize
 
 popups:
   name: 'Popups'
@@ -241,6 +244,13 @@ scheduler:
   help: "<p>Using Scheduler package you can publish or unpublish website's content on specific date and time.</p>"
   modules:
     - scheduler
+
+search:
+  name: 'Search'
+  description: 'Search package provides a set of modules for search.'
+  help: ""
+  modules:
+    - openy_google_search
 
 seo:
   name: 'SEO'
@@ -337,3 +347,10 @@ integration:
   Initially, this package was used for enabling domains with different themes (design) per domain.</p>'
   modules:
     - openy_development
+
+egym_iwatch:
+  name: 'eGym iWatch Landing page'
+  description: 'Iwatch landing page'
+  help: ''
+  modules:
+    - openy_egym_iwatch

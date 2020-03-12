@@ -9,6 +9,7 @@ use Drupal\Core\Routing\TrustedRedirectResponse;
 use Drupal\openy_activity_finder\Entity\ProgramSearchLog;
 use Drupal\openy_activity_finder\OpenyActivityFinderBackendInterface;
 use Drupal\openy_activity_finder\Entity\ProgramSearchCheckLog;
+use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -74,6 +75,7 @@ class ActivityFinderController extends ControllerBase {
       'page' => $request->get('page'),
       'day' => $request->get('days'),
       'age' => $request->get('ages'),
+      'sort' => $request->get('sort'),
     ];
     $record['hash'] = md5(json_encode($record));
 
@@ -98,12 +100,16 @@ class ActivityFinderController extends ControllerBase {
     else {
       $data = $this->backend->runProgramSearch($parameters, $log->id());
 
+      /* @var $expanderSectionsConfig \Drupal\Core\Config\Config */
+      $expanderSectionsConfig = $this->config('openy_activity_finder.settings');
+      $data['expanderSectionsConfig'] = $expanderSectionsConfig->getRawData();
+
       // Allow other modules to alter the search results.
       $this->moduleHandler()->alter('activity_finder_program_search_results', $data);
 
       // Cache for 5 minutes.
       $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
-      $this->cacheBackend->set($cid, $data, $expire);
+      $this->cacheBackend->set($cid, $data, $expire, [OpenyActivityFinderSolrBackend::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return new JsonResponse($data);
@@ -153,9 +159,10 @@ class ActivityFinderController extends ControllerBase {
 
       // Cache for 5 minutes.
       $expire = $this->time->getRequestTime() + self::CACHE_LIFETIME;
-      $this->cacheBackend->set($cid, $data, $expire);
+      $this->cacheBackend->set($cid, $data, $expire, [OpenyActivityFinderSolrBackend::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return new JsonResponse($data);
   }
+
 }

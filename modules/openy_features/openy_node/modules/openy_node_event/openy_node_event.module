@@ -61,8 +61,8 @@ function openy_node_event_preprocess_field__node__field_event_location__event(&$
   $endDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['end_value'], DATETIME_STORAGE_TIMEZONE);
   $endDt->setTimezone(timezone_open($timezone));
   $datesInfo = [
-    'date_start' => $startDt->format('j M g:i a'),
-    'date_end' => $endDt->format('g:i a'),
+    'date_start' => $startDt,
+    'date_end' => $endDt,
   ];
   $description = strip_tags($node->field_event_description->value);
   $description = substr($description, 0, 300);
@@ -141,4 +141,23 @@ function openy_node_event_preprocess_field__node__field_event_location__event(&$
 
   $variables['#attached']['library'][] = 'openy_node_event/atc_base';
   $variables['#attached']['library'][] = 'openy_node_event/event_custom';
+}
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function openy_node_event_preprocess_node(&$variables) {
+  if ($variables['view_mode'] == 'teaser' && $variables['node']->getType() == 'event') {
+    // Get dates.
+    $datesField = $variables['node']->get('field_event_dates')->getValue();
+    $timezone = drupal_get_user_timezone();
+    $startDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['value'], DATETIME_STORAGE_TIMEZONE);
+    $startDt->setTimezone(timezone_open($timezone));
+    $endDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['end_value'], DATETIME_STORAGE_TIMEZONE);
+    $endDt->setTimezone(timezone_open($timezone)); 
+    $variables['content']['event_converted_dates'] = [
+      'date_start' => $startDt->format('g:i a'),
+      'date_end' => $endDt->format('g:i a'),
+    ];
+  }
 }

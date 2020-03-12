@@ -68,18 +68,6 @@
 #}
 
 {%
-  set header_classes = [
-    'landing-header',
-    'w-100',
-    node.field_lp_layout.value|clean_class,
-  ]
-%}
-
-{%
-  set header_content_classes = ['content']
-%}
-
-{%
   set content_classes = [
     'landing-content',
     node.field_lp_layout.value|clean_class,
@@ -101,24 +89,24 @@
 {% endif %}
 
 {% if node.field_lp_layout.value == "two_column_fixed" %}
-  {{ attach_library('openy_rose/landing') }}
+  {{ attach_library('openy_carnation/landing') }}
 {% endif %}
 
 {% if node.field_lp_layout.value != "one_column_clean" %}
 <div class="container">
 {% endif %}
 
-  {% if content.field_content is not empty %}
+  {% if content.field_content|render|trim is not empty %}
     <article{{ attributes.addClass(content_classes) }}>
 
       {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
       <div class="two-column row">
-        <div class="main-region col-md-7 col-lg-8">
+        <div class="main-region col-lg-7 col-xl-8">
           {% endif %}
           {{ content.field_content }}
           {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
         </div>
-        <div class="sidebar-region col-md-5 col-lg-4">
+        <div class="sidebar-region col-lg-5 col-xl-4">
           {% endif %}
           <article{{ attributes.addClass(sidebar_classes) }}>
             {{ content.field_sidebar_content }}

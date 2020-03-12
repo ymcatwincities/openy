@@ -69,7 +69,7 @@
  */
 #}
 
-{% if content.field_content is not empty %}
+{% if content.field_content|render|trim is not empty %}
   <div class="container">
     <div class="row">
       <article{{ attributes.removeClass(header_classes).addClass(content_classes) }}>

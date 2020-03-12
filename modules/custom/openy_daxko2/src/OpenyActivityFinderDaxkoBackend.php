@@ -11,6 +11,11 @@ use Drupal\openy_activity_finder\OpenyActivityFinderBackend;
 class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
   /**
+   * Number of results per page.
+   */
+  const RESULTS_PER_PAGE = 25;
+
+  /**
    * Daxko configuration.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -28,6 +33,13 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   protected $cache;
 
   /**
+   * The http client.
+   *
+   * @var \GuzzleHttp\Client
+   */
+  protected $http;
+
+  /**
    * OpenyActivityFinderDaxkoBackend constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -36,12 +48,15 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    *   The config factory.
    * @param CacheBackendInterface $cache
    *   Cache default.
+   * @param \GuzzleHttp\Client $http
+   *   The http client.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache, Client $http) {
     parent::__construct($config_factory);
     $this->daxkoConfig = $config_factory->get('openy_daxko2.settings');
     $this->entityTypeManager = $entity_type_manager;
     $this->cache = $cache;
+    $this->http = $http;
   }
 
   /**
@@ -54,6 +69,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       'next' => '',
       'days' => '',
       'ages' => '',
+      'sort' => '',
     ];
 
     $access_token = $this->getDaxkoToken();
@@ -104,10 +120,20 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $get['category_ids'] = $parameters['categories'];
     }
 
+    $get['sort'] = 'DESC__score';
+    if (!empty($parameters['sort'])) {
+      $get['sort'] = $parameters['sort'];
+    }
+    $sort = $get['sort'];
+    $get['sort'] = str_replace('ASC__', '+', $get['sort']);
+    $get['sort'] = str_replace('DESC__', '-', $get['sort']);
+
     // Include facets. We need locations for Activity Finder.
     $get['include_facets'] = TRUE;
 
     $get['registration_type'] = 'online';
+
+    $get['limit'] = self::RESULTS_PER_PAGE;
 
     $time_start = microtime(true);
     $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
@@ -158,9 +184,9 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $start_date = new \DateTime($row['start_date']);
       $end_date = new \DateTime($row['end_date']);
       $start_date_formatted = $start_date->format('M d');
-      $end_date_formatted = $end_date->format('M d, Y');
+      $end_date_formatted = $end_date->format('M d');
       if ($start_date->format('Y') != $end_date->format('Y')) {
-        $start_date_formatted = $start_date->format('M d, Y');
+        $start_date_formatted = $start_date->format('M d');
       }
       $times = '';
       if (isset($row['times'][0])) {
@@ -173,10 +199,19 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           $times = date('g:ia', $start) . '-' . date('g:ia', $end);
         }
       }
+      /**
+       * added +1 day because DateTime::diff counts difference between
+       * 2020-08-01 00:00:00.000000 and 2020-08-22 00:00:00.000000
+       * as 21 day, not 22
+       */
+      $end_date->modify('+1 day');
+      $weeks = $start_date->diff($end_date)->days/7;
+      $weeks = ceil($weeks);
+      $weeks = $weeks != 0 ? $weeks : '';
       $days = [];
       if (isset($row['days_offered'][0])) {
         foreach ($row['days_offered'] as $day) {
-          $days[] = $day['name'];
+          $days[] = substr($day['name'], 0, 3);
         }
       }
 
@@ -186,13 +221,21 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           continue;
         }
 
-        // Enrich with pricing.
-        $price = '';
-        $cache_key = 'daxko-price-' . md5(
-            $row['id'] . $row['program']['id'] . $location_id
-          );
+        // Cache the Price for one day.
+        $cache_key = 'daxko-price-' . md5($row['id'] . $row['program']['id'] . $location_id);
+        $ttl = \Drupal::time()->getRequestTime() + 24 * 60 * 60;
         if ($cache = $this->cache->get($cache_key)) {
-          $price = $cache->data;
+          $prices = $cache->data;
+        }
+        else {
+          $prices = [];
+          if (isset($row['groups'])) {
+            foreach ($row['groups'] as $group) {
+              $prices[] = $group['rate']['description'] . ' (' . strtolower($group['name']) . ')';
+            }
+          }
+          $prices = implode(', ', $prices);
+          $this->cache->set($cache_key, $prices, $ttl);
         }
 
         $location_name = $location_row['name'];
@@ -242,24 +285,46 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           $name = $row['name'];
         }
 
+        if (isset($row['restrictions']['genders']) && count($row['restrictions']['genders']) == 1) {
+          $gender = reset($row['restrictions']['genders']);
+          $gender = $gender['name'];
+        }
+
+        if (isset($row['restrictions']['age'])) {
+          $age = $row['restrictions']['age']['start'] . '-' . $row['restrictions']['age']['end'] . 'yrs';
+        }
+
         $result[] = [
           'nid' => '',
           'location' => $location_name,
           'name' => $name,
-          'dates' => $start_date_formatted . ' - ' . $end_date_formatted,
-          'times' => $times,
-          'days' => implode(', ', $days),
+          'dates' => $start_date_formatted . '-' . $end_date_formatted,
+          'schedule' => [
+            0 => [
+              'time' => $times,
+              'days' => implode(', ', $days),
+            ]
+          ],
+          'weeks' => $weeks,
           'offering_id' => $offering_id,
           'program_id' => $program_id,
           'location_id' => $location_id,
           'info' => var_export($row, TRUE),
-          'price' => $price,
+          'price' => $prices,
           'location_info' => $location_info,
           'availability_status' => $availability_status,
           'availability_note' => $availability_note,
+          'activity_type' => '',
+          'atc_info' => '',
           'link' => $register_link_with_tracking,
           'log_id' => $log_id,
           'spots_available' => '',
+          'learn_more' => '',
+          'more_results' => '',
+          'more_results_type' => 'keyword',
+          'program_name' => '',
+          'gender' => isset($gender) ? $gender : '',
+          'ages' => isset($age) ? $age : '',
         ];
       }
     }
@@ -274,11 +339,17 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     foreach ($facets as $facet_name => &$facet_data) {
       foreach ($facet_data as $key => &$facet) {
         $facet = [
-          'name' => $facet['name'],
+          'filter' => $facet['name'],
           'id' => $facet['id'],
           'count' => $facet['offering_count'],
         ];
       }
+    }
+
+    // Rename facet to match Solr backend.
+    if (isset($facets['categories'])) {
+      $facets['field_activity_category'] = $facets['categories'];
+      unset($facets['categories']);
     }
 
     $locations = $this->getLocations();
@@ -287,7 +358,20 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
         foreach ($facets['locations'] as $fl) {
           if ($fl['id'] == $location['value']) {
             $locations[$key]['count'] += $fl['count'];
+            $locationsWithResults[] = $location['value'];
           }
+        }
+      }
+    }
+
+    foreach ($locations as $key => $group) {
+      foreach ($group['value'] as $location) {
+        if (!in_array($location['value'], $locationsWithResults)) {
+          $facets['locations'][] = [
+            'id' => $location['value'],
+            'filter' => $location['label'],
+            'count' => 0
+          ];
         }
       }
     }
@@ -298,6 +382,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       'pager' => $pager,
       'facets' => $facets,
       'groupedLocations' => $locations,
+      'sort' => $sort,
     ];
   }
 
@@ -381,8 +466,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    */
   protected function getDaxkoToken() {
     $time_start = microtime(true);
-    $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
-    $response = $client->request('POST', 'partners/oauth2/token',
+    $response = $this->http->request('POST', $this->daxkoConfig->get('base_uri') . 'partners/oauth2/token',
       [
         'form_params' => [
           'client_id' => $this->daxkoConfig->get('user'),
@@ -555,8 +639,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $config = \Drupal::configFactory()->get('openy_daxko2.settings');
 
     $time_start = microtime(true);
-    $client = new Client(['base_uri' => $config->get('base_uri')]);
-    $response = $client->request('POST', 'partners/oauth2/token',
+    $response = $this->http->request('POST', $config->get('base_uri') . 'partners/oauth2/token',
       [
         'form_params' => [
           'client_id' => $config->get('user'),
@@ -603,12 +686,14 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     $availability_status = 'closed';
     $availability_note = '';
+    $spots_available = '';
     if (isset($offeringResponse['details'][0]['registration_summaries'][0]['description'])) {
       $online_open = $offeringResponse['details'][0]['registration_summaries'][0]['can_register'];
       if ($online_open) {
         $availability_status = 'open';
       }
       $availability_note = $offeringResponse['details'][0]['registration_summaries'][0]['description'];
+      $spots_available = $offeringResponse['details'][0]['availability']['available'];
 
       // If online is closed but offline is open.
       if (!$online_open && isset($offeringResponse['details'][0]['registration_summaries'][1]) && $offeringResponse['details'][0]['registration_summaries'][1]['can_register']) {
@@ -619,29 +704,27 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $prices = [];
     if (isset($offeringResponse['details'][0]['groups'])) {
       foreach ($offeringResponse['details'][0]['groups'] as $group) {
-        $prices[] = $group['name'] . ': ' . $group['rate']['description'];
+        $prices[] = $group['rate']['description'] . ' (' . strtolower($group['name']) . ')';
       }
     }
 
     // Cache the Price for one day.
     $cache_key = 'daxko-price-' . md5($offering_id . $program_id . $location_id);
     $ttl = \Drupal::time()->getRequestTime() + 24 * 60 * 60;
-    \Drupal::cache()->set($cache_key, implode('<br/>', $prices), $ttl);
+    \Drupal::cache()->set($cache_key, implode(', ', $prices), $ttl);
 
     // Cache the Availability for five minutes.
     $cache_key = 'daxko-availability-' . md5($offering_id . $program_id . $location_id);
     $ttl = \Drupal::time()->getRequestTime() + 5 * 60 * 60;
-    \Drupal::cache()->set($cache_key, ['status' => $availability_status, 'note' => $availability_note], $ttl);
+    \Drupal::cache()->set($cache_key, ['status' => $availability_status, 'note' => $availability_note, 'spots_available' => $spots_available], $ttl);
 
     // We show gender restrictions if there are any. So if value is both
     // male and female we do not need to show it as restriction.
-    $gender = '';
     if (isset($offeringResponse['restrictions']['genders']) && count($offeringResponse['restrictions']['genders']) == 1) {
       $gender = reset($offeringResponse['restrictions']['genders']);
       $gender = $gender['name'];
     }
 
-    $age = '';
     if (isset($offeringResponse['restrictions']['age'])) {
       $age = $offeringResponse['restrictions']['age']['start'] . '-' . $offeringResponse['restrictions']['age']['end'] . 'yrs';
     }
@@ -664,16 +747,29 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     $result = [
       'name' => $offeringResponse['name'] . ' ' . $offeringResponse['program']['name'],
+      'program_name' => $offeringResponse['program']['name'],
       'description' =>  $offeringResponse['description'] . ' ' . $offeringResponse['program']['description'],
-      'price' =>  implode('<br/>', $prices),
-      'availability_status' =>  $availability_status,
-      'availability_note' =>  $availability_note,
-      'gender' => $gender,
-      'ages' => $age,
+      'price' =>  implode(', ', $prices),
+      'availability_status' => $availability_status,
+      'availability_note' => $availability_note,
+      'activity_type' => '',
+      'spots_available' => $spots_available,
+      'gender' => isset($gender) ? $gender : '',
+      'ages' => isset($age) ? $age : '',
       'link' =>  $register_link_with_tracking,
     ];
 
     return $result;
+  }
+
+  public function getSortOptions() {
+    return [
+      'DESC__score' => t('Sort by Relevance'),
+      'ASC__name' => t('Sort by Title (A-Z)'),
+      'DESC__name' => t('Sort by Title (Z-A)'),
+      'ASC__start_date' => t('Sort by Date (Soonest - Latest)'),
+      'DESC__start_date' => t('Sort by Date (Latest - Soonest)'),
+    ];
   }
 
 }

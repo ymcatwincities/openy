@@ -11,6 +11,9 @@ dependencies:
     - field.storage.node.field_category_program
     - field.storage.node.field_session_time
     - field.storage.paragraph.field_session_time_days
+    - field.storage.node.field_session_mbr_price
+    - field.storage.node.field_session_nmbr_price
+    - field.storage.paragraph.field_session_time_date
     - search_api.server.solr
   module:
     - node
@@ -38,6 +41,14 @@ field_settings:
     indexed_locked: true
     type_locked: true
     hidden: true
+  af_ages_min_max:
+    label: 'Ages Min Max'
+    property_path: search_api_af_ages_min_max
+    type: string
+  af_parts_of_day:
+    label: 'Parts of day'
+    property_path: search_api_af_parts_of_day
+    type: string
   title:
     label: Title
     datasource_id: 'entity:node'
@@ -124,6 +135,43 @@ field_settings:
         - field.storage.paragraph.field_session_time_days
       module:
         - paragraphs
+  field_session_mbr_price:
+    label: 'Member price'
+    datasource_id: 'entity:node'
+    property_path: field_session_mbr_price
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_session_mbr_price
+  field_session_nmbr_price:
+    label: 'Non Member Price'
+    datasource_id: 'entity:node'
+    property_path: field_session_nmbr_price
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_session_nmbr_price
+  field_session_time_date:
+    label: 'Date & Time'
+    datasource_id: 'entity:node'
+    property_path: 'field_session_time:entity:field_session_time_date'
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_session_time
+        - field.storage.paragraph.field_session_time_date
+      module:
+        - paragraphs
+  field_session_class:
+    label: Class
+    datasource_id: 'entity:node'
+    property_path: 'field_session_class:entity:title'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_session_class
+      module:
+        - node
 datasource_settings:
   'entity:node':
     bundles:
@@ -135,6 +183,8 @@ datasource_settings:
       selected:
         - en
 processor_settings:
+  openy_af_ages_min_max: {  }
+  openy_af_parts_of_day: {  }
   rendered_item: {  }
   add_url: {  }
   aggregated_field: {  }

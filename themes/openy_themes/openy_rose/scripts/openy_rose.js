@@ -245,32 +245,20 @@
       });
     }
   };
-  Drupal.behaviors.changeTabIndex = {
-    attach: function (context, settings) {
-      setTimeout(function(){
-        var x = document.getElementsByClassName("atcb-link");
-        for(var i=0;i<x.length;i++){
-          x[i].removeAttribute("tabindex");
-        }
-      }, 10);
-    }
-  };
 
-
-  Drupal.behaviors.addToCalDropdown = {
+  // Location collapsible.
+  Drupal.behaviors.schedules_location_collapse = {
     attach: function (context, settings) {
-      setTimeout(function() {
-      $('.atcb-link', document).on('click', function (item) {
-        if (!$(this).hasClass('open')) {
-          $(this).addClass('open').parent().find('ul').addClass('active').find('li:first-child a').focus();
+      $('label[for="form-group-location"]').on('click', function () {
+        let status = $(this).attr('aria-expanded');
+        if (status === 'false') {
+          $(this).attr('aria-expanded', 'true');
         }
         else {
-          $(this).removeClass('open').parent().find('ul').removeClass('active').css('visibility', 'hidden !important');
+          $(this).attr('aria-expanded', 'false');
         }
       });
-      }, 10);
     }
   };
-
 
 })(jQuery);

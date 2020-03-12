@@ -2,6 +2,7 @@
 
 namespace Drupal\openy_activity_finder;
 
+use DateTimeInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
@@ -9,11 +10,12 @@ use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\search_api\Entity\Index;
 use Drupal\Core\Url;
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\Logger\LoggerChannelInterface;
+use Drupal\search_api\SearchApiException;
 
 /**
  * {@inheritdoc}
@@ -25,6 +27,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
 
   // Number of results to retrieve per page.
   const TOTAL_RESULTS_PER_PAGE = 25;
+
+  // Cache ID for locations info.
+  const ACTIVITY_FINDER_CACHE_TAG = 'openy_activity_finder:default';
 
   /**
    * Cache default.
@@ -76,6 +81,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   protected $loggerChannel;
 
   /**
+   * Module Handler.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * Creates a new RepeatController.
    *
    * @param CacheBackendInterface $cache
@@ -90,8 +102,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    *   Time service.
    * @param LoggerChannelInterface $loggerChannel
    *   Logger service.
+   * @param ModuleHandlerInterface $module_handler
+   *   Module Handler.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time, LoggerChannelInterface $loggerChannel) {
+  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time, LoggerChannelInterface $loggerChannel, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
     $this->cache = $cache;
     $this->database = $database;
@@ -100,6 +114,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $this->dateFormatter = $date_formatter;
     $this->time = $time;
     $this->loggerChannel = $loggerChannel;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -118,8 +133,26 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     // Set pager as current page number.
     $data['pager'] = isset($parameters['page']) && $data['count'] > self::TOTAL_RESULTS_PER_PAGE ? $parameters['page'] : 0;
 
+    // Get pager structure.
+    $data['pager_info'] = $this->getPages($data['count']);
+
     // Process results.
     $data['table'] = $this->processResults($results, $log_id);
+
+    $locations = $this->getLocations();
+    foreach ($locations as $key => $group) {
+      $locations[$key]['count'] = 0;
+      foreach ($group['value'] as $location) {
+        foreach ($data['facets']['locations'] as $fl) {
+          if ($fl['id'] == $location['value']) {
+            $locations[$key]['count'] += $fl['count'];
+          }
+        }
+      }
+    }
+    $data['groupedLocations'] = $locations;
+
+    $data['sort'] = isset($parameters['sort']) ? $parameters['sort'] : 'title__ASC';
 
     return $data;
   }
@@ -128,7 +161,8 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    * {@inheritdoc}
    */
   public function doSearchRequest($parameters) {
-    $index = Index::load('default');
+    $index_id = $this->config->get('index') ? $this->config->get('index') : 'default';
+    $index = Index::load($index_id);
     $query = $index->query();
     $parse_mode = \Drupal::service('plugin.manager.search_api.parse_mode')->createInstance('direct');
     $query->getParseMode()->setConjunction('OR');
@@ -140,37 +174,29 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
 
     if (!empty($parameters['ages'])) {
       $ages = explode(',', rawurldecode($parameters['ages']));
-      $db_or = $query->createConditionGroup('OR');
-      foreach ($ages as $age) {
-        $db_and = $query->createConditionGroup('AND');
-        // Specific case, user selected e.g. '16+'.
-        if (strpos($age, '+')) {
-          $age = str_replace('+', '', $age);
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-        }
-        // Specific case, user selected less than 18 months (6, 12, 18).
-        else if ($age <= 18) {
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-          $db_and->addCondition('field_session_min_age', $age + 6, '<');
-        }
-        else {
-          // Common case (1 year selection).
-          $db_and->addCondition('field_session_min_age', $age, '>=');
-          $db_and->addCondition('field_session_min_age', $age + 12, '<');
-        }
-        $db_or->addConditionGroup($db_and);
-      }
-      $query->addConditionGroup($db_or);
+      $query->addCondition('af_ages_min_max', $ages, 'IN');
     }
 
     if (!empty($parameters['days'])) {
-      $days = explode(',', rawurldecode($parameters['days']));
+      $days_ids = explode(',', rawurldecode($parameters['days']));
+      // Convert ids to search value.
+      $days_info = $this->getDaysOfWeek();
+      foreach ($days_info as $i) {
+        if (in_array($i['value'], $days_ids)) {
+          $days[] = $i['search_value'];
+        }
+      }
       $query->addCondition('field_session_time_days', $days, 'IN');
+    }
+
+    if (!empty($parameters['times'])) {
+      $times = explode(',', rawurldecode($parameters['times']));
+      $query->addCondition('af_parts_of_day', $times, 'IN');
     }
 
     if (!empty($parameters['program_types'])) {
       $program_types = explode(',', rawurldecode($parameters['program_types']));
-      $query->addCondition('field_category_program', $program_types, 'IN');
+
     }
 
     $category_program_info = $this->getCategoryProgramInfo();
@@ -179,16 +205,46 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       // Map nids to titles.
       foreach ($categories_nids as $nid) {
         $categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
+
+        // Subcategories with the same title could belong to different categories.
+        // Additional category filter is essential.
+        if (!empty($category_program_info[$nid]['program']['title'])) {
+          $program_types[] = $category_program_info[$nid]['program']['title'];
+        }
+
       }
-      $query->addCondition('field_activity_category', $categories, 'IN');
+
+      if ($categories) {
+        $query->addCondition('field_activity_category', $categories, 'IN');
+      }
+
     }
+    // Ignore sessions which don't have referenced activity.
+    else {
+      $query->addCondition('field_activity_category', NULL, '<>');
+    }
+
+    if (!empty($program_types)) {
+      $query->addCondition('field_category_program', $program_types, 'IN');
+    }
+
     // Ensure to exclude categories.
-    $exclude_nids = explode(',', $this->config->get('exclude'));
+    $exclude_nids = [];
+    if (!empty($parameters['exclude'])) {
+      $exclude_nids = explode(',', $parameters['exclude']);
+    }
+    $exclude_nids_config = explode(',', $this->config->get('exclude'));
+    $exclude_nids = array_merge($exclude_nids, $exclude_nids_config);
     $exclude_categories = [];
     foreach ($exclude_nids as $nid) {
-      $exclude_categories[] = !empty($category_program_info[$nid]['title']) ? $category_program_info[$nid]['title'] : '';
+      if (empty($category_program_info[$nid]['title'])) {
+        continue;
+      }
+      $exclude_categories[] = $category_program_info[$nid]['title'];
     }
-    $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
+    if ($exclude_categories) {
+      $query->addCondition('field_activity_category', $exclude_categories, 'NOT IN');
+    }
 
     if (!empty($parameters['locations'])) {
       $locations_nids = explode(',', rawurldecode($parameters['locations']));
@@ -205,11 +261,21 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $query->range(0, self::TOTAL_RESULTS_PER_PAGE);
     // Use pager if parameter has been provided.
     if (isset($parameters['page'])) {
-      $_from = self::TOTAL_RESULTS_PER_PAGE * $parameters['page'] - self::TOTAL_RESULTS_PER_PAGE;
-      $_to = (self::TOTAL_RESULTS_PER_PAGE - 1) * $parameters['page'] + $parameters['page'];
-      $query->range($_from, $_to);
+      $offset = self::TOTAL_RESULTS_PER_PAGE * $parameters['page'] - self::TOTAL_RESULTS_PER_PAGE;
+      $query->range($offset, self::TOTAL_RESULTS_PER_PAGE);
     }
-    $query->sort('search_api_relevance', 'DESC');
+    // Set up default sort as relevance and expose if manual sort has been provided.
+    //$query->sort('search_api_relevance', 'DESC');
+    if (empty($parameters['sort'])) {
+      $query->sort('title', 'ASC');
+    }
+    else {
+      $sort = explode('__', $parameters['sort']);
+      $sort_by = $sort[0];
+      $sort_mode = $sort[1];
+      $query->sort($sort_by, $sort_mode);
+    }
+
     $server = $index->getServerInstance();
     if ($server->supportsFeature('search_api_facets')) {
       $filters = $this->getFilters();
@@ -232,23 +298,40 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     $locations_info = $this->getLocationsInfo();
     /** @var \Drupal\search_api\Item\Item $result_item */
     foreach ($results->getResultItems() as $result_item) {
-      $entity = $result_item->getOriginalObject()->getValue();
+      try {
+        $entity = $result_item->getOriginalObject()->getValue();
+        if (!$entity) {
+          $this->loggerChannel->error('Failed to load original object ' . $this->itemId);
+          continue;
+        }
+      }
+      catch (SearchApiException $e) {
+        // If we couldn't load the object, just log an error and fail
+        // silently to set the values.
+        $this->loggerChannel->error($e);
+        continue;
+      }
       $fields = $result_item->getFields();
       $dates = $entity->field_session_time->referencedEntities();
       $schedule_items = [];
       foreach ($dates as $date) {
         $_period = $date->field_session_time_date->getValue()[0];
-        $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value']));
-        $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value']));
+        $_from = DrupalDateTime::createFromTimestamp(strtotime($_period['value'] . 'Z'), $this->timezone);
+        $_to = DrupalDateTime::createFromTimestamp(strtotime($_period['end_value'] . 'Z'), $this->timezone);
         $days = [];
         foreach ($date->field_session_time_days->getValue() as $time_days) {
-          $days[] = ucfirst($time_days['value']);
+          $days[] = substr(ucfirst($time_days['value']), 0, 3);
         }
         $schedule_items[] = [
           'days' => implode(', ', $days),
-          'time' => $_from->format('g:i') .'-'. $_to->format('g:i a'),
+          'time' => $_from->format('g:ia') . '-' . $_to->format('g:ia'),
         ];
-        $full_dates = $_from->format('m/d/Y') . ' - ' . $_to->format('m/d/Y');
+        $full_dates = $_from->format('M d') . '-' . $_to->format('M d');
+        // It is necessary to calculate not the number of full weeks,
+        // but the number of sessions that takes place in the specified period.
+        // I.e. we calculate the amount of the last day of the week
+        // with the session (for example, Friday) in the period.
+        $weeks = $this->countDaysByName(end($days), $_from->getPhpDateTime(), $_to->getPhpDateTime());
       }
 
       $availability_status = 'closed';
@@ -261,19 +344,56 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         $availability_note = t('Registration closed')->__toString();
       }
 
-      $data[] = [
+      $class = $entity->field_session_class->entity;
+      $activity = $class->field_class_activity->entity;
+      $sub_category = $activity->field_activity_category->entity;
+      $learn_more = '';
+      if ($sub_category && $sub_category->hasField('field_learn_more')) {
+        $link = $sub_category->field_learn_more->getValue();
+        if (!empty($link[0]['uri'])) {
+          $learn_more_view = $sub_category->field_learn_more->view();
+          $learn_more = render($learn_more_view)->__toString();
+        }
+      }
+
+      $price = [];
+      if (!empty($entity->field_session_mbr_price->value)) {
+        $price[] = '$' . $entity->field_session_mbr_price->value . '(member)';
+      }
+      if (!empty($entity->field_session_nmbr_price->value)) {
+        $price[] = '$' . $entity->field_session_nmbr_price->value . '(non-member)';
+      }
+
+      $activity_type = '';
+      if (!empty($entity->field_activity_type->value)) {
+        $activity_type = $entity->field_activity_type->value;
+      }
+
+      $atc_info = [];
+      if ($activity_type == 'group') {
+        // Create "Add to calendar" info for "group" activity types.
+        // Example of calendar format 2018-08-21 14:15:00.
+        $atc_info['time_start_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
+        $atc_info['time_end_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['end_value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
+        $atc_info['timezone'] = drupal_get_user_timezone();
+      }
+
+      $item_data = [
         'nid' => $entity->id(),
         'availability_note' => $availability_note,
         'availability_status' => $availability_status,
+        'activity_type' => $activity_type,
         'dates' => isset($full_dates) ? $full_dates : '',
+        'weeks' => isset($weeks) ? $weeks : '',
         'schedule' => $schedule_items,
         'days' => isset($schedule_items[0]['days']) ? $schedule_items[0]['days'] : '',
         'times' => isset($schedule_items[0]['time']) ? $schedule_items[0]['time'] : '',
         'location' => $fields['field_session_location']->getValues()[0],
+        'location_id' => $locations_info[$fields['field_session_location']->getValues()[0]]['nid'],
         'location_info' => $locations_info[$fields['field_session_location']->getValues()[0]],
         'log_id' => $log_id,
         'name' => $fields['title']->getValues()[0]->getText(),
-        'price' => 'Member: $' . $entity->field_session_mbr_price->value . '<br/>Non-Member: $' . $entity->field_session_nmbr_price->value,
+        'price' => implode(', ', $price),
         'link' => Url::fromRoute('openy_activity_finder.register_redirect', [
             'log' => $log_id,
           ],
@@ -282,20 +402,30 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           ],
         ])->toString(),
         'description' => html_entity_decode(strip_tags(text_summary($entity->field_session_description->value, $entity->field_session_description->format, 600))),
-        'ages' => $entity->field_session_min_age->value . '-' . $entity->field_session_max_age->value . 'yrs',
+        'ages' => $this->convertData([$entity->field_session_min_age->value, isset($entity->field_session_max_age->value) ? $entity->field_session_max_age->value : '0']),
         'gender' => !empty($entity->field_session_gender->value) ? $entity->field_session_gender->value : '',
         // We keep empty variables in order to have the same structure with other backends (e.g. Daxko) for avoiding unexpected errors.
-        'location_id' => '',
-        'program_id' => '',
+        'program_id' => $sub_category->id(),
         'offering_id' => '',
         'info' => [],
         'location_name' => '',
         'location_address' => '',
         'location_phone' => '',
-        'spots_available' => !empty($entity->field_availability->value) ? $entity->field_availability->value . ' open spots' : '',
+        'spots_available' => !empty($entity->field_availability->value) ? $entity->field_availability->value : '',
         'status' => $availability_status,
         'note' => $availability_note,
+        'learn_more' => !empty($learn_more) ? $learn_more : '',
+        'more_results' => '',
+        'more_results_type' => 'program',
+        'program_name' => $fields['title']->getValues()[0]->getText(),
+        'atc_info' => $atc_info,
       ];
+
+      // Allow other modules to alter the process results.
+      $this->moduleHandler
+        ->alter('activity_finder_program_process_results', $item_data, $entity);
+
+      $data[] = $item_data;
     }
     return $data;
   }
@@ -311,53 +441,37 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     // Add static Age filter.
     $facets['static_age_filter'] = $this->getAges();
 
+    $facets_m = $facets;
     foreach ($facets as $f => $facet) {
-      // Modify age filter.
-      foreach ($facet as $i => $item) {
-        if ($f == 'static_age_filter') {
-          $facets[$f][$i] = [
-            'filter' => $i,
-            'label' => $item,
-            'safe' => 'age_' . str_replace('+', '', $i) . '_months',
-          ];
-        }
-      }
       foreach ($facet as $i => $item) {
         if (!empty($item['filter'])) {
           // Remove double quotes.
-          $facets[$f][$i]['filter'] = str_replace('"', '', $item['filter']);
-          // Add safe string for using in tag attributes.
-          $facets[$f][$i]['safe'] = Html::cleanCssIdentifier($f . '_' . $item['filter']);
+          $facets_m[$f][$i]['filter'] = str_replace('"', '', $item['filter']);
         }
-      }
-    }
-    foreach ($facets as $f => $facet) {
-      if ($f == 'locations') {
-        foreach ($facet as $i => $item) {
+        if ($f == 'locations') {
           if (!empty($item['filter'])) {
-            $facets[$f][$i]['id'] = $locationsInfo[$item['filter']]['nid'];
+            $facets_m[$f][$i]['id'] = $locationsInfo[str_replace('"', '', $item['filter'])]['nid'];
           }
         }
-      }
-      // Group field_activity_category facet by Program Type.
-      if ($f == 'field_activity_category') {
-        $grouped = [];
-        foreach ($facet as $i => $item) {
-          if (isset($category_program_info[$item['filter']])) {
-            $grouped[$category_program_info[$item['filter']]][] = $item;
-          }
-          else {
-            // On regular basis there are no results, keep for tracking vary case.
-            $grouped['Others'][] = $item;
+        if ($f == 'field_activity_category') {
+          foreach ($category_program_info as $nid => $info) {
+            if ('"' . $info['title'] . '"' == $item['filter']) {
+              $facets_m[$f][$i]['id'] = $nid;
+            }
           }
         }
-        $facets[$f] = !empty($grouped) ? $grouped : $facet;
+        // Pass counters to static ages filter.
+        if ($f == 'static_age_filter') {
+          foreach ($facets['af_ages_min_max'] as $info) {
+            if ('"' . $item['value'] . '"' == $info['filter']) {
+              $facets_m[$f][$i]['count'] = $info['count'];
+            }
+          }
+        }
       }
     }
-
-    return $facets;
+    return $facets_m;
   }
-
 
   /**
    * {@inheritdoc}
@@ -406,6 +520,20 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         'min_count' => 0,
         'missing' => TRUE,
       ],
+      'af_parts_of_day' => [
+        'field' => 'af_parts_of_day',
+        'limit' => 0,
+        'operator' => 'AND',
+        'min_count' => 0,
+        'missing' => TRUE,
+      ],
+      'af_ages_min_max' => [
+        'field' => 'af_ages_min_max',
+        'limit' => 0,
+        'operator' => 'AND',
+        'min_count' => 0,
+        'missing' => TRUE,
+      ],
     ];
     return $filters;
   }
@@ -422,7 +550,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     else {
       $nids = $this->entityQuery
         ->get('node')
-        ->condition('type','program_subcategory')
+        ->condition('type', 'program_subcategory')
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunked) {
@@ -443,7 +571,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       }
 
       $expire = $this->time->getRequestTime() + self::CACHE_TTL;
-      $this->cache->set($cid, $data, $expire);
+      $this->cache->set($cid, $data, $expire, [self::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return $data;
@@ -461,32 +589,44 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     else {
       $nids = $this->entityQuery
         ->get('node')
-        ->condition('type', ['branch', 'camp'], 'IN')
+        ->condition('type', ['branch', 'camp', 'facility'], 'IN')
+        ->condition('status', 1)
+        ->sort('title', 'ASC')
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
       foreach ($nids_chunked as $chunked) {
         $locations = $this->entityTypeManager->getStorage('node')->loadMultiple($chunked);
         if (!empty($locations)) {
           foreach ($locations as $location) {
-            $address = implode(', ', [
-              $location->field_location_address->address_line1,
-              $location->field_location_address->locality,
-              $location->field_location_address->administrative_area,
-              $location->field_location_address->postal_code,
-            ]);
+            $address = [];
+            if (!empty($location->field_location_address->address_line1))  {
+              array_push($address, $location->field_location_address->address_line1);
+            }
+            if (!empty($location->field_location_address->locality))  {
+              array_push($address, $location->field_location_address->locality);
+            }
+            if (!empty($location->field_location_address->administrative_area))  {
+              array_push($address, $location->field_location_address->administrative_area);
+            }
+            if (!empty($location->field_location_address->postal_code))  {
+              array_push($address, $location->field_location_address->postal_code);
+            }
+            $address = implode(', ', $address);
             $days = [];
-            foreach ($location->field_branch_hours as $multi_hours) {
-              $sub_hours = $multi_hours->getValue();
-              $days = [
-                [
-                  0 => "Mon - Fri:",
-                  1 => $sub_hours['hours_mon']
-                ],
-                [
-                  0 => "Sat - Sun:",
-                  1 => $sub_hours['hours_sat']
-                ]
-              ];
+            if ($location->hasField('field_branch_hours')) {
+              foreach ($location->field_branch_hours as $multi_hours) {
+                $sub_hours = $multi_hours->getValue();
+                $days = [
+                  [
+                    0 => "Mon - Fri:",
+                    1 => $sub_hours['hours_mon']
+                  ],
+                  [
+                    0 => "Sat - Sun:",
+                    1 => $sub_hours['hours_sat']
+                  ]
+                ];
+              }
             }
             $data[$location->title->value] =[
               'type' => $location->bundle(),
@@ -501,7 +641,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         }
       }
       $expire = $this->time->getRequestTime() + self::CACHE_TTL;
-      $this->cache->set($cid, $data, $expire);
+      $this->cache->set($cid, $data, $expire, [self::ACTIVITY_FINDER_CACHE_TAG]);
     }
 
     return $data;
@@ -546,31 +686,38 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     return [
       [
         'label' => 'Mon',
-        'value' => 'monday',
+        'search_value' => 'monday',
+        'value' => '1',
       ],
       [
         'label' => 'Tue',
-        'value' => 'tuesday',
+        'search_value' => 'tuesday',
+        'value' => '2',
       ],
       [
         'label' => 'Wed',
-        'value' => 'wednesday',
+        'search_value' => 'wednesday',
+        'value' => '3',
       ],
       [
         'label' => 'Thu',
-        'value' => 'thursday',
+        'search_value' => 'thursday',
+        'value' => '4',
       ],
       [
         'label' => 'Fri',
-        'value' => 'friday',
+        'search_value' => 'friday',
+        'value' => '5',
       ],
       [
         'label' => 'Sat',
-        'value' => 'saturday',
+        'search_value' => 'saturday',
+        'value' => '6',
       ],
       [
         'label' => 'Sun',
-        'value' => 'sunday',
+        'search_value' => 'sunday',
+        'value' => '7',
       ],
     ];
   }
@@ -604,5 +751,102 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     return [];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getPages($count) {
+    $pages = [];
+    // Calculate number of pages.
+    $pages_count = $count / $this::TOTAL_RESULTS_PER_PAGE;
+    $pages_count = ceil($pages_count);
+    $pages['total_pages'] = $pages_count;
+    $range = range(1, $pages_count);
+    // Make array starts from 1 for better usage.
+    array_unshift($range, '');
+    unset($range[0]);
+    $pages['pages'] = $range;
+
+    return $pages;
+  }
+
+  public function getSortOptions() {
+    return [
+      'title__ASC' => t('Sort by Title (A-Z)'),
+      'title__DESC' => t('Sort by Title (Z-A)'),
+      'field_session_location__ASC' => t('Sort by Location (A-Z)'),
+      'field_session_location__DESC' => t('Sort by Location (Z-A)'),
+      'field_session_class__ASC' => t('Sort by Activity (A-Z)'),
+      'field_session_class__DESC' => t('Sort by Activity (Z-A)'),
+    ];
+  }
+
+  /**
+   * Date months to years transformation.
+   *
+   * @param array $ages
+   *   Array with min and max age values,
+   *
+   * @return string
+   *   String with month or year.
+   */
+  public function convertData($ages = []) {
+    $ages_y = [];
+    for ($i = 0; $i < count($ages); $i++) {
+      if ($ages[$i] > 18) {
+        if ($ages[$i] % 12) {
+          $ages_y[$i] = number_format($ages[$i] / 12, 1, '.', '');
+        }
+        else {
+          $ages_y[$i] = number_format($ages[$i] / 12, 0, '.', '');;
+        }
+        if (isset($ages[$i + 1]) && $ages[$i + 1] == 0) {
+          $ages_y[$i] .= t('+ years');
+        }
+        if (isset($ages[$i + 1]) && $ages[$i + 1] > 18 || !isset($ages[$i + 1])) {
+          if ($i % 2 || (!$ages[$i + 1]) && !($i % 2)) {
+            $ages_y[$i] .= t(' years');
+          }
+        }
+      }
+      else {
+        if ($ages[$i] <= 18 && $ages[$i] != 0) {
+          $plus = '';
+          if (isset($ages[$i + 1]) && $ages[$i + 1] == 0) {
+            $plus = ' + ';
+          }
+          $ages_y[$i] = $ages[$i] . \Drupal::translation()->formatPlural($ages_y[$i], ' month', ' months' . $plus);
+        }
+        else {
+          if ($ages[$i] == 0 && $ages[$i + 1]) {
+            $ages_y[$i] = $ages[$i];
+          }
+        }
+      }
+    }
+    return implode($ages_y, ' - ');
+  }
+
+  /**
+   * Helper function to calculate weekday quantity in period.
+   *
+   * @param String $dayName eg 'Mon', 'Tue' etc
+   * @param DateTimeInterface $start
+   * @param DateTimeInterface $end
+   *
+   * @return int
+   * @throws \Exception
+   */
+  public function countDaysByName($dayName, DateTimeInterface $start, DateTimeInterface $end) {
+    $count = 0;
+    $interval = new \DateInterval('P1D');
+    $period = new \DatePeriod($start, $interval, $end);
+
+    foreach($period as $day){
+      if($day->format('D') === ucfirst(substr($dayName, 0, 3))){
+        $count ++;
+      }
+    }
+    return $count;
+  }
 
 }

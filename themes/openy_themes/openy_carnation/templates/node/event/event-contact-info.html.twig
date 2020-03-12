@@ -15,7 +15,7 @@
  */
 #}
 <div class="d-inline-block w-100">
-  <h5><i class="far fa-question-circle text-gray-300"></i> {{ 'Contact Infomation'|t }}</h5>
+  <h5><i class="far fa-question-circle text-gray-300"></i>{{ 'Contact Information'|t }}</h5>
 
   {% if info.phone is not empty %}
     <div class="contact-phone"><i class="fa fa-phone text-gray-300"></i> {{ info.phone }}</div>
@@ -25,5 +25,7 @@
     <div class="contact-fax"><i class="fa fa-fax text-gray-300"></i> <a href="tel:{{ info.fax }}">{{ info.fax }}</a></div>
   {% endif %}
 
-  <div class="contact-email"><i class="fa fa-envelope text-gray-300"></i> {{ info.email }}</div>
+  {% if info.email is not empty %}
+    <div class="contact-email"><i class="fa fa-envelope text-gray-300"></i> {{ info.email }}</div>
+  {% endif %}
 </div>
