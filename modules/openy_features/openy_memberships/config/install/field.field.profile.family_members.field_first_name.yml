@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.profile.field_first_name
+    - profile.type.family_members
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_first_name
+id: profile.family_members.field_first_name
+field_name: field_first_name
+entity_type: profile
+bundle: family_members
+label: 'First Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

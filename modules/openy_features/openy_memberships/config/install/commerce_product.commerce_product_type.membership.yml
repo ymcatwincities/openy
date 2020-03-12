@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies: {  }
+id: membership
+label: Membership
+description: ''
+variationType: membership
+multipleVariations: true
+injectVariationFields: true
+traits: {  }
+locked: false

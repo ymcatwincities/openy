@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.profile.family_members.field_age
+    - field.field.profile.family_members.field_first_name
+    - profile.type.family_members
+id: profile.family_members.default
+targetEntityType: profile
+bundle: family_members
+mode: default
+content:
+  field_age:
+    weight: 26
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+    region: content
+  field_first_name:
+    weight: 27
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+hidden:
+  is_default: true

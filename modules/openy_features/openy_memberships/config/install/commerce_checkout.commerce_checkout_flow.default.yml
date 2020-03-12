@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies: {  }
+id: default
+label: Default
+plugin: multistep_default
+configuration:
+  display_checkout_progress: true
+  panes:
+    login:
+      allow_guest_checkout: true
+      allow_registration: false
+      step: login
+      weight: 0
+    contact_information:
+      double_entry: true
+      step: order_information
+      weight: 1
+    billing_information:
+      step: order_information
+      weight: 2
+    review:
+      step: review
+      weight: 3
+    completion_message:
+      step: complete
+      weight: 4
+    order_summary:
+      view: null
+      step: _sidebar
+      weight: 5

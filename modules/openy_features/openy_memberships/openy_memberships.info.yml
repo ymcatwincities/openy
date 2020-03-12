@@ -1,0 +1,24 @@
+name: 'Open Y Memberships'
+type: module
+core: 8.x
+dependencies:
+  - address
+  - commerce
+  - commerce_cart
+  - commerce_checkout
+  - commerce_number_pattern
+  - commerce_order
+  - commerce_price
+  - commerce_product
+  - commerce_store
+  - datalayer
+  - field
+  - inline_entity_form
+  - language
+  - path
+  - profile
+  - state_machine
+  - text
+  - user
+  - views
+core_incompatible: false

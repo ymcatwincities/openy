@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.membership
+    - field.storage.commerce_product_variation.field_best_value
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_best_value
+id: commerce_product_variation.membership.field_best_value
+field_name: field_best_value
+entity_type: commerce_product_variation
+bundle: membership
+label: 'Best Value'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,33 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_type.membership_order
+    - field.storage.commerce_order.field_family
+    - profile.type.family_members
+  module:
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_family
+id: commerce_order.membership_order.field_family
+field_name: field_family
+entity_type: commerce_order
+bundle: membership_order
+label: Family
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:profile'
+  handler_settings:
+    target_bundles:
+      family_members: family_members
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

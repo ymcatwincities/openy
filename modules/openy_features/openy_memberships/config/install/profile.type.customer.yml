@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - commerce_order
+third_party_settings:
+  commerce_order:
+    customer_profile_type: true
+id: customer
+label: Customer
+display_label: 'Customer information'
+multiple: true
+registration: false
+roles: {  }
+allow_revisions: false
+new_revision: false

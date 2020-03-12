@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: membership
+label: Membership
+orderItemType: membership_order_item
+generateTitle: false
+traits: {  }
+locked: false

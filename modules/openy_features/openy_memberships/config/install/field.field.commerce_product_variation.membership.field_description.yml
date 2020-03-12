@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.membership
+    - field.storage.commerce_product_variation.field_description
+  module:
+    - datalayer
+    - text
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_description
+id: commerce_product_variation.membership.field_description
+field_name: field_description
+entity_type: commerce_product_variation
+bundle: membership
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+label: 'Membership Order Item'
+id: membership_order_item
+purchasableEntityType: commerce_product_variation
+orderType: membership_order
+traits: {  }
+locked: false

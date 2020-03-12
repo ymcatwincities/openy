@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.profile.family_members.field_age
+    - field.field.profile.family_members.field_first_name
+    - profile.type.family_members
+id: profile.family_members.default
+targetEntityType: profile
+bundle: family_members
+mode: default
+content:
+  field_age:
+    weight: 0
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_first_name:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden:
+  search_api_excerpt: true

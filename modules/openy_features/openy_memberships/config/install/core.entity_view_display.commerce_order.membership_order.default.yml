@@ -1,0 +1,94 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_type.membership_order
+    - field.field.commerce_order.membership_order.field_family
+  module:
+    - commerce_order
+    - state_machine
+    - user
+id: commerce_order.membership_order.default
+targetEntityType: commerce_order
+bundle: membership_order
+mode: default
+content:
+  completed:
+    label: above
+    type: timestamp
+    weight: 0
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_family:
+    weight: 11
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  ip_address:
+    label: above
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  mail:
+    label: above
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  order_items:
+    type: commerce_order_item_table
+    weight: 0
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  placed:
+    label: above
+    type: timestamp
+    weight: 0
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  state:
+    label: hidden
+    type: state_transition_form
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  total_price:
+    label: hidden
+    type: commerce_order_total_summary
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    label: above
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  billing_profile: true
+  changed: true
+  order_number: true
+  search_api_excerpt: true
+  store_id: true
+  total_paid: true
