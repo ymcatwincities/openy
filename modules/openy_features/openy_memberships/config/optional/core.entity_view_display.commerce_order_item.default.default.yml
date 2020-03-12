@@ -1,0 +1,66 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_item_type.default
+  enforced:
+    module:
+      - commerce_product
+  module:
+    - commerce_price
+id: commerce_order_item.default.default
+targetEntityType: commerce_order_item
+bundle: default
+mode: default
+content:
+  created:
+    label: hidden
+    type: timestamp
+    weight: 0
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  purchased_entity:
+    type: entity_reference_entity_view
+    weight: 0
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    label: above
+    region: content
+  quantity:
+    type: number_decimal
+    weight: 1
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    label: above
+    region: content
+  total_price:
+    type: commerce_price_default
+    weight: 3
+    settings:
+      strip_trailing_zeroes: false
+      currency_display: symbol
+    third_party_settings: {  }
+    label: above
+    region: content
+  unit_price:
+    type: commerce_price_default
+    weight: 2
+    settings:
+      strip_trailing_zeroes: false
+      currency_display: symbol
+    third_party_settings: {  }
+    label: above
+    region: content
+hidden:
+  adjustments: true
+  search_api_excerpt: true

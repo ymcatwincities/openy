@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_item_type.default
+  enforced:
+    module:
+      - commerce_product
+  module:
+    - commerce_order
+id: commerce_order_item.default.default
+targetEntityType: commerce_order_item
+bundle: default
+mode: default
+content:
+  purchased_entity:
+    type: entity_reference_autocomplete
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  quantity:
+    type: commerce_quantity
+    weight: 1
+    settings:
+      placeholder: ''
+      step: '1'
+    third_party_settings: {  }
+    region: content
+  unit_price:
+    type: commerce_unit_price
+    weight: 2
+    settings:
+      require_confirmation: true
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

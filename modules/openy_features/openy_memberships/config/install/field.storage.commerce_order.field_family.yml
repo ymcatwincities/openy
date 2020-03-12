@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_order
+    - profile
+id: commerce_order.field_family
+field_name: field_family
+entity_type: commerce_order
+type: entity_reference
+settings:
+  target_type: profile
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
