@@ -10,15 +10,15 @@ use Drupal\Component\Plugin\PluginManagerInterface;
 interface SkinManagerInterface extends PluginManagerInterface {
 
   /**
-   * Gets the definitions filtered by paragraph type.
+   * Gets skins filtered by paragraph type.
    *
    * @param string $type_id
    *   The paragraph type ID.
    *
    * @return array
-   *   The definitions.
+   *   The skins.
    */
-  public function getDefinitionsByParagraphType($type_id = '');
+  public function getSkinsForParagraph($type_id);
 
   /**
    * Gets the libraries filtered by skin name and paragraph keys.

@@ -37,6 +37,12 @@ function openy_block_modal_block_content_view_alter(array &$build, EntityInterfa
   switch ($entity->bundle()) {
     case 'modal_block':
       $content = $entity->field_modal_content->get(0);
+      $linkUrl = NULL;
+      $link = $entity->field_link->get(0);
+      if ($link) {
+        $linkUrl = $link->getUrl();
+      }
+
       $build['modal'] = [
         '#theme' => 'modal_block',
         '#header' => $entity->field_modal_header->value,
@@ -48,7 +54,7 @@ function openy_block_modal_block_content_view_alter(array &$build, EntityInterfa
           '#langcode' => $content->getLangcode(),
         ],
         '#mode' => $entity->field_mode->value,
-        '#ajaxLink' => $entity->field_link->get(0)->getUrl(),
+        '#ajaxLink' => $linkUrl,
         '#ajaxLinkTitle' => $entity->field_link->title,
         '#entity' => $entity,
         '#cache' => [

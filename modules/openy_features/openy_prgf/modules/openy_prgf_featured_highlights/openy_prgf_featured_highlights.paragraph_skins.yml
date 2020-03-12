@@ -1,0 +1,6 @@
+openy_prgf_featured_highlights.paragraph_skins:
+  - name: rounded-image
+    label: 'Rounded image'
+    paragraph_type: featured_highlights
+    library: 'openy_prgf_featured_highlights/rounded-image'
+    group: general

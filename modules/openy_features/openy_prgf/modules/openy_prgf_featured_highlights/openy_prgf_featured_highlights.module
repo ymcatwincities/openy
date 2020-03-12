@@ -65,9 +65,3 @@ function openy_prgf_featured_highlights_preprocess_paragraph(&$variables) {
     }
   }
 }
-
-function openy_prgf_featured_highlights_paragraph_skins(array &$data) {
-  $data['featured_highlights']['rounded-image'] = [
-    'library' => 'openy_prgf_featured_highlights/rounded-image',
-  ];
-}

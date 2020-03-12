@@ -10,14 +10,13 @@ After this action, new skins will appear at the system.
 ##### Explaining for data:
 Data structure is the standard array in the YAML file.
 ```yaml
-paragraph_skins:
+{module-name}.paragraph_skins:
   - name: feature-card // Skin key
     label: 'Feature card'
     paragraph_type: 1c // Paragraph bundle to which we want attach this skin
     library: 'openy_prgf_1c/feature-card' // Library for skin
     theme_library:
       openy_carnation: 'openy_carnation/feature-card' // Theme name and library name
-    group: general // Skin group
 ```
 
 ##### Explaining for preprocess:

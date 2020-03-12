@@ -80,20 +80,8 @@ function paragraph_skins_entity_base_field_info(EntityTypeInterface $entity_type
  * @see options_allowed_values()
  */
 function paragraph_skins_allowed_values_function(FieldStorageDefinitionInterface $definition, FieldableEntityInterface $entity = NULL, &$cacheable = FALSE) {
-  $cacheable = FALSE;
-  $skin_list = [
-    'none' => t('None'),
-  ];
-  if (isset($entity)) {
-    // Get data from module hook.
-    $skin_theme_data = Drupal::service('plugin.manager.paragraph_skins')
-      ->getDefinitionsByParagraphType($entity->getType());
-
-    foreach ($skin_theme_data as $skin) {
-      $skin_list[$skin['name']] = $skin['label'];
-    }
-  }
-  return $skin_list;
+  return Drupal::service('plugin.manager.paragraph_skins')
+      ->getSkinsForParagraph($entity->getType());
 }
 
 /**
@@ -102,7 +90,7 @@ function paragraph_skins_allowed_values_function(FieldStorageDefinitionInterface
 function paragraph_skins_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
   // Change " - None - " option label to "Default".
   if (isset($element['#paragraph_type']) && !empty($element['#paragraph_type']) && isset($element['subform']['skin'])) {
-    $element['subform']['skin']['widget']['#options']['_none'] = "Default";
+    $element['subform']['skin']['widget']['#options']['_none'] = t("Default");
   }
 }
 

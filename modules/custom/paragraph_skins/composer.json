@@ -4,10 +4,10 @@
     "description": "Implement skins for paragraphs",
     "keywords": [
     ],
-    "homepage": "https://www.drupal.org/project/paragraph_skins",
+    "homepage": "https://github.com/ymcatwincities/paragraph_skins",
     "minimum-stability": "dev",
     "support": {
-        "issues": "https://www.drupal.org/project/issues/paragraph_skins",
-        "source": "http://cgit.drupalcode.org/paragraph_skins"
+        "issues": "https://github.com/ymcatwincities/paragraph_skins/issues",
+        "source": "https://github.com/ymcatwincities/paragraph_skins.git"
     }
 }

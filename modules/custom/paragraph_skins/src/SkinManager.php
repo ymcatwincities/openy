@@ -24,13 +24,7 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
    *
    * @var array
    */
-  protected $defaults = [
-    'paragraph_type' => '',
-    'label' => '',
-    'theme' => '',
-    'library' => '',
-    'group' => '',
-  ];
+  protected $defaults = [];
 
   /**
    * @var \Drupal\Core\Theme\ThemeManager
@@ -78,48 +72,71 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Returns list of skins for paragraph.
+   *
+   * @param string $type_id Paragraph type id
+   *
+   * @return array
    */
-  public function getDefinitionsByParagraphType($type_id = '') {
+  public function getSkinsForParagraph($type_id) {
     $definitions = $this->getDefinitions();
-    $definitions = $definitions['paragraph_skins'];
-    if ($type_id) {
-      $definitions = array_filter($definitions, function ($definition) use ($type_id) {
-        return isset($definition['paragraph_type']) && $definition['paragraph_type'] == $type_id;
-      });
+
+    $skins = [
+      'none' => t('None'),
+    ];
+
+    foreach ($definitions as $module_skins) {
+      unset($module_skins['provider'], $module_skins['id']);
+      foreach ($module_skins as $skin_definition) {
+        if (!isset($skin_definition['paragraph_type']) || $skin_definition['paragraph_type'] != $type_id) {
+          continue;
+        }
+
+        $skins[$skin_definition['name']] = $skin_definition['label'];
+      }
     }
 
-    return $definitions;
+    return $skins;
   }
 
   /**
-   * {@inheritdoc}
+   * Returns list of libraries.
+   *
+   * @return array
    */
   public function getLibraries($type_id, $skin_name) {
     $definitions = $this->getDefinitions();
-    $definitions = array_filter($definitions['paragraph_skins'], function ($definition) use ($type_id, $skin_name) {
-      return isset($definition['paragraph_type'])
-        && $definition['paragraph_type'] == $type_id
-        && $definition['name'] == $skin_name;
-    });
-
-    $base_theme_name = $this->getBaseTheme();
-
+    $base_theme_name = $this->getBaseThemeName();
     $libraries = [];
-    foreach ($definitions as $definition) {
-      if(isset($definition['library'])) {
-        $libraries[] = $definition['library'];
-      }
-      if(isset($definition['theme_library'][$base_theme_name])) {
-        $libraries[] = $definition['theme_library'][$base_theme_name];
+
+    foreach ($definitions as $module_skins) {
+      unset($module_skins['provider'], $module_skins['id']);
+      foreach ($module_skins as $skin_definition) {
+        if (!isset($skin_definition['paragraph_type']) || $skin_definition['paragraph_type'] != $type_id) {
+          continue;
+        }
+        if (!isset($skin_definition['name']) || $skin_definition['name'] != $skin_name) {
+          continue;
+        }
+        if (isset($skin_definition['library'])) {
+          $libraries[] = $skin_definition['library'];
+        }
+        if (isset($skin_definition['theme_library'][$base_theme_name])) {
+          $libraries[] = $skin_definition['theme_library'][$base_theme_name];
+        }
       }
     }
 
     return $libraries;
   }
 
-  public function getBaseTheme() {
-    if(!empty($this->base_theme_name)) {
+  /**
+   * Returns current base theme name.
+   *
+   * @return string
+   */
+  public function getBaseThemeName() {
+    if (!empty($this->base_theme_name)) {
       return $this->base_theme_name;
     }
 
@@ -133,4 +150,5 @@ class SkinManager extends DefaultPluginManager implements SkinManagerInterface {
     $this->base_theme_name = $active_theme->getName();
     return $this->base_theme_name;
   }
+
 }

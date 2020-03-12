@@ -4,4 +4,3 @@ rounded-image:
   css:
     theme:
       dist/css/rounded-image.css: { minified: true}
-
