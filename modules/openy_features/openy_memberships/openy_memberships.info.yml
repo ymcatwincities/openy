@@ -12,9 +12,12 @@ dependencies:
   - commerce_product
   - commerce_store
   - datalayer
+  - entity_reference_revisions
   - field
   - inline_entity_form
   - language
+  - node
+  - options
   - path
   - profile
   - state_machine
