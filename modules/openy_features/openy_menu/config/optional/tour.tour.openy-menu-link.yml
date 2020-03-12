@@ -13,7 +13,7 @@ tips:
     id: menu-link-form
     plugin: text
     label: 'Menu link form'
-    body: 'On this page you can create a new menu link. When you open an existing menu link, this form will be populated with values.'
+    body: 'On this page you can create a new menu link. When you open an existing menu link, this form will already be filled in with the current link information.'
     weight: 1
   menu-link-form-title:
     id: menu-link-form-title
@@ -27,7 +27,7 @@ tips:
     id: menu-link-form-link
     plugin: text
     label: 'Menu link URL'
-    body: 'Add a link to a piece of content or page for the menu link title added above. Internal and external URLs are supported'
+    body: 'Add a link to the content or webpage you want to send users to after they click the menu link. Both internal and external URLs are supported.'
     weight: 3
     attributes:
       data-class: 'field--name-link'
@@ -35,7 +35,7 @@ tips:
     id: menu-link-form-enabeld
     plugin: text
     label: 'Enabled checkbox'
-    body: 'This option displays whether the menu item is active or deactiveated.'
+    body: 'This option displays whether the menu item is active or hidden from your website.'
     weight: 4
     attributes:
       data-class: 'field--name-enabled'
@@ -43,7 +43,7 @@ tips:
     id: menu-link-form-description
     plugin: text
     label: 'Menu link description'
-    body: 'Add a description here, that will appear when a user hovers over the menu.'
+    body: 'Add a description here that will appear when a user hovers over the menu.'
     weight: 5
     attributes:
       data-class: 'field--name-description'
@@ -51,7 +51,7 @@ tips:
     id: menu-link-form-expanded
     plugin: text
     label: 'Expanded menu item'
-    body: 'This option displays whether your menu item should display all child items.'
+    body: 'This checkbox determines whether or not your menu item should always be explanded to display a sub-menu of child item links, if it has any.'
     weight: 6
     attributes:
       data-class: 'field--name-expanded'
@@ -59,7 +59,7 @@ tips:
     id: menu-link-form-icon
     plugin: text
     label: 'Menu link icon'
-    body: 'Upload a menu icon if you want one to appear next to the 2nd level of the main menu.'
+    body: 'Upload a menu icon if you want one to appear next to the second level of the main menu.'
     weight: 7
     attributes:
       data-class: 'form-item-icon-upload'
@@ -67,7 +67,7 @@ tips:
     id: menu-link-form-parent
     plugin: text
     label: 'Parent menu link'
-    body: 'Select the parent of the menu that you want this current menu link to appear under. This could go down to multiple levels.'
+    body: 'Select the parent of the menu under which you want this current menu link to appear. This could go down to multiple levels. Select Main navigation if you would ike it to appear as a link in your navigation bar.'
     weight: 8
     attributes:
       data-class: 'form-item-menu-parent'
@@ -75,7 +75,7 @@ tips:
     id: menu-link-form-weight
     plugin: text
     label: 'Menu link weight'
-    body: 'This field determines the order of menu items. You can also drag & drop menu items on menu management screen.'
+    body: 'This field determines the order of menu items. You can also drag & drop menu items on the menu management screen.'
     weight: 9
     attributes:
       data-class: 'field--name-weight'

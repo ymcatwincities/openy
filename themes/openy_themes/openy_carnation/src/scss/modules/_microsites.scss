@@ -1,5 +1,7 @@
-.microsites-menu.microsites-menu--hide-main-menu .nav-home .navbar-nav {
-  visibility: hidden;
+.microsites-menu.microsites-menu--hide-main-menu {
+  ul.navbar {
+    visibility: hidden;
+  }
 }
 
 .camp-menu__wrapper,
@@ -11,19 +13,21 @@
     color: inherit;
     text-transform: uppercase;
     font-size: 16px;
-    margin: 10px 15px;
+    margin: 18px 30px 18px 0;
 
     &:hover {
       color: inherit;
       text-decoration: underline;
     }
 
-    &:first-child {
-      margin-left: 0;
-    }
-
     &:last-child {
       margin-right: 0;
     }
+  }
+
+  .wrapper-field-menu-block-links {
+    justify-content: flex-end !important;
+    z-index: 1050;
+    padding-left: 200px;
   }
 }

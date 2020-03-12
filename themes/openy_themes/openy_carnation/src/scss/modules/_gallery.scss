@@ -1,9 +1,9 @@
 // hide gallery arrows when placed in the header
-.banner-zone-node {
+#block-openy-carnation-content article {
   .paragraph-gallery {
 
     .carousel {
-      margin: 0 -135px;
+      margin: 0;
 
       @include media-breakpoint-up(lg) {
         margin: 0;
@@ -95,6 +95,9 @@
       }
     }
 
+    .media {
+      opacity: 0.7;
+    }
   }
 
   .cta-group-wrapper {
@@ -107,6 +110,12 @@
       right: 0;
       background: transparent;
       z-index: 0;
+    }
+
+    h1 {
+      @include media-breakpoint-down(sm) {
+        font-size: 2rem;
+      }
     }
 
     .text {

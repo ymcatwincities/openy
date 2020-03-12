@@ -2,13 +2,14 @@
 
 namespace Drupal\personify;
 
-use Drupal\openy_campaign\CRMClientInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Site\Settings;
+use GuzzleHttp\Client;
 
 /**
  * Helper for Personify API requests needed for retention campaign.
  */
-class PersonifyClient implements CRMClientInterface {
+class PersonifyClient {
 
   /** @var string Personify API endpoint */
   protected $endpoint;
@@ -20,12 +21,28 @@ class PersonifyClient implements CRMClientInterface {
   protected $password;
 
   /**
-   * Client constructor.
+   * @var \GuzzleHttp\Client
    */
-  public function __construct() {
-    $this->endpoint = Settings::get('personify_endpoint');
-    $this->username = Settings::get('personify_username');
-    $this->password = Settings::get('personify_password');
+  protected $client;
+
+  /**
+   * @var array
+   */
+  protected $config;
+
+  /**
+   * PersonifyClient constructor.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \GuzzleHttp\Client $client
+   */
+  public function __construct(ConfigFactoryInterface $configFactory, Client $client) {
+    $this->client = $client;
+    $this->config = $configFactory->get('personify.settings')->getRawData();
+
+    $this->endpoint = $this->config[$this->config['environment'] . '_endpoint'];
+    $this->username = $this->config[$this->config['environment'] . '_username'];
+    $this->password = $this->config[$this->config['environment'] . '_password'];
 
     if (empty($this->endpoint) || empty($this->username) || empty($this->password)) {
       throw new \LogicException(t('Personify module is misconfigured. Make sure endpoint, username and password details are set.'));
@@ -33,39 +50,50 @@ class PersonifyClient implements CRMClientInterface {
   }
 
   /**
-   * @param $method
-   * @param $json
+   * @param string $type
+   * @param string $method
+   * @param array $body
+   * @param string $body_format
    *
    * @return array|mixed
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  protected function doAPIcall($method, $json) {
-    $client = \Drupal::httpClient();
+  public function doAPIcall($type = 'GET', $method = '', $body = [], $body_format = 'json') {
+
+    $body_key = 'body';
+    if ($body_format == 'json') {
+      $body_key = 'json';
+    }
+
     $options = [
-      'json' => $json,
+      $body_key => $body,
       'headers' => [
-        'Content-Type' => 'application/json;charset=utf-8',
+        'Content-Type' => 'application/' . $body_format . ';charset=utf-8',
       ],
       'auth' => [
         $this->username,
         $this->password,
       ],
     ];
+
     try {
+
       $endpoint = $this->endpoint . $method;
-      $response = $client->request('POST', $endpoint, $options);
+
+      $response = $this->client->request($type, $endpoint, $options);
+
       if ($response->getStatusCode() != '200') {
         throw new \LogicException(t('API Method %method is failed.', ['%method' => $method]));
       }
-      $body = $response->getBody();
-      $content = $body->getContents();
 
+      $content = $response->getBody()->getContents();
       \Drupal::logger('personify')->info('Personify request to %method. Arguments %json. Response %body', [
         '%method' => $method,
-        '%json' => json_encode($json),
+        '%json' => json_encode($body),
         '%body' => $content,
       ]);
 
-      return json_decode($content);
+      return json_decode($content, TRUE);
     }
     catch (\Exception $e) {
       watchdog_exception('personify', $e);
@@ -89,7 +117,7 @@ class PersonifyClient implements CRMClientInterface {
       ],
     ];
 
-    return $this->doAPIcall('CL_GetCustomerBranchInformation', $json);
+    return $this->doAPIcall('POST', 'CL_GetCustomerBranchInformation', $json);
   }
 
   /**

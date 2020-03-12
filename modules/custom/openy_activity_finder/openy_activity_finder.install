@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update routines.
+ */
+
+/**
+* Update configs.
+*/
+function openy_activity_finder_update_8001() {
+  $openy_activity_finder_dir = drupal_get_path('module', 'openy_activity_finder');
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory($openy_activity_finder_dir . '/config/install');
+  $cim->importConfigs(['openy_activity_finder.settings']);
+
+  $cim->setDirectory($openy_activity_finder_dir . '/config/optional');
+  $config = \Drupal::config('search_api.index.default');
+  if (!$config->isNew()) {
+    // Import config only in case it already exist.
+    $cim->importConfigs(['search_api.index.default']);
+  }
+}
+
+/**
+ * Update configs.
+ */
+function openy_activity_finder_update_8002() {
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/optional');
+  $config = \Drupal::config('search_api.index.default');
+  if (!$config->isNew()) {
+    // Import config only in case it already exist.
+    $cim->importConfigs(['search_api.index.default']);
+  }
+}
+
+/**
+ * Update configs.
+ */
+function openy_activity_finder_update_8003() {
+  \Drupal::service('module_installer')->install(['openy']);
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/install');
+  $cim->importConfigs(['openy_activity_finder.settings']);
+}
+
+/**
+ * Update Activity Finder configs.
+ */
+function openy_activity_finder_update_8004(&$sandbox) {
+  \Drupal::configFactory()
+    ->getEditable('openy_activity_finder.settings')
+    ->set('index', 'default')
+    ->save();
+}
+
+/**
+ * Update configs.
+ */
+function openy_activity_finder_update_8005() {
+  $cim = \Drupal::service('config_import.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_activity_finder') . '/config/optional');
+  $config = \Drupal::config('search_api.index.default');
+  if (!$config->isNew()) {
+    // Import config only in case it already exist.
+    $cim->importConfigs(['search_api.index.default']);
+  }
+}

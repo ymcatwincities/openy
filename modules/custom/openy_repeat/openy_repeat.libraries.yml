@@ -6,6 +6,7 @@ openy_repeat:
     base:
       css/repeat.css: {}
       css/print.css: { media: print }
+      css/repeat_mobile.css: {}
   dependencies:
     - openy_system/openy_system.helpers
     - openy_system/openy_system.modal
@@ -15,7 +16,7 @@ openy_repeat:
     - openy_system/addtocal
     - openy_system/polyfill
     - openy_system/vue
-    - openy_system/vue_router
+    - openy_system/vue-router
     - openy_system/moment
     - openy_repeat/bootstrap-datepicker
     - openy_repeat/openy_repeat.schedules

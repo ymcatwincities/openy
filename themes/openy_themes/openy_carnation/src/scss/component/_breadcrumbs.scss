@@ -7,10 +7,14 @@ $breadcrumbColorsLength: length($breadcrumbColors);
 
 .breadcrumbs-wrapper {
   position: absolute;
-  bottom: -25px;
+  margin-top: -25px;
   z-index: 10;
   left: 0;
   right: 0;
+}
+
+.banner-cta-content .breadcrumbs-wrapper {
+  margin-top: 23px;
 }
 
 .breadcrumbs {
@@ -60,7 +64,8 @@ $breadcrumbColorsLength: length($breadcrumbColors);
     @for $i from 1 through $breadcrumbColorsLength {
       &:nth-of-type(1n+#{$i}) {
         a {
-          color: $cyan;
+          /*color: $cyan;*/
+          color: $teal;
           background-color: nth($breadcrumbColors, $i);
 
           &:after {
@@ -72,7 +77,7 @@ $breadcrumbColorsLength: length($breadcrumbColors);
 
     // active breadcrumb (title)
     span {
-      color: $gray-400;
+      color: $gray-500;
       background: lighten($gray-200, 5%);
 
       &:after {
@@ -88,5 +93,22 @@ $breadcrumbColorsLength: length($breadcrumbColors);
         display: none;
       }
     }
+  }
+}
+
+body.without-banner {
+  .breadcrumbs-wrapper {
+    position: initial;
+  }
+  &.page-node-type-class {
+    .breadcrumbs-wrapper {
+      margin-top: -225px;
+    }
+  }
+}
+
+.page-node-type-camp {
+  .breadcrumbs-wrapper {
+    margin-top: -117px;
   }
 }

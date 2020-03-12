@@ -1,46 +1,32 @@
-# Maintaining the theme.
+# OpenY Carnation theme Readme.
 
-##1. Install Yarn
+##1. General info.
+Carnation is an OpenY profile theme based on Twitter Bootstrap 4.
 
-###macOS
 
-####Homebrew
+##2. Theme development
 
-You can install Yarn through the Homebrew package manager. 
-This will also install Node.js if it is not already installed.
+Carnation uses Webpack compiler. If you want to make any changes in css
+or js, please install Node.js and follow next instructions.
 
-`brew install yarn`
+##2.1 Go to the theme's folder and install packages that, required for compilation.
 
-If you use nvm or similar, you should exclude installing Node.js 
-so that nvm’s version of Node.js is used.
+`npm install`
 
-`brew install yarn --without-node`
+##2.2 Use dev mode for development (watcher wil scan for your changes and generate compiled version on fly)
 
-####MacPorts
+`npm run dev`
 
-You can install Yarn through MacPorts. 
-This will also install Node.js if it is not already installed.
+##2.3 For final compilation, please use build command.
 
-`sudo port install yarn`
+`npm run build`
 
-###Debian / Ubuntu
+##2.4 YARN (alternative to NPM) support
 
-https://yarnpkg.com/lang/en/docs/install/#debian-stable
+If you prefer yarn rather than npm, it is also supported
 
-###Windows
-https://yarnpkg.com/lang/en/docs/install/#windows-stable
+To install it, use (`brew install yarn`)
 
-##2. Go to the theme's folder
+Dev mode: `yarn run dev`
 
-`yarn install`
-
-##2a. If your grunt command is not available now, install grunt-cli, using this command:
-`sudo npm install -g grunt-cli`
-
-##3. Compile all assets
-
-`grunt build`
-
-##4. Start watching all assets (for development)
-
-`grunt watch`
+Production build: `yarn run build`

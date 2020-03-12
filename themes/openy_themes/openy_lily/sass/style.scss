@@ -1,4 +1,6 @@
+// @see http://compass-style.org/reference/compass/
 @import 'compass';
+// @see https://github.com/Team-Sass/breakpoint/wiki/Installation#using-breakpoint
 @import 'breakpoint';
 
 @import 'base/colors';
@@ -55,6 +57,10 @@
 @import 'modules/event';
 @import 'modules/social-post';
 @import 'modules/repeating-schedules';
+@import 'modules/gtranslate';
+@import 'modules/home_branch';
+@import 'modules/geysir';
+@import 'modules/google_search';
 
 // Paragraphs
 @import 'paragraphs/1c';

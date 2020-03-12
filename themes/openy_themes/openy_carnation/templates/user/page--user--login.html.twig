@@ -64,10 +64,10 @@
       <div class="row justify-content-center h-100">
         <div class="col-12 col-sm-10 col-lg-6 align-self-center">
 
-          {% if relative_logo_url %}
+          {% if logo_url %}
           <div class="brand text-center">
             <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
-              <img src="{{ relative_logo_url }}" alt="{{ 'Home'|t }}" />
+              <img src="{{ transparent_logo_url }}" alt="{{ 'Home'|t }}" />
             </a>
           </div>
           {% endif %}
@@ -84,7 +84,7 @@
 
               {# Content #}
               {% block content %}
-                <a id="main-content"></a>
+                <a id="main-content" class="sr-only sr-only-focusable"></a>
                 {{ page.content }}
               {% endblock %}
 

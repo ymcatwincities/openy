@@ -11,15 +11,18 @@
 .activity-finder__step_header--progress {
   background-color: #eee;
 }
-
+.activity-finder__step_header--progress > .container {
+  max-width: 100%;
+}
 .activity-finder__step_header--progress-inner {
   display: flex;
   align-items: center;
   min-height: 60px;
+  padding: 0.75rem 0;
 }
 
 .activity-finder__step_header--progress-spacer {
-  padding: 0 .5rem;
+  padding: 0 .5rem 0 0;
 }
 
 .activity-finder__step_header--actions {
@@ -27,7 +30,12 @@
   padding: 30px 0;
 }
 
-.activity-finder__step_header .start_over,
+.activity-finder__step_header .start_over {
+  float: right;
+  font-weight: bold;
+  font-size: 14px;
+}
+
 .activity-finder__step_header .actions {
   float: right;
 }

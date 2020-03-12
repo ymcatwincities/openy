@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.activity_finder_search.field_prgf_af_page_ref
     - paragraphs.paragraphs_type.activity_finder_search
   module:
+    - openy_repeat
     - plugin
 id: paragraph.activity_finder_search.default
 targetEntityType: paragraph
@@ -22,7 +23,7 @@ content:
   field_prgf_af_page_ref:
     weight: 1
     label: hidden
-    settings: { }
+    settings: {  }
     third_party_settings: {  }
     type: openy_json
     region: content

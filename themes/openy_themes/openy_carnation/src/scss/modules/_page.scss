@@ -1,5 +1,28 @@
 body {
   margin-top: 0 !important;
+  top: 0px !important;
+}
+
+main {
+  margin-top: 0;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 78px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 44px;
+  }
+}
+
+#block-openy-carnation-content > .container {
+  margin-top: 64px;
+}
+
+.with-banner {
+  #block-openy-carnation-tabs {
+    display: none;
+  }
 }
 
 .layout-container {
@@ -50,4 +73,9 @@ body {
 
 .webform-submission-form {
   padding-top: 136px;
+}
+
+.error-page {
+  text-align: center;
+  margin-bottom: 30px;
 }

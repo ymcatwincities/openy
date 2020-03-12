@@ -109,7 +109,7 @@
                     {{ page.search }}
                     <form method="get" action="{{ base_path }}search">
                       <i class="fa fa-search search-input-decoration" aria-hidden="true"></i>
-                      <input type="search" name="query" class="search-input" placeholder="Search">
+                      <input type="search" name="{{ search_key }}" class="search-input" placeholder="Search">
                       <input type="submit" value="Search">
                     </form>
                     <a href="#" data-target=".page-head__search" data-toggle="collapse" class="page-head__search-close">

@@ -169,3 +169,19 @@ function openy_prgf_small_banner_update_8007() {
       ->update($config, $config_name, $config_param);
   }
 }
+
+/**
+ * Update Open Y paragraph banner feature configs for OpenY Focal Point support.
+ */
+function openy_prgf_small_banner_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_small_banner') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'paragraphs.paragraphs_type.small_banner',
+    'core.entity_form_display.paragraph.small_banner.default',
+    'crop.type.crop_760_400',
+    'image.style.prgf_small_banner'
+  ]);
+}

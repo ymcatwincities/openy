@@ -113,16 +113,16 @@ class ThirdPartyServicesForm extends FormBase {
       ];
     }
 
-    // Optimizely ID Number.
-    if (\Drupal::moduleHandler()->moduleExists('optimizely')) {
-      // Get Optimizely settings container.
-      $optimizely_config = $this->configFactory->get('optimizely.settings');
-      $form['optimizely_id'] = [
+    // Google Custom Search Engine ID.
+    if (\Drupal::moduleHandler()->moduleExists('openy_google_search')) {
+      // Get Google Search Engine ID settings container.
+      $gs_config = $this->configFactory->get('openy_google_search.settings');
+      $form['google_search_engine_id'] = [
+        '#title' => $this->t('Google Search Engine ID'),
+        '#description' => $this->t('The ID assigned to this website by Google Custom Search engine. To get a engine ID, <a href="https://cse.google.com//">sign up for Google Custom Search</a> and create search engine for your website.'),
+        '#default_value' => $gs_config->get('google_engine_id'),
+        '#maxlength' => 40,
         '#type' => 'textfield',
-        '#placeholder' => 'xxxxxxxxxx',
-        '#title' => $this->t('Optimizely ID Number'),
-        '#default_value' => $optimizely_config->get('optimizely_id'),
-        '#description' => $this->t('Your Optimizely account ID.</br>In order to use this module, you\'ll need an <a href="http://optimize.ly/OZRdc0" target="_blank">Optimizely account</a>. </br>See <a href="https://github.com/ymcatwincities/openy/blob/8.x-1.x/docs/Development/Optimizely.md" target="_blank">Open Y documentation</a> for Optimizely.'),
       ];
     }
 
@@ -169,32 +169,8 @@ class ThirdPartyServicesForm extends FormBase {
         '#title' => $this->t('AddThis public id'),
         '#default_value' => $addthis_config->get('public_id'),
         '#placeholder' => 'ra-xxxxxxxxxxxxxxx',
-        '#description' => $this->t('Your AddThis public id. Example: 
+        '#description' => $this->t('Your AddThis public id. Example:
         ra-xxxxxxxxxxxxxxx. Currently we support only inline type.'),
-      ];
-    }
-
-    // Lndr API key.
-    if (\Drupal::moduleHandler()->moduleExists('lndr')) {
-      // Get Lndr settings container.
-      $lndr_config = $this->configFactory->get('lndr.settings');
-      $form['lndr'] = [
-        '#type' => 'details',
-        '#title' => $this->t('Lndr landing page builder'),
-        '#open' => TRUE,
-      ];
-
-      $form['lndr']['markup'] = [
-        '#type' => 'markup',
-        '#markup' => $this->t('<p>Lndr is a simple landing page builder that let you create campaigns, events and other landing pages. To learn more, please visit <a href=":url" target="_blank">http://www.lndr.co/</a></p>', [':url' => 'http://www.lndr.co']),
-      ];
-
-      $form['lndr']['lndr_api_token'] = [
-        '#default_value' => $lndr_config->get('lndr_token'),
-        '#description' => $this->t('You can find your API token under your <a href=":analytics">user profile</a>.', [':analytics' => 'https://www.lndr.co/users/edit']),
-        '#placeholder' => '',
-        '#title' => $this->t('Lndr API key'),
-        '#type' => 'textfield',
       ];
     }
 
@@ -223,7 +199,7 @@ class ThirdPartyServicesForm extends FormBase {
       $form_state->setValue('google_analytics_account', str_replace([
         '–',
         '—',
-        '−'
+        '−',
       ], '-', $form_state->getValue('google_analytics_account')));
 
       if (!preg_match('/^UA-\d+-\d+$/', $form_state->getValue('google_analytics_account'))) {
@@ -259,22 +235,6 @@ class ThirdPartyServicesForm extends FormBase {
         $form_state->setErrorByName('recaptcha_site_key', t('A Site Key must be provided if a Secret Key has been entered.'));
       }
     }
-
-    if (!empty(trim($form_state->getValue('lndr_api_token')))) {
-      // Check Lndr API token to see if it is valid.
-      try {
-        $response = \Drupal::httpClient()->request('POST', 'https://www.lndr.co/v1/validate_token', [
-          'form_params' => [
-            'token' => $form_state->getValue('lndr_api_token'),
-          ]]);
-
-        // @todo: token validation is successful. Let's store this in config.
-      }
-      catch(ClientException $e) {
-        // "You have entered an invalid API token, please copy and paste the API token from your profile in Lndr"
-        $form_state->setErrorByName('lndr_api_token', $e->getMessage());
-      }
-    }
   }
 
   /**
@@ -303,18 +263,11 @@ class ThirdPartyServicesForm extends FormBase {
       $ga_config->save();
     }
 
-    if (\Drupal::moduleHandler()->moduleExists('optimizely')) {
-      $optimizely_config = $this->configFactory->getEditable('optimizely.settings');
-      $optimizely_id = $form_state->getValue('optimizely_id');
-      $optimizely_config->set('optimizely_id', $optimizely_id);
-      $optimizely_config->save();
-      // Update the default project / experiment entry with the account ID value.
-      Database::getConnection('default')->update('optimizely')
-        ->fields([
-          'project_code' => $optimizely_id,
-        ])
-        ->condition('oid', '1')
-        ->execute();
+    // Set Google Custom Search Engine ID.
+    if (!empty($form_state->getValue('google_search_engine_id'))) {
+      $ga_config = $this->configFactory->getEditable('openy_google_search.settings');
+      $ga_config->set('google_engine_id', $form_state->getValue('google_search_engine_id'));
+      $ga_config->save();
     }
 
     // Set Recaptcha settings if provided.
@@ -329,18 +282,12 @@ class ThirdPartyServicesForm extends FormBase {
       $captcha_config = $this->configFactory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'recaptcha/reCAPTCHA')
         ->save();
-    } else {
+    }
+    else {
       //Set default captcha config to use image captcha.
       $captcha_config = $this->configFactory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'image_captcha/Image')
         ->save();
-    }
-
-    // Set Lndr API token.
-    if (!empty($form_state->getValue('lndr_api_token'))) {
-      $lndr_config = $this->configFactory->getEditable('lndr.settings');
-      $lndr_config->set('lndr_token', $form_state->getValue('lndr_api_token'));
-      $lndr_config->save();
     }
 
     // Set AddThis ID.

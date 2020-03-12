@@ -1,13 +1,13 @@
 name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
-core: 8.x
-version: '8.x-2.0.8-dev'
+core_version_requirement: ^8.8
+version: '8.x-2.4.4'
 distribution:
   name: Open Y
   install:
     theme: openy_admin
-php: 7.0
+php: 7.2
 # Required modules
 dependencies:
   # Core modules.
@@ -59,6 +59,7 @@ dependencies:
   - plugin
   - recaptcha
   - simple_menu_icons
+  - twig_tweak
   # Open Y
   - advanced_help_block
   - openy_autocomplete_path
@@ -77,6 +78,7 @@ dependencies:
   - openy_system
   - openy_taxonomy
   - openy_tour
+  - openy_update
 themes:
   - bartik
   - openy_admin
