@@ -1,0 +1,7 @@
+openy_memberships.openy_memberships:
+  path: /admin/openy/memberships
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Memberships'
+  requirements:
+    _permission: 'access administration pages'
