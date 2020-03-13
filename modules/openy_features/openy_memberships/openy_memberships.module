@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Open Y Memberships module file.
+ */
+
+/**
+ * Implements hook_menu_links_discovered_alter().
+ */
+function openy_memberships_menu_links_discovered_alter(&$links) {
+  // Move the Commerce links to the Memberships menu.
+  $links['commerce.admin_commerce']['parent'] = 'openy_memberships.openy_memberships';
+}

@@ -1,0 +1,7 @@
+openy_memberships.openy_memberships:
+  title: 'Memberships'
+  route_name: 'openy_memberships.openy_memberships'
+  parent: 'openy_system.openy'
+  description: 'Provide Memberships functionality.'
+  position: left
+  weight: -10
