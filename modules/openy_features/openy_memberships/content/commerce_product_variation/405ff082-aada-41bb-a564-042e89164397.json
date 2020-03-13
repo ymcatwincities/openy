@@ -1,0 +1,128 @@
+{
+    "_links": {
+        "self": {
+            "href": ""
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/commerce_product_variation\/membership"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product_variation\/membership\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product_variation\/membership\/product_id": [
+            {
+                "href": "http:\/\/default\/product\/4?_format=hal_json"
+            }
+        ]
+    },
+    "variation_id": [
+        {
+            "value": 12
+        }
+    ],
+    "uuid": [
+        {
+            "value": "405ff082-aada-41bb-a564-042e89164397"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "membership"
+        }
+    ],
+    "status": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product_variation\/membership\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "2eedf4ac-518d-45df-94aa-c0ef4b15fd31"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product_variation\/membership\/product_id": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/product\/4?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_product\/membership"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "05f0fd7d-34c4-4bd8-960a-037b4b95d928"
+                    }
+                ]
+            }
+        ]
+    },
+    "sku": [
+        {
+            "value": "senior_monthly"
+        }
+    ],
+    "title": [
+        {
+            "value": "Month-to-Month",
+            "lang": "en"
+        }
+    ],
+    "price": [
+        {
+            "number": "45.000000",
+            "currency_code": "USD",
+            "formatted": "$45.00"
+        }
+    ],
+    "created": [
+        {
+            "value": "2020-03-13T09:43:00+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "changed": [
+        {
+            "value": "2020-03-13T09:43:00+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "field_best_value": [
+        {
+            "value": false
+        }
+    ]
+}

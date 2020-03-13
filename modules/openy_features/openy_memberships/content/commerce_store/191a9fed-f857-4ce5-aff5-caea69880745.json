@@ -1,0 +1,121 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/store\/1?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/commerce_store\/online"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/commerce_store\/online\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json"
+            }
+        ]
+    },
+    "store_id": [
+        {
+            "value": 1
+        }
+    ],
+    "uuid": [
+        {
+            "value": "191a9fed-f857-4ce5-aff5-caea69880745"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "online"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/commerce_store\/online\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "2eedf4ac-518d-45df-94aa-c0ef4b15fd31"
+                    }
+                ]
+            }
+        ]
+    },
+    "name": [
+        {
+            "value": "Open Y",
+            "lang": "en"
+        }
+    ],
+    "mail": [
+        {
+            "value": "craig.paulnock@ymcamn.org"
+        }
+    ],
+    "default_currency": [
+        {
+            "target_id": "USD",
+            "lang": "en"
+        }
+    ],
+    "timezone": [
+        {
+            "value": "America\/New_York"
+        }
+    ],
+    "address": [
+        {
+            "langcode": "",
+            "country_code": "US",
+            "administrative_area": "MN",
+            "locality": "Minneapolis",
+            "dependent_locality": null,
+            "postal_code": "55402",
+            "sorting_code": null,
+            "address_line1": "651 Nicollet mall suite 500",
+            "address_line2": "",
+            "organization": null,
+            "given_name": null,
+            "additional_name": null,
+            "family_name": null
+        }
+    ],
+    "path": [
+        {
+            "alias": null,
+            "pid": null,
+            "langcode": "en",
+            "lang": "en"
+        }
+    ],
+    "is_default": [
+        {
+            "value": true
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "metatag": [
+        {
+            "value": {
+                "title": "| Site-Install",
+                "canonical_url": "http:\/\/default\/node\/36"
+            }
+        }
+    ]
+}

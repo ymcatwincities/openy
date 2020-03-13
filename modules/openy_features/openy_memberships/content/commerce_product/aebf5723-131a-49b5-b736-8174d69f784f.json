@@ -1,0 +1,192 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/product\/5?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/commerce_product\/membership"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/stores": [
+            {
+                "href": "http:\/\/default\/store\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/variations": [
+            {
+                "href": ""
+            },
+            {
+                "href": ""
+            },
+            {
+                "href": ""
+            }
+        ]
+    },
+    "product_id": [
+        {
+            "value": 5
+        }
+    ],
+    "uuid": [
+        {
+            "value": "aebf5723-131a-49b5-b736-8174d69f784f"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "membership"
+        }
+    ],
+    "status": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/stores": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/store\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_store\/online"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "191a9fed-f857-4ce5-aff5-caea69880745"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "2eedf4ac-518d-45df-94aa-c0ef4b15fd31"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/variations": [
+            {
+                "_links": {
+                    "self": {
+                        "href": ""
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_product_variation\/membership"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "4b9b6ba0-7948-44e1-8616-4a485c33c0d5"
+                    }
+                ]
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": ""
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_product_variation\/membership"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "93ede205-8194-4c75-9ca0-bc3908dfcb60"
+                    }
+                ]
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": ""
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_product_variation\/membership"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "104d8b2b-e68c-4bf6-a01f-46b5de6ca1ae"
+                    }
+                ]
+            }
+        ]
+    },
+    "title": [
+        {
+            "value": "Student",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": null,
+            "pid": null,
+            "langcode": "en",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "2020-03-13T09:43:27+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "changed": [
+        {
+            "value": "2020-03-13T09:45:39+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "metatag": [
+        {
+            "value": {
+                "title": "| Site-Install",
+                "canonical_url": "http:\/\/default\/node\/36"
+            }
+        }
+    ],
+    "field_description": [
+        {
+            "value": "<p>Membership at all San Antonio YMCA Facilities for full-time students ages 13-25.<\/p>\r\n",
+            "format": "full_html",
+            "processed": "<p>Membership at all San Antonio YMCA Facilities for full-time students ages 13-25.<\/p>\n"
+        }
+    ]
+}

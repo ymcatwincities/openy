@@ -1,0 +1,192 @@
+{
+    "_links": {
+        "self": {
+            "href": "http:\/\/default\/product\/3?_format=hal_json"
+        },
+        "type": {
+            "href": "http:\/\/drupal.org\/rest\/type\/commerce_product\/membership"
+        },
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/stores": [
+            {
+                "href": "http:\/\/default\/store\/1?_format=hal_json"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/uid": [
+            {
+                "href": "http:\/\/default\/user\/1?_format=hal_json",
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/variations": [
+            {
+                "href": ""
+            },
+            {
+                "href": ""
+            },
+            {
+                "href": ""
+            }
+        ]
+    },
+    "product_id": [
+        {
+            "value": 3
+        }
+    ],
+    "uuid": [
+        {
+            "value": "52c959f1-246f-475b-9982-c11c03f8ed39"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en",
+            "lang": "en"
+        }
+    ],
+    "type": [
+        {
+            "target_id": "membership"
+        }
+    ],
+    "status": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "_embedded": {
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/stores": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/store\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_store\/online"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "191a9fed-f857-4ce5-aff5-caea69880745"
+                    }
+                ]
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/uid": [
+            {
+                "_links": {
+                    "self": {
+                        "href": "http:\/\/default\/user\/1?_format=hal_json"
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/user\/user"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "2eedf4ac-518d-45df-94aa-c0ef4b15fd31"
+                    }
+                ],
+                "lang": "en"
+            }
+        ],
+        "http:\/\/drupal.org\/rest\/relation\/commerce_product\/membership\/variations": [
+            {
+                "_links": {
+                    "self": {
+                        "href": ""
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_product_variation\/membership"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "2f848ce8-30ff-4bd2-8487-1014eb1fb596"
+                    }
+                ]
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": ""
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_product_variation\/membership"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "960c9da7-8328-44f3-8b71-2998ff14530e"
+                    }
+                ]
+            },
+            {
+                "_links": {
+                    "self": {
+                        "href": ""
+                    },
+                    "type": {
+                        "href": "http:\/\/drupal.org\/rest\/type\/commerce_product_variation\/membership"
+                    }
+                },
+                "uuid": [
+                    {
+                        "value": "8b0ba051-9d66-4396-86b1-0c6da75e7d7f"
+                    }
+                ]
+            }
+        ]
+    },
+    "title": [
+        {
+            "value": "Adult",
+            "lang": "en"
+        }
+    ],
+    "path": [
+        {
+            "alias": null,
+            "pid": null,
+            "langcode": "en",
+            "lang": "en"
+        }
+    ],
+    "created": [
+        {
+            "value": "2020-03-13T09:38:10+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "changed": [
+        {
+            "value": "2020-03-13T09:40:08+00:00",
+            "lang": "en",
+            "format": "Y-m-d\\TH:i:sP"
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true,
+            "lang": "en"
+        }
+    ],
+    "metatag": [
+        {
+            "value": {
+                "title": "| Site-Install",
+                "canonical_url": "http:\/\/default\/node\/36"
+            }
+        }
+    ],
+    "field_description": [
+        {
+            "value": "<p>Individuals 18 - 61 years.<\/p>\r\n",
+            "format": "full_html",
+            "processed": "<p>Individuals 18 - 61 years.<\/p>\n"
+        }
+    ]
+}
