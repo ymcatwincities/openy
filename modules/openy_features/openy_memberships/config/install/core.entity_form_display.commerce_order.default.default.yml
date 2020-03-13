@@ -23,6 +23,13 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  cart:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 20
+    region: content
+    third_party_settings: {  }
   order_items:
     type: inline_entity_form_complex
     weight: 1

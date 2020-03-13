@@ -12,6 +12,7 @@ dependencies:
   - commerce_product
   - commerce_store
   - datalayer
+  - default_content
   - entity_reference_revisions
   - field
   - inline_entity_form
