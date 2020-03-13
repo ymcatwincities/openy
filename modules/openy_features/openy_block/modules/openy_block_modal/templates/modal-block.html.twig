@@ -4,21 +4,35 @@
  * Modal block template.
  *
  * Available variables:
- * - header: Block header.
- * - content: Block content.
- * - mode: Modal mode - static, ajax.
- * - ajaxLink: Link Uri
- * - ajaxLinkTitle: Link Title
+ * - title: Title.
+ * - description: Description.
+ * - modal_header: Block header.
+ * - modal_content: Block content.
+ * - mode: Modal mode - fields, node.
+ * - ajax_link: Link Uri
+ * - ajax_link_title: Link Title
  *
  * @ingroup themeable
  */
 #}
-{% if mode == 'static' %}
-  <div class="container">
-    <div class="text-center">
-      <a href="#" data-toggle="modal" data-target="#modalBlock{{ modalId }}">{{ header }}</a>
-    </div>
+<div class="container">
+  <div class="field-title field-item">
+    {{ title }}
+  </div>
+  <div class="field-description field-item">
+    {{ description }}
+  </div>
+  <div class="field-link-title field-item">
+    {% if mode == 'node' %}
+      <a class="use-ajax" data-dialog-type="modal"
+         data-dialog-options="{&quot;width&quot;:600&comma; &quot;height&quot;:600}"
+         href="{{ modal_link }}">{{ modal_link_title }}</a>
+    {% else %}
+      <a href="#" data-toggle="modal" data-target="#modalBlock{{ modalId }}">{{ modal_link_title }}</a>
+    {% endif %}
+  </div>
 
+  {% if mode == 'fields' %}
     <!-- Modal -->
     <div class="modal fade" id="modalBlock{{ modalId }}" role="dialog">
       <div class="content_wrapper modal-container modal-dialog">
@@ -26,45 +40,14 @@
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header content_wrapper">
-            <h2 class="modal-title">{{ header }}</h2>
+            <h2 class="modal-title">{{ modal_header }}</h2>
             <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body content_wrapper">
-            <p>{{ content }}</p>
+            <p>{{ modal_content }}</p>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
-{% elseif mode == 'ajax' %}
-  <div class="container">
-    <div class="field-title">
-      {{ header }}
-    </div>
-    <div class="field-description">
-      {{ content }}
-    </div>
-    <div class="field-link text-center">
-      <a class="use-ajax" data-dialog-type="modal" data-dialog-options="{&quot;z-index&quot;:1500&comma;&quot;width&quot;:600&comma; &quot;height&quot;:600}" href="{{ ajaxLink }}">{{ ajaxLinkTitle }}</a>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modalBlock{{ modalId }}" role="dialog">
-      <div class="content_wrapper modal-container modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header content_wrapper">
-            <button type="button" class="close modal-close" data-dismiss="modal">&times;</button>
-            <h2 class="modal-title">{{ header }}</h2>
-          </div>
-          <div class="modal-body content_wrapper">
-            <p>{{ content }}</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-{% endif %}
+  {% endif %}
+</div>

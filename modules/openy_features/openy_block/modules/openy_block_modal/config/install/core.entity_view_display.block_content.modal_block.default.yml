@@ -3,19 +3,25 @@ status: true
 dependencies:
   config:
     - block_content.type.modal_block
+    - field.field.block_content.modal_block.field_description
     - field.field.block_content.modal_block.field_link
+    - field.field.block_content.modal_block.field_link_title
     - field.field.block_content.modal_block.field_modal_content
     - field.field.block_content.modal_block.field_modal_header
     - field.field.block_content.modal_block.field_mode
+    - field.field.block_content.modal_block.field_title
 id: block_content.modal_block.default
 targetEntityType: block_content
 bundle: modal_block
 mode: default
 content: {  }
 hidden:
+  field_description: true
   field_link: true
+  field_link_title: true
   field_modal_content: true
   field_modal_header: true
   field_mode: true
+  field_title: true
   langcode: true
   search_api_excerpt: true

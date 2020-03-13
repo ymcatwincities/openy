@@ -11,11 +11,11 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: static
-      label: static
+      value: fields
+      label: 'Take modal content from block fields'
     -
-      value: ajax
-      label: ajax
+      value: node
+      label: 'Take modal content from node url'
   allowed_values_function: ''
 module: options
 locked: false

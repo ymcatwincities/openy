@@ -3,25 +3,24 @@ status: true
 dependencies:
   config:
     - block_content.type.modal_block
-    - field.storage.block_content.field_link
+    - field.storage.block_content.field_link_title
   module:
     - datalayer
-    - link
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_link
-id: block_content.modal_block.field_link
-field_name: field_link
+    label: field_link_title
+id: block_content.modal_block.field_link_title
+field_name: field_link_title
 entity_type: block_content
 bundle: modal_block
-label: Link
+label: 'Link title'
 description: ''
-required: false
+required: true
 translatable: false
-default_value: {  }
+default_value:
+  -
+    value: Details
 default_value_callback: ''
-settings:
-  link_type: 1
-  title: 0
-field_type: link
+settings: {  }
+field_type: string

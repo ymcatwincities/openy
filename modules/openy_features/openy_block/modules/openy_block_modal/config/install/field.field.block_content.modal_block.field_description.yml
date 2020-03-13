@@ -3,25 +3,23 @@ status: true
 dependencies:
   config:
     - block_content.type.modal_block
-    - field.storage.block_content.field_link
+    - field.storage.block_content.field_description
   module:
     - datalayer
-    - link
+    - text
 third_party_settings:
   datalayer:
     expose: 0
-    label: field_link
-id: block_content.modal_block.field_link
-field_name: field_link
+    label: field_description
+id: block_content.modal_block.field_description
+field_name: field_description
 entity_type: block_content
 bundle: modal_block
-label: Link
+label: Description
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings:
-  link_type: 1
-  title: 0
-field_type: link
+settings: {  }
+field_type: text_long

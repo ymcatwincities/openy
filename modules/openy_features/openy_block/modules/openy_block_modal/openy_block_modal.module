@@ -15,13 +15,15 @@ function openy_block_modal_theme($existing, $type, $theme, $path) {
   return [
     'modal_block' => [
       'variables' => [
-        'header' => NULL,
         'modalId' => NULL,
-        'content' => NULL,
-        'entity' => NULL,
+        'title' => NULL,
+        'description' => NULL,
+        'modal_header' => NULL,
+        'modal_content' => NULL,
+        'modal_link_title' => NULL,
+        'modal_link' => NULL,
         'mode' => NULL,
-        'ajaxLink' => NULL,
-        'ajaxLinkTitle' => NULL,
+        'entity' => NULL,
       ],
       'template' => 'modal-block',
     ],
@@ -36,7 +38,8 @@ function openy_block_modal_block_content_view_alter(array &$build, EntityInterfa
 
   switch ($entity->bundle()) {
     case 'modal_block':
-      $content = $entity->field_modal_content->get(0);
+      $modal_header = $entity->field_modal_header->value;
+      $modal_content = $entity->field_modal_content->get(0);
       $linkUrl = NULL;
       $link = $entity->field_link->get(0);
       if ($link) {
@@ -45,24 +48,73 @@ function openy_block_modal_block_content_view_alter(array &$build, EntityInterfa
 
       $build['modal'] = [
         '#theme' => 'modal_block',
-        '#header' => $entity->field_modal_header->value,
         '#modalId' => $entity->id(),
-        '#content' => [
+        '#title' => $entity->field_title->value,
+        '#description' => [
           '#type' => 'processed_text',
-          '#text' => $content->value,
-          '#format' => $content->format,
-          '#langcode' => $content->getLangcode(),
+          '#text' => $entity->field_description->value,
+          '#format' => $entity->field_description->format,
+          '#langcode' => $entity->field_description->getLangcode(),
         ],
+        '#modal_link' => $linkUrl,
+        '#modal_link_title' => $entity->field_link_title->value,
         '#mode' => $entity->field_mode->value,
-        '#ajaxLink' => $linkUrl,
-        '#ajaxLinkTitle' => $entity->field_link->title,
         '#entity' => $entity,
         '#cache' => [
           'tags' => ['openy_cron'],
         ],
       ];
+
+      if (isset($modal_header)) {
+        $build['modal']['#modal_header'] = $modal_header;
+      }
+
+      if (isset($modal_content)) {
+        $build['modal']['#modal_content'] = [
+          '#type' => 'processed_text',
+          '#text' => $modal_content->value,
+          '#format' => $modal_content->format,
+          '#langcode' => $modal_content->getLangcode(),
+        ];
+      }
+
       $build['#attached']['library'][] = 'openy_block_modal/modal-block';
       $build['#attached']['library'][] = 'core/drupal.ajax';
       break;
+  }
+}
+
+/**
+ * Implements hook_inline_entity_form_entity_form_alter().
+ */
+function openy_block_modal_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+  if($entity_form['#entity_type'] == 'block_content' && $entity_form['#bundle'] == 'modal_block') {
+
+    $parents = $entity_form['#parents'];
+    $input_name = array_shift($parents);
+    foreach ($parents as $p) {
+      $input_name = "{$input_name}[{$p}]";
+    }
+    $input_name = "{$input_name}[field_mode]";
+
+    $fields_visible = [
+      'visible' => [
+        [
+          ':input[name="'.$input_name.'"]' => ['value' => 'fields'],
+        ],
+      ],
+    ];
+
+    $node_visible = [
+      'visible' => [
+        [
+          ':input[name="'.$input_name.'"]' => ['value' => 'node'],
+        ],
+      ],
+    ];
+
+    $entity_form['field_modal_header']['widget'][0]['value']['#states'] = $fields_visible;
+    $entity_form['field_modal_content']['widget'][0]['#states'] = $fields_visible;
+    $entity_form['field_link']['widget'][0]['uri']['#states'] = $node_visible;
   }
 }
