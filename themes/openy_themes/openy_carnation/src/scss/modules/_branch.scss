@@ -992,6 +992,10 @@ html.js {
 }
 
 .paragraph--type--branch-contacts-info {
+  .label-for-field-branch-contacts-info {
+    display: none;
+  }
+
   @include media-breakpoint-down(lg) {
     .container {
       max-width: 100%;
@@ -999,9 +1003,8 @@ html.js {
   }
 
   background-color: #004c87;
-  margin-bottom: 25px;
 
-  .wrapper-field-branch-contacts-info {
+  .item {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -1434,11 +1437,18 @@ html.js {
 
 
 .wrapper-field-header-content {
-  > div:nth-child(1).paragraph--type--branch-contacts-info {
+  div:nth-child(1).paragraph--type--branch-contacts-info {
     margin-bottom: 0;
 
     .menu-spacer {
       display: block;
     }
   }
+
+  div:last-child.paragraph--type--branch-contacts-info {
+    div:last-child.branch-header-row {
+      padding-bottom: 28px;
+    }
+  }
 }
+
