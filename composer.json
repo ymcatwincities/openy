@@ -318,6 +318,10 @@
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
         "drupal/geysir": "^1.1",
-        "drupal/media_directories": "^1.0"
+        "drupal/media_directories": "^1.0",
+        "openy/openy_block_modal": "dev-master",
+        "openy/openy_prgf_sidebar_menu": "dev-master",
+        "openy/openy_memberships": "dev-master",
+        "openy/paragraph_skins": "dev-master"
     }
 }
