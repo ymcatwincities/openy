@@ -1,4 +1,3 @@
-uuid: d4fd8fcf-2d0f-43af-95a8-a4456aa2620a
 langcode: en
 status: true
 dependencies:
@@ -37,7 +36,7 @@ display:
       exposed_form:
         type: input_required
         options:
-          submit_button: Apply
+          submit_button: Search
           reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
@@ -220,6 +219,8 @@ display:
               administrator: '0'
               contributor: '0'
               editor: '0'
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -235,8 +236,8 @@ display:
           parse_mode: terms
           min_length: null
           fields:
-            rendered_item: rendered_item
-            title: title
+            - rendered_item
+            - title
           plugin_id: search_api_fulltext
       sorts: {  }
       title: 'Global search'
@@ -260,7 +261,7 @@ display:
       arguments: {  }
       display_extenders: {  }
       use_ajax: true
-      css_class: content-search-results
+      css_class: global-search-results
     cache_metadata:
       max-age: -1
       contexts:
