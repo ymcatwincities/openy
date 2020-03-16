@@ -6692,6 +6692,14 @@ a[href="#step2"] {
 .global-search-results .item-list .views-field-title {
   font-weight: bold;
 }
+.global-search-results .form-item {
+  margin: 0;
+}
+
+.paragraph--type--search-api {
+  padding: 20px 15px !important;
+  overflow: visible;
+}
 
 .user-login {
   margin: 10px 0;
