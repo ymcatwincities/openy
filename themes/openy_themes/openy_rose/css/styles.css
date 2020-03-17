@@ -868,7 +868,7 @@ body {
 .header-search-wrapper {
   display: inline-block;
   vertical-align: top;
-  align-self: normal;
+  height: 3em;
   width: 200px;
 }
 .header-search-wrapper form {
