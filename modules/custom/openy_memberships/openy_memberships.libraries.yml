@@ -1,0 +1,17 @@
+openy_memberships:
+  js:
+    app/dist/runtime.js: {}
+    app/dist/styles.js: {}
+    app/dist/vendors.app.js: {}
+    app/dist/app.js: {}
+  css:
+    theme:
+      app/dist/styles.css:
+        options:
+          weight: 100
+      app/dist/vendors.app.css:
+        options:
+          weight: 100
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

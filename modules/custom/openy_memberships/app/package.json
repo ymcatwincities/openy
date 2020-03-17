@@ -1,0 +1,32 @@
+{
+  "name": "openy_memberships",
+  "version": "1.0.0",
+  "description": "Open Y Memberships",
+  "author": "Dmytro Buzinov <dbuzinov@gmail.com>",
+  "private": true,
+  "scripts": {
+    "watch": "nodemon -e js,vue,css,scss --watch './**/*' -i 'dist/**/*' --exec 'nuxt build --spa'",
+    "dev": "nuxt --spa",
+    "build": "nuxt build --spa",
+    "start": "nuxt start --spa",
+    "generate": "nuxt generate --spa",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@nuxtjs/svg": "^0.1.6",
+    "nuxt": "^2.0.0",
+    "nuxt-leaflet": "^0.0.21"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.11.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^4.19.1",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2",
+    "sass-loader": "^8.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+openy_memberships.memberships:
+  path: '/memberships/{filepath}'
+  defaults:
+    _controller: '\Drupal\openy_memberships\Controller\Memberships::page'
+    filepath: null
+  requirements:
+    # Permissive regex to allow slashes in filepath see
+    # http://symfony.com/doc/current/cookbook/routing/slash_in_parameter.html
+    filepath: .+
+    _access: 'TRUE'

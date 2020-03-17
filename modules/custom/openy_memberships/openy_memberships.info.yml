@@ -1,0 +1,6 @@
+name: Open Y Memberships
+type: module
+description: Memberships module. Provides memberships pages.
+core: 8.x
+version: 8.x-1.0
+package: Open Y
