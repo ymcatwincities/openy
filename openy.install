@@ -1115,13 +1115,6 @@ function openy_update_8079() {
 }
 
 /**
- * Enable openy location filter module
- */
-function openy_update_8080() {
-  \Drupal::service('module_installer')->install(['openy_loc_filter']);
-}
-
-/**
  * Enable openy_block_branch_contacts_info module.
  */
 function openy_update_8081() {

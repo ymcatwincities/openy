@@ -159,7 +159,6 @@ locations:
     - openy_field_hours
     - openy_field_custom_hours
     - openy_field_holiday_hours
-    - openy_loc_filter
     - openy_block_branch_contacts_info
 
 locations_ext:
