@@ -11,4 +11,4 @@ dependencies:
   - drupal:taxonomy
   - drupal:user
   - rabbit_hole:rabbit_hole
-  - media_directories
+  - media_directories:media_directories

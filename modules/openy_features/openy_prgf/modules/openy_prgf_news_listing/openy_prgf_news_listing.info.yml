@@ -5,16 +5,16 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - field
-  - node
-  - openy_node_news
-  - openy_prgf
-  - openy_txnm_news_category
-  - paragraphs
-  - plugin
-  - taxonomy
-  - text
-  - user
-  - verf
-  - views
-  - views_infinite_scroll
+  - drupal:field
+  - drupal:node
+  - openy_node_news:openy_node_news
+  - openy_prgf:openy_prgf
+  - openy_txnm_news_category:openy_txnm_news_category
+  - paragraphs:paragraphs
+  - plugin:plugin
+  - drupal:taxonomy
+  - drupal:text
+  - drupal:user
+  - verf:verf
+  - drupal:views
+  - views_infinite_scroll:views_infinite_scroll

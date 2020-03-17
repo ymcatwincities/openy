@@ -5,12 +5,12 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - address
-  - ctools
-  - field
-  - geolocation
-  - link
-  - node
-  - pathauto
-  - taxonomy
-  - telephone
+  - address:address
+  - ctools:ctools
+  - drupal:field
+  - geolocation:geolocation
+  - drupal:link
+  - drupal:node
+  - pathauto:pathauto
+  - drupal:taxonomy
+  - drupal:telephone

@@ -3,9 +3,9 @@ description: 'Feature with Activity Finder Search paragraph.'
 type: module
 core: 8.x
 dependencies:
-  - field
-  - node
-  - openy_node_landing
-  - paragraphs
-  - plugin
+  - drupal:field
+  - drupal:node
+  - openy_node_landing:openy_node_landing
+  - paragraphs:paragraphs
+  - plugin:plugin
 version: 8.x-1.0

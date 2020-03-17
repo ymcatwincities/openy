@@ -5,15 +5,15 @@ core: 8.x
 version: 8.x-1.0
 package: 'Open Y'
 dependencies:
-  - block_content
-  - custom_formatters
-  - datalayer
-  - field
-  - language
-  - link
-  - openy_block
-  - openy_block_custom_simple
-  - openy_branch_selector
-  - paragraphs
-  - plugin
+  - drupal:block_content
+  - custom_formatters:custom_formatters
+  - datalayer:datalayer
+  - drupal:field
+  - drupal:language
+  - drupal:link
+  - openy_block:openy_block
+  - openy_block_custom_simple:openy_block_custom_simple
+  - openy_branch_selector:openy_branch_selector
+  - paragraphs:paragraphs
+  - plugin:plugin
 core_incompatible: false

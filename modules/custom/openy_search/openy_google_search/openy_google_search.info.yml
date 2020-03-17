@@ -6,4 +6,4 @@ package: Open Y
 version: 8.x-1.0
 configure: openy_google_search.settings
 dependencies:
-  - openy_search
+  - openy_search:openy_search
