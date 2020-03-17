@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Open Y Location filter install file.
+ */
+
+use Drupal\node\NodeInterface;
+
+/**
+ * Set default locations.
+ */
+function openy_loc_filter_install() {
+  $config = \Drupal::configFactory()
+    ->getEditable('openy_loc_filter.location_filter_settings');
+
+  /** @var \Drupal\Core\Database\Query\SelectInterface $query */
+  $query = \Drupal::database()->select('node_field_data', 'n')
+    ->fields('n', ['nid', 'title', 'type'])
+    ->condition('type', ['branch', 'camp'], 'IN')
+    ->condition('status', NodeInterface::PUBLISHED);
+  $items = $query->execute()->fetchAll();
+  foreach ($items as $item) {
+    $branches_list[$item->nid] = $item->title;
+  }
+
+  $locations = [];
+  foreach ($branches_list as $key => $branch) {
+    $locations['All'] = t('All');
+    $locations[$key] = $key;
+  }
+
+  $config->set('locations', $locations)->save();
+}
