@@ -24,7 +24,7 @@ dependencies:
   - paragraphs:paragraphs
   - pathauto:pathauto
   - scheduler:scheduler
-  - openy_media_image
-  - openy_node
-  - openy_txnm_blog_category
-  - openy_txnm_color
+  - openy_media_image:openy_media_image
+  - openy_node:openy_node
+  - openy_txnm_blog_category:openy_txnm_blog_category
+  - openy_txnm_color:openy_txnm_color
