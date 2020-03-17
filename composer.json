@@ -227,7 +227,6 @@
         "composer/installers": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.4.0",
         "drupal/core": "~8.8.0",
-        "drupal/commerce": "2.16",
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
@@ -235,6 +234,7 @@
         "drupal/media_entity": "2.0.0-beta3",
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
+        "drupal/address": "1.8",
         "drupal/paragraphs": "1.6",
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/pathauto": "~1.6",
@@ -319,8 +319,6 @@
         "drupal/image_widget_crop": "^2.2",
         "drupal/geysir": "^1.1",
         "drupal/media_directories": "^1.0",
-        "openy/openy_block_modal": "dev-master",
-        "openy/openy_prgf_sidebar_menu": "dev-master",
-        "openy/paragraph_skins": "dev-master"
+        "openy/openy_memberships": "dev-master"
     }
 }
