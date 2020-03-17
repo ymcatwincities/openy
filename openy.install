@@ -54,6 +54,9 @@ function openy_update_dependencies() {
       'block_content' => 8600,
       'media_entity' => 8201,
     ],
+    8012 => [
+      'system' => 8803,
+    ],
   ];
 
   $dependencies['openy_upgrade_tool'] = [
