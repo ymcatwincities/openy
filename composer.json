@@ -230,11 +230,11 @@
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
-        "drupal/entity": "1.0-rc1",
+        "drupal/entity": "1.0.0-rc2",
         "drupal/media_entity": "2.0.0-beta3",
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
-        "drupal/address": "1.4",
+        "drupal/address": "1.8",
         "drupal/paragraphs": "1.6",
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/pathauto": "~1.6",
@@ -318,6 +318,7 @@
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
         "drupal/geysir": "^1.1",
-        "drupal/media_directories": "^1.0"
+        "drupal/media_directories": "^1.0",
+        "openy/openy_memberships": "dev-master"
     }
 }

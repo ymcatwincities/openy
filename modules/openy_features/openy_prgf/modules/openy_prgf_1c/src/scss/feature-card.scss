@@ -5,19 +5,25 @@
     grid-template-rows: 130px 50px;
     justify-items: center;
 
-    .item:nth-child(1) {
+    > .field-item:nth-child(1) {
       grid-column: 1;
       grid-row: 1;
       z-index: 1;
+
+      .field-icon {
+        margin: 0;
+      }
 
       img {
         border-radius: 10px 10px 0 0;
         height: 130px;
         width: 250px;
+        max-width: initial;
+        max-height: initial;
       }
     }
 
-    .item:nth-child(2) {
+    > .field-item:nth-child(2) {
       color: white;
       font-size: 18px;
       font-weight: bold;
@@ -30,7 +36,7 @@
       z-index: 2;
     }
 
-    .item:nth-child(3) {
+    > .field-item:nth-child(3) {
       color: white;
       font-size: 16px;
       font-weight: bold;
@@ -43,7 +49,7 @@
       z-index: 2;
     }
 
-    .item:nth-child(4) {
+    > .field-item:nth-child(4) {
       background-color: royalblue;
       border: 0;
       border-radius: 0 0 10px 10px;
