@@ -81,8 +81,9 @@ class BranchContactsInfo extends BlockBase implements ContainerFactoryPluginInte
     $render_array = [];
 
     $node = $this->routeMatch->getParameter('node');
-    if ($node instanceof NodeInterface && $node->getType() == 'branch') {
+    if ($node instanceof NodeInterface && in_array($node->getType(), ['branch', 'camp', 'facility'])) {
       $render_array = ['#theme' => 'block_branch_contacts_info'];
+      $render_array['#node_bundle'] = $node->getType();
 
       $address = $node->get('field_location_address')->get(0);
       if ($address) {
@@ -104,6 +105,10 @@ class BranchContactsInfo extends BlockBase implements ContainerFactoryPluginInte
         $render_array['#phone'] = $phone->getString();
       }
 
+      $render_array['#fax'] = $node->field_location_fax->value;
+      $render_array['#email'] = $node->field_location_email->value;
+      $render_array['#directions_field_title'] = $node->field_location_directions->title;
+      $render_array['#directions_field_url'] = $node->field_location_directions->url;
 
       $render_array['#branch_title'] = $node->getTitle();
       $branch_selector = openy_branch_selector_get_link($node->id());
