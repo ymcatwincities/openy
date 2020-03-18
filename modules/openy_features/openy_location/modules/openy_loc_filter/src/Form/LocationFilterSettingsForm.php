@@ -95,6 +95,7 @@ class LocationFilterSettingsForm extends ConfigFormBase {
   }
 
   /**
+   * Get all Branch and Camp node id's.
    *
    * @return array
    *   Array of Branch and Camp node id's.

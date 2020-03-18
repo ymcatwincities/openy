@@ -49,9 +49,6 @@ function openy_loc_filter_preprocess_checkboxes(&$variables) {
 
 /**
  * Implements hook_form_alter().
- * @param $form
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- * @param $form_id
  */
 function openy_loc_filter_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   switch ($form_id) {
@@ -110,15 +107,14 @@ function openy_loc_filter_query_data_wrapper_locations_alter(AlterableInterface 
 
 /**
  * Implements hook_module_implements_alter().
- * @param $implementations
- * @param $hook
  */
 function openy_loc_filter_module_implements_alter(&$implementations, $hook) {
-  if ($hook == 'form_alter') {
-    // Move form_alter() to the end of the list. This is so
-    // to use form_alter() if the module is enabled.
-    $group = $implementations['openy_loc_filter'];
-    unset($implementations['openy_loc_filter']);
-    $implementations['openy_loc_filter'] = $group;
+  if ($hook != 'form_alter') {
+    return;
   }
+  // Move form_alter() to the end of the list. This is so
+  // to use form_alter() if the module is enabled.
+  $group = $implementations['openy_loc_filter'];
+  unset($implementations['openy_loc_filter']);
+  $implementations['openy_loc_filter'] = $group;
 }
