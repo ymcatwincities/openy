@@ -31,13 +31,6 @@ class RepeatManager implements SessionInstanceManagerInterface {
   const STORAGE = 'repeat';
 
   /**
-   * The query factory.
-   *
-   * @var QueryFactory
-   */
-  protected $entityQuery;
-
-  /**
    * The entity type manager.
    *
    * @var EntityTypeManager
@@ -75,8 +68,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
   /**
    * Constructor.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory) {
-    $this->entityQuery = $entity_query;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory) {
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get(self::CHANNEL);
     $this->storage = $this->entityTypeManager->getStorage(self::STORAGE);
@@ -88,7 +80,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function resetCache() {
-    $result = $this->entityQuery->get('repeat')->execute();
+    $result = $this->entityTypeManager->getStorage('repeat')->getQuery()->execute();
     if (empty($result)) {
       return;
     }
@@ -115,8 +107,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getSessionInstancesBySession(NodeInterface $node) {
-    $ids = $this->entityQuery
-      ->get('repeat')
+    $ids = $this->entityTypeManager
+      ->getStorage('repeat')
+      ->getQuery()
       ->condition('session', $node->id())
       ->execute();
 
@@ -531,8 +524,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
     // @todo check if it works with new logic.
     $session_instance = NULL;
 
-    $query = $this->entityQuery
-      ->get('repeat')
+    $query = $this->entityTypeManager
+      ->getStorage('repeat')
+      ->getQuery()
       ->condition('session', $node->id())
       ->sort('start')
       ->range(0, 1);
@@ -583,8 +577,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
   public function getSessionInstancesByParams(array $conditions) {
     $session_instances = [];
 
-    $query = $this->entityQuery
-      ->get('repeat')
+    $query = $this->entityTypeManager
+      ->getStorage('repeat')
+      ->getQuery()
       ->sort('start');
 
     foreach ($conditions as $key => $value) {
@@ -608,7 +603,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
 
     // Sessions should match the programs.
     if (isset($conditions['program'])) {
-      $query = Drupal::entityQuery('node')
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('type', 'program_subcategory')
         ->condition('field_category_program', $conditions['program'], 'IN');
       $program_subcategory_ids = $query->execute();
@@ -619,7 +616,10 @@ class RepeatManager implements SessionInstanceManagerInterface {
     }
     // Sessions should match the program subcategories.
     if (!empty($conditions['program_subcategory']) || !empty($program_subcategory_ids)) {
-      $query = Drupal::entityQuery('node')->condition('type', 'activity');
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'activity');
       if (!empty($conditions['program_subcategory'])) {
         $query->condition('field_activity_category', $conditions['program_subcategory'], 'IN');
       }
@@ -635,7 +635,10 @@ class RepeatManager implements SessionInstanceManagerInterface {
 
     // Sessions should match the activities.
     if (!empty($conditions['activity']) || !empty($activity_ids)) {
-      $query = Drupal::entityQuery('node')->condition('type', 'class');
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'class');
       if (!empty($conditions['activity'])) {
         $query->condition('field_class_activity', $conditions['activity'], 'IN');
       }
@@ -651,7 +654,10 @@ class RepeatManager implements SessionInstanceManagerInterface {
 
     // Sessions should match the classes.
     if (!empty($conditions['class']) || !empty($class_ids)) {
-      $query = Drupal::entityQuery('node')->condition('type', 'session');
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'session');
       if (!empty($conditions['class'])) {
         $query->condition('field_session_class', $conditions['class'], 'IN');
       }
@@ -756,7 +762,9 @@ class RepeatManager implements SessionInstanceManagerInterface {
     $s_max = !empty($session->field_session_max_age->value) ? $session->field_session_max_age->value : 0;
 
     if (empty($terms)) {
-      $query = $this->entityQuery->get('taxonomy_term')
+      $query = $this->entityTypeManager
+        ->getStorage('taxonomy_term')
+        ->getQuery()
         ->condition('vid', 'age');
       $entity_ids = $query->execute();
       $terms = $this->entityTypeManager
