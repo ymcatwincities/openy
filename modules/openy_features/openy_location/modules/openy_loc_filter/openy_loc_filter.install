@@ -20,14 +20,11 @@ function openy_loc_filter_install() {
     ->condition('type', ['branch', 'camp'], 'IN')
     ->condition('status', NodeInterface::PUBLISHED);
   $items = $query->execute()->fetchAll();
-  foreach ($items as $item) {
-    $branches_list[$item->nid] = $item->title;
-  }
 
   $locations = [];
-  foreach ($branches_list as $key => $branch) {
+  foreach ($items as $item) {
     $locations['All'] = t('All');
-    $locations[$key] = $key;
+    $locations[$item->nid] = $item->nid;
   }
 
   $config->set('locations', $locations)->save();
