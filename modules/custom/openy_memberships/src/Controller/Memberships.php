@@ -15,6 +15,7 @@ class Memberships extends ControllerBase {
   public function page($filepath) {
     $attachments['library'][] = 'openy_memberships/openy_memberships';
     return [
+      '#id' => 'app',
       '#theme' => 'openy_memberships',
       '#attached' => $attachments,
     ];

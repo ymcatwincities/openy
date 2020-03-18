@@ -7,7 +7,7 @@ function openy_memberships_theme($existing, $type, $theme, $path) {
   return [
     'openy_memberships' => [
       'variables' => [
-        'id' => '__nuxt'
+        'id' => 'app'
       ],
     ],
   ];

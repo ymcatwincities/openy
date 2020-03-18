@@ -1,15 +1,13 @@
 openy_memberships:
   js:
-    app/dist/runtime.js: {}
-    app/dist/styles.js: {}
-    app/dist/vendors.app.js: {}
-    app/dist/app.js: {}
+    app/dist/assets/js/chunk-vendors.js: {}
+    app/dist/assets/js/app.js: {}
   css:
     theme:
-      app/dist/styles.css:
+      app/dist/assets/css/chunk-vendors.css:
         options:
           weight: 100
-      app/dist/vendors.app.css:
+      app/dist/assets/css/app.css :
         options:
           weight: 100
   dependencies:

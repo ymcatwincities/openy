@@ -1,32 +1,38 @@
 {
-  "name": "openy_memberships",
-  "version": "1.0.0",
-  "description": "Open Y Memberships",
-  "author": "Dmytro Buzinov <dbuzinov@gmail.com>",
+  "name": "app3",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "watch": "nodemon -e js,vue,css,scss --watch './**/*' -i 'dist/**/*' --exec 'nuxt build --spa'",
-    "dev": "nuxt --spa",
-    "build": "nuxt build --spa",
-    "start": "nuxt start --spa",
-    "generate": "nuxt generate --spa",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "watch": "vue-cli-service build --watch --mode development --hmr"
   },
   "dependencies": {
-    "@nuxtjs/svg": "^0.1.6",
-    "nuxt": "^2.0.0",
-    "nuxt-leaflet": "^0.0.21"
+    "core-js": "^3.6.4",
+    "leaflet": "^1.6.0",
+    "register-service-worker": "^1.6.2",
+    "vue": "^2.6.11",
+    "vue-router": "^3.1.5",
+    "vue2-leaflet": "^2.5.2"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.11.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^4.19.1",
-    "eslint-friendly-formatter": "^4.0.1",
-    "eslint-loader": "^2.1.1",
-    "eslint-plugin-vue": "^4.0.0",
-    "node-sass": "^4.13.1",
-    "nodemon": "^2.0.2",
-    "sass-loader": "^8.0.2"
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-plugin-pwa": "~4.2.0",
+    "@vue/cli-plugin-router": "~4.2.0",
+    "@vue/cli-plugin-unit-mocha": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "@vue/test-utils": "1.0.0-beta.31",
+    "babel-eslint": "^10.0.3",
+    "chai": "^4.1.2",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "sass": "^1.25.0",
+    "sass-loader": "^8.0.2",
+    "vue-cli-plugin-svg": "~0.1.3",
+    "vue-cli-plugin-vuetify": "~2.0.5",
+    "vue-template-compiler": "^2.6.11"
   }
 }

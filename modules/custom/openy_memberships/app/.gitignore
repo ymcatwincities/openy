@@ -1,11 +1,21 @@
-# dependencies
+.DS_Store
 node_modules
+/dist
 
-# logs
-npm-debug.log
+# local env files
+.env.local
+.env.*.local
 
-# Nuxt build
-.nuxt
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Nuxt generate
-# dist
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

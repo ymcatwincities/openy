@@ -218,6 +218,9 @@
             "drupal/geysir": {
                 "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
+            },
+            "drupal/jsonapi": {
+                "JSON:API Argument error": "https://www.drupal.org/files/issues/2020-02-11/2996114-124.patch"
             }
         }
     },
