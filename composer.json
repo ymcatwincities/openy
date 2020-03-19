@@ -175,9 +175,6 @@
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
                 "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch"
             },
-            "drupal/crop": {
-                "3025005 - The Crop requirements is NOK is media_entity 8.x-2.0 installed via composer": "https://www.drupal.org/files/issues/2019-01-10/requirements-is-NOK-3025005-2.patch"
-            },
             "drupal/media_entity": {
                 "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
                 "2918172 - Media Entity upgrade -> core fails on absent column revision_uid": "https://www.drupal.org/files/issues/2918172-6-8.4.4.patch"
@@ -206,11 +203,11 @@
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
-        "drupal/entity": "1.0-rc1",
+        "drupal/entity": "1.0",
         "drupal/media_entity": "2.0.0-beta3",
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
-        "drupal/address": "1.4",
+        "drupal/address": "1.7",
         "drupal/paragraphs": "1.6",
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/pathauto": "~1.6",
