@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: landing_page_with_layout_builder
+label: 'Landing Page with Layout Builder'
+type: 'canonical_entities:node'
+pattern: '[node:title]'
+selection_criteria:
+  1b51ace7-8871-478f-beb8-4ed3a9367ea0:
+    id: node_type
+    bundles:
+      lplb: lplb
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 1b51ace7-8871-478f-beb8-4ed3a9367ea0
+selection_logic: and
+weight: -5
+relationships: {  }

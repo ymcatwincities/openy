@@ -78,6 +78,7 @@ editorial_ext:
     - openy_prgf_featured_content
     - openy_prgf_lto
     - openy_prgf_secondary_description_sidebar
+    - openy_node_lplb
 
 editorial_adv:
   name: 'Editorial Advanced'
