@@ -18,28 +18,28 @@ use GuzzleHttp\Client;
  * @method mixed getFlexRegProgramTypes(array $args)
  * @method mixed getMembershipPackages(array $args)
  * @method mixed getMembershipCategories(array $args)
- * @method mixed getActivityDetail(integer $id)
+ * @method mixed getActivityDetail(int $id)
  */
 class ActivenetClient extends Client implements ActivenetClientInterface {
-  
+
   /**
     * Settings
     *
     * @var array of settings from config
    */
   protected $api_settings;
-  
+
   /**
    * ActivenetClient constructor
    * @param array $api_settings
    *   The api config settings.
    */
-  
+
   public function setApi(array $api_settings) {
     $this->api_settings = $api_settings;
   }
-  
-  
+
+
 
   /**
    * Wrapper for 'request' method.
@@ -59,7 +59,7 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
   private function makeRequest($method, $uri, array $parameters = []) {
     try {
       $response = $this->request($method, $uri, $parameters);
-      
+
       if (200 != $response->getStatusCode()) {
         throw new ActivenetClientException(sprintf('Got non 200 response code for the uri %s.', $uri));
       }
@@ -106,7 +106,7 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
     $api_key = $this->api_settings['api_key'];
     $base_uri = $this->api_settings['base_uri'];
     // Prepare suffix for the endpoint.
-    $suffix = '';  
+    $suffix = '';
 
     if (empty($args)) {
       $args[]['api_key'] = $api_key;
@@ -139,7 +139,7 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
 
       case 'getFlexRegPrograms':
         return $this->makeRequest('get', $base_uri . 'flexregprograms' . $suffix);
-      
+
       case 'getFlexRegProgramTypes':
         return $this->makeRequest('get', $base_uri . 'flexregprogramtypes' . $suffix);
 
@@ -153,7 +153,7 @@ class ActivenetClient extends Client implements ActivenetClientInterface {
     throw new ActivenetClientException(sprintf('Method %s not implemented yet.', $method));
   }
 
-  public function getActivityDetail(integer $id){
+  public function getActivityDetail(int $id){
     if(!$this->api_settings) throw new ActivenetClientException(sprintf('Please inject api settings using "$this->setAPI($api_settings)".'));
 
     $base_uri = $this->api_settings['base_uri'];
