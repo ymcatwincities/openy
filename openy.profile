@@ -710,8 +710,15 @@ function openy_install_tasks_alter(&$tasks, &$install_state) {
   }
   // Remove Solr configure installation task for non search_api sorl service.
   if (!\Drupal::state()->get('openy_show_solr_config')) {
-      unset($tasks["openy_solr_search"]);
+    unset($tasks["openy_solr_search"]);
   }
+
+  if (isset($install_state['openy']['search']['service']) &&
+    $install_state['openy']['search']['service'] == 'none' ) {
+    unset($tasks["openy_install_search"]);
+    unset($tasks["openy_solr_search"]);
+  }
+
 }
 
 /**
