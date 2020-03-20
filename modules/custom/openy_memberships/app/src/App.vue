@@ -2,7 +2,7 @@
   <div id="app" :class="$router.currentRoute.name">
     <router-view />
     <div class="navigation container" v-if="$store.state.location">
-      <button @click="goNext">Next</button>
+      <button class="btn btn-next" @click="goNext">Next</button>
     </div>
   </div>
 </template>
@@ -55,6 +55,18 @@ export default {
 </script>
 <style lang="scss">
   #app {
+    .btn {
+      &.btn-next {
+        background: #92278F 0% 0% no-repeat padding-box;
+        border-radius: 5px;
+        text-align: center;
+        font: Medium 24px/26px Cachet;
+        letter-spacing: 0;
+        color: #FFFFFF;
+        text-transform: uppercase;
+        margin: 10px;
+      }
+    }
     h1.title {
       margin: 30px 0;
     }
