@@ -1,5 +1,0 @@
-services:
-  openy_memberships.path_processor:
-    class: Drupal\openy_memberships\PathProcessor\ProxyPathProcessor
-    tags:
-      - { name: path_processor_inbound, priority: 250 }
