@@ -1,18 +1,18 @@
 <template>
   <section class="container">
     <div>
-      <div class="row">
-        <div class="col">
+      <div class="">
+        <div class="">
           <h1 class="title">
             Membership Builder
           </h1>
         </div>
       </div>
-      <div class="row">  
-        <div class="col col-6">
+      <div class="description">  
+        <div class="description-text">
           Select your preferred YMCA branch.
         </div>
-        <div class="col col-6 text-align-right">
+        <div class="text-align-right">
           <a >link</a>
         </div>
       </div>
@@ -21,32 +21,10 @@
       <div>
         <div>
           <div>
-            <label>Postal Code</label> 
-            <div class="zip-code">
-              <input v-model="zip" />
-              <button slot="append" color="green">Go</button>
-              <a>Use my current location</a>
-            </div>
-          </div>
-          <div class="results">
-            <div>
-              <p>Nearest to <span v-text="zip"></span></p>
-              <div>
-                <locations :locations="locations" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div>
+            <loading :active.sync="isLoading"></loading>
             <locations :locations="locations" />
           </div>
         </div>
-      </div>
-      <div>  
-        <p>
-          <b>Step 1 of 2:</b> Select your preffered YMCA baranch <a @click="next">NEXT</a>
-        </p>
       </div>
     </div>
   </section>
@@ -54,7 +32,8 @@
 
 <script>
 import Locations from '@/components/Locations';
-
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 // import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 // import 'leaflet/dist/leaflet.css';
 // import { Icon } from 'leaflet';
@@ -68,8 +47,22 @@ import Locations from '@/components/Locations';
 
 export default {
   mounted() {
-    jQuery.ajax({
-      url: '/'
+    this.isLoading = true;
+    window.jQuery.ajax({
+      url: '/jsonapi/node/branch',
+      dataType: 'json'
+    }).then((data)=>{
+      this.isLoading = false
+      this.locations = Object.keys(data.data).map(key => {
+        let attributes = data.data[key].attributes;
+        return {
+          name: attributes.title,
+          address: attributes.field_location_address.locality + ', ' + attributes.field_location_address.administrative_area,
+          value: attributes.drupal_internal__nid
+        }
+      })
+    }).catch(() => {
+      this.isLoading = false
     })
   },
   methods: {
@@ -81,27 +74,18 @@ export default {
   },
   components: {
     Locations,
+    Loading
   },
   data () {
     return {
+      isLoading: false,
       tab: null,
       zip: null,
       items: [
         { tab: 'zip'},
         { tab: 'manual'},
       ],
-      locations: [
-        {
-          name: "Test 1",
-          address: "Address",
-          value: 1,
-        },
-        {
-          name: "Test 2",
-          address: "Address",
-          value: 2,
-        }
-      ]
+      locations: []
     }
   }
 }
