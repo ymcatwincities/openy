@@ -5,7 +5,7 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - migrate
-  - migrate_plus
-  - migrate_tools
-  - advanced_help_block
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - advanced_help_block:advanced_help_block

@@ -6,5 +6,5 @@ version: 8.x-1.0-rc1
 package: Open Y (Experimental)
 configure: openy_gxp.settings
 dependencies:
-  - migrate_tools
-  - migrate_source_csv
+  - migrate_tools:migrate_tools
+  - migrate_source_csv:migrate_source_csv
