@@ -2,12 +2,12 @@ name: 'OpenY Paragraph Activity Finder'
 type: module
 core: 8.x
 dependencies:
-  - field
-  - node
-  - openy_node_landing
-  - openy_prgf
-  - openy_repeat
-  - paragraphs
-  - plugin
+  - drupal:field
+  - drupal:node
+  - openy_node_landing:openy_node_landing
+  - openy_prgf:openy_prgf
+  - openy_repeat:openy_repeat
+  - paragraphs:paragraphs
+  - plugin:plugin
 version: 8.x-1.0
 description: 'Feature with Activity Finder paragraph.'
