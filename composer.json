@@ -136,8 +136,7 @@
         ],
         "post-update-cmd": [
             "bash scripts/remove_openy_docroot_folder.sh || :"
-        ],
-        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ]
     },
     "extra": {
         "installer-paths": {
@@ -150,6 +149,15 @@
                 "type:bower-asset",
                 "type:npm-asset"
             ]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "docroot/"
+            },
+            "allowed-packages": [
+                "drupal/core"
+            ]
+            
         },
         "patches": {
             "drupal/simple_menu_icons": {
@@ -175,6 +183,9 @@
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
                 "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch"
             },
+            "drupal/crop": {
+                "3025005 - The Crop requirements is NOK is media_entity 8.x-2.0 installed via composer": "https://www.drupal.org/files/issues/2019-01-10/requirements-is-NOK-3025005-2.patch"
+            },
             "drupal/media_entity": {
                 "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
                 "2918172 - Media Entity upgrade -> core fails on absent column revision_uid": "https://www.drupal.org/files/issues/2918172-6-8.4.4.patch"
@@ -198,16 +209,16 @@
         "php": ">=5.6",
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.4.0",
-        "drupal/core": "~8.8.0",
+        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-recommended": "^8.8",
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
-        "drupal/entity": "1.0",
+        "drupal/entity": "1.0-rc1",
         "drupal/media_entity": "2.0.0-beta3",
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
-        "drupal/address": "1.7",
+        "drupal/address": "1.4",
         "drupal/paragraphs": "1.6",
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/pathauto": "~1.6",
@@ -264,7 +275,7 @@
         "drupal/views_field_formatter": "~1.9",
         "drupal/tzfield": "1.x-dev",
         "drupal/views_data_export": "1.0-beta1",
-        "doctrine/inflector": "1.1.*",
+        "doctrine/inflector": "1.2.*",
         "drupal/crop": "^2.0",
         "drupal/focal_point": "~1.0-beta6",
         "drupal/media_entity_video": "^2.0",
