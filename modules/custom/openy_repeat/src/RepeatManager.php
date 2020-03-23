@@ -8,9 +8,10 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\NodeInterface;
+use Drupal\openy_moderation_wrapper\EntityModerationStatus;
 use Drupal\openy_repeat_entity\Entity\Repeat;
 use Drupal\openy_session_instance\SessionInstanceManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -66,14 +67,30 @@ class RepeatManager implements SessionInstanceManagerInterface {
   protected $config;
 
   /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Drupal\openy_moderation_wrapper\EntityModerationStatus definition.
+   *
+   * @var \Drupal\openy_moderation_wrapper\EntityModerationStatus
+   */
+  protected $moderationWrapper;
+
+  /**
    * Constructor.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory, ModuleHandlerInterface $module_handler, EntityModerationStatus $moderation_wrapper) {
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get(self::CHANNEL);
     $this->storage = $this->entityTypeManager->getStorage(self::STORAGE);
     $this->configFactory = $configFactory;
     $this->config = $this->configFactory->get('openy_repeat.settings');
+    $this->moduleHandler = $module_handler;
+    $this->moderationWrapper = $moderation_wrapper;
   }
 
   /**
@@ -86,7 +103,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
     }
     $this->deleteCacheItems($result);
     $this->logger->info('The cache was cleared.');
-    Drupal::moduleHandler()->invokeAll('openy_repeat_reset_cache');
+    $this->moduleHandler->invokeAll('openy_repeat_reset_cache');
   }
 
   /**
@@ -130,7 +147,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getSessionData(NodeInterface $session) {
-    $moderation_wrapper = Drupal::service('openy_moderation_wrapper.entity_moderation_status');
+    $moderation_wrapper = $this->moderationWrapper;
 
     // Skip session with empty location reference.
     if (empty($session->field_session_location->target_id)) {
