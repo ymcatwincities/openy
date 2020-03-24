@@ -5,22 +5,22 @@ core: 8.x
 package: 'Open Y'
 version: 8.x-1.0
 dependencies:
-  - blazy
-  - crop
-  - 'drupal:field'
-  - 'drupal:image'
-  - 'drupal:link'
-  - 'drupal:media (>= 8.6)'
-  - 'drupal:text'
-  - entity_browser
-  - field
-  - focal_point
-  - image
-  - link
-  - media
-  - openy_focal_point
-  - openy_media_image
-  - openy_prgf
-  - paragraphs
-  - text
+  - blazy:blazy
+  - crop:crop
+  - drupal:field
+  - drupal:image
+  - drupal:link
+  - drupal:media (>= 8.6)
+  - drupal:text
+  - entity_browser:entity_browser
+  - drupal:field
+  - focal_point:focal_point
+  - drupal:image
+  - drupal:link
+  - drupal:media
+  - openy_focal_point:openy_focal_point
+  - openy_media_image:openy_media_image
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+  - drupal:text
 core_incompatible: false
