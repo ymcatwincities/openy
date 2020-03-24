@@ -5,5 +5,5 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - openy_map
-  - openy_socrates
+  - openy_map:openy_map
+  - openy_socrates:openy_socrates
