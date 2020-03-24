@@ -301,7 +301,6 @@
     margin: 0;
     width: 100%;
     color: white;
-    white-space: nowrap;
     font-size: 15px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 -1px rgba(0, 0, 0, 0.1);
@@ -403,12 +402,6 @@
       .address {
         font-size: 19px;
         line-height: 1.4em;
-        .plaintext {
-          display: inline-block;
-        }
-        .glyphicon-map-marker {
-          top: -23px;
-        }
         .directions {
           margin-top: 5px;
           margin-left: 25px;
@@ -432,7 +425,6 @@
   .today-hours {
     position: relative;
     a {
-      width: 77.5px;
       display: inline-block;
       @include breakpoint(0 767px) {
         display: none;

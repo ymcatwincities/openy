@@ -2956,6 +2956,21 @@ body {
 .branch-header .ajax-progress-throbber {
   display: none;
 }
+.branch-header .label-for-field-branch-hours {
+  display: none;
+}
+.branch-header .location-details .phone {
+  display: flex;
+  flex-direction: column;
+  line-height: 17px;
+  padding: 17px 15px 10px;
+}
+.branch-header .location-details .phone span {
+  padding-bottom: 5px;
+}
+.branch-header .location-details .phone span:last-child {
+  padding-bottom: 0;
+}
 .branch-header .desktop {
   background-color: #92288d;
   color: #fff;
@@ -3013,6 +3028,9 @@ body {
 }
 .branch-header .desktop a {
   color: #fff;
+}
+.branch-header .desktop .wrapper-field-branch-hours {
+  display: inline-block;
 }
 .branch-header .desktop .today-hours .today {
   margin-right: 10px;
@@ -3213,6 +3231,10 @@ body {
 }
 .branch-header .field-location-fax {
   display: inline;
+}
+
+.label-for-field-branch-contacts-info {
+  display: none;
 }
 
 .branch__updates_queue {
@@ -3777,12 +3799,6 @@ html.js .branch__updates_queue__button {
   .form__locations .btn-group-justified {
     border-spacing: 10px;
     margin: -10px -10px -10px 10px;
-  }
-}
-@media (min-width: 0) and (max-width: 30em) {
-  .form__locations .zip-code,
-  .form__locations .distance {
-    display: none;
   }
 }
 
@@ -13121,7 +13137,6 @@ a.sports-icon.floor-hockey {
   margin: 0;
   width: 100%;
   color: white;
-  white-space: nowrap;
   font-size: 15px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 -1px rgba(0, 0, 0, 0.1);
@@ -13233,12 +13248,6 @@ a.sports-icon.floor-hockey {
   font-size: 19px;
   line-height: 1.4em;
 }
-.branch-header .location-details #directions-hours-mobile .address .plaintext {
-  display: inline-block;
-}
-.branch-header .location-details #directions-hours-mobile .address .glyphicon-map-marker {
-  top: -23px;
-}
 .branch-header .location-details #directions-hours-mobile .address .directions {
   margin-top: 5px;
   margin-left: 25px;
@@ -13260,7 +13269,6 @@ a.sports-icon.floor-hockey {
   position: relative;
 }
 .location-camp-header .today-hours a {
-  width: 77.5px;
   display: inline-block;
 }
 @media (min-width: 0) and (max-width: 47.9375em) {

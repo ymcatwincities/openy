@@ -2,6 +2,8 @@ langcode: en
 status: true
 dependencies: {  }
 id: openy_demo_nbranch
-label: 'Branch'
+label: Branch
 description: 'Imports branch demo content.'
+source_type: null
 module: openy_demo_nbranch
+shared_configuration: null

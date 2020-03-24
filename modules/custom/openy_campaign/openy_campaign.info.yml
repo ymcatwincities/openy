@@ -5,8 +5,8 @@ core: 8.x
 version: 8.x-1.0-rc1
 package: Open Y (Deprecated)
 dependencies:
-  - block
-  - scheduler
-  - openy_node_campaign
-  - personify
-  - openy_campaign_color
+  - drupal:block
+  - scheduler:scheduler
+  - openy_node_campaign:openy_node_campaign
+  - personify:personify
+  - openy_campaign_color:openy_campaign_color

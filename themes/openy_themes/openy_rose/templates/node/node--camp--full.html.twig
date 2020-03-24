@@ -80,60 +80,6 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{% set directions_title = content.field_location_directions.0['#title'] %}
-{% set directions_url = content.field_location_directions.0['#url'] %}
-{% set fax_suffix = content.field_location_fax.0['#title'] ? '(fax)'|t %}
-
-{# Camp header #}
-<div{{ attributes.addClass('branch-header') }}>
-  <section class="hidden-xs desktop">
-    <div class="container">
-      <address class="row branch-header-inner camp-info" data-camp-name="{{ node.label }}">
-        <div class="column col-sm-3 col-md-2">
-          <h4>{{ 'WELCOME TO THE'|t }}</h4>
-          <p>{{ label }}</p>
-          <p class="branch-header__directions"><a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a></p>
-        </div>
-        <div class="column col-sm-3 address-wrapper">
-          <h4>{{ 'ADDRESS'|t }}</h4>
-            {{ content.field_location_address }}
-        </div>
-        <div class="column col-sm-3 col-md-2">
-          <h4>{{ 'PHONE'|t }}</h4>
-          <p>{{ content.field_location_phone }}</p>
-          {{ content.field_location_fax }} {{ fax_suffix }}
-        </div>
-      </address>
-    </div>
-  </section>
-
-  <blockquote class="hidden-sm hidden-md hidden-lg mobile">
-    <address class="container">
-      <div class="row">
-        <div class="col-xs-12">
-          <h4>{{ 'WELCOME TO THE'|t }}</h4>
-          <p>{{ label }}</p>
-          <p class="branch-header__directions"><a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a></p>
-        </div>
-        <div class="ui-tabs">
-          <ul class="ui-tabs-nav">
-            <li><a href="#tabs-phone"><i class="fa fa-phone" aria-hidden="true"></i></a></li>
-            <li><a href="#tabs-marker"><i class="fa fa-map-marker" aria-hidden="true"></i></a></li>
-          </ul>
-          <div id="tabs-phone" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'PHONE'|t }}</h4>
-            <p>{{ content.field_location_phone }}</p>
-            {{ content.field_location_fax }} {{ fax_suffix }}
-          </div>
-          <div id="tabs-marker" class="ui-tabs-panel col-xs-12">
-            <h4>{{ 'ADDRESS'|t }}</h4>
-              {{ content.field_location_address }}
-          </div>
-        </div>
-      </div>
-    </address>
-  </blockquote>
-</div>
 <header>
   {{ content.field_header_content }}
 </header>
