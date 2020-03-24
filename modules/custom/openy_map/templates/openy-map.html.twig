@@ -1,5 +1,5 @@
 <div class="openy-map-wrapper">
-  <div class="openy-map-canvas openy-map map hidden-xs"></div>
+  <div class="openy-map-canvas openy-map map"></div>
   {% if element['#show_controls'] %}
   <div class="row">
     <div class="map_controls col-lg-12">
@@ -8,7 +8,7 @@
           <div class="form form__locations" role="form">
             <div class="container">
               <div class="row">
-                <div class="col-sm-5 col-md-4 col-lg-4 zip-code">
+                <div class="col-md-6 col-lg-4 zip-code filter-item">
                   <div class="form-group">
                     <div class="input-group search">
                       <label class="sr-only">{{ 'Address'|t }}</label>
@@ -19,7 +19,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-4 col-md-2 distance">
+                <div class="col-md-6 col-lg-3 distance filter-item">
                   <div class="form-group">
                     <label class="sr-only">{{ 'Distance'|t }}</label>
                     <select class="distance_limit_value distance_limit form-control form-select">
@@ -32,7 +32,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-sm-12 col-md-6">
+                <div class="col-md-12 col-lg-5 filter-item">
                   <div class="btn-group tag_filters form-group"></div>
                 </div>
               </div>

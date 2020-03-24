@@ -5,7 +5,7 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - migrate
-  - migrate_plus
-  - migrate_tools
-  - openy_node_landing
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - openy_node_landing:openy_node_landing

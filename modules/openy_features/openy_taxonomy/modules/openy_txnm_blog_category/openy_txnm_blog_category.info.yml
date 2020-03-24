@@ -5,12 +5,12 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - ctools
-  - entity_reference_revisions
-  - field
-  - paragraphs
-  - path
-  - pathauto
-  - taxonomy
-  - text
-  - openy_taxonomy
+  - ctools:ctools
+  - entity_reference_revisions:entity_reference_revisions
+  - drupal:field
+  - paragraphs:paragraphs
+  - drupal:path
+  - pathauto:pathauto
+  - drupal:taxonomy
+  - drupal:text
+  - openy_taxonomy:openy_taxonomy

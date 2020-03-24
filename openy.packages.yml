@@ -66,6 +66,7 @@ editorial:
     - openy_prgf_simple_content
     - openy_prgf_small_banner
     - openy_prgf_teaser
+    - openy_block_branch_contacts_info
 
 editorial_ext:
   name: 'Editorial Extended'
@@ -158,6 +159,7 @@ locations:
     - openy_field_hours
     - openy_field_custom_hours
     - openy_field_holiday_hours
+    - openy_block_branch_contacts_info
 
 locations_ext:
   name: 'Locations Extended'

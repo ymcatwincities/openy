@@ -5,8 +5,8 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - datalayer
-  - field
-  - openy_er
-  - paragraphs
-  - text
+  - datalayer:datalayer
+  - drupal:field
+  - openy_er:openy_er
+  - paragraphs:paragraphs
+  - drupal:text
