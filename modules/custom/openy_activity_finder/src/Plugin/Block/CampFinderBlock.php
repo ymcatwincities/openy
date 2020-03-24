@@ -7,15 +7,15 @@ use Drupal\Core\Cache\Cache;
 use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 
 /**
- * Provides a 'Activity Finder' block.
+ * Provides a 'Camp Finder' block.
  *
  * @Block(
- *   id = "activity_finder_block",
- *   admin_label = @Translation("Activity Finder Block"),
+ *   id = "camp_finder_block",
+ *   admin_label = @Translation("Camp Finder Block"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class ActivityFinderBlock extends BlockBase {
+class CampFinderBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -31,10 +31,10 @@ class ActivityFinderBlock extends BlockBase {
     }
 
     return [
-      '#theme' => 'openy_activity_finder_program_search',
+      '#theme' => 'openy_camp_finder_program_search',
       '#data' => [],
       '#ages' => $backend->getAges(),
-      '#days' => $backend->getDaysOfWeek(),
+      '#weeks' => $backend->getWeeks(),
       '#categories' => $backend->getCategoriesTopLevel(),
       '#categories_type' => $backend->getCategoriesType(),
       '#activities' => $backend->getCategories(),

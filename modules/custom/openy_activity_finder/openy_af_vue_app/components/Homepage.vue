@@ -76,9 +76,8 @@
         if (this.homeBranchId) {
           var url = this.$parent.programSearchUrl + '?locations=' + this.homeBranchId;
           if (typeof this.$parent.categoriesExclude !== 'undefined' && this.$parent.categoriesExclude.length > 0) {
-            url = url + '&exclude=' + this.$parent.categoriesExclude.join(',');
+            return url + '&exclude=' + this.$parent.categoriesExclude.join(',');
           }
-          return url;
         }
       },
       hideProgramBlock: function () {
@@ -87,8 +86,7 @@
           && typeof window.OpenY.field_prgf_hide_program_block[0] != 'undefined'
         ) {
           return window.OpenY.field_prgf_hide_program_block[0]['value'];
-        }
-        else {
+        } else {
           return 0;
         }
       },

@@ -56,6 +56,25 @@ abstract class OpenyActivityFinderBackend implements OpenyActivityFinderBackendI
     return $ages;
   }
 
+  /**
+   * Get weeks from configuration.
+   */
+  public function getWeeks() {
+    $weeks = [];
+
+    $weeks_config = $this->config->get('weeks');
+    foreach (explode("\n", $weeks_config) as $row) {
+      $row = trim($row);
+      list($months, $label) = explode(',', $row);
+      $weeks[] = [
+        'label' => $label,
+        'value' => $months,
+      ];
+    }
+
+    return $weeks;
+  }
+
   public function getCategoriesType() {
     return 'multiple';
   }

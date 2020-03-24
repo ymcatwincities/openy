@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ *
+ * Available variables:
+ * - data: contains all the data.
+ */
+ *
+#}
+
+{{ attach_library('openy_activity_finder/openy_camp_finder') }}
+
+<div id="camp-finder-app">
+  <div class="activity-finder__wrapper">
+     <camp-finder
+        :ages='{{ ages|json_encode }}'
+        :weeks='{{ weeks|json_encode }}'
+        :categories='{{ categories|json_encode }}'
+        :categories_type='{{ categories_type|json_encode }}'
+        :activities='{{ activities|json_encode }}'
+        :locations='{{ locations|json_encode }}'
+     ></camp-finder>
+  </div>
+</div>

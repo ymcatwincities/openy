@@ -48,6 +48,9 @@ field_settings:
   af_parts_of_day:
     label: 'Parts of day'
     property_path: search_api_af_parts_of_day
+  af_weeks:
+    label: Weeks
+    property_path: search_api_af_weeks
     type: string
   title:
     label: Title
@@ -183,6 +186,7 @@ datasource_settings:
       selected:
         - en
 processor_settings:
+  openy_af_week: {  }
   openy_af_ages_min_max: {  }
   openy_af_parts_of_day: {  }
   rendered_item: {  }

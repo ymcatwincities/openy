@@ -122,6 +122,20 @@
                 expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
                 :default='$route.query.days'
                 v-on:updated-values="days = $event"
+                :loading="loading"
+                v-show="isShowWeeksEnabled == 0"
+              ></sidebar-filter>
+
+              <sidebar-filter
+                ref="weeks_filter"
+                title="{{ 'Week'|t }}"
+                id="weeks-filter"
+                type="{{ 'checkboxes'|t }}"
+                options='{{ weeks|json_encode }}'
+                :default='$route.query.weeks'
+                v-on:updated-values="weeks = $event"
+                :loading="loading"
+                v-show="isShowWeeksEnabled == 1"
               ></sidebar-filter>
               {% if collapse_group %}
                 </div>
@@ -294,7 +308,7 @@
                 <br/>
                 <br/>
                 <p><strong>{{ 'What criteria is most important to you?'|t }}</strong></p>
-                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')">{{ 'Day'|t }}</a><br/>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')" v-show="!isShowWeeksEnabled">{{ 'Day'|t }}</a><br/>
                 <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('program')">{{ 'Program'|t }}</a><br/>
                 <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('location')">{{ 'Location'|t }}</a><br/>
               </div>
