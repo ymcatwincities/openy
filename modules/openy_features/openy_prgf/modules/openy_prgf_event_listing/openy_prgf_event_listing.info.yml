@@ -5,16 +5,16 @@ core: 8.x
 package: 'Open Y'
 version: 8.x-1.0
 dependencies:
-  - datalayer
-  - datetime
-  - field
-  - node
-  - openy_node_event
-  - openy_prgf
-  - paragraphs
-  - plugin
-  - text
-  - user
-  - verf
-  - views
-  - views_infinite_scroll
+  - datalayer:datalayer
+  - drupal:datetime
+  - drupal:field
+  - drupal:node
+  - openy_node_event:openy_node_event
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+  - plugin:plugin
+  - drupal:text
+  - drupal:user
+  - verf:verf
+  - drupal:views
+  - views_infinite_scroll:views_infinite_scroll

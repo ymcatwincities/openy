@@ -5,9 +5,9 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - field
-  - jquery_colorpicker
-  - path
-  - rabbit_hole
-  - taxonomy
-  - text
+  - drupal:field
+  - jquery_colorpicker:jquery_colorpicker
+  - drupal:path
+  - rabbit_hole:rabbit_hole
+  - drupal:taxonomy
+  - drupal:text

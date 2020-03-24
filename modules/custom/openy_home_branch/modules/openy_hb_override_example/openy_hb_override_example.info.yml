@@ -5,5 +5,5 @@ core: 8.x
 version: 8.x-1.0-rc1
 package: Open Y
 dependencies:
-  - openy_home_branch
+  - openy_home_branch:openy_home_branch
 
