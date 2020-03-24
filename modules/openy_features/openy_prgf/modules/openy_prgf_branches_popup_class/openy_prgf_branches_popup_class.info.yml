@@ -5,8 +5,8 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - field
-  - openy_prgf
-  - paragraphs
-  - plugin
-  - openy_popups
+  - drupal:field
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+  - plugin:plugin
+  - openy_popups:openy_popups

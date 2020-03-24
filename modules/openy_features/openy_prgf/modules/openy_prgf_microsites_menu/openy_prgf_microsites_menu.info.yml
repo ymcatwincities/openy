@@ -5,9 +5,9 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - block_content
-  - entity_browser_entity_form
-  - field
-  - inline_entity_form
-  - openy_block_menu
-  - paragraphs
+  - drupal:block_content
+  - entity_browser_entity_form:entity_browser_entity_form
+  - drupal:field
+  - inline_entity_form:inline_entity_form
+  - openy_block_menu:openy_block_menu
+  - paragraphs:paragraphs

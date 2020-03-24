@@ -5,17 +5,17 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - datalayer
-  - entity_reference_revisions
-  - field
-  - field_group
-  - menu_ui
-  - metatag
-  - node
-  - openy_node
-  - options
-  - paragraphs
-  - path
-  - pathauto
-  - scheduler
-  - user
+  - datalayer:datalayer
+  - entity_reference_revisions:entity_reference_revisions
+  - drupal:field
+  - field_group:field_group
+  - drupal:menu_ui
+  - metatag:metatag
+  - drupal:node
+  - openy_node:openy_node
+  - drupal:options
+  - paragraphs:paragraphs
+  - drupal:path
+  - pathauto:pathauto
+  - scheduler:scheduler
+  - drupal:user

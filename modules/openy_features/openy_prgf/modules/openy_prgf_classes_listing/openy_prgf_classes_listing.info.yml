@@ -5,16 +5,16 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - field
-  - node
-  - openy_node_class
-  - openy_node_session
-  - openy_node_program
-  - openy_node_category
-  - openy_prgf
-  - paragraphs
-  - plugin
-  - user
-  - verf
-  - views
-  - views_block_filter_block
+  - drupal:field
+  - drupal:node
+  - openy_node_class:openy_node_class
+  - openy_node_session:openy_node_session
+  - openy_node_program:openy_node_program
+  - openy_node_category:openy_node_category
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+  - plugin:plugin
+  - drupal:user
+  - verf:verf
+  - drupal:views
+  - views_block_filter_block:views_block_filter_block

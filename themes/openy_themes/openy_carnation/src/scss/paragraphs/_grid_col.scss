@@ -80,13 +80,17 @@
     }
 
     .more-link {
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
+      position: relative;
+      margin: 0 auto;
+      max-width: 100%;
+
+      @include media-breakpoint-up(sm) {
+        max-width: 80%;
+      }
 
       span {
         position: relative;
-        left: -50%;
+        left: auto;
         background: $white;
       }
 

@@ -5,5 +5,5 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - migrate_tools
-  - migrate_plus
+  - migrate_tools:migrate_tools
+  - migrate_plus:migrate_plus
