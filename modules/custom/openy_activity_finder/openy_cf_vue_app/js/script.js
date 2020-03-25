@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
 import CampFinder from '../components/CampFinder.vue'
 import afAge from '../../openy_af_vue_app/components/AgeStep.vue'
 import afWeek from '../components/WeekStep.vue'

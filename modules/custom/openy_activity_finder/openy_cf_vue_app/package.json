@@ -16,9 +16,7 @@
     "moment": "^2.24.0",
     "query-string": "^6.5.0",
     "v-calendar": "^0.9.7",
-    "vue": "^2.6.10",
-    "vue-bootstrap-typeahead": "^0.2.6",
-    "vue-router": "^3.0.1"
+    "vue-bootstrap-typeahead": "^0.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
