@@ -104,7 +104,7 @@ set classes = [
       {{ title_suffix }}
     </div>
 
-    {% if content.field_event_location|render|trim is not empty %}
+    {% if not node.field_event_location.isEmpty() %}
       <div class="event-location">
         <i class="fas fa-map-marker-alt mr-2 text-primary"></i> {{ content.field_event_location }}
       </div>
