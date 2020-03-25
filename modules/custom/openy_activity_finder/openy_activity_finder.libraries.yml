@@ -1,7 +1,7 @@
 openy_activity_finder:
   version: 0.1
   js:
-    openy_af_vue_app/dist/main.js: {}
+    openy_af_vue_app/dist/main.js: {minified: true}
   css:
     base:
       css/activity_finder.css: {}
@@ -21,7 +21,7 @@ openy_activity_finder:
 openy_camp_finder:
   version: 0.1
   js:
-    openy_cf_vue_app/dist/main.js: {}
+    openy_cf_vue_app/dist/main.js: {minified: true}
   css:
     base:
       css/activity_finder.css: {}
@@ -33,6 +33,8 @@ openy_camp_finder:
     - openy_system/openy_system.stepper
     - openy_system/jquery.matchHeight
     - openy_system/polyfill
+    - openy_system/vue
+    - openy_system/vue-router
     - openy_system/moment
     - core/jquery.cookie
 
