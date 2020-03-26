@@ -93,6 +93,7 @@
   // heading only (blog nodes)
   &--small {
     min-height: 120px;
+    overflow: hidden;
   }
 
   // heading + subheading (program nodes)
