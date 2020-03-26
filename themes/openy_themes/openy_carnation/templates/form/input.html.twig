@@ -11,7 +11,7 @@
  */
 #}
 {% block input %}
-  <div class="input-wrapper position-relative">
+  <div class="input-wrapper position-relative {{ attributes.offsetGet('data-drupal-selector') }}">
     <input{{ attributes.setAttribute('aria-label', element['#title']) }} />{{ children }}
   </div>
 {% endblock %}
