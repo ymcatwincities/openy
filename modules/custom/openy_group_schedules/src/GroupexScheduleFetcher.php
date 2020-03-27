@@ -124,9 +124,9 @@ class GroupexScheduleFetcher {
    */
   public function getSchedule() {
     // Use cached schedule if already processed.
-    if ($this->schedule) {
-      return $this->schedule;
-    }
+    // if ($this->schedule) {
+    //   return $this->schedule;
+    // }
 
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $days_range = is_numeric($conf->get('days_range')) ? $conf->get('days_range') : 14;
