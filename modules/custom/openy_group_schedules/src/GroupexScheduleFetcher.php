@@ -179,6 +179,21 @@ class GroupexScheduleFetcher {
       $date_url_options['groupex_class'] = 'groupex_table_class';
       unset($date_url_options['instructor']);
       unset($date_url_options['view_mode']);
+      
+      $duration = '';
+      $length = trim($item->length);
+      $hours = intdiv($length, 60);
+      $minutes = $length % 60;
+      $duration .= sprintf('%d min', $min);
+      if ($hours > 0 && $minutes > 0) {
+        $duration = sprintf('%d hrs, %d min', $hours, $minutes);
+      }
+      elseif ($hours > 0) {
+        $duration = sprintf('%d hrs', $hours);
+      }
+      else {
+        $duration = sprintf('%d min', $minutes);
+      }
 
       $items[$item->id] = [
         '#theme' => isset($this->parameters['groupex_class']) ? $this->parameters['groupex_class'] : 'groupex_class',
@@ -193,7 +208,8 @@ class GroupexScheduleFetcher {
           'studio' => $item->studio,
           'date_short' => date('F, d', strtotime($item->date)),
           'time' => $item->start,
-          'duration' => sprintf('%d min', trim($item->length)),
+          'end_time' => $item->end,
+          'duration' => $duration,
           'instructor' => $item->instructor,
 //          'class_id' => $item->class_id, //doesn't exist in API, needs to be added through processData().
           'class_link' => Url::fromRoute('openy_group_schedules.all_schedules_search_results', [], ['query' => $class_url_options]),
