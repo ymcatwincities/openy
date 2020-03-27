@@ -7,6 +7,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\openy_programs_search\DataStorageInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\NestedArray;
 
@@ -36,6 +37,13 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   protected $configFactory;
 
   /**
+   * The logger channel.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * Constructs a new Programs Search Block instance.
    *
    * @param array $configuration
@@ -48,12 +56,15 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    *   Locations storage.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config Factory.
+   * @param \Psr\Log\LoggerInterface $logger
+   *   The logger channel.
    *
    * @internal param $DataStorageInterface
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, DataStorageInterface $storage, ConfigFactoryInterface $configFactory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, DataStorageInterface $storage, ConfigFactoryInterface $configFactory, LoggerInterface $logger) {
     $this->storage = $storage;
     $this->configFactory = $configFactory;
+    $this->logger = $logger;
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
 
@@ -66,7 +77,8 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
       $plugin_id,
       $plugin_definition,
       $container->get('openy_programs_search.data_storage'),
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('logger.factory')->get('openy_programs_search')
     );
   }
 
@@ -110,9 +122,17 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
       '#title' => $this->t('Categories Config'),
     ];
 
+    try {
+      $categories = $this->storage->getCategories();
+    }
+    catch (\Exception $e) {
+      $categories = [];
+      $this->logger->error($e->getMessage());
+    }
+
     $form['categories_config']['enabled_categories'] = [
       '#type' => 'checkboxes',
-      '#options' => $this->storage->getCategories(),
+      '#options' => $categories,
       '#default_value' => $conf['enabled_categories'] ?: [],
     ];
 
