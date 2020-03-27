@@ -5,15 +5,15 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - better_exposed_filters
-  - field
-  - node
-  - openy_location
-  - openy_loc_branch
-  - openy_prgf
-  - openy_taxonomy
-  - paragraphs
-  - taxonomy
-  - user
-  - views
-  - views_field_formatter
+  - better_exposed_filters:better_exposed_filters
+  - drupal:field
+  - drupal:node
+  - openy_location:openy_location
+  - openy_loc_branch:openy_loc_branch
+  - openy_prgf:openy_prgf
+  - openy_taxonomy:openy_taxonomy
+  - paragraphs:paragraphs
+  - drupal:taxonomy
+  - drupal:user
+  - drupal:views
+  - views_field_formatter:views_field_formatter

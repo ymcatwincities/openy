@@ -5,11 +5,11 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - entity_reference
-  - views
-  - openy_moderation_wrapper
-  - openy_node_program
-  - openy_node_category
-  - openy_node_activity
-  - openy_node_class
-  - openy_node_session
+  - drupal:entity_reference
+  - drupal:views
+  - openy_moderation_wrapper:openy_moderation_wrapper
+  - openy_node_program:openy_node_program
+  - openy_node_category:openy_node_category
+  - openy_node_activity:openy_node_activity
+  - openy_node_class:openy_node_class
+  - openy_node_session:openy_node_session
