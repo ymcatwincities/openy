@@ -2,22 +2,13 @@
 
 namespace Drupal\openy\Form;
 
-use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Defines a form for setting Search Solr server parameters during install.
  */
-class SearchSolrForm extends FormBase {
-
-  /**
-   * The configuration factory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactoryInterface
-   */
-  protected $configFactory;
+class SearchSolrForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
@@ -27,29 +18,23 @@ class SearchSolrForm extends FormBase {
   }
 
   /**
-   * Constructs a new GroupexFormBase object.
-   *
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The configuration factory.
+   * @inheritDoc
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
-    $this->configFactory = $config_factory;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('config.factory')
-    );
+  protected function getEditableConfigNames() {
+    return [
+      'search_api.server.solr_search',
+      'search_api.index.search_content',
+      'search_api.server.openy_database_search',
+    ];
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $solr_server_config = $this->configFactory->get('search_api.server.solr_search');
+    $solr_server_config = $this->config('search_api.server.openy_solr_search');
+
+    $backend_config = $solr_server_config->get('backend_config');
     $solr_connector_options = [
       'standard' => $this->t('Standard'),
       'basic_auth' => $this->t('Basic Auth'),
@@ -60,7 +45,7 @@ class SearchSolrForm extends FormBase {
       '#title' => $this->t('Solr Connector'),
       '#description' => $this->t('Choose a connector to use for this Solr server.'),
       '#options' => $solr_connector_options,
-      '#default_value' => $solr_server_config->get('backend_config.connector'),
+      '#default_value' => $backend_config['connector'],
       '#required' => TRUE,
     ];
     $form['connector_set'] = [
@@ -74,7 +59,7 @@ class SearchSolrForm extends FormBase {
       '#type' => 'select',
       '#title' => $this->t('HTTP protocol'),
       '#description' => $this->t('The HTTP protocol to use for sending queries.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.scheme'),
+      '#default_value' => $backend_config['connector_config']['scheme'],
       '#options' => [
         'http' => 'http',
         'https' => 'https',
@@ -85,7 +70,7 @@ class SearchSolrForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Solr host'),
       '#description' => $this->t('The host name or IP of your Solr server, e.g. <code>localhost</code> or <code>www.example.com</code>.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.host'),
+      '#default_value' => $backend_config['connector_config']['host'],
       '#required' => TRUE,
     ];
 
@@ -93,7 +78,7 @@ class SearchSolrForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Solr port'),
       '#description' => $this->t('The Jetty example server is at port 8983, while Tomcat uses 8080 by default.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.port'),
+      '#default_value' => $backend_config['connector_config']['port'],
       '#required' => TRUE,
     ];
 
@@ -101,14 +86,14 @@ class SearchSolrForm extends FormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Solr path'),
       '#description' => $this->t('The path that identifies the Solr instance to use on the server.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.path'),
+      '#default_value' => $backend_config['connector_config']['path'],
     ];
 
     $form['connector_set']['core'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Solr core'),
       '#description' => $this->t('The name that identifies the Solr core to use on the server.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.core'),
+      '#default_value' => $backend_config['connector_config']['core'],
     ];
 
     $form['connector_set']['timeout'] = [
@@ -117,7 +102,7 @@ class SearchSolrForm extends FormBase {
       '#max' => 180,
       '#title' => $this->t('Query timeout'),
       '#description' => $this->t('The timeout in seconds for search queries sent to the Solr server.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.timeout'),
+      '#default_value' => $backend_config['connector_config']['timeout'],
       '#required' => TRUE,
     ];
 
@@ -127,7 +112,7 @@ class SearchSolrForm extends FormBase {
       '#max' => 180,
       '#title' => $this->t('Index timeout'),
       '#description' => $this->t('The timeout in seconds for indexing requests to the Solr server.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.index_timeout'),
+      '#default_value' => $backend_config['connector_config']['index_timeout'],
       '#required' => TRUE,
     ];
 
@@ -137,7 +122,7 @@ class SearchSolrForm extends FormBase {
       '#max' => 180,
       '#title' => $this->t('Optimize timeout'),
       '#description' => $this->t('The timeout in seconds for background index optimization queries on a Solr server.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.optimize_timeout'),
+      '#default_value' => $backend_config['connector_config']['optimize_timeout'],
       '#required' => TRUE,
     ];
 
@@ -146,7 +131,7 @@ class SearchSolrForm extends FormBase {
       '#min' => 0,
       '#title' => $this->t('Commit within'),
       '#description' => $this->t('The limit in milliseconds within a (soft) commit on Solr is forced after any updating the index in any way. Setting the value to "0" turns off this dynamic enforcement and lets Solr behave like configured solrconf.xml.'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.commit_within'),
+      '#default_value' => $backend_config['connector_config']['commit_within'],
       '#required' => TRUE,
     ];
 
@@ -165,7 +150,7 @@ class SearchSolrForm extends FormBase {
     $form['auth']['username'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Username'),
-      '#default_value' => $solr_server_config->get('backend_config.connector_config.username'),
+      '#default_value' =>  $backend_config['connector_config']['username'],
     ];
 
     $form['auth']['password'] = [
@@ -206,35 +191,41 @@ class SearchSolrForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     // Save solr server configuration.
-    $solr_server_config = $this->configFactory->getEditable('search_api.server.solr_search');
-    $solr_server_config->set('backend_config.connector', $values['connector']);
-    $solr_server_config->set('backend_config.connector_config.scheme', $values['scheme']);
-    $solr_server_config->set('backend_config.connector_config.host', $values['host']);
-    $solr_server_config->set('backend_config.connector_config.port', $values['port']);
-    $solr_server_config->set('backend_config.connector_config.path', $values['path']);
-    $solr_server_config->set('backend_config.connector_config.core', $values['core']);
-    $solr_server_config->set('backend_config.connector_config.timeout', $values['timeout']);
-    $solr_server_config->set('backend_config.connector_config.index_timeout', $values['index_timeout']);
-    $solr_server_config->set('backend_config.connector_config.optimize_timeout', $values['optimize_timeout']);
-    $solr_server_config->set('backend_config.connector_config.commit_within', $values['commit_within']);
-    $solr_server_config->set('status', 1);
+    $this->config('search_api.server.solr_search')
+      ->set('backend_config.connector', $values['connector'])
+      ->set('backend_config.connector_config.scheme', $values['scheme'])
+      ->set('backend_config.connector_config.host', $values['host'])
+      ->set('backend_config.connector_config.port', $values['port'])
+      ->set('backend_config.connector_config.path', $values['path'])
+      ->set('backend_config.connector_config.core', $values['core'])
+      ->set('backend_config.connector_config.timeout', $values['timeout'])
+      ->set('backend_config.connector_config.index_timeout', $values['index_timeout'])
+      ->set('backend_config.connector_config.optimize_timeout', $values['optimize_timeout'])
+      ->set('backend_config.connector_config.commit_within', $values['commit_within'])
+      ->set('status', 1)
+      ->save();
     // For basic_auth also save username and password.
     if ('basic_auth' == $values['connector']) {
       // Ignore empty password submissions if the user didn't change username.
-      $saved_username = $solr_server_config->get('backend_config.connector_config.username');
+      $saved_username = $this->config('search_api.server.solr_search')
+        ->get('backend_config.connector_config.username');
       if ($values['password'] === '' && $saved_username !== '' && $values['username'] === $saved_username) {
-        $values['password'] = $solr_server_config->get('backend_config.connector_config.password');
+        $values['password'] = $this->config('search_api.server.solr_search')
+          ->get('backend_config.connector_config.password');
       }
-      $solr_server_config->set('backend_config.connector_config.username', $values['username']);
-      $solr_server_config->set('backend_config.connector_config.password', $values['password']);
+      $this->config('search_api.server.solr_search')
+        ->set('backend_config.connector_config.username', $values['username'])
+        ->set('backend_config.connector_config.password', $values['password'])
+        ->save();
     }
-    $solr_server_config->save();
     // Attach search index to solr server.
-    $search_index_config = $this->configFactory->getEditable('search_api.index.search_content');
-    $search_index_config->set('server', 'solr_search')->save();
+    $this->config('search_api.index.search_content')
+      ->set('server', 'solr_search')
+      ->save();
     // Disable database search server.
-    $db_search_config = $this->configFactory->getEditable('search_api.server.database_search');
-    $db_search_config->set('status', 0)->save();
+    $this->config('search_api.server.openy_database_search')
+      ->set('status', 0)
+      ->save();
   }
 
 }
