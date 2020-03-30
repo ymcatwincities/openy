@@ -28,4 +28,4 @@ backend_config:
   site_hash: true
   suggest_suffix: true
   suggest_corrections: true
-  suggest_words: false
+  suggest_words: true

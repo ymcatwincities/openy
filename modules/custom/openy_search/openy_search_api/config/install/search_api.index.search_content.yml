@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - search_api.server.database_search
+    - search_api.server.openy_database_search
   module:
     - search_api
     - node
@@ -131,4 +131,4 @@ tracker_settings:
 options:
   index_directly: true
   cron_limit: 50
-server: database_search
+server: openy_database_search
