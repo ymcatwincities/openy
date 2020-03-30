@@ -1,5 +1,5 @@
 // hide gallery arrows when placed in the header
-#block-openy-carnation-content article {
+.header-region-content {
   .paragraph-gallery {
 
     .carousel {
@@ -8,6 +8,16 @@
       @include media-breakpoint-up(lg) {
         margin: 0;
       }
+
+      .carousel-inner {
+        .carousel-item img {
+          opacity: .5;
+        }
+      }
+    }
+
+    .carousel-control-prev, .carousel-control-next {
+      display: none;
     }
 
     .cta-group-wrapper {
@@ -40,7 +50,6 @@
       a img {
         height: auto;
         width: 100%;
-        opacity: .5;
       }
     }
 
