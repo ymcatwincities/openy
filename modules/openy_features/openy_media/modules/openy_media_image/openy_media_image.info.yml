@@ -12,7 +12,7 @@ dependencies:
   - drupal:image
   - drupal:media (>= 8.6)
   - drupal:path
-  - drupal:taxonomy'
+  - drupal:taxonomy
   - drupal:user
   - drupal:views
   - embed:embed
