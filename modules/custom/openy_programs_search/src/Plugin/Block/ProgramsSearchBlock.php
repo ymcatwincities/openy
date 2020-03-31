@@ -4,12 +4,14 @@ namespace Drupal\openy_programs_search\Plugin\Block;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Block\BlockBase;
 use Drupal\openy_programs_search\DataStorageInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Component\Utility\NestedArray;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Provides a 'Programs Search' block.
@@ -44,6 +46,20 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
   protected $logger;
 
   /**
+   * The Messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * The HTTP request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
    * Constructs a new Programs Search Block instance.
    *
    * @param array $configuration
@@ -58,13 +74,18 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
    *   Config Factory.
    * @param \Psr\Log\LoggerInterface $logger
    *   The logger channel.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger service.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
    *
    * @internal param $DataStorageInterface
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, DataStorageInterface $storage, ConfigFactoryInterface $configFactory, LoggerInterface $logger) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, DataStorageInterface $storage, ConfigFactoryInterface $configFactory, LoggerInterface $logger, MessengerInterface $messenger, RequestStack $requestStack) {
     $this->storage = $storage;
     $this->configFactory = $configFactory;
     $this->logger = $logger;
+    $this->messenger = $messenger;
+    $this->requestStack = $requestStack->getCurrentRequest();
     parent::__construct($configuration, $plugin_id, $plugin_definition);
   }
 
@@ -78,7 +99,9 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
       $plugin_definition,
       $container->get('openy_programs_search.data_storage'),
       $container->get('config.factory'),
-      $container->get('logger.factory')->get('openy_programs_search')
+      $container->get('logger.factory')->get('openy_programs_search'),
+      $container->get('messenger'),
+      $container->get('request_stack')
     );
   }
 
@@ -105,15 +128,26 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
 
     $form = parent::blockForm($form, $form_state);
     $conf = $this->getConfiguration();
+    $request = $this->requestStack->getSchemeAndHttpHost();
+    $url = "{$request}/admin/openy/integrations/daxko/programs-search";
 
     $form['locations_config'] = [
       '#type' => 'details',
       '#title' => $this->t('Locations Config'),
     ];
 
+    try {
+      $locations = $this->storage->getLocations();
+    }
+    catch (\Exception $e) {
+      $locations = [];
+      $this->logger->error($e->getMessage());
+      $this->messenger->addError($this->t("Сan't fetch Daxco data, please re-check your settings {$url}"));
+    }
+
     $form['locations_config']['enabled_locations'] = [
       '#type' => 'checkboxes',
-      '#options' => $this->storage->getLocations(),
+      '#options' => $locations,
       '#default_value' => $conf['enabled_locations'] ?: $default_locations,
     ];
 
@@ -128,6 +162,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
     catch (\Exception $e) {
       $categories = [];
       $this->logger->error($e->getMessage());
+      $this->messenger->addError($this->t("Сan't fetch Daxco data, please re-check your settings {$url}"));
     }
 
     $form['categories_config']['enabled_categories'] = [
