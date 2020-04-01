@@ -16,10 +16,6 @@
       }
     }
 
-    .carousel-control-prev, .carousel-control-next {
-      display: none;
-    }
-
     .cta-group-wrapper {
       @include media-breakpoint-up(lg) {
         padding-top: 135px;
