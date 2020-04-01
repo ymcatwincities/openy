@@ -5,20 +5,20 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - drupal:address
-  - drupal:field
-  - drupal:link
-  - drupal:menu_ui
-  - drupal:node
-  - drupal:path
-  - drupal:telephone
-  - drupal:user
+  - address:address
   - entity_reference_revisions:entity_reference_revisions
+  - drupal:field
   - field_group:field_group
   - geolocation:geolocation
-  - link_attribute:link_attributes
+  - drupal:link
+  - drupal:menu_ui
   - metatag:metatag
-  - openy:openy_location
-  - openy:openy_node
+  - drupal:node
+  - link_attribute:link_attributes
+  - openy_location:openy_location
+  - openy_node:openy_node
   - paragraphs:paragraphs
+  - drupal:path
   - pathauto:pathauto
+  - drupal:telephone
+  - drupal:user

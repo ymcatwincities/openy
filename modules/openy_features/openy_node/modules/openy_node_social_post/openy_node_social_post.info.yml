@@ -6,18 +6,18 @@ version: 8.x-1.0
 package: Open Y
 dependencies:
   - blazy:blazy
-  - drupal:content_moderation
+  - content_moderation:content_moderation
   - datalayer:datalayer
-  - datetime:datetime
+  - drupal:datetime
   - drupal:field
   - drupal:file
   - drupal:image
   - drupal:link
-  - link_attributes:link_attributes
   - drupal:menu_ui
   - drupal:node
   - paragraphs:paragraphs
   - drupal:path
+  - link_attributes:link_attributes
   - plugin:plugin
   - responsive_image:responsive_image
   - social_feed_fetcher:social_feed_fetcher

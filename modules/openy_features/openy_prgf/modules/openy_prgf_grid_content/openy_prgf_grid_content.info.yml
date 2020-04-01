@@ -1,8 +1,8 @@
-name: 'Open Y Paragraph Grid Content'
-description: 'Provides a paragraph to display grid content stories.'
+name: Open Y Paragraph Grid Content
+description: Provides a paragraph to display grid content stories.
 type: module
 core: 8.x
-package: 'Open Y'
+package: Open Y
 version: 8.x-1.0
 dependencies:
   - drupal:field
@@ -13,7 +13,7 @@ dependencies:
   - entity_browser:entity_browser
   - entity_reference_revisions:entity_reference_revisions
   - link_attributes:link_attributes
-  - openy:openy_media_image
-  - openy:openy_prgf
+  - openy_media_image:openy_media_image
+  - openy_prgf:openy_prgf
   - paragraphs:paragraphs
 core_incompatible: false

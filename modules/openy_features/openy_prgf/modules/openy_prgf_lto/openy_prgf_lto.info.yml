@@ -8,7 +8,7 @@ dependencies:
   - drupal:field
   - drupal:language
   - drupal:link
+  - drupal:text
   - link_attributes:link_attributes
   - paragraphs:paragraphs
-  - drupal:text
 core_incompatible: false

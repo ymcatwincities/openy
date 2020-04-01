@@ -5,30 +5,30 @@ core: 8.x
 version: 8.x-1.0
 package: 'Open Y'
 dependencies:
-  - blazy
-  - dropzonejs_eb_widget
-  - 'drupal:field'
-  - 'drupal:file'
-  - 'drupal:image'
-  - 'drupal:media (>= 8.6)'
-  - 'drupal:path'
-  - 'drupal:taxonomy'
-  - 'drupal:user'
-  - 'drupal:views'
-  - embed
-  - entity_browser
-  - entity_embed
-  - field
-  - file
-  - focal_point
-  - image
-  - media
-  - media_directories_ui
-  - openy_focal_point
-  - openy_media
-  - openy_media_image
-  - path
-  - taxonomy
-  - user
-  - views
+  - blazy:blazy
+  - dropzonejs_eb_widget:dropzonejs_eb_widget
+  - drupal:field
+  - drupal:file
+  - drupal:image
+  - drupal:media (>= 8.6)
+  - drupal:path
+  - drupal:taxonomy
+  - drupal:user
+  - drupal:views
+  - embed:embed
+  - entity_browser:entity_browser
+  - entity_embed:entity_embed
+  - drupal:field
+  - drupal:file
+  - focal_point:focal_point
+  - drupal:image
+  - drupal:media
+  - media_directories_ui:media_directories_ui
+  - openy_focal_point:openy_focal_point
+  - openy_media:openy_media
+  - openy_media_image:openy_media_image
+  - drupal:path
+  - drupal:taxonomy
+  - drupal:user
+  - drupal:views
 core_incompatible: false

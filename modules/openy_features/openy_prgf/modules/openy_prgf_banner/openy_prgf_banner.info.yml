@@ -18,9 +18,9 @@ dependencies:
   - focal_point:focal_point
   - jquery_colorpicker:jquery_colorpicker
   - link_attributes:link_attributes
-  - openy:openy_focal_point
-  - openy:openy_media_image
-  - openy:openy_prgf
-  - openy:openy_txnm_color
+  - openy_focal_point:openy_focal_point
+  - openy_media_image:openy_media_image
+  - openy_prgf:openy_prgf
+  - openy_txnm_color:openy_txnm_color
   - paragraphs:paragraphs
 core_incompatible: false

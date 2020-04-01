@@ -4,11 +4,11 @@ type: module
 core: 8.x
 package: Open Y
 dependencies:
-  - field
-  - node
-  - openy_node_landing
-  - openy_repeat
-  - openy_repeat_nodes
-  - paragraphs
-  - plugin
+  - drupal:field
+  - drupal:node
+  - openy_node_landing:openy_node_landing
+  - openy_repeat:openy_repeat
+  - openy_repeat_nodes:openy_repeat_nodes
+  - paragraphs:paragraphs
+  - plugin:plugin
 version: 8.x-1.0

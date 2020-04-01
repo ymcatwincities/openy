@@ -1,32 +1,30 @@
-name: 'Open Y Node Alert'
-description: 'Provides an Alert content type and related configuration.'
+name: Open Y Node Alert
+description: Provides an Alert content type and related configuration.
 type: module
 core: 8.x
-package: 'Open Y'
+package: Open Y
 version: 8.x-1.0
 dependencies:
   - drupal:block
-  - datalayer:datalayer
-  - draggableviews:draggableviews
   - drupal:field
+  - draggableviews:draggableviews
   - field_group:field_group
-  - drupal:hal
   - drupal:link
-  - link_attributes:link_attributes
   - drupal:menu_ui
   - drupal:node
-  - openy:openy_node_alert
-  - openy:openy_txnm_color
+  - link_attributes:link_attributes
+  - openy_txnm_color:openy_txnm_color
   - drupal:options
   - drupal:path
   - pathauto:pathauto
   - rabbit_hole:rabbit_hole
-  - drupal:rest
   - scheduler:scheduler
-  - drupal:serialization
   - slick_views:slick_views
   - drupal:taxonomy
   - drupal:text
   - drupal:user
   - drupal:views
+  - drupal:rest
+  - drupal:serialization
+  - drupal:hal
 core_incompatible: false

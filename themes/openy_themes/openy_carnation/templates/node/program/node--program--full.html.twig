@@ -116,6 +116,10 @@
   </div>
 {% endif %}
 
+{{ drupal_breadcrumb() }}
+{{ drupal_block('local_tasks_block') }}
+<a id="main-content" tabindex="-1" class="sr-only sr-only-focusable"></a>
+
 {% set hasSidebar = content.field_sidebar_content and content.field_sidebar_content|render|striptags|trim %}
 
 <div class="container">

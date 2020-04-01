@@ -12,8 +12,8 @@ dependencies:
   - drupal:language
   - drupal:link
   - link_attributes:link_attributes
-  - openy:openy_block
-  - openy:openy_block_custom_simple
+  - openy_block:openy_block
+  - openy_block_custom_simple:openy_block_custom_simple
   - paragraphs:paragraphs
   - plugin:plugin
 core_incompatible: false
