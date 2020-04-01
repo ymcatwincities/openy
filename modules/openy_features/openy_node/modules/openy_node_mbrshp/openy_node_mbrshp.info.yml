@@ -11,11 +11,11 @@ dependencies:
   - drupal:link
   - drupal:media (>= 8.6)
   - drupal:menu_ui
-  - drupal:node
   - metatag:metatag
+  - drupal:node
   - link_attributes:link_attributes
-  - openy:openy_loc_branch
-  - openy:openy_media_image
+  - openy_loc_branch:openy_loc_branch
+  - openy_media_image:openy_media_image
   - paragraphs:paragraphs
   - drupal:path
   - pathauto:pathauto

@@ -5,9 +5,9 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - block
-  - node
-  - system
-  - user
-  - views
-  - openy_menu
+  - drupal:block
+  - drupal:node
+  - drupal:system
+  - drupal:user
+  - drupal:views
+  - openy_menu:openy_menu

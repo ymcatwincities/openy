@@ -11,9 +11,9 @@ dependencies:
   - drupal:field
   - inline_entity_form:inline_entity_form
   - drupal:language
-  - link_attributes:link_attributes
   - drupal:link
-  - openy:openy_block_custom_simple
-  - openy:openy_prgf
+  - link_attributes:link_attributes
+  - openy_block_custom_simple:openy_block_custom_simple
+  - openy_prgf:openy_prgf
   - paragraphs:paragraphs
   - drupal:text

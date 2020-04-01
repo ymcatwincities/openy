@@ -11,7 +11,7 @@ dependencies:
   - drupal:options
   - drupal:text
   - link_attributes:link_attributes
-  - openy:openy_prgf
+  - openy_prgf:openy_prgf
   - paragraphs:paragraphs
   - slick:slick
 core_incompatible: false

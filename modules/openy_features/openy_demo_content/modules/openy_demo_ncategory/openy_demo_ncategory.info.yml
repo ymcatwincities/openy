@@ -5,10 +5,10 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - migrate
-  - migrate_plus
-  - migrate_tools
-  - openy_demo_nprogram
-  - openy_node_category
-  - openy_demo_nbranch
-  - openy_demo_tcolor
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - openy_demo_nprogram:openy_demo_nprogram
+  - openy_node_category:openy_node_category
+  - openy_demo_nbranch:openy_demo_nbranch
+  - openy_demo_tcolor:openy_demo_tcolor

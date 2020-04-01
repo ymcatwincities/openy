@@ -14,9 +14,9 @@ dependencies:
   - drupal:text
   - entity_browser:entity_browser
   - focal_point:focal_point
-  - openy:openy_focal_point
-  - openy:openy_media_image
-  - openy:openy_prgf
   - link_attributes:link_attributes
+  - openy_focal_point:openy_focal_point
+  - openy_media_image:openy_media_image
+  - openy_prgf:openy_prgf
   - paragraphs:paragraphs
 core_incompatible: false
