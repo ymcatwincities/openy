@@ -20,7 +20,6 @@ function openy_search_api_entity_view_alter(&$build, EntityInterface $entity, En
   }
 
   $build['search_api_block'] = views_embed_view('search_content', 'search_content');
-  $build['search_api_block']['#cache']['max-age'] = 0;
 }
 
 /**
@@ -39,11 +38,11 @@ function openy_search_api_openy_search_theme_configuration_alter(&$overrides) {
   $search_config = \Drupal::configFactory()->get('openy_search_api.settings');
   $search_page_id = $search_config->get('search_page_id');
   $langcode = Drupal::languageManager()->getCurrentLanguage()->getId();
-  $alias = ltrim(Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $search_page_id, $langcode), '/');
+  $alias = Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $search_page_id, $langcode);
 
   $overrides = [
     'search_query_key' => $search_config->get('search_query_key'),
-    'search_page_alias' => $alias,
+    'search_page_alias' => ltrim($alias,'/'),
     'display_search_form' => 1,
   ];
 }

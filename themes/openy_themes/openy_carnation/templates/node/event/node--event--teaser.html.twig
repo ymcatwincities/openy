@@ -104,9 +104,11 @@ set classes = [
       {{ title_suffix }}
     </div>
 
-    <div class="event-location">
-      <i class="fas fa-map-marker-alt mr-2 text-primary"></i> {{ content.field_event_location }}
-    </div>
+    {% if not node.field_event_location.isEmpty() %}
+      <div class="event-location">
+        <i class="fas fa-map-marker-alt mr-2 text-primary"></i> {{ content.field_event_location }}
+      </div>
+    {% endif %}
 
     <div class="event-date__event-time">
       <i class="far fa-clock"></i>
