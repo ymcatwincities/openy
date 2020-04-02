@@ -35,12 +35,28 @@
   .carousel {
     .carousel-inner > .carousel-item {
       background: $gray-900;
+      height: 320px;
+      overflow: hidden;
 
-      img,
-      a img {
+      @include media-breakpoint-up(lg) {
         height: auto;
-        width: 100%;
-        opacity: .5;
+      }
+
+      article {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+        img,
+        a img {
+          height: 100%;
+          width: auto;
+          @include media-breakpoint-up(lg) {
+            height: auto;
+            width: 100%;
+          }
+          opacity: .5;
+        }
       }
     }
 
