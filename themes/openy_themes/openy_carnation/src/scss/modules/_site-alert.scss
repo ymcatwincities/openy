@@ -86,11 +86,20 @@
     border: none;
   }
 
+  .site-alert--header {
+    div[role='article'] {
+      display: flex;
+      align-items: center;
+    }
+  }
+
   .slick__arrow {
     position: relative !important;
+    bottom: 62px;
   }
 
   .slick-slider {
+    min-height: 130px;
     margin-bottom: 0;
   }
 
@@ -107,15 +116,6 @@
     @include media-breakpoint-up(lg) {
       position: relative;
     }
-  }
-
-  .slick__arrow {
-    display: block;
-    position: absolute;
-    top: auto;
-    left: 0;
-    right: 0;
-    bottom: 62px;
   }
 
   .slick__counter {

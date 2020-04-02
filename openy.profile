@@ -262,6 +262,7 @@ function openy_install_features(array &$install_state) {
 function openy_install_search(array &$install_state) {
   $state = \Drupal::state();
   $module = $install_state['openy']['search']['service'];
+  $files = \Drupal::service('extension.list.module')->getList();
   if (isset($install_state['openy']['search']['search_api_server'])) {
     $server = $install_state['openy']['search']['search_api_server'];
     if ($module == 'openy_search_api' && $server == 'solr') {
@@ -272,7 +273,6 @@ function openy_install_search(array &$install_state) {
   if (isset($install_state['openy']['search']['google_search_engine_id'])) {
     $state->set('google_search_engine_id', $install_state['openy']['search']['google_search_engine_id']);
   };
-  $files = \Drupal::service('extension.list.module')->getList();
   if ($files[$module]->requires) {
     $modules = array_merge(array_keys($files[$module]->requires), (array) $module);
   }
@@ -287,9 +287,6 @@ function openy_install_search(array &$install_state) {
  *
  * @param array $install_state
  *   Installation parameters.
- *
- * @return array
- *   Batch.
  */
 function openy_google_search(array &$install_state) {
   // Set Google Custom Search Engine ID.
@@ -299,7 +296,6 @@ function openy_google_search(array &$install_state) {
     $config->set('google_engine_id', \Drupal::state()->get('google_search_engine_id'));
     $config->save();
   }
-  return NULL;
 }
 
 /**
