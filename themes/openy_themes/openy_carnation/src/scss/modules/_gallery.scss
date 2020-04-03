@@ -33,14 +33,19 @@
   }
 
   .carousel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+
+    @include media-breakpoint-up(lg) {
+      position: relative;
+    }
+
     .carousel-inner > .carousel-item {
       background: $gray-900;
-      height: 320px;
-      overflow: hidden;
-
-      @include media-breakpoint-up(lg) {
-        height: auto;
-      }
 
       article {
         height: 100%;
@@ -49,8 +54,10 @@
 
         img,
         a img {
-          height: 100%;
-          width: auto;
+          height: auto;
+          width: 100%;
+          min-width: 650px;
+
           @include media-breakpoint-up(lg) {
             height: auto;
             width: 100%;
