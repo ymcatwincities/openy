@@ -66,11 +66,11 @@ set classes = [
       {% endfor %}
     </div>
     {% if content.field_prgf_images['#items']|length > 1 %}
-    <a class="carousel-control-prev" href=".carousel" data-slide="prev" aria-hidden="true" tabindex="-1">
+    <a class="carousel-control-prev carousel-control" href="#carousel" data-slide="prev" aria-hidden="true" tabindex="-1">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="sr-only" aria-hidden="true">{{ 'Previous'|t }}</span>
     </a>
-    <a class="carousel-control-next" href=".carousel" data-slide="next" aria-hidden="true" tabindex="-1">
+    <a class="carousel-control-next carousel-control" href="#carousel" data-slide="next" aria-hidden="true" tabindex="-1">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="sr-only" aria-hidden="true">{{ 'Next'|t }}</span>
     </a>
