@@ -103,6 +103,7 @@ figcaption {
 }
 .embedded-entity.align-center {
   text-align: center;
+  margin: 0 auto;
 }
 @media (min-width: 0) and (max-width: 30em) {
   .embedded-entity.align-left {
