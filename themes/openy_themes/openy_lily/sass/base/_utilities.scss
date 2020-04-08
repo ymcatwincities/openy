@@ -80,6 +80,7 @@
   }
   &.align-center {
     text-align: center;
+    margin: 0 auto;
   }
   &.align-left {
     @include breakpoint(0 $screen-xs) {
