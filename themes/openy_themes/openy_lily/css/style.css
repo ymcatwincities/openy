@@ -1,4 +1,4 @@
-﻿@charset "UTF-8";
+@charset "UTF-8";
 body {
   color: #636466;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
@@ -103,6 +103,7 @@ figcaption {
 }
 .embedded-entity.align-center {
   text-align: center;
+  margin: 0 auto;
 }
 @media (min-width: 0) and (max-width: 30em) {
   .embedded-entity.align-left {
