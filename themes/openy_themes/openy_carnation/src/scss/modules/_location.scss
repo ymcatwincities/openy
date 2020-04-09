@@ -19,6 +19,14 @@
   }
 }
 
+.leaflet-popup {
+  .node--type-facility.node--view-mode-teaser,
+  .node--type-branch.node--view-mode-teaser,
+  .node--type-camp.node--view-mode-teaser {
+    box-shadow: none;
+  }
+}
+
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
 .node--type-camp.node--view-mode-teaser {
@@ -96,89 +104,105 @@
   width: 100%;
   padding: 35px 0;
 
-  @include media-breakpoint-up(md) {
-    padding: 35px 25px;
-  }
+  .filter-item {
+    .form-group {
+      width: 100%;
 
-  .form-group {
-    @include media-breakpoint-up(sm) {
-      margin-bottom: 0;
+      label {
+        text-transform: none;
+        padding: 6px 8px;
+        left: -1px;
+        margin: 10px 10px 0 0;
+
+        @include media-breakpoint-up(md) {
+          left: -20px;
+          margin: 0 10px 0 0;
+        }
+      }
+      input[type="text"] {
+        padding: 5px 15px;
+      }
+
+      @include media-breakpoint-up(sm) {
+        margin-bottom: 0;
+      }
     }
-  }
+    &.zip-code {
+      input {
+        height: 38px;
+        background-color: $white;
+        border-color: $gray-200;
+      }
+      .btn-submit {
+        .btn {
+          border-radius: 0;
+          background-color: $light-blue;
+          color: $white;
 
-  label {
-    text-transform: none;
-    padding: 6px 8px;
-    left: -1px;
-    margin: 10px 10px 0 0;
-
-    @include media-breakpoint-up(md) {
-      left: -20px;
-      margin: 0 10px 0 0;
+          &:hover {
+            background-color: $dark-blue;
+          }
+        }
+      }
     }
-  }
-
-  input[type="checkbox"] {
-    margin: 0 10px 0 0;
-    vertical-align: middle;
-  }
-
-  .distance .form-group {
-    position: relative;
-    background: $white;
-
-    &:before {
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-      color: $pink;
-      content: '\f078';
-      font-family: $font-awesome;
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: -18px;
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      z-index: 0;
-    }
-
-    .form-select {
+    &.distance .form-group {
       position: relative;
-      border-radius: 5px;
-      z-index: 1;
-      background: transparent;
+      background: $white;
+
+      &:before {
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        color: $pink;
+        content: '\f078';
+        font-family: $font-awesome;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: -18px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        z-index: 0;
+      }
+      .form-select {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        border-color: $gray-200;
+        padding: 0 15px;
+        height: 38px;
+      }
+    }
+    .tag_filters {
+      label.btn-default {
+        background-color: $white;
+        border: 1px solid $gray-200;
+        border-radius: 0;
+        margin: 0;
+        margin-right: 10px;
+        position: initial;
+
+        input[type="checkbox"] {
+          margin: 0 10px 0 0;
+        }
+        img {
+          margin: -2px 0 0 5px;
+          width: 13px;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
     }
   }
-
-  input[type="text"] {
-    border-radius: 5px !important;
-    padding: 5px 15px;
-  }
-
-  .btn-group-justified {
-    border-spacing: 1px;
-    margin: -1px -1px 5px 1px;
-    min-width: 234px;
-
-    @include media-breakpoint-up(md) {
-      border-spacing: 10px;
-      margin: -10px -10px -10px 10px;
+  @include media-breakpoint-down(md) {
+    .filter-item {
+      margin-bottom: 20px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
-
-  .zip-code,
-  .distance {
-    display: none;
-
-    @include media-breakpoint-up(xs) {
-      display: initial;
-    }
-  }
-}
-
-.tag_filters img {
-  margin: -2px 0 0 3px;
-  width: 13px;
 }
 
 .locations-list {
@@ -218,36 +242,5 @@
     clear: both;
     margin-top: 0;
     font-weight: bold;
-  }
-
-  .field_location_state {
-    float: right;
-    margin-right: -20px;
-    margin-top: -20px;
-    padding: 5px;
-    font-size: 10px;
-    color: #231f20;
-    width: 100px;
-    height: 32px;
-    vertical-align: bottom;
-    background: $yellow;
-    line-height: 1.2;
-    font-style: italic;
-
-    .fa {
-      color: $white;
-      height: 32px;
-      float: left;
-      font-size: 16px;
-      padding-right: 6px;
-    }
-
-    span {
-      display: block;
-    }
-  }
-
-  .field-branch-hours h4 {
-    font-size: 14px;
   }
 }

@@ -4,15 +4,15 @@ type: module
 core: 8.x
 package: Open Y
 dependencies:
-  - datalayer
-  - field
-  - field_group
-  - language
-  - menu_ui
-  - node
-  - path
-  - rabbit_hole
-  - scheduler
-  - text
-  - user
+  - datalayer:datalayer
+  - drupal:field
+  - field_group:field_group
+  - drupal:language
+  - drupal:menu_ui
+  - drupal:node
+  - drupal:path
+  - rabbit_hole:rabbit_hole
+  - scheduler:scheduler
+  - drupal:text
+  - drupal:user
 version: 8.x-1.0

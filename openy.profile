@@ -391,6 +391,13 @@ function openy_discover_broken_paragraphs(array &$install_state) {
     'field_prgf_location_finder_plugin_id',
     'field_prgf_location_finder_plugin_configuration'
   );
+  $process_paragraphs([
+    'paragraph__field_branch_contacts_info',
+    'paragraph_revision__field_branch_contacts_info',
+  ],
+    'field_branch_contacts_info_plugin_id',
+    'field_branch_contacts_info_plugin_configuration'
+  );
 }
 
 /**

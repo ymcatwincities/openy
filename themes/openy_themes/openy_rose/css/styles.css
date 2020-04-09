@@ -113,6 +113,7 @@ figcaption {
 }
 .embedded-entity.align-center {
   text-align: center;
+  margin: 0 auto;
 }
 @media (min-width: 0) and (max-width: 30em) {
   .embedded-entity.align-left {
@@ -3186,6 +3187,9 @@ body {
 .branch-header .desktop a {
   color: #fff;
 }
+.branch-header .desktop .label-for-field-branch-hours {
+  display: none;
+}
 .branch-header .desktop .today-hours .today {
   margin-right: 10px;
 }
@@ -3388,6 +3392,10 @@ body {
 }
 .branch-header .field-location-fax {
   display: inline;
+}
+
+.label-for-field-branch-contacts-info {
+  display: none;
 }
 
 .branch__updates_queue {
@@ -5988,11 +5996,11 @@ iframe#ga_iframe {
 }
 
 .atcb-link ~ ul.active {
-  visibility: visible;
+  display: block;
 }
 
 .atcb-list {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -7466,12 +7474,6 @@ article .node--view-mode-flexible-content h2 a span {
   .form__locations .btn-group-justified {
     border-spacing: 10px;
     margin: -10px -10px -10px 10px;
-  }
-}
-@media (min-width: 0) and (max-width: 30em) {
-  .form__locations .zip-code,
-  .form__locations .distance {
-    display: none;
   }
 }
 

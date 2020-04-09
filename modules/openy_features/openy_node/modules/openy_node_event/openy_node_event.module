@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 use Drupal\node\Entity\Node;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
@@ -55,10 +56,10 @@ function openy_node_event_preprocess_field__node__field_event_location__event(&$
   if (empty($datesField[0])) {
     return;
   }
-  $timezone = drupal_get_user_timezone();
-  $startDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['value'], DATETIME_STORAGE_TIMEZONE);
+  $timezone = date_default_timezone_get();
+  $startDt = DrupalDateTime::createFromFormat(DateTimeItemInterface::DATETIME_STORAGE_FORMAT, $datesField[0]['value'], DateTimeItemInterface::STORAGE_TIMEZONE);
   $startDt->setTimezone(timezone_open($timezone));
-  $endDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['end_value'], DATETIME_STORAGE_TIMEZONE);
+  $endDt = DrupalDateTime::createFromFormat(DateTimeItemInterface::DATETIME_STORAGE_FORMAT, $datesField[0]['end_value'], DateTimeItemInterface::STORAGE_TIMEZONE);
   $endDt->setTimezone(timezone_open($timezone));
   $datesInfo = [
     'date_start' => $startDt,
@@ -150,14 +151,25 @@ function openy_node_event_preprocess_node(&$variables) {
   if ($variables['view_mode'] == 'teaser' && $variables['node']->getType() == 'event') {
     // Get dates.
     $datesField = $variables['node']->get('field_event_dates')->getValue();
-    $timezone = drupal_get_user_timezone();
-    $startDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['value'], DATETIME_STORAGE_TIMEZONE);
+    $timezone = date_default_timezone_get();
+    
+    $startDt = DrupalDateTime::createFromFormat(DateTimeItemInterface::DATETIME_STORAGE_FORMAT, $datesField[0]['value'], DateTimeItemInterface::STORAGE_TIMEZONE);
     $startDt->setTimezone(timezone_open($timezone));
-    $endDt = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $datesField[0]['end_value'], DATETIME_STORAGE_TIMEZONE);
-    $endDt->setTimezone(timezone_open($timezone)); 
+
+    $endDt = DrupalDateTime::createFromFormat(DateTimeItemInterface::DATETIME_STORAGE_FORMAT, $datesField[0]['end_value'], DateTimeItemInterface::STORAGE_TIMEZONE);
+    $endDt->setTimezone(timezone_open($timezone));
+
+    $formatted_start_date = $startDt->format('g:i a');
+    $formatted_end_date = $endDt->format('g:i a');
+    // Display month and day if the event lasts several days.
+    if ($startDt->format("Y-m-d") != $endDt->format("Y-m-d")) {
+      $formatted_start_date = $startDt->format(('M j, g:i a') );
+      $formatted_end_date = $endDt->format(('M j, g:i a') );
+    }
+
     $variables['content']['event_converted_dates'] = [
-      'date_start' => $startDt->format('g:i a'),
-      'date_end' => $endDt->format('g:i a'),
+      'date_start' => $formatted_start_date,
+      'date_end' => $formatted_end_date,
     ];
   }
 }

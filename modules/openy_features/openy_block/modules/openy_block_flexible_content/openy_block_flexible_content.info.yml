@@ -5,8 +5,8 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - block_content
-  - field
-  - language
-  - node
-  - openy_er
+  - drupal:block_content
+  - drupal:field
+  - drupal:language
+  - drupal:node
+  - openy_er:openy_er

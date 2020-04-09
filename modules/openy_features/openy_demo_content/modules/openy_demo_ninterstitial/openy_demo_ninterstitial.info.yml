@@ -5,7 +5,7 @@ core: 8.x
 version: 8.x-1.0-rc1
 package: Open Y (Experimental)
 dependencies:
-  - migrate
-  - migrate_plus
-  - migrate_tools
-  - openy_node_interstitial
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
+  - openy_node_interstitial:openy_node_interstitial

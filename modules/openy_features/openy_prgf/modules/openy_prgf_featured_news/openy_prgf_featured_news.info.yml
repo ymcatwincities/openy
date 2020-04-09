@@ -5,8 +5,8 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - field
-  - node
-  - openy_node_news
-  - openy_prgf
-  - paragraphs
+  - drupal:field
+  - drupal:node
+  - openy_node_news:openy_node_news
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
