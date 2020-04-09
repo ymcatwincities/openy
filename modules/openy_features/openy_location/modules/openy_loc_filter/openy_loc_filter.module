@@ -51,6 +51,8 @@ function openy_loc_filter_preprocess_checkboxes(&$variables) {
  * Implements hook_form_alter().
  */
 function openy_loc_filter_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $groups = [];
+  $locations = [];
   switch ($form_id) {
     // To show Branches and Camps enabled in Location Filter settings form.
     case 'openy_popups_branches_form':
