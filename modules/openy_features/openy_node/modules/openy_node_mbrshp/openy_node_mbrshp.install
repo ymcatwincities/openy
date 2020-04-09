@@ -211,3 +211,17 @@ function openy_node_mbrshp_update_8010() {
     }
   }
 }
+
+/**
+ * Update Membership default page.
+ */
+function openy_node_mbrshp_update_8011() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_mbrshp');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.node.membership.default.yml';
+  $config_importer->update($config,
+    'core.entity_view_display.node.membership.default',
+    'content.field_mbrshp_description'
+  );
+}

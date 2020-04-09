@@ -5,13 +5,13 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - better_exposed_filters
-  - content_moderation
-  - datalayer
-  - field
-  - openy_prgf
-  - openy_prgf_amenities
-  - paragraphs
-  - views
-  - views_field_formatter
-  - views_block_filter_block
+  - better_exposed_filters:better_exposed_filters
+  - content_moderation:content_moderation
+  - datalayer:datalayer
+  - drupal:field
+  - openy_prgf:openy_prgf
+  - openy_prgf_amenities:openy_prgf_amenities
+  - paragraphs:paragraphs
+  - drupal:views
+  - views_field_formatter:views_field_formatter
+  - views_block_filter_block:views_block_filter_block

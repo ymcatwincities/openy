@@ -425,7 +425,6 @@
   .today-hours {
     position: relative;
     a {
-      width: 77.5px;
       display: inline-block;
       @include breakpoint(0 767px) {
         display: none;

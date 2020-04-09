@@ -79,9 +79,18 @@
   ]
 %}
 
-{% set main_class = '' %}
-{% if content.field_sidebar_content|render|trim is not empty %}
-  {% set main_class = 'col-sm-8' %}
+{%
+  set main_class = [
+    'copy',
+    'col-12',
+    'mb-5',
+    'mb-lg-0',
+  ]
+%}
+{% set hide_sidebar = true %}
+{% if not node.field_sidebar_content.isEmpty() or not node.field_event_location.isEmpty() %}
+  {% set hide_sidebar = false %}
+  {% set main_class = main_class|merge(['col-md-8', 'col-lg-9'])  %}
 {% endif %}
 
 {# default header #}
@@ -89,15 +98,14 @@
 
 <div class="container mt-5">
   <div class="row">
-
-    <div class="copy col-12 col-md-8 col-lg-9 mb-5 mb-lg-0">
+    <div {{ attributes.addClass(main_class) }}>
       <article{{ attributes.addClass(classes) }}>
         <div{{ content_attributes.addClass('node__content') }}>
 
-          {% if content.field_event_image|render|trim is not empty %}
-          <figure class="mb-4">
-            {{ content.field_event_image }}
-          </figure>
+          {% if not node.field_event_image.isEmpty() %}
+            <figure class="mb-4">
+              {{ content.field_event_image }}
+            </figure>
           {% endif %}
 
           {{ content.field_event_description }}
@@ -110,23 +118,25 @@
       </article>
     </div>
 
-    <div class="col-12 col-md-4 col-lg-3 side-col">
-      <div class="card mb-3">
-        <div class="card-body">
+    {% if not hide_sidebar %}
+      <div class="col-12 col-md-4 col-lg-3 side-col">
+        <div class="card mb-3">
+          <div class="card-body">
 
-          {% if content.field_sidebar_content|render|striptags is not empty %}
-          <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
-            {{ content.field_sidebar_content }}
+            {% if not node.field_sidebar_content.isEmpty() %}
+              <div class="d-inline-block w-100 pb-4 mb-4 border-light border-bottom">
+                {{ content.field_sidebar_content }}
+              </div>
+            {% endif %}
+
+            {% if not node.field_event_location.isEmpty() %}
+              {{ content.field_event_location }}
+            {% endif %}
+
           </div>
-          {% endif %}
-
-          {% if content.field_event_location|render|striptags is not empty %}
-            {{ content.field_event_location }}
-          {% endif %}
-
         </div>
       </div>
-    </div>
+    {% endif %}
 
   </div>
 </div>

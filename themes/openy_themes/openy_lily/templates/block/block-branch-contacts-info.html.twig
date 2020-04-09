@@ -19,13 +19,11 @@
  * @ingroup themeable
  */
 #}
-{%
-  set classes_header = [
+{% set classes_header = [
   'node--type-' ~ node_bundle|clean_class,
   'branch-header',
   'location-camp-header',
-]
-%}
+] %}
 
 <article{{ attributes.addClass(classes_header) }}>
   <div class="hidden-xs desktop">
@@ -51,13 +49,18 @@
             <div class="col-sm-3 col-md-2 phone clearfix">
               <span class="tel">
                 <span class="glyphicon glyphicon-earphone bullet"></span>
-                  <a href="tel:{{ phone }}">{{ phone }}</a>
+                <a href="tel:{{ phone }}">{{ phone }}</a>
               </span>
+              {% if fax is not empty %}
+                <span class="tel">
+                  <span class="glyphicon glyphicon-phone-alt"></span>
+                  <a href="tel:{{ fax }}">{{ fax }}</a> ({{ 'fax'|t }})
+                </span>
+              {% endif %}
               {% if email is not empty %}
-                <br>
                 <span class="email">
                     <span class="glyphicon glyphicon-envelope bullet"></span>
-                      <a href="mailto:{{ email }}">{{ email }}</a>
+                    <a href="mailto:{{ email }}">{{ email }}</a>
                 </span>
               {% endif %}
             </div>
@@ -111,7 +114,8 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12">
-            <button type="button" class="btn btn-link location-hours-toggle" data-toggle="collapse" data-target="#directions-hours-mobile">
+            <button type="button" class="btn btn-link location-hours-toggle" data-toggle="collapse"
+                    data-target="#directions-hours-mobile">
               <span class="glyphicon glyphicon-chevron-down pull-right"></span>
               {% if node_bundle == 'branch' %}
                 {{ 'Phone, Address and Hours'|t }}
@@ -125,14 +129,19 @@
           <div class="directions-hours-inner">
             <div class="col-sm-3 col-md-2 phone clearfix">
               <span class="tel">
-                <span class="glyphicon glyphicon-earphone bullet"></span>
-                  <a href="tel:{{ phone }}">{{ phone }}</a>
+                <span class="glyphicon glyphicon-earphone"></span>
+                <a href="tel:{{ phone }}">{{ phone }}</a>
               </span>
+              {% if fax %}
+                <span class="tel">
+                  <span class="glyphicon glyphicon-phone-alt"></span>
+                  <a href="tel:{{ fax }}">{{ fax }}</a>
+                </span>
+              {% endif %}
               {% if content.field_location_email|render|trim is not empty %}
-                <br>
                 <span class="email">
-                  <span class="glyphicon glyphicon-envelope bullet"></span>
-                    <a href="mailto:{{ email }}">{{ email }}</a>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <a href="mailto:{{ email }}">{{ email }}</a>
                 </span>
               {% endif %}
             </div>
