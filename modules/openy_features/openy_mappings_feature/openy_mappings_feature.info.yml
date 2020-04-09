@@ -3,12 +3,12 @@ description: 'Configs for all sorts of mappings used in integrations and sync.'
 type: module
 core: 8.x
 dependencies:
-  - datalayer
-  - field
-  - metatag
-  - node
-  - openy_loc_branch
-  - openy_mappings
-  - user
-  - views
+  - datalayer:datalayer
+  - drupal:field
+  - metatag:metatag
+  - drupal:node
+  - openy_loc_branch:openy_loc_branch
+  - openy_mappings:openy_mappings
+  - drupal:user
+  - drupal:views
 version: 8.x-1.0

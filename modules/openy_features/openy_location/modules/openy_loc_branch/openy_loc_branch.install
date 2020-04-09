@@ -377,3 +377,13 @@ function openy_loc_branch_update_8017() {
     }
   }
 }
+
+/**
+ * Update branch feature to make branch amenities fieldset collapsible.
+ */
+function openy_loc_branch_update_8018() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  $config .= 'core.entity_form_display.node.branch.default.yml';
+  $config_importer->update($config, 'core.entity_form_display.node.branch.default', 'third_party_settings.field_group.group_branch_amenities');
+}

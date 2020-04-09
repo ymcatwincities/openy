@@ -4,19 +4,19 @@ type: module
 core: 8.x
 package: Open Y
 dependencies:
-  - datalayer
-  - field
-  - link
-  - node
-  - openy_loc_branch
-  - openy_node_activity
-  - openy_node_category
-  - openy_node_landing
-  - openy_prgf
-  - openy_repeat
-  - openy_repeat_nodes
-  - options
-  - paragraphs
-  - plugin
+  - datalayer:datalayer
+  - drupal:field
+  - drupal:link
+  - drupal:node
+  - openy_loc_branch:openy_loc_branch
+  - openy_node_activity:openy_node_activity
+  - openy_node_category:openy_node_category
+  - openy_node_landing:openy_node_landing
+  - openy_prgf:openy_prgf
+  - openy_repeat:openy_repeat
+  - openy_repeat_nodes:openy_repeat_nodes
+  - options:options
+  - paragraphs:paragraphs
+  - plugin:plugin
 version: 8.x-1.1
 core_incompatible: false

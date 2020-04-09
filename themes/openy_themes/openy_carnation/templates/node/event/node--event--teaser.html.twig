@@ -92,7 +92,7 @@ set classes = [
 
     {# event image #}
     <div class="event-image">
-      {{ content.field_event_image }}
+      <a href="{{ url }}">{{ content.field_event_image }}</a>
     </div>
 
     {# event title (linked) #}
@@ -104,14 +104,16 @@ set classes = [
       {{ title_suffix }}
     </div>
 
-    <div class="event-location">
-      <i class="fas fa-map-marker-alt mr-2 text-primary"></i> {{ content.field_event_location }}
-    </div>
+    {% if not node.field_event_location.isEmpty() %}
+      <div class="event-location">
+        <i class="fas fa-map-marker-alt mr-2 text-primary"></i> {{ content.field_event_location }}
+      </div>
+    {% endif %}
 
     <div class="event-date__event-time">
       <i class="far fa-clock"></i>
-      {% if content.event_converted_dates|render|trim is not empty %}
-        {{ content.event_converted_dates.date_start }}
+      {% if content.event_converted_dates is not empty %}
+        {{ content.event_converted_dates.date_start }} - {{ content.event_converted_dates.date_end }}
       {% else %}
         {{ content.field_event_dates }}
       {% endif %}

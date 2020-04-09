@@ -6,6 +6,6 @@ version: 8.x-1.0
 package: Open Y
 dependencies:
   - geolocation:geolocation
-  - openy_socrates
-  - openy_data_wrapper
-  - geolocation_google_maps
+  - openy_socrates:openy_socrates
+  - openy_data_wrapper:openy_data_wrapper
+  - geolocation_google_maps:geolocation_google_maps

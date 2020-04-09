@@ -54,6 +54,9 @@ function openy_update_dependencies() {
       'block_content' => 8600,
       'media_entity' => 8201,
     ],
+    8012 => [
+      'system' => 8803,
+    ],
   ];
 
   $dependencies['openy_upgrade_tool'] = [
@@ -1112,4 +1115,11 @@ function openy_update_8079() {
       $config_importer->update($config, $theme . '.settings', 'search_page_alias');
     }
   }
+}
+
+/**
+ * Enable openy_block_branch_contacts_info module.
+ */
+function openy_update_8080() {
+  \Drupal::service('module_installer')->install(['openy_block_branch_contacts_info']);
 }

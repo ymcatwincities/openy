@@ -5,23 +5,16 @@
   // main background image
   .banner-bg,
   .banner--medium .banner-cta {
-    min-height: 70px;
-
-    @include media-breakpoint-up(sm) {
-      min-height: 225px;
-    }
+    min-height: 225px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
 
     @include media-breakpoint-up(md) {
       min-height: 350px;
-    }
-
-    @include media-breakpoint-up(lg) {
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      z-index: 1;
     }
 
     span:after {
@@ -93,6 +86,7 @@
   // heading only (blog nodes)
   &--small {
     min-height: 120px;
+    overflow: hidden;
   }
 
   // heading + subheading (program nodes)

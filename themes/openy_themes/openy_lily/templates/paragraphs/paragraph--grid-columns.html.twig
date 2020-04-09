@@ -57,7 +57,7 @@ set classes = [
         <h2>{{ content.field_prgf_clm_headline }}</h2>
       {% endif %}
       <div class="text">{{ content.field_prgf_grid_clm_description }}</div>
-      {% if content.field_prgf_link|render|trim is not empty %}
+      {% if content.field_prgf_clm_link|render|trim is not empty %}
         <div class="more-link">{{ content.field_prgf_clm_link }}</div>
       {% endif %}
     </div>

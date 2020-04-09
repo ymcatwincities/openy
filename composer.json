@@ -127,30 +127,6 @@
                     "type": "zip"
                 }
             }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "vuejs/vue",
-                "version": "2.6.10",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/vuejs/vue/archive/v2.6.10.zip",
-                    "type": "zip"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "vuejs/vue-router",
-                "version": "3.0.6",
-                "type": "drupal-library",
-                "dist": {
-                    "url": "https://github.com/vuejs/vue-router/archive/v3.0.6.zip",
-                    "type": "zip"
-                }
-            }
         }
     ],
     "scripts": {
@@ -160,8 +136,7 @@
         ],
         "post-update-cmd": [
             "bash scripts/remove_openy_docroot_folder.sh || :"
-        ],
-        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
+        ]
     },
     "extra": {
         "installer-paths": {
@@ -174,6 +149,15 @@
                 "type:bower-asset",
                 "type:npm-asset"
             ]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "docroot/"
+            },
+            "allowed-packages": [
+                "drupal/core"
+            ]
+            
         },
         "patches": {
             "drupal/simple_menu_icons": {
@@ -223,8 +207,8 @@
         "php": ">=7.1",
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.4.0",
-        "drupal/core": "~8.8.0",
+        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-recommended": "^8.8",
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
@@ -277,7 +261,7 @@
         "drupal/metatag": "~1.8",
         "drupal/scheduler": "1.0",
         "drupal/webform": "~5.0",
-        "drupal/captcha": "1.0-beta4",
+        "drupal/captcha": "^1.0",
         "drupal/recaptcha": "~2.3",
         "drupal/rabbit_hole": "~1.0-beta4",
         "drupal/admin_toolbar": "~1.25",
@@ -289,7 +273,7 @@
         "drupal/views_field_formatter": "~1.9",
         "drupal/tzfield": "1.x-dev",
         "drupal/views_data_export": "1.0-beta1",
-        "doctrine/inflector": "1.1.*",
+        "doctrine/inflector": "1.2.*",
         "drupal/crop": "^2.0",
         "drupal/focal_point": "~1.0-beta6",
         "drupal/media_entity_video": "^2.0",
@@ -309,8 +293,6 @@
         "npm-asset/slick-carousel": "^1.8",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
-        "vuejs/vue": "2.6.10",
-        "vuejs/vue-router": "3.0.6",
         "drupal/ckeditor_font": "^1.0",
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.4",

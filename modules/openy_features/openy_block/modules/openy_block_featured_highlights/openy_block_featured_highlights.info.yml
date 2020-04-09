@@ -10,9 +10,9 @@ dependencies:
   - drupal:link
   - drupal:media (>= 8.6)
   - drupal:text
-  - block_content
-  - content_moderation
-  - datalayer
-  - entity_browser
-  - openy_block
-  - openy_media_image
+  - drupal:block_content
+  - content_moderation:content_moderation
+  - datalayer:datalayer
+  - entity_browser:entity_browser
+  - openy_block:openy_block
+  - openy_media_image:openy_media_image
