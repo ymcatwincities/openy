@@ -3,7 +3,6 @@
   h2 {
     letter-spacing: normal;
     text-transform: none;
-    text-align: left;
   }
 
   & > .paragraph-container-wrapper > h2 {
@@ -14,6 +13,10 @@
     width: 100%;
     height: 0;
     margin-top: 10px;
+
+    & + .views-row {
+      margin-top: 30px;
+    }
   }
 
   header a {
@@ -35,7 +38,10 @@
       padding-left: 5px;
     }
   }
-  .views-row {
-    margin: 30px 0;
+
+  @include media-breakpoint-up(md) {
+    .views-row {
+      margin: 30px 0;
+    }
   }
 }
