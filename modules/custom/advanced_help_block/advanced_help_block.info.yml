@@ -5,10 +5,10 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - field_group
-  - text
-  - libraries
-  - datalayer
-  - field_group
-  - options
-  - user
+  - field_group:field_group
+  - drupal:text
+  - libraries:libraries
+  - datalayer:datalayer
+  - field_group:field_group
+  - drupal:options
+  - drupal:user

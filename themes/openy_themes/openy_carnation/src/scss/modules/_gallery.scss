@@ -1,5 +1,5 @@
 // hide gallery arrows when placed in the header
-#block-openy-carnation-content article {
+.header-region-content {
   .paragraph-gallery {
 
     .carousel {
@@ -8,13 +8,15 @@
       @include media-breakpoint-up(lg) {
         margin: 0;
       }
+
+      .carousel-inner {
+        .carousel-item img {
+          opacity: .5;
+        }
+      }
     }
 
     .cta-group-wrapper {
-      @include media-breakpoint-up(lg) {
-        padding-top: 135px;
-      }
-
       @include media-breakpoint-down(lg) {
         .text {
           font-size: 16px;
@@ -33,14 +35,40 @@
   }
 
   .carousel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+
+    @include media-breakpoint-up(lg) {
+      position: relative;
+    }
+
+    div {
+      height: 100%;
+    }
+
     .carousel-inner > .carousel-item {
       background: $gray-900;
 
-      img,
-      a img {
-        height: auto;
-        width: 100%;
-        opacity: .5;
+      article {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+        img,
+        a img {
+          height: 100%;
+          width: auto;
+          min-width: 650px;
+
+          @include media-breakpoint-up(lg) {
+            height: auto;
+            width: 100%;
+          }
+        }
       }
     }
 
@@ -96,7 +124,13 @@
     }
 
     .media {
-      opacity: 0.7;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+
+      .media__element {
+        left: auto;
+      }
     }
   }
 

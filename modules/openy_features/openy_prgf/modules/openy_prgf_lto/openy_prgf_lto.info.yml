@@ -5,8 +5,8 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - field
-  - language
-  - link
-  - paragraphs
-  - text
+  - drupal:field
+  - drupal:language
+  - drupal:link
+  - paragraphs:paragraphs
+  - drupal:text

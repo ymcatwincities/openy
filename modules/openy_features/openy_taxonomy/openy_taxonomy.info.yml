@@ -5,7 +5,7 @@ core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - entity_reference_revisions
-  - paragraphs
-  - taxonomy
-  - views
+  - entity_reference_revisions:entity_reference_revisions
+  - paragraphs:paragraphs
+  - drupal:taxonomy
+  - drupal:views

@@ -7,6 +7,23 @@
     display: none;
   }
 
+  .location-details {
+    .phone {
+      display: flex;
+      flex-direction: column;
+      line-height: 17px;
+      padding: 17px 15px 10px;
+
+      span {
+        padding-bottom: 5px;
+      }
+
+      span:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
   .desktop {
     background-color: $purple;
     color: $white;

@@ -19,6 +19,14 @@
   }
 }
 
+.leaflet-popup {
+  .node--type-facility.node--view-mode-teaser,
+  .node--type-branch.node--view-mode-teaser,
+  .node--type-camp.node--view-mode-teaser {
+    box-shadow: none;
+  }
+}
+
 .node--type-facility.node--view-mode-teaser,
 .node--type-branch.node--view-mode-teaser,
 .node--type-camp.node--view-mode-teaser {
