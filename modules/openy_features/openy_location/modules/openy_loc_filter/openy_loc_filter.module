@@ -95,7 +95,9 @@ function openy_loc_filter_form_alter(&$form, FormStateInterface $form_state, $fo
 function openy_loc_filter_query_repeat_schedules_block_locations_alter(AlterableInterface $query) {
   $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
     ->get('locations');
-  $query->condition('l.field_session_location_target_id', $allowed_locations, 'IN');
+  if (!empty($allowed_locations)) {
+    $query->condition('l.field_session_location_target_id', $allowed_locations, 'IN');
+  }
 }
 
 /**
@@ -104,7 +106,9 @@ function openy_loc_filter_query_repeat_schedules_block_locations_alter(Alterable
 function openy_loc_filter_query_data_wrapper_locations_alter(AlterableInterface $query) {
   $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
     ->get('locations');
-  $query->condition('node_field_data.nid', $allowed_locations, 'IN');
+  if (!empty($allowed_locations)) {
+    $query->condition('node_field_data.nid', $allowed_locations, 'IN');
+  }
 }
 
 /**
