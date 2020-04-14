@@ -30,13 +30,6 @@ class SyncerRunner {
   protected $logger;
 
   /**
-   * ConfigFactory.
-   *
-   * @var \Drupal\Core\Config\ConfigFactory
-   */
-  protected $configFactory;
-
-  /**
    * YMCA sync config.
    *
    * @var \Drupal\Core\Config\Config|\Drupal\Core\Config\ImmutableConfig
@@ -67,8 +60,7 @@ class SyncerRunner {
   public function __construct(LockBackendInterface $lock, LoggerChannelInterface $logger, ConfigFactory $configFactory, ContainerInterface $container) {
     $this->lock = $lock;
     $this->logger = $logger;
-    $this->configFactory = $configFactory;
-    $this->config = $this->configFactory->get('ymca_sync.settings');
+    $this->config = $configFactory->get('ymca_sync.settings');
     $this->container = $container;
   }
 
