@@ -89,13 +89,13 @@ class SyncerRunner {
 
     // Run only active syncers.
     if (!in_array($name, $active)) {
-      $msg = 'Syncer "%name" is not activate or found. Exit. ';
+      $msg = 'Syncer "%name" is not activated or found. Exit. ';
       $msg .= 'Active syncers: %syncers';
       $this->logger->info(
         $msg,
         [
           '%name' => $name,
-          '%syncers' => implode(", ", $active),
+          '%syncers' => implode(', ', $active),
         ]);
       return;
     }
