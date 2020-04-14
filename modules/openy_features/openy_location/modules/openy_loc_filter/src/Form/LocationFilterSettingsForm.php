@@ -60,8 +60,8 @@ class LocationFilterSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config(self::CONFIG_NAME);
-    $selected_locations = $config->get('locations') ? $config->get('locations') : [];
+    $config_locations = $this->config(self::CONFIG_NAME)->get('locations');
+    $selected_locations = $config_locations ? $config_locations : [];
 
     $branches_list = $this->getBranchesList();
     $locations = $branches_list['branch'] + $branches_list['camp'];
@@ -126,7 +126,7 @@ class LocationFilterSettingsForm extends ConfigFormBase {
     /** @var \Drupal\Core\Config\Config $config */
     $config = $this->config(self::CONFIG_NAME);
     $locations = $form_state->getValue('locations');
-    if (isset($locations['ALL'])) {
+    if (isset($locations['All'])) {
       $branches_list = $this->getBranchesList();
       $locations = $branches_list['branch'] + $branches_list['camp'];
     }
