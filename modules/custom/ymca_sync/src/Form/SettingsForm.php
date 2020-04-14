@@ -39,11 +39,11 @@ class SettingsForm extends ConfigFormBase {
    * SettingsForm constructor.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   Parameter \Drupal\Core\Config\ConfigFactoryInterface.
+   *   The configuration factory.
    * @param \Drupal\ymca_sync\SyncRepository $syncers
-   *   Parameter \Drupal\ymca_sync\SyncRepository.
+   *   The syncers repository.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   Parameter \Drupal\Core\Extension\ModuleHandlerInterface.
+   *   The module handler.
    */
   public function __construct(ConfigFactoryInterface $config_factory, SyncRepository $syncers, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
