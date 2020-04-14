@@ -103,7 +103,7 @@
     justify-content: center;
 
     @include media-breakpoint-up(sm) {
-      justify-content: start;
+      justify-content: flex-start;
     }
 
     a {
@@ -128,8 +128,8 @@
     display: none;
   }
 
-  .field-prgf-block {
-    padding-bottom: 100px;
+  .container > .row {
+    flex-direction: column;
   }
 
   .upcoming-events__header-info.clearfix {
@@ -157,7 +157,7 @@
     padding: 3px;
 
     .field-content {
-      background-color: #92278f;
+      background-color: $indigo;
       border-radius: 10px;
       width: 54px;
       height: 54px;
@@ -225,7 +225,7 @@
     font-size: 18px;
     font-weight: 500;
     letter-spacing: -0.4px;
-    color: #5c2e91;
+    color: $purple;
     float: left;
     width: 100%;
   }
@@ -297,7 +297,7 @@
     }
 
     a {
-      color: #636466;
+      color: $gray-400;
     }
 
     .field-location-email-id {
