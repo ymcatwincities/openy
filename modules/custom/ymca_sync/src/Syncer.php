@@ -21,7 +21,8 @@ class Syncer implements SyncerInterface {
    */
   public function proceed(array $options = []) {
     foreach ($this->steps as $step) {
-      $step['plugin']->{$step['method']}($options);
+      $args = array_merge($options, $step['args']);
+      $step['plugin']->{$step['method']}($args);
     }
   }
 
