@@ -1,7 +1,7 @@
 openy_location_filter:
-  version: VERSION
+  version: 1.0.0
   js:
-    js/location_filter.js: {}
+    js/location_filter.js: { minified: true }
   dependencies:
     - core/jquery
     - core/jquery.once
