@@ -1832,6 +1832,7 @@ body {
   line-height: 38px;
   letter-spacing: -1px;
   margin-bottom: 33px;
+  display: flex;
 }
 @media (min-width: 48em) {
   .story-card .quote {
@@ -1844,8 +1845,16 @@ body {
   float: left;
   height: 24px;
   fill: #5c2e91;
-  margin: 0 16px 0 0;
   width: 28px;
+}
+.story-card .quote .quote-open {
+  margin: 0 16px 0 0;
+}
+.story-card .quote .quote-close {
+  margin: 0 0 0 16px;
+}
+.story-card .quote .quote-close svg {
+  transform: rotate(180deg);
 }
 .story-card .link {
   font-size: 15px;
