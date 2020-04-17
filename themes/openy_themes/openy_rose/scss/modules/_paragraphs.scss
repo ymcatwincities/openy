@@ -364,6 +364,7 @@
     line-height: 38px;
     letter-spacing: -1px;
     margin-bottom: 33px;
+    display: flex;
 
     @include breakpoint ($screen-sm) {
       font-size: 25px;
@@ -375,8 +376,19 @@
       float: left;
       height: 24px;
       fill: $purple;
-      margin: 0 16px 0 0;
       width: 28px;
+    }
+
+    .quote-open {
+      margin: 0 16px 0 0;
+    }
+
+    .quote-close {
+      margin: 0 0 0 16px;
+
+      svg {
+        transform: rotate(180deg);
+      }
     }
   }
 

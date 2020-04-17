@@ -49,8 +49,13 @@ set classes = [
   <a href="{{ content.field_prgf_link.0['#url'] }}">
     {{ content.field_prgf_title }}
     <div class="quote">
-      {% include '@openy_rose/../img/icons/quote_purple.svg' %}
+      <div class="quote-open">
+        {% include '@openy_rose/../img/icons/quote_purple.svg' %}
+      </div>
       {{ content.field_prgf_headline }}
+      <div class="quote-close">
+        {% include '@openy_rose/../img/icons/quote_purple.svg' %}
+      </div>
     </div>
     <div class="link">
       {{ content.field_prgf_link.0['#title'] }}
