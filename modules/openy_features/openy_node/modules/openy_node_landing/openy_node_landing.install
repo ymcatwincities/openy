@@ -239,3 +239,44 @@ function openy_node_landing_update_8010() {
     }
   }
 }
+
+/**
+ * Add location reference field to landing page.
+ */
+function openy_node_landing_update_8011() {
+  // Import new fields.
+  $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
+  $configs = [
+    'field.field.node.landing_page.field_lp_location',
+    'field.storage.node.field_lp_location',
+  ];
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs($configs);
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.landing_page.default' => [
+      'dependencies.config',
+      'content.field_lp_layout',
+    ],
+    'core.entity_view_display.node.landing_page.default' => [
+      'dependencies.config',
+      'content.field_lp_layout',
+    ],
+    'core.entity_view_display.node.landing_page.full' => [
+      'dependencies.config',
+      'hidden.field_lp_layout',
+    ],
+    'core.entity_view_display.node.landing_page.teaser' => [
+      'dependencies.config',
+      'hidden.field_lp_layout',
+    ],
+  ];
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
