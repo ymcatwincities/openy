@@ -1,0 +1,6 @@
+services:
+  openy_loc_facility.alert:
+    class: Drupal\openy_loc_facility\FacilityAlertBuilder
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: alert_builder, priority: 0 }
