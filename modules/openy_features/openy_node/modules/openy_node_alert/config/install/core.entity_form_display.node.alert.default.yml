@@ -2,17 +2,18 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_description
     - field.field.node.alert.field_alert_icon_color
     - field.field.node.alert.field_alert_link
+    - field.field.node.alert.field_alert_location
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
     - field.field.node.alert.field_alert_visibility_pages
     - field.field.node.alert.field_alert_visibility_state
     - node.type.alert
   module:
-    - content_moderation
     - field_group
     - link
     - path
@@ -33,6 +34,7 @@ third_party_settings:
         description: 'Control where alert should be displayed or not.'
         required_fields: true
       label: 'Visibility pages'
+      region: hidden
 id: node.alert.default
 targetEntityType: node
 bundle: alert
@@ -78,6 +80,12 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  field_alert_location:
+    weight: 22
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
     region: content
   field_alert_place:
     weight: 16
@@ -179,6 +187,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     region: content
   unpublish_on:
@@ -187,5 +196,10 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  url_redirects:
+    weight: 23
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   field_alert_belongs: true
