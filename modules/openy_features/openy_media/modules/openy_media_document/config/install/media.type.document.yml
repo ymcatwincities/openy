@@ -1,8 +1,6 @@
 langcode: en
 status: true
-dependencies:
-  module:
-    - media
+dependencies: {  }
 id: document
 label: Document
 description: 'Use Document for uploading document files such as PDF.'
