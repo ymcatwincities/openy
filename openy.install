@@ -46,6 +46,9 @@ function openy_update_dependencies() {
     8048 => [
       'media_entity' => 8201,
     ],
+    8078 => [
+      'system' => 8803,
+    ],
   ];
 
   $dependencies['openy_node_alert'] = [
