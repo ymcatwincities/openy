@@ -20,14 +20,6 @@ targetEntityType: node
 bundle: landing_page
 mode: full
 content:
-  addthis:
-    label: hidden
-    type: string
-    weight: 100
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   field_bottom_content:
     type: entity_reference_revisions_entity_view
     weight: 4
@@ -72,6 +64,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
 hidden:
+  addthis: true
   field_lp_location: true
   field_meta_tags: true
   langcode: true

@@ -257,19 +257,21 @@ function openy_node_landing_update_8011() {
   $configs = [
     'core.entity_form_display.node.landing_page.default' => [
       'dependencies.config',
-      'content.field_lp_layout',
+      'content.field_lp_location',
     ],
     'core.entity_view_display.node.landing_page.default' => [
       'dependencies.config',
-      'content.field_lp_layout',
+      'content.field_lp_location',
     ],
     'core.entity_view_display.node.landing_page.full' => [
       'dependencies.config',
-      'hidden.field_lp_layout',
+      'hidden.field_lp_location',
+      'hidden.addthis',
     ],
     'core.entity_view_display.node.landing_page.teaser' => [
       'dependencies.config',
-      'hidden.field_lp_layout',
+      'hidden.field_lp_location',
+      'hidden.addthis',
     ],
   ];
   $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
