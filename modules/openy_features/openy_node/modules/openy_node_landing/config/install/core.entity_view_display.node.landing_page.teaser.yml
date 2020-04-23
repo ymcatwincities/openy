@@ -18,18 +18,11 @@ targetEntityType: node
 bundle: landing_page
 mode: teaser
 content:
-  addthis:
-    label: hidden
-    type: string
-    weight: 100
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
   links:
     weight: 100
     region: content
 hidden:
+  addthis: true
   field_bottom_content: true
   field_content: true
   field_header_content: true

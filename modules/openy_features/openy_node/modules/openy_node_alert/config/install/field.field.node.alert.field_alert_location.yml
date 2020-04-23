@@ -24,4 +24,5 @@ settings:
     auto_create_bundle: branch
     target_bundles_no_dep:
       branch: branch
+      camp: camp
 field_type: entity_reference
