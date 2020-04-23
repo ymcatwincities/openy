@@ -19,7 +19,7 @@ class CampAlertBuilder implements AlertBuilderInterface {
   protected $nodeStorage;
 
   /**
-   * Constructs the LandingPageAlertBuilder.
+   * Constructs the CampAlertBuilder.
    *
    * @param EntityTypeManagerInterface $entity_type_manager
    */
@@ -30,10 +30,14 @@ class CampAlertBuilder implements AlertBuilderInterface {
   /**
    * {@inheritdoc}
    */
+  public function applies(EntityInterface $node) {
+    return $node->bundle() === 'camp';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build(EntityInterface $node) {
-    if ($node->bundle() != 'camp') {
-      return;
-    }
     $alerts_entities = $this->nodeStorage->loadByProperties([
       'type' => 'alert',
       'field_alert_location' => $node->id(),

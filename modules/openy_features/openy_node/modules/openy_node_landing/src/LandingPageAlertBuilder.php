@@ -3,7 +3,6 @@
 namespace Drupal\openy_node_landing;
 
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\openy_node_alert\Service\AlertBuilderInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
@@ -31,17 +30,15 @@ class LandingPageAlertBuilder implements AlertBuilderInterface {
   /**
    * {@inheritdoc}
    */
+  public function applies(EntityInterface $node) {
+    return $node->bundle() == 'landing_page' && !$node->field_lp_location->isEmpty();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build(EntityInterface $node) {
-    if ($node->bundle() != 'landing_page') {
-      return;
-    }
-    if ($node->field_lp_location->isEmpty()) {
-      return;
-    }
     $location_ids = array_column($node->field_lp_location->getValue(), 'target_id');
-    if (empty($location_ids)) {
-      return;
-    }
     $alerts_entities = $this->nodeStorage->loadByProperties([
       'type' => 'alert',
       'field_alert_location' => $location_ids,

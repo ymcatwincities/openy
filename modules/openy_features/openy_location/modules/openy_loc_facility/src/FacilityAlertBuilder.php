@@ -19,7 +19,7 @@ class FacilityAlertBuilder implements AlertBuilderInterface {
   protected $nodeStorage;
 
   /**
-   * Constructs the LandingPageAlertBuilder.
+   * Constructs the FacilityAlertBuilder.
    *
    * @param EntityTypeManagerInterface $entity_type_manager
    */
@@ -30,17 +30,15 @@ class FacilityAlertBuilder implements AlertBuilderInterface {
   /**
    * {@inheritdoc}
    */
+  public function applies(EntityInterface $node) {
+    return $node->bundle() === 'facility' && !$node->field_facility_loc->isEmpty();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build(EntityInterface $node) {
-    if ($node->bundle() != 'facility') {
-      return;
-    }
-    if ($node->field_facility_loc->isEmpty()) {
-      return;
-    }
     $location_ids = array_column($node->field_facility_loc->getValue(), 'target_id');
-    if (empty($location_ids)) {
-      return;
-    }
     $alerts_entities = $this->nodeStorage->loadByProperties([
       'type' => 'alert',
       'field_alert_location' => $location_ids,
