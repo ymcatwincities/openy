@@ -7,7 +7,7 @@ use Drupal\openy_node_alert\Service\AlertBuilderInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
- * Provides an alert builder for landing pages.
+ * Provides an alert builder for news post pages.
  */
 class NewsAlertBuilder implements AlertBuilderInterface {
 
@@ -19,7 +19,7 @@ class NewsAlertBuilder implements AlertBuilderInterface {
   protected $nodeStorage;
 
   /**
-   * Constructs the LandingPageAlertBuilder.
+   * Constructs the NewsAlertBuilder.
    *
    * @param EntityTypeManagerInterface $entity_type_manager
    */
@@ -30,17 +30,15 @@ class NewsAlertBuilder implements AlertBuilderInterface {
   /**
    * {@inheritdoc}
    */
+  public function applies(EntityInterface $node) {
+    return $node->bundle() === 'news' && !$node->field_news_location->isEmpty();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build(EntityInterface $node) {
-    if ($node->bundle() != 'news') {
-      return;
-    }
-    if ($node->field_news_location->isEmpty()) {
-      return;
-    }
     $location_ids = array_column($node->field_news_location->getValue(), 'target_id');
-    if (empty($location_ids)) {
-      return;
-    }
     $alerts_entities = $this->nodeStorage->loadByProperties([
       'type' => 'alert',
       'field_alert_location' => $location_ids,

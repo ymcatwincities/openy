@@ -19,7 +19,7 @@ class BranchAlertBuilder implements AlertBuilderInterface {
   protected $nodeStorage;
 
   /**
-   * Constructs the LandingPageAlertBuilder.
+   * Constructs the BranchAlertBuilder.
    *
    * @param EntityTypeManagerInterface $entity_type_manager
    */
@@ -30,10 +30,14 @@ class BranchAlertBuilder implements AlertBuilderInterface {
   /**
    * {@inheritdoc}
    */
+  public function applies(EntityInterface $node) {
+    return $node->bundle() === 'branch';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build(EntityInterface $node) {
-    if ($node->bundle() != 'branch') {
-      return;
-    }
     $alerts_entities = $this->nodeStorage->loadByProperties([
       'type' => 'alert',
       'field_alert_location' => $node->id(),

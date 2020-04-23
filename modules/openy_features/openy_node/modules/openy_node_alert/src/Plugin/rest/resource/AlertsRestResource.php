@@ -91,7 +91,7 @@ class AlertsRestResource extends ResourceBase {
   protected $router;
 
   /**
-   * The router doing the actual routing.
+   * The alert manager.
    *
    * @var \Drupal\openy_node_alert\Service\AlertManager
    */
@@ -356,7 +356,6 @@ class AlertsRestResource extends ResourceBase {
   private function getServiceAlerts() {
     $service_alerts = [];
     $uri = $this->request->query->get('uri');
-    /** @var \Drupal\Core\Routing\Router $router */
     try {
       $result = $this->router->match($uri);
     }
