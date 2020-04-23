@@ -26,4 +26,3 @@ dependencies:
   - 'rabbit_hole:rabbit_hole'
   - 'scheduler:scheduler'
   - 'slick_views:slick_views'
-core_incompatible: false
