@@ -1,5 +1,5 @@
 services:
-  openy_node_blog.alert:
+  openy_node_blog.blog_alert_builder:
     class: Drupal\openy_node_blog\BlogAlertBuilder
     arguments: ['@entity_type.manager']
     tags:

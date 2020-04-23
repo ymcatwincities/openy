@@ -1,5 +1,5 @@
 services:
-  openy_node_landing.alert:
+  openy_node_landing.landing_page_alert_builder:
     class: Drupal\openy_node_landing\LandingPageAlertBuilder
     arguments: ['@entity_type.manager']
     tags:
