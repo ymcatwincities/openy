@@ -91,7 +91,7 @@ class ProgramsSearchBlock extends BlockBase implements ContainerFactoryPluginInt
       $container->get('openy_programs_search.data_storage'),
       $container->get('config.factory'),
       $container->get('logger.factory')->get('openy_programs_search'),
-      $container->get('messenger'),
+      $container->get('messenger')
     );
   }
 
