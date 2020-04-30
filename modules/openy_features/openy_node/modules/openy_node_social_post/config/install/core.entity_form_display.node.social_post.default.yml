@@ -12,7 +12,6 @@ dependencies:
     - image.style.thumbnail
     - node.type.social_post
   module:
-    - content_moderation
     - datetime
     - image
     - link
@@ -152,6 +151,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     region: content
   unpublish_on:
