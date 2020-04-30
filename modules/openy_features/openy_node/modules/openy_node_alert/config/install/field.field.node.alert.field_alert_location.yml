@@ -9,7 +9,7 @@ field_name: field_alert_location
 entity_type: node
 bundle: alert
 label: Location
-description: 'Location (branch, camp) assignment for alert message. The alert message for a certain location is displayed that location page and pages that have reference to this location (blog posts, news posts, landing pages)'
+description: 'Location (branch, camp) assignment for alert message. The alert message for a certain location is displayed on the location page and pages that have reference to this location (blog posts, news posts, landing pages)'
 required: false
 translatable: false
 default_value: {  }
