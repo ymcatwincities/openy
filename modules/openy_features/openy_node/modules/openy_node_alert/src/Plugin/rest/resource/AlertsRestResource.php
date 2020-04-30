@@ -177,7 +177,6 @@ class AlertsRestResource extends ResourceBase {
       $container->get('request_stack')->getCurrentRequest(),
       $container->get('router.no_access_checks'),
       $container->get('openy_node_alert.alert_manager')
-
     );
   }
 
