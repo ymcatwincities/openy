@@ -42,10 +42,8 @@ function template_preprocess_form_element_membership_type(&$variables) {
  * Preprocess variables.
  */
 function openy_calc_preprocess_fieldset(&$variables) {
-  /**
-   * @var $legend_span \Drupal\Core\Template\Attribute
-   */
-  if ($variables['element']['#type'] == 'calc_radios')  {
+  /** @var $legend_span \Drupal\Core\Template\Attribute */
+  if (isset($variables['element']['#type']) && $variables['element']['#type'] == 'calc_radios') {
     $legend_span = $variables['legend_span']['attributes'];
     $legend_span->setAttribute('tabindex', '0');
   }
