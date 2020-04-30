@@ -291,4 +291,12 @@ function openy_media_image_update_8012() {
     'entity_browser.browser.images_library_embed',
     'views.view.images_library',
   ]);
+
+  $message = "Image Library entity browser doesn't use 'images_library' view anymore. Custom changes may be lost.";
+  if (function_exists('drush_print')) {
+    drush_print(dt($message));
+  }
+  else {
+    \Drupal::messenger()->addMessage($message);
+  }
 }
