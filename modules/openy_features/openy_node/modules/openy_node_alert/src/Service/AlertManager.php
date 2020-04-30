@@ -59,10 +59,10 @@ class AlertManager {
   }
 
   /**
-   * Sorts alert services.
+   * Sorts alerts services.
    *
    * @return \Drupal\openy_node_alert\Service\AlertBuilderInterface[]
-   *   The sorted messages services.
+   *   The sorted services.
    */
   protected function sortAlerts() {
     $sorted = [];
