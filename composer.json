@@ -180,7 +180,8 @@
             "drupal/core": {
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
-                "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch"
+                "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch",
+                "2996114 - JSON:API Argument error": "https://www.drupal.org/files/issues/2020-02-11/2996114-124.patch"
             },
             "drupal/media_entity": {
                 "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
@@ -205,7 +206,7 @@
         }
     },
     "require": {
-        "php": ">=5.6",
+        "php": ">=7.1",
         "cweagans/composer-patches": "^1.5.0",
         "composer/installers": "^1.0",
         "drupal/core-composer-scaffold": "^8.8",
@@ -213,11 +214,11 @@
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
-        "drupal/entity": "1.0-rc1",
+        "drupal/entity": "1.0.0-rc2",
         "drupal/media_entity": "2.0.0-beta3",
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
-        "drupal/address": "1.4",
+        "drupal/address": "1.8",
         "drupal/paragraphs": "1.6",
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/pathauto": "~1.6",
@@ -299,6 +300,7 @@
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
         "drupal/geysir": "^1.1",
-        "drupal/media_directories": "^1.0"
+        "drupal/media_directories": "^1.0",
+        "openy/openy_memberships": "dev-master"
     }
 }
