@@ -300,7 +300,6 @@
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
         "drupal/geysir": "^1.1",
-        "drupal/media_directories": "^1.0",
-        "openy/openy_memberships": "dev-master"
+        "drupal/media_directories": "^1.0"
     }
 }
