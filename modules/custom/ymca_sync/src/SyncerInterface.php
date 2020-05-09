@@ -11,8 +11,11 @@ interface SyncerInterface {
 
   /**
    * Run the sync process.
+   *
+   * @param array $options
+   *   Options from drush.
    */
-  public function proceed();
+  public function proceed(array $options);
 
   /**
    * Add task.

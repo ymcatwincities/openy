@@ -157,7 +157,6 @@
             "allowed-packages": [
                 "drupal/core"
             ]
-            
         },
         "patches": {
             "drupal/simple_menu_icons": {
@@ -199,6 +198,9 @@
             "drupal/geysir": {
                 "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
+            },
+            "drupal/social_feed_fetcher": {
+                "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
             }
         }
     },
@@ -235,12 +237,12 @@
         "drupal/migrate_plus": "^4.0",
         "drupal/migrate_tools": "^4.4",
         "drupal/migrate_source_csv": "2.2",
-        "drupal/verf": "1.0-beta6",
+        "drupal/verf": "1.0-beta7",
+        "drupal/views_infinite_scroll": "1.7",
         "drupal/simple_menu_icons": "1.x-dev",
-        "drupal/views_infinite_scroll": "1.5",
         "drupal/slick": "2.0.0-alpha1",
         "drupal/blazy": "2.0.0-alpha1",
-        "drupal/geolocation": "^2.0",
+        "drupal/geolocation": "^3.0",
         "library-jaypan/jquery_colorpicker": "1.0.1",
         "library-ckeditor/panelbutton": "4.10.1",
         "library-ckeditor/colorbutton": "4.10.1",
@@ -263,7 +265,7 @@
         "drupal/captcha": "^1.0",
         "drupal/recaptcha": "~2.3",
         "drupal/rabbit_hole": "~1.0-beta4",
-        "drupal/admin_toolbar": "~1.25",
+        "drupal/admin_toolbar": "~2.2",
         "drupal/panelbutton": "1.1",
         "drupal/colorbutton": "1.1",
         "drupal/better_exposed_filters": "~3.0-alpha5",
@@ -283,7 +285,7 @@
         "drupal/css_editor": "^1.2",
         "drupal/domain": "1.0-alpha14",
         "drupal/domain_theme_switch": "^1.4",
-        "drupal/social_feed_fetcher": "^1.0",
+        "drupal/social_feed_fetcher": "^2.0",
         "symfony/dom-crawler": "~2.8|~3.0|~4.2",
         "mpdf/mpdf": "^7.1",
         "drupal/search_api_solr": "1.3",
