@@ -393,7 +393,7 @@ function openy_rose_preprocess_html(&$variables) {
   $variables['theme_name'] = \Drupal::service('theme.manager')
     ->getActiveTheme()
     ->getName();
-  
+
   // Preprocess the node to find all paragraphs and react on them.
   if (!empty($variables['node_type'])) {
     /** @var \Drupal\node\Entity\Node $node */
@@ -468,8 +468,9 @@ function openy_rose_theme_suggestions_form_alter(array &$suggestions, array $var
 function openy_rose_preprocess_paragraph_social_list(&$variables) {
   $block = $variables['content']['field_prgrf_sl_block'];
   if (isset($block[0]['#name']) && isset($block[0]['#display_id'])) {
+    $view = views_embed_view($block[0]['#name'], $block[0]['#display_id']);
     $variables['content']['posts'] = \Drupal::service('renderer')
-      ->render(views_embed_view($block[0]['#name'], $block[0]['#display_id']));
+      ->render($view);
   }
 }
 

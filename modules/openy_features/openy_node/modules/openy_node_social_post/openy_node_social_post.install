@@ -5,6 +5,19 @@
  * Open Y Node Social Post install file.
  */
 
+function openy_node_social_post_install() {
+  $config_dir = drupal_get_path('module', 'openy_node_social_post') . '/config/install/';
+  // Import configurations using upgrade tool to avoid Upgrade tool conflicts.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'views.view.social_posts',
+    'core.entity_view_display.node.social_post.teaser',
+    'core.entity_view_display.node.social_post.default',
+    'core.entity_view_display.node.social_post.default',
+  ]);
+}
+
 /**
  * Update responsive image style fallback_image_style.
  */
