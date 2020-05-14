@@ -25,7 +25,8 @@ function openy_media_image_update_dependencies() {
     8008 => [
       'openy' => 8042,
     ],
-    8012 => [
+    8011 => [
+      'openy' => 8080,
       'openy_media' => 8005,
     ],
   ];
@@ -302,11 +303,32 @@ function openy_media_image_update_8012() {
 }
 
 /**
+ * Add media directories to config.
+ */
+function openy_media_image_update_8013() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.media.image.default' => [
+      'content.directory',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
  * Replace blazy image styles in CKEditor.
  *
  * Blazy image styles don't work with image alignment in CKEditor, so we shouldn't use them.
  */
-function openy_media_image_update_8013() {
+function openy_media_image_update_8014() {
   $config = \Drupal::configFactory()->getEditable('embed.button.embed_image');
   $original_image_styles = $config->get('type_settings.display_plugins');
   $blazy_image_styles = [
