@@ -7,11 +7,8 @@ dependencies:
     - field.field.media.video.field_media_tags
     - field.field.media.video.field_media_video_embed_field
     - field.field.media.video.field_media_video_id
-    - image.style.thumbnail
     - media.type.video
   module:
-    - image
-    - user
     - video_embed_field
 id: media.video.default
 targetEntityType: media
