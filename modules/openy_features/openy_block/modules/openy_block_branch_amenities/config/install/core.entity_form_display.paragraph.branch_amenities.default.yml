@@ -2,30 +2,20 @@ langcode: en
 status: true
 dependencies:
   config:
-    - entity_browser.browser.images_library
     - field.field.paragraph.branch_amenities.field_amenities_block
     - paragraphs.paragraphs_type.branch_amenities
   module:
-    - entity_browser
     - entity_browser_entity_form
-    - inline_entity_form
 id: paragraph.branch_amenities.default
 targetEntityType: paragraph
 bundle: branch_amenities
 mode: default
 content:
   field_amenities_block:
-    type: inline_entity_form_complex
+    type: options_select
     weight: 0
     region: content
-    settings:
-      form_mode: default
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      match_operator: CONTAINS
-      override_labels: false
-      allow_existing: false
+    settings: {  }
     third_party_settings:
       entity_browser_entity_form:
         entity_browser_id: _none
