@@ -15,7 +15,8 @@ function openy_ckeditor_theme($existing, $type, $theme, $path) {
   return [
     'list_branch_amenities' => [
       'variables' => [
-        'content' => [],
+        'amenities_open' => [],
+        'amenities_closed' => NULL,
       ],
       'template' => 'list-branch-amenities',
     ],
@@ -56,22 +57,16 @@ function openy_ckeditor_tokens($type, $tokens, array $data, array $options, Bubb
               return $replacements;
             }
           }
-          $amenities_ids = [];
-          foreach ($amenities_values as $id) {
-            $amenities_ids[] = $id['target_id'];
+          $has_closed = FALSE;
+          if ($node->hasField('field_location_amenities_closed')) {
+            $has_closed = TRUE;
+            $closed_amenities_values = $node->field_location_amenities_closed->getValue();
           }
-          $amenities = \Drupal::service('entity_type.manager')
-            ->getStorage('taxonomy_term')
-            ->loadMultiple($amenities_ids);
-          $amenities_view = [];
-          foreach ($amenities as $amenity) {
-            $amenities_view[] = \Drupal::service('entity.manager')
-              ->getViewBuilder('taxonomy_term')
-              ->view($amenity, 'default');
-          }
+
           $render_array = [
             '#theme' => 'list_branch_amenities',
-            '#content' => $amenities_view,
+            '#amenities_open' => _openy_ckeditor_prepare_amenities_view($amenities_values),
+            '#amenities_closed' => $has_closed ? _openy_ckeditor_prepare_amenities_view($closed_amenities_values) : [],
           ];
           $replacements[$original] = render($render_array);
           break;
@@ -79,6 +74,31 @@ function openy_ckeditor_tokens($type, $tokens, array $data, array $options, Bubb
     }
   }
   return $replacements;
+}
+
+/**
+ * Helper function.
+ * Prepares list of renderable terms based on reference field value.
+ *
+ * @param $field_value
+ *
+ * @return array $amenities_view
+ */
+function _openy_ckeditor_prepare_amenities_view($field_value) {
+  $amenities_ids = [];
+  foreach ($field_value as $id) {
+    $amenities_ids[] = $id['target_id'];
+  }
+  $amenities = \Drupal::service('entity_type.manager')
+    ->getStorage('taxonomy_term')
+    ->loadMultiple($amenities_ids);
+  $amenities_view = [];
+  foreach ($amenities as $amenity) {
+    $amenities_view[] = \Drupal::service('entity.manager')
+      ->getViewBuilder('taxonomy_term')
+      ->view($amenity, 'default');
+  }
+  return $amenities_view;
 }
 
 /**
