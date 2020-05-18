@@ -20,13 +20,13 @@
   {% if amenities_open|length  %}
     {% if amenities_closed|length %}
       <div class="col-md-6 amenities-open">
-        <div class="header-amenities font-weight-bold">{{ 'What\'s Available'|t }}</div>
+        <div class="header-amenities">{{ 'What\'s Available'|t }}</div>
         {% for amenity in amenities_open %}
           {{ amenity }}
         {% endfor %}
       </div>
       <div class="col-md-6 amenities-closed">
-        <div class="header-amenities font-weight-bold">{{ 'What\'s Closed'|t }}</div>
+        <div class="header-amenities">{{ 'What\'s Closed'|t }}</div>
         {% for amenity in amenities_closed %}
           {{ amenity }}
         {% endfor %}
