@@ -16,7 +16,7 @@ field_name: field_location_amenities_closed
 entity_type: node
 bundle: branch
 label: 'Closed Amenities'
-description: ''
+description: 'Choose amenities that are not available at the moment.'
 required: false
 translatable: true
 default_value: {  }

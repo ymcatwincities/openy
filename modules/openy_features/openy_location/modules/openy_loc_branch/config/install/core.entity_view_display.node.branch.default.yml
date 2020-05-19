@@ -27,8 +27,6 @@ dependencies:
     - openy_field_custom_hours
     - telephone
     - user
-_core:
-  default_config_hash: mRQJNhp4t6OSJSFQmOqvzFti_RolSTMMSKpRgcezXNE
 id: node.branch.default
 targetEntityType: node
 bundle: branch

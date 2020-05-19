@@ -4,8 +4,6 @@ dependencies:
   module:
     - block_content
     - paragraphs
-_core:
-  default_config_hash: n4KePQPN8a6yMnGHTR-lYrOMBMOUQXhNQ89Q80fLjjg
 id: paragraph.field_amenities_block
 field_name: field_amenities_block
 entity_type: paragraph
