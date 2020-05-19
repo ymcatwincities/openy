@@ -869,7 +869,7 @@ body {
 .header-search-wrapper {
   display: inline-block;
   vertical-align: top;
-  align-self: normal;
+  height: 3em;
   width: 200px;
 }
 .header-search-wrapper form {
@@ -6708,6 +6708,14 @@ a[href="#step2"] {
 }
 .global-search-results .item-list .views-field-title {
   font-weight: bold;
+}
+.global-search-results .form-item {
+  margin: 0;
+}
+
+.paragraph--type--search-api {
+  padding: 20px 15px;
+  overflow: visible;
 }
 
 .user-login {
