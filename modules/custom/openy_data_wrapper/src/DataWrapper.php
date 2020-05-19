@@ -224,6 +224,7 @@ class DataWrapper implements OpenyDataServiceInterface {
 
     $location_ids = $this->queryFactory->get('node')
       ->condition('type', 'branch')
+      ->addTag('data_wrapper_locations')
       ->execute();
 
     if (!$location_ids) {
