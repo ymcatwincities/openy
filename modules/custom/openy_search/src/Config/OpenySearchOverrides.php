@@ -46,14 +46,9 @@ class OpenySearchOverrides implements ConfigFactoryOverrideInterface {
   public function loadOverrides($names) {
     $default_theme = $this->configFactory->getEditable('system.theme')->getOriginal('default');
     $overrides = [];
-    if ($this->moduleHandler->moduleExists('openy_google_search')) {
-      if (in_array($default_theme . '.settings', $names)) {
-        $overrides[$default_theme . '.settings'] = [
-          'search_query_key' => 'q',
-          'search_page_alias' => 'search',
-          'display_search_form' => 1,
-        ];
-      }
+    if (in_array($default_theme . '.settings', $names)) {
+      // Allow other modules to alter the theme search configuration.
+      $this->moduleHandler->alter('openy_search_theme_configuration', $overrides[$default_theme . '.settings']);
     }
     return $overrides;
   }
