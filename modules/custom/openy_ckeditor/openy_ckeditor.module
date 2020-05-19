@@ -7,6 +7,7 @@
 
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_theme().
@@ -89,9 +90,7 @@ function _openy_ckeditor_prepare_amenities_view($field_value) {
   foreach ($field_value as $id) {
     $amenities_ids[] = $id['target_id'];
   }
-  $amenities = \Drupal::service('entity_type.manager')
-    ->getStorage('taxonomy_term')
-    ->loadMultiple($amenities_ids);
+  $amenities = Term::loadMultiple($amenities_ids);
   $amenities_view = [];
   foreach ($amenities as $amenity) {
     $amenities_view[] = \Drupal::service('entity.manager')
