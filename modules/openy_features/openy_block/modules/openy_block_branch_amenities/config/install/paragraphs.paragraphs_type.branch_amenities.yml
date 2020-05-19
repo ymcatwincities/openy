@@ -1,8 +1,6 @@
 langcode: en
 status: true
 dependencies: {  }
-_core:
-  default_config_hash: c4A5enOspH2lSRkObw2PzbZcD-ldXLpBO91Nk0F6Qas
 id: branch_amenities
 label: 'Branch Amenities'
 icon_uuid: null

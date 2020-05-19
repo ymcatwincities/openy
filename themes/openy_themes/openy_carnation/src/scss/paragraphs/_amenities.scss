@@ -223,11 +223,11 @@
 
 .paragraph--type--branch-amenities {
   border: none;
-  background: #fff;
+  background: $white;
   box-shadow: 0 3px 30px 2px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   margin-bottom: 50px;
-  color: #4f4f4f;
+  color: $gray-500;
   padding: 30px 40px;
 
   .field-amenities-block {
@@ -276,7 +276,7 @@
     .term-name:before {
       font-family: $font-awesome;
       content: "\f00c";
-      color: green;
+      color: $success;
       display: inline-block;
       font-size: 18px;
       padding: 0 10px;
@@ -291,7 +291,7 @@
       font-family: $font-awesome;
       font-weight: 900;
       content: "\f00d";
-      color: #dc3545;
+      color: $red;
     }
   }
 
