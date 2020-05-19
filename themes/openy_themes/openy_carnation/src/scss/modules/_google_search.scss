@@ -14,9 +14,9 @@
 
   .gsc-control-cse,
   .gsc-control-cse .gsc-table-result {
+    font-family: $font-family-base;
+    font-size: 16px;
     width: 100%;
-    font-family: Verdana, arial, sans-serif;
-    font-size : 16px;
   }
 
   .cse .gsc-search-button-v2, .gsc-search-button-v2 {
@@ -30,7 +30,7 @@
       padding-right: 0;
     }
     .gsc-search-button {
-      background: #c6168d;
+      background: $pink;
       border-radius: 0 10px 10px 0;
     }
   }
@@ -40,17 +40,16 @@
     margin: 10px;
 
     .gsc-cursor-page {
+      @include cachet(800);
       border-radius: 8px;
-      background-color: #f8f8f8;
-      border: solid 1px #f8f8f8;
-      color: #c6168d;
+      background-color: $gray-100;
+      border: solid 1px $gray-100;
+      color: $pink;
       width: 50px;
       height: 50px;
       padding: 0;
       line-height: 50px;
-      font-family: "Cachet",Arial,sans-serif;
       font-size: 20px;
-      font-weight: 800;
       display: inline-block;
       text-decoration: none;
 
@@ -60,7 +59,7 @@
     }
     .gsc-cursor-current-page {
       text-decoration: none;
-      color: #363435;
+      color: $gray-800;
       font-weight: bold;
     }
   }
@@ -69,21 +68,21 @@
   .gsc-control-cse .gs-result .gs-title * {
     text-decoration: none;
     font-size: 25px;
-    color: #0089d0;
+    color: $blue;
   }
 
   .gs-webResult.gs-result a.gs-title:link,
   .gs-webResult.gs-result a.gs-title:link b,
   .gs-imageResult a.gs-title:link,
   .gs-imageResult a.gs-title:link b {
-    color: #0089d0;
+    color: $blue;
   }
 
   .gs-webResult.gs-result a.gs-title:visited,
   .gs-webResult.gs-result a.gs-title:visited b,
   .gs-imageResult a.gs-title:visited,
   .gs-imageResult a.gs-title:visited b {
-    color: #0089d0;
+    color: $blue;
   }
 
   .gs-webResult.gs-result a.gs-title:hover,
@@ -91,7 +90,7 @@
   .gs-imageResult a.gs-title:hover,
   .gs-imageResult a.gs-title:hover b {
     text-decoration: underline;
-    color: #6c6c6c;
+    color: $gray-600;
   }
 
   .gs-webResult.gs-result a.gs-title:active,
@@ -99,18 +98,18 @@
   .gs-imageResult a.gs-title:active,
   .gs-imageResult a.gs-title:active b {
     text-decoration: underline;
-    color: #6c6c6c;
+    color: $gray-600;
   }
 
   .gs-spelling a {
-    color: #0089d0;
+    color: $blue;
   }
 
   .gcsc-find-more-on-google {
-    color: #0089d0
+    color: $blue;
   }
   .gcsc-find-more-on-google-magnifier {
-    fill: #0089d0;
+    fill: $blue;
   }
 
   .gs-web-image-box, .gs-promotion-image-box {
