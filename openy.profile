@@ -7,6 +7,8 @@
 
 use Drupal\openy\Form\ConfigureProfileForm;
 use Drupal\openy\Form\ContentSelectForm;
+use Drupal\openy\Form\SearchSelectForm;
+use Drupal\openy\Form\SearchSolrForm;
 use Drupal\openy\Form\TermsOfUseForm;
 use Drupal\openy\Form\ThemeSelectForm;
 use Drupal\openy\Form\ThirdPartyServicesForm;
@@ -23,6 +25,25 @@ function openy_install_tasks(&$install_state) {
       'display_name' => t('Terms and Conditions'),
       'display' => TRUE,
       'run' => INSTALL_TASK_RUN_IF_REACHED
+    ],
+    'openy_select_search' => [
+      'display_name' => t('Select search service'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => SearchSelectForm::class,
+    ],
+    'openy_install_search' => [
+      'display_name' => t('Install search'),
+      'type' => 'batch',
+    ],
+    'openy_solr_search' => [
+      'display_name' => t('Configure Solr Search'),
+      'display' => TRUE,
+      'type' => 'form',
+      'function' => SearchSolrForm::class,
+    ],
+    'openy_google_search' => [
+      'type' => 'batch',
     ],
     'openy_select_features' => [
       'display_name' => t('Select installation type'),
@@ -227,6 +248,54 @@ function openy_install_features(array &$install_state) {
   }
 
   return ['operations' => $module_operations];
+}
+
+/**
+ * Create batch for installing search.
+ *
+ * @param array $install_state
+ *   Installation parameters.
+ *
+ * @return array
+ *   Batch.
+ */
+function openy_install_search(array &$install_state) {
+  $state = \Drupal::state();
+  $module = $install_state['openy']['search']['service'];
+  $files = \Drupal::service('extension.list.module')->getList();
+  if (isset($install_state['openy']['search']['search_api_server'])) {
+    $server = $install_state['openy']['search']['search_api_server'];
+    if ($module == 'openy_search_api' && $server == 'solr') {
+      $state->set('openy_show_solr_config', '1');
+    }
+  };
+
+  if (isset($install_state['openy']['search']['google_search_engine_id'])) {
+    $state->set('google_search_engine_id', $install_state['openy']['search']['google_search_engine_id']);
+  };
+  if ($files[$module]->requires) {
+    $modules = array_merge(array_keys($files[$module]->requires), (array) $module);
+  }
+  foreach ($modules as $module) {
+    $module_operations[] = ['openy_enable_module', (array) $module];
+  }
+  return ['operations' => $module_operations];
+}
+
+/**
+ * Create batch for write google custom search id to configuration.
+ *
+ * @param array $install_state
+ *   Installation parameters.
+ */
+function openy_google_search(array &$install_state) {
+  // Set Google Custom Search Engine ID.
+  if (!empty(\Drupal::state()->get('google_search_engine_id'))) {
+    $config_factory = \Drupal::configFactory();
+    $config = $config_factory->getEditable('openy_google_search.settings');
+    $config->set('google_engine_id', \Drupal::state()->get('google_search_engine_id'));
+    $config->save();
+  }
 }
 
 /**
@@ -642,6 +711,17 @@ function openy_install_tasks_alter(&$tasks, &$install_state) {
     isset($tasks["openy_third_party_services"])) {
       unset($tasks["openy_third_party_services"]);
   }
+  // Remove Solr configure installation task for non search_api sorl service.
+  if (!\Drupal::state()->get('openy_show_solr_config')) {
+    unset($tasks["openy_solr_search"]);
+  }
+
+  if (isset($install_state['openy']['search']['service']) &&
+    $install_state['openy']['search']['service'] == 'none' ) {
+    unset($tasks["openy_install_search"]);
+    unset($tasks["openy_solr_search"]);
+  }
+
 }
 
 /**
