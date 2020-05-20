@@ -44,13 +44,14 @@
     field_name|clean_class,
     'block-description--text',
     'col-12',
+    'field-item'
   ]
 %}
 {% if label_hidden %}
   {% if multiple %}
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
       {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
+        <div{{ attributes.addClass([field_name|clean_class, 'field-item']).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
       {% endfor %}
     </div>
   {% else %}
@@ -59,15 +60,19 @@
         {% set icon_class = item.content.field_icon_class.0 ? item.content.field_icon_class.0 : '' %}
         {% set icon = item.content.field_icon.0 ? item.content.field_icon.0 : '' %}
         {% if icon_class %}
-          <h4 {% if icon_class %}class="with-icon"{% endif %}>
-            <i class="fa fa-{{ icon_class }}" aria-hidden="true"></i>
-            {{ item.content.field_prgf_1c_title|raw|render }}
-          </h4>
+          <div class="field-item">
+            <h4 {% if icon_class %}class="with-icon"{% endif %}>
+              <i class="fa fa-{{ icon_class }}" aria-hidden="true"></i>
+              {{ item.content.field_prgf_1c_title|raw|render }}
+            </h4>
+          </div>
         {% else %}
-          <h4 {% if icon %}class="with-icon"{% endif %}>
-            {{ item.content.field_icon }}
-            {{ item.content.field_prgf_1c_title|raw|render }}
-          </h4>
+          <div class="field-item">
+            <h4 {% if icon %}class="with-icon"{% endif %}>
+              {{ item.content.field_icon }}
+              {{ item.content.field_prgf_1c_title|raw|render }}
+            </h4>
+          </div>
         {% endif %}
         {{ item.content|without('field_icon', 'field_icon_class', 'field_prgf_1c_title') }}
       </div>
@@ -80,7 +85,7 @@
     <div>
       {% endif %}
       {% for item in items %}
-        <div{{ attributes.addClass(field_name|clean_class).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
+        <div{{ attributes.addClass([field_name|clean_class, 'field-item']).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
       {% endfor %}
       {% if multiple %}
     </div>

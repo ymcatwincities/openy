@@ -404,7 +404,31 @@ function openy_loc_branch_update_8019() {
   $configs = [
     'core.entity_form_display.node.branch.default' => [
       'content',
-      'third_party_settings.field_group.group_branch_amenities'
+      'third_party_settings.field_group.group_branch_amenities',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Update Open Y Branch feature to use link attributes widget.
+ */
+function openy_loc_branch_update_8020() {
+  $config_dir = drupal_get_path('module', 'openy_loc_branch') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.branch.default' =>[
+      'content.field_location_temp_url.settings.enabled_attributes',
+      'content.field_location_temp_url.type',
+      'content.field_location_directions.settings.enabled_attributes',
+      'content.field_location_directions.type',
     ],
   ];
 

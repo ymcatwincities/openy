@@ -96,28 +96,38 @@
 <div class="container">
 {% endif %}
 
-  {% if content.field_content|render|trim is not empty %}
-    <article{{ attributes.addClass(content_classes) }}>
-
-      {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
+{% if not content.field_content.isEmpty() %}
+  <article{{ attributes.addClass(content_classes) }}>
+    {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
+    <div class="two-column row">
+      <div class="main-region col-lg-7 col-xl-8">
+        {{ content.field_content }}
+      </div>
+      <div class="sidebar-region col-lg-5 col-xl-4">
+        <article{{ attributes.addClass(sidebar_classes) }}>
+          {{ content.field_sidebar_content }}
+        </article>
+      </div>
+    </div>
+    {% elseif ( node.field_lp_layout.value == "two_column_left" ) %}
       <div class="two-column row">
-        <div class="main-region col-lg-7 col-xl-8">
-          {% endif %}
-          {{ content.field_content }}
-          {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
-        </div>
         <div class="sidebar-region col-lg-5 col-xl-4">
-          {% endif %}
           <article{{ attributes.addClass(sidebar_classes) }}>
             {{ content.field_sidebar_content }}
           </article>
-          {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
+        </div>
+        <div class="main-region col-lg-7 col-xl-8">
+          {{ content.field_content }}
         </div>
       </div>
-      {% endif %}
-
-    </article>
-  {% endif %}
+    {% else %}
+      {{ content.field_content }}
+      <article{{ attributes.addClass(sidebar_classes) }}>
+        {{ content.field_sidebar_content }}
+      </article>
+    {% endif %}
+  </article>
+{% endif %}
 
 {% if node.field_lp_layout.value != "one_column_clean" %}
 </div>
