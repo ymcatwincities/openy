@@ -7,6 +7,8 @@ version: 8.x-1.0
 dependencies:
   - drupal:field
   - drupal:link
+  - drupal:text
+  - link_attributes:link_attributes
   - openy_prgf:openy_prgf
   - paragraphs:paragraphs
-  - drupal:text
+core_incompatible: false

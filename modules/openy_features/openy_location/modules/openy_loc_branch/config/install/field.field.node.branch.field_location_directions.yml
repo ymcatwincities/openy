@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_location_directions
     - node.type.branch
   module:
+    - datalayer
     - link
 third_party_settings:
   datalayer:

@@ -12,6 +12,7 @@ dependencies:
   - inline_entity_form:inline_entity_form
   - drupal:language
   - drupal:link
+  - link_attributes:link_attributes
   - openy_block_custom_simple:openy_block_custom_simple
   - openy_prgf:openy_prgf
   - paragraphs:paragraphs

@@ -11,7 +11,7 @@ dependencies:
     - paragraphs.paragraphs_type.grid_columns
   module:
     - entity_browser
-    - link
+    - link_attributes
     - text
 id: paragraph.grid_columns.default
 targetEntityType: paragraph
@@ -25,6 +25,7 @@ content:
       placeholder: 'Provide a "Font Awesome" icon mane, e.g. flag, car, info. Overrides image Icon.'
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_prgf_clm_headline:
     weight: 0
     settings:
@@ -32,6 +33,7 @@ content:
       placeholder: 'Provide title here'
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_prgf_clm_icon:
     weight: 1
     settings:
@@ -45,13 +47,24 @@ content:
       open: false
     third_party_settings: {  }
     type: entity_browser_entity_reference
+    region: content
   field_prgf_clm_link:
     weight: 4
     settings:
       placeholder_url: /subpage_uri
       placeholder_title: 'Subpage title'
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
+    region: content
   field_prgf_grid_clm_description:
     weight: 3
     settings:
@@ -59,6 +72,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
 hidden:
   created: true
   status: true

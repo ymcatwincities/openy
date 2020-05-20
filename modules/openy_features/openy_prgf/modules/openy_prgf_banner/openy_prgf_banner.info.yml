@@ -15,16 +15,12 @@ dependencies:
   - drupal:taxonomy
   - drupal:text
   - entity_browser:entity_browser
-  - drupal:field
   - focal_point:focal_point
-  - drupal:image
   - jquery_colorpicker:jquery_colorpicker
-  - drupal:link
-  - drupal:media
+  - link_attributes:link_attributes
   - openy_focal_point:openy_focal_point
   - openy_media_image:openy_media_image
   - openy_prgf:openy_prgf
   - openy_txnm_color:openy_txnm_color
   - paragraphs:paragraphs
-  - drupal:text
 core_incompatible: false
