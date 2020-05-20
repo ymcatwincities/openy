@@ -23,7 +23,7 @@ dependencies:
     - address
     - field_group
     - geolocation
-    - link
+    - link_attributes
     - metatag
     - openy_field_custom_hours
     - paragraphs
@@ -249,8 +249,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_location_email:
     weight: 16
@@ -286,8 +295,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_meta_tags:
     weight: 8

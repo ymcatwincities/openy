@@ -13,6 +13,7 @@ dependencies:
   - drupal:menu_ui
   - metatag:metatag
   - drupal:node
+  - link_attributes:link_attributes
   - openy_loc_branch:openy_loc_branch
   - openy_media_image:openy_media_image
   - paragraphs:paragraphs
