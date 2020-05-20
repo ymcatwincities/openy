@@ -2,20 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.activity_finder.field_pgf_af_show_filter_open
-    - field.field.paragraph.activity_finder.field_prgf_af_categ
-    - field.field.paragraph.activity_finder.field_prgf_af_categ_excl
-    - field.field.paragraph.activity_finder.field_prgf_af_results_ref
-    - field.field.paragraph.activity_finder.field_prgf_block
-    - field.field.paragraph.activity_finder.field_prgf_hide_loc_select_step
-    - field.field.paragraph.activity_finder.field_prgf_hide_program_block
-    - field.field.paragraph.activity_finder.field_prgf_hide_program_categ
-    - paragraphs.paragraphs_type.activity_finder
+    - field.field.paragraph.camp_finder.field_pgf_af_show_filter_open
+    - field.field.paragraph.camp_finder.field_prgf_af_categ
+    - field.field.paragraph.camp_finder.field_prgf_af_categ_excl
+    - field.field.paragraph.camp_finder.field_prgf_af_results_ref
+    - field.field.paragraph.camp_finder.field_prgf_block
+    - field.field.paragraph.camp_finder.field_prgf_hide_loc_select_step
+    - field.field.paragraph.camp_finder.field_prgf_hide_program_categ
+    - paragraphs.paragraphs_type.camp_finder
   module:
     - plugin
-id: paragraph.activity_finder.default
+id: paragraph.camp_finder.default
 targetEntityType: paragraph
-bundle: activity_finder
+bundle: camp_finder
 mode: default
 content:
   field_pgf_af_show_filter_open:
@@ -61,13 +60,6 @@ content:
   field_prgf_hide_loc_select_step:
     type: boolean_checkbox
     weight: 3
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
-  field_prgf_hide_program_block:
-    type: boolean_checkbox
-    weight: 5
     region: content
     settings:
       display_label: true

@@ -7,15 +7,15 @@ use Drupal\Core\Cache\Cache;
 use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 
 /**
- * Provides a 'PEF Programs' block.
+ * Provides a 'Camp Finder' block.
  *
  * @Block(
- *   id = "activity_finder_search_block",
- *   admin_label = @Translation("Activity Finder Search Block"),
+ *   id = "camp_finder_block",
+ *   admin_label = @Translation("Camp Finder Block"),
  *   category = @Translation("Paragraph Blocks")
  * )
  */
-class ActivityFinderSearchBlock extends BlockBase {
+class CampFinderBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -24,24 +24,26 @@ class ActivityFinderSearchBlock extends BlockBase {
     $config = \Drupal::service('config.factory')->get('openy_activity_finder.settings');
     $backend_service_id = $config->get('backend');
     $backend = \Drupal::service($backend_service_id);
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $alias = '';
+    if ($node instanceof NodeInterface) {
+      $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id());
+    }
 
     return [
-      '#theme' => 'openy_activity_finder_program_search_page',
-      '#locations' => $backend->getLocations(),
-      '#categories' => $backend->getCategories(),
-      '#categories_type' => $backend->getCategoriesType(),
+      '#theme' => 'openy_camp_finder_program_search',
+      '#data' => [],
       '#ages' => $backend->getAges(),
-      '#days' => $backend->getDaysOfWeek(),
-      '#expanderSectionsConfig' => $config->getRawData(),
       '#weeks' => $backend->getWeeks(),
-      '#is_search_box_disabled' => $config->get('disable_search_box'),
-      '#is_spots_available_disabled' => $config->get('disable_spots_available'),
-      '#sort_options' => $backend->getSortOptions(),
+      '#categories' => $backend->getCategoriesTopLevel(),
+      '#categories_type' => $backend->getCategoriesType(),
+      '#activities' => $backend->getCategories(),
+      '#locations' => $backend->getLocations(),
       '#attached' => [
         'drupalSettings' => [
           'activityFinder' => [
+            'alias' => $alias,
             'is_search_box_disabled' => $config->get('disable_search_box'),
-            'is_spots_available_disabled' => $config->get('disable_spots_available'),
           ],
         ],
       ],

@@ -1,5 +1,3 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
 import ActivityFinder from '../components/ActivityFinder.vue'
 import afHomepage from '../components/Homepage.vue'
 import afAge from '../components/AgeStep.vue'
