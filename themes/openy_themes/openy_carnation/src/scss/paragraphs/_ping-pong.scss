@@ -1,7 +1,9 @@
 .ping-pong-component {
   -webkit-font-smoothing: antialiased;
-  margin: 0;
   flex-direction: column-reverse;
+  background-color: $primary-darker;
+  margin: 0;
+  width: 100%;
 
   @include media-breakpoint-up(768px) {
     flex-direction: row;
@@ -160,7 +162,7 @@
     }
 
     &.defailt-bg {
-      background-color:#faf5ff;
+      background-color: $light-purple;
     }
   }
 
@@ -172,7 +174,7 @@
     }
 
     &.default-bg {
-      background-color: #12619e;
+      background-color: $dark-blue;
     }
   }
 }
@@ -180,7 +182,7 @@
 .ping-pong-component.theme-dark {
   .ping-pong-content-description {
     a {
-      color: #fcaf17;
+      color: $yellow;
     }
   }
 }
