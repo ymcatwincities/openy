@@ -1,9 +1,9 @@
 name: 'Open Y Media Local Video'
-description: Provides a Local video media entity and features.
+description: 'Provides a Local video media entity and features.'
 type: module
 core: 8.x
 version: 8.x-1.0
-package: Open Y
+package: 'Open Y'
 dependencies:
   - drupal:field
   - drupal:file
@@ -14,12 +14,13 @@ dependencies:
   - drupal:taxonomy
   - drupal:user
   - drupal:views
-  - crop
-  - datalayer
-  - dropzonejs_eb_widget
-  - embed
-  - entity_browser
-  - entity_embed
-  - openy_media
-  - video
-  - media_entity_video
+  - crop:crop
+  - datalayer:datalayer
+  - dropzonejs_eb_widget:dropzonejs_eb_widget
+  - embed:embed
+  - entity_browser:entity_browser
+  - entity_embed:entity_embed
+  - openy_media:openy_media
+  - video:video
+  - media_entity_video:media_entity_video
+core_incompatible: false

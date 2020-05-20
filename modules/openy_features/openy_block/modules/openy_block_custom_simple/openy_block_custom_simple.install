@@ -41,3 +41,25 @@ function openy_block_custom_simple_update_8002() {
     }
   }
 }
+
+/**
+ * Update Open Y Block Custom Simple feature to use link attributes widget.
+ */
+function openy_block_custom_simple_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_block_custom_simple') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.block_content.simple_block.default' =>[
+      'content.field_sb_link.settings.enabled_attributes',
+      'content.field_sb_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

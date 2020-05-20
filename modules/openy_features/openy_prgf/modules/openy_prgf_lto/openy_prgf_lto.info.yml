@@ -5,8 +5,10 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - field
-  - language
-  - link
-  - paragraphs
-  - text
+  - drupal:field
+  - drupal:language
+  - drupal:link
+  - drupal:text
+  - link_attributes:link_attributes
+  - paragraphs:paragraphs
+core_incompatible: false

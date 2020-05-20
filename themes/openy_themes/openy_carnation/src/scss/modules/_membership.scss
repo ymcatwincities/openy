@@ -4,21 +4,33 @@ a[href="#step2"] {
 
 #membership-calc-wrapper {
 
-  form fieldset {
-    margin: 0 0 2rem 0;
+  form {
+    fieldset {
+      margin: 0 0 2rem 0;
 
-    .fieldset-wrapper .form-radios {
-      .card {
-        height: 100%;
-        padding: 1.25rem;
-        .form-element-wrapper {
-          display: grid;
-          grid-template-columns: 1fr;
+      .fieldset-wrapper .form-radios {
+        .card {
           height: 100%;
-          .card-text {
-            display: none;
+          padding: 1.25rem;
+
+          .form-element-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            height: 100%;
+
+            .card-text {
+              display: none;
+            }
           }
         }
+      }
+    }
+
+    & > div.input-wrapper.position-relative {
+      display: inline-block;
+
+      &.edit-next, &.edit-submit {
+        float: right;
       }
     }
   }

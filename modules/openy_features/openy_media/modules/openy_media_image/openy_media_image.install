@@ -25,7 +25,8 @@ function openy_media_image_update_dependencies() {
     8008 => [
       'openy' => 8042,
     ],
-    8012 => [
+    8011 => [
+      'openy' => 8080,
       'openy_media' => 8005,
     ],
   ];
@@ -291,4 +292,63 @@ function openy_media_image_update_8012() {
     'entity_browser.browser.images_library_embed',
     'views.view.images_library',
   ]);
+
+  $message = "Image Library entity browser doesn't use 'images_library' view anymore. Custom changes may be lost.";
+  if (function_exists('drush_print')) {
+    drush_print(dt($message));
+  }
+  else {
+    \Drupal::messenger()->addMessage($message);
+  }
+}
+
+/**
+ * Add media directories to config.
+ */
+function openy_media_image_update_8013() {
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.media.image.default' => [
+      'content.directory',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Replace blazy image styles in CKEditor.
+ *
+ * Blazy image styles don't work with image alignment in CKEditor, so we shouldn't use them.
+ */
+function openy_media_image_update_8014() {
+  $config = \Drupal::configFactory()->getEditable('embed.button.embed_image');
+  $original_image_styles = $config->get('type_settings.display_plugins');
+  $blazy_image_styles = [
+    'view_mode:media.embedded_full',
+    'view_mode:media.embedded_half'
+  ];
+
+  // We should replace blazy image styles, instead of import config, for saving
+  // custom settings.
+  foreach ($original_image_styles as $key => $image_style) {
+    if (in_array($image_style, $blazy_image_styles)) {
+      unset($original_image_styles[$key]);
+    }
+  }
+
+  $image_styles_without_blazy = [
+    'view_mode:media.full_without_blazy',
+    'view_mode:media.half_without_blazy'
+  ];
+  $updated_view_modes = array_merge($original_image_styles, $image_styles_without_blazy);
+
+  $config->set('type_settings.display_plugins', $updated_view_modes)->save(TRUE);
 }

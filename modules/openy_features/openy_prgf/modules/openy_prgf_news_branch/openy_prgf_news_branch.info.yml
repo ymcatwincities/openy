@@ -5,13 +5,13 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - field
-  - node
-  - openy_loc_branch
-  - openy_node_news
-  - openy_prgf
-  - paragraphs
-  - plugin
-  - user
-  - views
-  - views_infinite_scroll
+  - drupal:field
+  - drupal:node
+  - openy_loc_branch:openy_loc_branch
+  - openy_node_news:openy_node_news
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+  - plugin:plugin
+  - drupal:user
+  - drupal:views
+  - views_infinite_scroll:views_infinite_scroll

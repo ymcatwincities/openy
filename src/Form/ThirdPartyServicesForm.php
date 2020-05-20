@@ -4,15 +4,13 @@ namespace Drupal\openy\Form;
 
 use Drupal\Core\Asset\JsCollectionOptimizer;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Database\Database;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use GuzzleHttp\Exception\ClientException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Defines a form for setting Google Maps API Key during install.
+ * Defines a form for setting Third party services parameters during install.
  */
 class ThirdPartyServicesForm extends FormBase {
 
@@ -31,7 +29,7 @@ class ThirdPartyServicesForm extends FormBase {
   protected $collectionOptimizer;
 
   /**
-   * Constructs a new GroupexFormBase object.
+   * Constructs a new ThirdPartyServicesForm object.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
@@ -68,7 +66,6 @@ class ThirdPartyServicesForm extends FormBase {
     $form['#title'] = $this->t('3rd Party Services');
 
     // Output the fields only if the modules are installed.
-
     // Google Maps API key.
     if (\Drupal::moduleHandler()->moduleExists('geolocation')) {
       // Get Google Maps API settings container.
@@ -88,10 +85,11 @@ class ThirdPartyServicesForm extends FormBase {
       $ga_config = $this->configFactory->get('google_analytics.settings');
       $form['google_analytics_account'] = [
         '#default_value' => $ga_config->get('account'),
-        '#description' => $this->t('This ID is unique to each site you want to track separately, and is in the form of UA-xxxxxxx-yy. To get a Web Property ID, <a href=":analytics">register your site with Google Analytics</a>, or if you already have registered your site, go to your Google Analytics Settings page to see the ID next to every site profile. <a href=":webpropertyid">Find more information in the documentation</a>.', [':analytics' => 'http://www.google.com/analytics/',
-          ':webpropertyid' => Url::fromUri('https://developers.google.com/analytics/resources/concepts/gaConceptsAccounts', ['fragment' => 'webProperty'])
-            ->toString()
-        ]),
+        '#description' => $this->t('This ID is unique to each site you want to track separately, and is in the form of UA-xxxxxxx-yy. To get a Web Property ID, <a href=":analytics">register your site with Google Analytics</a>, or if you already have registered your site, go to your Google Analytics Settings page to see the ID next to every site profile. <a href=":webpropertyid">Find more information in the documentation</a>.',
+          [
+            ':analytics' => 'http://www.google.com/analytics/',
+            ':webpropertyid' => Url::fromUri('https://developers.google.com/analytics/resources/concepts/gaConceptsAccounts', ['fragment' => 'webProperty'])->toString(),
+          ]),
         '#maxlength' => 20,
         '#placeholder' => 'UA-',
         '#title' => $this->t('Google Analytics Web Property ID'),
@@ -109,19 +107,6 @@ class ThirdPartyServicesForm extends FormBase {
         '#default_value' => $gtm_config->get('container_id'),
         '#attributes' => ['placeholder' => ['GTM-xxxxxx']],
         '#maxlength' => 20,
-        '#type' => 'textfield',
-      ];
-    }
-
-    // Google Custom Search Engine ID.
-    if (\Drupal::moduleHandler()->moduleExists('openy_google_search')) {
-      // Get Google Search Engine ID settings container.
-      $gs_config = $this->configFactory->get('openy_google_search.settings');
-      $form['google_search_engine_id'] = [
-        '#title' => $this->t('Google Search Engine ID'),
-        '#description' => $this->t('The ID assigned to this website by Google Custom Search engine. To get a engine ID, <a href="https://cse.google.com//">sign up for Google Custom Search</a> and create search engine for your website.'),
-        '#default_value' => $gs_config->get('google_engine_id'),
-        '#maxlength' => 40,
         '#type' => 'textfield',
       ];
     }
@@ -227,11 +212,11 @@ class ThirdPartyServicesForm extends FormBase {
       $recaptcha_site_key = trim($form_state->getValue('recaptcha_site_key'));
       $recaptcha_secret_key = trim($form_state->getValue('recaptcha_secret_key'));
       if (!empty($recaptcha_site_key) && empty($recaptcha_secret_key)) {
-        //Site key is populated, secret key is not.
+        // Site key is populated, secret key is not.
         $form_state->setErrorByName('recaptcha_secret_key', t('A Secret Key must be provided if a Site Key has been entered.'));
       }
       if (!empty($recaptcha_secret_key) && empty($recaptcha_site_key)) {
-        //Site key is not populated, secret key is.
+        // Site key is not populated, secret key is.
         $form_state->setErrorByName('recaptcha_site_key', t('A Site Key must be provided if a Secret Key has been entered.'));
       }
     }
@@ -263,13 +248,6 @@ class ThirdPartyServicesForm extends FormBase {
       $ga_config->save();
     }
 
-    // Set Google Custom Search Engine ID.
-    if (!empty($form_state->getValue('google_search_engine_id'))) {
-      $ga_config = $this->configFactory->getEditable('openy_google_search.settings');
-      $ga_config->set('google_engine_id', $form_state->getValue('google_search_engine_id'));
-      $ga_config->save();
-    }
-
     // Set Recaptcha settings if provided.
     if (!empty($form_state->getValue('recaptcha_site_key'))) {
       $recaptcha_config = $this->configFactory->getEditable('recaptcha.settings');
@@ -278,13 +256,13 @@ class ThirdPartyServicesForm extends FormBase {
         ->set('secret_key', $form_state->getValue('recaptcha_secret_key'))
         ->save();
 
-      //Set default captcha config to use reCaptcha.
+      // Set default captcha config to use reCaptcha.
       $captcha_config = $this->configFactory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'recaptcha/reCAPTCHA')
         ->save();
     }
     else {
-      //Set default captcha config to use image captcha.
+      // Set default captcha config to use image captcha.
       $captcha_config = $this->configFactory->getEditable('captcha.settings');
       $captcha_config->set('default_validation', 'image_captcha/Image')
         ->save();

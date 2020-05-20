@@ -8,7 +8,7 @@ dependencies:
     - field.field.paragraph.membership_info.field_mbrshp_monthly_rate
     - paragraphs.paragraphs_type.membership_info
   module:
-    - link
+    - link_attributes
 id: paragraph.membership_info.default
 targetEntityType: paragraph
 bundle: membership_info
@@ -26,8 +26,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_mbrshp_location:
     weight: 0

@@ -39,16 +39,27 @@
  */
 #}
 
+{%
+  set item_classes = [
+    field_name|clean_class,
+    'field-item'
+  ]
+%}
+
 {% if label_hidden %}
   {% if multiple %}
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
       {% for item in items %}
-        {{ item.content }}
+        <div{{ item.attributes.addClass(item_classes) }}>
+          {{ item.content }}
+        </div>
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      {{ item.content }}
+      <div{{ item.attributes.addClass(item_classes) }}>
+        {{ item.content }}
+      </div>
     {% endfor %}
   {% endif %}
 {% else %}
@@ -58,7 +69,9 @@
     <div>
       {% endif %}
       {% for item in items %}
-        {{ item.content }}
+        <div{{ item.attributes.addClass(item_classes) }}>
+          {{ item.content }}
+        </div>
       {% endfor %}
       {% if multiple %}
     </div>

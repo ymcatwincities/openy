@@ -47,3 +47,23 @@ function openy_system_help($route_name, RouteMatchInterface $route_match) {
     return '<p>' . t('The uninstall process removes all data related to a package.') . '</p>';
   }
 }
+
+/**
+ * Alters Drupal themes.
+ *
+ * @param $theme_groups
+ *   An associative array containing groups of themes.
+ *
+ * @see system_themes_page()
+ */
+function openy_system_system_themes_page_alter(&$theme_groups) {
+  foreach ($theme_groups as $state => &$group) {
+    foreach ($theme_groups[$state] as $key => &$theme) {
+      if (!Drupal::currentUser()->hasPermission('use all drupal themes')) {
+        if ($theme->origin === 'core' || $theme->info['name'] === 'Open Y Admin') {
+          unset($theme_groups[$state][$key]);
+        }
+      }
+    }
+  }
+}
