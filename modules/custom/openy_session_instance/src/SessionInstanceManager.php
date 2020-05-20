@@ -8,9 +8,10 @@ use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\node\NodeInterface;
+use Drupal\openy_moderation_wrapper\EntityModerationStatus;
 use Drupal\openy_session_instance\Entity\SessionInstance;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
@@ -28,13 +29,6 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
    * Collection name.
    */
   const STORAGE = 'session_instance';
-
-  /**
-   * The query factory.
-   *
-   * @var QueryFactory
-   */
-  protected $entityQuery;
 
   /**
    * The entity type manager.
@@ -65,27 +59,45 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
   protected $configFactory;
 
   /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Drupal\openy_moderation_wrapper\EntityModerationStatus definition.
+   *
+   * @var \Drupal\openy_moderation_wrapper\EntityModerationStatus
+   */
+  protected $moderationWrapper;
+
+  /**
    * Constructor.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, QueryFactory $entity_query, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory) {
-    $this->entityQuery = $entity_query;
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, ConfigFactoryInterface $configFactory, ModuleHandlerInterface $module_handler, EntityModerationStatus $moderation_wrapper) {
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get(self::CHANNEL);
     $this->storage = $this->entityTypeManager->getStorage(self::STORAGE);
     $this->configFactory = $configFactory;
+    $this->moduleHandler = $module_handler;
+    $this->moderationWrapper = $moderation_wrapper;
   }
 
   /**
    * {@inheritdoc}
    */
   public function resetCache() {
-    $result = $this->entityQuery->get('session_instance')->execute();
+    $result = $this->entityTypeManager
+      ->getStorage('session_instance')
+      ->getQuery()
+      ->execute();
     if (empty($result)) {
       return;
     }
     $this->deleteCacheItems($result);
     $this->logger->info('The cache was cleared.');
-    Drupal::moduleHandler()->invokeAll('openy_session_instance_reset_cache');
+    $this->moduleHandler->invokeAll('openy_session_instance_reset_cache');
   }
 
   /**
@@ -106,8 +118,9 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getSessionInstancesBySession(NodeInterface $node) {
-    $ids = $this->entityQuery
-      ->get('session_instance')
+    $ids = $this->entityTypeManager
+      ->getStorage('session_instance')
+      ->getQuery()
       ->condition('session', $node->id())
       ->execute();
 
@@ -128,7 +141,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
    * {@inheritdoc}
    */
   public function getSessionData(NodeInterface $session) {
-    $moderation_wrapper = Drupal::service('openy_moderation_wrapper.entity_moderation_status');
+    $moderation_wrapper = $this->moderationWrapper;
 
     // Skip session with empty location reference.
     if (empty($session->field_session_location->target_id)) {
@@ -372,8 +385,9 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
   public function getClosestUpcomingSessionInstanceBySession(NodeInterface $node, $from = NULL, $to = NULL) {
     $session_instance = NULL;
 
-    $query = $this->entityQuery
-      ->get('session_instance')
+    $query = $this->entityTypeManager
+      ->getStorage('session_instance')
+      ->getQuery()
       ->condition('session', $node->id())
       ->sort('timestamp')
       ->range(0, 1);
@@ -423,8 +437,9 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
   public function getSessionInstancesByParams(array $conditions) {
     $session_instances = [];
 
-    $query = $this->entityQuery
-      ->get('session_instance')
+    $query = $this->entityTypeManager
+      ->getStorage('session_instance')
+      ->getQuery()
       ->sort('timestamp');
 
     foreach ($conditions as $key => $value) {
@@ -448,7 +463,9 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
 
     // Sessions should match the programs.
     if (isset($conditions['program'])) {
-      $query = Drupal::entityQuery('node')
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('type', 'program_subcategory')
         ->condition('field_category_program', $conditions['program'], 'IN');
       $program_subcategory_ids = $query->execute();
@@ -459,7 +476,10 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
     }
     // Sessions should match the program subcategories.
     if (!empty($conditions['program_subcategory']) || !empty($program_subcategory_ids)) {
-      $query = Drupal::entityQuery('node')->condition('type', 'activity');
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'activity');
       if (!empty($conditions['program_subcategory'])) {
         $query->condition('field_activity_category', $conditions['program_subcategory'], 'IN');
       }
@@ -475,7 +495,10 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
 
     // Sessions should match the activities.
     if (!empty($conditions['activity']) || !empty($activity_ids)) {
-      $query = Drupal::entityQuery('node')->condition('type', 'class');
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'class');
       if (!empty($conditions['activity'])) {
         $query->condition('field_class_activity', $conditions['activity'], 'IN');
       }
@@ -491,7 +514,10 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
 
     // Sessions should match the classes.
     if (!empty($conditions['class']) || !empty($class_ids)) {
-      $query = Drupal::entityQuery('node')->condition('type', 'session');
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
+        ->condition('type', 'session');
       if (!empty($conditions['class'])) {
         $query->condition('field_session_class', $conditions['class'], 'IN');
       }

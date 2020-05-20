@@ -46,6 +46,9 @@ function openy_update_dependencies() {
     8048 => [
       'media_entity' => 8201,
     ],
+    8078 => [
+      'system' => 8803,
+    ],
   ];
 
   $dependencies['openy_node_alert'] = [
@@ -68,6 +71,7 @@ function openy_update_dependencies() {
   $dependencies['openy_gtranslate'] = [
     8001 => [
       'openy' => 8077,
+      'system' => 8805,
     ],
   ];
   return $dependencies;
@@ -1122,4 +1126,19 @@ function openy_update_8079() {
  */
 function openy_update_8080() {
   \Drupal::service('module_installer')->install(['openy_block_branch_contacts_info']);
+}
+
+/**
+ * Enable Link Atributes and Editor Advanced Link modules.
+ */
+function openy_update_8081() {
+  $modules = [
+    'link_attributes',
+    'editor_advanced_link'
+  ];
+  foreach ($modules as $module) {
+    \Drupal::service('module_installer')->install([
+      $module,
+    ]);
+  }
 }

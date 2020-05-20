@@ -14,14 +14,10 @@ dependencies:
   - drupal:text
   - entity_browser:entity_browser
   - entity_reference:entity_reference
-  - drupal:field
   - focal_point:focal_point
-  - drupal:image
-  - drupal:link
-  - drupal:media
+  - link_attributes:link_attributes
   - openy_focal_point:openy_focal_point
   - openy_media_image:openy_media_image
   - openy_prgf:openy_prgf
   - paragraphs:paragraphs
-  - drupal:text
 core_incompatible: false

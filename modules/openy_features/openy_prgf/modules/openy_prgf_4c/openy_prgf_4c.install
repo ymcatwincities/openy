@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the openy_prgf_3с feature.
+ * Open Y Paragraph 4 columns install file.
  */
 
 /**
@@ -64,4 +64,26 @@ function openy_prgf_4c_update_8005() {
     'field.field.paragraph.4c.field_prgf_4c_4th',
     'paragraphs.paragraphs_type.4c',
   ]);
+}
+
+/**
+ * Update Open Y Paragraph 4 columns feature to use link attributes widget.
+ */
+function openy_prgf_4c_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_4c') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.4c.default' =>[
+      'content.field_prgf_4c_button.settings.enabled_attributes',
+      'content.field_prgf_4c_button.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }

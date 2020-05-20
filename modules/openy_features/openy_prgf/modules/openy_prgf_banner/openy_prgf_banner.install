@@ -176,3 +176,25 @@ function openy_prgf_banner_update_8009() {
     'crop.type.crop_960_600'
   ]);
 }
+
+/**
+ * Update Open Y Paragraph Banner feature to use link attributes widget.
+ */
+function openy_prgf_banner_update_8010() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.banner.default' =>[
+      'content.field_prgf_link.settings.enabled_attributes',
+      'content.field_prgf_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

@@ -138,3 +138,24 @@ function openy_media_video_update_8005() {
     }
   }
 }
+
+/**
+ * Add media directories to config.
+ */
+function openy_media_video_update_8006() {
+  $config_dir = drupal_get_path('module', 'openy_media_video') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.media.video.default' => [
+      'content.directory',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
