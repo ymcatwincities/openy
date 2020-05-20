@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - crop
+name: ping_pong
+label: 'Ping Pong'
+effects:
+  b1f34a9a-f79a-4e50-b6b9-9698eaae89b8:
+    uuid: b1f34a9a-f79a-4e50-b6b9-9698eaae89b8
+    id: crop_crop
+    weight: 1
+    data:
+      crop_type: focal_point

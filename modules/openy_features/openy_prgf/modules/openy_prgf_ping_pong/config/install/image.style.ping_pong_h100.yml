@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: ping_pong_h100
+label: 'Ping-pong h300'
+effects:
+  72a5fa2b-06b3-4e75-a611-f48155272188:
+    uuid: 72a5fa2b-06b3-4e75-a611-f48155272188
+    id: image_scale
+    weight: 1
+    data:
+      width: null
+      height: 300
+      upscale: true

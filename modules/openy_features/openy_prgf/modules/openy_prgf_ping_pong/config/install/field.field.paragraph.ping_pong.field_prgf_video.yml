@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_video
+    - paragraphs.paragraphs_type.ping_pong
+  module:
+    - datalayer
+    - video_embed_field
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgf_video
+id: paragraph.ping_pong.field_prgf_video
+field_name: field_prgf_video
+entity_type: paragraph
+bundle: ping_pong
+label: Video
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_providers:
+    vimeo: vimeo
+    youtube: youtube
+    youtube_playlist: '0'
+field_type: video_embed_field

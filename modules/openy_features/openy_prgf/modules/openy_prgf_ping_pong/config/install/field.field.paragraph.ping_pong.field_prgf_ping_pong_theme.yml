@@ -1,0 +1,28 @@
+uuid: 24eea4b1-72e7-4d85-bdee-6310e00bcd5d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_ping_pong_theme
+    - paragraphs.paragraphs_type.ping_pong
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgf_ping_pong_theme
+id: paragraph.ping_pong.field_prgf_ping_pong_theme
+field_name: field_prgf_ping_pong_theme
+entity_type: paragraph
+bundle: ping_pong
+label: 'Ping Pong Theme'
+description: "Light theme has black text, use with light backgrounds\r\nDark theme has white text, use with dark backgrounds"
+required: false
+translatable: false
+default_value:
+  -
+    value: light
+default_value_callback: ''
+settings: {  }
+field_type: list_string

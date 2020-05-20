@@ -1,0 +1,162 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ping_pong.field_prgf_background_color
+    - field.field.paragraph.ping_pong.field_prgf_bg_image
+    - field.field.paragraph.ping_pong.field_prgf_content_align
+    - field.field.paragraph.ping_pong.field_prgf_description
+    - field.field.paragraph.ping_pong.field_prgf_ping_pong_image
+    - field.field.paragraph.ping_pong.field_prgf_image_float
+    - field.field.paragraph.ping_pong.field_prgf_image_width
+    - field.field.paragraph.ping_pong.field_prgf_link
+    - field.field.paragraph.ping_pong.field_prgf_ping_pong_theme
+    - field.field.paragraph.ping_pong.field_prgf_title
+    - field.field.paragraph.ping_pong.field_prgf_video
+    - field.field.paragraph.ping_pong.field_prgf_video_play_mode
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.ping_pong
+  module:
+    - field_group
+    - image
+    - link
+    - text
+    - video_embed_field
+third_party_settings:
+  field_group:
+    group_media:
+      children:
+        - field_prgf_ping_pong_image
+        - field_prgf_image_float
+        - field_prgf_image_width
+        - field_prgf_video
+        - field_prgf_video_play_mode
+      parent_name: ''
+      weight: 0
+      format_type: fieldset
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Media
+      region: content
+    group_content:
+      children:
+        - field_prgf_title
+        - field_prgf_description
+        - field_prgf_link
+        - field_prgf_content_align
+        - field_prgf_background_color
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        description: ''
+        required_fields: true
+        id: ''
+        classes: ''
+      label: Content
+      region: content
+_core:
+  default_config_hash: B2TYLXUpnitT0ZDADe18TmdSGOaXHKXl4mKWnggjaz8
+id: paragraph.ping_pong.default
+targetEntityType: paragraph
+bundle: ping_pong
+mode: default
+content:
+  field_prgf_background_color:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_prgf_bg_image:
+    type: entity_reference_autocomplete
+    weight: 3
+    region: content
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_prgf_content_align:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_prgf_description:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_prgf_ping_pong_image:
+    weight: 1
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_prgf_image_float:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_prgf_image_width:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_prgf_link:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_prgf_ping_pong_theme:
+    type: options_select
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_prgf_title:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_prgf_video:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+    type: video_embed_field_textfield
+    region: content
+  field_prgf_video_play_mode:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 3
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
+  uid: true

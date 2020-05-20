@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_image_float
+    - paragraphs.paragraphs_type.ping_pong
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgf_image_float
+id: paragraph.ping_pong.field_prgf_image_float
+field_name: field_prgf_image_float
+entity_type: paragraph
+bundle: ping_pong
+label: 'Image float'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

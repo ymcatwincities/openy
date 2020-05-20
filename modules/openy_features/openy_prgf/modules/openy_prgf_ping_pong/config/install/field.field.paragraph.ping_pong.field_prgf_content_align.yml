@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_content_align
+    - paragraphs.paragraphs_type.ping_pong
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgf_content_align
+id: paragraph.ping_pong.field_prgf_content_align
+field_name: field_prgf_content_align
+entity_type: paragraph
+bundle: ping_pong
+label: 'Content Align'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: left
+default_value_callback: ''
+settings: {  }
+field_type: list_string

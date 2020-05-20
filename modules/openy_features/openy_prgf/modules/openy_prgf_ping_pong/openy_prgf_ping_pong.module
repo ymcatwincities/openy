@@ -1,0 +1,125 @@
+<?php
+
+/**
+ * @file
+ * OpenY Ping Pong Paragraph implementations.
+ */
+
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_theme().
+ */
+function openy_prgf_ping_pong_theme() {
+  return [
+    'paragraph__ping_pong__default' => [
+      'base hook' => 'paragraph',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function openy_prgf_ping_pong_preprocess_paragraph(&$variables) {
+  if (empty($variables['paragraph'])) {
+    return;
+  }
+
+  /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
+  $paragraph = $variables['paragraph'];
+
+  switch ($paragraph->getType()) {
+    case 'ping_pong':
+      $variables['image_width_class'] = 'col-xs-12 col-md-6';
+      $variables['content_width_class'] = 'col-xs-12 col-md-6';
+      $imageFloat = $paragraph->get('field_prgf_image_float')->value;
+
+      if (!$paragraph->get('field_prgf_image_width')->isEmpty()) {
+        switch ($paragraph->get('field_prgf_image_width')->value) {
+          case 33:
+            if ($imageFloat === 'left') {
+              $variables['image_width_class'] = 'col-xs-12 col-md-4';
+              $variables['content_width_class'] = 'col-xs-12 col-md-8';
+            }
+            else {
+              $variables['image_width_class'] = 'col-xs-12 col-md-8';
+              $variables['content_width_class'] = 'col-xs-12 col-md-4';
+            }
+            break;
+
+          case 66:
+            if ($imageFloat === 'left') {
+              $variables['image_width_class'] = 'col-xs-12 col-md-8';
+              $variables['content_width_class'] = 'col-xs-12 col-md-4';
+            }
+            else {
+              $variables['image_width_class'] = 'col-xs-12 col-md-4';
+              $variables['content_width_class'] = 'col-xs-12 col-md-8';
+            }
+            break;
+        }
+      }
+      if (!$paragraph->get('field_prgf_video')->isEmpty()) {
+        $videoRender = NULL;
+        if (!$paragraph->get('field_prgf_video_play_mode')->isEmpty()
+          && $paragraph->get('field_prgf_video_play_mode')->value === 'modal') {
+          $videoRender = $paragraph->get('field_prgf_video')
+            ->view([
+              'label' => 'hidden',
+              'type' => 'video_embed_field_colorbox',
+              'settings' => [
+                'image_style' => '',
+                'link_image_to' => '',
+                'modal_max_width' => 854,
+                'responsive' => TRUE,
+                'width' => 854,
+                'height' => 480,
+                'autoplay' => FALSE,
+                'third_party_settings' => [],
+              ],
+            ]);
+          $variables['modal_video'] = TRUE;
+        }
+        else {
+          $videoRender = $paragraph->get('field_prgf_video')
+            ->view([
+              'label' => 'hidden',
+              'type' => 'video_embed_field_video',
+              'settings' => [
+                'responsive' => TRUE,
+                'width' => 854,
+                'height' => 480,
+                'autoplay' => FALSE,
+                'third_party_settings' => [],
+              ],
+            ]);
+        }
+        $variables['rendered_video'] = $videoRender;
+      }
+
+      // See whether we want a BG or an image or the default
+      $bg_field = $paragraph->get('field_prgf_background_color');
+      $bg_image_field = $paragraph->get('field_prgf_bg_image');
+      $has_bg_image = !$bg_image_field->isEmpty();
+
+      // Preset variables to nothing to get rid of any warnings.
+      $variables['bg_style'] = '';
+      $variables['bg_class'] = 'no-default';
+
+      // If we have either an image or a bg selected, use one
+      if(!$bg_field->isEmpty() || $has_bg_image) {
+        if($has_bg_image) {
+          $uri = $bg_image_field->entity->get('field_media_image')->entity->uri->value;
+          $variables['bg_style'] = 'background: url(' . ImageStyle::load('ping_pong')->buildUrl($uri) . ') center center';
+        }
+        else {
+          $variables['bg_style'] = 'background-color:' . $bg_field->value;
+        }
+      }
+      else {
+        $variables['bg_class'] = 'default-bg';
+      }
+      break;
+  }
+}

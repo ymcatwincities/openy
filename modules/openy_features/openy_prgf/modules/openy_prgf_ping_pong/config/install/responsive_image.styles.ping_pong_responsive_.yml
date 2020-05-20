@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - image.style.ping_pong_h100
+id: ping_pong_responsive_
+label: 'Ping pong Responsive '
+image_style_mappings:
+  -
+    breakpoint_id: responsive_image.viewport_sizing
+    multiplier: 1x
+    image_mapping_type: image_style
+    image_mapping: ping_pong_h100
+breakpoint_group: responsive_image
+fallback_image_style: ping_pong_h100

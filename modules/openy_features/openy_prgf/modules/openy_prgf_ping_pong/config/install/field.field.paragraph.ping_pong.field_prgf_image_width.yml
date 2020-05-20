@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_prgf_image_width
+    - paragraphs.paragraphs_type.ping_pong
+  module:
+    - datalayer
+    - options
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgf_image_width
+id: paragraph.ping_pong.field_prgf_image_width
+field_name: field_prgf_image_width
+entity_type: paragraph
+bundle: ping_pong
+label: 'Image width'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '33'
+default_value_callback: ''
+settings: {  }
+field_type: list_string
