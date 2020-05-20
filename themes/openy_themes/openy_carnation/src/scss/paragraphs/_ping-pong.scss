@@ -1,0 +1,186 @@
+.ping-pong-component {
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  flex-direction: column-reverse;
+
+  @include media-breakpoint-up(768px) {
+    flex-direction: row;
+  }
+
+  &.paragraph {
+    width:100% !important;
+    max-width:100%;
+    padding:0;
+
+    @include media-breakpoint-up(768px) {
+      padding: 0;
+    }
+  }
+
+  .ping-pong-image {
+    min-height:0;
+    @media (max-width:767px) {
+      min-height:300px;
+      max-height: 320px;
+    }
+  }
+
+  .ping-pong-image,
+  .ping-pong-content {
+    &.float-left {
+      order: 0;
+    }
+  }
+  .ping-pong-image,
+  .ping-pong-content {
+    &.float-right {
+      order: 0;
+      @include media-breakpoint-up(768px) {
+        order: 1;
+      }
+    }
+  }
+
+  &.aligned-left .ping-pong-content {
+    text-align: left;
+  }
+  &.aligned-center .ping-pong-content {
+    text-align: center;
+  }
+  &.aligned-right .ping-pong-content {
+    text-align: right;
+  }
+}
+.ping-pong-component .ping-pong-content {
+  padding: 3rem;
+  height: 100%;
+
+  @media (min-width: 768px) {
+    padding: 3rem 1rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 3rem 3rem;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 3rem 4rem;
+  }
+}
+.ping-pong-component .ping-pong-content-title {
+  @include cachet(900);
+  @include rem(font-size, 24px);
+  @include rem(line-height, 28px);
+  text-transform: uppercase;
+  margin: 0;
+
+  @media (min-width: 992px) {
+    @include rem(font-size, 48px);
+    @include rem(line-height, 44px);
+  }
+}
+.ping-pong-component {
+  .ping-pong-content-description {
+    @include rem(font-size, 14px);
+    @include rem(line-height, 21px);
+    padding: 1.5rem 0;
+
+    @media (min-width: 992px) {
+      @include rem(font-size, 18px);
+      @include rem(line-height, 27px);
+    }
+  }
+  .ping-pong-content-link a {
+    @include rem(padding-top, 14px);
+    @include rem(padding-bottom, 14px);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 5px;
+
+    @media (min-width: 992px) {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      margin-top: 10px;
+    }
+  }
+}
+.ping-pong-component .ping-pong-image {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.ping-pong-component .field-pp-video .video-embed-field-launch-modal {
+  cursor: pointer;
+}
+.ping-pong-component .field-pp-video iframe {
+  position: relative;
+  display: block;
+
+  @media (min-width: 1024px) {
+    position: absolute;
+    min-height: 100%;
+  }
+}
+.ping-pong-component .ping-pong-video-play {
+  position: absolute;
+  font-size: 4rem;
+  color: $white;
+  cursor: pointer;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.ping-pong-component {
+  .video-embed-field-responsive-video,
+  .video-embed-field-launch-modal img {
+    height: 100%;
+  }
+  .video-embed-field-launch-modal {
+    height: 100%;
+    img {
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+}
+
+
+.ping-pong-component {
+
+  &.theme-light {
+    .ping-pong-content-title,
+    .ping-pong-content-description,
+    p {
+      color: $gray-400;
+    }
+
+    &.defailt-bg {
+      background-color:#faf5ff;
+    }
+  }
+
+  &.theme-dark {
+    .ping-pong-content-title,
+    .ping-pong-content-description,
+    p {
+      color: $white;
+    }
+
+    &.default-bg {
+      background-color: #12619e;
+    }
+  }
+}
+
+.ping-pong-component.theme-dark {
+  .ping-pong-content-description {
+    a {
+      color: #fcaf17;
+    }
+  }
+}
