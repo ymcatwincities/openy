@@ -10,7 +10,7 @@ dependencies:
   module:
     - content_moderation
     - entity_browser
-    - link
+    - link_attributes
     - text
 id: block_content.featured_highlights_block.default
 targetEntityType: block_content
@@ -44,8 +44,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   info:
     type: string_textfield

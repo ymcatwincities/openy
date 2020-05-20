@@ -1,8 +1,6 @@
 langcode: en
 status: true
-dependencies:
-  module:
-    - media
+dependencies: {  }
 id: image
 label: Image
 description: 'Use Image for uploading locally hosted images.'

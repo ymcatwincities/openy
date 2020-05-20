@@ -14,6 +14,7 @@ dependencies:
   - drupal:menu_ui
   - metatag:metatag
   - drupal:node
+  - link_attribute:link_attributes
   - openy_location:openy_location
   - openy_node:openy_node
   - paragraphs:paragraphs

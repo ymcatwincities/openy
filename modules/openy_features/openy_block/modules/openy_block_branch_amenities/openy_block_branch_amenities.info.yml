@@ -11,6 +11,7 @@ dependencies:
   - drupal:field
   - drupal:language
   - drupal:link
+  - link_attributes:link_attributes
   - openy_block:openy_block
   - openy_block_custom_simple:openy_block_custom_simple
   - paragraphs:paragraphs

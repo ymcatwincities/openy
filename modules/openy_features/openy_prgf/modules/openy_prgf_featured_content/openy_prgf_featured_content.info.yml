@@ -8,8 +8,10 @@ dependencies:
   - blazy:blazy
   - drupal:field
   - drupal:link
-  - openy_prgf:openy_prgf
   - drupal:options
+  - drupal:text
+  - link_attributes:link_attributes
+  - openy_prgf:openy_prgf
   - paragraphs:paragraphs
   - slick:slick
-  - drupal:text
+core_incompatible: false

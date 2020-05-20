@@ -21,12 +21,14 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+    region: content
   field_prgf_grid_style:
     weight: 0
     label: hidden
     settings: {  }
     third_party_settings: {  }
     type: list_key
+    region: content
 hidden:
   created: true
   uid: true

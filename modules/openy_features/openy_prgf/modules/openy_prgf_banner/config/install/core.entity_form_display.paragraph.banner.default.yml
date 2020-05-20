@@ -10,7 +10,7 @@ dependencies:
     - field.field.paragraph.banner.field_prgf_link
     - paragraphs.paragraphs_type.banner
   module:
-    - link
+    - link_attributes
     - openy_focal_point
     - text
 id: paragraph.banner.default
@@ -60,8 +60,17 @@ content:
     settings:
       placeholder_url: /banner_subpage_uri
       placeholder_title: 'Banner subpage title'
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
 hidden:
   created: true

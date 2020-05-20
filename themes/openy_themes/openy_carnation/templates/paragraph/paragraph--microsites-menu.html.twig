@@ -63,7 +63,7 @@
 {% if color.bottom is not empty and color.top is not empty %}
   {% set background_style = "background: linear-gradient(to top, #color_bottom, #color_top);" %}
 {% elseif color.top is not empty and color.bottom is empty %}
-  {% set background_style = "background-color: color_top;" %}
+  {% set background_style = "background-color: #color_top;" %}
 {% endif %}
 
 {% block paragraph %}
