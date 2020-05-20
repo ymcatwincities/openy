@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.node_alert_footer
+    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_description
     - field.field.node.alert.field_alert_icon_color

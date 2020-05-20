@@ -25,6 +25,7 @@ content:
       link: false
     third_party_settings: {  }
     type: entity_reference_entity_view
+    region: content
   field_icon_class:
     weight: 1
     label: hidden
@@ -32,6 +33,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_sb_body:
     weight: 3
     label: hidden
@@ -39,6 +41,7 @@ content:
       trim_length: 255
     third_party_settings: {  }
     type: text_trimmed
+    region: content
   field_sb_link:
     weight: 4
     label: hidden
@@ -50,6 +53,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_sb_title:
     weight: 2
     label: hidden
@@ -57,5 +61,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
   langcode: true
