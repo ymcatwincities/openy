@@ -4,6 +4,8 @@ dependencies:
   config:
     - field.storage.node.field_location_email
     - node.type.branch
+  module:
+    - datalayer
 third_party_settings:
   datalayer:
     expose: 1

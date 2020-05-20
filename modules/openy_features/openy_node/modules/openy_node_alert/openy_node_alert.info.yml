@@ -21,6 +21,7 @@ dependencies:
   - 'drupal:user'
   - 'drupal:views'
   - 'field_group:field_group'
+  - 'link_attributes:link_attributes'
   - 'openy_txnm_color:openy_txnm_color'
   - 'pathauto:pathauto'
   - 'rabbit_hole:rabbit_hole'

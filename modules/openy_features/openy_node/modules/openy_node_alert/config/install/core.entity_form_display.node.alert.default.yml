@@ -15,7 +15,7 @@ dependencies:
     - node.type.alert
   module:
     - field_group
-    - link
+    - link_attributes
     - path
     - scheduler
     - text
@@ -78,8 +78,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_alert_location:
     weight: 22
@@ -185,6 +194,7 @@ content:
     weight: 2
     settings:
       match_operator: CONTAINS
+      match_limit: 0
       size: 60
       placeholder: ''
       match_limit: 10

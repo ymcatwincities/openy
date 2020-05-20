@@ -5,6 +5,7 @@ dependencies:
     - field.storage.node.field_branch_hours
     - node.type.branch
   module:
+    - datalayer
     - openy_field_custom_hours
 third_party_settings:
   datalayer:

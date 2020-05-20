@@ -14,7 +14,7 @@ dependencies:
   module:
     - datetime
     - image
-    - link
+    - link_attributes
     - path
     - scheduler
     - text
@@ -49,8 +49,17 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_platform:
     weight: 3
