@@ -64,7 +64,7 @@ function openy_carnation_preprocess_html(array &$variables) {
           'branch',
           'program',
           'program_subcategory',
-      ]) || (count($banner_paragraphs) > 0) || (count($any_paragraphs) == 0)) {
+      ]) || (count($banner_paragraphs) > 0)) {
         $variables['body_classes'][] = 'with-banner';
       }
       else {
@@ -291,7 +291,7 @@ function openy_carnation_preprocess_page_logo(&$variables) {
       'facility',
       'branch',
       'program_subcategory',
-    ]) || (count($banner_paragraphs) > 0) || (count($any_paragraphs) == 0)) {
+    ]) || (count($banner_paragraphs) > 0)) {
       $variables['logo_url'] = $variables['transparent_logo_url'];
     }
   }

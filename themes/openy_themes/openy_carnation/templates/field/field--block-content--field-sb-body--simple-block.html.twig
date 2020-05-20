@@ -42,7 +42,8 @@
 {%
   set classes = [
     field_name|clean_class,
-    'block-share'
+    'block-share',
+    'field-item'
   ]
 %}
 
@@ -51,7 +52,6 @@
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
       {% for item in items %}
         <div{{ attributes.addClass(classes).removeClass('wrapper-' ~ field_name|clean_class) }}>{{ item.content }}</div>
-
       {% endfor %}
     </div>
   {% else %}
