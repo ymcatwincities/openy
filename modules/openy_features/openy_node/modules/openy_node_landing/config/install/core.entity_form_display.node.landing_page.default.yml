@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.landing_page.field_content
     - field.field.node.landing_page.field_header_content
     - field.field.node.landing_page.field_lp_layout
+    - field.field.node.landing_page.field_lp_location
     - field.field.node.landing_page.field_meta_tags
     - field.field.node.landing_page.field_sidebar_content
     - node.type.landing_page
@@ -30,6 +31,7 @@ third_party_settings:
         description: 'Page should contain one and only one paragraph with H1 heading: Small banner, Banner, Gallery'
         required_fields: true
       label: 'Header Area'
+      region: hidden
     group_content_area:
       children:
         - field_content
@@ -43,6 +45,7 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Content Area'
+      region: hidden
     group_sidebar_area:
       children:
         - field_sidebar_content
@@ -56,6 +59,7 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Sidebar Area'
+      region: hidden
     group_bottom_area:
       children:
         - field_bottom_content
@@ -69,6 +73,7 @@ third_party_settings:
         description: ''
         required_fields: true
       label: 'Bottom Area'
+      region: hidden
 id: node.landing_page.default
 targetEntityType: node
 bundle: landing_page
@@ -95,6 +100,7 @@ content:
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
@@ -106,6 +112,7 @@ content:
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
@@ -117,11 +124,18 @@ content:
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
   field_lp_layout:
     weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+  field_lp_location:
+    weight: 122
     settings: {  }
     third_party_settings: {  }
     type: options_select
@@ -140,6 +154,7 @@ content:
       edit_mode: closed
       add_mode: dropdown
       form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
     type: entity_reference_paragraphs
     region: content
@@ -169,9 +184,19 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  redirect:
+    type: string_textfield
+    weight: 30
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   scheduler_settings:
     weight: 20
     region: content
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
@@ -201,6 +226,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     region: content
   unpublish_on:
@@ -209,4 +235,9 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  url_redirects:
+    weight: 50
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }

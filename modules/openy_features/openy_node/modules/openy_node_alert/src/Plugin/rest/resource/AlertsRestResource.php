@@ -5,6 +5,7 @@ namespace Drupal\openy_node_alert\Plugin\rest\resource;
 use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\openy_node_alert\Service\AlertManager;
 use Drupal\path_alias\AliasManagerInterface;
 use Drupal\Core\Path\CurrentPathStack;
 use Drupal\Core\Path\PathMatcherInterface;
@@ -15,7 +16,10 @@ use Drupal\rest\ModifiedResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\Matcher\RequestMatcherInterface;
 
 /**
  * Provides a resource to get view modes by entity and bundle.
@@ -73,6 +77,27 @@ class AlertsRestResource extends ResourceBase {
   protected $moduleHandler;
 
   /**
+   * The current Request object.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
+   * The router doing the actual routing.
+   *
+   * @var \Symfony\Component\Routing\Matcher\RequestMatcherInterface
+   */
+  protected $router;
+
+  /**
+   * The alert manager.
+   *
+   * @var \Drupal\openy_node_alert\Service\AlertManager
+   */
+  protected $alertManager;
+
+  /**
    * Constructs a new AlertsRestResource object.
    *
    * @param array $configuration
@@ -97,6 +122,12 @@ class AlertsRestResource extends ResourceBase {
    *   The entity type manager.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The current request.
+   * @param \Symfony\Component\Routing\Matcher\RequestMatcherInterface $router
+   *   The router doing the actual routing.
+   * @param AlertManager $alert_manager
+   *   The alert manager.
    */
   public function __construct(
     array $configuration,
@@ -109,7 +140,11 @@ class AlertsRestResource extends ResourceBase {
     PathMatcherInterface $path_matcher,
     CurrentPathStack $current_path,
     EntityTypeManagerInterface $entity_type_manager,
-    ModuleHandlerInterface $module_handler) {
+    ModuleHandlerInterface $module_handler,
+    Request $request,
+    RequestMatcherInterface $router,
+    AlertManager $alert_manager
+) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->currentUser = $current_user;
@@ -118,6 +153,9 @@ class AlertsRestResource extends ResourceBase {
     $this->currentPath = $current_path;
     $this->entityTypeManager = $entity_type_manager;
     $this->moduleHandler = $module_handler;
+    $this->request = $request;
+    $this->router = $router;
+    $this->alertManager = $alert_manager;
   }
 
   /**
@@ -135,7 +173,10 @@ class AlertsRestResource extends ResourceBase {
       $container->get('path.matcher'),
       $container->get('path.current'),
       $container->get('entity_type.manager'),
-      $container->get('module_handler')
+      $container->get('module_handler'),
+      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('router.no_access_checks'),
+      $container->get('openy_node_alert.alert_manager')
     );
   }
 
@@ -190,10 +231,14 @@ class AlertsRestResource extends ResourceBase {
         $alerts[(int)$row->entity_id] = $alerts_entities[(int)$row->entity_id];
       }
     }
-
+    $service_alert_ids = $this->getServiceAlerts();
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
     foreach ($alerts as $alert) {
+      // Filter alerts to remove alerts not listed by alert service for this uri.
+      if (!empty($service_alert_ids) && !in_array($alert->id(), $service_alert_ids)) {
+        continue;
+      }
       if (!$alert->hasField('field_alert_visibility_pages')) {
         if ($alert->hasField('field_alert_belongs') && !$alert->field_alert_belongs->isEmpty() && !$alert->field_alert_place->isEmpty()) {
           $refid = $alert->field_alert_belongs->target_id;
@@ -301,4 +346,27 @@ class AlertsRestResource extends ResourceBase {
     return FALSE;
   }
 
+  /**
+   * Return array of alert ids that provided by service collector for uri in request.
+   *
+   * @return array|void
+   *   Alert IDs array.
+   */
+  private function getServiceAlerts() {
+    $service_alerts = [];
+    $uri = $this->request->query->get('uri');
+    try {
+      $result = $this->router->match($uri);
+    }
+    catch (ResourceNotFoundException $e) {
+      return;
+    }
+    if (!isset($result['node'])) {
+      return;
+    }
+    foreach ($this->alertManager->getAlerts($result['node']) as $alerts) {
+      $service_alerts[] = $alerts;
+    }
+    return $service_alerts;
+  }
 }

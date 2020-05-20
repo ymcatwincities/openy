@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.alert.field_alert_description
     - field.field.node.alert.field_alert_icon_color
     - field.field.node.alert.field_alert_link
+    - field.field.node.alert.field_alert_location
     - field.field.node.alert.field_alert_place
     - field.field.node.alert.field_alert_text_color
     - field.field.node.alert.field_alert_visibility_pages
@@ -59,6 +60,14 @@ content:
     third_party_settings: {  }
     type: link
     region: content
+  field_alert_location:
+    weight: 7
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_alert_place:
     type: list_default
     weight: 5
@@ -86,3 +95,4 @@ hidden:
   field_alert_visibility_pages: true
   field_alert_visibility_state: true
   langcode: true
+  search_api_excerpt: true
