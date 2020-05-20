@@ -42,3 +42,25 @@ function openy_prgf_featured_content_update_8001() {
     }
   }
 }
+
+/**
+ * Update Open Y Paragraph Featured content feature to use link attributes widget.
+ */
+function openy_prgf_featured_content_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_featured_content') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.featured_content.default' =>[
+      'content.field_prgf_link.settings.enabled_attributes',
+      'content.field_prgf_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

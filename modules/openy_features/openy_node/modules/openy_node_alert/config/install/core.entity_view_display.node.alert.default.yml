@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.alert.field_alert_belongs
     - field.field.node.alert.field_alert_color
     - field.field.node.alert.field_alert_description
     - field.field.node.alert.field_alert_icon_color

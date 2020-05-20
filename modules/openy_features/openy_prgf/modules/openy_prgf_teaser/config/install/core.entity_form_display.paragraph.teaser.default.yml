@@ -9,7 +9,7 @@ dependencies:
     - field.field.paragraph.teaser.field_prgf_title
     - paragraphs.paragraphs_type.teaser
   module:
-    - link
+    - link_attributes
     - openy_focal_point
     - text
 id: paragraph.teaser.default
@@ -45,8 +45,17 @@ content:
     settings:
       placeholder_url: /teaser_subpage_uri
       placeholder_title: 'Teaser subpage title'
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
   field_prgf_title:
     weight: 0

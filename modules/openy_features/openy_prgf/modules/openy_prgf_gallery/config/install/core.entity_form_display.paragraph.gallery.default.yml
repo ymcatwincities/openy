@@ -9,7 +9,7 @@ dependencies:
     - field.field.paragraph.gallery.field_prgf_link
     - paragraphs.paragraphs_type.gallery
   module:
-    - link
+    - link_attributes
     - openy_focal_point
     - text
 id: paragraph.gallery.default
@@ -53,8 +53,17 @@ content:
     settings:
       placeholder_url: /subpage_uri
       placeholder_title: 'Subpage title'
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
     region: content
 hidden:
   created: true
