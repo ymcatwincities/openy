@@ -5,8 +5,10 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - field
-  - link
-  - openy_prgf
-  - paragraphs
-  - text
+  - drupal:field
+  - drupal:link
+  - drupal:text
+  - link_attributes:link_attributes
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+core_incompatible: false

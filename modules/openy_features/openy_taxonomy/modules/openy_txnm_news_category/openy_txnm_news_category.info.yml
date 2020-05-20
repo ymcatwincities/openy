@@ -5,12 +5,12 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - ctools
-  - entity_reference_revisions
-  - field
-  - paragraphs
-  - path
-  - pathauto
-  - taxonomy
-  - text
+  - ctools:ctools
+  - entity_reference_revisions:entity_reference_revisions
+  - drupal:field
+  - paragraphs:paragraphs
+  - drupal:path
+  - pathauto:pathauto
+  - drupal:taxonomy
+  - drupal:text
   - openy_taxonomy

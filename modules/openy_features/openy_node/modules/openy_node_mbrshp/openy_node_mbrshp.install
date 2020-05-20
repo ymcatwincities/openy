@@ -211,3 +211,39 @@ function openy_node_mbrshp_update_8010() {
     }
   }
 }
+
+/**
+ * Update Membership default page.
+ */
+function openy_node_mbrshp_update_8011() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_node_mbrshp');
+  $config .= '/config/install/';
+  $config .= 'core.entity_view_display.node.membership.default.yml';
+  $config_importer->update($config,
+    'core.entity_view_display.node.membership.default',
+    'content.field_mbrshp_description'
+  );
+}
+
+/**
+ * Update Open Y Node Membership feature to use link attributes widget.
+ */
+function openy_node_mbrshp_update_8012() {
+  $config_dir = drupal_get_path('module', 'openy_node_mbrshp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.membership_info.default' =>[
+      'content.field_mbrshp_link.settings.enabled_attributes',
+      'content.field_mbrshp_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

@@ -23,15 +23,15 @@ source:
       title: 'West YMCA'
       promote: 1
       country_code: US
-      address_line1: '1111 Perimeter Rd SW'
+      address_line1: '5801 West Orem Drive'
       address_line2: null
       locality: Houston
       administrative_area: TX
-      postal_code: 77001
+      postal_code: 77085
       email: info@example.com
       phone: 9999999999
-      latitude: 29.694257
-      longitude: -95.634528
+      latitude: 29.627932
+      longitude: -95.476388
       area: 1
       prgf_blog_branch: 1
       prgf_gallery: 1
@@ -69,15 +69,15 @@ source:
       title: 'Downtown YMCA'
       promote: 1
       country_code: US
-      address_line1: '2222 Perimeter Rd SW'
+      address_line1: '808 Pease Street'
       address_line2: null
       locality: Houston
       administrative_area: TX
-      postal_code: 77001
+      postal_code: 77002
       email: info@example.com
       phone: 9999999999
-      latitude: 29.924057
-      longitude: -95.411635
+      latitude: 29.75228
+      longitude: -95.370483
       area: 2
       prgf_blog_branch: 2
       prgf_gallery: 2
@@ -111,15 +111,15 @@ source:
       title: 'East YMCA'
       promote: 1
       country_code: US
-      address_line1: '3333 Perimeter Rd SW'
+      address_line1: '7318 Avenue F'
       address_line2: null
       locality: Houston
       administrative_area: TX
-      postal_code: 77001
+      postal_code: 77011
       email: info@example.com
       phone: 9999999999
-      latitude: 29.79298414
-      longitude: -95.25283813
+      latitude: 29.73641
+      longitude: -95.293998
       area: 3
       prgf_blog_branch: 3
       prgf_gallery: 3
@@ -160,15 +160,15 @@ source:
       title: 'South YMCA'
       promote: 1
       country_code: US
-      address_line1: '4444 Perimeter Rd SW'
+      address_line1: '3201 South Highway 35'
       address_line2: null
-      locality: Houston
+      locality: Alvin
       administrative_area: TX
-      postal_code: 77001
+      postal_code: 77511
       email: info@example.com
       phone: 9999999999
-      latitude: 29.831879
-      longitude: -95.554497
+      latitude: 29.39628
+      longitude: -95.246491
       area: 4
       prgf_blog_branch: 4
       prgf_gallery: 4

@@ -1,14 +1,16 @@
-name:  Open Y Media
-description: Stores media entity modules and shared configuration.
+name: 'Open Y Media'
+description: 'Stores media entity modules and shared configuration.'
 type: module
 core: 8.x
-package: Open Y
+package: 'Open Y'
 version: 8.x-1.0
 dependencies:
+  - blazy:blazy
   - drupal:field
   - drupal:image
   - drupal:media (>= 8.6)
   - drupal:taxonomy
   - drupal:user
   - rabbit_hole:rabbit_hole
-  - media_directories
+  - media_directories:media_directories
+core_incompatible: false

@@ -5,9 +5,11 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - block_content
-  - field
-  - language
-  - link
-  - openy_txnm_color
-  - taxonomy
+  - drupal:block_content
+  - drupal:field
+  - drupal:language
+  - drupal:link
+  - drupal:taxonomy
+  - link_attributes:link_attributes
+  - openy_txnm_color:openy_txnm_color
+core_incompatible: false

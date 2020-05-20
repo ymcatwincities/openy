@@ -5,7 +5,7 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - field
-  - openy_programs_search
-  - paragraphs
-  - plugin
+  - drupal:field
+  - openy_programs_search:openy_programs_search
+  - paragraphs:paragraphs
+  - plugin:plugin

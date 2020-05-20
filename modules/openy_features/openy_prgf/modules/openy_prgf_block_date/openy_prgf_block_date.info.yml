@@ -5,10 +5,10 @@ type: module
 core: 8.x
 version: 8.x-1.0
 dependencies:
-  - block_content
-  - entity_browser_entity_form
-  - field
-  - inline_entity_form
-  - openy_block_date
-  - paragraphs
+  - drupal:block_content
+  - entity_browser_entity_form:entity_browser_entity_form
+  - drupal:field
+  - inline_entity_form:inline_entity_form
+  - openy_block_date:openy_block_date
+  - paragraphs:paragraphs
 version: 8.x-1.1

@@ -10,8 +10,10 @@ dependencies:
   - drupal:media (>= 8.6)
   - drupal:options
   - drupal:text
-  - entity_browser
-  - entity_reference_revisions
-  - openy_media_image
-  - openy_prgf
-  - paragraphs
+  - entity_browser:entity_browser
+  - entity_reference_revisions:entity_reference_revisions
+  - link_attributes:link_attributes
+  - openy_media_image:openy_media_image
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+core_incompatible: false

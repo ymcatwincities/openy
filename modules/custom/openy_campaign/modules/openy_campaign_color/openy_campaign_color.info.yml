@@ -5,6 +5,6 @@ core: 8.x
 version: 8.x-1.0-rc1
 package: Open Y (Experimental)
 dependencies:
-  - openy_node_campaign
-  - personify
-  - color
+  - openy_node_campaign:openy_node_campaign
+  - personify:personify
+  - drupal:color

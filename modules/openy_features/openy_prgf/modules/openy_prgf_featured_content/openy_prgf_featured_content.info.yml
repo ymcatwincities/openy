@@ -5,11 +5,13 @@ core: 8.x
 package: Open Y
 version: 8.x-1.0
 dependencies:
-  - blazy
-  - field
-  - link
-  - openy_prgf
-  - options
-  - paragraphs
-  - slick
-  - text
+  - blazy:blazy
+  - drupal:field
+  - drupal:link
+  - drupal:options
+  - drupal:text
+  - link_attributes:link_attributes
+  - openy_prgf:openy_prgf
+  - paragraphs:paragraphs
+  - slick:slick
+core_incompatible: false

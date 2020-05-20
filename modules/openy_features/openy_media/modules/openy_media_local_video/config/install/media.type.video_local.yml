@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - crop
-    - media
+    - media_entity_video
 third_party_settings:
   crop:
     image_field: null

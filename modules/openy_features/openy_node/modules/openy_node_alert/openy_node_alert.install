@@ -279,3 +279,25 @@ function openy_node_alert_update_8012() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs($configs);
 }
+
+/**
+ * Update Open Y Node Alert feature to use link attributes widget.
+ */
+function openy_node_alert_update_8013() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.alert.default' =>[
+      'content.field_alert_link.settings.enabled_attributes',
+      'content.field_alert_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

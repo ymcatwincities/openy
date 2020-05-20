@@ -1,25 +1,26 @@
 name: Open Y Node Social Post
-description: Provides a News post content type and related configuration.
+description: Provides a Social post content type and related configuration.
 type: module
 core: 8.x
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - blazy
-  - content_moderation
-  - datalayer
-  - datetime
-  - field
-  - file
-  - image
-  - link
-  - menu_ui
-  - node
-  - paragraphs
-  - path
-  - plugin
-  - responsive_image
-  - social_feed_fetcher
-  - text
-  - user
-  - views
+  - blazy:blazy
+  - content_moderation:content_moderation
+  - datalayer:datalayer
+  - drupal:datetime
+  - drupal:field
+  - drupal:file
+  - drupal:image
+  - drupal:link
+  - drupal:menu_ui
+  - drupal:node
+  - paragraphs:paragraphs
+  - drupal:path
+  - link_attributes:link_attributes
+  - plugin:plugin
+  - responsive_image:responsive_image
+  - social_feed_fetcher:social_feed_fetcher
+  - drupal:text
+  - drupal:user
+  - drupal:views

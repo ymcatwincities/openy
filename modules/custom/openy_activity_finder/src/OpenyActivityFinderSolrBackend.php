@@ -823,7 +823,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         }
       }
     }
-    return implode($ages_y, ' - ');
+    return implode(' - ', $ages_y);
   }
 
   /**
