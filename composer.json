@@ -14,7 +14,9 @@
         "emuse/behat-html-formatter": "^0.1.0",
         "integratedexperts/behat-screenshot": "^0.6.2",
         "drupal/tqextension": "dev-drupal-8",
-        "consolidation/robo": "^1.1.5"
+        "consolidation/robo": "^1.1.5",
+        "drupal/colorbox": "^1.4",
+        "jackmoore/colorbox": "1.6.4"
     },
     "config": {
         "bin-dir": "bin/",
@@ -124,6 +126,18 @@
                 "type": "drupal-library",
                 "dist": {
                     "url": "https://github.com/vakata/jstree/archive/3.3.8.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jackmoore/colorbox",
+                "version": "1.6.4",
+                "type": "drupal-library",
+                "dist": {
+                    "url": "https://github.com/jackmoore/colorbox/archive/1.6.4.zip",
                     "type": "zip"
                 }
             }
