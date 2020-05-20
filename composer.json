@@ -313,6 +313,5 @@
         "drupal/editor_advanced_link": "^1.6",
         "drupal/link_attributes": "^1.10",
         "drupal/colorbox": "^1.4",
-        "npm-asset/colorbox": "1.6.4"
     }
 }
