@@ -27,6 +27,18 @@ function openy_activity_finder_theme() {
         'expanderSectionsConfig' => [],
       ],
     ],
+    'openy_camp_finder_program_search' => [
+      'variables' => [
+        'data' => [],
+        'ages' => [],
+        'weeks' => [],
+        'categories' => [],
+        'categories_type' => '',
+        'activities' => [],
+        'locations' => [],
+        'is_search_box_disabled' => ''
+      ],
+    ],
     'openy_activity_finder_program_search_page' => [
       'variables' => [
         'locations' => [],
@@ -34,6 +46,7 @@ function openy_activity_finder_theme() {
         'categories_type' => '',
         'ages' => [],
         'days' => [],
+        'weeks' => [],
         'is_search_box_disabled' => '',
         'is_spots_available_disabled' => '',
         'expanderSectionsConfig' => [],

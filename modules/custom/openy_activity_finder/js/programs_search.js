@@ -117,6 +117,28 @@
         }
         return false;
       },
+      groupHasCategories: function(title, value) {
+        var component = this.$parent,
+          countOfExcludedCategories = 0;
+        switch (title) {
+          case "Category":
+            if (component.categoriesExcluded.length > 0) {
+              for (var j in value) {
+                for (var i in component.categoriesExcluded) {
+                  if (component.categoriesExcluded[i] == value[j]['value']) {
+                    countOfExcludedCategories++;
+                  }
+                }
+              }
+            }
+            break;
+        }
+        // Editor might add a category twice, that's why > needed instead of 0.
+        if (countOfExcludedCategories >= value.length) {
+          return false;
+        }
+        return true;
+      },
       checkboxIsExcluded: function(title, value) {
         var component = this.$parent;
         switch (title) {
@@ -233,13 +255,13 @@
     '                    <input v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || loading" type="checkbox" v-bind:disabled="checkboxIsExcluded(title, getOption(checkbox))" v-model="checked" :value="getOption(checkbox)" :id="\'checkbox-\' + id + \'-\' + getOption(checkbox)">\n' +
     '                    <label v-if="typeof getOption(checkbox) != \'object\'" v-show="expanded || loading" :for="\'checkbox-\' + id + \'-\' + getOption(checkbox)">{{ getLabel(checkbox) }}</label>\n' +
     // Locations with sub-locations/branches.
-    '                    <div v-if="typeof getOption(checkbox) == \'object\'">' +
-    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="Vue.set(expanded_checkboxes, getLabel(checkbox), true)" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
+    '                    <div v-if="typeof getOption(checkbox) == \'object\' && groupHasCategories(title, getOption(checkbox))">' +
+    '                       <a v-if="typeof getOption(checkbox) == \'object\' && expanded" v-on:click.stop.prevent="collapseAllGroups(checkbox);Vue.set(expanded_checkboxes, getLabel(checkbox), true);" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': !collapseGroup(checkbox)}">' +
     '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-plus-circle plus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                       <a v-show="!collapseGroup(checkbox)" v-if="typeof getOption(checkbox) == \'object\' && expanded"  v-on:click.stop.prevent="expanded_checkboxes[getLabel(checkbox)] = false" href="#" v-bind:class="{\'d-flex checkbox-toggle-subset\': true, \'hidden\': collapseGroup(checkbox)}">' +
-    '                         <label>{{ getLabel(checkbox) }}<small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
+    '                         <label>{{ getLabel(checkbox) }} <small v-show="groupCounter(getLabel(checkbox)) > 0" class="badge">{{ groupCounter(getLabel(checkbox)) }}</small></label>\n' +
     '                         <i class="fa fa-minus-circle minus ml-auto" aria-hidden="true"></i>' +
     '                       </a>' +
     '                    </div>' +
@@ -353,8 +375,8 @@
     '                       </a>' +
     '                    </div>' +
     '                    <div v-if="typeof getOption(radio) == \'object\'" v-for="radio2 in getOption(radio)" class="checkbox-wrapper radio-wrapper">\n' +
-    '                      <input type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
-    '                      <label :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
+    '                      <input v-if="expanded && !collapseGroup(radio)" type="radio" v-model="checked" :value="getOption(radio2)" :id="\'radio-\' + id + \'-\' + getOption(radio2)">\n' +
+    '                      <label v-if="expanded && !collapseGroup(radio)" :for="\'radio-\' + id + \'-\' + getOption(radio2)">{{ getLabel(radio2) }}</label>\n' +
     '                    </div>\n' +
     '                  </div>\n' +
     '                </div>\n' +
@@ -378,6 +400,7 @@
       locations: [],
       ages: [],
       days: [],
+      weeks: [],
       categories: [],
       categoriesExcluded: [],
       categoriesLimit: [],
@@ -385,6 +408,7 @@
       moreInfoPopupLoading: false,
       runningClearAllFilters: false,
       afPageRef: '',
+      isShowWeeksEnabled: 0,
       no_results: 0,
       alternativeCriteria: '',
       isSpotsAvailableDisabled: drupalSettings.activityFinder.is_spots_available_disabled,
@@ -433,7 +457,7 @@
       },
       configSettings: [],
     },
-    created: function() {
+    created: function () {
       var component = this;
 
       if (typeof this.$route.query.locations != 'undefined') {
@@ -480,6 +504,13 @@
         }
       }
 
+      if (typeof this.$route.query.weeks != 'undefined') {
+        var weeksGet = decodeURIComponent(this.$route.query.weeks);
+        if (weeksGet) {
+          this.weeks = weeksGet.split(',');
+        }
+      }
+
       if (typeof this.$route.query.keywords != 'undefined') {
         var keywordsGet = decodeURIComponent(this.$route.query.keywords);
         if (keywordsGet) {
@@ -490,39 +521,47 @@
       this.runAjaxRequest();
 
       component.afPageRef = 'OpenY' in window && typeof window.OpenY.field_prgf_af_page_ref !== 'undefined' && typeof window.OpenY.field_prgf_af_page_ref[0] !== 'undefined' ? window.OpenY.field_prgf_af_page_ref[0]['url'] : '';
+      component.isShowWeeksEnabled = 'OpenY' in window && typeof window.OpenY.field_prgf_af_show_weeks_filter !== 'undefined' && typeof window.OpenY.field_prgf_af_show_weeks_filter[0] !== 'undefined' ? window.OpenY.field_prgf_af_show_weeks_filter[0]['value'] : 0;
 
       // We add watchers dynamically otherwise initially there will be
       // up to three requests as we are changing values while initializing
       // from GET query parameters.
-      component.$watch('locations', function(newValue, oldValue){
+      component.$watch('locations', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('categories', function(newValue, oldValue){
+      component.$watch('categories', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('ages', function(newValue, oldValue){
+      component.$watch('ages', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('days', function(newValue, oldValue){
+      component.$watch('days', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
           component.runAjaxRequest();
         }
       });
-      component.$watch('sort', function(newValue, oldValue){
+      component.$watch('sort', function (newValue, oldValue) {
+        newValue = component.arrayFilter(newValue);
+        oldValue = component.arrayFilter(oldValue);
+        if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
+          component.runAjaxRequest();
+        }
+      });
+      component.$watch('weeks', function (newValue, oldValue) {
         newValue = component.arrayFilter(newValue);
         oldValue = component.arrayFilter(oldValue);
         if (!component.runningClearAllFilters && JSON.stringify(newValue) !== JSON.stringify(oldValue)) {
@@ -614,6 +653,10 @@
         if (cleanDays.length > 0) {
           query.push('days=' + encodeURIComponent(cleanDays.join(',')));
         }
+        var cleanWeeks = this.weeks.filter(function(word){ return word; });
+        if (cleanWeeks.length > 0) {
+          query.push('weeks=' + encodeURIComponent(cleanWeeks.join(',')));
+        }
         if (typeof this.current_page != 'undefined' && this.current_page > 0) {
           // Undefined pager_info means it is Daxko.
           if (typeof pager_info == 'undefined' && typeof this.pages[this.current_page] != 'undefined') {
@@ -653,6 +696,7 @@
             exclude: component.categoriesExcluded.join(','),
             ages: cleanAges.join(','),
             days: cleanDays.join(','),
+            weeks: cleanWeeks.join(','),
             keywords: component.keywords,
             page: component.page,
             no_results: component.no_results,
@@ -661,6 +705,7 @@
         }).done(function() {
           component.loading = false;
         });
+        window.scrollTo(0,0);
       },
       searchAlternativeResults: function(type) {
         this.alternativeCriteria = type;
@@ -801,11 +846,13 @@
         this.ages = [];
         this.days = [];
         this.keywords = "";
+        this.weeks = [];
         this.runningClearAllFilters = false;
         this.$refs.ages_filter.clear();
         this.$refs.locations_filter.clear();
         this.$refs.categories_filter.clear();
         this.$refs.days_filter.clear();
+        this.$refs.weeks_filter.clear();
         this.runAjaxRequest();
       },
       loadPrevPage: function() {
@@ -827,8 +874,8 @@
         $('html, body').animate( { scrollTop: $('.schedule-dashboard__wrapper').offset().top - 200 }, 500 );
       },
       totalGroupCounter: function() {
-        // Returns count of of applied filters.
-        return this.ages.length + this.days.length + this.categories.length + this.locations.length;
+        // Returns count of all applied filters.
+        return this.ages.length + this.days.length + this.weeks.length + this.categories.length + this.locations.length;
       }
     },
     delimiters: ["${","}"]

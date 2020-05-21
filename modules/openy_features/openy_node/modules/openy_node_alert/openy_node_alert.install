@@ -279,3 +279,69 @@ function openy_node_alert_update_8012() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs($configs);
 }
+
+/**
+ * Update Open Y Node Alert feature to use link attributes widget.
+ */
+function openy_node_alert_update_8013() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.node.alert.default' =>[
+      'content.field_alert_link.settings.enabled_attributes',
+      'content.field_alert_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
+
+/**
+ * Add location reference field for alerts.
+ */
+function openy_node_alert_update_8014() {
+  $config_dir = drupal_get_path('module', 'openy_node_alert') . '/config/install/';
+  $configs = [
+    'field.field.node.alert.field_alert_location',
+    'field.storage.node.field_alert_location',
+  ];
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs($configs);
+
+  $configs = [
+    'core.entity_form_display.node.alert.default' => [
+      'dependencies.config',
+      'content.field_alert_location',
+    ],
+    'core.entity_view_display.node.alert.default' => [
+      'dependencies.config',
+      'content.field_alert_location',
+    ],
+    'core.entity_view_display.node.alert.node_alert_footer' => [
+      'dependencies.config',
+      'hidden.field_alert_location',
+    ],
+    'core.entity_view_display.node.alert.node_alert_header' => [
+      'dependencies.config',
+      'hidden.field_alert_location',
+    ],
+    'core.entity_view_display.node.alert.teaser' => [
+      'dependencies.config',
+      'hidden.field_alert_location',
+    ],
+  ];
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

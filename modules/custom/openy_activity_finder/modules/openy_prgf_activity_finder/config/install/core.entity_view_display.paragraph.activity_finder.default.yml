@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.activity_finder.field_pgf_af_show_filter_open
     - field.field.paragraph.activity_finder.field_prgf_af_categ
     - field.field.paragraph.activity_finder.field_prgf_af_categ_excl
     - field.field.paragraph.activity_finder.field_prgf_af_results_ref
@@ -18,6 +19,13 @@ targetEntityType: paragraph
 bundle: activity_finder
 mode: default
 content:
+  field_pgf_af_show_filter_open:
+    weight: 6
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: openy_json
+    region: content
   field_prgf_af_categ:
     type: openy_json
     weight: 0

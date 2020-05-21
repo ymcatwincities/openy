@@ -24,6 +24,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_lto_link:
     weight: 3
     label: hidden
@@ -35,6 +36,7 @@ content:
       target: ''
     third_party_settings: {  }
     type: link
+    region: content
   field_lto_subtitle:
     weight: 1
     label: hidden
@@ -42,6 +44,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
   field_lto_title:
     weight: 0
     label: hidden
@@ -49,6 +52,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
 hidden:
   created: true
   uid: true

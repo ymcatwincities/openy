@@ -17,6 +17,7 @@ dependencies:
   - drupal:node
   - paragraphs:paragraphs
   - drupal:path
+  - link_attributes:link_attributes
   - plugin:plugin
   - responsive_image:responsive_image
   - social_feed_fetcher:social_feed_fetcher
