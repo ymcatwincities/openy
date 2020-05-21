@@ -34,5 +34,18 @@ function openy_prgf_activity_finder_update_8002() {
     'core.entity_view_display.paragraph.activity_finder.default',
     'core.entity_form_display.paragraph.activity_finder.default'
   ]);
+}
 
+/**
+ * Update configs.
+ */
+function openy_prgf_activity_finder_update_8003() {
+  $cim = \Drupal::service('openy_upgrade_tool.importer');
+  $cim->setDirectory(drupal_get_path('module', 'openy_prgf_activity_finder') . '/config/install');
+  $cim->importConfigs([
+    'core.entity_form_display.paragraph.activity_finder.default',
+    'core.entity_view_display.paragraph.activity_finder.default',
+    'field.field.paragraph.activity_finder.field_pgf_af_show_filter_open',
+    'field.storage.paragraph.field_pgf_af_show_filter_open',
+  ]);
 }

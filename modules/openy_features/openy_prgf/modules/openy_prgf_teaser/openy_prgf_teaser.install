@@ -135,3 +135,25 @@ function openy_prgf_teaser_update_8006() {
     'image.style.prgf_teaser',
   ]);
 }
+
+/**
+ * Update Open Y Paragraph Teaser feature to use link attributes widget.
+ */
+function openy_prgf_teaser_update_8007() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_teaser') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.teaser.default' =>[
+      'content.field_prgf_link.settings.enabled_attributes',
+      'content.field_prgf_link.type',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

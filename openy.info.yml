@@ -50,10 +50,12 @@ dependencies:
   - captcha:captcha
   - ckeditor_bootstrap_buttons:ckeditor_bootstrap_buttons
   - config_import:config_import
+  - editor_advanced_link:editor_advanced_link
   - features:features
   - fontyourface:fontyourface
   - image_captcha:image_captcha
   - local_fonts:local_fonts
+  - link_attributes:link_attributes
   - metatag:metatag
   - metatag_open_graph:metatag_open_graph
   - plugin:plugin

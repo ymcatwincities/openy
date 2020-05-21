@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.paragraph.activity_finder_search.field_activity_finder_search
     - field.field.paragraph.activity_finder_search.field_prgf_af_page_ref
+    - field.field.paragraph.activity_finder_search.field_prgf_af_show_weeks_filter
     - paragraphs.paragraphs_type.activity_finder_search
   module:
     - plugin
@@ -26,6 +27,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
+    region: content
+  field_prgf_af_show_weeks_filter:
+    weight: 103
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   moderation_state:
     type: moderation_state_default

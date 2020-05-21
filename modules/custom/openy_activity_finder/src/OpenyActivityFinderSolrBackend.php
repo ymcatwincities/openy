@@ -177,6 +177,11 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $query->addCondition('af_ages_min_max', $ages, 'IN');
     }
 
+    if (!empty($parameters['weeks'])) {
+      $weeks = explode(',', rawurldecode($parameters['weeks']));
+      $query->addCondition('af_weeks', $weeks, 'IN');
+    }
+
     if (!empty($parameters['days'])) {
       $days_ids = explode(',', rawurldecode($parameters['days']));
       // Convert ids to search value.
@@ -441,6 +446,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
     // Add static Age filter.
     $facets['static_age_filter'] = $this->getAges();
 
+    // Add static Weeks filter.
+    $facets['static_weeks_filter'] = $this->getWeeks();
+
     $facets_m = $facets;
     foreach ($facets as $f => $facet) {
       foreach ($facet as $i => $item) {
@@ -449,7 +457,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           $facets_m[$f][$i]['filter'] = str_replace('"', '', $item['filter']);
         }
         if ($f == 'locations') {
-          if (!empty($item['filter'])) {
+          // For some reason if location doesn't contain any session
+          // in filter we have '!' instead of location name.
+          if (!empty($item['filter']) && $item['filter'] != '!') {
             $facets_m[$f][$i]['id'] = $locationsInfo[str_replace('"', '', $item['filter'])]['nid'];
           }
         }
@@ -463,6 +473,15 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         // Pass counters to static ages filter.
         if ($f == 'static_age_filter') {
           foreach ($facets['af_ages_min_max'] as $info) {
+            if ('"' . $item['value'] . '"' == $info['filter']) {
+              $facets_m[$f][$i]['count'] = $info['count'];
+            }
+          }
+        }
+        // Pass counters to static week filter.
+        if ($f == 'static_weeks_filter') {
+          $facets_m[$f][$i]['count'] = 0;
+          foreach ($facets['af_weeks'] as $info) {
             if ('"' . $item['value'] . '"' == $info['filter']) {
               $facets_m[$f][$i]['count'] = $info['count'];
             }
@@ -529,6 +548,13 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       ],
       'af_ages_min_max' => [
         'field' => 'af_ages_min_max',
+        'limit' => 0,
+        'operator' => 'AND',
+        'min_count' => 0,
+        'missing' => TRUE,
+      ],
+      'af_weeks' => [
+        'field' => 'af_weeks',
         'limit' => 0,
         'operator' => 'AND',
         'min_count' => 0,

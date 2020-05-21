@@ -15,6 +15,7 @@ dependencies:
   - drupal:menu_ui
   - metatag:metatag
   - drupal:node
+  - link_attributes:link_attributes
   - openy_field_custom_hours:openy_field_custom_hours
   - openy_hours_formatter:openy_hours_formatter
   - openy_location:openy_location
@@ -29,3 +30,4 @@ dependencies:
   - drupal:telephone
   - drupal:user
   - views_field_formatter:views_field_formatter
+core_incompatible: false

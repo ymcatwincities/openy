@@ -9,7 +9,7 @@ dependencies:
     - field.field.paragraph.featured_content.field_prgf_link
     - paragraphs.paragraphs_type.featured_content
   module:
-    - link
+    - link_attributes
     - text
 id: paragraph.featured_content.default
 targetEntityType: paragraph
@@ -23,6 +23,7 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_prgf_fc_clm_description:
     weight: 5
     settings:
@@ -30,11 +31,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
   field_prgf_grid_style:
     weight: 3
     settings: {  }
     third_party_settings: {  }
     type: options_select
+    region: content
   field_prgf_headline:
     weight: 0
     settings:
@@ -42,13 +45,24 @@ content:
       placeholder: 'Provide title here'
     third_party_settings: {  }
     type: string_textfield
+    region: content
   field_prgf_link:
     weight: 2
     settings:
-      placeholder_url: '/subpage_uri'
+      placeholder_url: /subpage_uri
       placeholder_title: 'Subpage title'
+      enabled_attributes:
+        target: true
+        rel: true
+        class: true
+        id: false
+        name: false
+        accesskey: false
+        aria-label: false
+        title: false
     third_party_settings: {  }
-    type: link_default
+    type: link_attributes
+    region: content
 hidden:
   created: true
   status: true
