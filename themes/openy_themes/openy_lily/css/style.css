@@ -4,7 +4,7 @@ body {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
-h1, .h1, h2, .h2, h3, h4, h5, h6 {
+h1, .h1, h2, .paragraph--type--branch-amenities .field-sb-title, .h2, h3, h4, h5, h6 {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
 
@@ -13,7 +13,7 @@ h1,
   font-size: 40px;
 }
 
-h2,
+h2, .paragraph--type--branch-amenities .field-sb-title,
 .h2 {
   font-size: 36px;
 }
@@ -157,7 +157,7 @@ body {
   font-family: Verdana, Geneva, sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1, h2, .paragraph--type--branch-amenities .field-sb-title, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: bold;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
@@ -166,7 +166,7 @@ h1, .h1 {
   font-size: 36px;
 }
 
-h2, .h2 {
+h2, .paragraph--type--branch-amenities .field-sb-title, .h2 {
   font-size: 30px;
 }
 
@@ -1379,31 +1379,31 @@ body {
     max-width: 35px;
   }
 }
-.paragraph--column-in-a-grid h2 {
+.paragraph--column-in-a-grid h2, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .field-sb-title {
   vertical-align: middle;
   margin: 0;
   font-size: 24px;
 }
 @media (min-width: 48em) {
-  .paragraph--column-in-a-grid h2 {
+  .paragraph--column-in-a-grid h2, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .field-sb-title {
     font-size: 26px;
   }
 }
 @media (min-width: 64em) {
-  .paragraph--column-in-a-grid h2 {
+  .paragraph--column-in-a-grid h2, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .field-sb-title {
     font-size: 30px;
   }
 }
-.paragraph--column-in-a-grid h2.with-icon {
+.paragraph--column-in-a-grid h2.with-icon, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .with-icon.field-sb-title {
   padding-left: 28px;
 }
 @media (min-width: 48em) {
-  .paragraph--column-in-a-grid h2.with-icon {
+  .paragraph--column-in-a-grid h2.with-icon, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .with-icon.field-sb-title {
     padding-left: 32px;
   }
 }
 @media (min-width: 64em) {
-  .paragraph--column-in-a-grid h2.with-icon {
+  .paragraph--column-in-a-grid h2.with-icon, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .with-icon.field-sb-title {
     padding-left: 40px;
   }
 }
@@ -1693,7 +1693,7 @@ body {
     margin-bottom: 27px;
   }
 }
-.sidebar-card h2 {
+.sidebar-card h2, .sidebar-card .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .sidebar-card .field-sb-title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   color: #636466;
@@ -1703,14 +1703,14 @@ body {
   line-height: 1.2;
   letter-spacing: 2px;
 }
-.sidebar-card .field-prgf-description h2 {
+.sidebar-card .field-prgf-description h2, .sidebar-card .field-prgf-description .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .sidebar-card .field-prgf-description .field-sb-title {
   color: #92288d;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-weight: bold;
   letter-spacing: normal;
   text-transform: none;
 }
-.sidebar-card .field-prgf-description h2 a {
+.sidebar-card .field-prgf-description h2 a, .sidebar-card .field-prgf-description .paragraph--type--branch-amenities .field-sb-title a, .paragraph--type--branch-amenities .sidebar-card .field-prgf-description .field-sb-title a {
   text-decoration: none;
   color: inherit;
 }
@@ -1764,7 +1764,7 @@ body {
   color: #231f20;
   margin-bottom: 28px;
 }
-.promo-card .description h1, .promo-card .description h2, .promo-card .description h3, .promo-card .description h4, .promo-card .description h5, .promo-card .description h6 {
+.promo-card .description h1, .promo-card .description h2, .promo-card .description .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .promo-card .description .field-sb-title, .promo-card .description h3, .promo-card .description h4, .promo-card .description h5, .promo-card .description h6 {
   font-size: 20px;
   color: #428bca;
   line-height: 1.2;
@@ -2114,7 +2114,7 @@ body {
   height: auto;
   text-decoration: none;
 }
-.paragraph--class-content .cards h2 {
+.paragraph--class-content .cards h2, .paragraph--class-content .cards .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--class-content .cards .field-sb-title {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-size: 22px;
   line-height: 1;
@@ -2609,7 +2609,7 @@ body {
     height: auto;
   }
 }
-.subprogram-listing-item .title h2 {
+.subprogram-listing-item .title h2, .subprogram-listing-item .title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .subprogram-listing-item .title .field-sb-title {
   font-size: 20px;
   line-height: 20px;
   margin: -2px 0 15px;
@@ -2841,7 +2841,7 @@ body {
     font-size: 16px;
   }
 }
-.sub-category-classes-view .activity-group h2 {
+.sub-category-classes-view .activity-group h2, .sub-category-classes-view .activity-group .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .sub-category-classes-view .activity-group .field-sb-title {
   font-family: "Cachet Medium", Verdana, Geneva, sans-serif;
   font-size: 30px;
   line-height: 1.6;
@@ -3846,7 +3846,11 @@ html.js .branch__updates_queue__button {
 }
 .locations-list header h1,
 .locations-list header h2,
-.locations-list header h2.h1 {
+.locations-list header .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .locations-list header .field-sb-title,
+.locations-list header h2.h1,
+.locations-list header .paragraph--type--branch-amenities .h1.field-sb-title,
+.paragraph--type--branch-amenities .locations-list header .h1.field-sb-title {
   padding-left: 20px;
   padding-bottom: 0px;
   clear: both;
@@ -3857,7 +3861,15 @@ html.js .branch__updates_queue__button {
 .locations-list h2.color-purple,
 .locations-list h2.description.purple,
 .locations-list .paragraph.featured-content h2.description,
-.paragraph.featured-content .locations-list h2.description {
+.paragraph.featured-content .locations-list h2.description,
+.locations-list .paragraph.featured-content .paragraph--type--branch-amenities .description.field-sb-title,
+.paragraph.featured-content .paragraph--type--branch-amenities .locations-list .description.field-sb-title,
+.locations-list .paragraph--type--branch-amenities .paragraph.featured-content .description.field-sb-title,
+.paragraph--type--branch-amenities .paragraph.featured-content .locations-list .description.field-sb-title,
+.locations-list .paragraph--type--branch-amenities .description.purple.field-sb-title,
+.paragraph--type--branch-amenities .locations-list .description.purple.field-sb-title,
+.locations-list .paragraph--type--branch-amenities .color-purple.field-sb-title,
+.paragraph--type--branch-amenities .locations-list .color-purple.field-sb-title {
   color: #92288d;
 }
 .locations-list .field_location_state {
@@ -4058,7 +4070,7 @@ html.js .branch__updates_queue__button {
   display: none;
 }
 
-.node--type-branch.node--view-mode-class-location h2 {
+.node--type-branch.node--view-mode-class-location h2, .node--type-branch.node--view-mode-class-location .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-branch.node--view-mode-class-location .field-sb-title {
   font-size: 15px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
@@ -4069,7 +4081,7 @@ html.js .branch__updates_queue__button {
   border: solid 1px #ccc;
   padding: 20px;
 }
-.paragraph--type--class-location.paragraph--view-mode--default .empty-text h2 {
+.paragraph--type--class-location.paragraph--view-mode--default .empty-text h2, .paragraph--type--class-location.paragraph--view-mode--default .empty-text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--class-location.paragraph--view-mode--default .empty-text .field-sb-title {
   display: inline;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -4108,7 +4120,7 @@ html.js .branch__updates_queue__button {
 .node--view-mode-full .label-for-field-location-phone:after {
   content: ":";
 }
-.node--view-mode-full h2 {
+.node--view-mode-full h2, .node--view-mode-full .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--view-mode-full .field-sb-title {
   font-size: 22px;
   margin-bottom: 33px;
 }
@@ -4292,7 +4304,7 @@ html.js .branch__updates_queue__button {
 .node--type-blog p {
   line-height: 1.62em;
 }
-.node--type-blog p + h2 {
+.node--type-blog p + h2, .node--type-blog .paragraph--type--branch-amenities p + .field-sb-title, .paragraph--type--branch-amenities .node--type-blog p + .field-sb-title {
   margin-top: 1em;
 }
 .node--type-blog.node--view-mode-teaser {
@@ -4409,7 +4421,7 @@ html.js .branch__updates_queue__button {
 .blog-related {
   position: relative;
 }
-.blog-related h2 {
+.blog-related h2, .blog-related .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .blog-related .field-sb-title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   color: #636466 !important;
@@ -4574,7 +4586,7 @@ html.js .branch__updates_queue__button {
 .class-page-schedule .sidebar-card {
   position: relative;
 }
-.class-page-schedule h2 {
+.class-page-schedule h2, .class-page-schedule .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .class-page-schedule .field-sb-title {
   font-size: 28px;
   margin-top: 18px;
   max-width: 284px;
@@ -4659,7 +4671,7 @@ html.js .branch__updates_queue__button {
   margin-top: 35px;
 }
 
-.node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser h3 {
+.node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-class.node--view-mode-teaser .field-sb-title, .node--type-class.node--view-mode-teaser h3 {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   font-size: 22px;
   line-height: 1;
@@ -4752,10 +4764,16 @@ html.js .branch__updates_queue__button {
   width: 100%;
   clear: both;
 }
-.field-prgf-title h2,
+.field-prgf-title h2, .field-prgf-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .field-prgf-title .field-sb-title,
 .field-prgf-nu-title h2,
+.field-prgf-nu-title .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-nu-title .field-sb-title,
 .field-prgf-whay-title h2,
-.field-prgf-fc-title h2 {
+.field-prgf-whay-title .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-whay-title .field-sb-title,
+.field-prgf-fc-title h2,
+.field-prgf-fc-title .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-fc-title .field-sb-title {
   font-weight: 600;
   line-height: lh(30, 26);
   color: #636466;
@@ -4763,10 +4781,16 @@ html.js .branch__updates_queue__button {
   text-transform: uppercase;
   letter-spacing: 2px;
 }
-.field-prgf-title.mobile h2,
+.field-prgf-title.mobile h2, .field-prgf-title.mobile .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .field-prgf-title.mobile .field-sb-title,
 .field-prgf-nu-title.mobile h2,
+.field-prgf-nu-title.mobile .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-nu-title.mobile .field-sb-title,
 .field-prgf-whay-title.mobile h2,
-.field-prgf-fc-title.mobile h2 {
+.field-prgf-whay-title.mobile .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-whay-title.mobile .field-sb-title,
+.field-prgf-fc-title.mobile h2,
+.field-prgf-fc-title.mobile .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-fc-title.mobile .field-sb-title {
   font-size: 28px;
   margin-bottom: -15px;
 }
@@ -5052,19 +5076,19 @@ html.js .branch__updates_queue__button {
 #schedules-search-listing-wrapper .results {
   margin-bottom: 40px;
 }
-#schedules-search-listing-wrapper .results h2 {
+#schedules-search-listing-wrapper .results h2, #schedules-search-listing-wrapper .results .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #schedules-search-listing-wrapper .results .field-sb-title {
   font-size: 28px;
   line-height: 32px;
   margin-bottom: 18px;
   font-weight: 700;
 }
 @media (min-width: 48em) {
-  #schedules-search-listing-wrapper .results h2 {
+  #schedules-search-listing-wrapper .results h2, #schedules-search-listing-wrapper .results .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #schedules-search-listing-wrapper .results .field-sb-title {
     font-size: 44px;
     line-height: 48px;
   }
 }
-#schedules-search-listing-wrapper .results h2 em {
+#schedules-search-listing-wrapper .results h2 em, #schedules-search-listing-wrapper .results .paragraph--type--branch-amenities .field-sb-title em, .paragraph--type--branch-amenities #schedules-search-listing-wrapper .results .field-sb-title em {
   font-style: normal;
 }
 #schedules-search-listing-wrapper .results .group_time {
@@ -5940,7 +5964,7 @@ a[href="#step2"] {
   height: auto;
   max-width: 100%;
 }
-#membership-calc-wrapper h2 {
+#membership-calc-wrapper h2, #membership-calc-wrapper .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-calc-wrapper .field-sb-title {
   font-size: 40px;
   text-align: center;
   margin-bottom: 30px;
@@ -6763,25 +6787,25 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 @media (min-width: 48em) {
-  .block-description--text h2 {
+  .block-description--text h2, .block-description--text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--text .field-sb-title {
     font-size: 26px;
   }
 }
 @media (min-width: 64em) {
-  .block-description--text h2 {
+  .block-description--text h2, .block-description--text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--text .field-sb-title {
     font-size: 30px;
   }
 }
-.block-description--text h2.with-icon {
+.block-description--text h2.with-icon, .block-description--text .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .block-description--text .with-icon.field-sb-title {
   padding-left: 28px;
 }
 @media (min-width: 48em) {
-  .block-description--text h2.with-icon {
+  .block-description--text h2.with-icon, .block-description--text .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .block-description--text .with-icon.field-sb-title {
     padding-left: 32px;
   }
 }
 @media (min-width: 64em) {
-  .block-description--text h2.with-icon {
+  .block-description--text h2.with-icon, .block-description--text .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .block-description--text .with-icon.field-sb-title {
     padding-left: 40px;
   }
 }
@@ -6906,7 +6930,7 @@ html.js .flag-waiting .flag-throbber {
   display: block;
   width: 100%;
 }
-.block-description--3 .block-description--text h2 {
+.block-description--3 .block-description--text h2, .block-description--3 .block-description--text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--3 .block-description--text .field-sb-title {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   margin-top: 0px;
   font-size: 22px;
@@ -6968,7 +6992,7 @@ html.js .flag-waiting .flag-throbber {
 .block-description--4 {
   margin: 40px 0;
 }
-.block-description--4 .field-prgf-title h2 {
+.block-description--4 .field-prgf-title h2, .block-description--4 .field-prgf-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--4 .field-prgf-title .field-sb-title {
   margin-bottom: 0;
 }
 .block-description--4 .field-prgf-description {
@@ -7059,11 +7083,11 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 
-article .node--view-mode-flexible-content h2 {
+article .node--view-mode-flexible-content h2, article .node--view-mode-flexible-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities article .node--view-mode-flexible-content .field-sb-title {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-article .node--view-mode-flexible-content h2 a span {
+article .node--view-mode-flexible-content h2 a span, article .node--view-mode-flexible-content .paragraph--type--branch-amenities .field-sb-title a span, .paragraph--type--branch-amenities article .node--view-mode-flexible-content .field-sb-title a span {
   font-family: CachetBook;
   font-size: 36px;
 }
@@ -7194,11 +7218,11 @@ article .node--view-mode-flexible-content h2 a span {
 .node--type-event.node--view-mode-teaser .field-event-image img {
   display: inline-block;
 }
-.node--type-event.node--view-mode-teaser h2 {
+.node--type-event.node--view-mode-teaser h2, .node--type-event.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-event.node--view-mode-teaser .field-sb-title {
   margin: 10px 0 5px;
   line-height: 16px;
 }
-.node--type-event.node--view-mode-teaser h2 a {
+.node--type-event.node--view-mode-teaser h2 a, .node--type-event.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title a, .paragraph--type--branch-amenities .node--type-event.node--view-mode-teaser .field-sb-title a {
   display: inline-block;
   width: 100%;
   color: #231f20;
@@ -7206,7 +7230,7 @@ article .node--view-mode-flexible-content h2 a span {
   line-height: 25px;
   text-transform: uppercase;
 }
-.node--type-event.node--view-mode-teaser h2 a:hover {
+.node--type-event.node--view-mode-teaser h2 a:hover, .node--type-event.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title a:hover, .paragraph--type--branch-amenities .node--type-event.node--view-mode-teaser .field-sb-title a:hover {
   text-decoration: underline !important;
 }
 .node--type-event.node--view-mode-teaser .event-time,
@@ -7363,7 +7387,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 
 /* row striping */
-.schedule-dashboard__content .day-label h2 {
+.schedule-dashboard__content .day-label h2, .schedule-dashboard__content .day-label .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .schedule-dashboard__content .day-label .field-sb-title {
   display: flex;
   justify-content: space-between;
 }
@@ -7777,6 +7801,82 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: Verdana, Geneva, sans-serif;
 }
 
+.field-prgf-3c-left .header-amenities {
+  font-weight: bold;
+}
+
+.paragraph--type--branch-amenities {
+  border: none;
+  margin-bottom: 50px;
+  color: #636466;
+  padding: 30px 40px;
+}
+.paragraph--type--branch-amenities .field-amenities-block {
+  text-align: center;
+}
+.paragraph--type--branch-amenities .field-sb-title {
+  text-transform: uppercase;
+}
+.paragraph--type--branch-amenities .field-branch-am {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper {
+  width: 100%;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .col-md-6 {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+@media (max-width: 766px) {
+  .paragraph--type--branch-amenities .list-branch-amenities-wrapper .col-md-6:nth-child(2) .term-name {
+    margin-top: 0px;
+  }
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .header-amenities {
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+  text-align: left;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .term-name {
+  font-family: "Cachet", Verdana, Geneva, sans-serif;
+  display: flex;
+  border-radius: 5px;
+  padding: 5px 0;
+  text-align: left;
+  font-size: 15px;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .term-name:before {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f00c";
+  color: #008485;
+  display: inline-block;
+  font-size: 15px;
+  padding: 0 10px;
+  font-weight: 900;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .term-name .name {
+  display: inline-block;
+  padding-left: 8px;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .amenities-closed .term-name:before {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f00d";
+  color: #ed1c24;
+}
+.paragraph--type--branch-amenities .field-sb-link a {
+  display: inline-block;
+  font-size: 15px;
+  margin-top: 25px;
+}
+.paragraph--type--branch-amenities .field-icon-class {
+  display: none;
+}
+
 .paragraph--type--lto {
   background-color: #0060af;
   padding: 20px 0;
@@ -7854,7 +7954,7 @@ article .node--view-mode-flexible-content h2 a span {
   color: #fff;
   font-family: "Cachet", Verdana, Geneva, sans-serif;
 }
-.paragraph--type--location-filter-by-amenities h2 {
+.paragraph--type--location-filter-by-amenities h2, .paragraph--type--location-filter-by-amenities .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--location-filter-by-amenities .field-sb-title {
   margin-top: 0;
   margin-bottom: 25px;
 }
@@ -7949,12 +8049,12 @@ article .node--view-mode-flexible-content h2 a span {
   display: none;
 }
 
-.paragraph--type--upcoming-events h2 {
+.paragraph--type--upcoming-events h2, .paragraph--type--upcoming-events .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--upcoming-events .field-sb-title {
   letter-spacing: normal;
   text-transform: none;
   text-align: left;
 }
-.paragraph--type--upcoming-events > .paragraph-container-wrapper > h2 {
+.paragraph--type--upcoming-events > .paragraph-container-wrapper > h2, .paragraph--type--branch-amenities .paragraph--type--upcoming-events > .paragraph-container-wrapper > .field-sb-title {
   padding-left: 15px;
 }
 .paragraph--type--upcoming-events header a {
@@ -8069,7 +8169,7 @@ article .node--view-mode-flexible-content h2 a span {
   background: #eee !important;
 }
 
-.page-404 h2 {
+.page-404 h2, .page-404 .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .page-404 .field-sb-title {
   color: #646464 !important;
   text-transform: uppercase;
   font-weight: bold;
@@ -8699,10 +8799,16 @@ header#page-head .top-navs #block-cccuseraccountmenu--2 ul li:first-child .welco
   color: #777777;
   cursor: default;
 }
-header#page-head .top-navs #block-topmenu2 h2,
+header#page-head .top-navs #block-topmenu2 h2, header#page-head .top-navs #block-topmenu2 .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities header#page-head .top-navs #block-topmenu2 .field-sb-title,
 header#page-head .top-navs #block-anonymoususersmenu h2,
+header#page-head .top-navs #block-anonymoususersmenu .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities header#page-head .top-navs #block-anonymoususersmenu .field-sb-title,
 header#page-head .top-navs #block-anonymoususersmenu--2 h2,
-header#page-head .top-navs #block-openy-lily-user-menu h2 {
+header#page-head .top-navs #block-anonymoususersmenu--2 .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities header#page-head .top-navs #block-anonymoususersmenu--2 .field-sb-title,
+header#page-head .top-navs #block-openy-lily-user-menu h2,
+header#page-head .top-navs #block-openy-lily-user-menu .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities header#page-head .top-navs #block-openy-lily-user-menu .field-sb-title {
   display: none;
 }
 header#page-head .top-navs #block-topmenu2 .nav li:first-child a,
@@ -10335,7 +10441,7 @@ article.site-alert ul li div {
   height: 599px;
   text-align: center;
 }
-#membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
+#membership-page #block-openy-lily-content .landing-header:first-of-type h2, #membership-page #block-openy-lily-content .landing-header:first-of-type .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-header:first-of-type .field-sb-title {
   color: #fff;
   font-size: 48px;
   margin-bottom: 27px;
@@ -10416,7 +10522,7 @@ article.site-alert ul li div {
     height: auto;
     margin-bottom: 20px;
   }
-  #membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
+  #membership-page #block-openy-lily-content .landing-header:first-of-type h2, #membership-page #block-openy-lily-content .landing-header:first-of-type .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-header:first-of-type .field-sb-title {
     font-size: 24px;
     display: block;
     margin: 12% 0 17%;
@@ -10449,7 +10555,7 @@ article.site-alert ul li div {
   }
 }
 @media (min-width: 0) and (max-width: 36.25em) {
-  #membership-page #block-openy-lily-content .landing-header:first-of-type h2 {
+  #membership-page #block-openy-lily-content .landing-header:first-of-type h2, #membership-page #block-openy-lily-content .landing-header:first-of-type .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-header:first-of-type .field-sb-title {
     margin: 9% 0 17%;
   }
 }
@@ -10459,7 +10565,7 @@ article.site-alert ul li div {
   width: 67%;
   display: none;
 }
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) h2 {
+#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) h2, #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(1) .field-sb-title {
   color: #000;
   margin-bottom: 40px;
   font-size: 30px;
@@ -10492,7 +10598,7 @@ article.site-alert ul li div {
 #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) {
   text-align: center;
 }
-#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) h2 {
+#membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) h2, #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) .field-sb-title {
   color: black;
   margin-bottom: 20px;
 }
@@ -10505,7 +10611,7 @@ article.site-alert ul li div {
   #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) {
     padding-top: 0;
   }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) h2 {
+  #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) h2, #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-content > .paragraph:nth-of-type(3) .field-sb-title {
     margin-top: 0;
     margin-bottom: 15px;
   }
@@ -10523,7 +10629,7 @@ article.site-alert ul li div {
   border: none;
   margin: 0;
 }
-#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item h2 {
+#membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item h2, #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .field-sb-title {
   line-height: 22px;
   margin: 10px 0 5px;
   float: none;
@@ -10567,7 +10673,7 @@ article.site-alert ul li div {
     height: 35px;
     margin-bottom: 5px;
   }
-  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner h2 {
+  #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner h2, #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .landing-content > .paragraph.paragraph--column-in-a-grid > div .grid-item .inner .field-sb-title {
     font-size: 15px;
     line-height: 16px;
     margin: 10px 0 5px;
@@ -10617,7 +10723,7 @@ article.site-alert ul li div {
   background-size: cover;
   min-height: 436px;
 }
-#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) h2 {
+#membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) h2, #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) .field-sb-title {
   margin: 38px 0 110px;
 }
 #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) p {
@@ -10685,7 +10791,7 @@ article.site-alert ul li div {
     border-bottom: 1px solid #EEE;
     margin-bottom: 15px;
   }
-  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) h2 {
+  #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) h2, #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .wrapper-field-bottom-content .field-bottom-content:nth-of-type(1) .field-sb-title {
     font-size: 24px;
     display: block;
     margin: 10% 0 17%;
@@ -10761,7 +10867,7 @@ article.site-alert ul li div {
   }
 }
 @media (min-width: 0) and (max-width: 48em) {
-  #membership-page #block-openy-lily-content h2 {
+  #membership-page #block-openy-lily-content h2, #membership-page #block-openy-lily-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .field-sb-title {
     font-size: 22px;
   }
   #membership-page #block-openy-lily-content p {
@@ -10982,7 +11088,9 @@ body.path-search #block-mainpagecontent {
   overflow: hidden;
 }
 body.path-search #block-mainpagecontent > form,
-body.path-search #block-mainpagecontent > h2 {
+body.path-search #block-mainpagecontent > h2,
+body.path-search .paragraph--type--branch-amenities #block-mainpagecontent > .field-sb-title,
+.paragraph--type--branch-amenities body.path-search #block-mainpagecontent > .field-sb-title {
   display: none;
 }
 body.path-search #block-mainpagecontent ol {
@@ -11417,7 +11525,7 @@ body.path-search #block-mainpagecontent li {
   transition: all 0.5s ease;
   background-color: #F5F5F5 !important;
 }
-.node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading h2 {
+.node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading h2, .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading .field-sb-title {
   color: #635f5f;
   font-weight: bold;
   margin-top: 8px;
@@ -11428,7 +11536,7 @@ body.path-search #block-mainpagecontent li {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-.node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading h2:after {
+.node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading h2:after, .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title:after, .paragraph--type--branch-amenities .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-heading .field-sb-title:after {
   margin: 10px 10px 0;
   display: inline-block;
   color: white;
@@ -11459,10 +11567,10 @@ body.path-search #block-mainpagecontent li {
 .node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading {
   background-color: white !important;
 }
-.node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2 {
+.node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2, .node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading .field-sb-title {
   color: black;
 }
-.node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2:after {
+.node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading h2:after, .node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title:after, .paragraph--type--branch-amenities .node--type-news.node--view-mode-teaser a:hover .inner-wrapper .blog-heading .field-sb-title:after {
   background: #428bca;
 }
 
@@ -11513,7 +11621,7 @@ body.path-search #block-mainpagecontent li {
   transition: all 0.5s ease;
   background-color: #F5F5F5 !important;
 }
-.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2,
+.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2, .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading .field-sb-title,
 .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h3 {
   color: #635f5f;
   font-weight: bold;
@@ -11525,7 +11633,7 @@ body.path-search #block-mainpagecontent li {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2:after,
+.node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h2:after, .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title:after, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading .field-sb-title:after,
 .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-heading h3:after {
   margin: 10px 10px 0;
   display: inline-block;
@@ -11557,10 +11665,10 @@ body.path-search #block-mainpagecontent li {
 .node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading {
   background-color: white !important;
 }
-.node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading h2 {
+.node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading h2, .node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading .field-sb-title {
   color: black;
 }
-.node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading h2:after {
+.node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading h2:after, .node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title:after, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-photo a:hover .inner-wrapper .blog-heading .field-sb-title:after {
   background: #428bca;
 }
 .node--type-blog.node--view-mode-teaser.blog-news .blog-up, .node--type-blog.node--view-mode-teaser.blog-color .blog-up, .node--type-blog.node--view-mode-teaser.blog-story .blog-up {
@@ -11578,11 +11686,11 @@ body.path-search #block-mainpagecontent li {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   padding: 0 22px;
 }
-.node--type-blog.node--view-mode-teaser.blog-news h2, .node--type-blog.node--view-mode-teaser.blog-color h2, .node--type-blog.node--view-mode-teaser.blog-story h2 {
+.node--type-blog.node--view-mode-teaser.blog-news h2, .node--type-blog.node--view-mode-teaser.blog-news .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-news .field-sb-title, .node--type-blog.node--view-mode-teaser.blog-color h2, .node--type-blog.node--view-mode-teaser.blog-color .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-color .field-sb-title, .node--type-blog.node--view-mode-teaser.blog-story h2, .node--type-blog.node--view-mode-teaser.blog-story .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-story .field-sb-title {
   margin-top: 0;
 }
-.node--type-blog.node--view-mode-teaser.blog-news h2,
-.node--type-blog.node--view-mode-teaser.blog-news h3, .node--type-blog.node--view-mode-teaser.blog-color h2,
+.node--type-blog.node--view-mode-teaser.blog-news h2, .node--type-blog.node--view-mode-teaser.blog-news .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-news .field-sb-title,
+.node--type-blog.node--view-mode-teaser.blog-news h3, .node--type-blog.node--view-mode-teaser.blog-color h2, .node--type-blog.node--view-mode-teaser.blog-color .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-blog.node--view-mode-teaser.blog-color .field-sb-title,
 .node--type-blog.node--view-mode-teaser.blog-color h3 {
   font-size: 30px;
   margin-bottom: 10px;
@@ -11600,7 +11708,7 @@ body.path-search #block-mainpagecontent li {
 .copy {
   color: #333333;
 }
-.copy h2, .copy h3, .copy h4, .copy h5, .copy h6, .copy strong {
+.copy h2, .copy .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .copy .field-sb-title, .copy h3, .copy h4, .copy h5, .copy h6, .copy strong {
   color: #333333;
 }
 .copy p, .copy li {
@@ -11621,16 +11729,16 @@ body.path-search #block-mainpagecontent li {
   font-family: "Cachet", Verdana, Geneva, sans-serif;
   margin-bottom: 10px;
 }
-.blog-related h2,
+.blog-related h2, .blog-related .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .blog-related .field-sb-title,
 .blog-related h3 {
   margin-top: 0;
 }
-.blog-related h2 a,
+.blog-related h2 a, .blog-related .paragraph--type--branch-amenities .field-sb-title a, .paragraph--type--branch-amenities .blog-related .field-sb-title a,
 .blog-related h3 a {
   font-size: 18px;
   color: #428bca !important;
 }
-.blog-related h2 a:after,
+.blog-related h2 a:after, .blog-related .paragraph--type--branch-amenities .field-sb-title a:after, .paragraph--type--branch-amenities .blog-related .field-sb-title a:after,
 .blog-related h3 a:after {
   margin-left: 10px;
   position: static;
@@ -11791,7 +11899,7 @@ body.path-search #block-mainpagecontent li {
   margin-bottom: 10px;
 }
 
-.sidebar-promos a.wrapper h2 {
+.sidebar-promos a.wrapper h2, .sidebar-promos a.wrapper .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .sidebar-promos a.wrapper .field-sb-title {
   font-size: 24px;
 }
 
@@ -11956,7 +12064,7 @@ body form .field--widget-boolean-checkbox label {
   white-space: normal;
 }
 
-.content-expander .panel-title h2,
+.content-expander .panel-title h2, .content-expander .panel-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .content-expander .panel-title .field-sb-title,
 .content-expander .panel-title h4 {
   display: inline;
   margin: 0;
@@ -11964,12 +12072,12 @@ body form .field--widget-boolean-checkbox label {
   vertical-align: middle;
 }
 
-.content-expander .panel-title h2 a:after,
+.content-expander .panel-title h2 a:after, .content-expander .panel-title .paragraph--type--branch-amenities .field-sb-title a:after, .paragraph--type--branch-amenities .content-expander .panel-title .field-sb-title a:after,
 .content-expander .panel-title h4 a:after {
   display: none;
 }
 
-.content-expander .panel-title h2 a:before,
+.content-expander .panel-title h2 a:before, .content-expander .panel-title .paragraph--type--branch-amenities .field-sb-title a:before, .paragraph--type--branch-amenities .content-expander .panel-title .field-sb-title a:before,
 .content-expander .panel-title h4 a:before {
   position: relative;
   top: 0;
@@ -11982,7 +12090,7 @@ body form .field--widget-boolean-checkbox label {
   font-family: 'Glyphicons Halflings';
 }
 
-.content-expander .panel-title h2 a.collapsed:before,
+.content-expander .panel-title h2 a.collapsed:before, .content-expander .panel-title .paragraph--type--branch-amenities .field-sb-title a.collapsed:before, .paragraph--type--branch-amenities .content-expander .panel-title .field-sb-title a.collapsed:before,
 .content-expander .panel-title h4 a.collapsed:before {
   content: "\e081";
 }
@@ -12088,7 +12196,7 @@ p.legend {
   overflow: hidden;
   line-height: 30px;
 }
-#modal.annual-report-modal .modal-header #modal-title h2 {
+#modal.annual-report-modal .modal-header #modal-title h2, #modal.annual-report-modal .modal-header #modal-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #modal.annual-report-modal .modal-header #modal-title .field-sb-title {
   font-size: 30px;
   text-transform: uppercase;
   font-weight: normal;
@@ -12412,13 +12520,13 @@ body .ajax-progress-throbber .throbber {
     margin: 25px -15px;
   }
 }
-.session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2 {
+.session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2, .session_schedules .container .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .container .row .field-sb-title, .session_schedules .path-account .status-message .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .path-account .status-message .row .field-sb-title, .path-account .session_schedules .status-message .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .path-account .session_schedules .status-message .row .field-sb-title, .session_schedules .container #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .container #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .session_schedules .container .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .session_schedules .container .landing-content .field-sb-title, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content .field-sb-title, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content .field-sb-title {
   text-align: center;
   color: #9c1f7b;
   margin: 0 0 80px;
 }
 @media screen and (max-width: 767px) {
-  .session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2 {
+  .session_schedules .container .row h2, .session_schedules .path-account .status-message .row h2, .path-account .session_schedules .status-message .row h2, .session_schedules .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .container .landing-content h2, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content h2, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content h2, .session_schedules .container .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .container .row .field-sb-title, .session_schedules .path-account .status-message .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .path-account .status-message .row .field-sb-title, .path-account .session_schedules .status-message .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .path-account .session_schedules .status-message .row .field-sb-title, .session_schedules .container #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .container #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .session_schedules .container .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .session_schedules .container .landing-content .field-sb-title, .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .session_schedules .path-account .status-message #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .session_schedules .path-account .status-message .landing-content .field-sb-title, .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .path-account .session_schedules .status-message #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .path-account .session_schedules .status-message .landing-content .field-sb-title {
     margin: 0 0 20px;
   }
 }
@@ -12487,7 +12595,7 @@ body .ajax-progress-throbber .throbber {
     margin: 0 -15px;
   }
 }
-.clinics_schedule .container .row h2, .clinics_schedule .path-account .status-message .row h2, .path-account .clinics_schedule .status-message .row h2, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h2, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h2, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h2 {
+.clinics_schedule .container .row h2, .clinics_schedule .path-account .status-message .row h2, .path-account .clinics_schedule .status-message .row h2, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content h2, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content h2, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content h2, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content h2, .clinics_schedule .container .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .clinics_schedule .container .row .field-sb-title, .clinics_schedule .path-account .status-message .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .clinics_schedule .path-account .status-message .row .field-sb-title, .path-account .clinics_schedule .status-message .row .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .path-account .clinics_schedule .status-message .row .field-sb-title, .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .clinics_schedule .container #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .clinics_schedule .container .landing-content .field-sb-title, .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .clinics_schedule .path-account .status-message #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .clinics_schedule .path-account .status-message .landing-content .field-sb-title, .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .path-account .clinics_schedule .status-message #membership-page #block-openy-lily-content .landing-content .field-sb-title, #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-page #block-openy-lily-content .path-account .clinics_schedule .status-message .landing-content .field-sb-title {
   text-align: center;
   color: #0889cd;
   margin: 0 0 15px;
@@ -12736,7 +12844,7 @@ a.sports-icon.floor-hockey {
   font-size: smaller;
 }
 
-.account-page-content-wrapper h2 {
+.account-page-content-wrapper h2, .account-page-content-wrapper .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .account-page-content-wrapper .field-sb-title {
   margin-top: 0;
 }
 
@@ -13832,7 +13940,7 @@ a.sports-icon.floor-hockey {
   -o-transform: skew(30deg);
   transform: skew(30deg);
 }
-.paragraph--type--promo-text h2 {
+.paragraph--type--promo-text h2, .paragraph--type--promo-text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--promo-text .field-sb-title {
   color: #5e5e5e;
   font-weight: bold;
   font-size: 34px;
@@ -13840,7 +13948,7 @@ a.sports-icon.floor-hockey {
   text-transform: uppercase;
 }
 @media (min-width: 0) and (max-width: 62em) {
-  .paragraph--type--promo-text h2 {
+  .paragraph--type--promo-text h2, .paragraph--type--promo-text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--promo-text .field-sb-title {
     font-size: 28px;
   }
 }
@@ -13944,7 +14052,7 @@ a.sports-icon.floor-hockey {
   padding-top: 0;
 }
 
-.subprogram-listing-item h2 {
+.subprogram-listing-item h2, .subprogram-listing-item .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .subprogram-listing-item .field-sb-title {
   padding-top: 0;
   margin-top: 0;
 }
@@ -13981,7 +14089,7 @@ a.sports-icon.floor-hockey {
   -ms-transform: skew(-30deg);
   transform: skew(-30deg);
 }
-.paragraph--type--secondary-description-sidebar h2 {
+.paragraph--type--secondary-description-sidebar h2, .paragraph--type--secondary-description-sidebar .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--secondary-description-sidebar .field-sb-title {
   color: #5e5e5e;
   font-weight: bold;
   margin-top: 0;
@@ -14106,7 +14214,7 @@ a.sports-icon.floor-hockey {
   text-align: left;
   font-weight: 500;
 }
-.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading h2 {
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading h2, .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading .field-sb-title {
   color: #635f5f;
   font-weight: bold;
   margin-top: 8px;
@@ -14117,7 +14225,7 @@ a.sports-icon.floor-hockey {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading h2:after {
+.paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading h2:after, .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading .paragraph--type--branch-amenities .field-sb-title:after, .paragraph--type--branch-amenities .paragraph--type--featured-highlights article.featured-highlights-block a .inner-wrapper .blog-heading .field-sb-title:after {
   margin: 10px 10px 0;
   display: inline-block;
   color: white;
