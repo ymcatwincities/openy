@@ -48,7 +48,7 @@ class AlertItem extends Component {
     };
     let alertContentClasses = this.props.linkTitle ?
       "col-xs-12 col-sm-6 col-md-6 col-lg-6" :
-      "col-xs-12 col-sm-12 col-md-12 col-lg-12";
+      "col-xs-12 col-sm-11 col-md-11 col-lg-11";
     return (
       <div className="site-alert site-alert--header">
         <div
