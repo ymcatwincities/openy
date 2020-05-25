@@ -46,8 +46,8 @@ class App extends Component {
       variableWidth: false,
       centerMode: true,
       centerPadding: '0px',
-      autoplay:true,
-      autoplaySpeed:5000,
+      autoplay: true,
+      autoplaySpeed: 5000,
     };
     let hil = null;
     const HeaderAlertItemList = () => {
