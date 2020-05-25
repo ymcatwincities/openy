@@ -14,8 +14,8 @@ type_settings:
   bundles:
     - image
   display_plugins:
-    - 'view_mode:media.embedded_full'
-    - 'view_mode:media.embedded_half'
+    - 'view_mode:media.full_without_blazy'
+    - 'view_mode:media.half_without_blazy'
     - 'view_mode:media.embedded_link'
   entity_browser: images_library_embed
   entity_browser_settings:

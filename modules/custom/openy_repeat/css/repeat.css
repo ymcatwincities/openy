@@ -359,13 +359,14 @@ body.modal-open .top-navs .nav-global{
 }
 
 /*Modal view for instructor*/
-.modal-dialog {
+.schedule-dashboard__modal .modal-dialog {
   height: 80% !important;
   padding-top:10%;
   top: 20vh;
+  max-width: 60%;
 }
 
-.modal-content {
+.schedule-dashboard__modal .modal-content {
   height: 100% !important;
   overflow: visible;
   bottom: 5vh;
@@ -386,9 +387,6 @@ body.modal-open .top-navs .nav-global{
   height: 80%;
 }
 
-.schedule-dashboard__modal .modal-dialog {
-  max-width: 60%;
-}
 
 .schedule-dashboard__modal--header .close {
   background: #0060ad;

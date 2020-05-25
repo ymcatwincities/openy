@@ -163,10 +163,11 @@ locations:
 
 locations_ext:
   name: 'Locations Extended'
-  description: "Extended Locations package provides additional components for building location finder page."
+  description: "Extended Locations package provides additional components for building location finder page and managing list of displayed locations in various popups and filters."
   help: '<p>Using Extended Locations package create and maintain facilities and extend location finder page to include them.</p>'
   modules:
     - openy_loc_facility
+    - openy_loc_filter
 
 membership:
   name: 'Membership'

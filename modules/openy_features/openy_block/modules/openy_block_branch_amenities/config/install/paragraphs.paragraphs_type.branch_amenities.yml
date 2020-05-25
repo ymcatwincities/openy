@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: branch_amenities
+label: 'Branch Amenities'
+icon_uuid: null
+description: 'Display Amenities of the current branch'
+behavior_plugins: {  }

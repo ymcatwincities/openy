@@ -84,7 +84,7 @@ class ActivityFinderBlock extends BlockBase implements ContainerFactoryPluginInt
       $container->get('entity.query'),
       $container->get('path.alias_manager'),
       $container->get('current_route_match')
-  );
+    );
   }
 
   /**

@@ -20,7 +20,7 @@
 {% if content.field_header_content|render|trim is not empty %}
   <article{{ attributes.addClass(header_classes) }}>
     <div{{ content_attributes.addClass('content') }}>
-      <div class="main">
+      <div class="main header-region-content">
         {{ content.field_header_content }}
       </div>
     </div>
@@ -49,7 +49,6 @@
             {{ content.field_category_program }}
           </h1>
           {% endif %}
-
         </div>
       </div>
     </div>

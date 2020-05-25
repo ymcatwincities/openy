@@ -22,6 +22,10 @@ settings:
     -
       value: two_column_fixed
       label: 'Two Columns with fixed sidebar (sticky at the top)'
+    -
+      value: two_column_left
+      label: 'Two Columns with left sidebar'
+
   allowed_values_function: ''
 module: options
 locked: false

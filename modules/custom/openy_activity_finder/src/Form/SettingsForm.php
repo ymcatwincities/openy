@@ -158,6 +158,12 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Ages mapping. One per line. "<number of months>,<age display label>". Example: "660,55+"'),
     ];
 
+    $form['weeks'] = [
+      '#type' => 'textarea',
+      '#title' => $this->t('Weeks'),
+      '#default_value' => $config->get('weeks'),
+      '#description' => t('Weeks mapping. One per line. Example: "8-6-2020,Week 1: June 8,8-24-2020,Week 11: August 24"'),
+    ];
 
     $form['exclude'] = [
       '#type' => 'textfield',
@@ -282,6 +288,7 @@ class SettingsForm extends ConfigFormBase {
     $config->set('backend', $form_state->getValue('backend'))->save();
     $config->set('index', $form_state->getValue('index'))->save();
     $config->set('ages', $form_state->getValue('ages'))->save();
+    $config->set('weeks', $form_state->getValue('weeks'))->save();
     $config->set('exclude', $form_state->getValue('exclude'))->save();
     $config->set('disable_search_box', $form_state->getValue('disable_search_box'))->save();
     $config->set('disable_spots_available', $form_state->getValue('disable_spots_available'))->save();

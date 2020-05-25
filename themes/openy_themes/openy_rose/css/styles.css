@@ -4,7 +4,7 @@ body {
   font-family: Verdana, sans-serif;
 }
 
-h1, .h1, h2, .h2, h3, h4, h5, h6 {
+h1, .h1, h2, .paragraph--type--branch-amenities .field-sb-title, .h2, h3, h4, h5, h6 {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
 
@@ -13,7 +13,7 @@ h1,
   font-size: 38px;
 }
 
-h2,
+h2, .paragraph--type--branch-amenities .field-sb-title,
 .h2 {
   font-size: 36px;
 }
@@ -113,6 +113,7 @@ figcaption {
 }
 .embedded-entity.align-center {
   text-align: center;
+  margin: 0 auto;
 }
 @media (min-width: 0) and (max-width: 30em) {
   .embedded-entity.align-left {
@@ -868,7 +869,7 @@ body {
 .header-search-wrapper {
   display: inline-block;
   vertical-align: top;
-  align-self: normal;
+  height: 3em;
   width: 200px;
 }
 .header-search-wrapper form {
@@ -1491,31 +1492,31 @@ body {
     max-width: 35px;
   }
 }
-.paragraph--column-in-a-grid h2 {
+.paragraph--column-in-a-grid h2, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .field-sb-title {
   vertical-align: middle;
   margin: 0;
   font-size: 24px;
 }
 @media (min-width: 48em) {
-  .paragraph--column-in-a-grid h2 {
+  .paragraph--column-in-a-grid h2, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .field-sb-title {
     font-size: 26px;
   }
 }
 @media (min-width: 64em) {
-  .paragraph--column-in-a-grid h2 {
+  .paragraph--column-in-a-grid h2, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .field-sb-title {
     font-size: 30px;
   }
 }
-.paragraph--column-in-a-grid h2.with-icon {
+.paragraph--column-in-a-grid h2.with-icon, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .with-icon.field-sb-title {
   padding-left: 28px;
 }
 @media (min-width: 48em) {
-  .paragraph--column-in-a-grid h2.with-icon {
+  .paragraph--column-in-a-grid h2.with-icon, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .with-icon.field-sb-title {
     padding-left: 32px;
   }
 }
 @media (min-width: 64em) {
-  .paragraph--column-in-a-grid h2.with-icon {
+  .paragraph--column-in-a-grid h2.with-icon, .paragraph--column-in-a-grid .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .paragraph--column-in-a-grid .with-icon.field-sb-title {
     padding-left: 40px;
   }
 }
@@ -1798,7 +1799,7 @@ body {
     margin-bottom: 27px;
   }
 }
-.sidebar-card h2 {
+.sidebar-card h2, .sidebar-card .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .sidebar-card .field-sb-title {
   font-family: Verdana, sans-serif;
   text-transform: uppercase;
   color: #636466;
@@ -1808,14 +1809,14 @@ body {
   line-height: 1.2;
   letter-spacing: 2px;
 }
-.sidebar-card .field-prgf-description h2 {
+.sidebar-card .field-prgf-description h2, .sidebar-card .field-prgf-description .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .sidebar-card .field-prgf-description .field-sb-title {
   color: #5c2e91;
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-weight: bold;
   letter-spacing: normal;
   text-transform: none;
 }
-.sidebar-card .field-prgf-description h2 a {
+.sidebar-card .field-prgf-description h2 a, .sidebar-card .field-prgf-description .paragraph--type--branch-amenities .field-sb-title a, .paragraph--type--branch-amenities .sidebar-card .field-prgf-description .field-sb-title a {
   text-decoration: none;
   color: inherit;
 }
@@ -1831,6 +1832,7 @@ body {
   line-height: 38px;
   letter-spacing: -1px;
   margin-bottom: 33px;
+  display: flex;
 }
 @media (min-width: 48em) {
   .story-card .quote {
@@ -1843,8 +1845,16 @@ body {
   float: left;
   height: 24px;
   fill: #5c2e91;
-  margin: 0 16px 0 0;
   width: 28px;
+}
+.story-card .quote .quote-open {
+  margin: 0 16px 0 0;
+}
+.story-card .quote .quote-close {
+  margin: 0 0 0 16px;
+}
+.story-card .quote .quote-close svg {
+  transform: rotate(180deg);
 }
 .story-card .link {
   font-size: 15px;
@@ -1860,7 +1870,7 @@ body {
   color: #231f20;
   margin-bottom: 28px;
 }
-.promo-card .description h1, .promo-card .description h2, .promo-card .description h3, .promo-card .description h4, .promo-card .description h5, .promo-card .description h6 {
+.promo-card .description h1, .promo-card .description h2, .promo-card .description .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .promo-card .description .field-sb-title, .promo-card .description h3, .promo-card .description h4, .promo-card .description h5, .promo-card .description h6 {
   font-size: 20px;
   color: #0089d0;
   line-height: 1.2;
@@ -2239,7 +2249,7 @@ body {
   height: auto;
   text-decoration: none;
 }
-.paragraph--class-content .cards h2 {
+.paragraph--class-content .cards h2, .paragraph--class-content .cards .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--class-content .cards .field-sb-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 22px;
   line-height: 1;
@@ -2770,7 +2780,7 @@ body {
     height: auto;
   }
 }
-.subprogram-listing-item .title h2 {
+.subprogram-listing-item .title h2, .subprogram-listing-item .title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .subprogram-listing-item .title .field-sb-title {
   font-size: 20px;
   line-height: 20px;
   margin: -2px 0 15px;
@@ -3002,7 +3012,7 @@ body {
     font-size: 16px;
   }
 }
-.sub-category-classes-view .activity-group h2 {
+.sub-category-classes-view .activity-group h2, .sub-category-classes-view .activity-group .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .sub-category-classes-view .activity-group .field-sb-title {
   font-family: "Cachet W01 Medium", Verdana, sans-serif;
   font-size: 30px;
   line-height: 1.6;
@@ -4093,7 +4103,7 @@ html.js .branch__updates_queue__button {
   display: none;
 }
 
-.node--type-branch.node--view-mode-class-location h2 {
+.node--type-branch.node--view-mode-class-location h2, .node--type-branch.node--view-mode-class-location .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-branch.node--view-mode-class-location .field-sb-title {
   font-size: 15px;
   font-family: Verdana, sans-serif;
   font-weight: normal;
@@ -4104,7 +4114,7 @@ html.js .branch__updates_queue__button {
   border: solid 1px #ccc;
   padding: 20px;
 }
-.paragraph--type--class-location.paragraph--view-mode--default .empty-text h2 {
+.paragraph--type--class-location.paragraph--view-mode--default .empty-text h2, .paragraph--type--class-location.paragraph--view-mode--default .empty-text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--class-location.paragraph--view-mode--default .empty-text .field-sb-title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   letter-spacing: 2px;
@@ -4155,7 +4165,7 @@ html.js .branch__updates_queue__button {
 .node--view-mode-full .label-for-field-location-phone:after {
   content: ":";
 }
-.node--view-mode-full h2 {
+.node--view-mode-full h2, .node--view-mode-full .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--view-mode-full .field-sb-title {
   font-size: 22px;
   margin-bottom: 33px;
 }
@@ -4339,7 +4349,7 @@ html.js .branch__updates_queue__button {
 .node--type-blog p {
   line-height: 1.62em;
 }
-.node--type-blog p + h2 {
+.node--type-blog p + h2, .node--type-blog .paragraph--type--branch-amenities p + .field-sb-title, .paragraph--type--branch-amenities .node--type-blog p + .field-sb-title {
   margin-top: 1em;
 }
 .node--type-blog.node--view-mode-teaser {
@@ -4488,7 +4498,7 @@ html.js .branch__updates_queue__button {
 .blog-related {
   position: relative;
 }
-.blog-related h2 {
+.blog-related h2, .blog-related .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .blog-related .field-sb-title {
   font-family: Verdana, sans-serif;
   text-transform: uppercase;
   color: #636466 !important;
@@ -4671,7 +4681,7 @@ html.js .branch__updates_queue__button {
 .node--type-news p {
   line-height: 1.62em;
 }
-.node--type-news p + h2 {
+.node--type-news p + h2, .node--type-news .paragraph--type--branch-amenities p + .field-sb-title, .paragraph--type--branch-amenities .node--type-news p + .field-sb-title {
   margin-top: 1em;
 }
 .node--type-news.node--view-mode-teaser {
@@ -4781,7 +4791,7 @@ html.js .branch__updates_queue__button {
 .news-related {
   position: relative;
 }
-.news-related h2 {
+.news-related h2, .news-related .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .news-related .field-sb-title {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-transform: uppercase;
   color: #636466 !important;
@@ -4946,7 +4956,7 @@ html.js .branch__updates_queue__button {
 .class-page-schedule .sidebar-card {
   position: relative;
 }
-.class-page-schedule h2 {
+.class-page-schedule h2, .class-page-schedule .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .class-page-schedule .field-sb-title {
   font-size: 28px;
   margin-top: 18px;
   max-width: 284px;
@@ -5031,7 +5041,7 @@ html.js .branch__updates_queue__button {
   margin-top: 35px;
 }
 
-.node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser h3 {
+.node--type-class.node--view-mode-teaser h2, .node--type-class.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-class.node--view-mode-teaser .field-sb-title, .node--type-class.node--view-mode-teaser h3 {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   font-size: 22px;
   line-height: 1;
@@ -5115,10 +5125,16 @@ html.js .branch__updates_queue__button {
   width: 100%;
   clear: both;
 }
-.field-prgf-title h2,
+.field-prgf-title h2, .field-prgf-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .field-prgf-title .field-sb-title,
 .field-prgf-nu-title h2,
+.field-prgf-nu-title .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-nu-title .field-sb-title,
 .field-prgf-whay-title h2,
-.field-prgf-fc-title h2 {
+.field-prgf-whay-title .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-whay-title .field-sb-title,
+.field-prgf-fc-title h2,
+.field-prgf-fc-title .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-fc-title .field-sb-title {
   font-weight: 600;
   line-height: lh(30, 26);
   color: #636466;
@@ -5127,17 +5143,29 @@ html.js .branch__updates_queue__button {
   letter-spacing: 2px;
 }
 @media (min-width: 0) and (max-width: 75em) {
-  .field-prgf-title h2,
+  .field-prgf-title h2, .field-prgf-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .field-prgf-title .field-sb-title,
   .field-prgf-nu-title h2,
+  .field-prgf-nu-title .paragraph--type--branch-amenities .field-sb-title,
+  .paragraph--type--branch-amenities .field-prgf-nu-title .field-sb-title,
   .field-prgf-whay-title h2,
-  .field-prgf-fc-title h2 {
+  .field-prgf-whay-title .paragraph--type--branch-amenities .field-sb-title,
+  .paragraph--type--branch-amenities .field-prgf-whay-title .field-sb-title,
+  .field-prgf-fc-title h2,
+  .field-prgf-fc-title .paragraph--type--branch-amenities .field-sb-title,
+  .paragraph--type--branch-amenities .field-prgf-fc-title .field-sb-title {
     font-size: 25px;
   }
 }
-.field-prgf-title.mobile h2,
+.field-prgf-title.mobile h2, .field-prgf-title.mobile .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .field-prgf-title.mobile .field-sb-title,
 .field-prgf-nu-title.mobile h2,
+.field-prgf-nu-title.mobile .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-nu-title.mobile .field-sb-title,
 .field-prgf-whay-title.mobile h2,
-.field-prgf-fc-title.mobile h2 {
+.field-prgf-whay-title.mobile .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-whay-title.mobile .field-sb-title,
+.field-prgf-fc-title.mobile h2,
+.field-prgf-fc-title.mobile .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .field-prgf-fc-title.mobile .field-sb-title {
   font-size: 28px;
   margin-bottom: -15px;
 }
@@ -5420,19 +5448,19 @@ html.js .branch__updates_queue__button {
 #schedules-search-listing-wrapper .results {
   margin-bottom: 40px;
 }
-#schedules-search-listing-wrapper .results h2 {
+#schedules-search-listing-wrapper .results h2, #schedules-search-listing-wrapper .results .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #schedules-search-listing-wrapper .results .field-sb-title {
   font-size: 28px;
   line-height: 32px;
   margin-bottom: 18px;
   font-weight: 700;
 }
 @media (min-width: 48em) {
-  #schedules-search-listing-wrapper .results h2 {
+  #schedules-search-listing-wrapper .results h2, #schedules-search-listing-wrapper .results .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #schedules-search-listing-wrapper .results .field-sb-title {
     font-size: 40px;
     line-height: 44px;
   }
 }
-#schedules-search-listing-wrapper .results h2 em {
+#schedules-search-listing-wrapper .results h2 em, #schedules-search-listing-wrapper .results .paragraph--type--branch-amenities .field-sb-title em, .paragraph--type--branch-amenities #schedules-search-listing-wrapper .results .field-sb-title em {
   font-style: normal;
 }
 #schedules-search-listing-wrapper .results .group_time {
@@ -6405,7 +6433,7 @@ a[href="#step2"] {
 #membership-calc-wrapper .complete-registration {
   background-color: #5c2e91;
 }
-#membership-calc-wrapper .calc-summary-col h2 {
+#membership-calc-wrapper .calc-summary-col h2, #membership-calc-wrapper .calc-summary-col .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities #membership-calc-wrapper .calc-summary-col .field-sb-title {
   font-size: 34px;
 }
 
@@ -6698,6 +6726,14 @@ a[href="#step2"] {
 }
 .global-search-results .item-list .views-field-title {
   font-weight: bold;
+}
+.global-search-results .form-item {
+  margin: 0;
+}
+
+.paragraph--type--search-api {
+  padding: 20px 15px;
+  overflow: visible;
 }
 
 .user-login {
@@ -7100,25 +7136,25 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 @media (min-width: 48em) {
-  .block-description--text h2 {
+  .block-description--text h2, .block-description--text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--text .field-sb-title {
     font-size: 26px;
   }
 }
 @media (min-width: 64em) {
-  .block-description--text h2 {
+  .block-description--text h2, .block-description--text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--text .field-sb-title {
     font-size: 30px;
   }
 }
-.block-description--text h2.with-icon {
+.block-description--text h2.with-icon, .block-description--text .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .block-description--text .with-icon.field-sb-title {
   padding-left: 28px;
 }
 @media (min-width: 48em) {
-  .block-description--text h2.with-icon {
+  .block-description--text h2.with-icon, .block-description--text .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .block-description--text .with-icon.field-sb-title {
     padding-left: 32px;
   }
 }
 @media (min-width: 64em) {
-  .block-description--text h2.with-icon {
+  .block-description--text h2.with-icon, .block-description--text .paragraph--type--branch-amenities .with-icon.field-sb-title, .paragraph--type--branch-amenities .block-description--text .with-icon.field-sb-title {
     padding-left: 40px;
   }
 }
@@ -7243,7 +7279,7 @@ html.js .flag-waiting .flag-throbber {
   display: block;
   width: 100%;
 }
-.block-description--3 .block-description--text h2 {
+.block-description--3 .block-description--text h2, .block-description--3 .block-description--text .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--3 .block-description--text .field-sb-title {
   font-family: "Cachet W01 Book", Verdana, sans-serif;
   margin-top: 0px;
   font-size: 22px;
@@ -7305,7 +7341,7 @@ html.js .flag-waiting .flag-throbber {
 .block-description--4 {
   margin: 40px 0;
 }
-.block-description--4 .field-prgf-title h2 {
+.block-description--4 .field-prgf-title h2, .block-description--4 .field-prgf-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .block-description--4 .field-prgf-title .field-sb-title {
   margin-bottom: 0;
 }
 .block-description--4 .field-prgf-description {
@@ -7396,11 +7432,11 @@ html.js .flag-waiting .flag-throbber {
   }
 }
 
-article .node--view-mode-flexible-content h2 {
+article .node--view-mode-flexible-content h2, article .node--view-mode-flexible-content .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities article .node--view-mode-flexible-content .field-sb-title {
   margin-top: 20px;
   margin-bottom: 10px;
 }
-article .node--view-mode-flexible-content h2 a span {
+article .node--view-mode-flexible-content h2 a span, article .node--view-mode-flexible-content .paragraph--type--branch-amenities .field-sb-title a span, .paragraph--type--branch-amenities article .node--view-mode-flexible-content .field-sb-title a span {
   font-family: CachetBook;
   font-size: 36px;
 }
@@ -7505,7 +7541,11 @@ article .node--view-mode-flexible-content h2 a span {
 }
 .locations-list header h1,
 .locations-list header h2,
-.locations-list header h2.h1 {
+.locations-list header .paragraph--type--branch-amenities .field-sb-title,
+.paragraph--type--branch-amenities .locations-list header .field-sb-title,
+.locations-list header h2.h1,
+.locations-list header .paragraph--type--branch-amenities .h1.field-sb-title,
+.paragraph--type--branch-amenities .locations-list header .h1.field-sb-title {
   font-size: 36px;
   padding-left: 20px;
   padding-bottom: 0px;
@@ -7517,7 +7557,15 @@ article .node--view-mode-flexible-content h2 a span {
 .locations-list h2.color-purple,
 .locations-list h2.description.purple,
 .locations-list .paragraph.featured-content h2.description,
-.paragraph.featured-content .locations-list h2.description {
+.paragraph.featured-content .locations-list h2.description,
+.locations-list .paragraph.featured-content .paragraph--type--branch-amenities .description.field-sb-title,
+.paragraph.featured-content .paragraph--type--branch-amenities .locations-list .description.field-sb-title,
+.locations-list .paragraph--type--branch-amenities .paragraph.featured-content .description.field-sb-title,
+.paragraph--type--branch-amenities .paragraph.featured-content .locations-list .description.field-sb-title,
+.locations-list .paragraph--type--branch-amenities .description.purple.field-sb-title,
+.paragraph--type--branch-amenities .locations-list .description.purple.field-sb-title,
+.locations-list .paragraph--type--branch-amenities .color-purple.field-sb-title,
+.paragraph--type--branch-amenities .locations-list .color-purple.field-sb-title {
   color: #5c2e91;
 }
 .locations-list .field_location_state {
@@ -7744,11 +7792,11 @@ article .node--view-mode-flexible-content h2 a span {
   max-width: 266px;
   height: auto;
 }
-.node--type-event.node--view-mode-teaser h2 {
+.node--type-event.node--view-mode-teaser h2, .node--type-event.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .node--type-event.node--view-mode-teaser .field-sb-title {
   margin: 10px 0 5px;
   line-height: 16px;
 }
-.node--type-event.node--view-mode-teaser h2 a {
+.node--type-event.node--view-mode-teaser h2 a, .node--type-event.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title a, .paragraph--type--branch-amenities .node--type-event.node--view-mode-teaser .field-sb-title a {
   display: inline-block;
   width: 100%;
   color: #231f20;
@@ -7756,7 +7804,7 @@ article .node--view-mode-flexible-content h2 a span {
   line-height: 25px;
   text-transform: uppercase;
 }
-.node--type-event.node--view-mode-teaser h2 a:hover {
+.node--type-event.node--view-mode-teaser h2 a:hover, .node--type-event.node--view-mode-teaser .paragraph--type--branch-amenities .field-sb-title a:hover, .paragraph--type--branch-amenities .node--type-event.node--view-mode-teaser .field-sb-title a:hover {
   text-decoration: underline !important;
 }
 .node--type-event.node--view-mode-teaser .event-time,
@@ -7918,7 +7966,7 @@ article .node--view-mode-flexible-content h2 a span {
 }
 
 /* row striping */
-.schedule-dashboard__content .day-label h2 {
+.schedule-dashboard__content .day-label h2, .schedule-dashboard__content .day-label .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .schedule-dashboard__content .day-label .field-sb-title {
   display: flex;
   justify-content: space-between;
 }
@@ -8292,6 +8340,82 @@ article .node--view-mode-flexible-content h2 a span {
   font-family: Verdana, Geneva, sans-serif;
 }
 
+.field-prgf-3c-left .header-amenities {
+  font-weight: bold;
+}
+
+.paragraph--type--branch-amenities {
+  border: none;
+  margin-bottom: 50px;
+  color: #636466;
+  padding: 30px 40px;
+}
+.paragraph--type--branch-amenities .field-amenities-block {
+  text-align: center;
+}
+.paragraph--type--branch-amenities .field-sb-title {
+  text-transform: uppercase;
+}
+.paragraph--type--branch-amenities .field-branch-am {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper {
+  width: 100%;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .col-md-6 {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+@media (max-width: 766px) {
+  .paragraph--type--branch-amenities .list-branch-amenities-wrapper .col-md-6:nth-child(2) .term-name {
+    margin-top: 0px;
+  }
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .header-amenities {
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
+  font-size: 20px;
+  margin-top: 10px;
+  text-align: left;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .term-name {
+  font-family: "Cachet W01 Book", Verdana, sans-serif;
+  display: flex;
+  border-radius: 5px;
+  padding: 5px 0;
+  text-align: left;
+  font-size: 15px;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .term-name:before {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f00c";
+  color: #008485;
+  display: inline-block;
+  font-size: 15px;
+  padding: 0 10px;
+  font-weight: 900;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .term-name .name {
+  display: inline-block;
+  padding-left: 8px;
+}
+.paragraph--type--branch-amenities .list-branch-amenities-wrapper .amenities-closed .term-name:before {
+  font-family: "FontAwesome";
+  font-weight: 900;
+  content: "\f00d";
+  color: #ed1c24;
+}
+.paragraph--type--branch-amenities .field-sb-link a {
+  display: inline-block;
+  font-size: 15px;
+  margin-top: 25px;
+}
+.paragraph--type--branch-amenities .field-icon-class {
+  display: none;
+}
+
 .paragraph--type--location-filter-by-amenities {
   margin-top: 40px;
 }
@@ -8302,7 +8426,7 @@ article .node--view-mode-flexible-content h2 a span {
   color: #fff;
   font-family: "Cachet W01 Book", Verdana, sans-serif;
 }
-.paragraph--type--location-filter-by-amenities .field-prgf-title h2 {
+.paragraph--type--location-filter-by-amenities .field-prgf-title h2, .paragraph--type--location-filter-by-amenities .field-prgf-title .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--location-filter-by-amenities .field-prgf-title .field-sb-title {
   margin-top: 0;
   margin-bottom: 20px;
 }
@@ -8472,12 +8596,12 @@ article .node--view-mode-flexible-content h2 a span {
   margin: 0;
 }
 
-.paragraph--type--upcoming-events h2 {
+.paragraph--type--upcoming-events h2, .paragraph--type--upcoming-events .paragraph--type--branch-amenities .field-sb-title, .paragraph--type--branch-amenities .paragraph--type--upcoming-events .field-sb-title {
   letter-spacing: normal;
   text-transform: none;
   text-align: left;
 }
-.paragraph--type--upcoming-events > .paragraph-container-wrapper > h2 {
+.paragraph--type--upcoming-events > .paragraph-container-wrapper > h2, .paragraph--type--branch-amenities .paragraph--type--upcoming-events > .paragraph-container-wrapper > .field-sb-title {
   padding-left: 15px;
 }
 .paragraph--type--upcoming-events header a {

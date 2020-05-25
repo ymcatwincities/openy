@@ -24,7 +24,7 @@ class SettingsForm extends ConfigFormBase {
   /**
    * Module handler.
    *
-   * @var ModuleHandlerInterface
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
    */
   protected $moduleHandler;
 
@@ -38,12 +38,12 @@ class SettingsForm extends ConfigFormBase {
   /**
    * SettingsForm constructor.
    *
-   * @param ConfigFactoryInterface $config_factory
-   *   Config Factory.
-   * @param SyncRepository $syncers
-   *   Sync Repo.
-   * @param ModuleHandlerInterface $module_handler
-   *   Sync Repo.
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
+   * @param \Drupal\ymca_sync\SyncRepository $syncers
+   *   The syncers repository.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
   public function __construct(ConfigFactoryInterface $config_factory, SyncRepository $syncers, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
@@ -86,7 +86,7 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Active syncers'),
       '#type' => 'checkboxes',
       '#options' => array_combine($this->syncers->getSyncers(), $this->syncers->getSyncers()),
-      '#description' => $this->t('If the syncer is selected it\'s ready to run. Remove selection to disable any syncer.'),
+      '#description' => $this->t("If the syncer is selected it's ready to run. Remove selection to disable any syncer."),
       '#default_value' => $default_value,
     ];
 

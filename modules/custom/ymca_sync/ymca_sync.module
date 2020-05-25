@@ -12,33 +12,11 @@
  *   Service name.
  * @param string $method
  *   Method name.
+ * @param array $options
+ *   Options.
  *
  * @throws \Exception
  */
-function ymca_sync_run($name, $method) {
-  $active = \Drupal::config('ymca_sync.settings')->get('active_syncers');
-  // Run only active syncers.
-  if (!in_array($name, $active)) {
-    return;
-  }
-
-  $service = \Drupal::service($name);
-  if (!$service) {
-    throw new Exception('Failed to load specified service');
-  }
-
-  $lock = \Drupal::lock();
-  if ($lock->acquire($name, 250.0)) {
-    $service->{$method}();
-    $lock->release($name);
-  }
-  else {
-    $msg = 'Lock "%name" is still working. Exit.';
-    Drupal::logger('ymca_sync')->info(
-      $msg,
-      [
-        '%name' => $name,
-      ]
-    );
-  }
+function ymca_sync_run($name, $method, array $options = []) {
+  \Drupal::service('ymca_sync.syncer')->run($name, $method, $options);
 }

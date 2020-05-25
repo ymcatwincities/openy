@@ -122,6 +122,20 @@
                 expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
                 :default='$route.query.days'
                 v-on:updated-values="days = $event"
+                :loading="loading"
+                v-show="isShowWeeksEnabled == 0"
+              ></sidebar-filter>
+
+              <sidebar-filter
+                ref="weeks_filter"
+                title="{{ 'Week'|t }}"
+                id="weeks-filter"
+                type="{{ 'checkboxes'|t }}"
+                options='{{ weeks|json_encode }}'
+                :default='$route.query.weeks'
+                v-on:updated-values="weeks = $event"
+                :loading="loading"
+                v-show="isShowWeeksEnabled == 1"
               ></sidebar-filter>
               {% if collapse_group %}
                 </div>
@@ -272,10 +286,12 @@
                     <div class="availability-wrapper">
                       {# if we know that registration is available #}
                       <div v-if="item.availability_status == 'open'">
-                        <div v-if="item.spots_available" v-bind:class="[item.spots_available <= 3 ? item.spots_available == 1 ? 'few-spots only-one' : 'few-spots' : '', 'spots-availability']">${ item.spots_available }
+                        <div v-if="item.spots_available >=1" v-bind:class="[item.spots_available <= 3 ? item.spots_available == 1 ? 'few-spots only-one' : 'few-spots' : '', 'spots-availability']">
+                          ${ item.spots_available }
                           <span v-if="item.spots_available == 1">spot</span>
                           <span v-if="item.spots_available > 1">spots</span>
-                          left</div>
+                          left
+                        </div>
                       </div>
                       {# if we know that registration is NOT available #}
                       <div v-if="item.availability_status == 'closed'">
@@ -294,7 +310,7 @@
                 <br/>
                 <br/>
                 <p><strong>{{ 'What criteria is most important to you?'|t }}</strong></p>
-                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')">{{ 'Day'|t }}</a><br/>
+                <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('day')" v-show="!isShowWeeksEnabled">{{ 'Day'|t }}</a><br/>
                 <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('program')">{{ 'Program'|t }}</a><br/>
                 <a class="btn" href="#" v-on:click.stop.prevent="searchAlternativeResults('location')">{{ 'Location'|t }}</a><br/>
               </div>
@@ -377,10 +393,12 @@
                         <div class="spots-label">{{ 'Free for members'|t }}</div>
                       </div>
                       {% if not is_spots_available_disabled %}
-                        <div v-if="moreInfoPopup.spots_available"  v-bind:class="[moreInfoPopup.spots_available <= 3 ? moreInfoPopup.spots_available == 1 ? 'only-one' : 'few-spots' : '', 'spots_available']">${ moreInfoPopup.spots_available }
+                        <div v-if="moreInfoPopup.spots_available >= 1"  v-bind:class="[moreInfoPopup.spots_available <= 3 ? moreInfoPopup.spots_available == 1 ? 'only-one' : 'few-spots' : '', 'spots_available']">
+                          ${ moreInfoPopup.spots_available }
                           <span v-if="moreInfoPopup.spots_available == 1">spot</span>
                           <span v-if="moreInfoPopup.spots_available > 1">spots</span>
-                          left</div>
+                          left
+                        </div>
                       {% endif %}
                       <div v-if="moreInfoPopup.activity_type == 'group'" class="availability_status activity_type">
                         <div v-if="moreInfoPopup.atc_info != ''" class="addtocalendar">
