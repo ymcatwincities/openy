@@ -11,11 +11,12 @@
   });
 
   Vue.component('sidebar-filter', {
-    props: ['title', 'id', 'options', 'expanded', 'default', 'type', 'hide_label', 'expander_sections_config', 'loading'],
+    props: ['title', 'id', 'options', 'default', 'type', 'hide_label', 'expander_sections_config', 'loading'],
     data: function() {
       return {
         checkboxes: [],
         checked: [],
+        expanded: '',
         expanded_checkboxes: {},
         start_states: {},
         dependencies: {},
