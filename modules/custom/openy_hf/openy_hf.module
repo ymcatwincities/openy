@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\core\Render\Markup;
 use Symfony\Component\HttpFoundation\Request;
 use Drupal\Core\Asset\AttachedAssets;
+use Drupal\Core\File\FileSystemInterface;
 
 const OPENY_HF_DEFAULT_LIFETIME = 28800;
 
@@ -28,7 +29,7 @@ function openy_hf_page_attachments(array &$attachments) {
   }
 
   // Save it as CSS file to public directory.
-  file_unmanaged_save_data($css, 'public://openy_hf.css', FILE_EXISTS_REPLACE);
+  \Drupal::service('file_system')->saveData($css, 'public://openy_hf.css', FileSystemInterface::EXISTS_REPLACE);
 
   $header_replacements = $config->get('header_replacements');
   $footer_replacements = $config->get('footer_replacements');

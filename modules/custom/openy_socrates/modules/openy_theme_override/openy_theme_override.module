@@ -10,7 +10,7 @@
  */
 function openy_theme_override_theme_registry_alter(&$theme_registry) {
   $regex = '/' . str_replace('.', '\\.', "html.twig") . '$/';
-  $overrides = file_scan_directory(drupal_get_path('module', 'openy_theme_override') . '/themes', $regex, ['nomask' => TRUE], 100);
+  $overrides = \Drupal::service('file_system')->scanDirectory(drupal_get_path('module', 'openy_theme_override') . '/themes', $regex, ['nomask' => TRUE], 100);
   $themes = scandir(drupal_get_path('module', 'openy_theme_override') . '/themes');
   unset($themes[1]);
   unset($themes[0]);

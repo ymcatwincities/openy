@@ -5,6 +5,8 @@
  * Provides install, update, and uninstall functions.
  */
 
+use \Drupal\Core\File\FileSystemInterface;
+
 /**
  * Implements hook_requirements().
  */
@@ -15,7 +17,7 @@ function openy_campaign_color_requirements($phase) {
     // Adapted from system_requirements().
     $directory = 'public://' . CAMPAIGN_COLORS_CSS_FOLDER;
     if (!is_dir($directory) || !is_writable($directory)) {
-      file_prepare_directory($directory, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+      \Drupal::service('file_system')->prepareDirectory($directory, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
     }
     $is_writable = is_writable($directory);
     $is_directory = is_dir($directory);
@@ -67,7 +69,7 @@ function openy_campaign_color_requirements($phase) {
  * Implements hook_uninstall().
  */
 function openy_campaign_color_uninstall() {
-  @file_unmanaged_delete_recursive('public://' . CAMPAIGN_COLORS_CSS_FOLDER);
+  @\Drupal::service('file_system')->deleteRecursive('public://' . CAMPAIGN_COLORS_CSS_FOLDER);
   \Drupal::service('asset.js.collection_optimizer')->deleteAll();
   _drupal_flush_css_js();
 }

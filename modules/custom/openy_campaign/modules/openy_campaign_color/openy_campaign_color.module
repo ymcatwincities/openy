@@ -6,6 +6,7 @@
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\File\FileSystemInterface;
 
 define('CAMPAIGN_BASIC_PALETTE', 'purpleorchid');
 define('CAMPAIGN_COLORS_CSS_FOLDER', 'campaign_colors');
@@ -212,6 +213,6 @@ function openy_campaign_color_rebuild() {
       $newCss = str_replace($color, $scheme[$colorKey], $newCss);
     }
 
-    file_unmanaged_save_data($newCss, 'public://' . CAMPAIGN_COLORS_CSS_FOLDER . '/' . $key . '.css', FILE_EXISTS_REPLACE);
+    \Drupal::service('file_system')->saveData($newCss, 'public://' . CAMPAIGN_COLORS_CSS_FOLDER . '/' . $key . '.css', FileSystemInterface::EXISTS_REPLACE);
   }
 }
