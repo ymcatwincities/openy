@@ -69,12 +69,14 @@ class MembersController extends ControllerBase {
    *   Redirect response.
    */
   public static function deleteAllMembersFinishBatch($success, $results, $operations) {
+    $messenger = \Drupal::messenger();
     $message = t('Finished with an error.');
+
     if ($success) {
       $message = \Drupal::translation()
         ->formatPlural(count($results), 'Removed one item.', 'Removed @count items.');
     }
-    drupal_set_message($message);
+    $messenger->addMessage($message);
 
     $url = Url::fromRoute('entity.openy_campaign_member.collection');
 
