@@ -65,6 +65,8 @@ class BatchNodeUpdate {
    *   If $success is FALSE, contains the operations that remained unprocessed.
    */
   public static function finished($success, $results, $operations) {
+    $messenger = \Drupal::messenger();
+
     if ($success) {
       if ($results['status']) {
         $status = 'published';
@@ -83,6 +85,6 @@ class BatchNodeUpdate {
     } else {
       $message = t('There was an error updating @type.', ['@type' => $results['type']]);
     }
-    drupal_set_message($message);
+    $messenger->addMessage($message);
   }
 }
