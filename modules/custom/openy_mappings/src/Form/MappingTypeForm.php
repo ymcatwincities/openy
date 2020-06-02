@@ -46,18 +46,19 @@ class MappingTypeForm extends EntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
     $mapping_type = $this->entity;
     $status = $mapping_type->save();
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Mapping type.', [
+        $messenger->addMessage($this->t('Created the %label Mapping type.', [
           '%label' => $mapping_type->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Mapping type.', [
+        $messenger->addMessage($this->t('Saved the %label Mapping type.', [
           '%label' => $mapping_type->label(),
         ]));
     }

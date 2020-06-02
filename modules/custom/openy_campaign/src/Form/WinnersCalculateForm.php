@@ -408,13 +408,15 @@ class WinnersCalculateForm extends FormBase {
    * Finish batch.
    */
   public static function finishBatch($success, $results, $operations) {
+    $messenger = \Drupal::messenger();
+
     if ($success) {
       $message = \Drupal::translation()->formatPlural(count($results), 'Created one winner.', 'Created @count winners.');
     }
     else {
       $message = t('Finished with an error.');
     }
-    drupal_set_message($message);
+    $messenger->addMessage($message);
   }
 
 }

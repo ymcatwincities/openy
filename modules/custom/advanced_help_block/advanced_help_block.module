@@ -16,7 +16,7 @@ use Drupal\Core\Link;
 function advanced_help_block_help($path, $arg) {
   $query = \Drupal::entityQuery('advanced_help_block');
   $entity_ids = $query->execute();
-
+  $messenger = \Drupal::messenger();
   $output = [];
 
   $config_factory = \Drupal::configFactory();
@@ -58,7 +58,7 @@ function advanced_help_block_help($path, $arg) {
         ];
 
         if ($render_type == 'message') {
-          drupal_set_message(t('<h3>%title</h3>%description @link', [
+          $messenger->addMessage(t('<h3>%title</h3>%description @link', [
             '@link' => $link,
             '%title' => $block->field_ahb_title->value,
             '%description' => check_markup($block->field_ahb_description->value, $block->field_ahb_description->format),

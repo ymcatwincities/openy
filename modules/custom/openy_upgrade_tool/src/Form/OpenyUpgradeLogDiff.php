@@ -331,8 +331,9 @@ class OpenyUpgradeLogDiff extends FormBase {
    * Set status TRUE to selected logger entity (conflict resolved).
    */
   public function applyCurrentActiveVersion(array &$form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
     $this->entity->applyCurrentActiveVersion();
-    drupal_set_message($this->t('Conflict resolved for "@name" config, confirmed current config version from active storage and left unchanged.', [
+    $messenger->addMessage($this->t('Conflict resolved for "@name" config, confirmed current config version from active storage and left unchanged.', [
       '@name' => $this->entity->getName(),
     ]));
   }
