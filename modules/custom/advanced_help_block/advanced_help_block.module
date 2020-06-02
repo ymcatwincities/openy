@@ -110,7 +110,7 @@ function advanced_help_block_check_visibility(AdvancedHelpBlock $entity) {
     $state = $entity->get('field_ahb_visibility')->value;
   }
 
-  $pages = Unicode::strtolower($pages);
+  $pages = mb_strtolower($pages);
   if (!$pages) {
     return FALSE;
   }
@@ -123,7 +123,7 @@ function advanced_help_block_check_visibility(AdvancedHelpBlock $entity) {
   // Compare the lowercase path alias (if any) and internal path.
   $current_path = \Drupal::service('path.current')->getPath();
   $path = \Drupal::service('path_alias.manager')->getAliasByPath($current_path);
-  $path = Unicode::strtolower($path);
+  $path = mb_strtolower($path);
 
   // Do not trim a trailing slash if that is the complete path.
   $path = $path === '/' ? $path : rtrim($path, '/');
