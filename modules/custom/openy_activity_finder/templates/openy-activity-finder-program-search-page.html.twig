@@ -122,7 +122,6 @@
                 expander_sections_config = '{{ expanderSectionsConfig|json_encode }}'
                 :default='$route.query.days'
                 v-on:updated-values="days = $event"
-                :loading="loading"
                 v-show="isShowWeeksEnabled == 0"
               ></sidebar-filter>
 
