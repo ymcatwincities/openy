@@ -93,6 +93,7 @@ class PrepareUninstallForm extends ConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $tables_to_update = [];
+    $messenger = \Drupal::messenger();
 
     foreach ($this->entityTypeManager->getDefinitions() as $entity_type) {
       if ($entity_type->id() == 'node') {
@@ -108,7 +109,7 @@ class PrepareUninstallForm extends ConfirmFormBase {
           ->execute();
       }
     }
-    drupal_set_message(t('All values have been deleted.'));
+    $messenger->addMessage(t('All values have been deleted.'));
 
     $form_state->setRedirect('system.modules_uninstall');
   }
