@@ -104,10 +104,11 @@ class OpenyUpgradeLogRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
     $this->OpenyUpgradeLogStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('Openy upgrade log: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    drupal_set_message(t('Revision from %revision-date of Openy upgrade log %title has been deleted.', ['%revision-date' => format_date($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
+    $messenger->addMessage(t('Revision from %revision-date of Openy upgrade log %title has been deleted.', ['%revision-date' => format_date($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
     $form_state->setRedirect(
       'entity.openy_upgrade_log.canonical',
        ['openy_upgrade_log' => $this->revision->id()]

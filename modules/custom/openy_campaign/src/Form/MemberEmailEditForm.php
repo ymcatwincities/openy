@@ -112,9 +112,10 @@ class MemberEmailEditForm extends FormBase {
 
     $member->setEmail($membershipEmail);
     $member->save();
+    $messenger = \Drupal::messenger();
 
     // If the member has not previously registered, there will be a basic message "This member is now registered".
-    drupal_set_message(t('This member is updated'), 'status', TRUE);
+    $messenger->addMessage(t('This member is updated'), 'status', TRUE);
 
     $form_state->setRedirect('openy_campaign.team_member.list');
   }

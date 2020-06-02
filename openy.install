@@ -737,11 +737,12 @@ function openy_update_8049() {
  * Enable font-your-face module.
  */
 function openy_update_8050() {
+  $messenger = \Drupal::messenger();
   \Drupal::service('module_installer')->install(['fontyourface']);
   if (\Drupal::service('module_handler')->moduleExists('openy_font')) {
     $message = 'Open Y Font module was replaced in favor of <a href="https://www.drupal.org/project/fontyourface">FontYourFace</a> module.
         Please, <a href="/admin/appearance/font/local_font_config_entity">use it</a> to add purchased fonts to the site and uninstall Open Y Font module.';
-    drupal_set_message($message, 'warning');
+    $messenger->addMessage($message, 'warning');
   }
 }
 
@@ -869,11 +870,12 @@ function openy_update_8057() {
   $query->condition('par.type', 'lto');
   $query->addField('n', 'nid');
   $resultField = $query->execute()->fetchField();
+  $messenger = \Drupal::messenger();
   if ($resultField) {
     $message = t('Visit <a href="/node/' . $resultField . '/edit">Locations edit page</a> and
       delete "Search by Amenities" Limited Time Offer paragraph in Header area.
       With Sidebar "Amenities" filter it became redundant.');
-    drupal_set_message($message, 'warning');
+    $messenger->addMessage($message, 'warning');
   }
 }
 

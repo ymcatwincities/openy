@@ -127,6 +127,7 @@ class OpenyModulesListForm extends ModulesListForm {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
     $packages = $this->getPackages();
     $modules_to_install = [];
     $packages_to_install = [];
@@ -149,13 +150,13 @@ class OpenyModulesListForm extends ModulesListForm {
     if (!empty($modules_to_install)) {
       try {
         $this->moduleInstaller->install($modules_to_install);
-        drupal_set_message($this->formatPlural(count($packages_to_install), 'Package %name has been enabled.', '@count packages have been enabled: %names.', [
+        $messenger->addMessage($this->formatPlural(count($packages_to_install), 'Package %name has been enabled.', '@count packages have been enabled: %names.', [
           '%name' => $packages_to_install[0],
           '%names' => implode(', ', $packages_to_install),
         ]));
       } catch (PreExistingConfigException $e) {
         $config_objects = $e->flattenConfigObjects($e->getConfigObjects());
-        drupal_set_message(
+        $messenger->addMessage(
           $this->formatPlural(
             count($config_objects),
             'Unable to install @extension, %config_names already exists in active configuration.',
@@ -168,7 +169,7 @@ class OpenyModulesListForm extends ModulesListForm {
         );
         return;
       } catch (UnmetDependenciesException $e) {
-        drupal_set_message(
+        $messenger->addMessage(
           $e->getTranslatedMessage($this->getStringTranslation(), $modules_to_install[$e->getExtension()]),
           'error'
         );
