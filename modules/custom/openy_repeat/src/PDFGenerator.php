@@ -19,7 +19,7 @@ class PDFGenerator {
     if (empty($settings)) {
       return;
     }
-    $temporary_directory = file_directory_temp();
+    $temporary_directory =  \Drupal::service('file_system')->getTempDirectory();
     define("_MPDF_TEMP_PATH", $temporary_directory);
     ini_set("pcre.backtrack_limit", "5000000");
     $html = mb_convert_encoding(render($settings['body']), 'UTF-8', 'UTF-8');
