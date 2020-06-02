@@ -76,7 +76,7 @@ function openy_font_page_attachments(&$page) {
   $bold_settings = $config->get('cachet_bold');
   if (!empty($bold_settings)) {
     $bold = \Drupal\file\Entity\File::load(reset($bold_settings))
-      ->url('canonical');
+      ->toUrl('canonical');
     $css .= "
         @font-face {
           font-family: Cachet Bold;
@@ -87,7 +87,7 @@ function openy_font_page_attachments(&$page) {
   $book_settings = $config->get('cachet_book');
   if (!empty($book_settings)) {
     $book = \Drupal\file\Entity\File::load(reset($book_settings))
-      ->url('canonical');
+      ->toUrl('canonical');
     $css .= "
         @font-face {
           font-family: Cachet W01 Book;
@@ -98,7 +98,7 @@ function openy_font_page_attachments(&$page) {
   $medium_settings = $config->get('cachet_medium');
   if (!empty($medium_settings)) {
     $medium = \Drupal\file\Entity\File::load(reset($medium_settings))
-      ->url('canonical');
+      ->toUrl('canonical');
     $css .= "
         @font-face {
           font-family: Cachet Medium;
