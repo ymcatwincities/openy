@@ -21,6 +21,7 @@ use Drupal\Component\EventDispatcher\ContainerAwareEventDispatcher;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Class ConfigUpdater.
@@ -108,7 +109,7 @@ class ConfigUpdater extends ConfigImporterService {
       }
 
       if (file_exists($file)) {
-        file_unmanaged_copy($file, $tmp_dir, FILE_EXISTS_REPLACE);
+        \Drupal::service('file_system')->copy($file, $tmp_dir, FileSystemInterface::EXISTS_REPLACE);
       }
       else {
         // Possibly, config has been exported a little bit above. This could
@@ -158,7 +159,7 @@ class ConfigUpdater extends ConfigImporterService {
       return;
     }
     if (file_exists($file)) {
-      file_unmanaged_copy($file, $tmp_dir, FILE_EXISTS_REPLACE);
+      \Drupal::service('file_system')->copy($file, $tmp_dir, FileSystemInterface::EXISTS_REPLACE);
       // Check if exist logger entity and enabled force mode.
       if ($this->upgradeLogManager->isForceMode() && $this->upgradeLogManager->isManuallyChanged($config, FALSE)) {
         // ConfigStorage->write not trigger config save event, so create
