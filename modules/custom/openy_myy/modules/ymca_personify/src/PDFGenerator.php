@@ -19,7 +19,7 @@ class PDFGenerator {
     if (empty($settings)) {
       return;
     }
-    if ($temporary_directory = file_directory_temp()) {
+    if ($temporary_directory = \Drupal::service('file_system')->getTempDirectory()) {
       define("_MPDF_TEMP_PATH", $temporary_directory);
     }
     $html = mb_convert_encoding(render($settings['body']), 'UTF-8', 'UTF-8');
