@@ -8,6 +8,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use \Drupal\Core\File\FileSystemInterface;
 
 /**
  * Defines a form for setting Third party services parameters during install.
@@ -290,7 +291,7 @@ class ThirdPartyServicesForm extends FormBase {
     $result = TRUE;
     $snippets = google_tag_snippets();
     foreach ($snippets as $type => $snippet) {
-      $path = file_unmanaged_save_data($snippet, "public://js/google_tag.$type.js", FILE_EXISTS_REPLACE);
+      $path = \Drupal::service('file_system')->saveData($snippet, "public://js/google_tag.$type.js", FileSystemInterface::EXISTS_REPLACE);
       $result = !$path ? FALSE : $result;
     }
     if (!$result) {
