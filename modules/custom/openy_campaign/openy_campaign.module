@@ -1140,10 +1140,10 @@ function openy_campaign_create_checkin($campaignMemberId, $dateString) {
 function openy_campaign_clean_personify_email($email) {
   $email = mb_strtolower($email);
   if (mb_substr($email, -1, 1) == '.') {
-    $email = mb_substr($email, 0, Unicode::strlen($email) - 1);
+    $email = mb_substr($email, 0, mb_strlen($email) - 1);
   }
   if (mb_substr($email, 0, 1) == '/') {
-    $email = mb_substr($email, 1, Unicode::strlen($email));
+    $email = mb_substr($email, 1, mb_strlen($email));
   }
 
   return $email;
