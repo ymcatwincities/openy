@@ -208,7 +208,7 @@ function openy_node_alert_update_8010() {
         if (!$state) {
           $state = 'include';
         }
-        $pages = Unicode::strtolower($pages);
+        $pages = mb_strtolower($pages);
 
         $path_matcher = \Drupal::service('path.matcher');
 

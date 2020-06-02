@@ -31,11 +31,11 @@ class AutocompleteController extends ControllerBase {
       }
 
       $typed_string = Tags::explode($input);
-      $typed_string = Unicode::strtolower(array_pop($typed_string));
+      $typed_string = mb_strtolower(array_pop($typed_string));
       // @todo: Apply logic for generating results based on typed_string and other
       // arguments passed.
       foreach ($options as $machine_name => $option) {
-        $option_lower = Unicode::strtolower($option);
+        $option_lower = mb_strtolower($option);
         if (strpos($option_lower, $typed_string)) {
           $results[] = [
             'value' => $option . ' (' . $machine_name . ')',
