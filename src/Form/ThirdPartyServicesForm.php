@@ -284,6 +284,7 @@ class ThirdPartyServicesForm extends FormBase {
    *   Whether the files were saved.
    */
   public function saveSnippets() {
+    $messenger = \Drupal::messenger();
     // Save the altered snippets after hook_google_tag_snippets_alter().
     module_load_include('inc', 'google_tag', 'includes/snippet');
     $result = TRUE;
@@ -293,10 +294,10 @@ class ThirdPartyServicesForm extends FormBase {
       $result = !$path ? FALSE : $result;
     }
     if (!$result) {
-      drupal_set_message(t('An error occurred saving one or more snippet files. Please try again or contact the site administrator if it persists.'));
+      $messenger->addMessage(t('An error occurred saving one or more snippet files. Please try again or contact the site administrator if it persists.'));
     }
     else {
-      drupal_set_message(t('Created three snippet files based on configuration.'));
+      $messenger->addMessage(t('Created three snippet files based on configuration.'));
       $this->collectionOptimizer->deleteAll();
       _drupal_flush_css_js();
     }
