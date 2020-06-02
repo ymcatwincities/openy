@@ -113,6 +113,8 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
    * {@inheritdoc}
    */
   public function build() {
+    $messenger = \Drupal::messenger();
+
     // The block is rendered for each user separately.
     // It should be invalidated when user tracks the activity.
     $block['#cache'] = [
@@ -165,7 +167,7 @@ class CampaignActivityStatisticsBlock extends BlockBase implements ContainerFact
     $end = $campaign->field_campaign_end_date->date;
 
     if (empty($start) || empty($end)) {
-      drupal_set_message('Start or End dates are not set for campaign.', 'error');
+      $messenger->addMessage('Start or End dates are not set for campaign.', 'error');
       return [
         'message' => [
           '#markup' => '[ Placeholder for Activity Tracking block ]',

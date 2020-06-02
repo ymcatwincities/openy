@@ -387,12 +387,14 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    * {@inheritdoc}
    */
   public function updateExistingConfig($name, array $data, $delete_log = FALSE) {
+    $messenger = \Drupal::messenger();
+
     if (!$this->validateConfigData($name, $data)) {
       return;
     }
 
     if (isset($this->configImporter) && $this->configImporter->alreadyImporting()) {
-      drupal_set_message($this->t('Another request may be importing configuration already.'), 'error');
+      $messenger->addMessage($this->t('Another request may be importing configuration already.'), 'error');
     }
     else {
       try {
@@ -428,9 +430,9 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
       }
       catch (ConfigImporterException $e) {
         // There are validation errors.
-        drupal_set_message($this->t('The configuration import failed for the following reasons:'), 'error');
+        $messenger->addMessage($this->t('The configuration import failed for the following reasons:'), 'error');
         foreach ($this->configImporter->getErrors() as $message) {
-          drupal_set_message($message, 'error');
+          $messenger->addMessage($message, 'error');
         }
       }
     }
@@ -440,6 +442,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    * {@inheritdoc}
    */
   public function validateConfigData($name, array &$data) {
+    $messenger = \Drupal::messenger();
     $config_type = $this->getConfigType($name);
     // Load original config.
     if ($config_type !== FeaturesManagerInterface::SYSTEM_SIMPLE_CONFIG) {
@@ -448,7 +451,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
       $entity_storage = $this->entityTypeManager->getStorage($config_type);
       // If an entity ID was not specified, set an error.
       if (!isset($data[$id_key])) {
-        drupal_set_message($this->t('Missing ID key "@id_key" for this @entity_type import. Please add this key to your config!', [
+        $messenger->addMessage($this->t('Missing ID key "@id_key" for this @entity_type import. Please add this key to your config!', [
           '@id_key' => $id_key,
           '@entity_type' => $definition->getLabel(),
         ]), 'error');
@@ -477,7 +480,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     );
 
     if (!$storage_comparer->createChangelist()->hasChanges()) {
-      drupal_set_message($this->t('There are no changes to import.'), 'status');
+      $messenger->addMessage($this->t('There are no changes to import.'), 'status');
       return FALSE;
     }
     else {
@@ -504,7 +507,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
           '#items' => $config_importer->getErrors(),
           '#title' => $this->t('The configuration cannot be imported because it failed validation for the following reasons:'),
         ];
-        drupal_set_message($this->renderer->render($item_list));
+        $messenger->addMessage($this->renderer->render($item_list));
         return FALSE;
       }
     }
@@ -563,16 +566,18 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
    * object unnecessarily.
    */
   public static function finishBatch($success, $results, $operations) {
+    $messenger = \Drupal::messenger();
+
     if ($success) {
       if (!empty($results['errors'])) {
         foreach ($results['errors'] as $error) {
-          drupal_set_message($error, 'error');
+          $messenger->addMessage($error, 'error');
           \Drupal::logger('config_sync')->error($error);
         }
-        drupal_set_message(t('The configuration was imported with errors.'), 'warning');
+        $messenger->addMessage(t('The configuration was imported with errors.'), 'warning');
       }
       else {
-        drupal_set_message(t('The configuration was imported successfully.'));
+        $messenger->addMessage(t('The configuration was imported successfully.'));
       }
     }
     else {
@@ -583,7 +588,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
         '%error_operation' => $error_operation[0],
         '@arguments' => print_r($error_operation[1], TRUE),
       ]);
-      drupal_set_message($message, 'error');
+      $messenger->addMessage($message, 'error');
     }
 
     $redirect_url = Url::fromRoute(self::DASHBOARD)

@@ -21,11 +21,12 @@ class EmbeddedGroupExProScheduleBlock extends BlockBase {
    */
   public function build() {
     $account = \Drupal::config('embedded_groupexpro_schedule.settings')->get('account');
+    $messenger = \Drupal::messenger();
 
     if (empty($account)) {
       // If the account id is not set, set an error and return empty.
       $link = Link::createFromRoute(t('Set the id'), 'embeddedgroupexpro.settings');
-      drupal_set_message(t('The GroupEx Pro account id is not set. @link.', ['@link' => $link->toString()]), 'error', TRUE);
+      $messenger->addMessage(t('The GroupEx Pro account id is not set. @link.', ['@link' => $link->toString()]), 'error', TRUE);
       return [];
     }
 

@@ -36,10 +36,11 @@ class OpenyModulesUninstallConfirmForm extends ModulesUninstallConfirmForm {
     $account = $this->currentUser()->id();
     $this->modules = $this->keyValueExpirable->get($account);
     $packages = $this->keyValueExpirable->get($account . '_packages');
+    $messenger = \Drupal::messenger();
 
     // Prevent this page from showing when the packages list is empty.
     if (empty($packages)) {
-      drupal_set_message($this->t('The selected packages could not be uninstalled, either due to a website problem or due to the uninstall confirmation form timing out. Please try again.'), 'error');
+      $messenger->addMessage($this->t('The selected packages could not be uninstalled, either due to a website problem or due to the uninstall confirmation form timing out. Please try again.'), 'error');
       return $this->redirect('openy_system.modules_uninstall');
     }
 
@@ -59,13 +60,14 @@ class OpenyModulesUninstallConfirmForm extends ModulesUninstallConfirmForm {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
     // Clear the key value store entry.
     $account = $this->currentUser()->id();
     $this->keyValueExpirable->delete($account);
     $this->keyValueExpirable->delete($account. '_packages');
     // Uninstall the modules.
     $this->moduleInstaller->uninstall($this->modules);
-    drupal_set_message($this->t('The selected packages have been uninstalled.'));
+    $messenger->addMessage($this->t('The selected packages have been uninstalled.'));
     // Set redirect to project uninstall page
     $form_state->setRedirect('openy_system.modules_uninstall');
   }
