@@ -320,7 +320,7 @@ class AlertsRestResource extends ResourceBase {
       $state = $node->get('field_alert_visibility_state')->value;
     }
 
-    $pages = Unicode::strtolower($pages);
+    $pages = mb_strtolower($pages);
     if (!$pages) {
       // Global alert.
       return TRUE;
@@ -332,7 +332,7 @@ class AlertsRestResource extends ResourceBase {
     // Compare the lowercase path alias (if any) and internal path.
     $current_path = $_GET['uri'];
     $path = $this->aliasManager->getAliasByPath($current_path);
-    $path = Unicode::strtolower($path);
+    $path = mb_strtolower($path);
 
     // Do not trim a trailing slash if that is the complete path.
     $path = $path === '/' ? $path : rtrim($path, '/');
