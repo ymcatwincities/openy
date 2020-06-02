@@ -23,7 +23,7 @@ class EmbedButtonIconHelper {
   public static function setEmbedButtonIcon($module_name, $file_name, $embed_button_name) {
     $icon = \Drupal::moduleHandler()->getModule($module_name)->getPath() . '/images/' . $file_name;
     $fs = \Drupal::service('file_system');
-    $destination = file_unmanaged_copy($icon, 'public://' . $fs->basename($icon));
+    $destination = \Drupal::service('file_system')->copy($icon, 'public://' . $fs->basename($icon));
 
     if ($destination) {
       $file = File::create(['uri' => $destination]);
