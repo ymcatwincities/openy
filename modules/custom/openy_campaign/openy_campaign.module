@@ -789,7 +789,7 @@ function openy_campaign_field_widget_form_alter(&$element, FormStateInterface $f
     $message = t($templateString, [
       '@publish_on' => $publishOn,
       '@unpublish_on' => $unpublishOn,
-    ]) . ' <a href="' . $node->url('edit-form') . '">' . t('Edit page') . '</a>';
+    ]) . ' <a href="' . $node->toUrl('edit-form') . '">' . t('Edit page') . '</a>';
 
     $element['#suffix'] = '<div class="publishing-dates">' . $message . '</div>';
   }
@@ -1015,7 +1015,7 @@ function openy_campaign_campaign_menu_field_render(&$form, FormStateInterface $f
 
       $menuBlock['links'][$row]['actions'] = [
         '#markup' => !empty($page)
-          ? '<a href="' . $page->url('edit-form') . '">' . t('Edit') . '</a>'
+          ? '<a href="' . $page->toUrl('edit-form') . '">' . t('Edit') . '</a>'
           : '',
       ];
 
