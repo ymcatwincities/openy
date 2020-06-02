@@ -1138,7 +1138,7 @@ function openy_campaign_create_checkin($campaignMemberId, $dateString) {
  *   Email.
  */
 function openy_campaign_clean_personify_email($email) {
-  $email = Unicode::strtolower($email);
+  $email = mb_strtolower($email);
   if (Unicode::substr($email, -1, 1) == '.') {
     $email = Unicode::substr($email, 0, Unicode::strlen($email) - 1);
   }
