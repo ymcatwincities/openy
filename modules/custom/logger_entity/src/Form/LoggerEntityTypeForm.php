@@ -48,16 +48,17 @@ class LoggerEntityTypeForm extends EntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     $logger_entity_type = $this->entity;
     $status = $logger_entity_type->save();
+    $messenger = \Drupal::messenger();
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Logger Entity type.', [
+        $messenger->addMessage($this->t('Created the %label Logger Entity type.', [
           '%label' => $logger_entity_type->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Logger Entity type.', [
+        $messenger->addMessage($this->t('Saved the %label Logger Entity type.', [
           '%label' => $logger_entity_type->label(),
         ]));
     }

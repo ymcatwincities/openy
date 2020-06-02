@@ -29,6 +29,7 @@ class AdvancedHelpBlockForm extends ContentEntityForm {
    */
   public function save(array $form, FormStateInterface $form_state) {
     $status = parent::save($form, $form_state);
+    $messenger = \Drupal::messenger();
 
     $entity = $this->entity;
     if ($entity instanceof EntityChangedInterface) {
@@ -36,7 +37,7 @@ class AdvancedHelpBlockForm extends ContentEntityForm {
     }
 
     if ($status == SAVED_UPDATED) {
-      drupal_set_message(
+      $messenger->addMessage(
         $this->t(
           'The Advanced Help Block %feed has been updated.', [
             '%feed' => $entity->toLink()
@@ -46,7 +47,7 @@ class AdvancedHelpBlockForm extends ContentEntityForm {
       );
     }
     else {
-      drupal_set_message(
+      $messenger->addMessage(
         $this->t(
           'The Advanced Help Block %feed has been added.', [
             '%feed' => $entity->toLink()

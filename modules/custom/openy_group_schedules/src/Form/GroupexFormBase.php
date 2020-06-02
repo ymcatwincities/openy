@@ -170,6 +170,8 @@ abstract class GroupexFormBase extends FormBase {
    *   Redirect parameters.
    */
   protected function getRedirectParams(array $form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
+
     $params = [
       'location' => array_filter($form_state->getValue('location')),
       'class' => $form_state->getValue('class_name'),
@@ -191,7 +193,7 @@ abstract class GroupexFormBase extends FormBase {
     // Toggle filter_length if user has selected more than 1 location and week period.
     if ($params['filter_length'] == 'week' && count($params['location']) > 1) {
       $params['filter_length'] = 'day';
-      drupal_set_message(t('Search results across multiple locations are limited to a single day.'), 'warning');
+      $messenger->addMessage(t('Search results across multiple locations are limited to a single day.'), 'warning');
     }
 
     return $params;

@@ -353,6 +353,7 @@ class MemberRegistrationPortalForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
     $step = $form_state->getValue('step');
     $email = $form_state->get('membership_email');
 
@@ -467,7 +468,7 @@ class MemberRegistrationPortalForm extends FormBase {
       $this->regularUpdater->createQueue($dateFrom, $dateTo, $membersData);
 
       // If the member has not previously registered, there will be a basic message "This member is now registered".
-      drupal_set_message(t('This member is now registered'), 'status', TRUE);
+      $messenger->addMessage(t('This member is now registered'), 'status', TRUE);
     }
   }
 
