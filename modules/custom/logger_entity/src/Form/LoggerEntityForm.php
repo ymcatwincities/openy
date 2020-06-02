@@ -36,16 +36,17 @@ class LoggerEntityForm extends ContentEntityForm {
   public function save(array $form, FormStateInterface $form_state) {
     $entity = $this->entity;
     $status = parent::save($form, $form_state);
+    $messenger = \Drupal::messenger();
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Logger Entity.', [
+        $messenger->addMessage($this->t('Created the %label Logger Entity.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Logger Entity.', [
+        $messenger->addMessage($this->t('Saved the %label Logger Entity.', [
           '%label' => $entity->label(),
         ]));
     }
