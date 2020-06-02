@@ -48,9 +48,11 @@ class SessionInstanceActualizeBatch {
    *   If $success is FALSE, contains the operations that remained unprocessed.
    */
   public static function finished($success, $results, $operations) {
+    $messenger = \Drupal::messenger();
+
     if ($success) {
       $message = t('@count sessions were processed.', ['@count' => count($results)]);
-      drupal_set_message($message);
+      $messenger->addMessage($message);
     }
     else {
       // An error occurred.
@@ -60,7 +62,7 @@ class SessionInstanceActualizeBatch {
           '%error_operation' => $error_operation[0],
           '@arguments' => print_r($error_operation[1], TRUE)
         ));
-      drupal_set_message($message, 'error');
+      $messenger->addMessage($message, 'error');
     }
   }
 
