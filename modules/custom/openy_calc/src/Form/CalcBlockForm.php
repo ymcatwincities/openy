@@ -253,13 +253,15 @@ class CalcBlockForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $storage = $form_state->getStorage();
     $url = $this->dataWrapper->getRedirectUrl($storage['location'], $storage['type']);
+    $messenger = \Drupal::messenger();
+
     if ($url) {
       // Redirect to membership registration path.
       $response = new TrustedRedirectResponse($url->toString());
       $form_state->setResponse($response);
     }
     else {
-      drupal_set_message($this->t('Unfortunately, selected branch doesn`t provide needed membership type. Please select other membership type or branch.'), 'error');
+      $messenger->addMessage($this->t('Unfortunately, selected branch doesn`t provide needed membership type. Please select other membership type or branch.'), 'error');
     }
   }
 
