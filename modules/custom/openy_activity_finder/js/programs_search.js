@@ -706,7 +706,6 @@
         }).done(function() {
           component.loading = false;
         });
-        window.scrollTo(0,0);
       },
       searchAlternativeResults: function(type) {
         this.alternativeCriteria = type;
