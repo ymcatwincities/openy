@@ -74,6 +74,7 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function save(array $form, FormStateInterface $form_state) {
+    $messenger = \Drupal::messenger();
     $entity = $this->entity;
 
     // Save as a new revision if requested to do so.
@@ -92,13 +93,13 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        drupal_set_message($this->t('Created the %label Openy upgrade log.', [
+        $messenger->addMessage($this->t('Created the %label Openy upgrade log.', [
           '%label' => $entity->label(),
         ]));
         break;
 
       default:
-        drupal_set_message($this->t('Saved the %label Openy upgrade log.', [
+        $messenger->addMessage($this->t('Saved the %label Openy upgrade log.', [
           '%label' => $entity->label(),
         ]));
     }
