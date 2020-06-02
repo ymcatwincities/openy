@@ -310,7 +310,7 @@ function openy_rose_page_attachments_alter(array &$page) {
   }
 
   // Get Camp section favicon & mime type.
-  $favicon = $file->url();
+  $favicon = $file->toUrl();
   $type = $file->getMimeType();
 
   // Attach favicon.
