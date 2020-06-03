@@ -50,6 +50,7 @@ abstract class GroupexFormBase extends FormBase {
     $timezone = new \DateTimeZone($this->config('system.date')->get('timezone')['default']);
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
+    $request_time = \Drupal::time()->getRequestTime();
 
     // Check if we have additional argument to prepopulate the form.
     $refine = FALSE;
@@ -107,7 +108,7 @@ abstract class GroupexFormBase extends FormBase {
       '#title' => $this->t('View Day or Week'),
     ];
 
-    $filter_date_default = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+    $filter_date_default = DrupalDateTime::createFromTimestamp($request_time, $timezone);
     if ($refine && !empty($params['filter_date'])) {
       $date = DrupalDateTime::createFromFormat(
         self::$dateFilterFormat,
