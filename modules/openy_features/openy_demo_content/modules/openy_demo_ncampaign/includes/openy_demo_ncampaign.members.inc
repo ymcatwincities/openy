@@ -54,6 +54,7 @@ function _openy_demo_ncampaign_members_create($options) {
  * Helper function to create fake checkins.
  */
 function _openy_demo_ncampaign_checkins_create($member, $everyday = FALSE) {
+  $request_time = \Drupal::time()->getRequestTime();
   $count = rand(3, 8);
   $dates = _openy_demo_ncampaign_generate_random_dates($count, $everyday);
   if ($everyday) {
@@ -63,7 +64,7 @@ function _openy_demo_ncampaign_checkins_create($member, $everyday = FALSE) {
     $checkin = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member_checkin')
       ->create([
-        'created' => REQUEST_TIME,
+        'created' => $request_time,
         'date' => $dates[$i]->getTimestamp(),
         'member' => $member->id(),
         'checkin' => TRUE,
@@ -76,13 +77,14 @@ function _openy_demo_ncampaign_checkins_create($member, $everyday = FALSE) {
  * Helper function to create fake bonuses.
  */
 function _openy_demo_ncampaign_bonuses_create($member) {
+  $request_time = \Drupal::time()->getRequestTime();
   $count = rand(3, 8);
   $dates = _openy_demo_ncampaign_generate_random_dates($count);
   for ($i = 0; $i < $count; $i++) {
     $bonus = \Drupal::entityTypeManager()
       ->getStorage('openy_campaign_member_bonus')
       ->create([
-        'created' => REQUEST_TIME,
+        'created' => $request_time,
         'date' => $dates[$i]->getTimestamp(),
         'member' => $member->id(),
         'bonus_code' => _openy_demo_ncampaign_generate_random_string(3),
@@ -95,6 +97,7 @@ function _openy_demo_ncampaign_bonuses_create($member) {
  * Helper function to create fake activities.
  */
 function _openy_demo_ncampaign_activities_create($member) {
+  $request_time = \Drupal::time()->getRequestTime();
   $activities_number = rand(20, 50);
 
   // Load activity terms.
@@ -113,7 +116,7 @@ function _openy_demo_ncampaign_activities_create($member) {
     }
 
     $activity = MemberActivity::create([
-      'timestamp' => REQUEST_TIME,
+      'timestamp' => $request_time,
       'member' => $member->id(),
       'activity_type' => $term->tid,
     ]);
