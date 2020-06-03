@@ -112,8 +112,8 @@ class HolidayHoursFormatter extends FormatterBase implements ContainerFactoryPlu
       }
 
       $holiday_timestamp = $values['date'];
-
-      if (REQUEST_TIME < ($holiday_timestamp + $show_after_offset) && ($holiday_timestamp - REQUEST_TIME) <= $show_before_offset) {
+      $request_time = \Drupal::time()->getRequestTime();
+      if ($request_time < ($holiday_timestamp + $show_after_offset) && ($holiday_timestamp - $request_time) <= $show_before_offset) {
         $title = Html::escape($values['holiday']);
         $rows[] = [
           'data' => [

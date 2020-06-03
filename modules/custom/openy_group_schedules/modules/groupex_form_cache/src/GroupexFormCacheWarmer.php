@@ -165,9 +165,10 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
    *   TRUE if cache entity is valid.
    */
   private function isValid(GroupexFormCacheInterface $entity) {
+    $request_time = \Drupal::time()->getRequestTime();
     $options = unserialize($entity->field_gfc_options->value);
     if (array_key_exists('start', $options['query']) && array_key_exists('end', $options['query'])) {
-      if (REQUEST_TIME >= $options['end']) {
+      if ($request_time >= $options['end']) {
         return FALSE;
       }
     }
@@ -188,9 +189,10 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
     if (!$created = $entity->field_gfc_created->value) {
       return TRUE;
     }
+    $request_time = \Drupal::time()->getRequestTime();
 
     $config = $this->configFactory->get('groupex_form_cache.settings');
-    if ((REQUEST_TIME - $created) > $config->get('cache_warmup_interval')) {
+    if (($request_time - $created) > $config->get('cache_warmup_interval')) {
       return TRUE;
     }
 
