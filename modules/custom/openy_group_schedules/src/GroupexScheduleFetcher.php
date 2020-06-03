@@ -127,14 +127,14 @@ class GroupexScheduleFetcher {
     if ($this->schedule) {
       return $this->schedule;
     }
-
+    $request_time = \Drupal::time()->getRequestTime();
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $days_range = is_numeric($conf->get('days_range')) ? $conf->get('days_range') : 14;
 
     $filter_date = DrupalDateTime::createFromTimestamp($this->parameters['filter_timestamp'], $this->timezone);
-    $current_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
+    $current_date = DrupalDateTime::createFromTimestamp($request_time, $this->timezone)->format(GroupexRequestTrait::$dateFilterFormat);
     // Define end date of shown items as 2 weeks.
-    $end_date = DrupalDateTime::createFromTimestamp(REQUEST_TIME + 86400 * $days_range, $this->timezone);
+    $end_date = DrupalDateTime::createFromTimestamp($request_time + 86400 * $days_range, $this->timezone);
 
     // Prepare classes items.
     $items = [];
@@ -560,11 +560,12 @@ class GroupexScheduleFetcher {
   public static function normalizeParameters(array $parameters) {
     $normalized = $parameters;
 
+    $request_time = \Drupal::time()->getRequestTime();
     $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
 
     // The old site has a habit to provide empty filter_date. Fix it here.
     if (empty($normalized['filter_date'])) {
-      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+      $date = DrupalDateTime::createFromTimestamp($request_time, $timezone);
       $normalized['filter_date'] = $date->format(self::$dateFilterFormat);
     }
 
@@ -581,7 +582,7 @@ class GroupexScheduleFetcher {
       $timestamp += $offset;
     }
     else {
-      $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+      $date = DrupalDateTime::createFromTimestamp($request_time, $timezone);
       $timestamp = $date->format('U');
     }
 

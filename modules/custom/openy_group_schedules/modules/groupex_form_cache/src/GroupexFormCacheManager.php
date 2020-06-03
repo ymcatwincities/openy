@@ -86,12 +86,13 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
   public function getCache(array $options) {
     array_multisort($options);
     $search = serialize($options);
+    $request_time = \Drupal::time()->getRequestTime();
 
     $local_cache = &drupal_static('groupex_form_cache_static');
     if (!isset($local_cache[$search])) {
       $result = $this->queryFactory->get(self::ENTITY_TYPE)
         ->condition('field_gfc_options', $search)
-        ->condition('field_gfc_created', REQUEST_TIME - $this->config->get('cache_max_age'), '>')
+        ->condition('field_gfc_created', $request_time - $this->config->get('cache_max_age'), '>')
         ->execute();
 
       $local_cache[$search] = FALSE;
@@ -114,9 +115,11 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
    *   Data.
    */
   public function setCache(array $options, array $data) {
+    $request_time = \Drupal::time()->getRequestTime();
+
     array_multisort($options);
     $cache = GroupexFormCache::create([
-      'field_gfc_created' => REQUEST_TIME,
+      'field_gfc_created' => $request_time,
       'field_gfc_options' => serialize($options),
       'field_gfc_response' => serialize($data)
     ]);
@@ -165,10 +168,12 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
    */
   public function resetStaleCache($count = 100, $time = 86400) {
     $timer = 'reset_stale_cache';
+    $request_time = \Drupal::time()->getRequestTime();
+
     Timer::start($timer);
 
     $result = $this->queryFactory->get(self::ENTITY_TYPE)
-      ->condition('field_gfc_created', REQUEST_TIME - $time, '<')
+      ->condition('field_gfc_created', $request_time - $time, '<')
       ->execute();
     if (empty($result)) {
       $this->logger->info('No stale cache was found. Nothing to clear.');
