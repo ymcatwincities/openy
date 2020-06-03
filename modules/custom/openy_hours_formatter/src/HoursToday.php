@@ -16,6 +16,7 @@ class HoursToday {
    *   Renderable array of today hours.
    */
   public function generateHoursToday() {
+    $request_time = \Drupal::time()->getRequestTime();
     $hours = func_get_args();
     $days = [
       'Monday',
@@ -27,7 +28,7 @@ class HoursToday {
       'Sunday',
     ];
     $timezone = new \DateTimeZone(\Drupal::config('system.date')->get('timezone')['default']);
-    $date = DrupalDateTime::createFromTimestamp(REQUEST_TIME, $timezone);
+    $date = DrupalDateTime::createFromTimestamp($request_time, $timezone);
     $today = $date->format('l');
 
     return [

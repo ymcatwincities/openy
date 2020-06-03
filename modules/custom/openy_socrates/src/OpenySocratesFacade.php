@@ -115,6 +115,8 @@ class OpenySocratesFacade {
    * Runner for all openy cron services.
    */
   public function cron() {
+    $request_time = \Drupal::time()->getRequestTime();
+
     // @todo Use config to stop/resume the runner.
     $prefix = 'openy_cron_';
     /** @var OpenyCronServiceInterface $service */
@@ -122,13 +124,13 @@ class OpenySocratesFacade {
       foreach ($services as $service) {
         $name = $prefix . $service->_serviceId;
         $last_run = $this->state->get($name);
-        if ((REQUEST_TIME - $last_run) > $periodicity) {
+        if (($request_time - $last_run) > $periodicity) {
           // @todo Fix DI on OpenY sprint.
           \Drupal::logger("openy_cron")->info('Service %service has been started.', ['%service' => $service->_serviceId]);
           Timer::start($name);
           $service->runCronServices();
           $execution_time = Timer::read($name) / 1000;
-          $this->state->set($name, REQUEST_TIME);
+          $this->state->set($name, $request_time);
           \Drupal::logger("openy_cron")->info('Service %service has been finished. Execution time: %time sec.', ['%service' => $service->_serviceId, '%time' => $execution_time]);
           Timer::stop($name);
         }

@@ -75,6 +75,7 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
    */
   public function save(array $form, FormStateInterface $form_state) {
     $messenger = \Drupal::messenger();
+    $request_time = \Drupal::time()->getRequestTime();
     $entity = $this->entity;
 
     // Save as a new revision if requested to do so.
@@ -82,7 +83,7 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
       $entity->setNewRevision();
 
       // If a new revision is created, save the current user as revision author.
-      $entity->setRevisionCreationTime(REQUEST_TIME);
+      $entity->setRevisionCreationTime($request_time);
       $entity->setRevisionUserId($this->accountProxy->id());
     }
     else {

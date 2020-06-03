@@ -158,6 +158,7 @@ class GroupexFormFull extends GroupexFormBase {
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $max_age = is_numeric($conf->get('cache_max_age')) ? $conf->get('cache_max_age') : 3600;
     $instructors_options = [];
+    $request_time = \Drupal::time()->getRequestTime();
 
     // Get location options.
     $this->locationOptions = $this->getOptions($this->request(['query' => ['locations' => TRUE]]), 'id', 'name');
@@ -284,7 +285,7 @@ class GroupexFormFull extends GroupexFormBase {
     else {
       $dt = new \DateTime();
       $dt->setTimezone($tz);
-      $dt->setTimestamp(REQUEST_TIME);
+      $dt->setTimestamp($request_time);
       $default_date = $dt->format('Y-m-d');
     }
 
@@ -451,7 +452,7 @@ class GroupexFormFull extends GroupexFormBase {
       ];
     }
 
-    $filter_date_default = date('n/d/y', REQUEST_TIME);
+    $filter_date_default = date('n/d/y', $request_time);
     $form['date'] = [
       '#type' => 'hidden',
       '#default_value' => $filter_date_default,
