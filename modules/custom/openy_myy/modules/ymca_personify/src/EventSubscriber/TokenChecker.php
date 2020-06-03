@@ -29,6 +29,7 @@ class TokenChecker implements EventSubscriberInterface {
    *   Event.
    */
   public function checkToken(GetResponseEvent $event) {
+    $request_time = \Drupal::time()->getRequestTime();
     $container = \Drupal::getContainer();
 
     /** @var Request $request */
@@ -43,7 +44,7 @@ class TokenChecker implements EventSubscriberInterface {
     }
 
     // Do not check on every request.
-    if (!empty($time) && (REQUEST_TIME - $time) < self::CHECK_TIME) {
+    if (!empty($time) && ($request_time - $time) < self::CHECK_TIME) {
       return;
     }
 
@@ -71,7 +72,7 @@ class TokenChecker implements EventSubscriberInterface {
     if ($token = $sso->validateCustomerToken($token)) {
       user_cookie_save([
         'personify_authorized' => $token,
-        'personify_time' => REQUEST_TIME,
+        'personify_time' => $request_time,
       ]);
     }
     else {

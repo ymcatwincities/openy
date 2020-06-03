@@ -116,6 +116,7 @@ class PersonifyController extends ControllerBase {
    * Auth page.
    */
   public function authPage() {
+    $request_time = \Drupal::time()->getRequestTime();
     $query = \Drupal::request()->query->all();
     if (isset($query['ct']) && !empty($query['ct'])) {
       $this->config = \Drupal::config('ymca_personify.settings')->getRawData();
@@ -126,7 +127,7 @@ class PersonifyController extends ControllerBase {
       if ($token = $this->sso->validateCustomerToken($decrypted_token)) {
         user_cookie_save([
           'personify_authorized' => $token,
-          'personify_time' => REQUEST_TIME,
+          'personify_time' => $request_time,
           'personify_id' => $id
         ]);
         \Drupal::logger('ymca_personify')->info('A user logged in via Personify.');

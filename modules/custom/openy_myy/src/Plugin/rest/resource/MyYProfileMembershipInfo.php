@@ -90,6 +90,7 @@ class MyYProfileMembershipInfo extends ResourceBase {
    */
   public function get() {
 
+    $request_time = \Drupal::time()->getRequestTime();
     $myy_config = $this->config->getRawData();
     $myy_authenticator_instances = $this->myYDataProfile->getDefinitions();
     if (array_key_exists($myy_config['myy_data_profile'], $myy_authenticator_instances)) {
@@ -104,7 +105,7 @@ class MyYProfileMembershipInfo extends ResourceBase {
           ->myYDataProfile
           ->createInstance($myy_config['myy_data_profile'])
           ->getMembershipInfo();
-        \Drupal::cache()->set($cid, $response, REQUEST_TIME + 3600);
+        \Drupal::cache()->set($cid, $response, $request_time + 3600);
       }
 
     } else {

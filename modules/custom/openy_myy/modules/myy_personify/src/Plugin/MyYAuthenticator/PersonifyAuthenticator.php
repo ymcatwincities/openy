@@ -142,6 +142,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
    */
   public function authPage() {
 
+    $request_time = \Drupal::time()->getRequestTime();
     $query = $this->request->query->all();
     if (isset($query['ct']) && !empty($query['ct'])) {
       $decrypted_token = $this->personifySSO->decryptCustomerToken($query['ct']);
@@ -149,7 +150,7 @@ class PersonifyAuthenticator extends PluginBase implements MyYAuthenticatorInter
       if ($token = $this->personifySSO->validateCustomerToken($decrypted_token)) {
         user_cookie_save([
           'personify_authorized' => $token,
-          'personify_time' => REQUEST_TIME,
+          'personify_time' => $request_time,
         ]);
 
         $this->logger->info('A user logged in via Personify.');
