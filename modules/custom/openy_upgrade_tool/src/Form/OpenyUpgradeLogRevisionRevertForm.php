@@ -140,9 +140,10 @@ class OpenyUpgradeLogRevisionRevertForm extends ConfirmFormBase {
    *   The prepared revision ready to be stored.
    */
   protected function prepareRevertedRevision(OpenyUpgradeLogInterface $revision, FormStateInterface $form_state) {
+    $request_time = \Drupal::time()->getRequestTime();
     $revision->setNewRevision();
     $revision->isDefaultRevision();
-    $revision->setRevisionCreationTime(REQUEST_TIME);
+    $revision->setRevisionCreationTime($request_time);
 
     return $revision;
   }
