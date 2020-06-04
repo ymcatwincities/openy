@@ -7,6 +7,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\openy_upgrade_tool\Entity\OpenyUpgradeLogInterface;
 use Drupal\openy_upgrade_tool\OpenyUpgradeLogManagerInterface;
@@ -212,7 +213,7 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
         // Use revision link to link to revisions that are not active.
         $date = $this->dateFormatter->format($revision->getRevisionCreationTime(), 'short');
         if ($vid != $openy_upgrade_log->getRevisionId()) {
-          $link = $this->l($date, new Url('entity.openy_upgrade_log.revision', ['openy_upgrade_log' => $openy_upgrade_log->id(), 'openy_upgrade_log_revision' => $vid]));
+          $link = Link::fromTextAndUrl($date, new Url('entity.openy_upgrade_log.revision', ['openy_upgrade_log' => $openy_upgrade_log->id(), 'openy_upgrade_log_revision' => $vid]));
         }
         else {
           $link = $openy_upgrade_log->toLink($date)->toString();;
