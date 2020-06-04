@@ -7,6 +7,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 
 /**
  * Implements SearchResultsController.
@@ -21,13 +22,24 @@ class SearchResultsController extends ControllerBase implements ContainerInjecti
   protected $configFactory;
 
   /**
+   * EntityTypeManager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   */
+  protected $entityTypeManager;
+
+  /**
    * Constructs All Search Results.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
+   *   EntityTypeManager.
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
+
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entityTypeManager) {
     $this->configFactory = $config_factory;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -35,7 +47,8 @@ class SearchResultsController extends ControllerBase implements ContainerInjecti
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -54,8 +67,9 @@ class SearchResultsController extends ControllerBase implements ContainerInjecti
       unset($query['location']);
       return $this->redirect('ymca_frontend.location_schedules', ['node' => $node->id()], ['query' => $query]);
     }
-    $view = node_view($node, 'groupex');
-    $markup = render($view);
+    $viewBuilder = $this->entityTypeManager->getViewBuilder('node');
+    $node_view = $viewBuilder->view($node, 'groupex');
+    $markup = render($node_view);
 
     return [
       '#markup' => $markup,
