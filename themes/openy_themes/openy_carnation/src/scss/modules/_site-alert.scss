@@ -80,6 +80,7 @@
 .header-alerts-list,
 .footer-alerts-list {
   z-index: 1;
+  position: relative;
 
   .site-alert--header,
   .site-alert--footer {
@@ -96,6 +97,7 @@
   }
 
   .slick__arrow {
+    margin: 0!important;
     position: relative !important;
     bottom: 62px;
   }
@@ -152,6 +154,9 @@
       font-weight: bold;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      position: absolute;
+      left: 0;
+      top: 0;
     }
 
     &:hover:before {
@@ -171,7 +176,6 @@
   }
 
   .site-alert__wrapper {
-    width: 68%;
     margin: 0 auto;
     padding: 8px 48px;
   }
@@ -224,39 +228,28 @@
 .footer-alerts-list {
   .container {
     margin-top: -2px;
+
   }
 
+  & > .container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    visibility: hidden;
+  }
 
-  .slick-prev,
   .slick-prev {
-    left: 20px;
-
-    @include media-breakpoint-up(lg) {
-      left: 0;
-    }
+    left: 0;
 
     &:before {
       content: "\f053";
     }
   }
 
-  @media (max-width:992px) {
-    .slick-prev {
-      left: -10px;
-    }
-
-    .slick-next {
-      right: -10px;
-    }
-  }
-
-  .slick-next,
   .slick-next {
-    right: 20px;
-
-    @include media-breakpoint-up(lg) {
-      right: 0;
-    }
+    right: 0;
 
     &:before {
       content: "\f054";
