@@ -875,10 +875,11 @@ class SchedulesSearchForm extends FormBase {
         if ($minutes >= 45 && $minutes <= 59) {
           $minute = '45';
         }
+        $viewBuilder = $this->entityTypeManager->getViewBuilder('node');
         $rounded_time = $hour . ':' . $minute . ' ' . $timestamp->format('a');
         $content[$rounded_time][$session_instance->session->target_id] = [
           'label' => $class->getTitle(),
-          'teaser' => node_view($class, 'teaser'),
+          'teaser' => $viewBuilder->view($class, 'teaser'),
           'included_in_membership' => $included_in_membership,
           'ticket_required' => $ticket_required,
           'url' => Url::fromUri('internal:/node/' . $class->id(), [
