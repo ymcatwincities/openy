@@ -164,7 +164,7 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
    */
   public function revisionPageTitle($openy_upgrade_log_revision) {
     $openy_upgrade_log = $this->entityManager()->getStorage('openy_upgrade_log')->loadRevision($openy_upgrade_log_revision);
-    return $this->t('Revision of %title from %date', ['%title' => $openy_upgrade_log->label(), '%date' => format_date($openy_upgrade_log->getRevisionCreationTime())]);
+    return $this->t('Revision of %title from %date', ['%title' => $openy_upgrade_log->label(), '%date' => \Drupal::service('date.formatter')->format($openy_upgrade_log->getRevisionCreationTime())]);
   }
 
   /**
@@ -215,7 +215,7 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
           $link = $this->l($date, new Url('entity.openy_upgrade_log.revision', ['openy_upgrade_log' => $openy_upgrade_log->id(), 'openy_upgrade_log_revision' => $vid]));
         }
         else {
-          $link = $openy_upgrade_log->link($date);
+          $link = $openy_upgrade_log->toLink($date)->toString();;
         }
 
         $row = [];

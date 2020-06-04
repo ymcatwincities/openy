@@ -320,7 +320,7 @@ class OpenyUpgradeLogDiff extends FormBase {
    */
   public function closeModal(array $form, FormStateInterface $form_state) {
     $response = new AjaxResponse();
-    $dashboard_url = $this->getUrlGenerator()
+    $dashboard_url = \Drupal::service('url_generator')
       ->generateFromRoute(OpenyUpgradeLogManager::DASHBOARD);
     $response->addCommand(new RedirectCommand($dashboard_url));
     $response->addCommand(new CloseModalDialogCommand());
