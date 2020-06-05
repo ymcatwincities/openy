@@ -211,7 +211,7 @@
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
-        "drupal/core": "^9.0",
+        "drupal/core": "^9.0.0",
         "symfony/process": "^4",
         "drupal/features": "3.8",
         "drupal/config_update": "^1.6",
