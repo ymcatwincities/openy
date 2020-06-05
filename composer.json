@@ -217,7 +217,6 @@
         "drupal/config_update": "^1.6",
         "drupal/entity": "^1",
         "drupal/media_entity": "2.0.0-beta3",
-        "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
         "drupal/address": "1.8",
         "drupal/paragraphs": "1.6",
