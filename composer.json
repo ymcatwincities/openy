@@ -240,7 +240,7 @@
         "drupal/verf": "1.0-beta7",
         "drupal/views_infinite_scroll": "^1.7",
         "drupal/simple_menu_icons": "1.x-dev",
-        "drupal/slick": "2.0.0-alpha1",
+        "drupal/slick": "2.2.0",
         "drupal/blazy": "2.1.0",
         "drupal/geolocation": "^3.0",
         "library-jaypan/jquery_colorpicker": "1.0.1",
