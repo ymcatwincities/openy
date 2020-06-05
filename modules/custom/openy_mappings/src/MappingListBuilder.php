@@ -4,8 +4,8 @@ namespace Drupal\openy_mappings;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of Mapping entities.
@@ -13,8 +13,6 @@ use Drupal\Core\Url;
  * @ingroup openy_mappings
  */
 class MappingListBuilder extends EntityListBuilder {
-
-  use LinkGeneratorTrait;
 
   /**
    * {@inheritdoc}
@@ -31,7 +29,7 @@ class MappingListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\openy_mappings\Entity\Mapping */
     $row['id'] = $entity->id();
-    $row['name'] = $this->l(
+    $row['name'] = Link::fromTextAndUrl(
       $entity->label(),
       new Url(
         'entity.mapping.edit_form', array(

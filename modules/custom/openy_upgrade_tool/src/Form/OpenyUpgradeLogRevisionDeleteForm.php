@@ -73,7 +73,7 @@ class OpenyUpgradeLogRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return t('Are you sure you want to delete the revision from %revision-date?', ['%revision-date' => format_date($this->revision->getRevisionCreationTime())]);
+    return t('Are you sure you want to delete the revision from %revision-date?', ['%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime())]);
   }
 
   /**
@@ -108,7 +108,7 @@ class OpenyUpgradeLogRevisionDeleteForm extends ConfirmFormBase {
     $this->OpenyUpgradeLogStorage->deleteRevision($this->revision->getRevisionId());
 
     $this->logger('content')->notice('Openy upgrade log: deleted %title revision %revision.', ['%title' => $this->revision->label(), '%revision' => $this->revision->getRevisionId()]);
-    $messenger->addMessage(t('Revision from %revision-date of Openy upgrade log %title has been deleted.', ['%revision-date' => format_date($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
+    $messenger->addMessage(t('Revision from %revision-date of Openy upgrade log %title has been deleted.', ['%revision-date' => \Drupal::service('date.formatter')->format($this->revision->getRevisionCreationTime()), '%title' => $this->revision->label()]));
     $form_state->setRedirect(
       'entity.openy_upgrade_log.canonical',
        ['openy_upgrade_log' => $this->revision->id()]

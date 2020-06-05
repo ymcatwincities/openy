@@ -9,6 +9,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
 use Drupal\openy_prgf_class_location\ClassLocationServiceInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 
 /**
  * Provides a leader board block.
@@ -36,6 +37,13 @@ class ClassLocation extends BlockBase implements ContainerFactoryPluginInterface
   protected $routeMatch;
 
   /**
+   * EntityTypeManager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   */
+  protected $entityTypeManager;
+
+  /**
    * Constructs a new ClassLocation.
    *
    * @param array $configuration
@@ -48,11 +56,14 @@ class ClassLocation extends BlockBase implements ContainerFactoryPluginInterface
    *   The Class Location service.
    * @param RouteMatchInterface $route_match
    *   The Route match service.
+   * @param \Drupal\Core\Entity\EntityTypeManager $entityTypeManager
+   *   EntityTypeManager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, ClassLocationServiceInterface $class_location_service, RouteMatchInterface $route_match) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ClassLocationServiceInterface $class_location_service, RouteMatchInterface $route_match, EntityTypeManager $entityTypeManager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->classLocationService = $class_location_service;
     $this->routeMatch = $route_match;
+    $this->entityTypeManager = $entityTypeManager;
   }
 
   /**
@@ -64,7 +75,8 @@ class ClassLocation extends BlockBase implements ContainerFactoryPluginInterface
       $plugin_id,
       $plugin_definition,
       $container->get('openy_prgf_class_location.location_handler'),
-      $container->get('current_route_match')
+      $container->get('current_route_match'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -95,7 +107,8 @@ class ClassLocation extends BlockBase implements ContainerFactoryPluginInterface
 
     /* @var NodeInterface $location */
     if (is_a($location = $this->classLocationService->getLocationNode($location_id), 'Drupal\node\Entity\Node')) {
-      $location_renderable = node_view($location, 'class_location');
+      $viewBuilder = $this->entityTypeManager->getViewBuilder('node');
+      $location_renderable = $viewBuilder->view($location, 'class_location');
 
       // Add location cache tags.
       $tags_location = $location->getCacheTags();
