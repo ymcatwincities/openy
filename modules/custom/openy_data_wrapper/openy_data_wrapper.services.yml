@@ -5,9 +5,8 @@ services:
   openy_data_wrapper:
     class: Drupal\openy_data_wrapper\DataWrapper
     arguments:
-      - '@entity.query'
       - '@renderer'
-      - '@entity.manager'
+      - '@entity_type.manager'
       - '@socrates'
       - '@cache.data'
       - '@logger.channel.openy_data_wrapper'
