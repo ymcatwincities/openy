@@ -6,7 +6,6 @@ use Drupal\Core\Url;
 use Drupal\openy_socrates\OpenyDataServiceInterface;
 use Drupal\openy_socrates\OpenySocratesFacade;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -25,13 +24,6 @@ class DataWrapper implements OpenyDataServiceInterface {
    * @var \Drupal\openy_socrates\OpenySocratesFacade
    */
   protected $socrates;
-
-  /**
-   * Query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $queryFactory;
 
   /**
    * Entity type manager.
@@ -71,8 +63,6 @@ class DataWrapper implements OpenyDataServiceInterface {
   /**
    * DataWrapperBase constructor.
    *
-   * @param \Drupal\Core\Entity\Query\QueryFactory $queryFactory
-   *   Query factory.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -86,8 +76,7 @@ class DataWrapper implements OpenyDataServiceInterface {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config factory.
    */
-  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, OpenySocratesFacade $socrates, CacheBackendInterface $cacheBackend, LoggerChannelInterface $loggerChannel, ConfigFactoryInterface $configFactory) {
-    $this->queryFactory = $queryFactory;
+  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, OpenySocratesFacade $socrates, CacheBackendInterface $cacheBackend, LoggerChannelInterface $loggerChannel, ConfigFactoryInterface $configFactory) {
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
     $this->socrates = $socrates;
@@ -128,7 +117,7 @@ class DataWrapper implements OpenyDataServiceInterface {
       $location_ids[] = $id;
     }
     else {
-      $location_ids = $this->queryFactory->get('node')
+      $location_ids = $this->entityTypeManager->getStorage('node')
         ->condition('type', $type)
         ->condition('status', 1)
         ->execute();
@@ -178,7 +167,8 @@ class DataWrapper implements OpenyDataServiceInterface {
    */
   public function getMembershipTypes() {
     $types = [];
-    $membership_ids = $this->queryFactory->get('node')
+    $membership_ids = $this->entityTypeManager->getStorage('node')
+      ->getQuery()
       ->condition('type', 'membership')
       ->condition('status', 1)
       ->execute();
@@ -222,7 +212,8 @@ class DataWrapper implements OpenyDataServiceInterface {
   public function getLocations() {
     $data = [];
 
-    $location_ids = $this->queryFactory->get('node')
+    $location_ids = $this->entityTypeManager->getStorage('node')
+      ->getQuery()
       ->condition('type', 'branch')
       ->addTag('data_wrapper_locations')
       ->execute();
