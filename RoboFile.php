@@ -1,6 +1,6 @@
 <?php
 /**
- * Open Y Robo commands.
+ * Open Y Robo commands. Here we are able to create an any version of Open Y for CI builds.
  *
  * @see http://robo.li/
  */
