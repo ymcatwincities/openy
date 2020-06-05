@@ -270,7 +270,8 @@ class DaxkoDataWrapper extends DataWrapperBase implements OpenyDataServiceInterf
    * {@inheritdoc}
    */
   public function getBranchPins() {
-    $location_ids = $this->queryFactory->get('node')
+    $location_ids = $this->entityTypeManager->getStorage('node')
+      ->getQuery()
       ->condition('type', 'branch')
       ->execute();
 
