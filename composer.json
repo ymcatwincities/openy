@@ -6,6 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
+        "drupal/core-dev": "^9",
         "drupal/drupal-driver": "~1.0",
         "drupal/drupal-extension": "^3.2",
         "behat/behat": "^3.0",
@@ -18,7 +19,8 @@
     },
     "config": {
         "bin-dir": "bin/",
-        "secure-http": false
+        "secure-http": true,
+        "sort-packages": true
     },
     "repositories": [
         {
