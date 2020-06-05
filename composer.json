@@ -228,7 +228,7 @@
         "drupal/jquery_colorpicker": "~1.4",
         "drupal/entity_browser": "2.0.0",
         "drupal/dropzonejs": "^2.0",
-        "drupal/inline_entity_form": "1.0-rc1",
+        "drupal/inline_entity_form": "1.0.0-rc6",
         "drupal/embed": "1.4",
         "drupal/entity_embed": "1.0-beta2",
         "drupal/entity_clone": "^1.0",
@@ -292,13 +292,13 @@
         "npm-asset/slick-carousel": "^1.8",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
-        "drupal/ckeditor_font": "^1.0",
+        "drupal/ckeditor_font": "^1.1",
         "drupal/draggableviews": "^1.2",
-        "drupal/twig_tweak": "^2.4",
-        "drupal/image_widget_crop": "^2.2",
-        "drupal/geysir": "^1.1",
-        "drupal/media_directories": "^1.0",
-        "drupal/editor_advanced_link": "^1.6",
+        "drupal/twig_tweak": "^2.6",
+        "drupal/image_widget_crop": "2.3.0",
+        "drupal/geysir": "dev-1.x",
+        "drupal/media_directories": "dev-1.x",
+        "drupal/editor_advanced_link": "^1.8",
         "drupal/link_attributes": "^1.10"
     }
 }
