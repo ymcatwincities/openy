@@ -1,0 +1,6 @@
+name: Open Y Style Guide
+type: module
+description: Provides a Style Guide page.
+core: 8.x
+version: 8.x-1.0
+package: Open Y
