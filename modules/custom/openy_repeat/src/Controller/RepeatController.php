@@ -12,8 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * {@inheritdoc}
@@ -35,16 +34,9 @@ class RepeatController extends ControllerBase {
   protected $database;
 
   /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQuery;
-
-  /**
    * The EntityTypeManager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entity_type_manager;
 
@@ -62,17 +54,14 @@ class RepeatController extends ControllerBase {
    *   Cache default.
    * @param Connection $database
    *   The Database connection.
-   * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
-   *   Query Factory service.
-   * @param EntityTypeManager $entity_type_manager
+   * @param EntityTypeManagerInterface $entity_type_manager
    *   The EntityTypeManager.
    * @param DateFormatterInterface $date_formatter
    *   The Date formatter.
    */
-  public function __construct(CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter) {
+  public function __construct(CacheBackendInterface $cache, Connection $database, EntityTypeManagerInterface $entity_type_manager, DateFormatterInterface $date_formatter) {
     $this->cache = $cache;
     $this->database = $database;
-    $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
   }
@@ -84,7 +73,6 @@ class RepeatController extends ControllerBase {
     return new static(
       $container->get('cache.default'),
       $container->get('database'),
-      $container->get('entity.query'),
       $container->get('entity_type.manager'),
       $container->get('date.formatter')
     );
@@ -603,8 +591,9 @@ class RepeatController extends ControllerBase {
       $data = $cache->data;
     }
     else {
-      $nids = $this->entityQuery
-        ->get('node')
+      $nids = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('type', ['branch', 'location'], 'IN')
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
