@@ -205,8 +205,9 @@
     "require": {
         "php": ">=7.3",
         "cweagans/composer-patches": "^1.5.0",
-        "composer/installers": "^1.8",
+        "composer/installers": "*",
         "drupal/core-recommended": "^9.0",
+        "symfony/console": "*",
         "drupal/features": "3.8",
         "drupal/confi": "1.4",
         "drupal/config_update": "^1.6",
