@@ -4,8 +4,8 @@ namespace Drupal\groupex_form_cache;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
-use Drupal\Core\Routing\LinkGeneratorTrait;
 use Drupal\Core\Url;
+use Drupal\Core\Link;
 
 /**
  * Defines a class to build a listing of GroupEx Pro Form Cache entities.
@@ -13,8 +13,6 @@ use Drupal\Core\Url;
  * @ingroup groupex_form_cache
  */
 class GroupexFormCacheListBuilder extends EntityListBuilder {
-
-  use LinkGeneratorTrait;
 
   /**
    * {@inheritdoc}
@@ -31,7 +29,7 @@ class GroupexFormCacheListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     /* @var $entity \Drupal\groupex_form_cache\Entity\GroupexFormCache */
     $row['id'] = $entity->id();
-    $row['name'] = $this->l(
+    $row['name'] = Link::fromTextAndUrl(
       $entity->label(),
       new Url(
         'entity.groupex_form_cache.edit_form', [
