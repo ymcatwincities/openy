@@ -10,7 +10,6 @@ use Drupal\openy_group_schedules\GroupexHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\openy_group_schedules\GroupexScheduleFetcher;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -19,13 +18,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
  * Implements GroupEx Pro Full Form.
  */
 class GroupexFormFull extends GroupexFormBase {
-
-  /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQuery;
 
   /**
    * The entity type manager.
@@ -72,8 +64,6 @@ class GroupexFormFull extends GroupexFormBase {
   /**
    * GroupexFormFull constructor.
    *
-   * @param \Drupal\Core\Entity\Query\QueryFactory $entity_query
-   *   The entity query factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
@@ -83,11 +73,10 @@ class GroupexFormFull extends GroupexFormBase {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The configuration factory.
    */
-  public function __construct(QueryFactory $entity_query, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper, $scheduleFetcher, ConfigFactoryInterface $config_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactoryInterface $logger_factory, GroupexHelper $groupex_helper, $scheduleFetcher, ConfigFactoryInterface $config_factory) {
     parent::__construct($config_factory);
     $this->groupexHelper = $groupex_helper;
     $this->scheduleFetcher = $scheduleFetcher;
-    $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger_factory->get('ymca_mindbody');
 
@@ -131,7 +120,6 @@ class GroupexFormFull extends GroupexFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.query'),
       $container->get('entity_type.manager'),
       $container->get('logger.factory'),
       $container->get('openy_group_schedules.helper'),
@@ -173,7 +161,9 @@ class GroupexFormFull extends GroupexFormBase {
 //    // Check if form printed on specific Location Schedules page.
 //    if ($this->getRouteMatch()->getRouteName() == 'ymca_frontend.location_schedules') {
 //      if ($site_section = $this->pageContext->getContext()) {
-//        $mapping_id = \Drupal::entityQuery('mapping')
+//        $mapping_id = $this->entityTypeManager
+//          ->getStorage('mapping')
+//          ->getQuery()
 //          ->condition('type', 'location')
 //          ->condition('field_location_ref', $site_section->id())
 //          ->execute();

@@ -6,8 +6,7 @@ use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\HtmlCommand;
 use Drupal\Core\Ajax\InvokeCommand;
 use Drupal\Core\Datetime\DrupalDateTime;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
@@ -25,13 +24,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * @ingroup openy_branch
  */
 class SchedulesSearchForm extends FormBase {
-
-  /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQuery;
 
   /**
    * The logger channel.
@@ -57,7 +49,7 @@ class SchedulesSearchForm extends FormBase {
   /**
    * The EntityTypeManager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
@@ -75,9 +67,7 @@ class SchedulesSearchForm extends FormBase {
    *   The logger channel factory.
    * @param RequestStack $request_stack
    *   The request stack.
-   * @param QueryFactory $entity_query
-   *   The entity query factory.
-   * @param EntityTypeManager $entity_type_manager
+   * @param EntityTypeManagerInterface $entity_type_manager
    *   The EntityTypeManager.
    * @param RepeatManager $session_instance_manager
    *   The SessionInstanceManager.
@@ -85,11 +75,9 @@ class SchedulesSearchForm extends FormBase {
   public function __construct(
     LoggerChannelFactoryInterface $logger_factory,
     RequestStack $request_stack,
-    QueryFactory $entity_query,
-    EntityTypeManager $entity_type_manager,
+    EntityTypeManagerInterface $entity_type_manager,
     RepeatManager $session_instance_manager
   ) {
-    $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->sessionInstanceManager = $session_instance_manager;
 
@@ -121,7 +109,6 @@ class SchedulesSearchForm extends FormBase {
     return new static(
       $container->get('logger.factory'),
       $container->get('request_stack'),
-      $container->get('entity.query'),
       $container->get('entity_type.manager'),
       $container->get('session_instance.manager')
     );
@@ -173,8 +160,9 @@ class SchedulesSearchForm extends FormBase {
         'branch' => 'branches',
         'camp' => 'camps',
       ];
-      $query = $this->entityQuery
-        ->get('node')
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('status', 1)
         ->condition('type', ['branch', 'camp'], 'IN');
       $entity_ids = $query->execute();
@@ -205,8 +193,9 @@ class SchedulesSearchForm extends FormBase {
 
     if (!$options) {
       $options = ['all' => $this->t('All')];
-      $query = $this->entityQuery
-        ->get('node')
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('status', 1)
         ->condition('type', 'program');
       $entity_ids = $query->execute();
@@ -232,8 +221,9 @@ class SchedulesSearchForm extends FormBase {
 
     if (!$options) {
       $options = ['all' => $this->t('All')];
-      $query = $this->entityQuery
-        ->get('node')
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('status', 1)
         ->condition('type', 'program_subcategory')
         ->sort('title');
@@ -271,8 +261,9 @@ class SchedulesSearchForm extends FormBase {
       else {
         $categories_ids = [$category];
       }
-      $query = $this->entityQuery
-        ->get('node')
+      $query = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('status', 1)
         ->condition('type', 'activity')
         ->condition('field_activity_category', $categories_ids, 'IN');
@@ -280,8 +271,9 @@ class SchedulesSearchForm extends FormBase {
 
       if ($activities_ids) {
         // Get classes.
-        $query = $this->entityQuery
-          ->get('node')
+        $query = $this->entityTypeManager
+          ->getStorage('node')
+          ->getQuery()
           ->condition('status', 1)
           ->condition('type', 'class')
           ->condition('field_class_activity', $activities_ids, 'IN')

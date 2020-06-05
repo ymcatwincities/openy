@@ -1,4 +1,4 @@
 services:
   session_instance.manager:
     class: Drupal\openy_session_instance\SessionInstanceManager
-    arguments: ['@entity.manager', '@logger.factory', '@config.factory', '@module_handler', '@openy_moderation_wrapper.entity_moderation_status']
+    arguments: ['@entity_type.manager', '@logger.factory', '@config.factory', '@module_handler', '@openy_moderation_wrapper.entity_moderation_status']

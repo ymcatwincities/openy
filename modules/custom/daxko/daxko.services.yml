@@ -11,9 +11,8 @@ services:
   daxko.data_wrapper:
     class: Drupal\daxko\DaxkoDataWrapper
     arguments:
-      - '@entity.query'
       - '@renderer'
-      - '@entity.manager'
+      - '@entity_type.manager'
       - '@daxko.client'
       - '@cache.data'
       - '@openy_mappings.repository'

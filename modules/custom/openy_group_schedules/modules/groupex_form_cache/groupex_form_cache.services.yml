@@ -1,14 +1,14 @@
 services:
   groupex_form_cache.manager:
     class: Drupal\groupex_form_cache\GroupexFormCacheManager
-    arguments: ['@entity.query', '@config.factory', '@logger.factory', '@entity_type.manager']
+    arguments: ['@config.factory', '@logger.factory', '@entity_type.manager']
     tags:
       -
         name: openy_cron_service
         periodicity: 86400
   groupex_form_cache.warmer:
     class: Drupal\groupex_form_cache\GroupexFormCacheWarmer
-    arguments: ['@entity.query', '@config.factory', '@logger.factory']
+    arguments: ['@config.factory', '@logger.factory', '@entity_type.manager']
     tags:
       -
         name: openy_cron_service

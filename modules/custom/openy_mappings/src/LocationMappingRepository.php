@@ -3,7 +3,6 @@
 namespace Drupal\openy_mappings;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldItemList;
@@ -37,13 +36,10 @@ class LocationMappingRepository {
   /**
    * MappingRepository constructor.
    *
-   * @param QueryFactory $query_factory
-   *   Query factory.
    * @param EntityTypeManagerInterface $entityTypeManager
    *   Entity type manager.
    */
-  public function __construct(QueryFactory $query_factory, EntityTypeManagerInterface $entityTypeManager) {
-    $this->queryFactory = $query_factory;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
     $this->storage = $this->entityTypeManager->getStorage('mapping');
   }
@@ -61,8 +57,9 @@ class LocationMappingRepository {
     $cache = &drupal_static(__FUNCTION__);
 
     if (!isset($cache[$id])) {
-      $ids = $this->queryFactory
-        ->get('mapping')
+      $ids = $this->entityTypeManager
+        ->getStorage('mapping')
+        ->getQuery()
         ->condition('type', 'branch')
         ->condition('field_daxko_branch_id', $id)
         ->execute();
@@ -93,8 +90,9 @@ class LocationMappingRepository {
   public function getAllDaxkoBranchIds() {
     $daxko_ids = [];
 
-    $ids = $this->queryFactory
-      ->get('mapping')
+    $ids = $this->entityTypeManager
+      ->getStorage('mapping')
+      ->getQuery()
       ->condition('type', 'branch')
       ->execute();
 
@@ -118,8 +116,9 @@ class LocationMappingRepository {
    *   An array of found location mapping objects sorted by name.
    */
   public function loadAllLocationsWithGroupExId() {
-    $mapping_ids = $this->queryFactory
-      ->get('mapping')
+    $mapping_ids = $this->entityTypeManager
+      ->getStorage('mapping')
+      ->getQuery()
       ->condition('type', self::TYPE)
       ->condition('field_groupex_id', 0, '>')
       ->sort('name', 'ASC')
