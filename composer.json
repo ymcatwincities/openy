@@ -237,7 +237,6 @@
         "drupal/migrate_plus": "^4.0",
         "drupal/migrate_tools": "^4.4",
         "drupal/migrate_source_csv": "2.2",
-        "drupal/verf": "1.0-beta7",
         "drupal/views_infinite_scroll": "^1.7",
         "drupal/simple_menu_icons": "1.x-dev",
         "drupal/slick": "2.2.0",
