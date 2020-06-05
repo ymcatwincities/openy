@@ -8,8 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Database\Connection;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\search_api\Entity\Index;
 use Drupal\Core\Url;
@@ -46,20 +45,6 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   protected $database;
 
   /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQuery;
-
-  /**
-   * The EntityTypeManager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
-   */
-  protected $entity_type_manager;
-
-  /**
    * The date formatter service.
    *
    * @var \Drupal\Core\Datetime\DateFormatterInterface
@@ -88,13 +73,18 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
   protected $moduleHandler;
 
   /**
+   * @var EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  /**
    * Creates a new RepeatController.
    *
    * @param CacheBackendInterface $cache
    *   Cache default.
    * @param Connection $database
    *   The Database connection.
-   * @param EntityTypeManager $entity_type_manager
+   * @param EntityTypeManagerInterface $entity_type_manager
    *   The EntityTypeManager.
    * @param DateFormatterInterface $date_formatter
    *   The Date formatter.
@@ -105,11 +95,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
    * @param ModuleHandlerInterface $module_handler
    *   Module Handler.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, QueryFactory $entity_query, EntityTypeManager $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time, LoggerChannelInterface $loggerChannel, ModuleHandlerInterface $module_handler) {
+  public function __construct(ConfigFactoryInterface $config_factory, CacheBackendInterface $cache, Connection $database, EntityTypeManagerInterface $entity_type_manager, DateFormatterInterface $date_formatter, TimeInterface $time, LoggerChannelInterface $loggerChannel, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
     $this->cache = $cache;
     $this->database = $database;
-    $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
     $this->dateFormatter = $date_formatter;
     $this->time = $time;
@@ -574,8 +563,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $data = $cache->data;
     }
     else {
-      $nids = $this->entityQuery
-        ->get('node')
+      $nids = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('type', 'program_subcategory')
         ->execute();
       $nids_chunked = array_chunk($nids, 20, TRUE);
@@ -613,8 +603,9 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
       $data = $cache->data;
     }
     else {
-      $nids = $this->entityQuery
-        ->get('node')
+      $nids = $this->entityTypeManager
+        ->getStorage('node')
+        ->getQuery()
         ->condition('type', ['branch', 'camp', 'facility'], 'IN')
         ->condition('status', 1)
         ->sort('title', 'ASC')

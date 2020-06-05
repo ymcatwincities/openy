@@ -6,8 +6,7 @@ use Drupal\Component\Utility\UrlHelper;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 
@@ -25,37 +24,24 @@ class BranchesForm extends FormBase {
   protected $nodeId;
 
   /**
-   * The entity query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $entityQuery;
-
-  /**
    * The EntityTypeManager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
   /**
    * Creates a new BranchSessionsForm.
    *
-   * @param QueryFactory $entity_query
-   *   The entity query factory.
-   * @param EntityTypeManager $entity_type_manager
+   * @param EntityTypeManagerInterface $entity_type_manager
    *   The EntityTypeManager.
    */
-  public function __construct(
-    QueryFactory $entity_query,
-    EntityTypeManager $entity_type_manager
-  ) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
     $query = parent::getRequest();
     $parameters = $query->query->all();
     if (!empty($parameters['node'])) {
       $this->nodeId = $parameters['node'];
     }
-    $this->entityQuery = $entity_query;
     $this->entityTypeManager = $entity_type_manager;
   }
 
@@ -64,7 +50,6 @@ class BranchesForm extends FormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.query'),
       $container->get('entity_type.manager')
     );
   }
@@ -80,7 +65,7 @@ class BranchesForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state, $destination = '') {
-    
+
     $form['destination'] = ['#type' => 'value', '#value' => $destination];
 
     $branches_list = $this->getBranchesList();
@@ -157,7 +142,7 @@ class BranchesForm extends FormBase {
       }
     }
     return self::getLocations($locations_to_be_displayed);
-    
+
   }
 
   /**

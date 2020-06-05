@@ -4,7 +4,6 @@ namespace Drupal\daxko;
 
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\openy_mappings\LocationMappingRepository;
@@ -16,13 +15,6 @@ use Drupal\Core\Config\ConfigFactoryInterface;
  * Class DataWrapperBase.
  */
 abstract class DataWrapperBase implements DataWrapperInterface {
-
-  /**
-   * Query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $queryFactory;
 
   /**
    * Entity type manager.
@@ -90,8 +82,6 @@ abstract class DataWrapperBase implements DataWrapperInterface {
   /**
    * DataWrapperBase constructor.
    *
-   * @param \Drupal\Core\Entity\Query\QueryFactory $queryFactory
-   *   Query factory.
    * @param \Drupal\Core\Render\RendererInterface $renderer
    *   Renderer.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
@@ -111,8 +101,7 @@ abstract class DataWrapperBase implements DataWrapperInterface {
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
    *   Config factory.
    */
-  public function __construct(QueryFactory $queryFactory, RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, DaxkoClientInterface $daxkoClient, CacheBackendInterface $cacheBackend, MappingRepository $mappingRepo, LocationMappingRepository $locationRepo, MembershipTypeMappingRepository $membershipTypeRepo, LoggerChannelInterface $loggerChannel, ConfigFactoryInterface $configFactory) {
-    $this->queryFactory = $queryFactory;
+  public function __construct(RendererInterface $renderer, EntityTypeManagerInterface $entityTypeManager, DaxkoClientInterface $daxkoClient, CacheBackendInterface $cacheBackend, MappingRepository $mappingRepo, LocationMappingRepository $locationRepo, MembershipTypeMappingRepository $membershipTypeRepo, LoggerChannelInterface $loggerChannel, ConfigFactoryInterface $configFactory) {
     $this->renderer = $renderer;
     $this->entityTypeManager = $entityTypeManager;
     $this->daxkoClient = $daxkoClient;
@@ -157,7 +146,8 @@ abstract class DataWrapperBase implements DataWrapperInterface {
   public function getLocations() {
     $data = [];
 
-    $location_ids = $this->queryFactory->get('node')
+    $location_ids = $this->entityTypeManager->getStorage('node')
+      ->getQuery()
       ->condition('type', 'branch')
       ->execute();
 

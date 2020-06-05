@@ -4,8 +4,7 @@ namespace Drupal\groupex_form_cache;
 
 use Drupal\Core\Config\ConfigFactory;
 use Drupal\Core\Config\ImmutableConfig;
-use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannel;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
@@ -28,13 +27,6 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
   const CHANNEL = 'groupex_form_cache';
 
   /**
-   * Query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $queryFactory;
-
-  /**
    * Config.
    *
    * @var \Drupal\Core\Config\ImmutableConfig
@@ -51,24 +43,21 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
   /**
    * Entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
   /**
    * GroupexFormCacheManager constructor.
    *
-   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
-   *   Query factory.
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   Config factory.
    * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
-   * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   Entity type manager.
    */
-  public function __construct(QueryFactory $query_factory, ConfigFactory $config_factory, LoggerChannelFactory $logger_factory, EntityTypeManager $entity_type_manager) {
-    $this->queryFactory = $query_factory;
+  public function __construct(ConfigFactory $config_factory, LoggerChannelFactory $logger_factory, EntityTypeManagerInterface $entity_type_manager) {
     $this->config = $config_factory->get('groupex_form_cache.settings');
     $this->logger = $logger_factory->get(self::CHANNEL);
     $this->entityTypeManager = $entity_type_manager;
@@ -90,7 +79,8 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
 
     $local_cache = &drupal_static('groupex_form_cache_static');
     if (!isset($local_cache[$search])) {
-      $result = $this->queryFactory->get(self::ENTITY_TYPE)
+      $result = $this->entityTypeManager->getStorage(self::ENTITY_TYPE)
+        ->getQuery()
         ->condition('field_gfc_options', $search)
         ->condition('field_gfc_created', $request_time - $this->config->get('cache_max_age'), '>')
         ->execute();
@@ -137,7 +127,7 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
     $timer = 'reset_cache';
     Timer::start($timer);
 
-    $result = $this->queryFactory->get(self::ENTITY_TYPE)->execute();
+    $result = $this->entityTypeManager->getStorage(self::ENTITY_TYPE)->getQuery()->execute();
     if (empty($result)) {
       $this->logger->info('No cache was found. Nothing to clear.');
       Timer::stop($timer);
@@ -172,7 +162,8 @@ class GroupexFormCacheManager implements OpenyCronServiceInterface {
 
     Timer::start($timer);
 
-    $result = $this->queryFactory->get(self::ENTITY_TYPE)
+    $result = $this->entityTypeManager->getStorage(self::ENTITY_TYPE)
+      ->getQuery()
       ->condition('field_gfc_created', $request_time - $time, '<')
       ->execute();
     if (empty($result)) {

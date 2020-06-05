@@ -3,7 +3,6 @@
 namespace Drupal\openy_mappings;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * Class MembershipTypeMappingRepository.
@@ -20,13 +19,6 @@ class MembershipTypeMappingRepository {
   protected $entityTypeManager;
 
   /**
-   * Query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $queryFactory;
-
-  /**
    * Mapping storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
@@ -36,13 +28,10 @@ class MembershipTypeMappingRepository {
   /**
    * MembershipTypeMappingRepository constructor.
    *
-   * @param QueryFactory $query_factory
-   *   Query factory.
    * @param EntityTypeManagerInterface $entityTypeManager
    *   Entity type manager.
    */
-  public function __construct(QueryFactory $query_factory, EntityTypeManagerInterface $entityTypeManager) {
-    $this->queryFactory = $query_factory;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
     $this->storageMapping = $this->entityTypeManager->getStorage('mapping');
   }
@@ -59,8 +48,9 @@ class MembershipTypeMappingRepository {
    *   Mapping entity.
    */
   public function getMappingByNameAndBranch($name, $branch_id) {
-    $ids = $this->queryFactory
-      ->get('mapping')
+    $ids = $this->entityTypeManager
+      ->getStorage('mapping')
+      ->getQuery()
       ->condition('type', self::TYPE)
       ->condition('name', $name)
       ->condition('field_branch_ct_reference', $branch_id)
