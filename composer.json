@@ -252,7 +252,6 @@
         "library-vakata/jstree": "^3.3",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/slick_views": "1.0-rc2",
-        "drupal/libraries": "3.x-dev",
         "drupal/datalayer": "1.x-dev",
         "drupal/google_tag": "~1.1",
         "drupal/google_analytics": "~2.3",
