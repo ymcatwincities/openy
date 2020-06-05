@@ -19,7 +19,6 @@
     },
     "config": {
         "bin-dir": "bin/",
-        "secure-http": true,
         "sort-packages": true
     },
     "repositories": [
