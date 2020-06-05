@@ -3,7 +3,6 @@
 namespace Drupal\openy_mappings;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * Class MappingRepository.
@@ -18,13 +17,6 @@ class MappingRepository {
   protected $entityTypeManager;
 
   /**
-   * Query factory.
-   *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
-   */
-  protected $queryFactory;
-
-  /**
    * Mapping storage.
    *
    * @var \Drupal\Core\Entity\EntityStorageInterface
@@ -34,13 +26,10 @@ class MappingRepository {
   /**
    * MappingRepository constructor.
    *
-   * @param QueryFactory $query_factory
-   *   Query factory.
    * @param EntityTypeManagerInterface $entityTypeManager
    *   Entity type manager.
    */
-  public function __construct(QueryFactory $query_factory, EntityTypeManagerInterface $entityTypeManager) {
-    $this->queryFactory = $query_factory;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
     $this->entityTypeManager = $entityTypeManager;
     $this->storageMapping = $this->entityTypeManager->getStorage('mapping');
   }
@@ -54,8 +43,9 @@ class MappingRepository {
    *   Chunk size.
    */
   public function deleteAllMappingsByType($type, $chunk_size = 25) {
-    $ids = $this->queryFactory
-      ->get('mapping')
+    $ids = $this->entityTypeManager
+      ->getStorage('mapping')
+      ->getQuery()
       ->condition('type', $type)
       ->execute();
 
