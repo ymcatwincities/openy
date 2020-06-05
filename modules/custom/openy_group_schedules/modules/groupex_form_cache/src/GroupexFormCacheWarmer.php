@@ -4,7 +4,7 @@ namespace Drupal\groupex_form_cache;
 
 use Drupal\Component\Utility\Timer;
 use Drupal\Core\Config\ConfigFactory;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\groupex_form_cache\Entity\GroupexFormCache;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\openy_socrates\OpenyCronServiceInterface;
@@ -18,11 +18,11 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
   use GroupexRequestTrait;
 
   /**
-   * Query factory.
+   * Entity type manager.
    *
-   * @var \Drupal\Core\Entity\Query\QueryFactory
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  protected $queryFactory;
+  protected $entityTypeManager;
 
   /**
    * Config factory.
@@ -41,17 +41,17 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
   /**
    * GroupexFormCacheManager constructor.
    *
-   * @param \Drupal\Core\Entity\Query\QueryFactory $query_factory
-   *   Query factory.
    * @param \Drupal\Core\Config\ConfigFactory $config_factory
    *   Config factory.
    * @param \Drupal\Core\Logger\LoggerChannelFactory $logger_factory
    *   Logger factory.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   Entity type manager.
    */
-  public function __construct(QueryFactory $query_factory, ConfigFactory $config_factory, LoggerChannelFactory $logger_factory) {
-    $this->queryFactory = $query_factory;
+  public function __construct(ConfigFactory $config_factory, LoggerChannelFactory $logger_factory, EntityTypeManagerInterface $entity_type_manager) {
     $this->configFactory = $config_factory;
     $this->logger = $logger_factory->get(GroupexFormCacheManager::CHANNEL);
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
@@ -98,7 +98,7 @@ class GroupexFormCacheWarmer implements OpenyCronServiceInterface {
    * Walk thorough the existing cache items and warm them up.
    */
   private function traverse() {
-    if (!$result = $this->queryFactory->get(GroupexFormCacheManager::ENTITY_TYPE)->execute()) {
+    if (!$result = $this->entityTypeManager->getStorage(GroupexFormCacheManager::ENTITY_TYPE)->getQuery()->execute()) {
       return;
     }
 
