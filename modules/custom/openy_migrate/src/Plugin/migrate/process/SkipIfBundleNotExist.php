@@ -2,7 +2,7 @@
 
 namespace Drupal\openy_migrate\Plugin\migrate\process;
 
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\migrate\MigrateSkipProcessException;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\MigrateExecutableInterface;
@@ -65,7 +65,7 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
   /**
    * The entity manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityManager;
 
@@ -110,7 +110,7 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
       $plugin_id,
       $plugin_definition,
       $migration,
-      $container->get('entity.manager')
+      $container->get('entity_type.manager')
     );
   }
 
