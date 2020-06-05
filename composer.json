@@ -283,7 +283,7 @@
         "drupal/ckeditor_bootstrap_buttons": "^1.2",
         "drupal/fontyourface": "^3.2",
         "drupal/css_editor": "^1.2",
-        "drupal/domain": "1.0-alpha14",
+        "drupal/domain": "dev-8.x-1.x",
         "drupal/domain_theme_switch": "^1.4",
         "drupal/social_feed_fetcher": "^2.0",
         "symfony/dom-crawler": "~2.8|~3.0|~4.2",
