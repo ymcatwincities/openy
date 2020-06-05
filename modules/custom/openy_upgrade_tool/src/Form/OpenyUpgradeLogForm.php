@@ -4,7 +4,7 @@ namespace Drupal\openy_upgrade_tool\Form;
 
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -28,7 +28,7 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
    * {@inheritdoc}
    */
   public function __construct(
-    EntityManagerInterface $entity_manager,
+    EntityTypeManagerInterface $entity_manager,
     AccountProxyInterface $account_proxy,
     EntityTypeBundleInfoInterface $entity_type_bundle_info = NULL,
     TimeInterface $time = NULL
@@ -44,7 +44,7 @@ class OpenyUpgradeLogForm extends ContentEntityForm {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('current_user'),
       $container->get('entity_type.bundle.info'),
       $container->get('datetime.time')
