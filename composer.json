@@ -226,7 +226,7 @@
         "drupal/field_group": "~3.0",
         "drupal/video_embed_field": "^2.0",
         "drupal/jquery_colorpicker": "~1.4",
-        "drupal/entity_browser": "2.0.0",
+        "drupal/entity_browser": "2.5.0",
         "drupal/dropzonejs": "^2.0",
         "drupal/inline_entity_form": "1.0.0-rc6",
         "drupal/embed": "1.4",
