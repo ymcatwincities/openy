@@ -277,7 +277,6 @@
         "drupal/easy_breadcrumb": "^1",
         "drupal/ckeditor_bootstrap_buttons": "^1",
         "drupal/fontyourface": "^3",
-        "drupal/css_editor": "^1",
         "drupal/domain": "dev-1.x",
         "drupal/domain_theme_switch": "^1",
         "drupal/social_feed_fetcher": "^2",
