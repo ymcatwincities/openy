@@ -260,7 +260,6 @@
         "drupal/webform": "^5",
         "drupal/captcha": "^1",
         "drupal/recaptcha": "^3",
-        "drupal/rabbit_hole": "~1.0-beta4",
         "drupal/admin_toolbar": "^2",
         "drupal/panelbutton": "^1",
         "drupal/colorbutton": "^1",
