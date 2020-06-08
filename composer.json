@@ -221,7 +221,7 @@
         "drupal/paragraphs": "1.6",
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/pathauto": "~1.6",
-        "drupal/ctools": "3.0",
+        "drupal/ctools": "3.4",
         "drupal/token": "^1.5",
         "drupal/field_group": "~3.0",
         "drupal/video_embed_field": "^2.0",
