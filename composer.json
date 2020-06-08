@@ -274,7 +274,6 @@
         "doctrine/inflector": "1.2.*",
         "drupal/crop": "^2.0",
         "drupal/focal_point": "~1.0-beta6",
-        "drupal/media_entity_video": "^2.0",
         "drupal/video": "^1.4",
         "drupal/easy_breadcrumb": "^1.8",
         "drupal/ckeditor_bootstrap_buttons": "^1.2",
