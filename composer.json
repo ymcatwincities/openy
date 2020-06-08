@@ -224,7 +224,6 @@
         "drupal/token": "^1.5",
         "drupal/field_group": "~3.0",
         "drupal/video_embed_field": "^2.0",
-        "drupal/jquery_colorpicker": "^2",
         "drupal/entity_browser": "^2",
         "drupal/dropzonejs": "^2.0",
         "drupal/inline_entity_form": "^1",
