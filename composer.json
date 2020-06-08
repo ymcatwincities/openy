@@ -295,7 +295,6 @@
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.6",
         "drupal/image_widget_crop": "2.3.0",
-        "drupal/geysir": "dev-1.x",
         "drupal/media_directories": "dev-1.x",
         "drupal/editor_advanced_link": "^1.8",
         "drupal/link_attributes": "^1.10"
