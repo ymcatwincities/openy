@@ -24,6 +24,6 @@ dependencies:
   - 'link_attributes:link_attributes'
   - 'openy_txnm_color:openy_txnm_color'
   - 'pathauto:pathauto'
-  - 'rabbit_hole:rabbit_hole'
+  # - rabbit_hole:rabbit_hole
   - 'scheduler:scheduler'
   - 'slick_views:slick_views'

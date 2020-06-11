@@ -8,6 +8,6 @@ dependencies:
   - drupal:field
   - jquery_colorpicker:jquery_colorpicker
   - drupal:path
-  - rabbit_hole:rabbit_hole
+  # - rabbit_hole:rabbit_hole
   - drupal:taxonomy
   - drupal:text

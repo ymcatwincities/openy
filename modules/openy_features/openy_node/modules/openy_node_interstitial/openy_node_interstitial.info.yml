@@ -11,7 +11,7 @@ dependencies:
   - drupal:menu_ui
   - drupal:node
   - drupal:path
-  - rabbit_hole:rabbit_hole
+  # - rabbit_hole:rabbit_hole
   - scheduler:scheduler
   - drupal:text
   - drupal:user
