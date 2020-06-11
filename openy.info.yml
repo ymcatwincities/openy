@@ -2,12 +2,12 @@ name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core_version_requirement: ^8.8
-version: '8.x-2.5.1'
+version: '9.x-2.5.1'
 distribution:
   name: Open Y
   install:
     theme: openy_admin
-php: 7.2
+php: 7.3
 # Required modules
 dependencies:
   # Core modules.
@@ -22,7 +22,7 @@ dependencies:
   - drupal:datetime
   - drupal:datetime_range
   - drupal:editor
-  - drupal:entity_reference
+  # - drupal:entity_reference
   - drupal:file
   - drupal:help
   - drupal:history
@@ -49,12 +49,12 @@ dependencies:
   - admin_toolbar:admin_toolbar
   - captcha:captcha
   - ckeditor_bootstrap_buttons:ckeditor_bootstrap_buttons
-  - config_import:config_import
+  # - config_import:config_import
   - editor_advanced_link:editor_advanced_link
   - features:features
-  - fontyourface:fontyourface
+  # - fontyourface:fontyourface
   - image_captcha:image_captcha
-  - local_fonts:local_fonts
+  # - local_fonts:local_fonts
   - link_attributes:link_attributes
   - metatag:metatag
   - metatag_open_graph:metatag_open_graph
