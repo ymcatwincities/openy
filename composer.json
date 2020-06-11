@@ -272,7 +272,6 @@
         "drupal/draggableviews": "^1",
         "drupal/twig_tweak": "^2",
         "drupal/image_widget_crop": "^2",
-        "drupal/media_directories": "dev-1.x",
         "drupal/editor_advanced_link": "^1",
         "drupal/link_attributes": "^1",
         "drupal/simple_menu_icons": "2.x-dev"
