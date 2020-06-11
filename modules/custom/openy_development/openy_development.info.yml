@@ -1,7 +1,7 @@
 name: Open Y Continuous Integration
 description: Provides Continuous Integration helpers.
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Open Y
 dependencies:
   - drupal:block

@@ -1,7 +1,7 @@
 name: Open Y Paragraph Repeat Schedules
 description: Provides a dynamic paragraph to render repeat schedules.
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 version: 8.x-1.1
 package: Open Y
 dependencies:

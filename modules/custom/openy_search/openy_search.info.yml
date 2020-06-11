@@ -1,6 +1,6 @@
 name: Open Y Search
 type: module
 description: Provides a classes and services for search modules in Open Y.
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Open Y
 version: 8.x-1.0

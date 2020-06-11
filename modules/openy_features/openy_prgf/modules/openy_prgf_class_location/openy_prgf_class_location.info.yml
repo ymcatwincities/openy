@@ -1,7 +1,7 @@
 name: Open Y Paragraph Class Location
 description: Provides a dynamic paragraph that renders class location instances.
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Open Y
 version: 8.x-1.0
 dependencies:

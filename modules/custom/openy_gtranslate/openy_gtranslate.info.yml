@@ -1,6 +1,6 @@
 name: Open Y Google Translate
 type: module
 description: Provides a Google Translate integration for Open Y.
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 version: 8.x-2.0
 package: Open Y

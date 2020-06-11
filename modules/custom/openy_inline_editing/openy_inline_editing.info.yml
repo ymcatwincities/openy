@@ -1,7 +1,7 @@
 name: OpenY Inline Editing
 type: module
 description: Provides customization for Geysir contrib module.
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 version: 8.x-1.0
 package: Open Y
 dependencies:

@@ -1,6 +1,6 @@
 name: Open Y Autocomplete Path
 type: module
 description: Implements an autocomplete matcher with path in the label.
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Open Y
 version: 8.x-1.0

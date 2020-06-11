@@ -1,7 +1,7 @@
 name: GroupEx Pro Form Cache
 type: module
 description: Provides a custom entity for caching of GroupEx Pro forms.
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 version: 8.x-1.0
 package: Open Y
 dependencies:

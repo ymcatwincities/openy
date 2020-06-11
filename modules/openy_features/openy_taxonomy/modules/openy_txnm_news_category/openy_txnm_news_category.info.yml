@@ -2,7 +2,7 @@ name: Open Y Taxonomy News Category
 description: Provides a news category taxonomy vocabulary and related configuration.
 package: Open Y
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 version: 8.x-1.0
 dependencies:
   - ctools:ctools

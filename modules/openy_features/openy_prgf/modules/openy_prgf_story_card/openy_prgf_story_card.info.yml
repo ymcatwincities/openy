@@ -1,7 +1,7 @@
 name: Open Y Paragraph Story Card
 description: Provides a paragraph to display story card.
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Open Y
 version: 8.x-1.0
 dependencies:

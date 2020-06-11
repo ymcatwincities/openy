@@ -1,7 +1,7 @@
 name: Open Y Paragraph Repeat Schedules Locations
 description: Provides a dynamic paragraph to render repeat schedules for locations.
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Open Y
 dependencies:
   - drupal:field

@@ -1,7 +1,7 @@
 name: Open Y Search API
 type: module
 description: Provides a Drupal Search API Engine for Open Y.
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: Open Y
 version: 8.x-1.0
 dependencies:

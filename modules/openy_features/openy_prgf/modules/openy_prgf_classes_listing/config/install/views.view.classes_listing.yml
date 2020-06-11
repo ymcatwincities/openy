@@ -15,7 +15,7 @@ description: 'Used for classes_listing and classes_listing_filters paragraphs'
 tag: ''
 base_table: node_field_data
 base_field: nid
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 display:
   default:
     display_plugin: default

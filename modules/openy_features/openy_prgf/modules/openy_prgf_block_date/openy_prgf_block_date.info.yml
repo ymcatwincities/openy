@@ -2,7 +2,7 @@ name: Open Y Paragraph for Date Block
 description: Provides a paragraph that renders Date block based on date and time (before, between, after).
 package: Open Y
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 version: 8.x-1.0
 dependencies:
   - drupal:block_content

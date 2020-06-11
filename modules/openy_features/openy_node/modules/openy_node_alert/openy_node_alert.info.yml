@@ -1,7 +1,7 @@
 name: 'Open Y Node Alert'
 description: 'Provides an Alert content type and related configuration.'
 type: module
-core: 8.x
+core_version_requirement: ^8.8 || ^9
 package: 'Open Y'
 version: 8.x-1.0
 dependencies:
