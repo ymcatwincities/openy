@@ -243,7 +243,6 @@
         "drupal/captcha": "^1",
         "drupal/recaptcha": "^3",
         "drupal/admin_toolbar": "^2",
-        "drupal/panelbutton": "^1",
         "drupal/colorbutton": "^1",
         "drupal/better_exposed_filters": "^4",
         "drupal/custom_formatters": "^3",
@@ -256,7 +255,7 @@
         "drupal/focal_point": "^1",
         "drupal/video": "^1",
         "drupal/easy_breadcrumb": "^1",
-        "drupal/ckeditor_bootstrap_buttons": "^1",
+        "drupal/ckeditor_bootstrap_buttons": "1.x-dev",
         "drupal/domain": "dev-1.x",
         "drupal/domain_theme_switch": "^1",
         "drupal/social_feed_fetcher": "^2",
@@ -276,6 +275,9 @@
         "drupal/link_attributes": "^1",
         "drupal/simple_menu_icons": "2.x-dev",
         "drupal/google_optimize": "^1.5",
-        "drupal/rabbit_hole": "~1.0-beta7"
+        "drupal/panelbutton": "^1",
+        "drupal/rabbit_hole": "~1.0-beta7",
+        "drupal/media_directories": "dev-1.x",
+        "drupal/panelbutton": "1.x-dev"
     }
 }
