@@ -277,7 +277,6 @@
         "drupal/google_optimize": "^1.5",
         "drupal/panelbutton": "^1",
         "drupal/rabbit_hole": "~1.0-beta7",
-        "drupal/media_entity_image": "1.x-dev",
         "drupal/libraries": "3.x-dev",
         "drupal/verf": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
