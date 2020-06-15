@@ -380,7 +380,7 @@ class ConfigureProfileForm extends FormBase {
     $module_list_orig = $module_list;
     $extension_config = \Drupal::configFactory()->getEditable('core.extension');
     // Get all module data so we can find dependencies and sort.
-    $module_data = system_rebuild_module_data();
+    $module_data = \Drupal::service('extension.list.module')->getList();
     $module_list = $module_list ? array_combine($module_list, $module_list) : [];
     if ($missing_modules = array_diff_key($module_list, $module_data)) {
       // One or more of the given modules doesn't exist.
