@@ -243,7 +243,6 @@
         "drupal/captcha": "^1",
         "drupal/recaptcha": "^3",
         "drupal/admin_toolbar": "^2",
-        "drupal/panelbutton": "^1",
         "drupal/colorbutton": "^1",
         "drupal/better_exposed_filters": "^4",
         "drupal/custom_formatters": "^3",
