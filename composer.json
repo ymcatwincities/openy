@@ -278,6 +278,7 @@
         "drupal/panelbutton": "^1",
         "drupal/rabbit_hole": "~1.0-beta7",
         "drupal/media_directories": "dev-1.x",
+        "drupal/confi:^1.5",
         "drupal/panelbutton": "1.x-dev"
     }
 }
