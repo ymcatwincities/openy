@@ -276,5 +276,6 @@
         "drupal/link_attributes": "^1",
         "drupal/simple_menu_icons": "2.x-dev",
         "drupal/google_optimize": "^1.5",
+        "drupal/rabbit_hole": "~1.0-beta7"
     }
 }
