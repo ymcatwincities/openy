@@ -2,7 +2,7 @@ name: Open Y Block Date
 description: Implements a custom block to display content based on date and time (before, between, after).
 package: Open Y
 type: module
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:block_content
   - drupal:datetime

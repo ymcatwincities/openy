@@ -1,7 +1,7 @@
 name: Daxko API v2 integration
 type: module
 description: Provide way to import classes and sessions.
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 package: OpenY
 dependencies:

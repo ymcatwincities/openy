@@ -20,7 +20,7 @@ description: ''
 tag: ''
 base_table: openy_campaign_memb_camp_actv
 base_field: id
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 display:
   default:
     display_plugin: default

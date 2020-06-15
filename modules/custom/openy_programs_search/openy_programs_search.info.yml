@@ -1,7 +1,7 @@
 name: Open Y Programs Search
 type: module
 description: Provides a Block to search programs.
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 package: Open Y
 version: 8.x-1.0
 dependencies:

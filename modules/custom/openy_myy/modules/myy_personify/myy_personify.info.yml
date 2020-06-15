@@ -1,7 +1,7 @@
 name: OpenY MyY Personify
 type: module
 description: OpenY MyY Personify integration.
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 version: 1.0
 package: OpenY
 dependencies:

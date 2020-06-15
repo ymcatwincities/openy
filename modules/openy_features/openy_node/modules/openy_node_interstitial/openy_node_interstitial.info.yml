@@ -1,7 +1,7 @@
 name: Open Y Node Interstitial Page
 description: Provides an Interstitial Page content type and related configuration. Content type for Interstitial Content Block settings and content
 type: module
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 package: Open Y
 dependencies:
   - datalayer:datalayer

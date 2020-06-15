@@ -1,6 +1,6 @@
 name: Personify
 type: module
 description: Provides an Personify integration.
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0-rc1
 package: Open Y (Experimental)

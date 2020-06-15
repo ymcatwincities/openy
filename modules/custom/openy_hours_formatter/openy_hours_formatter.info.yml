@@ -1,7 +1,7 @@
 name: Open Y Hours Formatter
 type: module
 description: Provides a formatter to display working hours.
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 version: 8.x-1.1
 package: Open Y
 dependencies:

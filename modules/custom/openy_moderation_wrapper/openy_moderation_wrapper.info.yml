@@ -1,6 +1,6 @@
 name: Open Y Moderation wrapper
 type: module
 description: Stores a content moderation functionality wrapper.
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 package: Open Y
 version: 8.x-1.0

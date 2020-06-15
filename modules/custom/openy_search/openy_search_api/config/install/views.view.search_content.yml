@@ -13,7 +13,7 @@ description: 'Block to render content search results in Open Y Search API paragr
 tag: ''
 base_table: search_api_index_search_content
 base_field: search_api_id
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 display:
   default:
     display_plugin: default

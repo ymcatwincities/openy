@@ -2,7 +2,7 @@ name: Open Y Block Code
 description: Implements a custom block to insert code that displays embedded data.
 package: Open Y
 type: module
-core_version_requirement: ^8.8 || ^9
+core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:block_content
   - datalayer:datalayer
