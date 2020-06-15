@@ -279,7 +279,6 @@
         "drupal/rabbit_hole": "~1.0-beta7",
         "drupal/libraries": "3.x-dev",
         "drupal/verf": "1.x-dev",
-        "drupal/media_entity_document": "1.x-dev",
         "drupal/geysir": "dev-1.x",
         "drupal/css_editor": "1.x-dev",
         "drupal/jquery_colorpicker": "2.x-dev",
