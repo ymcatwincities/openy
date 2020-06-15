@@ -274,6 +274,7 @@
         "drupal/image_widget_crop": "^2",
         "drupal/editor_advanced_link": "^1",
         "drupal/link_attributes": "^1",
-        "drupal/simple_menu_icons": "2.x-dev"
+        "drupal/simple_menu_icons": "2.x-dev",
+        "drupal/google_optimize": "^1.5",
     }
 }
