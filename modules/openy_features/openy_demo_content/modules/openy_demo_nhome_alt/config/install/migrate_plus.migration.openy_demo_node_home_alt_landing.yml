@@ -41,12 +41,12 @@ process:
     source: content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_home_alt_simple
         source: content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_home_alt_simple
         source: content_id

@@ -139,11 +139,11 @@ process:
     source: header_content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration: openy_demo_lp_paragraph_campaign_menu
         source: header_content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration: openy_demo_lp_paragraph_campaign_menu
         source: header_content_id
   field_content:
@@ -151,7 +151,7 @@ process:
     source: content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_campaign_activity
@@ -159,7 +159,7 @@ process:
           - openy_demo_lp_paragraph_campaign_winners
         source: content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_campaign_activity

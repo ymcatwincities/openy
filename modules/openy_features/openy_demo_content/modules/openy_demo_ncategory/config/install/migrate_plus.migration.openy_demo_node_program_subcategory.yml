@@ -458,7 +458,7 @@ process:
     default_value: 1
   title: title
   field_category_color:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_taxonomy_term_color
     source: color
   field_category_description/value: body
@@ -466,21 +466,21 @@ process:
     plugin: default_value
     default_value: full_html
   field_category_program:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_program
     source: program
   field_category_image:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_ncategory_media_image
     source: image
   field_header_content/target_id:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_paragraph_classes_listing_filters
       source: header_content
   field_header_content/target_revision_id:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_paragraph_classes_listing_filters
       source: header_content
   field_content:
@@ -488,13 +488,13 @@ process:
     source: content
     process:
        target_id:
-         plugin: migration
+         plugin: migration_lookup
          migration:
            - openy_demo_paragraph_classes_listing
            - openy_demo_paragraph_branches_popup_all
          source: content_id
        target_revision_id:
-         plugin: migration
+         plugin: migration_lookup
          migration:
            - openy_demo_paragraph_classes_listing
            - openy_demo_paragraph_branches_popup_all

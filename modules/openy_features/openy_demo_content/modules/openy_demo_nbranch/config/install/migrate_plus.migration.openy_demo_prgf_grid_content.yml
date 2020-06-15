@@ -118,7 +118,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_nbranch
     no_stub: true
     source: parent_id
@@ -134,12 +134,12 @@ process:
     source: column_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_prgf_grid_columns
         source: column_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_prgf_grid_columns
         source: column_id

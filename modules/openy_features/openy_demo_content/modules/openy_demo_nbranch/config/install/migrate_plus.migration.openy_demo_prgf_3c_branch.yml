@@ -53,7 +53,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_nbranch
     no_stub: true
     source: parent_id
@@ -64,15 +64,15 @@ process:
     plugin: default_value
     default_value: ''
   field_prgf_3c_left/target_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_block_content_amenities
     source: left
   field_prgf_3c_center/target_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_block_content_simple
     source: right
   field_prgf_3c_right/target_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_block_content_simple
     source: center
 destination:

@@ -51,12 +51,12 @@ process:
     source: header_content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_news_small_banner
         source: header_content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_news_small_banner
         source: header_content_id
@@ -65,12 +65,12 @@ process:
     source: content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_news_paragraph_latest_news_posts
         source: content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_news_paragraph_latest_news_posts
         source: content_id
