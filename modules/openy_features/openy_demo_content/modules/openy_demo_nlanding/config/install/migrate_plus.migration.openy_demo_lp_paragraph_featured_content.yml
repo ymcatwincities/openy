@@ -109,7 +109,7 @@ process:
      default_value: 'http://www.openymca.org'
   field_prgf_fc_clm_description:
     -
-      plugin: iterator
+      plugin: sub_process
       source: column_descriptions
       process:
         value: column_description

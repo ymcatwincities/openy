@@ -111,7 +111,7 @@ process:
     plugin: default_value
     source: layout
   field_header_content:
-    plugin: iterator
+    plugin: sub_process
     source: header_content_ids
     process:
       target_id:
@@ -129,7 +129,7 @@ process:
           - openy_demo_lp_paragraph_small_banner
         source: header_content_id
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:

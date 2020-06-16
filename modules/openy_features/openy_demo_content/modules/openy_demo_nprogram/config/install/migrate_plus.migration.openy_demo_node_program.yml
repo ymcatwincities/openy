@@ -150,7 +150,7 @@ process:
     migration: openy_demo_paragraph_category_listing
     source: listing_id
   field_sidebar_content:
-    plugin: iterator
+    plugin: sub_process
     source: card_ids
     process:
        target_id:

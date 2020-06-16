@@ -150,7 +150,7 @@ process:
     plugin: default_value
     source: layout
   field_header_content:
-    plugin: iterator
+    plugin: sub_process
     source: header_content_ids
     process:
       target_id:
@@ -170,7 +170,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
         source: header_content_id
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:
@@ -198,7 +198,7 @@ process:
           - openy_demo_lp_paragraph_all_amenities
         source: content_id
   field_sidebar_content:
-      plugin: iterator
+      plugin: sub_process
       source: sidebar
       process:
         target_id:

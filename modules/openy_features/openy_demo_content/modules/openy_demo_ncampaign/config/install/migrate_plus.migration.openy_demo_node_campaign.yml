@@ -111,7 +111,7 @@ process:
 
 
   field_campaign_pages:
-    plugin: iterator
+    plugin: sub_process
     source: landing_page_ids
     process:
       target_id:

@@ -201,7 +201,7 @@ process:
       plugin: get
       source: longitude
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:

@@ -114,7 +114,7 @@ process:
       migration: openy_demo_taxonomy_term_area
       source: area
   field_content:
-      plugin: iterator
+      plugin: sub_process
       source: content_ids
       process:
         target_id:

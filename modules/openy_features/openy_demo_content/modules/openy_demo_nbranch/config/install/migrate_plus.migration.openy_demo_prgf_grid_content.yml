@@ -130,7 +130,7 @@ process:
     default_value: field_content
   field_prgf_grid_style: style
   field_grid_columns:
-    plugin: iterator
+    plugin: sub_process
     source: column_ids
     process:
       target_id:

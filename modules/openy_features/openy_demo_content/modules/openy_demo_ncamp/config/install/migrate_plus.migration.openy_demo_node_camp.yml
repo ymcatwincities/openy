@@ -177,7 +177,7 @@ process:
       plugin: get
       source: longitude
   field_camp_menu_links:
-    plugin: iterator
+    plugin: sub_process
     source: links
     process:
       uri:
@@ -187,7 +187,7 @@ process:
         plugin: get
         source: title
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:
@@ -203,7 +203,7 @@ process:
           - openy_demo_prgf_simple_camp
         source: content_id
   field_header_content:
-    plugin: iterator
+    plugin: sub_process
     source: header_content_ids
     process:
       target_id:

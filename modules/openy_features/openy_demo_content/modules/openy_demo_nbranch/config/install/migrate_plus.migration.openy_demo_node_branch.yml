@@ -270,7 +270,7 @@ process:
       migration: openy_demo_taxonomy_term_amenities
       source: amnts_ids
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:
@@ -290,7 +290,7 @@ process:
           - openy_demo_prgf_3c_branch
         source: content_id
   field_header_content:
-    plugin: iterator
+    plugin: sub_process
     source: header_content_ids
     process:
       target_id:

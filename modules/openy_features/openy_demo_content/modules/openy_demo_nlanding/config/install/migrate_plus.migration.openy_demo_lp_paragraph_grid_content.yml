@@ -56,7 +56,7 @@ process:
     entity: paragraph
     bundle: grid_content
   field_grid_columns:
-    plugin: iterator
+    plugin: sub_process
     source: column_ids
     process:
       target_id:

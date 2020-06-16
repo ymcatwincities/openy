@@ -37,7 +37,7 @@ process:
     plugin: default_value
     default_value: one_column
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:

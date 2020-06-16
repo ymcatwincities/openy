@@ -145,7 +145,7 @@ process:
     migration: openy_demo_membership_media_image
     source: image_id
   field_mbrshp_info:
-    plugin: iterator
+    plugin: sub_process
     source: mbrshp_info_ids
     process:
       target_id:

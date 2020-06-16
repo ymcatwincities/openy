@@ -1697,7 +1697,7 @@ process:
     plugin: default_value
     default_value: full_html
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content
     process:
        target_id:
@@ -1713,7 +1713,7 @@ process:
            - openy_demo_paragraph_branches_popup_class_02
          source: content_id
   field_sidebar_content:
-    plugin: iterator
+    plugin: sub_process
     source: sidebar
     process:
        target_id:

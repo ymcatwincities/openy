@@ -484,7 +484,7 @@ process:
       migration: openy_demo_paragraph_classes_listing_filters
       source: header_content
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content
     process:
        target_id:
