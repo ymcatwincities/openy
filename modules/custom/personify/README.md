@@ -5,12 +5,20 @@
 #### SoapClient
 
 1. Locate your php.ini file and find these two lines:
-  extension=php_openssl.dll
-  extension=php_soap.dll
+  extension=soap
   
 2. Remove the “;” character at the beginning or add them to the file.
 
 3. Restart your web server.
+
+In case of error: 
+```
+PHP Warning:  PHP Startup: Unable to load dynamic library ...
+```
+Install missing extension. For example, for PHP 7.2:
+```
+sudo apt-get install php7.2-soap
+```
 
 ### Credentials 
 
