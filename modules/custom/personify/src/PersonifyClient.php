@@ -38,11 +38,12 @@ class PersonifyClient {
    */
   public function __construct(ConfigFactoryInterface $configFactory, Client $client) {
     $this->client = $client;
-    $this->config = $configFactory->get('personify.settings')->getRawData();
+    $this->config = $configFactory->get('personify.settings');
+    $env = $this->config->get('environment');
 
-    $this->endpoint = $this->config[$this->config['environment'] . '_endpoint'];
-    $this->username = $this->config[$this->config['environment'] . '_username'];
-    $this->password = $this->config[$this->config['environment'] . '_password'];
+    $this->endpoint = $this->config->get($env . '_endpoint');
+    $this->username = $this->config->get($env . '_username');
+    $this->password = $this->config->get($env . '_password');
 
     if (empty($this->endpoint) || empty($this->username) || empty($this->password)) {
       throw new \LogicException(t('Personify module is misconfigured. Make sure endpoint, username and password details are set.'));

@@ -18,4 +18,3 @@ stage_password: ''
 
 # Environment: stage or prod
 environment: stage
-
