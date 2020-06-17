@@ -1,5 +1,19 @@
 ## Integration with Personify
 
+### Requirements
+
+#### SoapClient
+
+1. Locate your php.ini file and find these two lines:
+  extension=php_openssl.dll
+  extension=php_soap.dll
+  
+2. Remove the “;” character at the beginning or add them to the file.
+
+3. Restart your web server.
+
+### Credentials 
+
 Add Personify credentials to your settings.php file.
 
 ```
