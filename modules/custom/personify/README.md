@@ -4,6 +4,11 @@
 
 #### SoapClient
 
+Enable PHP Soap Extention
+```sh
+phpenmod soap
+service apache2 restart
+```
 1. Locate your php.ini file and find these two lines:
   extension=soap
   
