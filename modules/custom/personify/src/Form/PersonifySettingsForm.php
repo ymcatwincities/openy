@@ -30,14 +30,14 @@ class PersonifySettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('personify.settings')->getRawData();
+    $config = $this->config('personify.settings');
     $form['environment'] = [
       '#type' => 'select',
       '#options' => [
         'prod' => 'Production',
         'stage' => 'Staging'
       ],
-      '#default_value' => $config['environment'],
+      '#default_value' => $config->get('environment'),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -49,7 +49,7 @@ class PersonifySettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
     /* @var $config \Drupal\Core\Config\Config */
-    $config = $this->config($this->getEditableConfigNames());
+    $config = $this->config('personify.settings');
 
     $config->set('environment', $form_state->getValue('environment'))->save();
 
