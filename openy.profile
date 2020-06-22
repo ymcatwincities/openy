@@ -199,6 +199,9 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_bfooter',
       'openy_demo_taxonomy',
     ],
+    'standard_virtual_y' => [
+      'openy_gc_demo',
+    ],
     'extended' => [
       'openy_demo_nalert',
       'openy_demo_nbranch',
@@ -341,6 +344,7 @@ function openy_import_content(array &$install_state) {
   }
   $preset_tags = [
     'standard' => 'openy_standard_installation',
+    'standard_virtual_y' => 'openy_standard_installation',
     'extended' => 'openy_extended_installation',
     'complete' => 'openy_complete_installation',
   ];
