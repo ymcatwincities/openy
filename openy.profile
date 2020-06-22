@@ -344,7 +344,7 @@ function openy_import_content(array &$install_state) {
   }
   $preset_tags = [
     'standard' => 'openy_standard_installation',
-    'standard_virtual_y' => 'openy_standard_installation',
+    'standard_virtual_y' => 'openy_standard_virtual_y_installation',
     'extended' => 'openy_extended_installation',
     'complete' => 'openy_complete_installation',
   ];
