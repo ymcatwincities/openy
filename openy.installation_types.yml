@@ -7,7 +7,7 @@ standard:
     - seo
     - webform
 
-standard:
+standard_virtual_y:
   name: Standard Virtual Y
   packages:
     - alerts
