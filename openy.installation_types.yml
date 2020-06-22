@@ -7,6 +7,16 @@ standard:
     - seo
     - webform
 
+standard:
+  name: Standard Virtual Y
+  packages:
+    - alerts
+    - editorial
+    - news
+    - seo
+    - webform
+    - virtual_y
+    
 extended:
   name: Extended
   packages:
