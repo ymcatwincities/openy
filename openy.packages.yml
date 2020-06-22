@@ -355,3 +355,19 @@ egym_iwatch:
   help: ''
   modules:
     - openy_egym_iwatch
+
+virtual_y:
+  name: 'Virtual Y'
+  description: 'Gated content for Open Y'
+  help: '<p>It is a space to digitally provide content, programming and resources your members enjoy in a branch, in a gated, authenticated area of your site.
+  You are able to choose what content is shown to your members.</p>'
+  modules:
+    - openy_gc_auth_daxko_sso
+    - openy_gc_auth
+    - openy_gc_auth_custom
+    - openy_gc_auth_example
+    - openy_gated_content
+    - openy_gc_auth_personify
+    - openy_gc_storage
+    
+    
