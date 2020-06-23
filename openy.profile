@@ -200,19 +200,7 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_taxonomy',
     ],
     'standard_virtual_y' => [
-      'openy_gc_demo',
-      'openy_demo_nalert',
-      'openy_demo_nlanding',
-      'openy_demo_menu',
-      'openy_demo_nnews',
-      'openy_demo_menu_main',
-      'openy_demo_menu_footer',
-      'openy_demo_webform',
-      'openy_demo_ahb',
-      'openy_demo_tcolor',
-      'openy_demo_tamenities',
-      'openy_demo_bfooter',
-      'openy_demo_taxonomy',
+      'openy_gc_demo'
     ],
     'extended' => [
       'openy_demo_nalert',
