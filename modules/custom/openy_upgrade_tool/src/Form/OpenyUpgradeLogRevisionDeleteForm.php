@@ -55,7 +55,7 @@ class OpenyUpgradeLogRevisionDeleteForm extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $entity_manager = $container->get('entity_type.manager');
+    $entity_manager = $container->get('entity.manager');
     return new static(
       $entity_manager->getStorage('openy_upgrade_log'),
       $container->get('database')

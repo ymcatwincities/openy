@@ -93,7 +93,7 @@ function _openy_ckeditor_prepare_amenities_view($field_value) {
   $amenities = Term::loadMultiple($amenities_ids);
   $amenities_view = [];
   foreach ($amenities as $amenity) {
-    $amenities_view[] = \Drupal::service('entity_type.manager')
+    $amenities_view[] = \Drupal::service('entity.manager')
       ->getViewBuilder('taxonomy_term')
       ->view($amenity, 'default');
   }

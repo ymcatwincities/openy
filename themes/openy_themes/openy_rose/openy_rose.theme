@@ -419,7 +419,7 @@ function openy_rose_preprocess_html(&$variables) {
         $field = $node->$field_id->getValue();
         foreach ($field as $p) {
           /** @var \Drupal\paragraphs\Entity\Paragraph $paragraph */
-          $paragraph = \Drupal::service('entity_type.manager')
+          $paragraph = \Drupal::service('entity.manager')
             ->getStorage('paragraph')
             ->load($p['target_id']);
 

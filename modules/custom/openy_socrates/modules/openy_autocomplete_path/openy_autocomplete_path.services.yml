@@ -9,4 +9,4 @@ services:
       - '@plugin.manager.entity_reference_selection'
       - '@entity_type.manager'
       - '@path_alias.manager'
-      - '@entity_type.manager'
+      - '@entity.manager'

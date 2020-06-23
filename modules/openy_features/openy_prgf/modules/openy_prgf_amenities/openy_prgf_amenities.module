@@ -22,7 +22,7 @@ function openy_prgf_amenities_form_views_exposed_form_alter(&$form, FormStateInt
       ->loadMultiple($results);
     $amenities_view = [];
     foreach ($amenities as $key => $amenity) {
-      $amenities_view[$key] = \Drupal::service('entity_type.manager')
+      $amenities_view[$key] = \Drupal::service('entity.manager')
         ->getViewBuilder('taxonomy_term')
         ->view($amenity, 'icon');
     }

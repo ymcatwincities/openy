@@ -600,7 +600,7 @@ class Member extends ContentEntityBase implements MemberInterface {
     $productCodeFull = strtolower($resultsCRM->ProductCode);
     $allowedValues = [];
     $membershipUnitTypesSettings = [];
-    foreach (\Drupal::getContainer()->get('entity_type.manager')->getFieldDefinitions('node', 'campaign') as $field_name => $field_definition) {
+    foreach (\Drupal::getContainer()->get('entity.manager')->getFieldDefinitions('node', 'campaign') as $field_name => $field_definition) {
       if ($field_name == 'field_campaign_membership_u_t') {
         /** var \Drupal\Core\Field\FieldDefinitionInterface $field_definition */
         $membershipUnitTypesSettings = $field_definition->getSettings();

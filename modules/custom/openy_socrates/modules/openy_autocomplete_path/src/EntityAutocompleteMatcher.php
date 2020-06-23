@@ -5,8 +5,8 @@ namespace Drupal\openy_autocomplete_path;
 use Drupal\Component\Utility\Html;
 use Drupal\Component\Utility\Tags;
 use Drupal\Core\Entity\EntityAutocompleteMatcher as SystemEntityAutocompleteMatcher;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\path_alias\AliasManagerInterface;
 
 /**
@@ -38,12 +38,6 @@ class EntityAutocompleteMatcher extends SystemEntityAutocompleteMatcher {
   protected $aliasManager;
 
   /**
-   * Entity Manager.
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityManager;
-
-  /**
    * Constructs a EntityAutocompleteMatcher object.
    *
    * @param \Drupal\Core\Entity\EntityReferenceSelection\SelectionPluginManagerInterface $selection_manager
@@ -52,10 +46,8 @@ class EntityAutocompleteMatcher extends SystemEntityAutocompleteMatcher {
    *   Entity type manager.
    * @param \Drupal\path_alias\AliasManagerInterface $aliasManager
    *   Alias manager.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityManager
-   *   Entity manager.
    */
-  public function __construct(SelectionPluginManagerInterface $selection_manager, EntityTypeManagerInterface $entityTypeManager, AliasManagerInterface $aliasManager, EntityTypeManagerInterface $entityManager) {
+  public function __construct(SelectionPluginManagerInterface $selection_manager, EntityTypeManagerInterface $entityTypeManager, AliasManagerInterface $aliasManager) {
     parent::__construct($selection_manager);
     $this->selectionManager = $selection_manager;
     $this->entityTypeManager = $entityTypeManager;
