@@ -71,7 +71,7 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
       if ($i > 0) {
         $form['redirect']['widget'][$i] = $form['redirect']['widget'][$i-1];
       }
-      $form['redirect']['widget'][$i]['value']['#default_value'] = Url::fromUserInput($source['path'], $options);
+      $form['redirect']['widget'][$i]['value']['#default_value'] = Url::fromUserInput('/' . $source['path'], $options)->toString();
       $i++;
     }
 
