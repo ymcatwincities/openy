@@ -135,8 +135,7 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
    *   records with STATUS_IGNORED status in the map.
    */
   public function row($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    //$bundles = $this->entityManager->getBundleInfo($this->entityName);
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($this->entityName);
+    $bundles = $this->entityManager->getBundleInfo($this->entityName);
     if (!isset($bundles[$this->entityBundle])) {
       throw new MigrateSkipRowException();
     }
@@ -164,8 +163,7 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
    *   be skipped.
    */
   public function process($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    //$bundles = $this->entityManager->getBundleInfo($this->entityName);
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($this->entityName);
+    $bundles = $this->entityManager->getBundleInfo($this->entityName);
     if (!isset($bundles[$this->entityBundle])) {
       throw new MigrateSkipProcessException();
     }
