@@ -134,7 +134,7 @@ function openy_prgf_gallery_update_8006() {
 function openy_prgf_gallery_update_8007() {
   $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
   $configs = [
-    'field.field.paragraph.gallery.field_prgf_headline' =>[
+    'field.field.paragraph.gallery.field_prgf_headline' => [
       'required',
     ],
   ];
