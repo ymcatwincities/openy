@@ -9,3 +9,4 @@ ahb_modal:
     library/js/ahb.js: {}
   dependencies:
     - core/jquery
+    - core/jquery.cookie

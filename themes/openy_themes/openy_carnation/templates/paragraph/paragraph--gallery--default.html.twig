@@ -81,12 +81,16 @@ set classes = [
     <div class="container align-items-stretch m-auto p-5 py-lg-3 text-center text-white">
       <div class="row">
         <div class="cta-group col-12">
-          <h1 class="display-4 text-uppercase">
-            {{ content.field_prgf_headline }}
-          </h1>
-          <div class="text">
-            {{ content.field_prgf_description }}
-          </div>
+          {% if not paragraph.field_prgf_headline.isEmpty() %}
+            <h1 class="display-4 text-uppercase">
+              {{ content.field_prgf_headline }}
+            </h1>
+          {% endif %}
+          {% if not paragraph.field_prgf_description.isEmpty() %}
+            <div class="text">
+              {{ content.field_prgf_description }}
+            </div>
+          {% endif %}
           {% if content.field_prgf_link|render|trim is not empty %}
           <div class="mt-3">
             {{ content.field_prgf_link }}
