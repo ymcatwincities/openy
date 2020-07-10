@@ -280,6 +280,6 @@
         "drupal/media_directories": "dev-1.x",
         "drupal/confi": "^1.5",
         "drupal/geysir": "dev-1.x", 
-        "drupal/panelbutton": "1.x-dev"
+        "drupal/panelbutton": "^1.3"
     }
 }
