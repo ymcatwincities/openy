@@ -200,6 +200,12 @@ function openy_carnation_preprocess_menu(&$variables) {
   $variables['menu_name'] = isset($variables['menu_name']) ? $variables['menu_name'] : "";
   if ($variables['menu_name'] === 'main') {
     $variables['display_search'] = theme_get_setting('display_search_form');
+
+    foreach ($variables['items'] as &$item) {
+      // Add data-toggle for closing mobile menu on menu item click.
+      $item['attributes']->setAttribute('data-toggle', 'collapse');
+      $item['attributes']->setAttribute('data-target', '.mobile-sidebar.collapse.show');
+    }
   }
 }
 
