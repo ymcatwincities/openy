@@ -48,10 +48,15 @@ class BatchNodeUpdate {
       $context['results']['ids'][] = $node->id();
     }
 
-    $first_node = reset($nodes);
-    $context['message'] = t('Now processing %node', ['%node' => $first_node->title]);
-    // When result is 1, the batch will finish.
-    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    if (!empty($nodes) || $context['sandbox']['max'] !== 0) {
+      $first_node = reset($nodes);
+      $context['message'] = t('Now processing %node', ['%node' => $first_node->getTitle()]);
+      // When result is 1, the batch will finish.
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    }
+    else {
+      $context['finished'] = 1;
+    }
   }
 
   /**
