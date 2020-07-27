@@ -56,9 +56,7 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
   if ($node instanceof \Drupal\node\NodeInterface) {
     $language = $node->language()->getId();
 
-
     // Set default values.
-    $nid = $node->id();
     $redirect_url = 'internal:/' . $node->toUrl()->getInternalPath();
 
     $redirects = openy_redirect_load_redirects_by_redirect_uri($redirect_url, $language);
@@ -68,14 +66,19 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
     foreach ($redirects as $item) {
       $source = $item->getSource();
       $options = !empty($source['query']) ? $source['query'] : [];
+
       if ($i > 0) {
         $form['redirect']['widget'][$i] = $form['redirect']['widget'][$i-1];
       }
 
-      if (substr($source['path'], 0, 1) !== '/') {
-        $source['path'] = '/' . $source['path'];
+      try {
+        $url = Url::fromUserInput('/' . ltrim($source['path'], '/'), $options);
+        $form['redirect']['widget'][$i]['value']['#default_value'] = $url;
+
+      } catch (\InvalidArgumentException $e) {
+        \Drupal::messenger()->addMessage(t('Redirect changes not saved because: ') . $e->getMessage(), 'error');
       }
-      $form['redirect']['widget'][$i]['value']['#default_value'] = Url::fromUserInput($source['path'], $options)->toString();
+
       $i++;
     }
 
