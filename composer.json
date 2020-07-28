@@ -256,7 +256,7 @@
         "drupal/easy_breadcrumb": "^1",
         "drupal/ckeditor_bootstrap_buttons": "1.x-dev",
         "drupal/domain": "dev-1.x",
-        "drupal/domain_theme_switch": "^1",
+        "ymcatwincities/domain_theme_switch": "*",
         "drupal/social_feed_fetcher": "^2",
         "symfony/dom-crawler": "~2.8|~3.0|~4.2",
         "mpdf/mpdf": "^7",
