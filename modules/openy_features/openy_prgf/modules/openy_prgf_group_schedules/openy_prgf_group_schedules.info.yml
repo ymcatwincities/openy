@@ -3,7 +3,6 @@ description: Provides a dynamic paragraph that renders the group schedules from 
 type: module
 core_version_requirement: ^8 || ^9
 package: Open Y
-version: 8.x-1.0
 dependencies:
   - drupal:field
   - openy_group_schedules:openy_group_schedules
