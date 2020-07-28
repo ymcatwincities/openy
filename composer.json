@@ -283,6 +283,7 @@
         "drupal/css_editor": "dev-1.x",
         "drupal/panelbutton": "^1.3",
         "ymcatwincities/media_entity_image": "*",
-        "ymcatwincities/libraries": "*"
+        "ymcatwincities/libraries": "*",
+        "ymcatwincities/verf": "*"
     }
 }
