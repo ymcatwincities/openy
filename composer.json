@@ -252,7 +252,7 @@
         "doctrine/inflector": "1.2.*",
         "drupal/crop": "^2",
         "drupal/focal_point": "^1",
-        "drupal/video": "^1",
+        "ymcatwincities/video": "*",
         "drupal/easy_breadcrumb": "^1",
         "drupal/ckeditor_bootstrap_buttons": "1.x-dev",
         "drupal/domain": "dev-1.x",
