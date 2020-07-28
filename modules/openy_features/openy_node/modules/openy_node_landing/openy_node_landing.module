@@ -9,7 +9,7 @@
  * Implements hook_field_group_form_process_alter().
  */
 function openy_node_landing_field_group_form_process_alter(array &$element, &$group, &$complete_form) {
-  if ($element['#group_name'] !== 'group_sidebar_area' || !isset($element['#bundle']) || $element['#bundle'] != 'landing_page') {
+  if (!isset($element['#group_name']) || $element['#group_name'] !== 'group_sidebar_area' || !isset($element['#bundle']) || $element['#bundle'] != 'landing_page') {
     return;
   }
   // Set visible states for Landing page form Group Sidebar Area when Layout has
