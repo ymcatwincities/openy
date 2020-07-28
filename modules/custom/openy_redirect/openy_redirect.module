@@ -9,6 +9,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\Url;
 use Drupal\redirect\Entity\Redirect;
 use Drupal\Core\Language\Language;
 
@@ -70,7 +71,11 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
       if ($i > 0) {
         $form['redirect']['widget'][$i] = $form['redirect']['widget'][$i-1];
       }
-      $form['redirect']['widget'][$i]['value']['#default_value'] = redirect_url($source['path'], $options);
+
+      if (substr($source['path'], 0, 1) !== '/') {
+        $source['path'] = '/' . $source['path'];
+      }
+      $form['redirect']['widget'][$i]['value']['#default_value'] = Url::fromUserInput($source['path'], $options)->toString();
       $i++;
     }
 

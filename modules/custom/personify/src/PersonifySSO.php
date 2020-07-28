@@ -61,14 +61,14 @@ class PersonifySSO {
    */
   public function __construct(ConfigFactoryInterface $configFactory) {
 
-    $config = $configFactory->get('personify.settings')->getRawData();
+    $config = $configFactory->get('personify.settings');
 
-    $this->wsdl = $config[$config['environment'] . '_wsdl'];
+    $this->wsdl = $config->get($config->get('environment') . '_wsdl');
 
-    $this->vendorId = $config['vendor_id'];
-    $this->vendorUsername = $config['vendor_username'];
-    $this->vendorPassword = $config['vendor_password'];
-    $this->vendorBlock = $config['vendor_block'];
+    $this->vendorId = $config->get('vendor_id');
+    $this->vendorUsername = $config->get('vendor_username');
+    $this->vendorPassword = $config->get('vendor_password');
+    $this->vendorBlock = $config->get('vendor_block');
 
     $this->initClient();
   }

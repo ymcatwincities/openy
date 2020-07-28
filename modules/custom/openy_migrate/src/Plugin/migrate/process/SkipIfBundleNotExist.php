@@ -3,6 +3,7 @@
 namespace Drupal\openy_migrate\Plugin\migrate\process;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
 use Drupal\migrate\MigrateSkipProcessException;
 use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\MigrateExecutableInterface;
@@ -61,13 +62,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactoryPluginInterface {
 
-
   /**
    * The entity manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityManager;
+
+  /**
+   * The entity type bundle info.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface
+   */
+  protected $entityTypeBundleInfo;
 
   /**
    * The current migration.
@@ -93,10 +100,11 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, EntityTypeManagerInterface $entity_manager) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, MigrationInterface $migration, EntityTypeManagerInterface $entity_manager, EntityTypeBundleInfoInterface $entity_type_bundle_info) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->migration = $migration;
     $this->entityManager = $entity_manager;
+    $this->entityTypeBundleInfo = $entity_type_bundle_info;
     $this->entityName = $configuration['entity'];
     $this->entityBundle = $configuration['bundle'];
   }
@@ -110,7 +118,8 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
       $plugin_id,
       $plugin_definition,
       $migration,
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('entity_type.bundle.info')
     );
   }
 
@@ -135,8 +144,7 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
    *   records with STATUS_IGNORED status in the map.
    */
   public function row($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    //$bundles = $this->entityManager->getBundleInfo($this->entityName);
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($this->entityName);
+    $bundles = $this->entityTypeBundleInfo->getBundleInfo($this->entityName);
     if (!isset($bundles[$this->entityBundle])) {
       throw new MigrateSkipRowException();
     }
@@ -164,8 +172,7 @@ class SkipIfBundleNotExist extends ProcessPluginBase implements ContainerFactory
    *   be skipped.
    */
   public function process($value, MigrateExecutableInterface $migrate_executable, Row $row, $destination_property) {
-    //$bundles = $this->entityManager->getBundleInfo($this->entityName);
-    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($this->entityName);
+    $bundles = $this->entityTypeBundleInfo->getBundleInfo($this->entityName);
     if (!isset($bundles[$this->entityBundle])) {
       throw new MigrateSkipProcessException();
     }
