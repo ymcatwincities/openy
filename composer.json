@@ -282,6 +282,7 @@
         "drupal/geysir": "dev-1.x", 
         "drupal/css_editor": "dev-1.x",
         "drupal/panelbutton": "^1.3",
-        "ymcatwincities/media_entity_image": "*"
+        "ymcatwincities/media_entity_image": "*",
+        "ymcatwincities/libraries": "*"
     }
 }
