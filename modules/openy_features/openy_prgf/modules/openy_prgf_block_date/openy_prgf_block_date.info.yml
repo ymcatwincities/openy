@@ -3,7 +3,6 @@ description: Provides a paragraph that renders Date block based on date and time
 package: Open Y
 type: module
 core_version_requirement: ^8 || ^9
-version: 8.x-1.0
 dependencies:
   - drupal:block_content
   - entity_browser_entity_form:entity_browser_entity_form
