@@ -289,6 +289,8 @@
         "ymcatwincities/media_entity_video": "*",
         "ymcatwincities/jquery_colorpicker": "*",
         "ymcatwincities/fontyourface": "*",
-        "drupal/media_directories": "1.x-dev"
+        "drupal/media_directories": "1.x-dev",
+        "ymcatwincities/colorapi": "*",
+        "ymcatwincities/vendor_stream_wrapper": "*"
     }
 }
