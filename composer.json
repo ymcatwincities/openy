@@ -249,7 +249,7 @@
         "drupal/token_filter": "^1",
         "drupal/views_field_formatter": "~1.9",
         "drupal/tzfield": "1.x-dev",
-        "drupal/views_data_export": "1.0-rc1",
+        "drupal/views_data_export": "^1",
         "doctrine/inflector": "1.2.*",
         "drupal/crop": "^2",
         "drupal/focal_point": "^1",
