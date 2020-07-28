@@ -286,7 +286,7 @@
         "ymcatwincities/libraries": "*",
         "ymcatwincities/verf": "*",
         "ymcatwincities/media_entity_document": "*",
-        "ymcatwincities/media_entity_video"" "*",
+        "ymcatwincities/media_entity_video": "*",
         "ymcatwincities/jquery_colorpicker": "*",
         "ymcatwincities/fontyourface": "*",
         "drupal/media_directories": "1.x-dev"
