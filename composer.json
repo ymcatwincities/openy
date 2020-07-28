@@ -246,7 +246,7 @@
         "drupal/better_exposed_filters": "^4",
         "ymcatwincities/custom_formatters": "*",
         "drupal/token_filter": "^1",
-        "drupal/views_field_formatter": "~1.9",
+        "ymcatwincities/views_field_formatter": "*",
         "drupal/tzfield": "1.x-dev",
         "drupal/views_data_export": "^1",
         "doctrine/inflector": "1.2.*",
