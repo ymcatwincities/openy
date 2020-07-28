@@ -244,7 +244,7 @@
         "drupal/admin_toolbar": "^2",
         "drupal/colorbutton": "^1",
         "drupal/better_exposed_filters": "^4",
-        "drupal/custom_formatters": "^3",
+        "ymcatwincities/custom_formatters": "*",
         "drupal/token_filter": "^1",
         "drupal/views_field_formatter": "~1.9",
         "drupal/tzfield": "1.x-dev",
