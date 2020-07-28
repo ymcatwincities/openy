@@ -284,6 +284,7 @@
         "drupal/panelbutton": "^1.3",
         "ymcatwincities/media_entity_image": "*",
         "ymcatwincities/libraries": "*",
-        "ymcatwincities/verf": "*"
+        "ymcatwincities/verf": "*",
+        "ymcatwincities/media_entity_document": "*"
     }
 }
