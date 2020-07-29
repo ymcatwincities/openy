@@ -14,7 +14,7 @@ class RoboFile extends \Robo\Tasks {
    */
   function OpenyCreateProject($path) {
     $this->taskComposerCreateProject()
-      ->source('ymcatwincities/openy-project:9.2.x-development-dev')
+      ->source('ymcatwincities/openy-project:9.2.x-init-dev')
       ->target($path . '/openy-project')
       ->ansi(TRUE)
       ->noInstall(TRUE)
