@@ -66,7 +66,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_landing
     no_stub: true
     source: parent_id
@@ -79,7 +79,7 @@ process:
     default_value: field_header_content
   field_prgf_headline: headline
   field_prgf_color:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_taxonomy_term_color
     source: color
   field_prgf_link/uri:
@@ -89,7 +89,7 @@ process:
     plugin: default_value
     default_value: 'Start guided tour'
   field_prgf_image:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_lp_media_image
     source: image
   field_prgf_description/value: description

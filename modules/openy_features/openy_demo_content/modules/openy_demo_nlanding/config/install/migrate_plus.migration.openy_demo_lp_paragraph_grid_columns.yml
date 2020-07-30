@@ -49,7 +49,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_lp_paragraph_grid_content
     no_stub: true
     source: parent_id

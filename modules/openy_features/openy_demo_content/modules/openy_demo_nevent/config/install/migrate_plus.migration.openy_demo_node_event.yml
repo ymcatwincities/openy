@@ -158,12 +158,12 @@ process:
       source: end_date
   field_event_image:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_nevent_media_image
       source: image
   field_event_location:
     - 
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_node_camp
       source: camp
 destination:

@@ -25,7 +25,7 @@ For this, you need to create a new service in custom module and set the highest 
     arguments:
       - '@entity.query'
       - '@renderer'
-      - '@entity.manager'
+      - '@entity_type.manager'
       - '@socrates'
       - '@cache.data'
       - '@logger.channel.openy_data_wrapper'

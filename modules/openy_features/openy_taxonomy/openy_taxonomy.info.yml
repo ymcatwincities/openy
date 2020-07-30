@@ -1,7 +1,7 @@
 name: Open Y Taxonomy Package
 description: Bundle of taxonomy modules for Open Y, and their common configuration.
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 package: Open Y
 dependencies:
