@@ -185,7 +185,7 @@
     "require": {
         "php": ">=7.3",
         "cweagans/composer-patches": "^1.5.0",
-        "composer/installers": "^1.9",
+        "composer/installers": "*",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
@@ -271,7 +271,6 @@
         "drupal/google_optimize": "^1.5",
         "drupal/panelbutton": "^1",
         "drupal/rabbit_hole": "~1.0-beta7",
-        "drupal/media_directories": "dev-1.x",
         "drupal/confi": "^1.5",
         "drupal/geysir": "dev-1.x", 
         "drupal/css_editor": "dev-1.x",
@@ -283,7 +282,7 @@
         "ymcatwincities/media_entity_video": "*",
         "ymcatwincities/jquery_colorpicker": "*",
         "ymcatwincities/fontyourface": "*",
-        "drupal/media_directories": "1.x-dev",
+        "drupal/media_directories": "^2",
         "ymcatwincities/colorapi": "*",
         "ymcatwincities/vendor_stream_wrapper": "*"
     }
