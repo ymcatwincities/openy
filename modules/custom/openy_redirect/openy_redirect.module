@@ -72,7 +72,7 @@ function openy_redirect_form_node_form_alter(&$form, FormStateInterface $form_st
       }
 
       try {
-        $url = Url::fromUserInput('/' . ltrim($source['path'], '/'), $options);
+        $url = Url::fromUserInput('/' . ltrim($source['path'], '/'), $options)->toString();
         $form['redirect']['widget'][$i]['value']['#default_value'] = $url;
 
       } catch (\InvalidArgumentException $e) {
