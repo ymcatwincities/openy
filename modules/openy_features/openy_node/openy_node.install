@@ -5,6 +5,20 @@
  * Open Y Node install file.
  */
 
+ /**
+ * Implement hook_install().
+ */
+function openy_node_install() {
+  $config_dir = drupal_get_path('module', 'openy_node') . '/config/override/';
+    // Import new configuration
+    $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+    $config_importer->setDirectory($config_dir);
+    $config_importer->importConfigs([
+      'metatag.metatag_defaults.node',
+    ]);
+}
+
+
 /**
  * Implements hook_update_dependencies().
  */

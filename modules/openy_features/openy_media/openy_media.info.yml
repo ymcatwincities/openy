@@ -13,4 +13,5 @@ dependencies:
   - drupal:user
   - rabbit_hole:rabbit_hole
   - media_directories:media_directories
+  - openy_upgrade_tool:openy_upgrade_tool
 core_incompatible: false
