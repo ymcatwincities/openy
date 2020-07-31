@@ -17,3 +17,5 @@ dependencies:
   - path
   - taxonomy
   - text
+  - openy_upgrade_tool:openy_upgrade_tool
+  - simple_sitemap:simple_sitemap
