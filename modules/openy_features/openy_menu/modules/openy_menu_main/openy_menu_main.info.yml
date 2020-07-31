@@ -11,3 +11,4 @@ dependencies:
   - drupal:user
   - drupal:views
   - openy_menu:openy_menu
+  - openy_upgrade_tool:openy_upgrade_tool
