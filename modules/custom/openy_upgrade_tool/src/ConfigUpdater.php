@@ -15,6 +15,7 @@ use Drupal\Core\Extension\ThemeHandler;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\File\FileSystem;
 use Drupal\Core\Extension\ModuleExtensionList;
+use Drupal\Core\Installer\InstallerModuleExtensionList;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -62,7 +63,7 @@ class ConfigUpdater extends ConfigImporterService {
     FileSystem $file_system,
     OpenyUpgradeLogManagerInterface $upgrade_log_manager,
     LoggerChannelInterface $logger_factory,
-    ModuleExtentionList $extension_list_module
+    $extension_list_module
   ) {
     parent::__construct(
       $uuid,
