@@ -3,8 +3,9 @@ alerts:
   description: 'Alerts package provides an ability to create and manage website alerts.'
   help: '<p>Using Alerts package you can create, select placement, select color schema and publish alerts that should notify visitors about important events or announcements.</p>'
   modules:
-    - openy_node_alert
     - openy_txnm_color
+    - openy_node_alert
+    
 
 analytics:
   name: 'Analytics'
