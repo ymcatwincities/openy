@@ -16,7 +16,7 @@
         "drupal/ckeditor_bootstrap_buttons": "1.x-dev",
         "drupal/ckeditor_font": "^1",
         "drupal/colorbutton": "^1",
-        "drupal/confi": "2.x-dev",
+        "drupal/confi": "^2.0",
         "drupal/config_update": "^1.6",
         "drupal/core": "^9",
         "drupal/core-composer-scaffold": "^9",
