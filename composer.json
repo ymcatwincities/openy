@@ -176,8 +176,7 @@
             },
             "drupal/libraries": {
                 "Fix libraries getPath issue": "https://gist.githubusercontent.com/podarok/14f2a01d6f4b8a959d1a13f5a510e1b2/raw/85acd44b047605e91c6625d1e9c5de5c130bacc3/path.diff"
-            },
-            
+            }
         }
     },
     "repositories": [
