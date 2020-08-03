@@ -79,7 +79,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_landing
     no_stub: true
     source: parent_id
@@ -109,7 +109,7 @@ process:
      default_value: 'http://www.openymca.org'
   field_prgf_fc_clm_description:
     -
-      plugin: iterator
+      plugin: sub_process
       source: column_descriptions
       process:
         value: column_description

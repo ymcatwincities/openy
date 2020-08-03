@@ -1,6 +1,6 @@
 name: Open Y AddThis
 type: module
 description: Provides a configurable block with social icons and links to share content using AddThis service.
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Open Y
 version: 8.x-1.0

@@ -271,7 +271,7 @@ process:
     default_value: 1
   title: title
   field_activity_category:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_program_subcategory
     no_stub: true
     source: subcategory

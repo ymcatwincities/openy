@@ -200,7 +200,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_membership
     no_stub: true
     source: parent_id
@@ -220,7 +220,7 @@ process:
     plugin: default_value
     default_value: 'Select'
   field_mbrshp_location:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_branch
     source: location_id
 destination:

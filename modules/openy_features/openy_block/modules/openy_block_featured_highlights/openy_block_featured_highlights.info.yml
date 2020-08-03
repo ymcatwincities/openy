@@ -1,7 +1,7 @@
 name: Open Y Block Featured Highlights
 description: Implements a custom block type with Featured Highlights content.
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Open Y
 version: 8.x-1.0
 dependencies:

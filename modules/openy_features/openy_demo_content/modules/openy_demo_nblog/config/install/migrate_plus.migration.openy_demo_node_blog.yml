@@ -371,12 +371,12 @@ process:
       source: style
   field_blog_color:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_taxonomy_term_color
       source: bg_color
   field_blog_text_color:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_taxonomy_term_color
       source: color
   field_blog_description/value:
@@ -389,22 +389,22 @@ process:
       default_value: full_html
   field_blog_category:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_taxonomy_term_blog_category
       source: category
   field_blog_related:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_node_blog
       source: related
   field_blog_image:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_nblog_media_image
       source: image
   field_blog_location:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_node_branch
       source: branch
 destination:

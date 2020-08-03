@@ -652,24 +652,24 @@ process:
     default_value: 1
   title: title
   field_session_class:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_class_01
     source: class
   field_session_location:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_branch
     source: location
   field_session_time:
-    plugin: iterator
+    plugin: sub_process
     source: times
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration: openy_demo_paragraph_session_time_03
         no_stub: true
         source: time
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration: openy_demo_paragraph_session_time_03
         no_stub: true
         source: time

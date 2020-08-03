@@ -1,6 +1,6 @@
 name: Open Y Mappings
 type: module
 description: Provides a Mapping entity type and features.
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 package: Open Y
