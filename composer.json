@@ -169,7 +169,10 @@
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
             },
             "drupal/social_feed_fetcher": {
-                "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
+                "3130364 - Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
+            },
+            "drupal/entity_browser": {
+                "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey on null": "https://www.drupal.org/files/issues/2845037_16.patch"
             }
         }
     },
