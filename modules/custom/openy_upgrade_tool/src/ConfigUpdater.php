@@ -14,6 +14,7 @@ use Drupal\Core\ProxyClass\Extension\ModuleInstaller;
 use Drupal\Core\Extension\ThemeHandler;
 use Drupal\Core\StringTranslation\TranslationManager;
 use Drupal\Core\File\FileSystem;
+use Drupal\Core\Extension\ModuleExtensionList;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Component\Uuid\UuidInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
@@ -60,7 +61,8 @@ class ConfigUpdater extends ConfigImporterService {
     TranslationManager $translation_manager,
     FileSystem $file_system,
     OpenyUpgradeLogManagerInterface $upgrade_log_manager,
-    LoggerChannelInterface $logger_factory
+    LoggerChannelInterface $logger_factory,
+    ModuleExtentionList $extension_list_module
   ) {
     parent::__construct(
       $uuid,
@@ -73,7 +75,8 @@ class ConfigUpdater extends ConfigImporterService {
       $module_installer,
       $theme_handler,
       $translation_manager,
-      $file_system
+      $file_system,
+      $extension_list_module
     );
     $this->logger = $logger_factory;
     $this->upgradeLogManager = $upgrade_log_manager;
