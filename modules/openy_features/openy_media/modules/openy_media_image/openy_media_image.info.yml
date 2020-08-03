@@ -31,4 +31,5 @@ dependencies:
   - drupal:taxonomy
   - drupal:user
   - drupal:views
+  - openy_upgrade_tool:openy_upgrade_tool
 core_incompatible: false

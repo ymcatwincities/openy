@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: browser_thumbnail
+label: 'Browser thumbnail'
+effects:
+  272e64a7-b52e-47e2-9f9f-c647e31a3873:
+    uuid: 272e64a7-b52e-47e2-9f9f-c647e31a3873
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 270
+      height: 200
+      anchor: center-center
