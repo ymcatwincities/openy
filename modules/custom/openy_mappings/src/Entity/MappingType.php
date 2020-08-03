@@ -30,6 +30,7 @@ use Drupal\openy_mappings\MappingTypeInterface;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
+ *   config_export = {},
  *   links = {
  *     "canonical" = "/admin/openy/settings/mappings/mapping_type/{mapping_type}",
  *     "add-form" = "/admin/openy/settings/mappings/mapping_type/add",
