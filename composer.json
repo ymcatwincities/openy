@@ -77,6 +77,7 @@
         "drupal/views_data_export": "^1",
         "drupal/views_infinite_scroll": "^1.7",
         "drupal/webform": "^6",
+        "drush/drush": "^10.3",
         "grt107/grt-youtube-popup": "^1.0",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
