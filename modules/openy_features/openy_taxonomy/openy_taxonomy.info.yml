@@ -2,10 +2,11 @@ name: Open Y Taxonomy Package
 description: Bundle of taxonomy modules for Open Y, and their common configuration.
 type: module
 core_version_requirement: ^8 || ^9
-version: 8.x-1.0
+version: 8.x-1.1
 package: Open Y
 dependencies:
   - entity_reference_revisions:entity_reference_revisions
   - paragraphs:paragraphs
   - drupal:taxonomy
   - drupal:views
+  - openy_upgrade_tool:openy_upgrade_tool
