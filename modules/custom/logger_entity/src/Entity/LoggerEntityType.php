@@ -29,7 +29,10 @@ use Drupal\Core\Config\Entity\ConfigEntityBundleBase;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
- *   config_export = {},
+ *   config_export = {
+ *     "id",
+ *     "label"
+ *   },
  *   links = {
  *     "canonical" = "/admin/config/logger_entity_type/{logger_entity_type}",
  *     "add-form" = "/admin/config/logger_entity_type/add",
