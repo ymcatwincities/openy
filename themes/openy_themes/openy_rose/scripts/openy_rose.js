@@ -112,6 +112,19 @@
           return false;
         }
       });
+
+      // Close mobile menu on link click.
+      $('#sidebar nav a:not(.dropdown-toggle)', context).click(function() {
+        var sidebar = $('#sidebar');
+        var toggle = $('.navbar-toggle[data-target="#sidebar"]');
+        if (sidebar.attr('aria-expanded') == 'true') {
+          sidebar.trigger('hide.bs.collapse');
+          toggle.removeAttr('aria-expanded');
+          toggle.addClass('collapsed');
+          $('body').removeClass('sidebar-in');
+          $('html').removeClass('sidebar-in');
+        }
+      });
     }
   };
 
