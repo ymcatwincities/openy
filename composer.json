@@ -279,7 +279,7 @@
         "drupal/video": "~1.4",
         "drupal/easy_breadcrumb": "~1.8",
         "drupal/ckeditor_bootstrap_buttons": "~1.2",
-        "ymcatwincities/fontyourface": "*",
+        "drupal/fontyourface": "~3.2",
         "drupal/css_editor": "~1.2",
         "drupal/domain": "~1.0-alpha14",
         "drupal/domain_theme_switch": "~1.4",
