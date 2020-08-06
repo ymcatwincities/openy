@@ -18,67 +18,71 @@ source:
     -
       id: 2
       name: Black
-      color: '000000'
+      color: '231f20'
     -
       id: 3
-      name: Sky blue
-      color: BFE1F3
-    -
-      id: 4
-      name: Light blue
+      name: Light Blue
       color: '00AEEF'
     -
-      id: 5
+      id: 4
       name: Blue
       color: '0089D0'
     -
-      id: 6
-      name: Dark blue
+      id: 5
+      name: Dark Blue
       color: '0060AF'
     -
-      id: 7
-      name: Pink
+      id: 6
+      name: Light Purple
       color: 'C6168D'
     -
-      id: 8
-      name: Dark magenta
+      id: 7
+      name: Purple
       color: '92278F'
     -
-      id: 9
-      name: Purple
+      id: 8
+      name: Dark Purple
       color: '5C2E91'
+    -
+      id: 9
+      name: Light Red
+      color: 'f15922'
     -
       id: 10
       name: Red
-      color: 'ED1C24'
+      color: 'ed1c24'
     -
       id: 11
-      name: Orange
-      color: 'F15922'
+      name: Dark Red
+      color: 'a92b31'
     -
       id: 12
-      name: Yellow
-      color: 'FCAF17'
+      name: Green
+      color: '01a490'
     -
       id: 13
-      name: Green
-      color: '20BDBE'
-    -
-      id: 14
-      name: Dark green
+      name: Dark Green
       color: '006B6B'
     -
+      id: 14
+      name: Light Green
+      color: '20bdbe'
+    -
       id: 15
-      name: Light green
-      color: '01A490'
+      name: Light Orange
+      color: 'fcaf17'
     -
       id: 16
-      name: Brown
-      color: '231F20'
+      name: Orange
+      color: 'f47920'
     -
       id: 17
+      name: Dark Orange
+      color: 'dd5828'
+    -
+      id: 18
       name: Grey
-      color: '4f4f4f'
+      color: '636466'
   ids:
     id:
       type: integer
