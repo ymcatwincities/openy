@@ -42,16 +42,12 @@
   {% if multiple %}
     <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
       {% for item in items %}
-        <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light">
-          {{ item.content['#title'] }}
-        </a>
+        {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-light']}}}) }}
       {% endfor %}
     </div>
   {% else %}
     {% for item in items %}
-      <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light">
-        {{ item.content['#title'] }}
-      </a>
+      {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-light']}}}) }}
     {% endfor %}
   {% endif %}
 {% else %}
@@ -61,9 +57,7 @@
     <div>
       {% endif %}
       {% for item in items %}
-        <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-light">
-          {{ item.content['#title'] }}
-        </a>
+        {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-light']}}}) }}
       {% endfor %}
       {% if multiple %}
     </div>

@@ -7,8 +7,6 @@
         var contentHeight = $('.main-region').outerHeight();
         var sidebarHeight = $('.sidebar-region').outerHeight();
 
-        var headerWrapperHeight = $('.wrapper-field-header-content').outerHeight();
-
         if (contentHeight >= sidebarHeight) {
           var $sidebar = $('.landing-content.two-column-fixed .wrapper-field-sidebar-content');
           if($sidebar.length == 0) {
@@ -23,8 +21,8 @@
           else {
             top = 120;
           }
-          var top_offset = $('.header-alerts-list').outerHeight(true) + $('.wrapper-field-header-content').outerHeight(true) + top;
-          var bottom_offset = $('.footer').outerHeight(true) + $('.wrapper-field-bottom-content').outerHeight(true) + $('.site-alert--footer').outerHeight(true);
+          var top_offset = ($('.header-alerts-list').outerHeight(true) || 0) + ($('.wrapper-field-header-content').outerHeight(true) || 0) + top;
+          var bottom_offset = ($('.footer').outerHeight(true) || 0) + ($('.wrapper-field-bottom-content').outerHeight(true) || 0) + ($('.site-alert--footer').outerHeight(true) || 0);
           $sidebar.affix({
             offset: {
               top: top_offset,

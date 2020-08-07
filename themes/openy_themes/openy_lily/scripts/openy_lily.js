@@ -132,6 +132,14 @@
           }
         });
       });
+
+      // Close mobile menu on link click.
+      $("#side-area nav a:not(.dropdown-toggle)", context).click(function() {
+        $(".navbar-toggler", context).toggleClass('expanded-mobile');
+        $('#side-area, .viewport').toggleClass('expanded-mobile');
+        $('#side-area').attr('aria-hidden', 'true');
+        $('.viewport').removeAttr('aria-hidden');
+      });
     }
   };
 
