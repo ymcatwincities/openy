@@ -49,9 +49,15 @@ set classes = [
     <div class="container">
       <div class="row">
         <div class="cta-group">
-          <h1>{{ content.field_prgf_headline }}</h1>
-          <div class="text">{{ content.field_prgf_description }}</div>
-          <div class="btn btn-default btn-link blue">{{ content.field_prgf_link }}</div>
+          {% if not paragraph.field_prgf_headline.isEmpty() %}
+            <h1>{{ content.field_prgf_headline }}</h1>
+          {% endif %}
+          {% if not paragraph.field_prgf_description.isEmpty() %}
+            <div class="text">{{ content.field_prgf_description }}</div>
+          {% endif %}
+          {% if not paragraph.field_prgf_link.isEmpty() %}
+            <div class="btn btn-default btn-link blue">{{ content.field_prgf_link }}</div>
+          {% endif %}
         </div>
       </div>
     </div>
