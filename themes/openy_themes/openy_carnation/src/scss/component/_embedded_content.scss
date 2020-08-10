@@ -16,6 +16,11 @@
     margin-bottom: 30px;
   }
 
+  &.view-mode-media-full-without-blazy,
+  &.view-mode-media-embedded-full {
+    float: none;
+  }
+
   &.view-mode-media-full-without-blazy {
     img {
       width: 100%;
