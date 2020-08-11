@@ -187,14 +187,10 @@
             "drupal/blazy": {
                 "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch"
             },
-            "drupal/ckeditor_font": {
-                "Fixes CKEditor Font if a drupal website is installed in a subdirectory": "https://www.drupal.org/files/issues/ckeditor_font_8_1_0_libraries_integration_01.patch"
-            },
             "drupal/migrate_tools": {
                 "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
             },
             "drupal/geysir": {
-                "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
             },
             "drupal/social_feed_fetcher": {
@@ -292,11 +288,11 @@
         "npm-asset/slick-carousel": "^1.8",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
-        "drupal/ckeditor_font": "^1.0",
+        "drupal/ckeditor_font": "^1.1",
         "drupal/draggableviews": "^1.2",
         "drupal/twig_tweak": "^2.4",
         "drupal/image_widget_crop": "^2.2",
-        "drupal/geysir": "^1.1",
+        "drupal/geysir": "^1.2",
         "drupal/media_directories": "^1.0",
         "drupal/editor_advanced_link": "^1.6",
         "drupal/link_attributes": "^1.10"
