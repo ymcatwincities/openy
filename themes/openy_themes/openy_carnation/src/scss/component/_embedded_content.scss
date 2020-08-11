@@ -1,0 +1,50 @@
+// Note: this can be back-ported to carnation.
+.embedded-entity {
+  &.align-center {
+    text-align: center;
+  }
+  &.align-left {
+    margin-right: 30px;
+  }
+  &.align-right {
+    margin-left: 30px;
+  }
+  &.view-mode-media-half-without-blazy,
+  &.view-mode-media-full-without-blazy,
+  &.view-mode-media-embedded-half,
+  &.view-mode-media-embedded-full {
+    margin-bottom: 30px;
+  }
+
+  &.view-mode-media-full-without-blazy,
+  &.view-mode-media-embedded-full {
+    float: none;
+  }
+
+  &.view-mode-media-full-without-blazy {
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &.view-mode-media-half-without-blazy {
+    @include media-breakpoint-down(sm) {
+      float: none;
+      margin: 0 0 30px;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  &.view-mode-media-embedded-half {
+    @include media-breakpoint-down(sm) {
+      float: none;
+      width: 100%;
+      margin: 0 0 30px;
+    }
+
+    width: 50%;
+  }
+}
