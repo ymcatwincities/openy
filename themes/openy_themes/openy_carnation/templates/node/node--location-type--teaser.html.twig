@@ -111,7 +111,7 @@
     {{ content.field_location_address }}
 
     {% if directions_title %}
-      <a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a>
+      <a href="{{ directions_url }}" title="{{ directions_title }}" target="_blank">{{ directions_title }}</a>
     {% endif %}
 
     {% if content.field_location_phone|render|trim is not empty %}
