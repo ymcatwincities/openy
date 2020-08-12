@@ -314,15 +314,10 @@ function openy_carnation_preprocess_page_logo(&$variables) {
  * Implements hook_preprocess_ENTITY_TYPE().
  */
 function openy_carnation_preprocess_paragraph(array &$variables) {
-  if (empty($variables['paragraph'])) {
+  if (!Drupal::hasService('plugin.manager.home_branch_library')) {
     return;
   }
-
-  if ($variables['paragraph']->bundle() == 'gallery') {
-    $variables['#attached']['library'][] = 'openy_prgf_gallery/carnation.gallery_extras';
-  }
-
-  if (!Drupal::hasService('plugin.manager.home_branch_library')) {
+  if (empty($variables['paragraph'])) {
     return;
   }
 
