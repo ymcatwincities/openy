@@ -21,20 +21,10 @@
   <h3>{{ title }}</h3>
 {% endif %}
 
-{% set cols = 2 | default(2) %}
-{% for row in rows %}
-{%
-  set row_classes = [
-    default_row_class ? 'd-flex flex-column flex-lg-row',
-  ]
-%}
-{% if loop.index0 % cols == 0 %}
-  <div{{ row.attributes.addClass(row_classes) }}>
-  {% endif %}
-  <div class="col-12 col-lg-6 mb-4">
-    {{ row.content }}
-  </div>
-  {% if (loop.index0 % cols == cols - 1 or loop.last) %}
-  </div>
-{% endif %}
-{% endfor %}
+<div{{ attributes.addClass('row views-row__wrapper') }}>
+  {% for row in rows %}
+    <div class="col-12 col-lg-6 mb-5">
+      {{ row.content }}
+    </div>
+  {% endfor %}
+</div>

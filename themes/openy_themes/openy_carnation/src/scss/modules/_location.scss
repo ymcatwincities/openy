@@ -75,6 +75,10 @@
     }
   }
 
+  .branch-info {
+    position: inherit;
+  }
+
   // button
   .button.branch-info a {
     @include cachet(700);
