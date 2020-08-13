@@ -78,8 +78,6 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{% set directions_url = content.field_location_directions.0['#url'] %}
-{% set directions_title = content.field_location_directions.0['#title'] %}
 
 <article{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
@@ -110,8 +108,8 @@
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content.field_location_address }}
 
-    {% if directions_title %}
-      <a href="{{ directions_url }}" title="{{ directions_title }}" target="_blank">{{ directions_title }}</a>
+    {% if not node.field_location_directions.isEmpty() %}
+      {{ content.field_location_directions }}
     {% endif %}
 
     {% if content.field_location_phone|render|trim is not empty %}

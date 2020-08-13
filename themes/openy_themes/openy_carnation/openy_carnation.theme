@@ -397,6 +397,22 @@ function openy_carnation_theme_suggestions_menu_alter(&$suggestions, array $vari
 /**
  * Implements hook_theme_suggestions_HOOK_alter().
  */
+function openy_carnation_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+  $element = $variables['element'];
+
+  $field_name = $element['#field_name'];
+  $view_mode = $element['#view_mode'];
+  $entity_type = $element['#entity_type'];
+  $bundle = $element['#bundle'];
+
+  $suggestions[] = 'field__' . $field_name . '__' . $view_mode;
+  $suggestions[] = 'field__' . $entity_type . '__' . $field_name . '__' . $view_mode;
+  $suggestions[] = 'field__' . $entity_type . '__' . $bundle . '__' . $field_name . '__' . $view_mode;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
 function openy_carnation_theme_suggestions_page_alter(array &$suggestions, array $variables) {
   if (in_array('page__user__register', $suggestions)
     || in_array('page__user__register', $suggestions)
