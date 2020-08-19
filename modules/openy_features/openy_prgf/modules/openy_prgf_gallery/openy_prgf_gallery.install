@@ -147,3 +147,16 @@ function openy_prgf_gallery_update_8007() {
     }
   }
 }
+
+/**
+ * Create the 'Gallery thumbnail image style.
+ */
+function openy_prgf_gallery_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_gallery') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'image.style.gallery_thumbnail',
+  ]);
+}

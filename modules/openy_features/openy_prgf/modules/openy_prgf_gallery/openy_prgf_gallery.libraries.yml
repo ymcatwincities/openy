@@ -4,3 +4,10 @@ gallery_alert:
     js/openy_prgf_gallery_alert.js: {}
   dependencies:
     - core/jquery
+
+carnation.gallery_extras:
+  version: 1.x
+  js:
+    js/openy_prgf_gallery.carnation.js: {}
+  dependencies:
+    - core/jquery

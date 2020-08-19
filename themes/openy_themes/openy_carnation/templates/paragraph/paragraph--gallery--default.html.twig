@@ -44,61 +44,75 @@ set classes = [
   view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
 ]
 %}
-{% if content.field_prgf_images['#items']|length >= 1 %}
-<div{{ attributes.addClass(classes) }}>
-  <div class="carousel slide" data-ride="carousel">
-
-    <div class="carousel-inner">
-      {% for key, value in content.field_prgf_images['#items'] %}
-      <div class="carousel-item{% if key == 0 %} active{% endif %}">
-
-        {# images #}
-        {{ content.field_prgf_images[key] }}
-
-        {# caption #}
-        {% if content.field_prgf_images[key]['#media'].field_media_caption is not empty and content.field_prgf_images[key]['#media'].field_media_caption.0.value is not empty %}
-        <div class="carousel-caption d-none d-md-block">
-          {{ content.field_prgf_images[key]['#media'].field_media_caption.0.value }}
-        </div>
-        {% endif %}
-
-      </div>
-      {% endfor %}
-    </div>
-    {% if content.field_prgf_images['#items']|length > 1 %}
-    <a class="carousel-control-prev carousel-control" href="#carousel" data-slide="prev" aria-hidden="true" tabindex="-1">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only" aria-hidden="true">{{ 'Previous'|t }}</span>
-    </a>
-    <a class="carousel-control-next carousel-control" href="#carousel" data-slide="next" aria-hidden="true" tabindex="-1">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only" aria-hidden="true">{{ 'Next'|t }}</span>
-    </a>
-    {% endif %}
-  </div>
-
-  <div class="cta-group-wrapper d-flex h-100">
-    <div class="container align-items-stretch m-auto p-5 py-lg-3 text-center text-white">
-      <div class="row">
-        <div class="cta-group col-12">
-          {% if not paragraph.field_prgf_headline.isEmpty() %}
-            <h1 class="display-4 text-uppercase">
-              {{ content.field_prgf_headline }}
-            </h1>
-          {% endif %}
-          {% if not paragraph.field_prgf_description.isEmpty() %}
-            <div class="text">
-              {{ content.field_prgf_description }}
-            </div>
-          {% endif %}
-          {% if content.field_prgf_link|render|trim is not empty %}
-          <div class="mt-3">
-            {{ content.field_prgf_link }}
+{% if not paragraph.field_prgf_images.isEmpty() %}
+  <div{{ attributes.addClass(classes) }}>
+    <div class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        {% for key, value in content.field_prgf_images['#items'] %}
+          <div class="carousel-item{% if key == 0 %} active{% endif %}">
+            {# images #}
+            {{ content.field_prgf_images[key] }}
+            {# caption #}
+            {% if content.field_prgf_images[key]['#media'].field_media_caption is not empty and content.field_prgf_images[key]['#media'].field_media_caption.0.value is not empty %}
+              <div class="carousel-caption d-none d-md-block">
+                {{ content.field_prgf_images[key]['#media'].field_media_caption.0.value }}
+              </div>
+            {% endif %}
           </div>
-          {% endif %}
+        {% endfor %}
+      </div>
+
+        {% if content.field_prgf_images['#items']|length > 1 %}
+          <a class="carousel-control-prev carousel-control" href="javascript:;" data-slide="prev" aria-hidden="true" tabindex="-1">
+            <i class="fas fa-chevron-left"></i>
+            <span class="sr-only" aria-hidden="true">{{ 'Previous'|t }}</span>
+          </a>
+          <a class="carousel-control-next carousel-control" href="javascript:;" data-slide="next" aria-hidden="true" tabindex="-1">
+            <i class="fas fa-chevron-right"></i>
+            <span class="sr-only" aria-hidden="true">{{ 'Next'|t }}</span>
+          </a>
+        {% endif %}
+    </div>
+
+    <div class="cta-group-wrapper d-flex h-100">
+      <div class="container d-flex align-items-center m-auto p-5 py-lg-3 text-center text-white">
+        <div class="w-100">
+          <div class="cta-group col-12">
+            {% if not paragraph.field_prgf_headline.isEmpty() %}
+              <h1 class="display-4">
+                {{ content.field_prgf_headline }}
+              </h1>
+            {% endif %}
+            {% if not paragraph.field_prgf_description.isEmpty() %}
+              <div class="text">
+                {{ content.field_prgf_description }}
+              </div>
+            {% endif %}
+            {% if not paragraph.field_prgf_link.isEmpty() %}
+              <div class="mt-3">
+                {{ content.field_prgf_link }}
+              </div>
+            {% endif %}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+  {% set indicators_class = '' %}
+  {% if paragraph.parent_field_name.string != 'field_content' %}
+    {% set indicators_class = 'not-content-field' %}
+  {% endif %}
+  <div class="paragraph-gallery-indicators {{ indicators_class }}">
+    <ol class="carousel-indicators container">
+      {% for key, value in content.field_prgf_images['#items'] %}
+        {% set thumbnail = paragraph.field_prgf_images[key].entity.field_media_image.entity.uri.value %}
+        <li data-target="#carousel" data-slide-to="{{ key }}" {% if key == 0 %}class="active"{% endif %}>
+          <img alt="gallery" src="{{ thumbnail | image_style('gallery_thumbnail') }}"/>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
 {% endif %}
+
+{{ attach_library('openy_prgf_gallery/carnation.gallery_extras') }}
