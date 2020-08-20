@@ -1688,7 +1688,7 @@ process:
     default_value: 1
   title: title
   field_class_activity:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_activity
     no_stub: true
     source: activity
@@ -1697,31 +1697,31 @@ process:
     plugin: default_value
     default_value: full_html
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content
     process:
        target_id:
-         plugin: migration
+         plugin: migration_lookup
          migration:
            - openy_demo_paragraph_class_sessions_02
            - openy_demo_paragraph_branches_popup_class_02
          source: content_id
        target_revision_id:
-         plugin: migration
+         plugin: migration_lookup
          migration:
            - openy_demo_paragraph_class_sessions_02
            - openy_demo_paragraph_branches_popup_class_02
          source: content_id
   field_sidebar_content:
-    plugin: iterator
+    plugin: sub_process
     source: sidebar
     process:
        target_id:
-         plugin: migration
+         plugin: migration_lookup
          migration: openy_demo_paragraph_class_location_02
          source: sidebar_id
        target_revision_id:
-         plugin: migration
+         plugin: migration_lookup
          migration: openy_demo_paragraph_class_location_02
          source: sidebar_id
 destination:

@@ -1,6 +1,7 @@
 <?php
 /**
- * Open Y Robo commands.
+ * Open Y Robo commands. 
+ * Here we are able to create an any version of Open Y for CI builds.
  *
  * @see http://robo.li/
  */
@@ -13,7 +14,7 @@ class RoboFile extends \Robo\Tasks {
    */
   function OpenyCreateProject($path) {
     $this->taskComposerCreateProject()
-      ->source('ymcatwincities/openy-project:9.2.x-development-dev')
+      ->source('ymcatwincities/openy-project:9.2.x-init-dev')
       ->target($path . '/openy-project')
       ->ansi(TRUE)
       ->noInstall(TRUE)

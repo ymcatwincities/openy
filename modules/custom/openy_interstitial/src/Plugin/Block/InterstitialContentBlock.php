@@ -72,9 +72,9 @@ class InterstitialContentBlock extends BlockBase implements ContainerFactoryPlug
     $block['#cache']['max-age'] = INTERSTITIAL_BLOCK_CACHE_TIME;
 
     // Get all Interstitial page node
-    $entity_query_service = $this->container->get('entity.query');
+    $entity_type_manager = $this->container->get('entity_type.manager');
     /** @var \Drupal\Core\Entity\Query\QueryInterface $query */
-    $query = $entity_query_service->get('node')
+    $query = $entity_type_manager->getStorage('node')->getQuery()
       ->condition('status', 1)
       ->condition('type', 'interstitial_page');
     $query->range(0, 1);

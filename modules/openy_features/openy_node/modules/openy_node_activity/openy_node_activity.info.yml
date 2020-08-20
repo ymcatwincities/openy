@@ -1,7 +1,7 @@
 name: Open Y Node Activity
 description: Provides an Activity content type and related configuration.
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Open Y
 version: 8.x-1.0
 dependencies:
@@ -11,6 +11,6 @@ dependencies:
   - drupal:node
   - drupal:path
   - pathauto:pathauto
-  - rabbit_hole:rabbit_hole
+  # - rabbit_hole:rabbit_hole
   - drupal:text
   - drupal:user

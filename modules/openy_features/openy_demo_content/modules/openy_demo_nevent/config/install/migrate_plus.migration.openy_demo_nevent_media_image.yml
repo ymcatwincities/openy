@@ -49,7 +49,7 @@ process:
       default_value: 1
   field_media_image:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_nevent_file
       source: file
 destination:

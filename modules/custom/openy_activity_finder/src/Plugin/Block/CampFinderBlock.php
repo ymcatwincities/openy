@@ -4,6 +4,7 @@ namespace Drupal\openy_activity_finder\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
+use Drupal\node\NodeInterface;
 use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 
 /**
@@ -27,7 +28,7 @@ class CampFinderBlock extends BlockBase {
     $node = \Drupal::routeMatch()->getParameter('node');
     $alias = '';
     if ($node instanceof NodeInterface) {
-      $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $node->id());
+      $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $node->id());
     }
 
     return [

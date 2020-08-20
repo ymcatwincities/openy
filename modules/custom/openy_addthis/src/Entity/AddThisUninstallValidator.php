@@ -20,7 +20,7 @@ class AddThisUninstallValidator implements ModuleUninstallValidatorInterface {
   /**
    * The entity manager.
    *
-   * @var \Drupal\Core\Entity\EntityManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 

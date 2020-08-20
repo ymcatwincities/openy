@@ -141,20 +141,20 @@ process:
       plugin: default_value
       default_value: full_html
   field_mbrshp_image:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_membership_media_image
     source: image_id
   field_mbrshp_info:
-    plugin: iterator
+    plugin: sub_process
     source: mbrshp_info_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_membership_paragraph_membership_info
         source: mbrshp_info_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_membership_paragraph_membership_info
         source: mbrshp_info_id

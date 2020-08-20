@@ -5,20 +5,13 @@ dependencies:
     - core.entity_view_mode.taxonomy_term.color
     - field.field.taxonomy_term.color.field_color
     - taxonomy.vocabulary.color
-  module:
-    - jquery_colorpicker
 id: taxonomy_term.color.color
 targetEntityType: taxonomy_term
 bundle: color
 mode: color
-content:
-  field_color:
-    weight: 0
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: jquery_colorpicker_raw_hex_display
-    region: content
+content: {  }
 hidden:
   description: true
+  field_color: true
   langcode: true
+  search_api_excerpt: true

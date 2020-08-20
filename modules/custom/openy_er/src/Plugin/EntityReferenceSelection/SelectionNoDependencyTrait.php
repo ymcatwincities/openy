@@ -35,7 +35,8 @@ trait SelectionNoDependencyTrait {
     $configuration = $this->getConfiguration();
     $entity_type_id = $configuration['target_type'];
     $entity_type = $this->entityManager->getDefinition($entity_type_id);
-    $bundles = $this->entityManager->getBundleInfo($entity_type_id);
+    //$bundles = $this->entityManager->getBundleInfo($entity_type_id);
+    $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($entity_type_id);
 
     if ($entity_type->hasKey('bundle')) {
       $bundle_options = [];

@@ -1,0 +1,17 @@
+.view-mode-media-full-without-blazy {
+    width: 100%;
+    height: auto;
+}
+.embedded-entity {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.embedded-entity.align-center {
+    text-align: center
+}
+.embedded-entity.align-left {
+    margin-right: 30px
+}
+.embedded-entity.align-right {
+    margin-left: 30px
+}

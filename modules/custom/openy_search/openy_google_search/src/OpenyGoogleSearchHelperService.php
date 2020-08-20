@@ -4,7 +4,7 @@ namespace Drupal\openy_google_search;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Language\LanguageManagerInterface;
-use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\path_alias\AliasManagerInterface;
 
 /**
  * Class OpenyGoogleSearchHelperService.
@@ -21,7 +21,7 @@ class OpenyGoogleSearchHelperService {
   /**
    * The path alias manager.
    *
-   * @var \Drupal\Core\Path\AliasManagerInterface
+   * @var \Drupal\path_alias\AliasManagerInterface
    */
   protected $aliasManager;
 
@@ -32,7 +32,6 @@ class OpenyGoogleSearchHelperService {
    */
   private $configFactory;
 
-
   /**
    * Constructs a new OpenyGoogleSearchHelperService object.
    *
@@ -40,7 +39,7 @@ class OpenyGoogleSearchHelperService {
    *  The langUAGE MANAGER
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *  The config factory.
-   * @param \Drupal\Core\Path\AliasManagerInterface $alias_manager
+   * @param \Drupal\path_alias\AliasManagerInterface $alias_manager
    *  The path alias manager
    */
   public function __construct(LanguageManagerInterface $language_manager, ConfigFactoryInterface $config_factory, AliasManagerInterface $alias_manager) {
@@ -54,7 +53,7 @@ class OpenyGoogleSearchHelperService {
    *
    * @return string
    */
-public function getSearchResultsPageAlias() {
+  public function getSearchResultsPageAlias() {
     $language = $this->languageManager->getCurrentLanguage()->getId();
     $search_config = $this->configFactory->get('openy_google_search.settings');
     $page_id = $search_config->get('search_page_id');

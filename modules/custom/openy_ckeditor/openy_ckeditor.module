@@ -8,6 +8,7 @@
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\editor\Entity\Editor;
 
 /**
  * Implements hook_theme().
@@ -93,7 +94,7 @@ function _openy_ckeditor_prepare_amenities_view($field_value) {
   $amenities = Term::loadMultiple($amenities_ids);
   $amenities_view = [];
   foreach ($amenities as $amenity) {
-    $amenities_view[] = \Drupal::service('entity.manager')
+    $amenities_view[] = \Drupal::service('entity_type.manager')
       ->getViewBuilder('taxonomy_term')
       ->view($amenity, 'default');
   }
@@ -105,6 +106,23 @@ function _openy_ckeditor_prepare_amenities_view($field_value) {
  */
 function openy_ckeditor_page_attachments_alter(array &$attachments) {
   $attachments['#attached']['library'][] = 'openy_ckeditor/openy-ckeditor';
+}
+
+/**
+ * Implements hook_ckeditor_css_alter().
+ */
+function openy_ckeditor_ckeditor_css_alter(array &$css, Editor $editor) {
+  if (!$editor->hasAssociatedFilterFormat()) {
+    return;
+  }
+  $known_formats = [
+    'basic_html',
+    'full_html',
+  ];
+
+  if (in_array($editor->getFilterFormat()->id(), $known_formats)) {
+    $css[] = drupal_get_path('module', 'openy_ckeditor') . '/css/openy_ckeditor.admin.css';
+  }
 }
 
 /**

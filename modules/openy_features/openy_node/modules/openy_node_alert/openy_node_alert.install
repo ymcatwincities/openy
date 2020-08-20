@@ -218,7 +218,7 @@ function openy_node_alert_update_8010() {
           $alert->save();
           continue;
         }
-        $alias = \Drupal::service('path.alias_manager')->getAliasByPath('/node/' . $refid);
+        $alias = \Drupal::service('path_alias.manager')->getAliasByPath('/node/' . $refid);
         $is_path_match = $path_matcher->matchPath($alias, $pages);
         if (!$is_path_match) {
           if ($pages) {

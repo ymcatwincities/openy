@@ -57,7 +57,7 @@ class OpenyUpgradeLogRevisionRevertForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.manager')->getStorage('openy_upgrade_log'),
+      $container->get('entity_type.manager')->getStorage('openy_upgrade_log'),
       $container->get('date.formatter')
     );
   }

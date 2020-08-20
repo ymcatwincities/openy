@@ -33,7 +33,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_landing
     no_stub: true
     source: parent_id
@@ -42,7 +42,7 @@ process:
     default_value: node
   # TODO: get parent_field_name from data?
   field_prgf_block_ref/target_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_block_microsites_menu
     source: block_id
   type:
