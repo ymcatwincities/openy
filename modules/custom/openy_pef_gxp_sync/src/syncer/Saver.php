@@ -269,7 +269,7 @@ class Saver implements SaverInterface {
     $times = $class['patterns'];
 
     // Convert to UTC timezone to save to database.
-    $siteTimezone = new \DateTimeZone(drupal_get_user_timezone());
+    $siteTimezone = new \DateTimeZone(date_default_timezone_get());
     $gmtTimezone = new \DateTimeZone('GMT');
 
     $startTime = new \DateTime($class['start_date'] . ' ' . $times['start_time'] . ':00', $siteTimezone);

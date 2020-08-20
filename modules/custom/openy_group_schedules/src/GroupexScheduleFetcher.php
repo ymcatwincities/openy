@@ -475,7 +475,7 @@ class GroupexScheduleFetcher {
       $item->calendar = [
         'atc_date_start' => $date_start,
         'atc_date_end' => $date_end,
-        'atc_timezone' => drupal_get_user_timezone(),
+        'atc_timezone' => date_default_timezone_get(),
         'atc_title' => $item->title,
         'atc_description' => 'Visit ' . $item->category . ' with ' . strip_tags($item->instructor) . PHP_EOL . 'Class will take place at ' . $item->studio . '.',
         'atc_location' => $item->location,
