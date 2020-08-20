@@ -5,7 +5,7 @@ namespace Drupal\openy_activity_finder\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\path_alias\AliasManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
@@ -35,9 +35,9 @@ class ActivityFinderBlock extends BlockBase implements ContainerFactoryPluginInt
   /**
    * The entity query factory.
    *
-   * @var QueryFactory
+   * @var EntityTypeManagerInterface
    */
-  protected $entityQuery;
+  protected $entityTypeManager;
 
   /**
    * The alias manager that caches alias lookups based on the request.
@@ -61,13 +61,13 @@ class ActivityFinderBlock extends BlockBase implements ContainerFactoryPluginInt
     $plugin_id,
     $plugin_definition,
     ConfigFactoryInterface $config_factory,
-    QueryFactory $entity_query,
+    EntityTypeManagerInterface $entity_type_manager,
     AliasManagerInterface $alias_manager,
     RouteMatchInterface $route_match
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->configFactory = $config_factory;
-    $this->entityQuery = $entity_query;
+    $this->entityTypeManager = $entity_type_manager;
     $this->aliasManager = $alias_manager;
     $this->routeMatch = $route_match;
   }
@@ -81,7 +81,7 @@ class ActivityFinderBlock extends BlockBase implements ContainerFactoryPluginInt
       $plugin_id,
       $plugin_definition,
       $container->get('config.factory'),
-      $container->get('entity.query'),
+      $container->get('entity_type.manager'),
       $container->get('path_alias.manager'),
       $container->get('current_route_match')
     );
@@ -104,8 +104,7 @@ class ActivityFinderBlock extends BlockBase implements ContainerFactoryPluginInt
     if ($backend_service_id == 'openy_daxko2.openy_activity_finder_backend') {
       $openy_daxko2_config = $this->configFactory->get('openy_daxko2.settings');
       if (!empty($openy_daxko2_config->get('locations'))) {
-        $nids = $this->entityQuery
-          ->get('node')
+        $nids = $this->entityTypeManager->getStorage('node')->getQuery()
           ->condition('type', ['branch', 'camp', 'facility'], 'IN')
           ->condition('status', 1)
           ->sort('title', 'ASC')
