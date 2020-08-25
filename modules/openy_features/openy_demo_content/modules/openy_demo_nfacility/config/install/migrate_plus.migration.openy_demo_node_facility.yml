@@ -141,10 +141,6 @@ process:
     -
       plugin: default_value
       default_value: 1
-  field_location_email:
-    -
-      plugin: get
-      source: email
   field_facility_loc:
     -
       plugin: migration_lookup
