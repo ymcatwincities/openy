@@ -324,11 +324,6 @@ function openy_carnation_preprocess_paragraph(array &$variables) {
   if ($variables['paragraph']->getType() == HBLocationFinder::PRGF_TYPE) {
     // Fix theming for hb_location_finder plugin for Open Y Carnation theme.
     $variables['#attached']['library'][] = 'openy_carnation/hb_location_finder_override';
-
-    $hb_plugin_service = Drupal::service('plugin.manager.home_branch_library');
-    $hb_plugin_service->attachHbLibrarySettings($variables, 'hb_location_finder', [
-      'locationsList' => '.paragraph--type--prgf-location-finder .locations-list',
-    ]);
   }
 }
 
