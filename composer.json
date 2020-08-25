@@ -97,7 +97,7 @@
         "ymcatwincities/colorapi": "*",
         "ymcatwincities/custom_formatters": "*",
         "ymcatwincities/domain_theme_switch": "*",
-        "ymcatwincities/fontyourface": "*",
+        "drupal/fontyourface": "~3.3",
         "ymcatwincities/libraries": "*",
         "ymcatwincities/media_entity_document": "*",
         "ymcatwincities/media_entity_image": "*",
