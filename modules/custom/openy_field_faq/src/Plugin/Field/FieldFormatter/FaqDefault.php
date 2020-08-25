@@ -30,28 +30,9 @@ class FaqDefault extends FormatterBase {
         '#format' => 'full_html',
       ];
       $elements[$delta] = [
-        'question' => [
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#attributes' => [
-            'class' => [
-              'field-question',
-            ],
-          ],
-          '#value' => $item->question,
-        ],
-        'answer' => [
-          '#type' => 'html_tag',
-          '#tag' => 'div',
-          '#attributes' => [
-            'class' => [
-              'field-answer',
-            ],
-          ],
-          '#value' => render($answer),
-        ],
-        '#prefix' => '<div class="paragraph--type--faq-item">',
-        '#suffix' => '</div>',
+        '#theme' => 'openy_faq_item',
+        '#question' => $item->question,
+        '#answer' => render($answer),
       ];
     }
 
