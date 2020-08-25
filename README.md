@@ -40,7 +40,7 @@ You can always evaluate distribution by visiting demo website - http://sandboxes
 We are using [composer](https://getcomposer.org/) for initiating new project tree.
 
 ```
-composer create-project ymcatwincities/openy-project:9.2.x-init-dev OPENY9 --no-interaction
+composer create-project ymcatwincities/openy-project:dev-9.2.x-development OPENY --no-interaction
 ```
 
 In order to properly install Open Y Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).
