@@ -94,7 +94,7 @@
         "oomphinc/composer-installers-extender": "^1.1",
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
-        "ymcatwincities/colorapi": "*",
+        "drupal/colorapi": "1.x-dev",
         "ymcatwincities/custom_formatters": "*",
         "ymcatwincities/domain_theme_switch": "*",
         "drupal/fontyourface": "~3.3",
