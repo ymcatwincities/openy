@@ -102,7 +102,7 @@
         "ymcatwincities/media_entity_document": "*",
         "ymcatwincities/media_entity_image": "*",
         "ymcatwincities/media_entity_video": "*",
-        "ymcatwincities/vendor_stream_wrapper": "*",
+        "drupal/vendor_stream_wrapper": "1.x-dev",
         "ymcatwincities/verf": "*",
         "ymcatwincities/video": "*",
         "ymcatwincities/views_field_formatter": "*"
