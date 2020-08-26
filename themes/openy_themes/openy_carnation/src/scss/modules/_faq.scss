@@ -1,0 +1,48 @@
+.paragraph--type--faq {
+  .paragraph--type--faq-item {
+    position: relative;
+    border: none;
+
+    .field-question {
+      padding: 10px 30px;
+      background-color: $dark-blue;
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+      font-size: 18px;
+
+      .icon-wrapper {
+        color: $white;
+        padding-right: 30px;
+
+        .fa-minus {
+          display: none;
+        }
+        .fa-plus {
+          display: inline-block;
+        }
+      }
+    }
+
+    .field-answer {
+      padding: 30px;
+      background-color: rgba($gray-400, .11);
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    &.hide {
+      .field-question {
+        border-radius: 5px;
+      }
+    }
+
+    &.show .field-question {
+      .fa-minus {
+        display: inline-block;
+      }
+      .fa-plus {
+        display: none;
+      }
+    }
+  }
+}

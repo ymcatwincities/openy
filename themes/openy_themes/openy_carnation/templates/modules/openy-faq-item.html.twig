@@ -1,0 +1,28 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a FAQ item.
+ *
+ * Available variables:
+ * - question: The text that will be used as a header FAQ item.
+ * - answer: The text that will be used as a body FAQ item.
+ *
+ * @see template_preprocess_openy_faq_item()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="paragraph--type--faq-item hide">
+  <div class="field-question">
+    <span class="icon-wrapper">
+      <i class="fas fa-plus"></i>
+      <i class="fas fa-minus"></i>
+    </span>
+    <span>
+      {{- question -}}
+    </span>
+  </div>
+  <div class="field-answer">
+    {{- answer -}}
+  </div>
+</div>

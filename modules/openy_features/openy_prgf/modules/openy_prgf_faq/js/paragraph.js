@@ -11,13 +11,13 @@
 
         // Question click event.
         $( '.field-question', wrapper ).on( 'click', function() {
-          var answer = $( '.field-answer', wrapper );
+          $( '.field-answer', wrapper ).toggle(200);
 
-          if ( answer.is( ':hidden') ) {
-            answer.slideDown( 200 );
+          if (wrapper.hasClass('hide')) {
+            wrapper.removeClass('hide').addClass('show');
           }
           else {
-            answer.slideUp( 200 );
+            wrapper.removeClass('show').addClass('hide');
           }
         });
 
