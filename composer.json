@@ -213,7 +213,7 @@
         "drupal/media_entity_image": "1.x-dev",
         "drupal/media_entity_document": "1.x-dev",
         "drupal/address": "1.8",
-        "drupal/paragraphs": "1.6",
+        "drupal/paragraphs": "~1.12",
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/pathauto": "~1.6",
         "drupal/ctools": "3.0",
