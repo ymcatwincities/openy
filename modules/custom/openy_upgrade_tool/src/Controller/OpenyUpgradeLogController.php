@@ -146,8 +146,8 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function revisionShow($openy_upgrade_log_revision) {
-    $openy_upgrade_log = $this->entityManager()->getStorage('openy_upgrade_log')->loadRevision($openy_upgrade_log_revision);
-    $view_builder = $this->entityManager()->getViewBuilder('openy_upgrade_log');
+    $openy_upgrade_log = \Drupal::entityTypeManager()->getStorage('openy_upgrade_log')->loadRevision($openy_upgrade_log_revision);
+    $view_builder = \Drupal::entityTypeManager()->getViewBuilder('openy_upgrade_log');
 
     return $view_builder->view($openy_upgrade_log);
   }
@@ -164,7 +164,7 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function revisionPageTitle($openy_upgrade_log_revision) {
-    $openy_upgrade_log = $this->entityManager()->getStorage('openy_upgrade_log')->loadRevision($openy_upgrade_log_revision);
+    $openy_upgrade_log = \Drupal::entityTypeManager()->getStorage('openy_upgrade_log')->loadRevision($openy_upgrade_log_revision);
     return $this->t('Revision of %title from %date', ['%title' => $openy_upgrade_log->label(), '%date' => \Drupal::service('date.formatter')->format($openy_upgrade_log->getRevisionCreationTime())]);
   }
 
@@ -185,7 +185,7 @@ class OpenyUpgradeLogController extends ControllerBase implements ContainerInjec
     $langname = $openy_upgrade_log->language()->getName();
     $languages = $openy_upgrade_log->getTranslationLanguages();
     $has_translations = (count($languages) > 1);
-    $openy_upgrade_log_storage = $this->entityManager()->getStorage('openy_upgrade_log');
+    $openy_upgrade_log_storage = \Drupal::entityTypeManager()->getStorage('openy_upgrade_log');
 
     $build['#title'] = $has_translations ? $this->t('@langname revisions for %title', ['@langname' => $langname, '%title' => $openy_upgrade_log->label()]) : $this->t('Revisions for %title', ['%title' => $openy_upgrade_log->label()]);
     $header = [$this->t('Revision'), $this->t('Operations')];

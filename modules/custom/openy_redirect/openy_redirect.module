@@ -107,7 +107,8 @@ function openy_redirect_submit($form, FormStateInterface $form_state) {
   }
   else {
     $nid = $form_state->getStorage()['nid'];
-    $node_storage = \Drupal::entityManager()->getStorage('node');
+    $node_storage = \Drupal::entityTypeManager()
+    ->getStorage('node');
 
     // Load a single node.
     $node = $node_storage->load($nid);

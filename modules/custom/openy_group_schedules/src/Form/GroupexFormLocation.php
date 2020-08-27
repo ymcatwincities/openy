@@ -31,7 +31,8 @@ class GroupexFormLocation extends GroupexFormBase {
       ->execute();
     $mapping_id = reset($mapping_id);
     $location_id = FALSE;
-    if ($mapping = \Drupal::entityManager()->getStorage('mapping')->load($mapping_id)) {
+    if ($mapping = \Drupal::entityTypeManager()
+    ->getStorage('mapping')->load($mapping_id)) {
       $field_groupex_id = $mapping->field_groupex_id->getValue();
       $location_id = isset($field_groupex_id[0]['value']) ? $field_groupex_id[0]['value'] : FALSE;
     }
