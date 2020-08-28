@@ -8,7 +8,7 @@ use Drupal\Core\Security\TrustedCallbackInterface;
 /**
  * Contains HoursToday class.
  */
-class HoursToday implements TrustedCallbackInterface{
+class HoursToday implements TrustedCallbackInterface {
 
   /**
    * Get today hours.

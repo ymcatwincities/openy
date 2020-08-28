@@ -11,7 +11,7 @@ use Drupal\Core\Security\TrustedCallbackInterface;
  *
  * @package Drupal\openy_branch_selector
  */
-class PopupLinkGenerator implements TrustedCallbackInterface{
+class PopupLinkGenerator implements TrustedCallbackInterface {
 
   /**
    * Generate link for My YMCA location.
