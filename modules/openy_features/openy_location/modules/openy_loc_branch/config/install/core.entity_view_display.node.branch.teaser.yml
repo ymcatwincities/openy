@@ -61,7 +61,7 @@ content:
       url_only: false
       url_plain: false
       rel: ''
-      target: ''
+      target: _blank
     third_party_settings: {  }
     region: content
   field_location_phone:

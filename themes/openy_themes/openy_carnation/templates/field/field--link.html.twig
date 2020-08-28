@@ -44,9 +44,7 @@
       {% for item in items %}
         {% if item.content['#url'] is not empty %}
           <div class="field-item">
-            <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-primary">
-              {{ item.content['#title'] }}
-            </a>
+            {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-primary']}}}) }}
           </div>
         {% endif %}
       {% endfor %}
@@ -55,9 +53,7 @@
     {% for item in items %}
       {% if item.content['#url'] is not empty %}
         <div class="field-item">
-          <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-primary-darker">
-            {{ item.content['#title'] }}
-          </a>
+          {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-primary-darker']}}}) }}
         </div>
       {% endif %}
     {% endfor %}
@@ -71,9 +67,7 @@
       {% for item in items %}
         {% if item.content['#url'] is not empty %}
           <div class="field-item">
-            <a href="{{ item.content['#url'] }}" class="btn btn-lg btn-outline-primary-darker">
-              {{ item.content['#title'] }}
-            </a>
+            {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-primary-darker']}}}) }}
           </div>
         {% endif %}
       {% endfor %}

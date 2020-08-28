@@ -42,3 +42,12 @@
     }
   }
 }
+
+.node--view-mode-teaser {
+  .field-location-phone,
+  .field-location-fax {
+    .field-item {
+      display: inline-block;
+    }
+  }
+}

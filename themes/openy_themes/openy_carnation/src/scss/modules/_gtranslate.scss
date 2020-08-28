@@ -1,10 +1,21 @@
 .desktop-menu {
   .openy-google-translate select {
     @include cachet();
-    background: transparent;
-    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    border: none;
     color: $gray-300;
+    cursor: pointer;
     font-size: 18px;
+    line-height: 1.5;
+    margin-left: 1.5rem;
+    text-transform: none;
+
+    option {
+      color: $black;
+    }
   }
 }
 
@@ -12,15 +23,23 @@
   .openy-google-translate {
     border-bottom: 1px solid #979797;
     margin: 0 -15px;
-    padding-bottom: 21px;
-    padding-left: 9px;
-    padding-top: 21px;
+    padding: 17px 15px;
 
     select {
       @include cachet();
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: none;
+      border: none;
       color: $white;
       font-size: 18px !important;
+      line-height: 1.5;
       text-transform: uppercase;
+
+      option {
+        color: $black;
+      }
     }
   }
 }

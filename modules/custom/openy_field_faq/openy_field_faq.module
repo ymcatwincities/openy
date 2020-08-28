@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains openy_field_faq.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function openy_field_faq_theme() {
+  return [
+    'openy_faq_item' => [
+      'variables' => [
+        'question' => '',
+        'answer' => '',
+      ],
+    ],
+  ];
+}

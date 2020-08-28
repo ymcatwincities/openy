@@ -38,29 +38,43 @@
  * @ingroup themeable
  */
 #}
+
+{%
+    set item_classes = [
+    field_name|clean_class,
+    'field-item'
+]
+%}
+
 {% if label_hidden %}
-  {% if multiple %}
-    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
-      {% for item in items %}
-        {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-light']}}}) }}
-      {% endfor %}
-    </div>
-  {% else %}
-    {% for item in items %}
-      {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-light']}}}) }}
-    {% endfor %}
-  {% endif %}
-{% else %}
-  <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
-    <div{{ title_attributes.addClass('label-for-' ~ field_name|clean_class) }}>{{ label }}</div>
     {% if multiple %}
-    <div>
-      {% endif %}
-      {% for item in items %}
-        {{ item.content|merge({ '#options': {'attributes': {'class': ['btn', 'btn-lg', 'btn-outline-light']}}}) }}
-      {% endfor %}
-      {% if multiple %}
-    </div>
+        <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
+            {% for item in items %}
+                <div{{ item.attributes.addClass(item_classes) }}>
+                    {{ item.content }}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% for item in items %}
+            <div{{ item.attributes.addClass(item_classes) }}>
+                {{ item.content }}
+            </div>
+        {% endfor %}
     {% endif %}
-  </div>
+{% else %}
+    <div{{ attributes.addClass('wrapper-' ~ field_name|clean_class) }}>
+        <div{{ title_attributes.addClass('label-for-' ~ field_name|clean_class) }}>{{ label }}</div>
+        {% if multiple %}
+        <div>
+            {% endif %}
+            {% for item in items %}
+                <div{{ item.attributes.addClass(item_classes) }}>
+                    {{ item.content }}
+                </div>
+            {% endfor %}
+            {% if multiple %}
+        </div>
+        {% endif %}
+    </div>
 {% endif %}

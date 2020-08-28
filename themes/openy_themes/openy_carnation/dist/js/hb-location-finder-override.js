@@ -28,7 +28,6 @@
           // Save created element in plugin.
           this.element = $markup.find('input');
         };
-        Drupal.homeBranch.plugins[key].settings.locationsList = '.paragraph--type--prgf-location-finder .locations-list';
       }
     }
   }
