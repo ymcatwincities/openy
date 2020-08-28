@@ -9,7 +9,8 @@
  * Import color and text color fields for block menu.
  */
 function openy_block_menu_update_8001() {
-  // Update is empty due to decoupling from provisioned website. Update was inherited and released. Should stay empty.
+  // Update is empty due to decoupling from provisioned website. Update was
+  // inherited and released. Should stay empty.
 }
 
 /**
@@ -40,7 +41,7 @@ function openy_block_menu_update_8003() {
   $config_dir = drupal_get_path('module', 'openy_block_menu') . '/config/install/';
   // Update multiple configurations.
   $configs = [
-    'core.entity_form_display.block_content.menu_block.default' =>[
+    'core.entity_form_display.block_content.menu_block.default' => [
       'content.field_menu_block_links.settings.enabled_attributes',
       'content.field_menu_block_links.type',
     ],

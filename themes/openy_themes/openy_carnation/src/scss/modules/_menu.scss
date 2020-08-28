@@ -203,7 +203,7 @@
       margin-top: 39px;
       z-index: 500;
       &.affix {
-        margin-top: 0px;
+        margin-top: 0;
       }
     }
   }
@@ -213,6 +213,26 @@
 // pages without a banner (ex. user account page)
 .without-banner {
 
+  .banner--grey {
+    .banner-cta {
+      padding-top: 0;
+    }
+  }
+
+  .top-navs:not(.affix),
+  .top-navs, {
+    background-color: $gray-700;
+
+    div.page-head__main-menu {
+      ul.navbar {
+        & > li > a,
+        & > li > button {
+          color: white;
+        }
+      }
+    }
+  }
+
   // @todo must be fixed with regions positions. This is a quick fix.
   &.user-logged-in {
     .layout-container {
@@ -220,9 +240,23 @@
     }
   }
 
-  // adjust top margins
+  &.user-logged-in .layout-container {
+    padding-top: 0;
+  }
+  .error-page {
+    margin-top: 30px;
+  }
+
+  main, .viewport {
+    @include media-breakpoint-up(lg) {
+      margin-top: 135px;
+    }
+  }
+
   .viewport {
-    margin-top: 40px;
+    @include media-breakpoint-down(md) {
+      margin-top: 75px;
+    }
   }
 
   // change navbar background colours when scrolling
