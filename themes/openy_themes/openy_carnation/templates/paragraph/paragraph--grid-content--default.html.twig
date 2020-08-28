@@ -59,7 +59,7 @@ set classes = [
 <div{{ attributes.addClass(classes) }}>
   {% for key, item in content.field_grid_columns %}
     {% if key matches '/^\\d+$/' %}
-    <div class="col-12 {{ item_class }} row-eq-height">
+    <div class="col-12 col-sm-12 col-md-6 {{ item_class }} row-eq-height">
       {{ item }}
     </div>
     {% endif %}
