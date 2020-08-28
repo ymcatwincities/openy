@@ -22,4 +22,25 @@
     }
   };
 
+  Drupal.behaviors.atcFix = {
+    attach: function (context, settings) {
+      $('.addtocalendar').click(function() {
+        if ($(this).hasClass('activated')) {
+          $(this).removeClass('activated');
+          $(this).find('.atcb-list').css({
+            'display' : 'none',
+            'visibility' : 'hidden'
+          });
+        }
+        else {
+          $(this).addClass('activated');
+          $(this).find('.atcb-list').css({
+            'display' : 'block',
+            'visibility' : 'visible'
+          });
+        }
+      });
+    }
+  };
+
 })(jQuery);
