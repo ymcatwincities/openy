@@ -37,16 +37,15 @@
       {% set ia = ia.addClass('nav-item nav-level-2') %}
       <li{{ item.attributes.addClass('menu-item-' ~ item.title|clean_class) }}>
         {% if item.below %}
-          <a data-toggle="dropdown" href="{{ item.url }}" class="nav-link text-uppercase" aria-expanded="false">
+          {% set item_title %}
             {{ item.title }}
             <i class="fa fa-angle-up" aria-hidden="true"></i>
             <i class="fa fa-angle-down" aria-hidden="true"></i>
-          </a>
+          {% endset %}
+          {{ link(item_title, item.url, {'aria-expanded': 'false', 'data-toggle': 'dropdown', 'class' : ['nav-link', 'text-uppercase']}) }}
           {{ menus.menu_links_level_2(item.below, attributes, menu_level + 1) }}
         {% else %}
-          <a href="{{ item.url }}" class="nav-link text-uppercase">
-            {{ item.title }}
-          </a>
+          {{ link(item.title, item.url, {'class' : ['nav-link', 'text-uppercase']}) }}
         {% endif %}
       </li>
     {% endfor %}
@@ -70,10 +69,11 @@
       {% set ia = item.attributes.addClass(['nav-level-3 col-md-3 col-lg-2 menu-item-' ~ item.title|clean_class]) %}
       <li{{ ia }}>
         {% if item.below %}
-          <a href="{{ item.url }}" class="d-flex">
+          {% set item_title %}
             <i class="fa fa-angle-right pr-2" aria-hidden="true"></i>
             {{ item.title }}
-          </a>
+          {% endset %}
+          {{ link(item_title, item.url, {'class' : 'd-flex'}) }}
           {{ menus.menu_links_level_3(item.below, item, attributes, menu_level) }}
         {% else %}
           {{ link(item.title, item.url) }}
