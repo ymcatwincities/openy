@@ -3,11 +3,12 @@
 namespace Drupal\openy_hours_formatter;
 
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Security\TrustedCallbackInterface;
 
 /**
  * Contains HoursToday class.
  */
-class HoursToday {
+class HoursToday implements TrustedCallbackInterface{
 
   /**
    * Get today hours.
@@ -34,6 +35,13 @@ class HoursToday {
     return [
       '#markup' => '<span class="today">' . $hours[array_search($today, $days)] . '</span>',
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function trustedCallbacks() {
+    return ['generateHoursToday'];
   }
 
 }

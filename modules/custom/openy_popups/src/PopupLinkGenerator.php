@@ -4,13 +4,14 @@ namespace Drupal\openy_popups;
 
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\Core\Security\TrustedCallbackInterface;
 
 /**
  * Class PopupLinkGenerator.
  *
  * @package Drupal\openy_branch_selector
  */
-class PopupLinkGenerator {
+class PopupLinkGenerator implements TrustedCallbackInterface{
 
   /**
    * Generate link for My YMCA location.
@@ -84,6 +85,13 @@ class PopupLinkGenerator {
       $show_popup = FALSE;
     }
     return $show_popup;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function trustedCallbacks() {
+    return ['generateLink'];
   }
 
 }
