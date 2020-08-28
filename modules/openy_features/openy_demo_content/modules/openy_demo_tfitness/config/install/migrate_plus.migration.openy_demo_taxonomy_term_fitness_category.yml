@@ -210,7 +210,7 @@ process:
       method: process
       source: parent
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_taxonomy_term_fitness_category
 destination:
   plugin: 'entity:taxonomy_term'

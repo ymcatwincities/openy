@@ -81,7 +81,7 @@ process:
     plugin: default_value
     default_value: 1
   parent_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_node_landing
     no_stub: true
     source: parent_id
@@ -100,7 +100,7 @@ process:
     plugin: default_value
     default_value: 'Learn more'
   field_prgf_images:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_lp_media_image
     source: image_ids
   field_prgf_description/value: description

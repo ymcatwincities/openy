@@ -185,17 +185,17 @@ process:
       default_value: full_html
   field_news_category:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_taxonomy_term_news_category
       source: category
   field_news_related:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_node_news
       source: related
   field_news_location:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_node_camp
       source: camp
 destination:
