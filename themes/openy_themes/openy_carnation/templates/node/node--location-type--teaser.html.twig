@@ -96,6 +96,12 @@
       {% set card_colour = 'success' %}
     {% endif %}
 
+    {% if node.field_location_state.value %}
+      <span class="coming-soon-branch position-absolute bg-orange text-white px-2">
+        <i class="fas fa-star mr-2"></i><span>{{ 'Coming Soon'|t }}</span>
+      </span>
+    {% endif %}
+
     <h2 class="location-item--title {{ 'card-type--' ~ node.type.entity.label|lower }}" {{ title_attributes }}>
       <a href="{{ title_url }}" class="title-link text-{{ card_colour }}" rel="bookmark">
         <i class="fas fa-hotel"></i>
