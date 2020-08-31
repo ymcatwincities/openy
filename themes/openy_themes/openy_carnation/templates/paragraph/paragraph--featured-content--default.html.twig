@@ -71,7 +71,7 @@ set classes = [
     {% for key, item in content.field_prgf_fc_clm_description %}
       {% if key matches '/^\\d+$/' %}
         <div class="row-eq-height col-12 col-sm-12 col-md-6 {{ item_class }} mb-4">
-          <div class="card">
+          <div class="card w-100">
             <div class="card-body">
               {{ item }}
             </div>
