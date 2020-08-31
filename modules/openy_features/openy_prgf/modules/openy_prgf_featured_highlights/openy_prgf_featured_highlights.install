@@ -29,3 +29,15 @@ function openy_prgf_featured_highlights_update_8001() {
     'field.field.paragraph.featured_highlights.field_prgf_block_ref_unlim',
   ]);
 }
+
+/**
+ * Fix image style.
+ */
+function openy_prgf_featured_highlights_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_featured_highlights') . '/config/install';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.block_content.featured_highlights_block.default',
+  ]);
+}
