@@ -43,9 +43,10 @@
   set classes = [
     field_name|clean_class,
     'block-description--text',
-    'col-12 col-lg',
+    'col-12 col-md-6 col-lg-3 mb-4',
   ]
 %}
+
 {% if field_name == 'field_prgf_title' %}
   {% for item in items %}
     <div{{ attributes.addClass('field-prgf-title') }}><h2>{{ item.content }}</h2></div>
@@ -57,7 +58,7 @@
 <div class="clearfix"></div>
 {% elseif field_name != 'field_prgf_4c_button' %}
   {% if field_name == 'field_prgf_4c_1st' %}
-    <div class="wrapper">
+    <div class="wrapper row">
   {% endif %}
   {{ attach_library('slick/slick') }}
   {{ attach_library('slick/slick.theme') }}
