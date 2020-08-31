@@ -45,6 +45,16 @@ set classes = [
   'my-5'
 ]
 %}
+{% set item_class = 'col-lg' %}
+
+{% if content.field_prgf_grid_style.0['#markup'] == '2' %}
+  {% set item_class = 'col-lg-6' %}
+{% elseif content.field_prgf_grid_style.0['#markup'] == '3' %}
+  {% set item_class = 'col-lg-4' %}
+{% elseif content.field_prgf_grid_style.0['#markup'] == '4' %}
+  {% set item_class = 'col-lg-3' %}
+{% endif %}
+
 <div{{ attributes.addClass(classes) }}>
 
   <h2 class="mb-3 text-center">
@@ -55,20 +65,18 @@ set classes = [
     {{ content.field_prgf_description }}
   </div>
 
-  {#
-    For printing the columns we need access to the grid style which we don't
-    have after this was converted from a field collection.
-  #}
   {{ attach_library('openy_rose/featured_slider') }}
   <div class="{{ 'wrapper-' ~ content.field_prgf_fc_clm_description['#field_name']|clean_class}}">
-    <div class="card-deck pt-3">
+    <div class="row pt-3">
     {% for key, item in content.field_prgf_fc_clm_description %}
       {% if key matches '/^\\d+$/' %}
-      <div class="card">
-        <div class="card-body">
-          {{ item }}
+        <div class="row-eq-height col-12 col-sm-12 col-md-6 {{ item_class }} mb-4">
+          <div class="card">
+            <div class="card-body">
+              {{ item }}
+            </div>
+          </div>
         </div>
-      </div>
       {% endif %}
     {% endfor %}
     </div>
