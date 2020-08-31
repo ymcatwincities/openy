@@ -384,7 +384,7 @@
             locations: this.locations.join(','),
             categories: this.categories.join(',')
           }
-        });
+        }).catch(err => {});
       },
       toggleTab: function (filter) {
         var component = this;
@@ -525,7 +525,14 @@
       },
       clearFilters: function () {
         this.categories = [];
-        this.locations = [];
+        this.className = [];
+
+        // We should not reset location pre-selected in the paragraph.
+        var limitLocations = window.OpenY.field_prgf_repeat_loc || [];
+        if (!limitLocations.length) {
+          this.locations = [];
+        }
+
         this.date = moment().format('YYYY-MM-DD');
         this.resetPager();
       },
