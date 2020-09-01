@@ -152,7 +152,7 @@ function openy_node_event_preprocess_node(&$variables) {
     // Get dates.
     $datesField = $variables['node']->get('field_event_dates')->getValue();
     $timezone = date_default_timezone_get();
-    
+
     $startDt = DrupalDateTime::createFromFormat(DateTimeItemInterface::DATETIME_STORAGE_FORMAT, $datesField[0]['value'], DateTimeItemInterface::STORAGE_TIMEZONE);
     $startDt->setTimezone(timezone_open($timezone));
 
@@ -163,8 +163,8 @@ function openy_node_event_preprocess_node(&$variables) {
     $formatted_end_date = $endDt->format('g:i a');
     // Display month and day if the event lasts several days.
     if ($startDt->format("Y-m-d") != $endDt->format("Y-m-d")) {
-      $formatted_start_date = $startDt->format(('M j, g:i a') );
-      $formatted_end_date = $endDt->format(('M j, g:i a') );
+      $formatted_start_date = $startDt->format(('M j, g:ia') );
+      $formatted_end_date = $endDt->format(('M j, g:ia') );
     }
 
     $variables['content']['event_converted_dates'] = [
