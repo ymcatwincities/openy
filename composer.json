@@ -174,7 +174,8 @@
             },
             "drupal/blazy": {
                 "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch",
-                "Add option for native browser lazy load": "https://www.drupal.org/files/issues/2020-06-18/3142503-native-option-2.patch"
+                "Add option for native browser lazy load": "https://www.drupal.org/files/issues/2020-06-18/3142503-native-option-2.patch",
+                "SVG placeholder html validation error space is not allowed": "https://www.drupal.org/files/issues/2020-06-23/blazy_fix_svg_placeholder-3154185-2.patch"
             },
             "drupal/migrate_tools": {
                 "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
