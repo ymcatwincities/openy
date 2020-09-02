@@ -22,5 +22,6 @@ dependencies:
   - openy_media_image:openy_media_image
   - openy_prgf:openy_prgf
   - openy_txnm_color:openy_txnm_color
+  - openy_prgf_gallery:openy_prgf_gallery
   - paragraphs:paragraphs
 core_incompatible: false
