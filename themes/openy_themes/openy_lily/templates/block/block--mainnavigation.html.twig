@@ -39,7 +39,7 @@
 {# nav-home masthead-menu navbar hidden-xs affix-top #}
 {% set attributes = attributes.addClass('nav-home masthead-menu navbar hidden-xs affix-top') %}
 {% set attributes = attributes.setAttribute('id', 'masthead-menu') %}
-<nav role="navigation" aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
+<nav aria-labelledby="{{ heading_id }}"{{ attributes|without('role', 'aria-labelledby') }}>
   {# Label. If not displayed, we still provide it for screen readers. #}
   {% if not configuration.label_display %}
     {% set title_attributes = title_attributes.addClass('visually-hidden') %}
