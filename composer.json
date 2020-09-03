@@ -20,6 +20,7 @@
         "drupal/config_update": "^1.6",
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-recommended": "^8.8",
+        "drupal/core": "!=8.9.4",
         "drupal/crop": "^2.0",
         "drupal/css_editor": "^1.2",
         "drupal/ctools": "3.0",
