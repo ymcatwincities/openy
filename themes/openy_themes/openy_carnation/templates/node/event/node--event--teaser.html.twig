@@ -106,14 +106,17 @@ set classes = [
 
     {% if not node.field_event_location.isEmpty() %}
       <div class="event-location">
-        <i class="fas fa-map-marker-alt mr-2 text-primary"></i> {{ content.field_event_location }}
+        <i class="fas fa-map-marker-alt fa-fw mr-2 text-primary"></i> {{ content.field_event_location }}
       </div>
     {% endif %}
 
-    <div class="event-date__event-time">
-      <i class="far fa-clock"></i>
+    <div class="event-date__event-time d-flex align-items-center justify-content-start">
+      <i class="far fa-clock fa-fw mr-2"></i>
       {% if content.event_converted_dates is not empty %}
-        {{ content.event_converted_dates.date_start }} - {{ content.event_converted_dates.date_end }}
+        <span>
+          <span class="d-inline-block">{{ content.event_converted_dates.date_start }} - </span>
+          <span class="d-inline-block">{{ content.event_converted_dates.date_end }}</span>
+        </span>
       {% else %}
         {{ content.field_event_dates }}
       {% endif %}

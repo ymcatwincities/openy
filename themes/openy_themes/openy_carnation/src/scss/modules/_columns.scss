@@ -49,6 +49,15 @@
     }
   }
 
+  .btn-primary a {
+    color: $white;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+
   .field-icon-class {
     text-align: center;
     margin-bottom: 15px;
@@ -127,5 +136,11 @@ article .node--view-mode-flexible-content h2 {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
   border: 0 !important;
+}
+
+.block-description--wrapper--outline--top {
+  .block-description--text {
+    padding-top: 15px;
+  }
 }
 

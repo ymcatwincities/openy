@@ -50,7 +50,7 @@
 <div{{ attributes.addClass(classes) }} {% if color is not empty %} style="background-color: {{ color }}" {% endif %}>
 
   {% if not paragraph.field_prgf_image.isEmpty() %}
-    <div class="banner-bg" style="background: url('{{ file_url(paragraph.field_prgf_image.entity.field_media_image.entity.uri.value) }}') center center; background-size: cover;">
+    <div class="banner-bg" style="background: url('{{ paragraph.field_prgf_image.entity.field_media_image.entity.uri.value|image_style('carnation_banner_1920_700') }}') center center; background-size: cover;">
       <span></span>
     </div>
   {% endif %}
