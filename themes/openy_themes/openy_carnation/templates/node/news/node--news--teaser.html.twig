@@ -83,7 +83,7 @@
 {% endblock %}
 
 {% block description %}
-  {{ content.field_news_description|render|striptags }}
+  {{ content.field_news_description|render|striptags|raw }}
 {% endblock %}
 
 {% block link %}
