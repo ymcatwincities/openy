@@ -119,7 +119,7 @@
         "secure-http": false
     },
     "conflict": {
-        "drupal/core": "8.9.4"
+        "drupal/core": "8.9.4, 8.9.x-dev"
     },
     "extra": {
         "drupal-scaffold": {
