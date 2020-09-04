@@ -77,3 +77,10 @@ function openy_media_library_info_alter(&$libraries, $extension) {
     ];
   }
 }
+
+/**
+ * Implements hook_blazy_attach_alter().
+ */
+function openy_media_blazy_attach_alter(array &$load, array $settings = []) {
+  $load['library'][] = 'openy_media/blazy_ratio';
+}
