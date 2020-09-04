@@ -9,3 +9,9 @@ browser:
     - core/jquery
     - core/drupal
     - core/underscore
+
+blazy_ratio:
+  version: 0.1
+  css:
+    component:
+      css/blazy.ratio.css: {}
