@@ -7,6 +7,8 @@ package: Open Y (Experimental)
 base theme: openy_rose
 libraries:
   - openy_campaign_theme/global-styling
+dependencies:
+  - jquery_ui_tabs:jquery_ui_tabs
 regions:
   header: Header
   logo: Logo
