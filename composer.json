@@ -88,6 +88,8 @@
         "drupal/views_infinite_scroll": "1.7",
         "drupal/webform": "~6.0",
         "grt107/grt-youtube-popup": "^1.0",
+        "drupal/jquery_ui_tooltip": "^1.1",
+        "drupal/jquery_ui_tabs":" ^1.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
         "library-ckeditor/panelbutton": "4.10.1",

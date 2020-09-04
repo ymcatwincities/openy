@@ -6,5 +6,5 @@ installation_ui:
   js:
     assets/installation-profile-ui.js: {}
   dependencies:
-    - core/jquery.ui.tooltip
+    - jquery_ui_tooltip/tooltip
     - core/jquery.ui.dialog
