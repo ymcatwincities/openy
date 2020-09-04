@@ -89,3 +89,4 @@ dependencies:
 themes:
   - openy_admin
   - claro
+  - bartik
