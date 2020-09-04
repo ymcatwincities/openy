@@ -86,6 +86,5 @@ dependencies:
   - openy_tour:openy_tour
   - openy_update:openy_update
 themes:
-  - bartik
   - openy_admin
-  - seven
+  - claro
