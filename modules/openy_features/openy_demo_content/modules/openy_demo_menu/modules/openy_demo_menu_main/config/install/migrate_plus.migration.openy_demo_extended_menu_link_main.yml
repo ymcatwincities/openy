@@ -105,8 +105,7 @@ process:
   menu_name: menu_name
   link/uri:
     plugin: link_uri
-    source:
-    - link
+    source: link
   weight: weight
   expanded: expanded
   parent:
