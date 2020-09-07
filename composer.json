@@ -5,6 +5,7 @@
     "license": "GPL-2.0-or-later",
     "require": {
         "php": ">=7.3",
+        "drupal/upgrade_status": "3.x-dev",
         "composer/installers": "*",
         "cweagans/composer-patches": "^1.5.0",
         "doctrine/inflector": "1.2.*",
