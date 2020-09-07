@@ -4,7 +4,7 @@ namespace Drupal\openy_addthis\Entity;
 
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\FieldableEntityStorageInterface;
-use Drupal\Core\Entity\Sql\SqlContentEntityStorage;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Extension\ModuleUninstallValidatorInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -49,7 +49,7 @@ class AddThisUninstallValidator implements ModuleUninstallValidatorInterface {
     foreach ($entity_types as $entity_type_id => $entity_type) {
       $storage = $this->entityTypeManager->getStorage($entity_type_id);
 
-      if ($storage instanceof SqlContentEntityStorage) {
+      if ($storage instanceof EntityFieldManagerInterface) {
         foreach ($storage->getFieldStorageDefinitions() as $storage_definition) {
           if (
             $storage_definition->getProvider() === 'openy_addthis'
