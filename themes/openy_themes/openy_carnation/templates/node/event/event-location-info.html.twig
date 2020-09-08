@@ -23,7 +23,9 @@
     </div>
   </address>
 
-  <div class="location-directions">
-    {{ info.directions }} <i class="fa fa-arrow-right text-pink"></i>
-  </div>
+  {% if info.directions is not empty %}
+    <div class="location-directions">
+      {{ info.directions }} <i class="fa fa-arrow-right text-pink"></i>
+    </div>
+  {% endif %}
 </div>

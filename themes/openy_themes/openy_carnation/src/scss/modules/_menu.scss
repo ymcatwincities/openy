@@ -269,17 +269,7 @@
 
       // adjust main nav link colours
       &:not(.affix) .page-head__main-menu .navbar > li {
-        > button {
-          color: $pink;
-        }
-        > a {
-          color: $primary;
-
-          &:hover {
-            color: $pink;
-          }
-        }
-
+        & > a:hover,
         &.show > a,
         &.show > a:focus {
           color: $pink;
