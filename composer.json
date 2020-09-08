@@ -86,7 +86,7 @@
         "drupal/views_data_export": "1.0-rc1",
         "drupal/views_field_formatter": "~1.9",
         "drupal/views_infinite_scroll": "1.7",
-        "drupal/webform": "~5.12",
+        "drupal/webform": "6.x-dev",
         "grt107/grt-youtube-popup": "^1.0",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
