@@ -136,10 +136,10 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       $activeRegistration = FALSE;
     }
 
-    $utcCampaignStart = $localeCampaignStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
-    $utcCampaignEnd = $localeCampaignEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
-    $utcCampaignRegStart = $localeRegistrationStart->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
-    $utcCampaignRegEnd = $localeRegistrationEnd->getDate()->format(DATETIME_DATETIME_STORAGE_FORMAT);
+    $utcCampaignStart = $localeCampaignStart->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $utcCampaignEnd = $localeCampaignEnd->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegStart = $localeRegistrationStart->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegEnd = $localeRegistrationEnd->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
 
     $campaignTimezone = !empty($campaign->get('field_campaign_timezone')->getString()) ? new \DateTimeZone($campaign->get('field_campaign_timezone')->getString()) : $siteDefaultTimezone;
     $startDateCampaignTz = $localeCampaignStart->convertTimezone($campaignTimezone);
