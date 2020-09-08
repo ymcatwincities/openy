@@ -159,6 +159,9 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
         $element['preview']['preview_link'] = [
           '#type' => 'inline_template',
           '#template' => '{{ focal_point_link }}  |  {{ crop_image_link }}',
+          '#wrapper_attributes' => [
+            'class' => ['focal-point-wrapper'],
+          ],    
           '#context' => [
             'focal_point_link' => self::createFocalPointEditLink($fid, $element['#field_name'], $element_selectors, $default_focal_point_value, $used_breakpoints),
             'crop_image_link' => self::createCropLink($fid, $element['#field_name'], $element_selectors, $default_focal_point_value, $used_breakpoints),
