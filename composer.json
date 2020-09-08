@@ -72,6 +72,7 @@
         "drupal/token_filter": "^1",
         "drupal/twig_tweak": "^2",
         "drupal/tzfield": "1.x-dev",
+        "drupal/upgrade_status": "*",
         "drupal/video_embed_field": "^2.0",
         "drupal/views_block_filter_block": "1.x-dev",
         "drupal/views_data_export": "^1",
