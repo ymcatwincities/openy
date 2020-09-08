@@ -5,7 +5,7 @@ namespace Drupal\openy_system\EventSubscriber;
 use Drupal\Core\Url;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Session\AccountInterface;
@@ -35,7 +35,7 @@ class TermsSubscriber implements EventSubscriberInterface {
   /**
    * {@inheritdoc}
    */
-  public function checkForRedirection(GetResponseEvent $event) {
+  public function checkForRedirection(RequestEvent $event) {
     $url = Url::fromRoute('openy_system.openy_terms_and_conditions')
       ->toString();
     $request_uri = $event->getRequest()->getRequestUri();

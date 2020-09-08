@@ -3,7 +3,7 @@
 namespace Drupal\openy_group_schedules\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -16,10 +16,10 @@ class GroupexPageResponseSubscriber implements EventSubscriberInterface {
    *
    * We are dealing with Dynamic Page Cache and BigPipe plus lazy loaders.
    *
-   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   * @param @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
    *   Passed event.
    */
-  public function groupexSessionStart(GetResponseEvent $event) {
+  public function groupexSessionStart(RequestEvent $event) {
     $request = $event->getRequest();
     $uri = str_replace(base_path(), '/', $request->getRequestUri());
     if ($url_object = \Drupal::service('path.validator')->getUrlIfValid($uri)) {

@@ -3,7 +3,7 @@
 namespace Drupal\openy_hf\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -26,10 +26,10 @@ class ResponseEventSubscriber implements EventSubscriberInterface {
   /**
    * Event callback onRespond.
    *
-   * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
+   * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
    *   Event.
    */
-  public function onRespond(FilterResponseEvent $event) {
+  public function onRespond(RequestEvent $event) {
     $remove_header = FALSE;
     $response = $event->getResponse();
     $routes = ['openy_hf.header', 'openy_hf.footer'];

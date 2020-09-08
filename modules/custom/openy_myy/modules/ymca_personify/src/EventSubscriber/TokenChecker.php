@@ -4,7 +4,7 @@ namespace Drupal\ymca_personify\EventSubscriber;
 
 use Drupal\personify_sso\PersonifySso;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -25,10 +25,10 @@ class TokenChecker implements EventSubscriberInterface {
   /**
    * Check whether user is logged in Personify.
    *
-   * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+   * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
    *   Event.
    */
-  public function checkToken(GetResponseEvent $event) {
+  public function checkToken(RequestEvent $event) {
     $request_time = \Drupal::time()->getRequestTime();
     $container = \Drupal::getContainer();
 
