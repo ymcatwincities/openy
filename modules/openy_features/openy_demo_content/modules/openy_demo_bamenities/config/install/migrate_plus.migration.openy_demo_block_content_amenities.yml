@@ -42,6 +42,6 @@ process:
   field_sb_link/title: link_title
   field_branch_am:
     plugin: default_value
-    default_value: ''
+    default_value: '[openy:list-branch-amenities]'
 destination:
   plugin: entity:block_content
