@@ -272,8 +272,7 @@ function openy_carnation_preprocess_page_logo(&$variables) {
   else {
     $variables['colored_logo_url'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
   }
-  $variables['transparent_logo_url'] = file_create_url(theme_get_setting('logo.path'));
-  $variables['logo_url'] = $variables['transparent_logo_url'];
+  $variables['logo_url'] = $variables['transparent_logo_url'] = file_create_url(theme_get_setting('logo.path'));
   $variables['mobile_logo_url'] = $variables['transparent_logo_url'];
 
   $is_node_camp_related = FALSE;
@@ -286,17 +285,6 @@ function openy_carnation_preprocess_page_logo(&$variables) {
     $node_type = $node->getType();
     if ($node_type == 'program') {
       $variables['logo_url'] = $variables['colored_logo_url'];
-    } else if (in_array($node_type, [
-      'class',
-      'blog',
-      'news',
-      'camp',
-      'event',
-      'facility',
-      'branch',
-      'program_subcategory',
-    ]) || (count($banner_paragraphs) > 0)) {
-      $variables['logo_url'] = $variables['transparent_logo_url'];
     }
   }
 
