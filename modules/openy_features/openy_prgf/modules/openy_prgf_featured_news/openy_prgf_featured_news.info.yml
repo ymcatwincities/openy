@@ -2,7 +2,7 @@ name: 'Open Y Paragraph Featured News Posts'
 description: Provides a paragraph containing blocks of specific types positioned as 2, 3 or 4 blocks per row.
 package: Open Y
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 dependencies:
   - drupal:field

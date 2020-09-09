@@ -18,7 +18,7 @@ function openy_install() {
   // Set the default and admin theme.
   $config_factory
     ->getEditable('system.theme')
-    ->set('admin', 'seven')
+    ->set('admin', 'claro')
     ->save(TRUE);
 
   // Enable the admin theme.
@@ -29,6 +29,9 @@ function openy_install() {
 
   // Enable openy_upgrade_tool.
   $module_installer->install(['openy_upgrade_tool'], TRUE);
+
+  // Enable jquery_ui_tooltip for Installation Wizard.
+  $module_installer->install(['jquery_ui_tooltip'], TRUE);
 
   // Enable openy_user after all modules are installed.
   $module_installer->install(['openy_user'], TRUE);
@@ -1143,4 +1146,11 @@ function openy_update_8081() {
       $module,
     ]);
   }
+}
+
+/**
+ * Enable openy_block_branch_contacts_info module.
+ */
+function openy_update_8083() {
+  \Drupal::service('module_installer')->install(['jquery_ui_tooltip']);
 }

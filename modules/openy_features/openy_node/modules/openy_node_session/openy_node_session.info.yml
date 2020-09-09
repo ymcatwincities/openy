@@ -1,7 +1,7 @@
 name: Open Y Node Session
 description: Provides a Session content type and related configuration
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Open Y
 version: 8.x-1.1
 dependencies:
@@ -18,6 +18,6 @@ dependencies:
   - link_attributes:link_attributes
   - paragraphs:paragraphs
   - drupal:path
-  - rabbit_hole:rabbit_hole
+  # - rabbit_hole:rabbit_hole
   - drupal:text
   - drupal:user

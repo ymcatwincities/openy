@@ -150,11 +150,11 @@ process:
     plugin: default_value
     source: layout
   field_header_content:
-    plugin: iterator
+    plugin: sub_process
     source: header_content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_banner
           - openy_demo_lp_paragraph_gallery
@@ -162,7 +162,7 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
         source: header_content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_banner
           - openy_demo_lp_paragraph_gallery
@@ -170,11 +170,11 @@ process:
           - openy_demo_lp_paragraph_location_finder_filters
         source: header_content_id
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
@@ -186,7 +186,7 @@ process:
           - openy_demo_lp_paragraph_all_amenities
         source: content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_lp_paragraph_simple
           - openy_demo_lp_paragraph_featured_content
@@ -198,16 +198,16 @@ process:
           - openy_demo_lp_paragraph_all_amenities
         source: content_id
   field_sidebar_content:
-      plugin: iterator
+      plugin: sub_process
       source: sidebar
       process:
         target_id:
-          plugin: migration
+          plugin: migration_lookup
           migration:
             - openy_demo_lp_paragraph_loc_by_amnts
           source: sidebar_id
         target_revision_id:
-          plugin: migration
+          plugin: migration_lookup
           migration:
             - openy_demo_lp_paragraph_loc_by_amnts
           source: sidebar_id

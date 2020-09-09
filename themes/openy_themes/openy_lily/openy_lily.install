@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the Open Y Lily Theme.
+ */
+
+/**
+ * Enable openy_block_branch_contacts_info module.
+ */
+function openy_lily_update_8001() {
+    \Drupal::service('module_installer')->install(['jquery_ui_tabs']);
+  }
+  

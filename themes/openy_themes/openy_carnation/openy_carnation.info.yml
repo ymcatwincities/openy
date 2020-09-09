@@ -2,7 +2,7 @@ name: Open Y Carnation
 type: theme
 description: 'YMCA brand compliant and customizable theme.'
 package: Open Y
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.2
 base theme: false
 libraries:

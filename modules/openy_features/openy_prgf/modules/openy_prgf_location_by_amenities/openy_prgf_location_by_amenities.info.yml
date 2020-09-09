@@ -2,7 +2,7 @@ name: Open Y Paragraph Location By Amenities
 description: Provides a paragraph to display list of branches filtered by exposed amenities filter.
 package: Open Y
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 dependencies:
   - better_exposed_filters:better_exposed_filters

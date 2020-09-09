@@ -71,7 +71,7 @@ class SettingsForm extends ConfigFormBase {
     $config = \Drupal::service('config.factory')->getEditable('openy_popups.settings');
     if ($config->get('img')) {
       // Delete old image.
-      file_delete($config->get('img'));
+      \Drupal::service('file_system')->delete($config->get('img'));
     }
 
     if ($form_image = $form_state->getValue('img')) {

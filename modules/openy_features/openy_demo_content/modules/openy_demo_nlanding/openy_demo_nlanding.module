@@ -359,8 +359,8 @@ function openy_demo_nlanding_af_pages() {
   $ps_node->field_content->entity = $ps_paragraph;
   $ps_node->save();
 
-  $nid = \Drupal::service('entity.query')
-    ->get('node')
+  $nid = \Drupal::service('entity_type.manager')
+    ->getStorage('node')->getQuery()
     ->condition('title', 'Swimming Lessons at the YMCA')
     ->condition('type', 'landing_page')
     ->execute();

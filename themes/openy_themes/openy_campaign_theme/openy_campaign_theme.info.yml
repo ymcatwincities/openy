@@ -1,12 +1,14 @@
 name: Open Y Campaign
 type: theme
 description: 'YMCA campaign theme'
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0-rc1
 package: Open Y (Experimental)
 base theme: openy_rose
 libraries:
   - openy_campaign_theme/global-styling
+dependencies:
+  - jquery_ui_tabs:jquery_ui_tabs
 regions:
   header: Header
   logo: Logo

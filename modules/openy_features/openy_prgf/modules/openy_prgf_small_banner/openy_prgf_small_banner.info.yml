@@ -1,7 +1,7 @@
 name: 'Open Y Paragraph Small Banner'
 description: 'Provides a paragraph to display small banner.'
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: 'Open Y'
 version: 8.x-1.0
 dependencies:
@@ -17,7 +17,7 @@ dependencies:
   - drupal:field
   - focal_point:focal_point
   - drupal:image
-  - jquery_colorpicker:jquery_colorpicker
+  #- jquery_colorpicker:jquery_colorpicker
   - drupal:media
   - openy_focal_point:openy_focal_point
   - openy_media_image:openy_media_image
