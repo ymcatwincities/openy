@@ -3,25 +3,24 @@ status: true
 dependencies:
   config:
     - block_content.type.branch_amenities
-    - custom_formatters.formatter.branch_amenities
     - field.field.block_content.branch_amenities.field_branch_am
     - field.field.block_content.branch_amenities.field_icon_class
     - field.field.block_content.branch_amenities.field_sb_link
     - field.field.block_content.branch_amenities.field_sb_title
   module:
-    - custom_formatters
     - link
+    - text
 id: block_content.branch_amenities.default
 targetEntityType: block_content
 bundle: branch_amenities
 mode: default
 content:
   field_branch_am:
-    weight: 1
+    weight: 2
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: 'custom_formatters:branch_amenities'
+    type: text_default
     region: content
   field_icon_class:
     weight: 1
@@ -32,7 +31,7 @@ content:
     type: string
     region: content
   field_sb_link:
-    weight: 2
+    weight: 3
     label: hidden
     settings:
       trim_length: 80
@@ -53,3 +52,4 @@ content:
     region: content
 hidden:
   langcode: true
+  search_api_excerpt: true

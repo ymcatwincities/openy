@@ -4,19 +4,25 @@ dependencies:
   config:
     - block_content.type.branch_amenities
     - field.storage.block_content.field_branch_am
+  module:
+    - datalayer
+    - text
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_branch_am
 id: block_content.branch_amenities.field_branch_am
 field_name: field_branch_am
 entity_type: block_content
 bundle: branch_amenities
 label: 'Branch amenities'
-description: 'Field that uses only Custom Formatter to display a list of amenities within Paragraph block. Hidden from content managers by default.'
-required: true
-translatable: true
+description: 'Field that uses only Custom Token to display a list of amenities within Paragraph block. Hidden from content managers by default.'
+required: false
+translatable: false
 default_value:
   -
-    value: 0
+    value: '[openy:list-branch-amenities]'
+    format: full_html
 default_value_callback: ''
-settings:
-  on_label: 'On'
-  off_label: 'Off'
-field_type: boolean
+settings: {  }
+field_type: text

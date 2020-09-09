@@ -15,7 +15,7 @@ bundle: branch_amenities
 mode: default
 content:
   field_icon_class:
-    weight: 1
+    weight: 2
     settings:
       size: 60
       placeholder: ''
@@ -23,7 +23,7 @@ content:
     type: string_textfield
     region: content
   field_sb_link:
-    weight: 2
+    weight: 4
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -57,7 +57,7 @@ content:
     region: content
   langcode:
     type: language_select
-    weight: 2
+    weight: 3
     region: content
     settings:
       include_locked: true
