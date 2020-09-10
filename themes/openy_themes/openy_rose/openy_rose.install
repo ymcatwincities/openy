@@ -6,9 +6,8 @@
  */
 
 /**
- * Enable openy_block_branch_contacts_info module.
+ * Enable jquery_ui_tabs module.
  */
 function openy_rose_update_8001() {
     \Drupal::service('module_installer')->install(['jquery_ui_tabs']);
-  }
-  
+}
