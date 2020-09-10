@@ -16,7 +16,7 @@ dependencies:
   - drupal:text
   - entity_browser:entity_browser
   - focal_point:focal_point
-  #- jquery_colorpicker:jquery_colorpicker
+  - jquery_colorpicker:jquery_colorpicker
   - link_attributes:link_attributes
   - openy_focal_point:openy_focal_point
   - openy_media_image:openy_media_image
