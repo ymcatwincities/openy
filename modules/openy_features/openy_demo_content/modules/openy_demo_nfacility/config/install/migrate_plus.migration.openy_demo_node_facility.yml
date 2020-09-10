@@ -141,23 +141,19 @@ process:
     -
       plugin: default_value
       default_value: 1
-  field_location_email:
-    -
-      plugin: get
-      source: email
   field_facility_loc:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_node_branch
       source: facility_branch
   field_location_area:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_taxonomy_term_area
       source: neighborhood
   field_facility_type:
     -
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_taxonomy_term_facility_type
       source: facility_type
   field_location_address/country_code:
@@ -201,16 +197,16 @@ process:
       plugin: get
       source: longitude
   field_content:
-    plugin: iterator
+    plugin: sub_process
     source: content_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_facility_paragraph_simple
         source: content_id
       target_revision_id:
-        plugin: migration
+        plugin: migration_lookup
         migration:
           - openy_demo_facility_paragraph_simple
         source: content_id

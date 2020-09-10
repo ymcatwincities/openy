@@ -1,7 +1,7 @@
 name: Open Y Node Campaign
 description: Provides a Campaign content type and related configuration.
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Open Y
 dependencies:
   - better_exposed_filters:better_exposed_filters
@@ -15,7 +15,7 @@ dependencies:
   - field_group:field_group
   - drupal:file
   - drupal:image
-  - jquery_colorpicker:jquery_colorpicker
+  #- jquery_colorpicker:jquery_colorpicker
   - drupal:menu_ui
   - drupal:node
   - openy_campaign:openy_campaign

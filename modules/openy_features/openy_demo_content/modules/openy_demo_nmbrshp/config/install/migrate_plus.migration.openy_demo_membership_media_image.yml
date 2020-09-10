@@ -55,7 +55,7 @@ process:
     plugin: default_value
     default_value: 1
   field_media_image:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_membership_file
     source: file
 destination:

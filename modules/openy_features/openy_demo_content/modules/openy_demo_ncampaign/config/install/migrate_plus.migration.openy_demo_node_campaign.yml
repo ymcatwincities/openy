@@ -111,11 +111,11 @@ process:
 
 
   field_campaign_pages:
-    plugin: iterator
+    plugin: sub_process
     source: landing_page_ids
     process:
       target_id:
-        plugin: migration
+        plugin: migration_lookup
         migration: openy_demo_node_campaign_page
         source: landing_page_id
 
@@ -217,7 +217,7 @@ process:
   # Main campaign image field.
   field_campaign_image:
       -
-        plugin: migration
+        plugin: migration_lookup
         migration: openy_demo_ncampaign_media_image
         source: image
   # Activities handler.
