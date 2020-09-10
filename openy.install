@@ -18,7 +18,7 @@ function openy_install() {
   // Set the default and admin theme.
   $config_factory
     ->getEditable('system.theme')
-    ->set('admin', 'claro')
+    ->set('admin', 'seven')
     ->save(TRUE);
 
   // Enable the admin theme.
