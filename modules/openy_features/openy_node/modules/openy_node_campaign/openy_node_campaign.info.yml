@@ -15,7 +15,7 @@ dependencies:
   - field_group:field_group
   - drupal:file
   - drupal:image
-  #- jquery_colorpicker:jquery_colorpicker
+  - jquery_colorpicker:jquery_colorpicker
   - drupal:menu_ui
   - drupal:node
   - openy_campaign:openy_campaign
