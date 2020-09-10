@@ -349,7 +349,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   public function getActiveCampaigns() {
     // All dates are stored in database in UTC timezone.
     // Get current datetime in UTC timezone.
-    $dt = new \DateTime('now', new \DateTimezone(DATETIME_STORAGE_TIMEZONE));
+    $dt = new \DateTime('now', new \DateTimezone(DATETIME_ST\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::STORAGE_TIMEZONEORAGE_TIMEZONE));
     $now = DrupalDateTime::createFromDateTime($dt);
 
     /** @var \Drupal\node\NodeStorage $nodeStorage */
@@ -358,7 +358,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $campaignIds = $nodeStorage->getQuery()
       ->condition('type', 'campaign')
       ->condition('status', TRUE)
-      ->condition('field_campaign_end_date', $now->format(DATETIME_DATETIME_STORAGE_FORMAT), '>=')
+      ->condition('field_campaign_end_date', $now->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT), '>=')
       ->sort('created', 'DESC')
       ->execute();
     $campaigns = $nodeStorage->loadMultiple($campaignIds);
@@ -394,10 +394,10 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
 
     // We need to set UTC zone as far as Drupal stores dates in UTC zone.
     /** @var \Drupal\node\Entity\Node $campaign */
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), new \DateTimeZone(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::STORAGE_TIMEZONE));
     // The checkins are saved with 0:0:0 time.
     $campaignStartDate->setTime(0, 0, 0);
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), new \DateTimeZone(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::STORAGE_TIMEZONE));
     $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
 
     // Get visits.
@@ -459,10 +459,10 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     }
 
     // We need to set UTC zone as far as Drupal stores dates in UTC zone.
-    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    $campaignStartDate = new \DateTime($campaign->get('field_campaign_start_date')->getString(), new \DateTimeZone(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::STORAGE_TIMEZONE));
     // The checkins are saved with 0:0:0 time.
     $campaignStartDate->setTime(0, 0, 0);
-    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), new \DateTimeZone(DATETIME_STORAGE_TIMEZONE));
+    $campaignEndDate = new \DateTime($campaign->get('field_campaign_end_date')->getString(), new \DateTimeZone(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::STORAGE_TIMEZONE));
     $minVisitsGoal = !empty($campaign->field_min_visits_goal->value) ? $campaign->field_min_visits_goal->value : 0;
 
     // Get member with achieved goal.

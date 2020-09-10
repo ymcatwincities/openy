@@ -165,8 +165,8 @@ class PersonifyApi implements PersonifyApiInterface {
         'CL_GetProductListingInput' => [
           'ProductClassCode' => $product_class_code,
           'ProductStatusCode' => 'A',
-          'AvailableDate' => $available_date->format(DATETIME_DATETIME_STORAGE_FORMAT),
-          'ExpirationDate' => $expiration_date->format(DATETIME_DATETIME_STORAGE_FORMAT),
+          'AvailableDate' => $available_date->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT),
+          'ExpirationDate' => $expiration_date->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT),
           'AvailableToOrdersFlag' => TRUE,
         ],
       ],
