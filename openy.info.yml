@@ -87,5 +87,5 @@ dependencies:
   - openy_update:openy_update
 themes:
   - openy_admin
-  - claro
+  - seven
   - bartik
