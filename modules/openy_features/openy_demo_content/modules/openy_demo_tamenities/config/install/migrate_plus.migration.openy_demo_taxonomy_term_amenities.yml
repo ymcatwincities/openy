@@ -132,7 +132,7 @@ process:
       plugin: default_value
       default_value: amenities
   field_amenities_icon:
-      plugin: migration
+      plugin: migration_lookup
       migration: openy_demo_amenities_file
       source: file
 destination:

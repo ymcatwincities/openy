@@ -197,7 +197,6 @@ content:
       match_limit: 0
       size: 60
       placeholder: ''
-      match_limit: 10
     third_party_settings: {  }
     region: content
   unpublish_on:

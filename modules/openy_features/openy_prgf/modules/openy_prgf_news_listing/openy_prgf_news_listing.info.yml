@@ -2,7 +2,7 @@ name: Open Y Paragraph News Posts listing
 package: Open Y
 description: Provides a dynamic paragraph that renders news posts listing with exposed filters.
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 dependencies:
   - drupal:field

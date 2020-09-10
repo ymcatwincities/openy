@@ -134,7 +134,7 @@ process:
     default_value: 1
   title: title
   field_program_color:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_taxonomy_term_color
     source: color
   field_program_description/value: body
@@ -142,23 +142,23 @@ process:
     plugin: default_value
     default_value: full_html
   field_content/target_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_paragraph_category_listing
     source: listing_id
   field_content/target_revision_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_paragraph_category_listing
     source: listing_id
   field_sidebar_content:
-    plugin: iterator
+    plugin: sub_process
     source: card_ids
     process:
        target_id:
-         plugin: migration
+         plugin: migration_lookup
          migration: openy_demo_paragraph_promo_card
          source: card_id
        target_revision_id:
-         plugin: migration
+         plugin: migration_lookup
          migration: openy_demo_paragraph_promo_card
          source: card_id
 destination:

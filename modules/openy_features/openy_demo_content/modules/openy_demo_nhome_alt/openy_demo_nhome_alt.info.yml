@@ -1,7 +1,7 @@
 name: Open Y Demo Node Home Alternative
 description: Stores migrations to import alternative demo home page when demo content disabled.
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 package: Open Y
 dependencies:
