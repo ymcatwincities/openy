@@ -1149,7 +1149,7 @@ function openy_update_8081() {
 }
 
 /**
- * Enable openy_block_branch_contacts_info module.
+ * Enable jquery_ui_tooltip module.
  */
 function openy_update_8083() {
   \Drupal::service('module_installer')->install(['jquery_ui_tooltip']);
