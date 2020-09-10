@@ -19,6 +19,6 @@ dependencies:
   - paragraphs:paragraphs
   - drupal:path
   - pathauto:pathauto
-  # - rabbit_hole:rabbit_hole
+  - rabbit_hole:rabbit_hole
   - drupal:text
   - drupal:user
