@@ -21,7 +21,7 @@ dependencies:
   - paragraphs:paragraphs
   - drupal:path
   - pathauto:pathauto
-  # - rabbit_hole:rabbit_hole
+  - rabbit_hole:rabbit_hole
   - drupal:taxonomy
   - drupal:telephone
   - drupal:user
