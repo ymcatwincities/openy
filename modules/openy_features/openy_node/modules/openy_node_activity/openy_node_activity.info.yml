@@ -11,6 +11,6 @@ dependencies:
   - drupal:node
   - drupal:path
   - pathauto:pathauto
-  # - rabbit_hole:rabbit_hole
+  - rabbit_hole:rabbit_hole
   - drupal:text
   - drupal:user
