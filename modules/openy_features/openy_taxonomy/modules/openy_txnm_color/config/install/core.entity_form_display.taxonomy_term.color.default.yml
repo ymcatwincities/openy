@@ -5,6 +5,7 @@ dependencies:
     - field.field.taxonomy_term.color.field_color
     - taxonomy.vocabulary.color
   module:
+    - jquery_colorpicker
     - path
     - text
 id: taxonomy_term.color.default
@@ -21,12 +22,11 @@ content:
     third_party_settings: {  }
     region: content
   field_color:
-    weight: 101
+    weight: 31
     settings:
-      size: 60
-      placeholder: ''
+      color: FFFFFF
     third_party_settings: {  }
-    type: string_textfield
+    type: jquery_colorpicker
     region: content
   langcode:
     type: language_select
@@ -49,11 +49,4 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 100
-    region: content
-    third_party_settings: {  }
 hidden: {  }

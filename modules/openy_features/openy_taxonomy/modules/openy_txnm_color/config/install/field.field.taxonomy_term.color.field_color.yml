@@ -5,20 +5,18 @@ dependencies:
     - field.storage.taxonomy_term.field_color
     - taxonomy.vocabulary.color
   module:
-    - datalayer
-third_party_settings:
-  datalayer:
-    expose: 0
-    label: field_color
+    - jquery_colorpicker
 id: taxonomy_term.color.field_color
 field_name: field_color
 entity_type: taxonomy_term
 bundle: color
 label: Color
-description: 'Color for rendering'
-required: false
-translatable: false
-default_value: {  }
+description: 'The hex value for the color.'
+required: true
+translatable: true
+default_value:
+  -
+    value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: jquery_colorpicker
