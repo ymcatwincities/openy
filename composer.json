@@ -185,6 +185,10 @@
             },
             "drupal/social_feed_fetcher": {
                 "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
+            },
+            "drupal/search_api_solr": {
+                "Fix search_api_solr_cron() with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_cron_fix-3170802.patch",
+                "Fix cores appear unavailable in UI with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_core_unavailable_ui-3170793.patch"
             }
         }
     },
