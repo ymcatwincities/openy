@@ -48,7 +48,7 @@
         "drupal/google_tag": "~1.1",
         "drupal/image_widget_crop": "^2.2",
         "drupal/inline_entity_form": "1.0-rc1",
-        "drupal/jquery_colorpicker": "~1.4",
+        "drupal/jquery_colorpicker": "^2",
         "drupal/libraries": "3.x-dev",
         "drupal/link_attributes": "^1.10",
         "drupal/media_directories": "^1.0",
@@ -185,6 +185,9 @@
             },
             "drupal/social_feed_fetcher": {
                 "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
+            },
+            "drupal/jquery_colorpicker": {
+                "Use library directory instead vendor": "patches/jquery_colorpicker/library_path_update.patch"
             }
         }
     },

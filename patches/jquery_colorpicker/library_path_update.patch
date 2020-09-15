@@ -1,0 +1,16 @@
+diff --git a/jquery_colorpicker.libraries.yml b/jquery_colorpicker.libraries.yml
+index 1c4477f..9dd4de8 100644
+--- a/jquery_colorpicker.libraries.yml
++++ b/jquery_colorpicker.libraries.yml
+@@ -2,9 +2,9 @@ library:
+   version: 1.0.1
+   css:
+     theme:
+-      vendor://jaypan/jquery-colorpicker/css/colorpicker.css: {}
++      /libraries/jquery_colorpicker/css/colorpicker.css: {}
+   js:
+-    vendor://jaypan/jquery-colorpicker/js/colorpicker.js: {}
++    /libraries/jquery_colorpicker/js/colorpicker.js: {}
+   dependencies:
+     - core/jquery
+ 
