@@ -15,6 +15,7 @@
         "drupal/captcha": "^1",
         "drupal/ckeditor_bootstrap_buttons": "1.x-dev",
         "drupal/ckeditor_font": "^1",
+        "drupal/colorapi": "1.x-dev",
         "drupal/colorbutton": "^1",
         "drupal/confi": "^2.0",
         "drupal/config_update": "^1.6",
@@ -40,6 +41,7 @@
         "drupal/features": "^3",
         "drupal/field_group": "~3.0",
         "drupal/focal_point": "^1",
+        "drupal/fontyourface": "~3.3",
         "drupal/geolocation": "^3.0",
         "drupal/geysir": "dev-1.x",
         "drupal/google_analytics": "~2.5",
@@ -47,6 +49,8 @@
         "drupal/google_tag": "~1.4",
         "drupal/image_widget_crop": "^2",
         "drupal/inline_entity_form": "^1",
+        "drupal/jquery_ui_tabs": "^1.1",
+        "drupal/jquery_ui_tooltip": "^1.1",
         "drupal/link_attributes": "^1",
         "drupal/media_directories": "^2",
         "drupal/metatag": "^1",
@@ -72,6 +76,7 @@
         "drupal/token_filter": "^1",
         "drupal/twig_tweak": "^2",
         "drupal/tzfield": "1.x-dev",
+        "drupal/vendor_stream_wrapper": "1.x-dev",
         "drupal/video_embed_field": "^2.0",
         "drupal/views_block_filter_block": "1.x-dev",
         "drupal/views_data_export": "^1",
@@ -79,8 +84,6 @@
         "drupal/webform": "^6",
         "drush/drush": "^10.3",
         "grt107/grt-youtube-popup": "^1.0",
-        "drupal/jquery_ui_tooltip": "^1.1",
-        "drupal/jquery_ui_tabs":" ^1.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
         "library-ckeditor/panelbutton": "4.10.1",
@@ -96,15 +99,12 @@
         "oomphinc/composer-installers-extender": "^1.1",
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
-        "drupal/colorapi": "1.x-dev",
         "ymcatwincities/custom_formatters": "*",
         "ymcatwincities/domain_theme_switch": "*",
-        "drupal/fontyourface": "~3.3",
         "ymcatwincities/libraries": "*",
         "ymcatwincities/media_entity_document": "*",
         "ymcatwincities/media_entity_image": "*",
         "ymcatwincities/media_entity_video": "*",
-        "drupal/vendor_stream_wrapper": "1.x-dev",
         "ymcatwincities/verf": "*",
         "ymcatwincities/video": "*",
         "ymcatwincities/views_field_formatter": "*"
@@ -154,67 +154,11 @@
             ]
         },
         "patches": {
-            "drupal/core": {
-                "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
-                "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
-                "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch",
-                "2996114 - JSON:API Argument error": "https://www.drupal.org/files/issues/2020-02-11/2996114-124.patch"
-            },
-            "drupal/media_entity": {
-                "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
-                "2918172 - Media Entity upgrade -> core fails on absent column revision_uid": "https://www.drupal.org/files/issues/2918172-6-8.4.4.patch"
-            },
-            "drupal/blazy": {
-                "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch"
-            },
-            "drupal/geysir": {
-                "3021196 - Geysir tools are shown to users without the permission to use them": "https://www.drupal.org/files/issues/2018-12-18/check-permission.patch",
-                "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
-            },
-            "drupal/social_feed_fetcher": {
-                "3130364 - Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
-            },
-            "drupal/entity_browser": {
-                "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey on null": "https://www.drupal.org/files/issues/2845037_16.patch"
-            },
-            "drupal/libraries": {
-                "Fix libraries getPath issue": "https://gist.githubusercontent.com/podarok/14f2a01d6f4b8a959d1a13f5a510e1b2/raw/85acd44b047605e91c6625d1e9c5de5c130bacc3/path.diff"
-            }
-        }
-    },
-    "extra": {
-        "drupal-scaffold": {
-            "locations": {
-                "web-root": "docroot/"
-            },
-            "allowed-packages": [
-                "drupal/core"
-            ]
-        },
-        "installer-paths": {
-            "docroot/core": [
-                "type:drupal-core"
-            ],
-            "docroot/modules/contrib/{$name}": [
-                "type:drupal-module"
-            ],
-            "docroot/profiles/contrib/{$name}": [
-                "type:drupal-profile"
-            ],
-            "docroot/themes/contrib/{$name}": [
-                "type:drupal-theme"
-            ],
-            "docroot/libraries/{$name}": [
-                "type:drupal-library",
-                "type:bower-asset",
-                "type:npm-asset"
-            ]
-        },
-        "patches": {
             "drupal/simple_menu_icons": {
                 "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch",
                 "2880544 - The theme implementations may not be rendered until all modules are loaded": "https://www.drupal.org/files/issues/theme-implementations-exception-2880544.patch",
-                "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch"
+                "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch",
+                "3170845 - simple_menu_icons_css_generate() throws error if public://css doesn't exist": "https://www.drupal.org/files/issues/2020-09-14/simple_menu_icons-fix_500-3170845.patch"
             },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch",
