@@ -89,3 +89,10 @@ function openy_taxonomy_update_8005() {
     }
   }
 }
+
+/**
+ * Enable Colorapi, as it required for jquery_colorpicker:^2.
+ */
+function openy_taxonomy_update_8006() {
+  \Drupal::service('module_installer')->install(['colorapi']);
+}
