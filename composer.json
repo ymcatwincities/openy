@@ -214,7 +214,8 @@
             "drupal/simple_menu_icons": {
                 "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch",
                 "2880544 - The theme implementations may not be rendered until all modules are loaded": "https://www.drupal.org/files/issues/theme-implementations-exception-2880544.patch",
-                "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch"
+                "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch",
+                "3170845 - simple_menu_icons_css_generate() throws error if public://css doesn't exist": "https://www.drupal.org/files/issues/2020-09-14/simple_menu_icons-fix_500-3170845.patch"
             },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch",
