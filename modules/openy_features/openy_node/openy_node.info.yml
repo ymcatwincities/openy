@@ -1,7 +1,7 @@
 name: Open Y Node Package
 description: Bundle of custom content type modules for Open Y, and their common configuration.
 type: module
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: Open Y
 version: 8.x-1.0
 configure: system.site_information_settings
@@ -9,7 +9,7 @@ dependencies:
   - entity_reference_revisions
   - field
   - image
-  - jquery_colorpicker
+  - jquery_colorpicker:jquery_colorpicker
   - metatag
   - node
   - views
@@ -17,3 +17,5 @@ dependencies:
   - path
   - taxonomy
   - text
+  - openy_upgrade_tool:openy_upgrade_tool
+  - simple_sitemap:simple_sitemap

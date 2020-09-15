@@ -32,7 +32,7 @@ source:
       description: 'Footer Copyright Block'
       title: ''
       body: |
-        <p>© 2020 YMCA</p>
+        <p>© [current-date:custom:Y] YMCA</p>
         <p>The YMCA is a 501(c)(3) not-for-profit social services organization dedicated to Youth Development, Healthy Living, and Social Responsibility.</p>
   ids:
     id:

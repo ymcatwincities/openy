@@ -71,14 +71,6 @@
   }
 }
 
-.viewport {
-  background-color: white;
-}
-
-.viewport {
-  background-color: white;
-}
-
 .site-name {
   @include cachet();
   font-size: 20px;
@@ -98,7 +90,6 @@
 
   .navbar-nav {
     border-right: 1px solid #636466;
-    margin-right: 8px;
   }
 
   .navbar-nav > li {

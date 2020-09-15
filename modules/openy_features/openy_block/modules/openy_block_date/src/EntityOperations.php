@@ -77,7 +77,7 @@ class EntityOperations implements ContainerInjectionInterface {
     $fields_date = ['field_start_date', 'field_end_date'];
     foreach ($fields_date as $field) {
       // Set tags with timestamps of future block changes.
-      $dateTime = DrupalDateTime::createFromFormat(DATETIME_DATETIME_STORAGE_FORMAT, $entity->$field->value, 'UTC');
+      $dateTime = DrupalDateTime::createFromFormat(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT, $entity->$field->value, 'UTC');
       $timestamp = $dateTime->getTimestamp();
       if ($timestamp > $requestTime) {
         $build['#cache']['tags'][] = self::TAG . ":$timestamp";

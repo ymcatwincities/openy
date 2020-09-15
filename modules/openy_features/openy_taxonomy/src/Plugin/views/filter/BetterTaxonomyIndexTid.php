@@ -70,8 +70,8 @@ class BetterTaxonomyIndexTid extends ManyToOne {
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('entity.manager')->getStorage('taxonomy_vocabulary'),
-      $container->get('entity.manager')->getStorage('taxonomy_term')
+      $container->get('entity_type.manager')->getStorage('taxonomy_vocabulary'),
+      $container->get('entity_type.manager')->getStorage('taxonomy_term')
     );
   }
 
@@ -198,7 +198,7 @@ class BetterTaxonomyIndexTid extends ManyToOne {
         if ($tree) {
           foreach ($tree as $term) {
             $choice = new \stdClass();
-            $choice->option = [$term->id() => str_repeat('-', $term->depth) . \Drupal::entityManager()->getTranslationFromContext($term)->label()];
+            $choice->option = [$term->id() => str_repeat('-', $term->depth) . \Drupal::service('entity.repository')->getTranslationFromContext($term)->label()];
             $options[] = $choice;
           }
         }
@@ -216,7 +216,7 @@ class BetterTaxonomyIndexTid extends ManyToOne {
         }
         $terms = Term::loadMultiple($query->execute());
         foreach ($terms as $term) {
-          $options[$term->id()] = \Drupal::entityManager()->getTranslationFromContext($term)->label();
+          $options[$term->id()] = \Drupal::service('entity.repository')->getTranslationFromContext($term)->label();
         }
       }
 
@@ -399,7 +399,7 @@ class BetterTaxonomyIndexTid extends ManyToOne {
       $this->value = array_filter($this->value);
       $terms = Term::loadMultiple($this->value);
       foreach ($terms as $term) {
-        $this->valueOptions[$term->id()] = \Drupal::entityManager()->getTranslationFromContext($term)->label();
+        $this->valueOptions[$term->id()] = \Drupal::service('entity.repository')->getTranslationFromContext($term)->label();
       }
     }
     return parent::adminSummary();

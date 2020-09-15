@@ -42,3 +42,23 @@
     }
   }
 }
+
+.node--view-mode-teaser {
+  .field-location-phone,
+  .field-location-fax {
+    .field-item {
+      display: inline-block;
+    }
+  }
+
+  .coming-soon-branch {
+    top: 0;
+    right: 0;
+    margin-right: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    line-height: 1.8;
+  }
+}

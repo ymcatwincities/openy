@@ -52,7 +52,6 @@ function openy_carnation_preprocess_html(array &$variables) {
       }
 
       $banner_paragraphs = search_node_paragraphs($node, ['gallery', 'banner', 'small_banner', 'banner_fixed'], 'field_header_content');
-      $any_paragraphs = search_node_paragraphs($node, [], 'field_header_content');
       $node_type = $node->getType();
       if (in_array($node_type, [
           'class',
@@ -273,8 +272,7 @@ function openy_carnation_preprocess_page_logo(&$variables) {
   else {
     $variables['colored_logo_url'] = file_create_url(drupal_get_path("theme", "openy_carnation") . "/dist/img/logo-color.png");
   }
-  $variables['logo_url'] = $variables['colored_logo_url'];
-  $variables['transparent_logo_url'] = file_create_url(theme_get_setting('logo.path'));
+  $variables['logo_url'] = $variables['transparent_logo_url'] = file_create_url(theme_get_setting('logo.path'));
   $variables['mobile_logo_url'] = $variables['transparent_logo_url'];
 
   $is_node_camp_related = FALSE;
@@ -284,21 +282,9 @@ function openy_carnation_preprocess_page_logo(&$variables) {
       $is_node_camp_related = $service->nodeHasOrIsCamp($node);
     }
     $banner_paragraphs = search_node_paragraphs($node, ['gallery','banner','small_banner','banner_fixed'], 'field_header_content');
-    $any_paragraphs = search_node_paragraphs($node, [], 'field_header_content');
     $node_type = $node->getType();
-    if($node_type == 'program') {
+    if ($node_type == 'program') {
       $variables['logo_url'] = $variables['colored_logo_url'];
-    } else if (in_array($node_type, [
-      'class',
-      'blog',
-      'news',
-      'camp',
-      'event',
-      'facility',
-      'branch',
-      'program_subcategory',
-    ]) || (count($banner_paragraphs) > 0)) {
-      $variables['logo_url'] = $variables['transparent_logo_url'];
     }
   }
 
@@ -324,11 +310,6 @@ function openy_carnation_preprocess_paragraph(array &$variables) {
   if ($variables['paragraph']->getType() == HBLocationFinder::PRGF_TYPE) {
     // Fix theming for hb_location_finder plugin for Open Y Carnation theme.
     $variables['#attached']['library'][] = 'openy_carnation/hb_location_finder_override';
-
-    $hb_plugin_service = Drupal::service('plugin.manager.home_branch_library');
-    $hb_plugin_service->attachHbLibrarySettings($variables, 'hb_location_finder', [
-      'locationsList' => '.paragraph--type--prgf-location-finder .locations-list',
-    ]);
   }
 }
 
@@ -392,6 +373,22 @@ function openy_carnation_theme_suggestions_menu_alter(&$suggestions, array $vari
   if (isset($variables['attributes']['region'])) {
     $suggestions[] = 'menu__' . $variables['menu_name'] . '__' . $variables['attributes']['region'];
   }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_carnation_theme_suggestions_field_alter(array &$suggestions, array $variables) {
+  $element = $variables['element'];
+
+  $field_name = $element['#field_name'];
+  $view_mode = $element['#view_mode'];
+  $entity_type = $element['#entity_type'];
+  $bundle = $element['#bundle'];
+
+  $suggestions[] = 'field__' . $field_name . '__' . $view_mode;
+  $suggestions[] = 'field__' . $entity_type . '__' . $field_name . '__' . $view_mode;
+  $suggestions[] = 'field__' . $entity_type . '__' . $bundle . '__' . $field_name . '__' . $view_mode;
 }
 
 /**

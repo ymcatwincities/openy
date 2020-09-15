@@ -21,6 +21,7 @@ $sky-blue:            #bfe1f3;
 $light-blue:          #00aeef;
 $blue:                #0089d0;
 $dark-blue:           #0060af;
+$emerald:             #01a490;
 $pink:                #c6168d;
 $indigo:              #92278f;
 $purple:              #5c2e91;
@@ -53,6 +54,7 @@ $theme-colors: map-merge((
     "indigo":             $indigo,
     "purple":             $purple,
     "primary-darker":     $primary-darker,
+    "orange":             $orange,
     "gray-100":           $gray-100,
     "gray-200":           $gray-200,
     "gray-300":           $gray-300,

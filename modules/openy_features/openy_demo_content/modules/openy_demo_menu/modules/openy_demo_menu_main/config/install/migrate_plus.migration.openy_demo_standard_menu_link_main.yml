@@ -73,8 +73,7 @@ process:
   menu_name: menu_name
   link/uri:
     plugin: link_uri
-    source:
-      - link
+    source: link
   weight: weight
   expanded: expanded
   parent:
@@ -84,7 +83,7 @@ process:
       - menu_name
       - parent_link_path
   file_id:
-    plugin: migration
+    plugin: migration_lookup
     migration: openy_demo_menu_main_file
     source: icon_id
   opts:

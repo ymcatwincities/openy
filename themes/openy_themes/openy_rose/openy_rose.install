@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the Open Y Rose Theme.
+ */
+
+/**
+ * Enable jquery_ui_tabs module.
+ */
+function openy_rose_update_8001() {
+    \Drupal::service('module_installer')->install(['jquery_ui_tabs']);
+}

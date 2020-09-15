@@ -118,6 +118,7 @@ class DataWrapper implements OpenyDataServiceInterface {
     }
     else {
       $location_ids = $this->entityTypeManager->getStorage('node')
+        ->getQuery()
         ->condition('type', $type)
         ->condition('status', 1)
         ->execute();

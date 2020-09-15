@@ -12,6 +12,13 @@ use Drupal\openy_media\EmbedButtonIconHelper;
  */
 function openy_media_image_install() {
   EmbedButtonIconHelper::setEmbedButtonIcon('openy_media_image', 'image.png', 'embed_image');
+  $config_dir = drupal_get_path('module', 'openy_media_image') . '/config/override/';
+  // Import new configuration
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'image.style.browser_thumbnail',
+  ]);
 }
 
 /**

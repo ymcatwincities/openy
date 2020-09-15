@@ -68,3 +68,10 @@ matchheight:
   dependencies:
     - core/drupalSettings
     - openy_system/jquery.matchHeight
+
+expand_locations:
+  version: 1.x
+  js:
+    dist/js/openy_carnation_expand_locations.js: {}
+  dependencies:
+    - core/jquery

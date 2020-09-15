@@ -1,0 +1,10 @@
+/**
+ * @file
+ * Fix for blazy aspect ratio.
+ */
+.media.media--ratio {
+  height: auto;
+}
+.media.media--ratio .media__element {
+  position: relative;
+}

@@ -10,12 +10,17 @@
 
   a {
     @include cachet();
-    color: inherit;
+    color: $white;
     font-size: 16px;
     margin: 10px 15px;
     padding: 5px 10px;
     text-decoration: none;
     border-radius: 8px;
+
+    &.is-active {
+      background: $white;
+      color: $primary-darker;
+    }
 
     &:hover {
       color: $black;

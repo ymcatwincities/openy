@@ -198,3 +198,16 @@ function openy_prgf_banner_update_8010() {
     }
   }
 }
+
+/**
+ * Add carnation_banner_1920_700 image style.
+ */
+function openy_prgf_banner_update_8011() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_banner') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'image.style.carnation_banner_1920_700'
+  ]);
+}

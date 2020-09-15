@@ -6,7 +6,7 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\Core\Path\AliasManagerInterface;
+use Drupal\path_alias\AliasManagerInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\openy_activity_finder\OpenyActivityFinderSolrBackend;
 use Drupal\node\Entity\Node;
@@ -82,7 +82,7 @@ class ActivityFinderBlock extends BlockBase implements ContainerFactoryPluginInt
       $plugin_definition,
       $container->get('config.factory'),
       $container->get('entity.query'),
-      $container->get('path.alias_manager'),
+      $container->get('path_alias.manager'),
       $container->get('current_route_match')
     );
   }

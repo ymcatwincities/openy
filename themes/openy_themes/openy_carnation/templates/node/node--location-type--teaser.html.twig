@@ -78,8 +78,6 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-{% set directions_url = content.field_location_directions.0['#url'] %}
-{% set directions_title = content.field_location_directions.0['#title'] %}
 
 <article{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
@@ -98,6 +96,12 @@
       {% set card_colour = 'success' %}
     {% endif %}
 
+    {% if node.field_location_state.value %}
+      <span class="coming-soon-branch position-absolute bg-orange text-white px-2">
+        <i class="fas fa-star mr-2"></i><span>{{ 'Coming Soon'|t }}</span>
+      </span>
+    {% endif %}
+
     <h2 class="location-item--title {{ 'card-type--' ~ node.type.entity.label|lower }}" {{ title_attributes }}>
       <a href="{{ title_url }}" class="title-link text-{{ card_colour }}" rel="bookmark">
         <i class="fas fa-hotel"></i>
@@ -110,8 +114,8 @@
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content.field_location_address }}
 
-    {% if directions_title %}
-      <a href="{{ directions_url }}" title="{{ directions_title }}">{{ directions_title }}</a>
+    {% if not node.field_location_directions.isEmpty() %}
+      {{ content.field_location_directions }}
     {% endif %}
 
     {% if content.field_location_phone|render|trim is not empty %}

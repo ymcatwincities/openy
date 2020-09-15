@@ -37,16 +37,15 @@
       {% set ia = ia.addClass('nav-item nav-level-2') %}
       <li{{ item.attributes.addClass('menu-item-' ~ item.title|clean_class) }}>
         {% if item.below %}
-          <a data-toggle="dropdown" href="{{ item.url }}" class="nav-link dropdown-toggle text-uppercase">
+          {% set item_title %}
             {{ item.title }}
-            <i class="fa fa-caret-up" aria-hidden="true"></i>
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
-          </a>
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+          {% endset %}
+          {{ link(item_title, item.url, {'aria-expanded': 'false', 'data-toggle': 'dropdown', 'class' : ['nav-link', 'text-uppercase', 'dropdown-toggle']}) }}
           {{ menus.menu_links_level_2(item.below, attributes, menu_level + 1) }}
         {% else %}
-          <a href="{{ item.url }}" class="nav-link text-uppercase">
-            {{ item.title }}
-          </a>
+          {{ link(item.title, item.url, {'class' : ['nav-link', 'text-uppercase']}) }}
         {% endif %}
       </li>
     {% endfor %}
@@ -61,9 +60,7 @@
     {% for item in items %}
       {% set ia = item.attributes.addClass(['nav-item nav-level-3 menu-item-' ~ item.title|clean_class]) %}
       <li{{ ia }}>
-        <a href="{{ item.url }}" class="nav-link">
-          {{ item.title }}
-        </a>
+        {{ link(item.title, item.url, {'class' : 'nav-link'}) }}
       </li>
     {% endfor %}
     </ul>
