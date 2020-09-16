@@ -188,6 +188,9 @@
             },
             "drupal/jquery_colorpicker": {
                 "Use library directory instead vendor": "patches/jquery_colorpicker/library_path_update.patch"
+            },
+            "drupal/colorapi": {
+                "3171235 - Add Value property": "https://www.drupal.org/files/issues/2020-09-16/3171235-2.patch"
             }
         }
     },
