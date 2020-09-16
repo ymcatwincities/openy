@@ -14,7 +14,7 @@ content:
   field_color:
     settings:
       show_hash: true
-      display_name: true
+      display_name: false
     weight: 0
     label: hidden
     third_party_settings: {  }
