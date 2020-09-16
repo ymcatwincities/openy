@@ -172,6 +172,10 @@
                 "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
                 "2918172 - Media Entity upgrade -> core fails on absent column revision_uid": "https://www.drupal.org/files/issues/2918172-6-8.4.4.patch"
             },
+            "drupal/media_entity_video": {
+                "3148060 - Drupal 9 compatibility fixes": "https://www.drupal.org/files/issues/2020-09-15/3148060-media_entity_video-d9_fixes-8_0.patch",
+                "3149789 - Add a 3.x branch with an update path to the video source in core.": "https://www.drupal.org/files/issues/2020-06-11/3149789-4.patch"
+            },
             "drupal/blazy": {
                 "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch",
                 "Add option for native browser lazy load": "https://www.drupal.org/files/issues/2020-06-18/3142503-native-option-2.patch",

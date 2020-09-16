@@ -586,7 +586,6 @@ function openy_update_8044() {
 function openy_update_8045() {
   // Enable modules.
   $modules = [
-    'media_entity_video',
     'video',
   ];
   foreach ($modules as $module) {
