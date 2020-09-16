@@ -187,7 +187,7 @@
                 "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
             },
             "drupal/jquery_colorpicker": {
-                "Use library directory instead vendor": "https://raw.githubusercontent.com/manachynskyi/openy/CR-26-fj/patches/jquery_colorpicker/library_path_update.patch"
+                "Use library directory instead vendor": "https://gist.githubusercontent.com/manachynskyi/3b059456ce97dd4380ff0c0e85f41696/raw/4cf7103c75849b2b474424fe9d8ad969192dd779/library_path_update.patch"
             },
             "drupal/colorapi": {
                 "3171235 - Add Value property": "https://www.drupal.org/files/issues/2020-09-16/3171235-2.patch"
