@@ -5,13 +5,26 @@
  * Open Y Taxonomy install file.
  */
 
+  /**
+ * Implement hook_install().
+ */
+function openy_taxonomy_install() {
+  $config_dir = drupal_get_path('module', 'openy_taxonomy') . '/config/override/';
+    // Import new configuration
+    $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+    $config_importer->setDirectory($config_dir);
+    $config_importer->importConfigs([
+      'views.view.taxonomy_term',
+    ]);
+}
+
 /**
  * Update pager settings in taxonomy term view.
  */
 function openy_taxonomy_update_8001() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_taxonomy');
-  $config .= '/config/install/';
+  $config .= '/config/override/';
   $config .= 'views.view.taxonomy_term.yml';
   $config_importer->update($config, 'views.view.taxonomy_term', 'display.default.display_options.pager');
 }
@@ -52,7 +65,7 @@ function openy_taxonomy_update_8003() {
 function openy_taxonomy_update_8004() {
   $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
   $config = drupal_get_path('module', 'openy_taxonomy');
-  $config .= '/config/install/';
+  $config .= '/config/override/';
   $config .= 'views.view.taxonomy_term.yml';
   $config_importer->update($config, 'views.view.taxonomy_term', 'display.page_1.display_options');
 }

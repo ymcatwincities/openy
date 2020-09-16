@@ -70,7 +70,7 @@
         "drupal/scheduler": "1.3",
         "drupal/search_api": "1.17",
         "drupal/search_api_solr": "^4.1",
-        "drupal/simple_menu_icons": "1.x-dev",
+        "drupal/simple_menu_icons": "2.x-dev",
         "drupal/simple_sitemap": "3.0.0",
         "drupal/slick": "~2.2",
         "drupal/slick_views": "~2.3",
@@ -88,6 +88,8 @@
         "drupal/views_infinite_scroll": "1.7",
         "drupal/webform": "~6.0",
         "grt107/grt-youtube-popup": "^1.0",
+        "drupal/jquery_ui_tooltip": "^1.1",
+        "drupal/jquery_ui_tabs":" ^1.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
         "library-ckeditor/panelbutton": "4.10.1",
@@ -147,11 +149,6 @@
             ]
         },
         "patches": {
-            "drupal/simple_menu_icons": {
-                "2847964 - Clear cache after simple_menu_icons_css_generate": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964.patch",
-                "2880544 - The theme implementations may not be rendered until all modules are loaded": "https://www.drupal.org/files/issues/theme-implementations-exception-2880544.patch",
-                "2937058 - Clear cache performance improvement": "https://www.drupal.org/files/issues/clear-cache-after-simple_menu_icons_css_generate-2847964-2.patch"
-            },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch",
                 "2927347 - Having Entity Browser 2.x on the codebase breaks upgrade path": "https://www.drupal.org/files/issues/2019-01-10/Having-Entity-Browser-breaks-upgrade-path-2927347-14.patch"
