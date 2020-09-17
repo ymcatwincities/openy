@@ -9,13 +9,22 @@
  * Implement hook_install().
  */
 function openy_taxonomy_install() {
-  $config_dir = drupal_get_path('module', 'openy_taxonomy') . '/config/override/';
+  $config = \Drupal::configFactory()->loadMultiple(['views.view.taxonomy_term']);
+  if (array_key_exists('views.view.taxonomy_term', $config)) {
+    $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+    $config = drupal_get_path('module', 'openy_taxonomy');
+    $config .= '/config/override/views.view.taxonomy_term.yml';
+    $config_updater->update($config, 'views.view.taxonomy_term', 'display');
+  }
+  else {
+    $config_dir = drupal_get_path('module', 'openy_taxonomy') . '/config/override/';
     // Import new configuration
     $config_importer = \Drupal::service('openy_upgrade_tool.importer');
     $config_importer->setDirectory($config_dir);
     $config_importer->importConfigs([
       'views.view.taxonomy_term',
     ]);
+  }
 }
 
 /**
