@@ -149,9 +149,6 @@
             ]
         },
         "patches": {
-            "drupal/simple_menu_icons": {
-                "3170845 - simple_menu_icons_css_generate() throws error if public://css doesn't exist": "https://www.drupal.org/files/issues/2020-09-14/simple_menu_icons-fix_500-3170845.patch"
-            },
             "drupal/entity_browser": {
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch",
                 "2927347 - Having Entity Browser 2.x on the codebase breaks upgrade path": "https://www.drupal.org/files/issues/2019-01-10/Having-Entity-Browser-breaks-upgrade-path-2927347-14.patch"
