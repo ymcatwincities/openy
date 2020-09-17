@@ -14,71 +14,71 @@ source:
     -
       id: 1
       name: White
-      color: 'FFFFFF'
+      color: '#FFFFFF'
     -
       id: 2
       name: Black
-      color: '000000'
+      color: '#000000'
     -
       id: 3
       name: Sky blue
-      color: BFE1F3
+      color: '#BFE1F3'
     -
       id: 4
       name: Light blue
-      color: '00AEEF'
+      color: '#00AEEF'
     -
       id: 5
       name: Blue
-      color: '0089D0'
+      color: '#0089D0'
     -
       id: 6
       name: Dark blue
-      color: '0060AF'
+      color: '#0060AF'
     -
       id: 7
       name: Pink
-      color: 'C6168D'
+      color: '#C6168D'
     -
       id: 8
       name: Dark magenta
-      color: '92278F'
+      color: '#92278F'
     -
       id: 9
       name: Purple
-      color: '5C2E91'
+      color: '#5C2E91'
     -
       id: 10
       name: Red
-      color: 'ED1C24'
+      color: '#ED1C24'
     -
       id: 11
       name: Orange
-      color: 'F15922'
+      color: '#F15922'
     -
       id: 12
       name: Yellow
-      color: 'FCAF17'
+      color: '#FCAF17'
     -
       id: 13
       name: Green
-      color: '20BDBE'
+      color: '#20BDBE'
     -
       id: 14
       name: Dark green
-      color: '006B6B'
+      color: '#006B6B'
     -
       id: 15
       name: Light green
-      color: '01A490'
+      color: '#01A490'
     -
       id: 16
       name: Brown
-      color: '231F20'
+      color: '#231F20'
     -
       id: 17
       name: Grey
-      color: '4f4f4f'
+      color: '#4f4f4f'
   ids:
     id:
       type: integer
@@ -88,7 +88,7 @@ process:
     source: language
     default_value: en
   name: name
-  field_color: color
+  field_color/color: color
   vid:
     plugin: default_value
     default_value: color
