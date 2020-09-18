@@ -43,6 +43,7 @@
         "drupal/focal_point": "^1",
         "drupal/fontyourface": "~3.3",
         "drupal/geolocation": "^3.0",
+        "ymcatwincities/jquery_colorpicker": "*",
         "drupal/geysir": "dev-1.x",
         "drupal/google_analytics": "~2.5",
         "drupal/google_optimize": "^1.5",
@@ -84,6 +85,8 @@
         "drupal/webform": "^6",
         "drush/drush": "^10.3",
         "grt107/grt-youtube-popup": "^1.0",
+        "drupal/jquery_ui_tooltip": "^1.1",
+        "drupal/jquery_ui_tabs":" ^1.1",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
         "library-ckeditor/panelbutton": "4.10.1",
@@ -193,6 +196,13 @@
             },
             "drupal/social_feed_fetcher": {
                 "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
+            },
+            "ymcatwincities/jquery_colorpicker": {
+                "Use library directory instead vendor": "https://gist.githubusercontent.com/manachynskyi/3b059456ce97dd4380ff0c0e85f41696/raw/4cf7103c75849b2b474424fe9d8ad969192dd779/library_path_update.patch"
+            },
+            "drupal/colorapi": {
+                "3171235 - Add Value property": "https://www.drupal.org/files/issues/2020-09-16/3171235-2.patch",
+                "Update colorapi configs": "https://gist.githubusercontent.com/manachynskyi/a24c7898a0ed051bc077fc94cc2dc2e8/raw/9524fa2d630d2ee0e0e39316156612b33c854182/colorapi_config_patch.patch"
             }
         }
     },

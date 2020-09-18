@@ -2,16 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - colorapi
     - taxonomy
 id: taxonomy_term.field_color
 field_name: field_color
 entity_type: taxonomy_term
-type: string
-settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
-module: core
+type: colorapi_color_field
+settings: {  }
+module: colorapi
 locked: false
 cardinality: 1
 translatable: true

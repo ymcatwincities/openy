@@ -78,3 +78,10 @@ function openy_txnm_color_update_8004() {
     }
   }
 }
+
+/**
+ * Enable Colorapi, as it required for jquery_colorpicker:^2.
+ */
+function openy_txnm_color_update_8005() {
+  \Drupal::service('module_installer')->install(['colorapi']);
+}
