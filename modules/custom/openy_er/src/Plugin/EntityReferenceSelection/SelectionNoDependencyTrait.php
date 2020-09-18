@@ -34,7 +34,7 @@ trait SelectionNoDependencyTrait {
   public function buildConfigurationFormAlter(array $form, FormStateInterface $form_state) {
     $configuration = $this->getConfiguration();
     $entity_type_id = $configuration['target_type'];
-    $entity_type = $this->entityManager->getDefinition($entity_type_id);
+    $entity_type = \Drupal::service('entity_type.manager')->getDefinition($entity_type_id);
 
     $bundles = \Drupal::service('entity_type.bundle.info')->getBundleInfo($entity_type_id);
 
@@ -116,9 +116,9 @@ trait SelectionNoDependencyTrait {
   protected function buildEntityQuery($match = NULL, $match_operator = 'CONTAINS') {
     $configuration = $this->getConfiguration();
     $target_type = $configuration['target_type'];
-    $entity_type = $this->entityManager->getDefinition($target_type);
+    $entity_type = \Drupal::service('entity_type.manager')->getDefinition($target_type);
 
-    $query = $this->entityManager->getStorage($target_type)->getQuery();
+    $query = \Drupal::service('entity_type.manager')->getStorage($target_type)->getQuery();
 
     // If 'target_bundles_no_dep' is NULL, all bundles are referenceable, no further
     // conditions are needed.

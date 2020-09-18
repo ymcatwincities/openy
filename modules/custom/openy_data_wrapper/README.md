@@ -23,9 +23,9 @@ For this, you need to create a new service in custom module and set the highest 
   custom_data_wrapper:
     class: Drupal\custom_data_wrapper\CustomDataWrapper
     arguments:
-      - '@entity.query'
+      - '@entity_type.manager'
       - '@renderer'
-      - '@entity.manager'
+      - '@entity_type.manager'
       - '@socrates'
       - '@cache.data'
       - '@logger.channel.openy_data_wrapper'

@@ -116,7 +116,7 @@ class OpenYFocalPointEditForm extends FormBase {
 
         \Drupal::messenger()->addWarning('There is manual crop set for this image. It overrides focal point settings');
         $status_messages = ['#type' => 'status_messages'];
-        $messages_html = drupal_render_root($status_messages);
+        $messages_html = \Drupal::service('renderer')->renderRoot($status_messages);
         $form['manual_crop_exists'] = [
           '#markup' => $messages_html,
         ];
@@ -236,7 +236,7 @@ class OpenYFocalPointEditForm extends FormBase {
 
     \Drupal::messenger()->addStatus('Focal point updated');
     $status_messages = ['#type' => 'status_messages'];
-    $messages_html = drupal_render_root($status_messages);
+    $messages_html = \Drupal::service('renderer')->renderRoot($status_messages);
     $messages_html = '<div id="focal-point-dialog-messages">' . $messages_html . '</div>';
 
     $ajax = new AjaxResponse();

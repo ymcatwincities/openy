@@ -702,7 +702,7 @@ class SchedulesSearchForm extends FormBase {
     }
     if (isset($id)) {
       $branch_hours = [];
-      $timezone = drupal_get_user_timezone();
+      $timezone = date_default_timezone_get();
       $date = DrupalDateTime::createFromFormat('m/d/Y', $parameters['date'], $timezone);
       $date = strtolower($date->format('D'));
       /* @var $location \Drupal\node\Entity\Node */

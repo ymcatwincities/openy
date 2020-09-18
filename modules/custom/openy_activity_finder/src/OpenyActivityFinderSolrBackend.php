@@ -371,7 +371,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         // Example of calendar format 2018-08-21 14:15:00.
         $atc_info['time_start_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
         $atc_info['time_end_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['end_value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
-        $atc_info['timezone'] = drupal_get_user_timezone();
+        $atc_info['timezone'] = date_default_timezone_get();
       }
 
       $item_data = [
