@@ -48,7 +48,7 @@
         "drupal/google_tag": "~1.1",
         "drupal/image_widget_crop": "^2.2",
         "drupal/inline_entity_form": "1.0-rc1",
-        "drupal/jquery_colorpicker": "~1.4",
+        "drupal/jquery_colorpicker": "^2",
         "drupal/libraries": "3.x-dev",
         "drupal/link_attributes": "^1.10",
         "drupal/media_directories": "^1.0",
@@ -186,6 +186,13 @@
             "drupal/search_api_solr": {
                 "Fix search_api_solr_cron() with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_cron_fix-3170802.patch",
                 "Fix cores appear unavailable in UI with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_core_unavailable_ui-3170793.patch"
+            },
+            "drupal/jquery_colorpicker": {
+                "Use library directory instead vendor": "https://gist.githubusercontent.com/manachynskyi/3b059456ce97dd4380ff0c0e85f41696/raw/4cf7103c75849b2b474424fe9d8ad969192dd779/library_path_update.patch"
+            },
+            "drupal/colorapi": {
+                "3171235 - Add Value property": "https://www.drupal.org/files/issues/2020-09-16/3171235-2.patch",
+                "Update colorapi configs": "https://gist.githubusercontent.com/manachynskyi/a24c7898a0ed051bc077fc94cc2dc2e8/raw/9524fa2d630d2ee0e0e39316156612b33c854182/colorapi_config_patch.patch"
             }
         }
     },

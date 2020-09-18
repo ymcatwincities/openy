@@ -17,7 +17,6 @@ dependencies:
   - drupal:field
   - focal_point:focal_point
   - drupal:image
-  - jquery_colorpicker:jquery_colorpicker
   - drupal:media
   - openy_focal_point:openy_focal_point
   - openy_media_image:openy_media_image
