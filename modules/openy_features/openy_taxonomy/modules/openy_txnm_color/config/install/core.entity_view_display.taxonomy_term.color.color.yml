@@ -6,18 +6,20 @@ dependencies:
     - field.field.taxonomy_term.color.field_color
     - taxonomy.vocabulary.color
   module:
-    - jquery_colorpicker
+    - colorapi
 id: taxonomy_term.color.color
 targetEntityType: taxonomy_term
 bundle: color
 mode: color
 content:
   field_color:
+    settings:
+      show_hash: true
+      display_name: false
     weight: 0
     label: hidden
-    settings: {  }
     third_party_settings: {  }
-    type: jquery_colorpicker_raw_hex_display
+    type: colorapi_raw_hex_display
     region: content
 hidden:
   description: true

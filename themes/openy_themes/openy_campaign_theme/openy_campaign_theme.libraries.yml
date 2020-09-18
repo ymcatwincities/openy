@@ -10,7 +10,7 @@ global-styling:
   dependencies:
     - core/jquery
     - core/jquery.once
-    - core/jquery.ui.tabs
+    - jquery_ui_tabs/tabs
     - core/jquery.ui.core
     - core/jquery.ui.widget
     - core/drupal

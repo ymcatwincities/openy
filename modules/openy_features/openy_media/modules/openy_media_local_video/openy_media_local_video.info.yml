@@ -22,5 +22,4 @@ dependencies:
   - entity_embed:entity_embed
   - openy_media:openy_media
   - video:video
-  - media_entity_video:media_entity_video
 core_incompatible: false

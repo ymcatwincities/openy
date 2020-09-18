@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the Open Y Campaign Theme.
+ */
+
+/**
+ * Enable jquery_ui_tooltip module.
+ */
+function openy_campaign_theme_update_8001() {
+    \Drupal::service('module_installer')->install(['jquery_ui_tooltip']);
+}
