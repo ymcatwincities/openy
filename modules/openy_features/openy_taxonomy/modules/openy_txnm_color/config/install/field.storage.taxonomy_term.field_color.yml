@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   module:
-    - jquery_colorpicker
+    - colorapi
     - taxonomy
 id: taxonomy_term.field_color
 field_name: field_color
 entity_type: taxonomy_term
-type: jquery_colorpicker
+type: colorapi_color_field
 settings: {  }
-module: jquery_colorpicker
+module: colorapi
 locked: false
 cardinality: 1
 translatable: true
