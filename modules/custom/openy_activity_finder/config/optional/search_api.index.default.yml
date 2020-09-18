@@ -2,23 +2,62 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_session_min_age
-    - field.storage.node.field_session_max_age
-    - field.storage.node.field_session_class
-    - field.storage.node.field_class_activity
     - field.storage.node.field_activity_category
-    - field.storage.node.field_session_location
     - field.storage.node.field_category_program
-    - field.storage.node.field_session_time
-    - field.storage.paragraph.field_session_time_days
+    - field.storage.node.field_class_activity
+    - field.storage.node.field_session_class
+    - field.storage.node.field_session_location
+    - field.storage.node.field_session_max_age
     - field.storage.node.field_session_mbr_price
+    - field.storage.node.field_session_min_age
     - field.storage.node.field_session_nmbr_price
+    - field.storage.node.field_session_time
     - field.storage.paragraph.field_session_time_date
+    - field.storage.paragraph.field_session_time_days
     - search_api.server.solr
   module:
+    - search_api_solr
     - node
     - paragraphs
     - search_api
+third_party_settings:
+  search_api_solr:
+    finalize: false
+    commit_before_finalize: false
+    commit_after_finalize: false
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
+    highlighter:
+      maxAnalyzedChars: 51200
+      fragmenter: gap
+      regex:
+        slop: 0.5
+        pattern: blank
+        maxAnalyzedChars: 10000
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
+      highlight:
+        mergeContiguous: false
+        requireFieldMatch: false
+        snippets: 3
+        fragsize: 0
+    mlt:
+      mintf: 1
+      mindf: 1
+      maxdf: 0
+      maxdfpct: 0
+      minwl: 0
+      maxwl: 0
+      maxqt: 100
+      maxntp: 2000
+      boost: false
+      interestingTerms: none
+    advanced:
+      index_prefix: ''
+      collection: ''
+      timezone: ''
 id: default
 name: Default
 description: ''
@@ -58,6 +97,9 @@ field_settings:
     datasource_id: 'entity:node'
     property_path: title
     type: text
+    dependencies:
+      module:
+        - node
   field_session_min_age:
     label: 'Min Age'
     datasource_id: 'entity:node'
@@ -81,6 +123,9 @@ field_settings:
     type: boolean
     indexed_locked: true
     type_locked: true
+    dependencies:
+      module:
+        - node
   uid:
     label: uid
     datasource_id: 'entity:node'
@@ -88,6 +133,9 @@ field_settings:
     type: integer
     indexed_locked: true
     type_locked: true
+    dependencies:
+      module:
+        - node
   field_activity_category:
     label: 'Program Subcategory'
     datasource_id: 'entity:node'
@@ -99,8 +147,6 @@ field_settings:
         - field.storage.node.field_class_activity
         - field.storage.node.field_activity_category
       module:
-        - node
-        - node
         - node
   field_session_location:
     label: Location
@@ -119,14 +165,11 @@ field_settings:
     type: string
     dependencies:
       config:
-        - field.storage.node.field_session_class
-        - field.storage.node.field_class_activity
         - field.storage.node.field_activity_category
         - field.storage.node.field_category_program
+        - field.storage.node.field_class_activity
+        - field.storage.node.field_session_class
       module:
-        - node
-        - node
-        - node
         - node
   field_session_time_days:
     label: Days
@@ -197,6 +240,8 @@ processor_settings:
   content_access:
     weights:
       preprocess_query: -30
+  language_with_fallback: {  }
+  solr_date_range: {  }
 tracker_settings:
   default:
     indexing_order: fifo
