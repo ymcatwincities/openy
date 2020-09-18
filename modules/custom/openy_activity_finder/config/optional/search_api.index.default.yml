@@ -48,6 +48,7 @@ field_settings:
   af_parts_of_day:
     label: 'Parts of day'
     property_path: search_api_af_parts_of_day
+    type: string
   af_weeks:
     label: Weeks
     property_path: search_api_af_weeks

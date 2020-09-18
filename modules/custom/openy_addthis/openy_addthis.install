@@ -10,7 +10,7 @@
  */
 function openy_addthis_install() {
   // Add our base field to the schema.
-  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+  // TODO: \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
 
 /**
@@ -24,7 +24,7 @@ function openy_addthis_uninstall() {
     ->delete();
 
   // Remove our base field from the schema.
-  \Drupal::service('entity.definition_update_manager')->applyUpdates();
+  // TODO: \Drupal::service('entity.definition_update_manager')->applyUpdates();
 }
 
 /**

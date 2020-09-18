@@ -1,6 +1,6 @@
 name: OpenY MyY
 type: module
 description: Framework for MyY functionality.
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 1.0
 package: OpenY

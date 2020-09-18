@@ -35,6 +35,7 @@ services:
       - '@file_system'
       - '@openy_upgrade_log.manager'
       - '@logger.channel.openy_upgrade_tool'
+      - '@extension.list.module'
   openy_upgrade_log.manager:
     class: Drupal\openy_upgrade_tool\OpenyUpgradeLogManager
     arguments:

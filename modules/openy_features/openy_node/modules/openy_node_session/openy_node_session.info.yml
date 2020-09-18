@@ -18,6 +18,6 @@ dependencies:
   - link_attributes:link_attributes
   - paragraphs:paragraphs
   - drupal:path
-  - rabbit_hole:rabbit_hole
+  # - rabbit_hole:rabbit_hole
   - drupal:text
   - drupal:user
