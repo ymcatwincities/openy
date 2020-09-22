@@ -48,6 +48,7 @@ dependencies:
   - drupal:tour
   # Compatibility
   - jquery_ui_tooltip:jquery_ui_tooltip
+  - jquery_ui_tabs:jquery_ui_tabs
   
   # Contrib modules.
   - admin_toolbar:admin_toolbar
