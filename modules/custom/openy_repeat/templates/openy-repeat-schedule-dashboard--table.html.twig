@@ -33,7 +33,7 @@
     <div class="vue-template">
 
       <div class="schedules-data clearfix">
-        <div v-for="(item, index) in propData" class="schedules-data__row">
+        <div v-for="(item, index) in propData" class="schedules-data__row" :key="item.nid">
           <div class="col-xs-3 col-md-2 col-sm-2">
             {# time #}
             <div class="time-column" v-cloak>
