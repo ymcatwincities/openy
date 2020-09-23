@@ -79,4 +79,12 @@ function openy_block_branch_amenities_update_8004() {
       'content.field_branch_am',
     ],
   ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
 }
