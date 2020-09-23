@@ -12,9 +12,7 @@ use Drupal\Core\Field\FieldItemListInterface;
  *   id = "openy_branch_amenities",
  *   label = @Translation("Display Amenities for Current Branch Page"),
  *   field_types = {
- *     "boolean",
- *     "entity_reference",
- *     "link"
+ *     "boolean"
  *   }
  * )
  */
