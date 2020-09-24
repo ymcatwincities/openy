@@ -380,7 +380,7 @@ class ConfigureProfileForm extends FormBase {
     $module_list_orig = $module_list;
     $extension_config = \Drupal::configFactory()->getEditable('core.extension');
     // Get all module data so we can find dependencies and sort.
-    $module_data = \Drupal::service('extension.list.module')->getList();
+    $module_data = \Drupal::service('extension.list.module')->reset()->getList();
     $module_list = $module_list ? array_combine($module_list, $module_list) : [];
     if ($missing_modules = array_diff_key($module_list, $module_data)) {
       // One or more of the given modules doesn't exist.
@@ -394,7 +394,9 @@ class ConfigureProfileForm extends FormBase {
       return TRUE;
     }
 
-    foreach ($module_list as $module => &$module_value) {
+    // Add dependencies to the list. The new modules will be processed as
+    // the foreach loop continues.
+    foreach ($module_list as $module => $value) {
       foreach (array_keys($module_data[$module]->requires) as $dependency) {
         if (!isset($module_data[$dependency])) {
           // The dependency does not exist.
@@ -403,6 +405,9 @@ class ConfigureProfileForm extends FormBase {
 
         // Skip already installed modules.
         if (!isset($module_list[$dependency]) && !isset($installed_modules[$dependency])) {
+          if ($module_data[$dependency]->info['core_incompatible']) {
+            throw new MissingDependencyException("Unable to install modules: module '$module'. Its dependency module '$dependency' is incompatible with this version of Drupal core.");
+          }
           $module_list[$dependency] = $dependency;
         }
       }

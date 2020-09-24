@@ -5,11 +5,22 @@ dependencies:
     - core.entity_view_mode.taxonomy_term.color
     - field.field.taxonomy_term.color.field_color
     - taxonomy.vocabulary.color
+  module:
+    - colorapi
 id: taxonomy_term.color.color
 targetEntityType: taxonomy_term
 bundle: color
 mode: color
-content: {  }
+content:
+  field_color:
+    settings:
+      show_hash: true
+      display_name: false
+    weight: 0
+    label: hidden
+    third_party_settings: {  }
+    type: colorapi_raw_hex_display
+    region: content
 hidden:
   description: true
   field_color: true

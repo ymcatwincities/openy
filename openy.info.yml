@@ -1,8 +1,8 @@
 name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
-version: '8.x-2.6.3'
 core_version_requirement: ^8 || ^9
+version: '8.x-2.6.3'
 distribution:
   name: Open Y
   install:
@@ -48,6 +48,7 @@ dependencies:
   - drupal:tour
   # Compatibility
   - jquery_ui_tooltip:jquery_ui_tooltip
+  - jquery_ui_tabs:jquery_ui_tabs
   
   # Contrib modules.
   - admin_toolbar:admin_toolbar
@@ -88,5 +89,6 @@ dependencies:
   - openy_update:openy_update
 themes:
   - openy_admin
+  - seven
   - claro
   - bartik
