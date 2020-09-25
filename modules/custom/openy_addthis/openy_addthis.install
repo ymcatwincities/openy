@@ -6,14 +6,6 @@
  */
 
 /**
- * Implements hook_install().
- */
-function openy_addthis_install() {
-  // Add our base field to the schema.
-  // TODO: \Drupal::service('entity.definition_update_manager')->applyUpdates();
-}
-
-/**
  * Implements hook_uninstall().
  */
 function openy_addthis_uninstall() {
@@ -24,7 +16,10 @@ function openy_addthis_uninstall() {
     ->delete();
 
   // Remove our base field from the schema.
-  // TODO: \Drupal::service('entity.definition_update_manager')->applyUpdates();
+  $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+  if ($status = $definition_update_manager->getFieldStorageDefinition('addthis', 'node')) {
+    $definition_update_manager->uninstallFieldStorageDefinition($status);
+  }
 }
 
 /**
