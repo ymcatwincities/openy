@@ -277,7 +277,7 @@ class AnalyticsCron {
     $paragraphs_counted = $statement->execute()->fetchAllKeyed();
 
     // $bundles = array_keys($this->entityTypeBundleInfo->getBundleInfo('paragraph'));
-    $bundles = array_keys(\Drupal::service('entity_type.bundle.info')->getBundleInfo('paragraph'));
+    $bundles = array_keys($this->entityTypeBundleInfo->getBundleInfo('paragraph'));
 
     $bundles_counted = [];
     foreach ($bundles as $bundle) {

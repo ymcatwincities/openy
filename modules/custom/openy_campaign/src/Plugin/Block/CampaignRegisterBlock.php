@@ -12,6 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\openy_campaign\CampaignMenuServiceInterface;
 use Drupal\openy_campaign\OpenYLocaleDate;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 
 /**
  * Provides a 'Register' block.
@@ -136,10 +137,10 @@ class CampaignRegisterBlock extends BlockBase implements ContainerFactoryPluginI
       $activeRegistration = FALSE;
     }
 
-    $utcCampaignStart = $localeCampaignStart->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
-    $utcCampaignEnd = $localeCampaignEnd->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
-    $utcCampaignRegStart = $localeRegistrationStart->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
-    $utcCampaignRegEnd = $localeRegistrationEnd->getDate()->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $utcCampaignStart = $localeCampaignStart->getDate()->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $utcCampaignEnd = $localeCampaignEnd->getDate()->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegStart = $localeRegistrationStart->getDate()->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $utcCampaignRegEnd = $localeRegistrationEnd->getDate()->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
 
     $campaignTimezone = !empty($campaign->get('field_campaign_timezone')->getString()) ? new \DateTimeZone($campaign->get('field_campaign_timezone')->getString()) : $siteDefaultTimezone;
     $startDateCampaignTz = $localeCampaignStart->convertTimezone($campaignTimezone);

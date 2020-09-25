@@ -6,6 +6,8 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Drupal\openy_popups\Form\BranchesForm;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Settings Form for openy_popups.
@@ -13,6 +15,22 @@ use Drupal\openy_popups\Form\BranchesForm;
 class SettingsForm extends ConfigFormBase {
 
   const UPLOAD_LOCATION = 'public://openy_popup/';
+
+  /**
+   * Core's file_system service.
+   */
+  protected $fileSystem;
+
+  /**
+   * Constructs a \Drupal\openy_popups\SettingsForm object.
+   *
+   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The factory for configuration objects.
+   */
+  public function __construct(ConfigFactoryInterface $config_factory, $file_system) {
+    $this->setConfigFactory($config_factory);
+    $this->fileSystem = $file_system;
+  }
 
   /**
    * {@inheritdoc}
@@ -28,6 +46,16 @@ class SettingsForm extends ConfigFormBase {
     return [
       'openy_popups.settings',
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('file_system')
+    );
   }
 
   /**
@@ -71,7 +99,7 @@ class SettingsForm extends ConfigFormBase {
     $config = \Drupal::service('config.factory')->getEditable('openy_popups.settings');
     if ($config->get('img')) {
       // Delete old image.
-      \Drupal::service('file_system')->delete($config->get('img'));
+      $this->fileSystem->delete($config->get('img'));
     }
 
     if ($form_image = $form_state->getValue('img')) {

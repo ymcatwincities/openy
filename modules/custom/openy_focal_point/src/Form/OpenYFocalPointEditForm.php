@@ -37,6 +37,11 @@ class OpenYFocalPointEditForm extends FormBase {
   protected $manager;
 
   /**
+   * Renderer service.
+   */
+  protected $renderer;
+
+  /**
    * {@inheritdoc}
    */
   public function getFormId() {
@@ -46,9 +51,10 @@ class OpenYFocalPointEditForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(ImageFactory $image_factory, FocalPointManagerInterface $manager) {
+  public function __construct(ImageFactory $image_factory, FocalPointManagerInterface $manager, $renderer) {
     $this->imageFactory = $image_factory;
     $this->manager = $manager;
+    $this->renderer = $renderer;
   }
 
   /**
@@ -57,7 +63,8 @@ class OpenYFocalPointEditForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('image.factory'),
-      $container->get('focal_point.manager')
+      $container->get('focal_point.manager'),
+      $container->get('renderer')
     );
   }
 
@@ -116,7 +123,7 @@ class OpenYFocalPointEditForm extends FormBase {
 
         \Drupal::messenger()->addWarning('There is manual crop set for this image. It overrides focal point settings');
         $status_messages = ['#type' => 'status_messages'];
-        $messages_html = \Drupal::service('renderer')->renderRoot($status_messages);
+        $messages_html = $this->renderer->renderRoot($status_messages);
         $form['manual_crop_exists'] = [
           '#markup' => $messages_html,
         ];

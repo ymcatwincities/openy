@@ -10,6 +10,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\groupex_form_cache\GroupexFormCacheInterface;
 use Drupal\user\UserInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Defines the GroupEx Pro Form Cache entity.
@@ -140,7 +141,7 @@ class GroupexFormCache extends ContentEntityBase implements GroupexFormCacheInte
    * {@inheritdoc}
    */
   public function setPublished($published) {
-    $this->set('status', $published ? \Drupal\node\NodeInterface::PUBLISHED : \Drupal\node\NodeInterface::NOT_PUBLISHED);
+    $this->set('status', $published ? NodeInterface::PUBLISHED : NodeInterface::NOT_PUBLISHED);
     return $this;
   }
 

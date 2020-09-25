@@ -12,6 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 
 /**
  * Class CampaignMenuService.
@@ -349,7 +350,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
   public function getActiveCampaigns() {
     // All dates are stored in database in UTC timezone.
     // Get current datetime in UTC timezone.
-    $dt = new \DateTime('now', new \DateTimezone(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::STORAGE_TIMEZONEORAGE_TIMEZONE));
+    $dt = new \DateTime('now', new \DateTimezone(DateTimeItemInterface::STORAGE_TIMEZONEORAGE_TIMEZONE));
     $now = DrupalDateTime::createFromDateTime($dt);
 
     /** @var \Drupal\node\NodeStorage $nodeStorage */
@@ -358,7 +359,7 @@ class CampaignMenuService implements CampaignMenuServiceInterface {
     $campaignIds = $nodeStorage->getQuery()
       ->condition('type', 'campaign')
       ->condition('status', TRUE)
-      ->condition('field_campaign_end_date', $now->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT), '>=')
+      ->condition('field_campaign_end_date', $now->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT), '>=')
       ->sort('created', 'DESC')
       ->execute();
     $campaigns = $nodeStorage->loadMultiple($campaignIds);

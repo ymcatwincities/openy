@@ -9,6 +9,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\openy_campaign\MemberCampaignActivityInterface;
+use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
 
 /**
  * Track participant's check-ins to facilities.
@@ -166,8 +167,8 @@ class MemberCheckin extends ContentEntityBase implements MemberCampaignActivityI
   private function getActiveCampaignMembers() {
     // Get the list of all active campaigns.
     $currentDate = new DrupalDateTime('now');
-    $currentDate->setTimezone(new \DateTimezone(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::STORAGE_TIMEZONE));
-    $formatted = $currentDate->format(\Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
+    $currentDate->setTimezone(new \DateTimezone(DateTimeItemInterface::STORAGE_TIMEZONE));
+    $formatted = $currentDate->format(DateTimeItemInterface::DATETIME_STORAGE_FORMAT);
 
     $campaigns = \Drupal::entityQuery('node')
       ->condition('type', 'campaign')
