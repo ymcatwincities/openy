@@ -113,10 +113,9 @@
 
   <div{{ content_attributes.addClass('node__content') }}>
     {{ content.field_location_address }}
-
-    {% if not node.field_location_directions.isEmpty() %}
+    <div class="mb-3">
       {{ content.field_location_directions }}
-    {% endif %}
+    </div>
 
     {% if content.field_location_phone|render|trim is not empty %}
     <div class="wrapper-field-location-phone">
