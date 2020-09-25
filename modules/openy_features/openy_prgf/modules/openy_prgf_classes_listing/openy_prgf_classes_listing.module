@@ -4,6 +4,7 @@
  */
 
 use \Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -81,7 +82,7 @@ function openy_prgf_classes_listing_get_location_options() {
       ->condition('type', ['branch', 'camp'], 'IN');
     $entity_ids = $query->execute();
 
-    $nodes = \Drupal\node\Entity\Node::loadMultiple($entity_ids);
+    $nodes = Node::loadMultiple($entity_ids);
 
     foreach ($nodes as $id => $node) {
       $options[$map[$node->bundle()]][$id] = $node->getTitle();

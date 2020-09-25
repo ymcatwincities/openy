@@ -7,6 +7,7 @@
 
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\file\FileInterface;
+use Drupal\file\Entity\File;
 
 /**
  * Implements hook_help().
@@ -75,7 +76,7 @@ function openy_font_page_attachments(&$page) {
   // Unfortunately, this can't be looped because we don't have a label for the font names.
   $bold_settings = $config->get('cachet_bold');
   if (!empty($bold_settings)) {
-    $bold = \Drupal\file\Entity\File::load(reset($bold_settings))
+    $bold = File::load(reset($bold_settings))
       ->toUrl('canonical');
     $css .= "
         @font-face {
@@ -86,7 +87,7 @@ function openy_font_page_attachments(&$page) {
   }
   $book_settings = $config->get('cachet_book');
   if (!empty($book_settings)) {
-    $book = \Drupal\file\Entity\File::load(reset($book_settings))
+    $book = File::load(reset($book_settings))
       ->toUrl('canonical');
     $css .= "
         @font-face {
@@ -97,7 +98,7 @@ function openy_font_page_attachments(&$page) {
   }
   $medium_settings = $config->get('cachet_medium');
   if (!empty($medium_settings)) {
-    $medium = \Drupal\file\Entity\File::load(reset($medium_settings))
+    $medium = File::load(reset($medium_settings))
       ->toUrl('canonical');
     $css .= "
         @font-face {

@@ -7,6 +7,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use GuzzleHttp\Client;
 use Drupal\openy_activity_finder\OpenyActivityFinderBackend;
+use Drupal\Core\Url;
 
 class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
@@ -267,7 +268,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
             'client_id'
           ) . '/ProgramsV2/OfferingDetails.mvc?program_id=' . $program_id . '&offering_id=' . $offering_id . '&location_id=' . $location_id;
 
-        $register_link_with_tracking = \Drupal\Core\Url::fromRoute(
+        $register_link_with_tracking = Url::fromRoute(
           'openy_activity_finder.register_redirect',
           ['log' => $log_id],
           [
@@ -734,7 +735,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
         'client_id'
       ) . '/ProgramsV2/OfferingDetails.mvc?program_id=' . $program_id . '&offering_id=' . $offering_id . '&location_id=' . $location_id;
 
-    $register_link_with_tracking = \Drupal\Core\Url::fromRoute(
+    $register_link_with_tracking = Url::fromRoute(
       'openy_activity_finder.register_redirect',
       ['log' => $log_id],
       [
