@@ -107,7 +107,7 @@ function openy_loc_filter_query_data_wrapper_locations_alter(AlterableInterface 
   $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
     ->get('locations');
   if (!empty($allowed_locations)) {
-    $query->condition('node_field_data.nid', $allowed_locations, 'IN');
+    $query->condition('node_field_data.nid', array_keys($allowed_locations), 'IN');
   }
 }
 
