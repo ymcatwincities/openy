@@ -61,3 +61,45 @@ function openy_node_social_post_update_8002() {
     }
   }
 }
+
+/**
+ * Update Open Y Node Social Post feature to use views_field_view.
+ */
+function openy_node_social_post_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_node_social_post') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_form_display.paragraph.social_list.default' =>[
+      'dependencies.module',
+      'content',
+      'hidden'
+    ],
+    'core.entity_view_display.paragraph.social_list.default' => [
+      'dependencies',
+      'content.field_prgrf_sl_block',
+      'hidden'
+    ],
+    'field.field.paragraph.social_list.field_prgrf_sl_block' => [
+      'dependencies.module',
+      'third_party_settings',
+      'label',
+      'description',
+      'default_value',
+      'settings',
+      'field_type'
+    ],
+    'field.storage.paragraph.field_prgrf_sl_block' => [
+      'dependencies.module',
+      'type',
+      'module'
+    ]
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
