@@ -65,7 +65,7 @@ function openy_node_social_post_update_8002() {
 /**
  * Update Open Y Node Social Post feature to use views_field_view.
  */
-function openy_node_social_post_update_8004() {
+function openy_node_social_post_update_8005() {
   $config_dir = drupal_get_path('module', 'openy_node_social_post') . '/config/install/';
   // Update multiple configurations.
   $configs = [
@@ -105,10 +105,9 @@ function openy_node_social_post_update_8004() {
 
   /** @var \Drupal\Core\Field\BaseFieldDefinition $storage_definition */
   $storage_definition = \Drupal::entityDefinitionUpdateManager()->getFieldStorageDefinition('field_prgrf_sl_block', 'paragraph');
-  $original_storage_definitions = \Drupal::service('entity.last_installed_schema.repository')->getLastInstalledFieldStorageDefinitions('paragraph');
-  $original_storage_definition = isset($original_storage_definitions['field_prgrf_sl_block']) ? $original_storage_definitions['field_prgrf_sl_block'] : NULL;
-  if ($original_storage_definition) {
-    \Drupal::service('field_storage_definition.listener')->onFieldStorageDefinitionUpdate($storage_definition, $original_storage_definition);
-  }
+  $storage_definition->set('type', 'boolean');
+  $storage_definition->set('module', 'core');
+  $storage_definition->set('dependencies', ['module' => 'paragraphs']);
+
   \Drupal::entityDefinitionUpdateManager()->updateFieldStorageDefinition($storage_definition);
 }
