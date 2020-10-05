@@ -82,7 +82,7 @@
         "drupal/views_block_filter_block": "1.x-dev",
         "drupal/views_data_export": "^1",
         "drupal/views_infinite_scroll": "^1.7",
-        "drupal/webform": "^6",
+        "drupal/webform": "6.0.0-alpha17",
         "drush/drush": "^10.3",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/jquery_ui_tooltip": "^1.1",

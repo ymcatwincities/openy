@@ -22,6 +22,7 @@ use Drupal\file\FileInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Component\Utility\Html;
+use Drupal\block\BlockInterface;
 
 /**
  * Implements hook_preprocess_html().
@@ -125,8 +126,9 @@ function search_node_paragraphs(NodeInterface $node, array $paragraph_bundles, $
  * Implements hook_preprocess_node().
  */
 function openy_carnation_preprocess_node(&$variables, $hook) {
-  $view_mode = $variables['elements']['#view_mode'];
-  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+  $view_mode = $variables['view_mode'];
+  $node = $variables['node'];
+  if ($node) {
     switch ($node->getType()) {
       // Program pages.
       case 'program':
@@ -157,17 +159,40 @@ function openy_carnation_preprocess_node(&$variables, $hook) {
         }
         break;
     }
-  }
 
-  // Add alt attributes to images in subprogram listings.
-  if ($view_mode == 'teaser') {
-    $entity = $variables['elements']['#node'];
-    if ($entity->hasField('field_category_image') && !$entity->get('field_category_image')
-        ->isEmpty()) {
-      $entity->get('field_category_image')->entity->get('field_media_image')->alt = $entity->label();
+    // Add alt attributes to images in subprogram listings.
+    if ($view_mode == 'teaser') {
+      if ($node->hasField('field_category_image') && !$node->get('field_category_image')
+          ->isEmpty()) {
+        $node->get('field_category_image')->entity->get('field_media_image')->alt = $node->label();
+      }
     }
-  }
 
+    // Add default direction link only if the field is empty.
+    if (in_array($node->getType(), ['branch', 'camp', 'facility']) &&
+      $view_mode == 'teaser' &&
+      $node->get('field_location_directions')->isEmpty()
+    ) {
+      $address = $node->get('field_location_address')->first();
+
+      if ($address) {
+        $address_array = $address->toArray();
+        $location_address = "{$address_array['address_line1']} {$address_array['locality']}, {$address_array['administrative_area']} {$address_array['postal_code']}";
+        $directions_url = Url::fromUri('https://www.google.com/maps/dir/', [
+          'query' => [
+            'api' => 1,
+            'destination' => $location_address,
+          ],
+        ]);
+
+        $link = Link::fromTextAndUrl(t("Directions"), $directions_url);
+        $link = $link->toRenderable();
+        $link['#attributes'] = ['target' => ['_blank']];
+        $variables['content']['field_location_directions'] = $link;
+      }
+    }
+
+  }
 }
 
 /**
@@ -186,9 +211,12 @@ function openy_carnation_preprocess_node_blog(&$variables) {
  * MYTHEME_theme_suggestions_menu_alter.
  */
 function openy_carnation_preprocess_block(&$variables) {
-  if (isset($variables['elements']['#id'])) {
-    $region = Block::load($variables['elements']['#id'])->getRegion();
-    $variables['content']['#attributes']['region'] = $region;
+  if (!empty($variables['elements']['#id'])) {
+    $block = Block::load($variables['elements']['#id']);
+    if ($block instanceof BlockInterface) {
+      $region = $block->getRegion();
+      $variables['content']['#attributes']['region'] = $region;
+    }
   }
 }
 

@@ -81,7 +81,7 @@ class LocationFilterSettingsForm extends ConfigFormBase {
       '#type' => 'checkboxes',
       '#prefix' => '<div class="fieldgroup form-item form-wrapper"><h2 class="fieldset-legend">' . $this->t('Select locations available for Location filters') . '</h2><div class="fieldset-wrapper">',
       '#suffix' => '</div></div>',
-      '#default_value' => $selected_locations,
+      '#default_value' => array_keys($selected_locations),
       '#options' => ['All' => $this->t('All')] + $locations,
       '#all' => ['All' => $this->t('All')],
       '#branches' => $branches_list['branch'],
