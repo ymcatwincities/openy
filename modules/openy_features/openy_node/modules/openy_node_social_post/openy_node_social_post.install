@@ -65,7 +65,7 @@ function openy_node_social_post_update_8002() {
 /**
  * Update Open Y Node Social Post feature to use views_field_view.
  */
-function openy_node_social_post_update_8003() {
+function openy_node_social_post_update_8004() {
   $config_dir = drupal_get_path('module', 'openy_node_social_post') . '/config/install/';
   // Update multiple configurations.
   $configs = [
@@ -106,5 +106,4 @@ function openy_node_social_post_update_8003() {
   /** @var \Drupal\Core\Field\BaseFieldDefinition $storage_definition */
   $storage_definition = \Drupal::entityDefinitionUpdateManager()->getFieldStorageDefinition('field_prgrf_sl_block', 'paragraph');
   \Drupal::entityDefinitionUpdateManager()->updateFieldStorageDefinition($storage_definition);
-  \Drupal::entityDefinitionUpdateManager()->updateFieldableEntityType(\Drupal::entityDefinitionUpdateManager()->getEntityType('paragraph'), [$storage_definition]);
 }
