@@ -22,6 +22,7 @@ use Drupal\file\FileInterface;
 use Drupal\node\NodeInterface;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Component\Utility\Html;
+use Drupal\block\BlockInterface;
 
 /**
  * Implements hook_preprocess_html().
@@ -210,9 +211,12 @@ function openy_carnation_preprocess_node_blog(&$variables) {
  * MYTHEME_theme_suggestions_menu_alter.
  */
 function openy_carnation_preprocess_block(&$variables) {
-  if (isset($variables['elements']['#id'])) {
-    $region = Block::load($variables['elements']['#id'])->getRegion();
-    $variables['content']['#attributes']['region'] = $region;
+  if (!empty($variables['elements']['#id'])) {
+    $block = Block::load($variables['elements']['#id']);
+    if ($block instanceof BlockInterface) {
+      $region = $block->getRegion();
+      $variables['content']['#attributes']['region'] = $region;
+    }
   }
 }
 

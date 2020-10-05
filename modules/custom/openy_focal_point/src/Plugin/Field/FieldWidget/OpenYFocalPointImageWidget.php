@@ -2,12 +2,9 @@
 
 namespace Drupal\openy_focal_point\Plugin\Field\FieldWidget;
 
-use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\crop\Entity\Crop;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\focal_point\Plugin\Field\FieldWidget\FocalPointImageWidget;
-use Drupal\image\Plugin\Field\FieldWidget\ImageWidget;
 use Drupal\Core\Url;
 
 /**
@@ -34,17 +31,17 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
    *
    * @param int $fid
    *   The fid of the image file.
-   * @param string $field_name
-   *   The name of the field element for the image field.
    * @param array $element_selectors
    *   The element selectors to ultimately be used by javascript.
    * @param string $default_focal_point_value
    *   The default focal point value in the form x,y.
+   * @param string $image_style
+   *   The image style to use in a crop preview.
    *
    * @return array
    *   The preview link form element.
    */
-  private static function createCropLink($fid, $field_name, array $element_selectors, $default_focal_point_value, $image_styles) {
+  private static function createCropLink($fid, array $element_selectors, $default_focal_point_value, $image_style) {
     // Replace comma (,) with an x to make javascript handling easier.
     $preview_focal_point_value = str_replace(',', 'x', $default_focal_point_value);
 
@@ -58,10 +55,9 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
         [
           'fid' => $fid,
           'focal_point_value' => $preview_focal_point_value,
-          'field_name' => $field_name,
         ],
         [
-          'query' => ['focal_point_token' => $token, 'image_styles' => implode(':', $image_styles)],
+          'query' => ['focal_point_token' => $token, 'image_style' => $image_style],
         ]),
       '#attached' => [
         'library' => ['core/drupal.dialog.ajax'],
@@ -69,7 +65,6 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
       '#attributes' => [
         'class' => ['use-ajax'],
         'data-selector' => $element_selectors['focal_point'],
-        'data-field-name' => $field_name,
         'data-dialog-type' => 'modal',
         'target' => '_blank',
       ],
@@ -80,8 +75,20 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
 
   /**
    * Create a link to open Dialog with editing Focal Point.
+   *
+   * @param int $fid
+   *   The fid of the image file.
+   * @param array $element_selectors
+   *   The element selectors to ultimately be used by javascript.
+   * @param string $default_focal_point_value
+   *   The default focal point value in the form x,y.
+   * @param string $image_style
+   *   The image style to use in a focal point preview.
+   *
+   * @return array
+   *   The preview link form element.
    */
-  private static function createFocalPointEditLink($fid, $field_name, array $element_selectors, $default_focal_point_value, $image_styles) {
+  private static function createFocalPointEditLink($fid, array $element_selectors, $default_focal_point_value, $image_style) {
     // Replace comma (,) with an x to make javascript handling easier.
     $preview_focal_point_value = str_replace(',', 'x', $default_focal_point_value);
 
@@ -95,10 +102,9 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
         [
           'fid' => $fid,
           'focal_point_value' => $preview_focal_point_value,
-          'field_name' => $field_name,
         ],
         [
-          'query' => ['focal_point_token' => $token, 'image_styles' => implode(':', $image_styles)],
+          'query' => ['focal_point_token' => $token, 'image_style' => $image_style],
         ]),
       '#attached' => [
         'library' => ['core/drupal.dialog.ajax'],
@@ -106,7 +112,6 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
       '#attributes' => [
         'class' => ['use-ajax'],
         'data-selector' => $element_selectors['focal_point'],
-        'data-field-name' => $field_name,
         'data-dialog-type' => 'modal',
         'target' => '_blank',
       ],
@@ -124,7 +129,7 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
 
     if (isset($element['focal_point'])) {
       // It is important to unset 'focal_point' so field doesn't have values
-      // otherwise focal point values will be overidden on file save.
+      // otherwise focal point values will be overridden on file save.
       // @see focal_point_entity_update()
       unset($element['focal_point']);
       $element['preview']['indicator']['#access'] = FALSE;
@@ -138,103 +143,34 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
       ];
       $default_focal_point_value = isset($item['focal_point']) ? $item['focal_point'] : $element['#focal_point']['offsets'];
 
-      // Search through $form_state['input'] for target_id => 'media:XX' element. If found
-      // use "entity_browser_widget" right next to it to get id that can be used
-      // to load image styles for the paragraph.
-      $paragraph_type = self::getParagraphInfo($fid, $form_state);
+      $paragraph_type = \Drupal::request()->query->get('paragraph_type');
+      $field_name = \Drupal::request()->query->get('field_name');
 
-      // Another big assumption here. We assume that Media has view modes named
-      // "prgf_<paragraph_name>".
-      $display = \Drupal::entityTypeManager()->getStorage('entity_view_display')->load('media.image.prgf_' . $paragraph_type);
-
-      if ($display) {
-        $components = $display->getComponents();
-        // We assume that view mode displays only single field -- image.
-        $image_component = reset($components);
-
-        $used_breakpoints = [
-          $image_component['settings']['image_style'],
-        ];
+      $display_storage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+      // We are assuming that only default view mode is used for paragraph
+      // images OpenY focal point styled output.
+      $paragraph_display = $display_storage->load('paragraph.' . $paragraph_type . '.default');
+      if ($paragraph_display) {
+        $image_field_component = $paragraph_display->getComponent($field_name);
+        $display = $display_storage->load('media.image.' . $image_field_component['settings']['view_mode']);
+      }
+      if (isset($display)) {
+        $image_component = $display->getComponent($element['#field_name']);
+        $image_style = $image_component['settings']['image_style'];
 
         $element['preview']['preview_link'] = [
           '#type' => 'inline_template',
-          '#template' => '{{ focal_point_link }}  |  {{ crop_image_link }}',
+          '#template' => '<div class="form-item__description"><div>{{ focal_point_link }}  |  {{ crop_image_link }}</div><div>{{ note }}</div></div>',
           '#context' => [
-            'focal_point_link' => self::createFocalPointEditLink($fid, $element['#field_name'], $element_selectors, $default_focal_point_value, $used_breakpoints),
-            'crop_image_link' => self::createCropLink($fid, $element['#field_name'], $element_selectors, $default_focal_point_value, $used_breakpoints),
+            'focal_point_link' => self::createFocalPointEditLink($fid, $element_selectors, $default_focal_point_value, $image_style),
+            'crop_image_link' => self::createCropLink($fid, $element_selectors, $default_focal_point_value, $image_style),
+            'note' => new TranslatableMarkup('Note: Focal Point and Crop Image cannot both be applied to the same image.'),
           ],
         ];
-
-        $element['preview']['preview_link_note'] = [
-          '#type' => 'inline_template',
-          '#template' => '<div class="focal-point-preview-link-note">{{ note }}</div>',
-          '#context' => [
-            'note' => new TranslatableMarkup('Note: Focal Point and Crop Image cannot both be applied to the same image.'),
-          ]
-        ];
       }
-
     }
 
     return $element;
-  }
-
-  /**
-   * Gets paragraph info data. We do a few assumptions here. We assume that
-   * there is a top level fields (references to paragraphs) like field_content,
-   * field_header_content etc. Also there should be subforms inside of the
-   * paragraphs. So our data is located in structure like:
-   * $form_state->getValues()['field_content'][0]['subform']['field_prgf_image']['entity_browser_widget_paragraph_info'];
-   *
-   * @see OpenYFocalPointEntityReferenceBrowserWidget::formElement() where we
-   * create a hidden field 'entity_browser_widget_paragraph_info'.
-   */
-  protected static function getParagraphInfo($fid, FormStateInterface $form_state) {
-    $query = \Drupal::entityTypeManager()->getStorage('media')->getQuery();
-    $query->condition('field_media_image', $fid);
-    $results = $query->execute();
-
-    $media_names = [];
-    foreach ($results as $media_id) {
-      $media_names[] = 'media:' . $media_id;
-    }
-
-    $form_state_values = $form_state->getUserInput();
-    foreach ($form_state_values as $top_level_key => $top_level_item) {
-      if (!is_array($top_level_item)) {
-        continue;
-      }
-
-      foreach ($top_level_item as $second_level_key => $second_level_item) {
-        if (!isset($second_level_item['subform'])) {
-          continue;
-        }
-
-        foreach ($second_level_item['subform'] as $subform_field_name => $subform_field_item) {
-          if (isset($subform_field_item['target_id'])
-            && in_array($subform_field_item['target_id'], $media_names)
-            && isset($subform_field_item['entity_browser_widget_paragraph_info'])) {
-            return $subform_field_item['entity_browser_widget_paragraph_info'];
-          }
-
-          if (is_array($subform_field_item)) {
-            foreach ($subform_field_item as $third_level_item) {
-              if (!isset($third_level_item['subform'])) {
-                continue;
-              }
-
-              foreach ($third_level_item['subform'] as $subform_field_name => $subform_field_item) {
-                if (isset($subform_field_item['target_id'])
-                  && in_array($subform_field_item['target_id'], $media_names)
-                  && isset($subform_field_item['entity_browser_widget_paragraph_info'])) {
-                  return $subform_field_item['entity_browser_widget_paragraph_info'];
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 
 }
