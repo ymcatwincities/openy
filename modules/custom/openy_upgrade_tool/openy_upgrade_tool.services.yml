@@ -53,6 +53,7 @@ services:
       - '@module_installer'
       - '@theme_handler'
       - '@logger.channel.openy_upgrade_tool'
+      - '@extension.list.module'
   openy_upgrade_tool.config.storage:
     class: Drupal\openy_upgrade_tool\OpenyUpgradeToolCachedStorage
     arguments: ['@config.storage.active', '@cache.config']
