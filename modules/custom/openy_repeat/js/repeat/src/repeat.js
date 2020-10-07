@@ -163,12 +163,12 @@
 
       var locationsGet = this.$route.query.locations;
       if (locationsGet) {
-        this.locations = locationsGet.split(',');
+        this.locations = locationsGet.split(';');
       }
 
       var categoriesGet = this.$route.query.categories;
       if (categoriesGet) {
-        this.categories = categoriesGet.split(',');
+        this.categories = categoriesGet.split(';');
       }
 
       this.runAjaxRequest();
@@ -350,16 +350,16 @@
         var date = moment(this.date).format('YYYY-MM-DD');
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data';
-        url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
-        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(',').replace('/', 'U+002F')) : '/0';
+        url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(';')) : '/0';
+        url += this.categories.length > 0 ? '/' + encodeURIComponent(this.categories.join(';').replace('/', 'U+002F')) : '/0';
         url += date ? '/' + encodeURIComponent(date) : '';
 
         var query = [];
         if (this.categoriesExcluded.length > 0) {
-          query.push('excl=' + encodeURIComponent(this.categoriesExcluded.join(',')));
+          query.push('excl=' + encodeURIComponent(this.categoriesExcluded.join(';')));
         }
         if (this.categoriesLimit.length > 1) {
-          query.push('limit=' + encodeURIComponent(this.categoriesLimit.join(',')));
+          query.push('limit=' + encodeURIComponent(this.categoriesLimit.join(';')));
         }
 
         if (query.length > 0) {
@@ -379,8 +379,8 @@
         router.push({
           query: {
             date: date,
-            locations: this.locations.join(','),
-            categories: this.categories.join(',')
+            locations: this.locations.join(';'),
+            categories: this.categories.join(';')
           }
         }).catch(err => {});
       },
@@ -477,7 +477,7 @@
 
         var url = drupalSettings.path.baseUrl + 'schedules/get-event-data-by-instructor/';
         url += encodeURIComponent(instructor);
-        url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(',')) : '/0';
+        url += this.locations.length > 0 ? '/' + encodeURIComponent(this.locations.join(';')) : '/0';
         url += this.date ? '/' + encodeURIComponent(this.date) : '';
 
         $('.schedules-loading').removeClass('hidden');
@@ -654,7 +654,7 @@
             rooms_checked.push(encodeURIComponent($(this).val()));
           }
         });
-        rooms_checked = rooms_checked.join(',');
+        rooms_checked = rooms_checked.join(';');
 
         $('.form-group-classname input:checked').each(function () {
           classnames_checked.push(encodeURIComponent($(this).val()));
@@ -671,7 +671,7 @@
             });
           }
         }
-        limit = limit.join(',');
+        limit = limit.join(';');
         var pdf_query = window.location.search + '&rooms=' + rooms_checked + '&limit=' + limit;
         $(classnames_checked).each(function () {
           pdf_query += '&cn[]=' + this;
