@@ -1,0 +1,79 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display branch contacts info.
+ *
+ * Available variables:
+ *  - node_bundle: will return node bundle
+ * - branch_title: will return branch title
+ * - openy_branch_selector: will return rendered branch selector code
+ * - phone: will return branch phone number
+ * - fax: will return branch fax number
+ * - email: will return branch email
+ * - address_title: will return formatted branch address string
+ * - directions_url: will return link to Google Maps linked to location address
+ * - branch_hours: will return rendered branch hours widget
+ * - directions_field_url: will return directiods field url
+ * - directions_field_title: will return directiods field title
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="container">
+    <div class="row branch-header-row">
+        {% if address_title is not empty %}
+            <div class="col-sm-12 col-md-4 col-lg-3">
+                <div class="header-address">
+                    <a href="{{ directions_url }}" target="_blank"><i class="fas fa-map-marker-alt"></i></a>
+                    <address class="wrapper-field-location-address d-inline-block">{{ address_title }}</address>
+                </div>
+            </div>
+        {% endif %}
+        {% if phone is not empty %}
+            <div class="col-sm-12 col-md-1 col-lg-3">
+                <div>
+                    <div class="wrapper-field-location-phone">
+                        <div class="field-location-phone">
+                            <a href="tel:{{ phone }}">
+                                <i class="fa fa-phone" aria-hidden="true"></i><span class="tel-text d-inline-block d-md-none d-lg-inline-block">{{ phone }}</span>
+                            </a>
+                        </div>
+                    </div>
+                    {% if fax is not empty %}
+                        <div class="wrapper-field-location-fax">
+                            <div class="field-location-fax">
+                                <a href="tel:{{ fax }}">
+                                    <i class="fas fa-fax"></i><span class="tel-text d-inline-block d-md-none d-lg-inline-block">{{ fax }}</span>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if directions_url is not empty %}
+            <div class="col-sm-12 col-md-3 col-lg-3">
+                <div class="wrapper-get-directions">
+                    <a href="{{ directions_url }}" class="location-branch-directions-link" target="_blank">{{ 'Directions'|t }}</a>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="col-sm-12 col-md-4 col-lg-3 hours-wrapper branch-header__item">
+            {% if branch_hours is not empty %}
+                <div class="hours clearfix">
+                    <div class="camp-today-hour">
+                        <div class="hours clearfix">
+                            <div class="camp-today-hour">
+                                <span class="todays-hours-text">{{ "Today's hours"|t }}:</span>
+                                <span class="todays-hours-text-small ">{{ "Hours:"|t }}</span>
+                                {{ branch_hours }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

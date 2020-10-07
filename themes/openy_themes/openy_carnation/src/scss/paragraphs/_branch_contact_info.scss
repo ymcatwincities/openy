@@ -1,0 +1,200 @@
+.paragraph--type--branch-contacts-info {
+  display: block;
+  padding: 20px;
+  padding-bottom: 0;
+  line-height: 1;
+
+  .field-branch-contacts-info {
+
+    .openy-branch-selector {
+      display: none;
+    }
+
+    .hb-branch-selector {
+      min-height: auto;
+      label {
+        margin-right: 5px;
+      }
+    }
+
+    .branch-header-row {
+
+      > div {
+        @include media-breakpoint-down(sm) {
+          margin-bottom: 20px;
+        }
+      }
+      align-items: center;
+
+      &div:last-child {
+        padding: 10px 0 0;
+      }
+
+      .back-link a {
+        font-size: 14px;
+        text-transform: none;
+      }
+
+      .hb-location-checkbox-wrapper {
+        @include media-breakpoint-down(sm) {
+          justify-content: start;
+        }
+        display: flex;
+        align-items: baseline;
+        justify-content: end;
+        color: $sky-blue;
+
+        label,
+        .hb-branch-selector-change-wrapper,
+        .hb-branch-selector-change-wrapper a {
+          font-size: 14px;
+          color: $sky-blue;
+        }
+
+        input:checked ~ label:before {
+          border: solid 1px $sky-blue;
+        }
+
+        label {
+
+          &:before {
+            border: solid 1px $sky-blue;
+            background-color: initial;
+          }
+
+          &:after {
+            border: solid $sky-blue;
+            border-width: 0 3px 3px 0;
+          }
+        }
+      }
+
+      .wrapper-field-location-fax {
+        margin-top: 20px;
+      }
+
+      .wrapper-field-location-phone .field-location-phone,
+      .wrapper-field-location-fax .field-location-fax {
+        display: flex;
+        align-items: center;
+
+        a {
+          @include media-breakpoint-down(sm) {
+            font-size: 16px;
+          }
+          font-size: 18px;
+          line-height: 35px;
+
+          i {
+            margin-right: 15px;
+            font-size: 25px;
+            line-height: 35px;
+
+            &.fa-phone {
+              -moz-transform: scale(-1, 1);
+              -webkit-transform: scale(-1, 1);
+              -o-transform: scale(-1, 1);
+              transform: scale(-1, 1);
+              filter: FlipH;
+              -ms-filter: "FlipH";
+            }
+          }
+
+          &:hover {
+            color: $light-blue;
+          }
+        }
+      }
+
+      .header-address {
+        display: flex;
+        align-items: center;
+
+        i {
+          margin-right: 15px;
+          font-size: 30px;
+        }
+
+        .wrapper-field-location-address {
+          @include media-breakpoint-down(sm) {
+            font-size: 16px;
+          }
+          font-size: 18px;
+        }
+      }
+
+      .hours-wrapper {
+
+        .camp-today-hour {
+          flex-direction: column;
+        }
+
+        .today-hours {
+          padding-left: 0;
+
+          .dropdown-toggle {
+            margin-left: 20px;
+          }
+        }
+      }
+
+      .header-address {
+
+        a i.fa-map-marker-alt {
+          margin-left: 0;
+        }
+      }
+
+      .wrapper-directions,
+      .wrapper-virtual-tour {
+        display: flex;
+        align-items: center;
+
+        i {
+          font-size: 25px;
+          margin-right: 15px;
+          color: $sky-blue;
+        }
+
+        a {
+          font-weight: bold;
+          font-size: 20px;
+          color: $sky-blue;
+
+          &:hover {
+            color: $light-blue;
+          }
+        }
+      }
+
+      .hours-wrapper {
+
+        .branch-hours {
+          margin-top: 0;
+          top: auto;
+          width: 300px;
+        }
+
+        .todays-hours-text {
+          @include media-breakpoint-down(sm) {
+            font-size: 16px;
+          }
+          font-size: 18px;
+          line-height: 22px;
+          margin-bottom: 15px;
+        }
+
+        .wrapper-field-branch-hours {
+
+          .today {
+            font-size: 16px;
+          }
+
+          a.dropdown-toggle {
+            border-radius: 3px;
+          }
+        }
+      }
+    }
+  }
+}
