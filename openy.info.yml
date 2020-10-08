@@ -69,7 +69,7 @@ dependencies:
   - twig_tweak:twig_tweak
   # Open Y
   - advanced_help_block:advanced_help_block
-  - openy_autocomplete_path:openy_autocomplete_path
+  # - openy_autocomplete_path:openy_autocomplete_path
   - openy_block_custom_simple:openy_block_custom_simple
   - openy_datalayer:openy_datalayer
   - openy_editor:openy_editor
