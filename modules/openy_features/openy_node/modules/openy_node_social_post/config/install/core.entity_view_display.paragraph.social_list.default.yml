@@ -6,9 +6,10 @@ dependencies:
     - field.field.paragraph.social_list.field_prgrf_sl_description
     - field.field.paragraph.social_list.field_prgrf_sl_title
     - paragraphs.paragraphs_type.social_list
+    - views.view.social_posts_view
   module:
-    - plugin
     - text
+    - views_field_formatter
 id: paragraph.social_list.default
 targetEntityType: paragraph
 bundle: social_list
@@ -17,9 +18,26 @@ content:
   field_prgrf_sl_block:
     weight: 2
     label: hidden
-    settings: {  }
+    settings:
+      view: 'social_posts_view::social_posts_block'
+      arguments:
+        field_value:
+          checked: '1'
+          weight: '0'
+        entity_id:
+          checked: '1'
+          weight: '0'
+        delta:
+          checked: '1'
+          weight: '0'
+        entity_revision_id:
+          checked: '1'
+          weight: '0'
+      implode_character: ''
+      hide_empty: 0
+      multiple: 0
     third_party_settings: {  }
-    type: plugin_block_built
+    type: views_field_formatter
     region: content
   field_prgrf_sl_description:
     weight: 1
@@ -36,4 +54,5 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-hidden: {  }
+hidden:
+  search_api_excerpt: true

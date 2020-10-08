@@ -5,26 +5,24 @@ dependencies:
     - field.storage.paragraph.field_prgrf_sl_block
     - paragraphs.paragraphs_type.social_list
   module:
-    - plugin
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_prgrf_sl_block
 id: paragraph.social_list.field_prgrf_sl_block
 field_name: field_prgrf_sl_block
 entity_type: paragraph
 bundle: social_list
-label: 'Social List'
-description: 'Reference to views block. This block select social posts which were imported before.'
+label: Block
+description: ''
 required: false
 translatable: false
 default_value:
   -
-    plugin_id: 'views_block:social_posts_view-social_posts_block'
-    plugin_configuration:
-      id: 'views_block:social_posts_view-social_posts_block'
-      label: ''
-      provider: views
-      label_display: '0'
-      views_label: ''
-      items_per_page: none
-    plugin_configuration_schema_id: 'block.settings.views_block:social_posts_view-social_posts_block'
+    value: 0
 default_value_callback: ''
-settings: {  }
-field_type: 'plugin:block'
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

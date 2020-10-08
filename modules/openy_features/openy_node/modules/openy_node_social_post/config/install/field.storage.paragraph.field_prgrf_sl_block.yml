@@ -3,13 +3,12 @@ status: true
 dependencies:
   module:
     - paragraphs
-    - plugin
 id: paragraph.field_prgrf_sl_block
 field_name: field_prgrf_sl_block
 entity_type: paragraph
-type: 'plugin:block'
+type: boolean
 settings: {  }
-module: plugin
+module: core
 locked: false
 cardinality: 1
 translatable: true
