@@ -178,14 +178,8 @@
                 "Add option for native browser lazy load": "https://www.drupal.org/files/issues/2020-06-18/3142503-native-option-2.patch",
                 "SVG placeholder html validation error space is not allowed": "https://www.drupal.org/files/issues/2020-06-23/blazy_fix_svg_placeholder-3154185-2.patch"
             },
-            "drupal/migrate_tools": {
-                "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
-            },
             "drupal/geysir": {
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
-            },
-            "drupal/social_feed_fetcher": {
-                "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
             },
             "drupal/search_api_solr": {
                 "Fix search_api_solr_cron() with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_cron_fix-3170802.patch",
