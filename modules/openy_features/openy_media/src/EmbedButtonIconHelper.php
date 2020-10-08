@@ -27,11 +27,17 @@ class EmbedButtonIconHelper {
 
     if ($destination) {
       $file = File::create(['uri' => $destination]);
+      $file->setPermanent();
       $file->save();
 
-      EmbedButton::load($embed_button_name)
+      $button = EmbedButton::load($embed_button_name);
+
+      $button
         ->set('icon_uuid', $file->uuid())
         ->save();
+      $button->set('icon', EmbedButton::convertImageToEncodedData($file->getFileUri()));
+      $button->save();
+
     }
   }
 
