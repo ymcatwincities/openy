@@ -24,6 +24,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Drupal\Core\Extension\ModuleExtensionList;
 
 /**
  * Wrapper for main logic that related to OpenyUpgradeLog.
@@ -148,6 +149,13 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
   protected $moduleInstaller;
 
   /**
+   * The module extension list.
+   *
+   * @var \Drupal\Core\Extension\ModuleExtensionList
+   */
+  protected $moduleExtensionList;
+
+  /**
    * Defines a configuration importer.
    *
    * @var \Drupal\Core\Config\ConfigImporter
@@ -207,7 +215,8 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     ModuleHandlerInterface $module_handler,
     ModuleInstallerInterface $module_installer,
     ThemeHandlerInterface $theme_handler,
-    LoggerChannelInterface $loggerChannel) {
+    LoggerChannelInterface $loggerChannel,
+    ModuleExtensionList $moduleExtensionList) {
 
     $this->featuresManager = $features_manager;
     $this->logger = $loggerChannel;
@@ -224,6 +233,7 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
     $this->moduleHandler = $module_handler;
     $this->moduleInstaller = $module_installer;
     $this->themeHandler = $theme_handler;
+    $this->moduleExtensionList = $moduleExtensionList;
   }
 
   /**
@@ -493,7 +503,8 @@ class OpenyUpgradeLogManager implements OpenyUpgradeLogManagerInterface {
         $this->moduleHandler,
         $this->moduleInstaller,
         $this->themeHandler,
-        $this->getStringTranslation()
+        $this->getStringTranslation(),
+        $this->moduleExtensionList
       );
 
       try {
