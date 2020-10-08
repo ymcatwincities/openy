@@ -9,6 +9,11 @@
  * Implement hook_install().
  */
 function openy_media_install() {
+  $module_installer = Drupal::service('module_installer');
+
+  // Enable blazy.
+  $module_installer->install(['blazy'], TRUE);
+  
   $config_dir = drupal_get_path('module', 'openy_media') . '/config/override/';
     // Import new configuration
     $config_importer = \Drupal::service('openy_upgrade_tool.importer');
