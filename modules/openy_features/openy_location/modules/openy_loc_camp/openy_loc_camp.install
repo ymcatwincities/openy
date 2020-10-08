@@ -297,3 +297,15 @@ function openy_loc_camp_update_8011() {
     }
   }
 }
+
+/**
+ * Update teaser view mode configs.
+ */
+function openy_loc_camp_update_8012() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.camp.teaser',
+  ]);
+}
