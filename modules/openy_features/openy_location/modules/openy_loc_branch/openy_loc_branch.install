@@ -450,7 +450,5 @@ function openy_loc_branch_update_8021() {
   $config_importer->setDirectory($config_dir);
   $config_importer->importConfigs([
     'core.entity_view_display.node.branch.teaser',
-    'core.entity_view_display.node.facility.teaser',
-    'core.entity_view_display.node.camp.teaser',
   ]);
 }
