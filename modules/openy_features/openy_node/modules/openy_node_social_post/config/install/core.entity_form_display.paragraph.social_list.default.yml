@@ -7,12 +7,19 @@ dependencies:
     - field.field.paragraph.social_list.field_prgrf_sl_title
     - paragraphs.paragraphs_type.social_list
   module:
+    - plugin
     - text
 id: paragraph.social_list.default
 targetEntityType: paragraph
 bundle: social_list
 mode: default
 content:
+  field_prgrf_sl_block:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: 'plugin_selector:plugin_select_list'
+    region: content
   field_prgrf_sl_description:
     weight: 1
     settings:
@@ -37,6 +44,5 @@ content:
     third_party_settings: {  }
 hidden:
   created: true
-  field_prgrf_sl_block: true
   status: true
   uid: true
