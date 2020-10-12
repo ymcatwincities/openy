@@ -22,8 +22,9 @@ content:
     third_party_settings: {  }
     region: content
   field_color:
-    settings: {  }
     weight: 31
+    settings:
+      color: FFFFFF
     third_party_settings: {  }
     type: jquery_colorpicker
     region: content
@@ -48,11 +49,4 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
-  status:
-    type: boolean_checkbox
-    settings:
-      display_label: true
-    weight: 100
-    region: content
-    third_party_settings: {  }
 hidden: {  }

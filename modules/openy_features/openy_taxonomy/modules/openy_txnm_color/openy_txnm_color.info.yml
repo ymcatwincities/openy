@@ -11,4 +11,3 @@ dependencies:
   - rabbit_hole:rabbit_hole
   - drupal:taxonomy
   - drupal:text
-  - colorapi:colorapi

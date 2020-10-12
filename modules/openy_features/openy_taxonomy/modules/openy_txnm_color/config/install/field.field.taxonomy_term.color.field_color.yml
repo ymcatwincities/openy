@@ -5,7 +5,7 @@ dependencies:
     - field.storage.taxonomy_term.field_color
     - taxonomy.vocabulary.color
   module:
-    - colorapi
+    - jquery_colorpicker
 id: taxonomy_term.color.field_color
 field_name: field_color
 entity_type: taxonomy_term
@@ -16,8 +16,7 @@ required: true
 translatable: true
 default_value:
   -
-    name: ''
-    color: '#FFFFFF'
+    value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: colorapi_color_field
+field_type: jquery_colorpicker

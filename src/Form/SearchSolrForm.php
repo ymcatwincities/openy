@@ -32,7 +32,7 @@ class SearchSolrForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $solr_server_config = $this->config('search_api.server.solr_search');
+    $solr_server_config = $this->config('search_api.server.openy_solr_search');
 
     $backend_config = $solr_server_config->get('backend_config');
     $solr_connector_options = [

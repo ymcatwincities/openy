@@ -279,9 +279,6 @@ function openy_install_search(array &$install_state) {
   foreach ($modules as $module) {
     $module_operations[] = ['openy_enable_module', (array) $module];
   }
-  // todo: install search_api_solr_legacy.
-  $module_operations[] = ['openy_enable_search_api_solr_legacy', []];
-
   return ['operations' => $module_operations];
 }
 
@@ -768,41 +765,4 @@ function openy_terms_and_condition_db_save(&$install_state) {
   $config->set('version', TermsOfUseForm::TERMS_OF_USE_VERSION);
   $config->set('accepted_version', time());
   $config->save();
-}
-
-/**
- * Enables Search API Solr Legacy if Solr 4.x backend is detected.
- *
- * @return bool
- *   TRUE if the legacy module was enabled.
- */
-function openy_enable_search_api_solr_legacy() {
-  $moduleHandler = \Drupal::service('module_handler');
-  if (!$moduleHandler->moduleExists('search_api_solr')) {
-    return;
-  }
-  $storage = \Drupal::entityTypeManager()
-    ->getStorage('search_api_server');
-  $search_api_servers = $storage->getQuery()->execute();
-
-  foreach ($search_api_servers as $search_api_server_id) {
-    $search_api_server = $storage->load($search_api_server_id);
-    if ($search_api_server->getBackendId() !== 'search_api_solr') {
-      continue;
-    }
-    if (!$search_api_server->hasValidBackend()) {
-      continue;
-    }
-    $connector = $search_api_server->getBackend()->getSolrConnector();
-    $solr_version = $connector->getSolrVersion();
-    $solr_version_forced = $connector->getSolrVersion(TRUE);
-    if (preg_match('/[45]{1}\.[0-9]+\.[0-9]+/', $solr_version)
-      || preg_match('/[45]{1}\.[0-9]+\.[0-9]+/', $solr_version_forced)) {
-      // Solr 4.x or 5.x found, install the Search API Solr Legacy module.
-      \Drupal::service('module_installer')->install(['search_api_solr_legacy']);
-      return TRUE;
-    }
-  }
-
-  return FALSE;
 }

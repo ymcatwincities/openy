@@ -16,6 +16,7 @@ dependencies:
   - entity_browser:entity_browser
   - entity_browser_entity_form:entity_browser_entity_form
   - entity_embed:entity_embed
+  - media_entity_video:media_entity_video
   - openy_media:openy_media
   - video_embed_field:video_embed_field
   - video_embed_media:video_embed_media

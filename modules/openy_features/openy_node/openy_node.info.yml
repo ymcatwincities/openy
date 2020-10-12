@@ -9,6 +9,7 @@ dependencies:
   - entity_reference_revisions
   - field
   - image
+  - jquery_colorpicker:jquery_colorpicker
   - metatag
   - node
   - views
