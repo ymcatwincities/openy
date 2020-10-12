@@ -3,13 +3,14 @@ status: true
 dependencies:
   module:
     - crop
+    - media_entity_video
 third_party_settings:
   crop:
     image_field: null
 id: video_local
 label: 'Local Video'
 description: 'Use Local Video for uploading locally hosted videos.'
-source: video_file
+source: video
 queue_thumbnail_downloads: false
 new_revision: false
 source_configuration:
