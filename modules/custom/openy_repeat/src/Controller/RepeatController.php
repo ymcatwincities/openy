@@ -177,7 +177,7 @@ class RepeatController extends ControllerBase {
     $query->condition('re.instructor', $instructor);
 
     if (!empty($location)) {
-      $query->condition('nd.title', explode(',', $location), 'IN');
+      $query->condition('nd.title', explode(';', $location), 'IN');
     }
 
     $query->addTag('openy_repeat_get_data');
@@ -306,7 +306,7 @@ class RepeatController extends ControllerBase {
     $query->condition('re.class', $class);
 
     if (!empty($location)) {
-      $query->condition('nd.title', explode(',', $location), 'IN');
+      $query->condition('nd.title', explode(';', $location), 'IN');
     }
 
     $query->addTag('openy_repeat_get_data');
@@ -494,18 +494,18 @@ class RepeatController extends ControllerBase {
     $query->condition('re.start', $timestamp_end, '<=');
     $query->condition('re.end', $timestamp_start, '>=');
     if (!empty($category)) {
-      $query->condition('re.category', explode(',', $category), 'IN');
+      $query->condition('re.category', explode(';', $category), 'IN');
     }
     if (!empty($location)) {
-      $query->condition('nd.title', explode(',', $location), 'IN');
+      $query->condition('nd.title', explode(';', $location), 'IN');
     }
     $exclusions = $request->get('excl');
     if (!empty($exclusions)) {
-      $query->condition('re.category', explode(',', $exclusions), 'NOT IN');
+      $query->condition('re.category', explode(';', $exclusions), 'NOT IN');
     }
     $limit = $request->get('limit');
     if (!empty($limit)) {
-      $query->condition('re.category', explode(',', $limit), 'IN');
+      $query->condition('re.category', explode(';', $limit), 'IN');
     }
     $query->addTag('openy_repeat_get_data');
 
@@ -773,7 +773,7 @@ class RepeatController extends ControllerBase {
       $timestamp_start += 86400;
     }
     if (!empty($rooms)) {
-      $rooms = explode(',', $rooms);
+      $rooms = explode(';', $rooms);
     }
     // Group by activity.
     if ($mode == 'activity') {

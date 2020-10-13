@@ -276,3 +276,15 @@ function openy_loc_facility_update_8012() {
     }
   }
 }
+
+/**
+ * Update teaser view mode configs.
+ */
+function openy_loc_facility_update_8013() {
+  $config_dir = drupal_get_path('module', 'openy_loc_facility') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'core.entity_view_display.node.facility.teaser',
+  ]);
+}

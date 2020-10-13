@@ -80,9 +80,9 @@
         "drupal/vendor_stream_wrapper": "1.x-dev",
         "drupal/video_embed_field": "^2.0",
         "drupal/views_block_filter_block": "1.x-dev",
+        "drupal/webform": "~6.0",
         "drupal/views_data_export": "^1",
         "drupal/views_infinite_scroll": "^1.7",
-        "drupal/webform": "6.0.0-alpha17",
         "drush/drush": "^10.3",
         "grt107/grt-youtube-popup": "^1.0",
         "drupal/jquery_ui_tooltip": "^1.1",
@@ -192,14 +192,8 @@
                 "Add option for native browser lazy load": "https://www.drupal.org/files/issues/2020-06-18/3142503-native-option-2.patch",
                 "SVG placeholder html validation error space is not allowed": "https://www.drupal.org/files/issues/2020-06-23/blazy_fix_svg_placeholder-3154185-2.patch"
             },
-            "drupal/migrate_tools": {
-                "3099611 - Class 'Drush\\Commands\\DrushCommands' not found": "https://www.drupal.org/files/issues/2019-12-11/3099611-15.patch"
-            },
             "drupal/geysir": {
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
-            },
-            "drupal/social_feed_fetcher": {
-                "Fix incorrect core key value in info file": "https://www.drupal.org/files/issues/2020-04-23/3130364-2.patch"
             },
             "drupal/search_api_solr": {
                 "Fix search_api_solr_cron() with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_cron_fix-3170802.patch",
