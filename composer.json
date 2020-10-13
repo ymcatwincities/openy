@@ -80,7 +80,6 @@
         "drupal/vendor_stream_wrapper": "1.x-dev",
         "drupal/video_embed_field": "^2.0",
         "drupal/views_block_filter_block": "1.x-dev",
-        "drupal/views_field_formatter": "~1.9",
         "drupal/webform": "~6.0",
         "drupal/views_data_export": "^1",
         "drupal/views_infinite_scroll": "^1.7",
