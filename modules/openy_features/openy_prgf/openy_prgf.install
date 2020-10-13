@@ -103,3 +103,20 @@ function openy_prgf_update_8008() {
     );
   }
 }
+
+/**
+ * Update entity_clone setting to always mark paragraph entities to be cloned.
+ */
+function openy_prgf_update_8009() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_path = drupal_get_path('module', 'openy_prgf') . '/config/install/';
+  $configs = [
+    'entity_clone.settings',
+  ];
+  foreach ($configs as $config) {
+    $config_importer->update($config_path . $config . '.yml',
+      $config,
+      'form_settings.paragraph.default_value'
+    );
+  }
+}

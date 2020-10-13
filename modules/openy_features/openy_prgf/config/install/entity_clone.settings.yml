@@ -1,0 +1,101 @@
+form_settings:
+  paragraph:
+    default_value: true
+    disable: false
+    hidden: false
+  advanced_help_block:
+    default_value: false
+    disable: false
+    hidden: false
+  block_content:
+    default_value: false
+    disable: false
+    hidden: false
+  contact_message:
+    default_value: false
+    disable: false
+    hidden: false
+  content_moderation_state:
+    default_value: false
+    disable: false
+    hidden: false
+  crop:
+    default_value: false
+    disable: false
+    hidden: false
+  file:
+    default_value: false
+    disable: false
+    hidden: false
+  groupex_form_cache:
+    default_value: false
+    disable: false
+    hidden: false
+  media:
+    default_value: false
+    disable: false
+    hidden: false
+  menu_link_content:
+    default_value: false
+    disable: false
+    hidden: false
+  node:
+    default_value: false
+    disable: false
+    hidden: false
+  program_search_log:
+    default_value: false
+    disable: false
+    hidden: false
+  program_search_log_check:
+    default_value: false
+    disable: false
+    hidden: false
+  mapping:
+    default_value: false
+    disable: false
+    hidden: false
+  repeat:
+    default_value: false
+    disable: false
+    hidden: false
+  session_instance:
+    default_value: false
+    disable: false
+    hidden: false
+  openy_upgrade_log:
+    default_value: false
+    disable: false
+    hidden: false
+  path_alias:
+    default_value: false
+    disable: false
+    hidden: false
+  redirect:
+    default_value: false
+    disable: false
+    hidden: false
+  search_api_task:
+    default_value: false
+    disable: false
+    hidden: false
+  shortcut:
+    default_value: false
+    disable: false
+    hidden: false
+  taxonomy_term:
+    default_value: false
+    disable: false
+    hidden: false
+  user:
+    default_value: false
+    disable: false
+    hidden: false
+  webform_submission:
+    default_value: false
+    disable: false
+    hidden: false
+  font:
+    default_value: false
+    disable: false
+    hidden: false
