@@ -41,6 +41,7 @@
     'paragraph',
     'block-description--wrapper',
     'block-description--4',
+    'container',
   ]
 %}
 
@@ -49,5 +50,7 @@
 {% endif %}
 
 <div{{ attributes.addClass(classes) }}>
-  {{ content }}
+  <div class="row">
+    {{ content }}
+  </div>
 </div>

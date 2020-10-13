@@ -20,12 +20,12 @@
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
-
-<div class="news-more-teaser-results-wrapper row clearfix">
-{% for row in rows %}
-  <div class="news-teaser--row col-12">
-    {{ row.content }}
+<div class="container">
+  <div class="news-more-teaser-results-wrapper row clearfix">
+    {% for row in rows %}
+      <div class="news-teaser--row col-12">
+        {{ row.content }}
+      </div>
+    {% endfor %}
   </div>
-{% endfor %}
 </div>
- 

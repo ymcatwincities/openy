@@ -40,7 +40,7 @@
   set classes = [
     'paragraph',
     'paragraph-1c-wrapper',
-    'row',
+    'container',
   ]
 %}
 
@@ -49,5 +49,7 @@
 {% endif %}
 
 <div{{ attributes.addClass(classes) }}>
-  {{ content }}
+  <div class="row">
+    {{ content }}
+  </div>
 </div>

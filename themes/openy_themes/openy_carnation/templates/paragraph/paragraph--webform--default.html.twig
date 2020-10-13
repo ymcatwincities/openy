@@ -42,9 +42,10 @@ set classes = [
   'webform',
   'container',
   'clearfix',
-  'row',
 ]
 %}
 <article{{ attributes.addClass(classes) }}>
-  {{ content }}
+  <div class="row">
+    {{ content }}
+  </div>
 </article>

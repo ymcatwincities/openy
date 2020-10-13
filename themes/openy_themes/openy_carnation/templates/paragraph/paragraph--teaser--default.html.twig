@@ -40,19 +40,31 @@
 set classes = [
   'subprogram-listing-item',
   'clearfix',
-  'row',
+  'container',
   'mb-5',
 ]
 %}
+{% set link_is_set = content.field_prgf_link|render|trim is not empty %}
+{% if link_is_set %}
+  {% set link_url = content.field_prgf_link.0['#url'] %}
+  {% set link_title = content.field_prgf_link.0['#title'] %}
+{% endif %}
+
 <article{{ attributes.addClass(classes) }}>
-  <div class="col-md-5 image">
-    <a href="{{ content.field_prgf_link.0['#url'] }}">{{ content.field_prgf_image }}</a>
-  </div>
-  <div class="col-md-7 content">
-    <h2>{{ content.field_prgf_title }}</h2>
-    {{ content.field_prgf_description }}
-    {% if content.field_prgf_link|render|trim is not empty %}
-      <a href="{{ content.field_prgf_link.0['#url'] }}" class="btn btn-outline-primary d-block d-lg-inline-block" aria-label="{{ 'Learn more about'|t }} {{ paragraph.field_prgf_title.value }}" title="{{ content.field_prgf_link.0['#title'] }}">{{ content.field_prgf_link.0['#title'] }}</a>
-    {% endif %}
+  <div class="row">
+    <div class="col-md-5 image">
+      {% if link_is_set %}
+        <a href="{{ link_url }}">{{ content.field_prgf_image }}</a>
+      {% else %}
+        {{ content.field_prgf_image }}
+      {% endif %}
+    </div>
+    <div class="col-md-7 content">
+      <h2>{{ content.field_prgf_title }}</h2>
+      {{ content.field_prgf_description }}
+      {% if link_is_set %}
+        <a href="{{ link_url }}" class="btn btn-outline-primary d-block d-lg-inline-block" aria-label="{{ 'Learn more about'|t }} {{ paragraph.field_prgf_title.value }}" title="{{ link_title }}">{{ link_title }}</a>
+      {% endif %}
+    </div>
   </div>
 </article>
