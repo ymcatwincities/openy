@@ -110,7 +110,7 @@
         "ymcatwincities/media_entity_video": "*",
         "ymcatwincities/verf": "*",
         "ymcatwincities/video": "*",
-        "ymcatwincities/views_field_formatter": "*"
+        "drupal/views_field_formatter":"^1.11"
     },
     "require-dev": {
         "behat/behat": "^3.0",
