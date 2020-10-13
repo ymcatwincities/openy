@@ -3,14 +3,13 @@ status: true
 dependencies:
   config:
     - block_content.type.branch_amenities
-    - custom_formatters.formatter.branch_amenities
     - field.field.block_content.branch_amenities.field_branch_am
     - field.field.block_content.branch_amenities.field_icon_class
     - field.field.block_content.branch_amenities.field_sb_link
     - field.field.block_content.branch_amenities.field_sb_title
   module:
-    - custom_formatters
     - link
+    - openy_block_branch_amenities
 id: block_content.branch_amenities.default
 targetEntityType: block_content
 bundle: branch_amenities
@@ -21,7 +20,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: 'custom_formatters:branch_amenities'
+    type: openy_branch_amenities
     region: content
   field_icon_class:
     weight: 1
@@ -53,3 +52,4 @@ content:
     region: content
 hidden:
   langcode: true
+  search_api_excerpt: true

@@ -59,6 +59,11 @@ use Drupal\user\UserInterface;
  *     "revision_delete" = "/admin/openy/development/upgrade-log/dashboard/{openy_upgrade_log}/revisions/{openy_upgrade_log_revision}/delete",
  *     "collection" = "/admin/openy/development/upgrade-log/dashboard",
  *   },
+ *      revision_metadata_keys = {
+ *     "revision_user" = "revision_user",
+ *     "revision_created" = "revision_created",
+ *     "revision_log_message" = "revision_log_message"
+ *   },
  * )
  */
 class OpenyUpgradeLog extends RevisionableContentEntityBase implements OpenyUpgradeLogInterface {

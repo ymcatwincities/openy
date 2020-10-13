@@ -592,7 +592,7 @@ function openy_lily_preprocess_html(&$variables) {
       // Load page header paragraphs.
       if ($node->field_header_content && $header = $node->field_header_content->getValue()) {
         foreach ($header as $p) {
-          if ($paragraph = \Drupal::service('entity.manager')
+          if ($paragraph = \Drupal::service('entity_type.manager')
             ->getStorage('paragraph')
             ->load($p['target_id'])
           ) {

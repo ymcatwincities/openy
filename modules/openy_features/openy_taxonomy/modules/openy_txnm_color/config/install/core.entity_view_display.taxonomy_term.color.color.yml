@@ -23,4 +23,6 @@ content:
     region: content
 hidden:
   description: true
+  field_color: true
   langcode: true
+  search_api_excerpt: true
