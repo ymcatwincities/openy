@@ -11,6 +11,5 @@ dependencies:
   - drupal:options
   - drupal:taxonomy
   - drupal:text
-  - entity_clone
   - paragraphs
   - plugin

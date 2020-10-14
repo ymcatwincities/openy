@@ -19,6 +19,22 @@ function openy_prgf_update_dependencies() {
 }
 
 /**
+ * Implements hook_install().
+ */
+function openy_prgf_install() {
+  _preselect_checkboxes_for_paragraphs_on_clone();
+}
+
+function _preselect_checkboxes_for_paragraphs_on_clone() {
+  if (\Drupal::service('module_handler')->moduleExists('entity_clone')) {
+    Drupal::configFactory()
+      ->getEditable('entity_clone.settings')
+      ->set('form_settings.paragraph.default_value', TRUE)
+      ->save();
+  }
+}
+
+/**
  * Add openy_prgf.settings fields_unset_paragraphs configuration.
  */
 function openy_prgf_update_8001() {
@@ -108,15 +124,5 @@ function openy_prgf_update_8008() {
  * Update entity_clone setting to always mark paragraph entities to be cloned.
  */
 function openy_prgf_update_8009() {
-  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
-  $config_path = drupal_get_path('module', 'openy_prgf') . '/config/install/';
-  $configs = [
-    'entity_clone.settings',
-  ];
-  foreach ($configs as $config) {
-    $config_importer->update($config_path . $config . '.yml',
-      $config,
-      'form_settings.paragraph.default_value'
-    );
-  }
+  _preselect_checkboxes_for_paragraphs_on_clone();
 }
