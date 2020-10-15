@@ -4,7 +4,8 @@
   "description": "npm module for recompile repeat.js",
   "main": "repeat.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js --mode=production"
+    "build": "webpack --config webpack.config.js --mode=production",
+    "dev": "webpack --config webpack.config.js --mode=development"
   },
   "author": "",
   "license": "ISC",
