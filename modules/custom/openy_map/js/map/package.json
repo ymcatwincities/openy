@@ -4,7 +4,8 @@
   "description": "Open Y map library",
   "main": "map.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js --mode=production"
+    "build": "webpack --config webpack.config.js --mode=production",
+    "dev": "webpack --config webpack.config.js --mode=development"
   },
   "author": "Open Y",
   "license": "GPL-3.0",
