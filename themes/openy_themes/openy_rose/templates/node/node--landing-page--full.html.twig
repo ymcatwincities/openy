@@ -119,19 +119,7 @@
 
     {% if content.field_content|render|trim is not empty %}
       <div{{ content_attributes.addClass(content_classes) }}>
-        {% if node.field_lp_layout.value == "one_column" %}
-          <div class="main-region col-sm-12">
-            {{ content.field_content }}
-            {% if content.addthis is not empty %}
-              {{ content.addthis }}
-            {% endif %}
-            {% if content.field_sidebar_content.0 %}
-              <aside{{ sidebar_attributes.addClass(sidebar_classes) }}>
-                {{ content.field_sidebar_content }}
-              </aside>
-            {% endif %}
-          </div>
-        {% elseif ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
+        {% if ( node.field_lp_layout.value == "two_column" ) or ( node.field_lp_layout.value == "two_column_fixed" ) %}
           <div class="two-column">
             <div class="main-region col-sm-8">
               {{ content.field_content }}
@@ -162,6 +150,18 @@
                 {{ content.addthis }}
               {% endif %}
             </div>
+          </div>
+        {% else %}
+          <div class="main-region{{ node.field_lp_layout.value == "one_column" ? ' col-sm-12' : '' }}">
+            {{ content.field_content }}
+            {% if content.addthis is not empty %}
+              {{ content.addthis }}
+            {% endif %}
+            {% if content.field_sidebar_content.0 %}
+              <aside{{ sidebar_attributes.addClass(sidebar_classes) }}>
+                {{ content.field_sidebar_content }}
+              </aside>
+            {% endif %}
           </div>
         {% endif %}
       </div>
