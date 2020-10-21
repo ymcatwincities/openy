@@ -108,7 +108,7 @@
         "ymcatwincities/media_entity_document": "*",
         "ymcatwincities/media_entity_image": "*",
         "ymcatwincities/media_entity_video": "*",
-        "ymcatwincities/verf": "*",
+        "drupal/verf": "~1.0",
         "ymcatwincities/video": "*",
         "drupal/views_field_formatter":"^1.11"
     },
