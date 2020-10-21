@@ -79,7 +79,7 @@
         "drupal/token_filter": "~1.1",
         "drupal/twig_tweak": "^2.4",
         "drupal/tzfield": "1.x-dev",
-        "drupal/verf": "1.0-beta7",
+        "drupal/verf": "~1.0",
         "drupal/video": "^1.4",
         "drupal/video_embed_field": "^2.0",
         "drupal/views_block_filter_block": "1.x-dev",
