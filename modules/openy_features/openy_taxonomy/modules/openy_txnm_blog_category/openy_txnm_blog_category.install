@@ -66,3 +66,19 @@ function openy_txnm_blog_category_update_8004() {
     }
   }
 }
+
+/**
+ * Update settings in the field instance.
+ */
+function openy_txnm_blog_category_update_8005() {
+  $config_name = 'field.field.taxonomy_term.blog_category.field_taxonomy_content';
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_txnm_blog_category');
+  $config .= '/config/install/';
+  $config .= $config_name . '.yml';
+  $config_importer->update(
+    $config,
+    $config_name,
+    'settings'
+  );
+}
