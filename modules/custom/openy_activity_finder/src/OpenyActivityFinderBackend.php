@@ -44,6 +44,11 @@ abstract class OpenyActivityFinderBackend implements OpenyActivityFinderBackendI
     $ages = [];
 
     $ages_config = $this->config->get('ages');
+
+    if (!$ages_config) {
+      return [];
+    }
+
     foreach (explode("\n", $ages_config) as $row) {
       $row = trim($row);
       list($months, $label) = explode(',', $row);
@@ -63,6 +68,11 @@ abstract class OpenyActivityFinderBackend implements OpenyActivityFinderBackendI
     $weeks = [];
 
     $weeks_config = $this->config->get('weeks');
+
+    if (!$weeks_config) {
+      return [];
+    }
+
     foreach (explode("\n", $weeks_config) as $row) {
       $row = trim($row);
       list($months, $label) = explode(',', $row);

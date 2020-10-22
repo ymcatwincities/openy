@@ -577,10 +577,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           foreach ($program_subcategories as $program_subcategory_node) {
             if ($program_node = $program_subcategory_node->field_category_program->entity) {
               $data[$program_subcategory_node->id()] = [
-                'title' => $program_subcategory_node->title->value,
+                'title' => $program_subcategory_node->label(),
                 'program' => [
                   'nid' => $program_node->id(),
-                  'title' => $program_node->title->value,
+                  'title' => $program_node->label(),
                 ],
               ];
             }
@@ -647,14 +647,14 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
                 ];
               }
             }
-            $data[$location->title->value] =[
+            $data[$location->label()] =[
               'type' => $location->bundle(),
               'address' => $address,
               'days' => $days,
               'email' => $location->field_location_email->value,
               'nid' => $location->id(),
               'phone' => $location->field_location_phone->value,
-              'title' => $location->title->value
+              'title' => $location->label()
             ];
           }
         }
