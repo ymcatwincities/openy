@@ -102,7 +102,7 @@
         "oomphinc/composer-installers-extender": "^1.1",
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
-        "ymcatwincities/custom_formatters": "*",
+        "drupal/custom_formatters": "^3.0 || ^3.0@beta",
         "ymcatwincities/domain_theme_switch": "*",
         "ymcatwincities/libraries": "*",
         "ymcatwincities/media_entity_document": "*",
