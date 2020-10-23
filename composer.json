@@ -23,7 +23,7 @@
         "drupal/crop": "^2.0",
         "drupal/css_editor": "^1.2",
         "drupal/ctools": "3.0",
-        "drupal/custom_formatters": "3.0-alpha1",
+        "drupal/custom_formatters": "^3.0 || ^3.0@beta",
         "drupal/datalayer": "1.x-dev",
         "drupal/domain": "1.0-alpha14",
         "drupal/domain_theme_switch": "^1.4",
