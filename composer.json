@@ -21,7 +21,7 @@
         "drupal/core-composer-scaffold": "^8.8",
         "drupal/core-recommended": "^8.8",
         "drupal/crop": "^2.0",
-        "drupal/css_editor": "^1.2",
+        "drupal/css_editor": "^1.3@RC || ~1.3",
         "drupal/ctools": "3.0 || ~3.4",
         "drupal/custom_formatters": "^3.0 || ^3.0@beta",
         "drupal/datalayer": "^1.0@beta || ^1.0",
