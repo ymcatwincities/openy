@@ -4,7 +4,7 @@
     "description": "Open Y distribution",
     "license": "GPL-2.0-or-later",
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.3",
         "composer/installers": "^1.0",
         "cweagans/composer-patches": "^1.5.0",
         "doctrine/inflector": "1.2.*",
@@ -23,9 +23,9 @@
         "drupal/crop": "^2.0",
         "drupal/css_editor": "^1.2",
         "drupal/ctools": "3.0",
-        "drupal/custom_formatters": "3.0-alpha1",
-        "drupal/datalayer": "1.x-dev",
-        "drupal/domain": "1.0-alpha14",
+        "drupal/custom_formatters": "^3.0 || ^3.0@beta",
+        "drupal/datalayer": "^1.0@beta || ^1.0",
+        "drupal/domain": "^1.0@beta || ^1.0",
         "drupal/domain_theme_switch": "^1.4",
         "drupal/draggableviews": "^1.2",
         "drupal/dropzonejs": "^2.0",
@@ -53,8 +53,8 @@
         "drupal/link_attributes": "^1.10",
         "drupal/media_directories": "^1.0",
         "drupal/media_entity": "2.0.0-beta3",
-        "drupal/media_entity_document": "1.x-dev",
-        "drupal/media_entity_image": "1.x-dev",
+        "drupal/media_entity_document": "^1.1",
+        "drupal/media_entity_image": "^1.4@RC || ^1.4",
         "drupal/media_entity_video": "^2.0",
         "drupal/metatag": "~1.8",
         "drupal/migrate_plus": "^5",
@@ -70,7 +70,7 @@
         "drupal/scheduler": "1.3",
         "drupal/search_api": "1.17",
         "drupal/search_api_solr": "^4.1",
-        "drupal/simple_menu_icons": "2.x-dev",
+        "drupal/simple_menu_icons": "^2.2",
         "drupal/simple_sitemap": "3.0.0",
         "drupal/slick": "~2.2",
         "drupal/slick_views": "~2.3",
@@ -78,11 +78,11 @@
         "drupal/token": "^1.5",
         "drupal/token_filter": "~1.1",
         "drupal/twig_tweak": "^2.4",
-        "drupal/tzfield": "1.x-dev",
+        "drupal/tzfield": "~1.3",
         "drupal/verf": "1.0-beta7",
         "drupal/video": "^1.4",
         "drupal/video_embed_field": "^2.0",
-        "drupal/views_block_filter_block": "1.x-dev",
+        "drupal/views_block_filter_block": "~1.0",
         "drupal/views_data_export": "1.0-rc1",
         "drupal/views_field_formatter": "~1.9",
         "drupal/views_infinite_scroll": "1.7",
@@ -174,16 +174,11 @@
                 "3149789 - Add a 3.x branch with an update path to the video source in core.": "https://www.drupal.org/files/issues/2020-06-11/3149789-4.patch"
             },
             "drupal/blazy": {
-                "Remove core media dependencies to unblock upgrade": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/blazy/remove-core-media-dependencies.patch",
                 "Add option for native browser lazy load": "https://www.drupal.org/files/issues/2020-06-18/3142503-native-option-2.patch",
                 "SVG placeholder html validation error space is not allowed": "https://www.drupal.org/files/issues/2020-06-23/blazy_fix_svg_placeholder-3154185-2.patch"
             },
             "drupal/geysir": {
                 "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
-            },
-            "drupal/search_api_solr": {
-                "Fix search_api_solr_cron() with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_cron_fix-3170802.patch",
-                "Fix cores appear unavailable in UI with Solr 4.x backend": "https://www.drupal.org/files/issues/2020-09-14/search_api_solr-solr_4_core_unavailable_ui-3170793.patch"
             },
             "drupal/jquery_colorpicker": {
                 "Use library directory instead vendor": "https://gist.githubusercontent.com/manachynskyi/3b059456ce97dd4380ff0c0e85f41696/raw/4cf7103c75849b2b474424fe9d8ad969192dd779/library_path_update.patch"
