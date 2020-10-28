@@ -106,7 +106,7 @@
         "ymcatwincities/domain_theme_switch": "*",
         "ymcatwincities/libraries": "*",
         "ymcatwincities/media_entity_document": "*",
-        "ymcatwincities/media_entity_image": "*",
+        "drupal/media_entity_image": "^1.4@RC || ~1.4",
         "ymcatwincities/media_entity_video": "*",
         "ymcatwincities/video": "*"
     },
