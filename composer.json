@@ -17,7 +17,7 @@
         "drupal/ckeditor_font": "^1",
         "drupal/colorapi": "^1.1",
         "drupal/colorbutton": "^1",
-        "drupal/confi": "~1.4 || ~2.0",
+        "drupal/confi": "^2.0@RC || ~2.0",
         "drupal/config_update": "^1.6",
         "drupal/core": "~9.0.7",
         "drupal/core-composer-scaffold": "^9",
