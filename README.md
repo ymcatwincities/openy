@@ -5,13 +5,13 @@
 </p>
 
 <h3 align="center">
-  Open Y
+  Open Y on Drupal 9 - Work in Progress
 </h3>
 <p align="center">
   https://openy.org
 </p>
 <p align="center">
-  An open source platform for YMCAs, by YMCAs built on <a href="https://drupal.org">Drupal</a>.
+  An open source platform for YMCAs, by YMCAs built on <a href="https://drupal.org">Drupal</a>, ReactJS, Vue.js and others.
 </p>
 
 <p align="center">
@@ -24,7 +24,7 @@
 The Open Y platform is a content management system that uses Drupal 8 functionality and useful modules from YMCAs and digital partners. It’s easy and free to use — everyone is welcome to implement Open Y and run Open Y projects.
 
 # Demo
-You can always evaluate distribution by visiting demo website - http://sandbox.openymca.org. To get admin credentials to the sandbox - please [visit page for details](https://community.openymca.org/t/how-can-i-try-or-get-a-demo-of-open-y/318).
+You can always evaluate distribution by visiting demo website - http://sandboxes.openy.org. To get admin credentials to the sandbox - please [visit page for details](https://community.openymca.org/t/how-can-i-try-or-get-a-demo-of-open-y/318).
 
 ![Open Y Sandbox](docs/assets/sandbox.gif "Open Y Demo")
 
@@ -40,8 +40,7 @@ You can always evaluate distribution by visiting demo website - http://sandbox.o
 We are using [composer](https://getcomposer.org/) for initiating new project tree.
 
 ```
-composer create-project ymcatwincities/openy-project MY_PROJECT --no-interaction
-cd MY_PROJECT && composer update
+composer create-project ymcatwincities/openy-project:dev-9.2.x-development OPENY --no-interaction
 ```
 
 In order to properly install Open Y Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).

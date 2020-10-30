@@ -11,7 +11,6 @@ use Drupal\focal_point\FocalPointManagerInterface;
 use Drupal\openy_focal_point\Ajax\RerenderThumbnailCommand;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\crop\Entity\Crop;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
@@ -68,117 +67,115 @@ class OpenYFocalPointEditForm extends FormBase {
     $build_info = $form_state->getBuildInfo();
     /** @var File $file */
     $file = $build_info['args'][0];
-    $image_styles = $build_info['args'][1];
+    $style = $build_info['args'][1];
     $focal_point_value = $build_info['args'][2];
 
     $form_state->set('file', $file);
 
     $random = new Random();
 
-    foreach ($image_styles as $style) {
-      $style_label = $style->get('label');
-      // We add random to get parameter so every time Preview popup is loaded
-      // fresh images are regenerated and browser cache is bypassed. So if
-      // we edit crop settings, save them and open Preview popup once again
-      // images are regenerated.
-      $focal_point_value .= '-' . $random->name();
-      $url = $this->buildUrl($style, $file, $focal_point_value);
+    $style_label = $style->get('label');
+    // We add random to get parameter so every time Preview popup is loaded
+    // fresh images are regenerated and browser cache is bypassed. So if
+    // we edit crop settings, save them and open Preview popup once again
+    // images are regenerated.
+    $focal_point_value .= '-' . $random->name();
+    $url = $this->buildUrl($style, $file, $focal_point_value);
 
-      $derivative_images[$style->id()] = [
-        'style' => $style_label,
-        'url' => $url,
-        'image' => [
-          '#theme' => 'image',
-          '#uri' => $url,
-          '#alt' => $this->t('OpenY Focal Point Preview: %label', ['%label' => $style_label]),
-          '#attributes' => [
-            'class' => ['focal-point-derivative-preview-image'],
-          ],
+    $derivative_images[$style->id()] = [
+      'style' => $style_label,
+      'url' => $url,
+      'image' => [
+        '#theme' => 'image',
+        '#uri' => $url,
+        '#alt' => $this->t('OpenY Focal Point Preview: %label', ['%label' => $style_label]),
+        '#attributes' => [
+          'class' => ['focal-point-derivative-preview-image'],
         ],
-      ];
+      ],
+    ];
 
-      $form['openy_focal_point_preview'] = [
-        '#theme' => "openy_focal_point_preview",
-        '#data' => [
-          'derivative_images' => $derivative_images,
-        ],
-      ];
+    $form['openy_focal_point_preview'] = [
+      '#theme' => "openy_focal_point_preview",
+      '#data' => [
+        'derivative_images' => $derivative_images,
+      ],
+    ];
 
-      // Check if this image already has manual crop.
-      $effects = $style->getEffects()->getConfiguration();
-      $manual = array_pop($effects);
-      $crop_type = $manual['data']['crop_type'];
-      $crop = Crop::findCrop($file->getFileUri(), $crop_type);
-      if ($crop) {
-        // We are getting an error about Outdated form. For some reason that happens
-        // when there are multiple ajax forms in dialogs. Lets clean it up.
-        \Drupal::messenger()->deleteAll();
-
-        \Drupal::messenger()->addWarning('There is manual crop set for this image. It overrides focal point settings');
-        $status_messages = ['#type' => 'status_messages'];
-        $messages_html = drupal_render_root($status_messages);
-        $form['manual_crop_exists'] = [
-          '#markup' => $messages_html,
-        ];
+    // Check if this image already has manual crop.
+    $effects = $style->getEffects()->getConfiguration();
+    $crop_type = NULL;
+    foreach ($effects as $effect) {
+      if ($effect['id'] === 'openy_crop_crop') {
+        $crop_type = $effect['data']['crop_type'];
+        break;
       }
-
-      // We will display "Focal point updated" message here.
-      $form['messages'] = [
-        '#markup' => '<div id="focal-point-dialog-messages"></div>'
-      ];
-
-      // From FocalPointImageWidget::createFocalPointField().
-      $crop_type = $this->config('focal_point.settings')->get('crop_type');
-      $crop = Crop::findCrop($file->getFileUri(), $crop_type);
-      $image = $this->imageFactory->get($file->getFileUri());
-      $width = $image->getWidth();
-      $height = $image->getHeight();
-
-      $anchor = $this->manager->absoluteToRelative($crop->x->value, $crop->y->value, $width, $height);
-      $focal_point_default_value = "{$anchor['x']},{$anchor['y']}";
-
-      $form['focal'] = [
-        '#type' => 'fieldset',
-        '#title' => $this->t('Set focal Point'),
-      ];
-      // Should be unique class for textfield.
-      $focal_point_selector = 'focal-point-' . $style->id();
-
-      $form['focal'][$style->id()]['indicator'] = [
-        '#type' => 'html_tag',
-        '#tag' => 'div',
-        '#attributes' => [
-          'class' => ['focal-point-indicator'],
-          'data-selector' => $focal_point_selector,
-        ],
-      ];
-
-      $form['focal'][$style->id()]['preview'] = [
-        '#theme' => 'image_style',
-        '#width' => $width,
-        '#height' => $height,
-        // @TODO: Avoid hardcoded style name. It comes from field settings.
-        '#style_name' => 'thumbnail_focal_point',
-        '#uri' => $file->getFileUri(),
-      ];
-
-      $form['focal'][$style->id()]['focal_point'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('Focal point'),
-        '#description' => $this->t('Specify the focus of this image in the form "leftoffset,topoffset" where offsets are in percents. Ex: 25,75'),
-        '#default_value' => $focal_point_default_value,
-        '#attributes' => [
-          'class' => ['focal-point', $focal_point_selector],
-          'data-selector' => $focal_point_selector,
-        ],
-        '#wrapper_attributes' => [
-          'class' => ['focal-point-wrapper', 'visually-hidden', 'hidden'],
-        ],
-        '#attached' => [
-          'library' => ['focal_point/drupal.focal_point'],
-        ],
+    }
+    if ($crop_type && Crop::cropExists($file->getFileUri(), $crop_type)) {
+      \Drupal::messenger()->addWarning('There is manual crop set for this image. It overrides focal point settings');
+      $status_messages = ['#type' => 'status_messages'];
+      $messages_html = \Drupal::service('renderer')->renderRoot($status_messages);
+      $form['manual_crop_exists'] = [
+        '#markup' => $messages_html,
       ];
     }
+
+    // We will display "Focal point updated" message here.
+    $form['messages'] = [
+      '#markup' => '<div id="focal-point-dialog-messages"></div>'
+    ];
+
+    // From FocalPointImageWidget::createFocalPointField().
+    $crop_type = $this->config('focal_point.settings')->get('crop_type');
+    $crop = Crop::findCrop($file->getFileUri(), $crop_type);
+    $image = $this->imageFactory->get($file->getFileUri());
+    $width = $image->getWidth();
+    $height = $image->getHeight();
+
+    $anchor = $this->manager->absoluteToRelative($crop->x->value, $crop->y->value, $width, $height);
+    $focal_point_default_value = "{$anchor['x']},{$anchor['y']}";
+
+    $form['focal'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Set focal Point'),
+    ];
+    // Should be unique class for textfield.
+    $focal_point_selector = 'focal-point-' . $style->id();
+
+    $form['focal'][$style->id()]['indicator'] = [
+      '#type' => 'html_tag',
+      '#tag' => 'div',
+      '#attributes' => [
+        'class' => ['focal-point-indicator'],
+        'data-selector' => $focal_point_selector,
+      ],
+    ];
+
+    $form['focal'][$style->id()]['preview'] = [
+      '#theme' => 'image_style',
+      '#width' => $width,
+      '#height' => $height,
+      // @TODO: Avoid hardcoded style name. It comes from field settings.
+      '#style_name' => 'thumbnail_focal_point',
+      '#uri' => $file->getFileUri(),
+    ];
+
+    $form['focal'][$style->id()]['focal_point'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Focal point'),
+      '#description' => $this->t('Specify the focus of this image in the form "leftoffset,topoffset" where offsets are in percents. Ex: 25,75'),
+      '#default_value' => $focal_point_default_value,
+      '#attributes' => [
+        'class' => ['focal-point', $focal_point_selector],
+        'data-selector' => $focal_point_selector,
+      ],
+      '#wrapper_attributes' => [
+        'class' => ['focal-point-wrapper', 'visually-hidden', 'hidden'],
+      ],
+      '#attached' => [
+        'library' => ['focal_point/drupal.focal_point'],
+      ],
+    ];
 
     $form['save_focal_point'] = [
       '#type' => 'submit',
@@ -199,6 +196,9 @@ class OpenYFocalPointEditForm extends FormBase {
     ];
 
     $form['#attached']['library'][] = 'openy_focal_point/openy_focal_point';
+
+    // @TODO: fix problem with form is outdated.
+    $form['#token'] = FALSE;
 
     return $form;
   }
@@ -236,7 +236,7 @@ class OpenYFocalPointEditForm extends FormBase {
 
     \Drupal::messenger()->addStatus('Focal point updated');
     $status_messages = ['#type' => 'status_messages'];
-    $messages_html = drupal_render_root($status_messages);
+    $messages_html = \Drupal::service('renderer')->renderRoot($status_messages);
     $messages_html = '<div id="focal-point-dialog-messages">' . $messages_html . '</div>';
 
     $ajax = new AjaxResponse();

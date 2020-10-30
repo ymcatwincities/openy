@@ -10,4 +10,4 @@ services:
 #    public: false
 #    decorates: workbench_moderation.state_transition_validation
 #    decoration_priority: 3
-#    arguments: ['@entity_type.manager', '@entity.query', '@page_access.default', '@service_container']
+#    arguments: ['@entity_type.manager', '@entity.entity_type.manager', '@page_access.default', '@service_container']

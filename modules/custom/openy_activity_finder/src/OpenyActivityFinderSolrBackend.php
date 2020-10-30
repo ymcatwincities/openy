@@ -371,7 +371,7 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
         // Example of calendar format 2018-08-21 14:15:00.
         $atc_info['time_start_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
         $atc_info['time_end_calendar'] = DrupalDateTime::createFromTimestamp(strtotime($dates[0]->field_session_time_date->getValue()[0]['end_value'] . 'Z'), $this->timezone)->format('Y-m-d H:i:s');
-        $atc_info['timezone'] = drupal_get_user_timezone();
+        $atc_info['timezone'] = date_default_timezone_get();
       }
 
       $item_data = [
@@ -577,10 +577,10 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
           foreach ($program_subcategories as $program_subcategory_node) {
             if ($program_node = $program_subcategory_node->field_category_program->entity) {
               $data[$program_subcategory_node->id()] = [
-                'title' => $program_subcategory_node->title->value,
+                'title' => $program_subcategory_node->label(),
                 'program' => [
                   'nid' => $program_node->id(),
-                  'title' => $program_node->title->value,
+                  'title' => $program_node->label(),
                 ],
               ];
             }
@@ -647,14 +647,14 @@ class OpenyActivityFinderSolrBackend extends OpenyActivityFinderBackend {
                 ];
               }
             }
-            $data[$location->title->value] =[
+            $data[$location->label()] =[
               'type' => $location->bundle(),
               'address' => $address,
               'days' => $days,
               'email' => $location->field_location_email->value,
               'nid' => $location->id(),
               'phone' => $location->field_location_phone->value,
-              'title' => $location->title->value
+              'title' => $location->label()
             ];
           }
         }

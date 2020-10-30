@@ -3,7 +3,7 @@ type: module
 description: Handles general Open Y configuration for administrators.
 package: Open Y
 version: 8.x-1.0
-core: 8.x
+core_version_requirement: ^8 || ^9
 configure: openy_system.modules_list
 dependencies:
   - drupal:migrate

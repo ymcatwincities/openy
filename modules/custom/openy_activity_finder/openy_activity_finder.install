@@ -99,3 +99,14 @@ function openy_activity_finder_update_8006() {
     }
   }
 }
+
+/**
+ * Update Activity Finder configs.
+ */
+function openy_activity_finder_update_8007(&$sandbox) {
+  $config = \Drupal::configFactory()->getEditable('openy_activity_finder.settings');
+  if ($config && empty($config->get('weeks'))) {
+    $config->set('weeks', '');
+    $config->save();
+  }
+}
