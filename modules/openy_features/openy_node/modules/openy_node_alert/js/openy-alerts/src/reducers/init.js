@@ -31,10 +31,19 @@ export default function activityTypes(state = initState, action) {
       const alerts = action.payload;
       let dismissed = cookie.load('alerts_dismiss');
       if (dismissed) {
-        let alertsHeaderLocal = alerts.header.local.filter((element) => !dismissed.includes(parseInt(element.id)));
-        let alertsFooterLocal = alerts.footer.local.filter((element) => !dismissed.includes(parseInt(element.id)));
-        alerts.header.local = alertsHeaderLocal;
-        alerts.footer.local = alertsFooterLocal;
+        if (alerts.header) {
+          let alertsHeaderLocal = alerts.header.hasOwnProperty('local')
+            ? alerts.header.local.filter((element) => !dismissed.includes(parseInt(element.id)))
+            : [];
+          alerts.header.local = alertsHeaderLocal;
+        }
+
+        if (alerts.footer) {
+          let alertsFooterLocal = alerts.footer.hasOwnProperty('local')
+            ? alerts.footer.local.filter((element) => !dismissed.includes(parseInt(element.id)))
+            : [];
+          alerts.footer.local = alertsFooterLocal;
+        }
       }
 
       if (
