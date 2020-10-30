@@ -6,26 +6,61 @@
  */
 
 use \Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
 
 /**
  * Implements hook_form_alter().
  */
 function openy_prgf_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Return if not a node form.
-  if (empty($form['#entity_type']) || $form['#entity_type'] !== 'node') {
+  if (empty($form['#entity_type'])) {
     return;
   }
 
-  // Unset paragraph add options, by field, based on configuration.
-  $fields_unset_paragraphs = Drupal::configFactory()->get('openy_prgf.settings')
-    ->get('fields_unset_paragraphs');
+  $module_config = Drupal::configFactory()->get('openy_prgf.settings');
+  $fields_unset_paragraphs = [];
+  $fields_allow_only_paragraphs = [];
+  switch ($form['#entity_type']) {
+    case 'node':
+      $fields_unset_paragraphs = $module_config->get('fields_unset_paragraphs');
+      break;
+
+    case 'taxonomy_term':
+      $fields_allow_only_paragraphs = $module_config->get('fields_allow_only_paragraphs_taxonomy');
+      break;
+
+    case 'block_content':
+    case 'paragraph':
+    default:
+      return;
+  }
+  $button_key_start_pattern = 'add_more_button_';
+  // Unset paragraph add options, by field, based on unset configuration.
   foreach ($fields_unset_paragraphs as $field_name => $unset_paragraphs) {
     if (!isset($form[$field_name]) || empty($unset_paragraphs) || !is_array($unset_paragraphs)) {
       continue;
     }
     foreach ($unset_paragraphs as $unset_paragraph) {
-      if (isset($form[$field_name]['widget']['add_more']['add_more_button_' . $unset_paragraph])) {
-        unset($form[$field_name]['widget']['add_more']['add_more_button_' . $unset_paragraph]);
+      if (isset($form[$field_name]['widget']['add_more'][$button_key_start_pattern . $unset_paragraph])) {
+        unset($form[$field_name]['widget']['add_more'][$button_key_start_pattern . $unset_paragraph]);
+      }
+    }
+  }
+  // Unset paragraph add options, by field, based on allowed configuration.
+  foreach ($fields_allow_only_paragraphs as $field_name => $allow_paragraphs) {
+    if (!isset($form[$field_name]) || empty($allow_paragraphs) || !is_array($allow_paragraphs)) {
+      continue;
+    }
+    foreach (Element::children($form[$field_name]['widget']['add_more']) as $key) {
+      // We should manage only buttons, which have the names started with a
+      // proper pattern.
+      if (strpos($key, $button_key_start_pattern) !== 0) {
+        continue;
+      }
+
+      $prgf_name = substr($key, strlen($button_key_start_pattern));
+      if (!in_array($prgf_name, $allow_paragraphs)) {
+        unset($form[$field_name]['widget']['add_more'][$key]);
       }
     }
   }
