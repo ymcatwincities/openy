@@ -103,7 +103,7 @@
         "npm-asset/jquery.easing": "^1.4",
         "npm-asset/slick-carousel": "^1.8",
         "oomphinc/composer-installers-extender": "^1.1 || ~2.0.0",
-        "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2"
+        "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
         "ymcatwincities/domain_theme_switch": "*",
         "ymcatwincities/libraries": "*",
