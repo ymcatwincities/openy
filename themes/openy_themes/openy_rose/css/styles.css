@@ -1021,7 +1021,23 @@ body {
   padding-bottom: 10px;
 }
 .sidebar .row-level-3 {
-  display: none;
+  position: static !important;
+  transform: none !important;
+  list-style: none;
+  padding-left: 17px;
+  margin-top: 6px;
+}
+.sidebar .row-level-3 li.nav-level-4 {
+  padding: 0px 0 15px;
+}
+.sidebar .nav-level-3 a {
+  text-transform: none;
+}
+.sidebar .nav-level-3 a:first-child {
+  padding: 15px 7px 15px 30px;
+}
+.sidebar .nav-level-3 li a {
+  font-size: 16px;
 }
 .sidebar input[type="submit"] {
   display: none;
@@ -1039,7 +1055,7 @@ body {
 }
 .sidebar .navbar-nav .open .dropdown-menu > li > a,
 .sidebar .navbar-nav .open .dropdown-menu .dropdown-header {
-  padding: 12px 15px 12px 23px;
+  padding: 15px 7px 15px 30px;
 }
 .sidebar .dropdown-menu > li > a:hover,
 .sidebar .dropdown-menu > li > a:focus {
