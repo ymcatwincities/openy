@@ -39,7 +39,7 @@
         "drupal/entity_reference_revisions": "~1.6",
         "drupal/features": "3.8 || ~3.11",
         "drupal/field_group": "~3.0",
-        "drupal/focal_point": "~1.0-beta6",
+        "drupal/focal_point": "1.0-beta6",
         "drupal/fontyourface": "^3.2",
         "drupal/geolocation": "^3.0",
         "drupal/geysir": "^1.2",
