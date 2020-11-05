@@ -15,6 +15,7 @@ function openy_media_install() {
     $config_importer->setDirectory($config_dir);
     $config_importer->importConfigs([
       'blazy.settings',
+      'media_directories.settings'
     ]);
 }
 
@@ -97,18 +98,5 @@ function openy_media_update_8005() {
   $config_importer->importConfigs([
     'media_directories.settings',
     'taxonomy.vocabulary.media_folders',
-  ]);
-}
-
-/**
- * Install media directories configuration override.
- */
-function openy_media_update_8006() {
-  $config_dir = drupal_get_path('module', 'openy_media') . '/config/override/';
-  // Import configuration.
-  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
-  $config_importer->setDirectory($config_dir);
-  $config_importer->importConfigs([
-    'media_directories.settings'
   ]);
 }
