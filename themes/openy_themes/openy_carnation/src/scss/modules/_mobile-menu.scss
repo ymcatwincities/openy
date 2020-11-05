@@ -98,8 +98,20 @@
     overflow: visible;
   }
 
-  .row-level-3 {
-    list-style: none;
+  .nav-level-2 {
+    .row-level-2 {
+      display: none;
+    }
+
+    &.show .row-level-3 {
+      display: block;
+      position: static !important;
+      transform: none !important;
+      list-style: none;
+      background-color: $white;
+      padding-left: 17px;
+      margin-top: 6px;
+    }
   }
 
   // Search form.
@@ -122,8 +134,24 @@
     background-color: $white;
   }
 
-  .nav-level-3 a {
-    text-transform: uppercase;
+  .nav-level-3 {
+    a {
+      text-transform: none;
+      &:first-child {
+        padding: 15px 7px 15px 30px;
+      }
+    }
+    li a {
+      font-size: 16px;
+    }
+  }
+
+  .nav-level-4 {
+    a {
+      &:first-child {
+        padding: 15px 7px 15px 35px;
+      }
+    }
   }
 
   .dropdown-menu > li > a:hover,

@@ -60,9 +60,33 @@
     {% for item in items %}
       {% set ia = item.attributes.addClass(['nav-item nav-level-3 menu-item-' ~ item.title|clean_class]) %}
       <li{{ ia }}>
-        {{ link(item.title, item.url, {'class' : 'nav-link'}) }}
+        {% if item.below %}
+          {% set item_title %}
+            {{ item.title }}
+            <i class="fa fa-angle-up" aria-hidden="true"></i>
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+          {% endset %}
+          {{ link(item.title, item.url, {'class' : 'nav-link'}) }}
+          {{ menus.menu_links_level_3(item.below, attributes, menu_level + 1) }}
+        {% else %}
+          {{ link(item.title, item.url, {'class' : 'nav-link'}) }}
+        {% endif %}
       </li>
     {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}
+
+{% macro menu_links_level_3(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    <ul class="dropdown-menu row-level-3 px-2">
+      {% for item in items %}
+        {% set ia = item.attributes.addClass(['nav-item nav-level-4 menu-item-' ~ item.title|clean_class]) %}
+        <li{{ ia }}>
+          {{ link(item.title, item.url, {'class' : 'nav-link'}) }}
+        </li>
+      {% endfor %}
     </ul>
   {% endif %}
 {% endmacro %}
