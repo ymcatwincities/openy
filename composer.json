@@ -57,6 +57,7 @@
         "drupal/link_attributes": "^1",
         "drupal/media_directories": "^2",
         "drupal/media_entity_image": "^1.4@RC || ~1.4",
+        "drupal/media_entity_video": "^2.0@RC || ^2.0",
         "drupal/metatag": "^1",
         "drupal/migrate_plus": "^5",
         "drupal/migrate_source_csv": "^3",
@@ -107,7 +108,6 @@
         "symfony/process": "^4",
         "ymcatwincities/libraries": "*",
         "ymcatwincities/media_entity_document": "*",
-        "ymcatwincities/media_entity_video": "*",
         "ymcatwincities/video": "*"
     },
     "require-dev": {
