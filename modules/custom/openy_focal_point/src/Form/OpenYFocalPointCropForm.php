@@ -5,15 +5,12 @@ namespace Drupal\openy_focal_point\Form;
 use Drupal\Component\Utility\Random;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\CloseDialogCommand;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Image\ImageFactory;
 use Drupal\crop\Entity\Crop;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\openy_focal_point\Ajax\RerenderThumbnailCommand;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Form to create/edit crops in widget's preview popup.
@@ -33,14 +30,13 @@ class OpenYFocalPointCropForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $build_info = $form_state->getBuildInfo();
     $file = $build_info['args'][0];
-    $image_styles = $build_info['args'][1];
+    $style = $build_info['args'][1];
     $focal_point_value = $build_info['args'][2];
 
     $form_state->set('file', $file);
 
     $random = new Random();
 
-    $style = reset($image_styles);
     $style_label = $style->get('label');
     // We add random to get parameter so every time Preview popup is loaded
     // fresh images are regenerated and browser cache is bypassed. So if
@@ -71,8 +67,13 @@ class OpenYFocalPointCropForm extends FormBase {
 
     // We assume that the last effect is a manual crop.
     $effects = $style->getEffects()->getConfiguration();
-    $manual = array_pop($effects);
-    $crop_type = $manual['data']['crop_type'];
+    $crop_type = NULL;
+    foreach ($effects as $effect) {
+      if ($effect['id'] === 'openy_crop_crop') {
+        $crop_type = $effect['data']['crop_type'];
+        break;
+      }
+    }
 
     $form_state->set('crop_type', $crop_type);
 
@@ -112,6 +113,9 @@ class OpenYFocalPointCropForm extends FormBase {
     ];
 
     $form['#attached']['library'][] = 'openy_focal_point/openy_focal_point';
+
+    // @TODO: fix problem with form is outdated.
+    $form['#token'] = FALSE;
 
     return $form;
   }
