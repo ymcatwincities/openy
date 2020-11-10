@@ -13,7 +13,7 @@
         "drupal/better_exposed_filters": "^5",
         "drupal/blazy": "2.1",
         "drupal/captcha": "^1.0",
-        "drupal/ckeditor_bootstrap_buttons": "^1.2",
+        "drupal/ckeditor_bootstrap_buttons": "^1.2 || ^2.0",
         "drupal/ckeditor_font": "^1.1",
         "drupal/colorbutton": "1.1",
         "drupal/confi": "~1.4 || ~2.0",
