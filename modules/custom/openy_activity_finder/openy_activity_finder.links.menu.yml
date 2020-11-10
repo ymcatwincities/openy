@@ -1,5 +1,0 @@
-openy_activity_finder.admin:
-  title: 'Activity Finder settings'
-  parent: openy_system.openy_settings
-  route_name: openy_activity_finder.settings
-  weight: 0
