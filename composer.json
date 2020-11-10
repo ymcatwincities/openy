@@ -31,7 +31,7 @@
         "drupal/domain": "^1.0@beta || ^1.0",
         "drupal/domain_theme_switch": "^1.5",
         "drupal/draggableviews": "^1",
-        "drupal/dropzonejs": "^2.0",
+        "drupal/dropzonejs": "2.1",
         "drupal/easy_breadcrumb": "^1",
         "drupal/editor_advanced_link": "^1",
         "drupal/embed": "^1",
