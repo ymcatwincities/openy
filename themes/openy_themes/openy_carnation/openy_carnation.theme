@@ -322,6 +322,15 @@ function openy_carnation_preprocess_page_logo(&$variables) {
     }
     $variables['camp_favicon'] = file_create_url(openy_carnation_entity_file_uri_by_fid(theme_get_setting('openy_carnation_camp_favicon')));
   }
+  $variables['site_logo_is_svg'] = FALSE;
+  if (isset($variables['logo_url'])) {
+    $logo_path = $variables['logo_url'];
+    // If logo is a SVG lets load it content so we can inline it.
+    if (strlen($variables['logo_url']) - strpos($variables['logo_url'], '.svg') === 4) {
+      $variables['site_logo_is_svg'] = TRUE;
+      $variables['site_logo_svg'] = file_get_contents($logo_path);
+    }
+  }
 }
 
 /**

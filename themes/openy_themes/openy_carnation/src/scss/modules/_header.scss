@@ -1,8 +1,11 @@
 .mobile-logo {
   float: left;
-  img {
+  img, svg {
     height: 46px;
     width: auto;
+  }
+  svg {
+    fill: $white;
   }
 }
 
@@ -13,9 +16,12 @@
     display: inline-block;
     height:100%;
   }
-  img {
+  img, svg {
     height: 46px;
     width: auto;
+  }
+  svg {
+    fill: $white;
   }
   img:first-child {
     display: initial;
