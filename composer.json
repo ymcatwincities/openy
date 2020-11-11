@@ -108,6 +108,7 @@
         "symfony/process": "^4",
         "ymcatwincities/libraries": "*",
         "ymcatwincities/media_entity_document": "*",
+        "ymcatwincities/openy_activity_finder": "dev-9.x-3.x",
         "ymcatwincities/video": "*"
     },
     "require-dev": {
