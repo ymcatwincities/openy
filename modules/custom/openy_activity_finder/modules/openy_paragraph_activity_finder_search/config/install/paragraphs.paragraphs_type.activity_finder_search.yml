@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: activity_finder_search
-label: 'Activity Finder Search'
-icon_uuid: null
-description: 'Search page for Activity Finder'
-behavior_plugins: {  }

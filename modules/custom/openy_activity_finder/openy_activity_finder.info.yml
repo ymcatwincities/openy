@@ -1,6 +1,0 @@
-name: OpenY Activity Finder
-type: module
-description: Framework for Activity Finder functionality.
-core_version_requirement: ^8 || ^9
-version: 3.0
-package: OpenY
