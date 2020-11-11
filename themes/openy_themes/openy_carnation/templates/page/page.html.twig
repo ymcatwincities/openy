@@ -55,7 +55,11 @@
             {% block mobile_logo %}
               {% if mobile_logo_url %}
                 <a class="mobile-logo d-block d-lg-none" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                  <img src="{{ mobile_logo_url }}" alt="{{ site_slogan|t }}">
+                  {% if site_logo_is_svg %}
+                    {{ site_logo_svg|raw }}
+                  {% else %}
+                    <img src="{{ mobile_logo_url }}" alt="{{ site_slogan|t }}">
+                  {% endif %}
                 </a>
               {% else %}
                 <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>
@@ -139,8 +143,12 @@
                     <span></span>
                     {% if logo_url %}
                       <a class="d-block" href="{{ front_page }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}">
-                        <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" />
-                        <img src="{{ transparent_logo_url }}" alt="{{ site_slogan|t }}" />
+                        {% if site_logo_is_svg %}
+                          {{ site_logo_svg|raw }}
+                        {% else %}
+                          <img src="{{ logo_url }}" alt="{{ site_slogan|t }}" />
+                          <img src="{{ transparent_logo_url }}" alt="{{ site_slogan|t }}" />
+                        {% endif %}
                       </a>
                     {% else %}
                       <a class="navbar-brand" href="{{ base_path }}" title="{{ site_slogan|t }}" rel="{{ site_slogan|t }}"></a>

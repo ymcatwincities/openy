@@ -2,7 +2,6 @@
 
 namespace Drupal\openy_node_alert\Plugin\rest\resource;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\openy_node_alert\Service\AlertManager;
@@ -310,9 +309,9 @@ class AlertsRestResource extends ResourceBase {
    */
   private function checkVisibility(NodeInterface $node) {
 
-    $pages = '';
+    $visibility_paths = '';
     if ($node->hasField('field_alert_visibility_pages')) {
-      $pages = $node->get('field_alert_visibility_pages')->value;
+      $visibility_paths = $node->get('field_alert_visibility_pages')->value;
     }
 
     $state = 'include';
@@ -320,29 +319,28 @@ class AlertsRestResource extends ResourceBase {
       $state = $node->get('field_alert_visibility_state')->value;
     }
 
-    $pages = mb_strtolower($pages);
-    if (!$pages) {
+    $visibility_paths = mb_strtolower($visibility_paths);
+    $pages = preg_split("(\r\n?|\n)", $visibility_paths);
+
+    if (empty($pages)) {
       // Global alert.
       return TRUE;
     }
-
-
     // Convert path to lowercase. This allows comparison of the same path.
     // with different case. Ex: /Page, /page, /PAGE.
     // Compare the lowercase path alias (if any) and internal path.
     $current_path = $_GET['uri'];
-    $path = $this->aliasManager->getAliasByPath($current_path);
-    $path = mb_strtolower($path);
-
-    // Do not trim a trailing slash if that is the complete path.
-    $path = $path === '/' ? $path : rtrim($path, '/');
-
-    $is_path_match = $this->pathMatcher->matchPath($path, $pages);
-    if ($state == 'include' && $is_path_match || $state == 'exclude' && !$is_path_match) {
-      // Local alert.
-      return TRUE;
+    $current_path = $this->aliasManager->getAliasByPath($current_path);
+    $current_path = mb_strtolower($current_path);
+    // Check all values from the field "alert_visibility_pages".
+    foreach ($pages as $page) {
+      $page_path = $page === '<front>' ? '/' : '/' . ltrim($page, '/');
+      $is_path_match = $this->pathMatcher->matchPath($current_path, $page_path);
+      if ($state == 'include' && $is_path_match || $state == 'exclude' && !$is_path_match) {
+        // Local alert.
+        return TRUE;
+      }
     }
-
     return FALSE;
   }
 
