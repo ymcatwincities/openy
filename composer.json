@@ -104,7 +104,7 @@
         "npm-asset/slick-carousel": "^1.8",
         "oomphinc/composer-installers-extender": "^1.1 || ^2.0.0",
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
-        "ymcatwincities/openy_activity_finder": "dev-9.x-3.x"
+        "ymcatwincities/openy_activity_finder": "^3.1 || ^4.0"
     },
     "require-dev": {
         "behat/behat": "^3.0",
