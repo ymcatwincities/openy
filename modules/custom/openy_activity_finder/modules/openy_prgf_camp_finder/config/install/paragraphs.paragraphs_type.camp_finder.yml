@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: camp_finder
-label: 'Camp Finder'
-icon_uuid: null
-description: ''
-behavior_plugins: {  }
