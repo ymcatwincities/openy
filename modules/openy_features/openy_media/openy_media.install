@@ -15,6 +15,7 @@ function openy_media_install() {
     $config_importer->setDirectory($config_dir);
     $config_importer->importConfigs([
       'blazy.settings',
+      'media_directories.settings'
     ]);
 }
 

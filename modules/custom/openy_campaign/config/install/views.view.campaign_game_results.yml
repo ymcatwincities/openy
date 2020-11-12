@@ -15,7 +15,7 @@ description: ''
 tag: ''
 base_table: openy_campaign_member_game
 base_field: id
-core: 8.x
+core_version_requirement: ^8 || ^9
 display:
   default:
     display_plugin: default

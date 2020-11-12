@@ -6,6 +6,11 @@ dependencies:
     - taxonomy.vocabulary.color
   module:
     - colorapi
+    - datalayer
+third_party_settings:
+  datalayer:
+    expose: 0
+    label: field_color
 id: taxonomy_term.color.field_color
 field_name: field_color
 entity_type: taxonomy_term

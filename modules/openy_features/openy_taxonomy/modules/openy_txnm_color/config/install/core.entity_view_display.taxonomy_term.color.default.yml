@@ -23,3 +23,4 @@ content:
 hidden:
   description: true
   langcode: true
+  search_api_excerpt: true
