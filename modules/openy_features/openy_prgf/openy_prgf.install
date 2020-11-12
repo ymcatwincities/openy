@@ -103,3 +103,17 @@ function openy_prgf_update_8008() {
     );
   }
 }
+
+/**
+ * Update openy_prgf.settings.
+ */
+function openy_prgf_update_8009() {
+  $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config = drupal_get_path('module', 'openy_prgf');
+  $config .= '/config/install/';
+  $config .= 'openy_prgf.settings.yml';
+  $config_importer->update($config,
+    'openy_prgf.settings',
+    'fields_allow_only_paragraphs_taxonomy'
+  );
+}

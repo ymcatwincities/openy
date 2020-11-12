@@ -25,3 +25,27 @@ function openy_block_date_update_8001() {
     }
   }
 }
+
+/**
+ * Update fields instances settings.
+ */
+function openy_block_date_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_block_date') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.block_content.date_block.field_content_date_between' => [
+      'settings',
+    ],
+    'field.field.block_content.date_block.field_content_date_end' => [
+      'settings',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}

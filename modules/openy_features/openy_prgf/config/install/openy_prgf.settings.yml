@@ -73,3 +73,11 @@ fields_unset_paragraphs:
     - promo_card
     - story_card
     - schedule_search_form
+fields_allow_only_paragraphs_taxonomy:
+  field_taxonomy_content:
+    - banner
+    - camp_menu
+    - classes_listing_filters
+    - gallery
+    - simple_content
+    - small_banner
