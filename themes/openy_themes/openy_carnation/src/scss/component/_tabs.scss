@@ -123,14 +123,14 @@
 
       &:hover,
       &:focus {
-        border-color: $nav-tabs-link-hover-border-color $nav-tabs-border-color $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color;
+        border-color: $nav-tabs-link-hover-border-color;
       }
     }
 
     > .active > a,
     > .active > a:hover,
     > .active > a:focus {
-      border-color: $nav-tabs-border-color transparent $nav-tabs-border-color $nav-tabs-border-color;
+      border-color: $nav-tabs-border-color;
       box-shadow: -1px 1px 1px rgba(0,0,0,.05);
     }
   }
@@ -147,7 +147,7 @@
 
       &:hover,
       &:focus {
-        border-color: $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-border-color;
+        border-color: $nav-tabs-link-hover-border-color;
         box-shadow: 1px 1px 1px rgba(0,0,0,.05);
       }
     }
