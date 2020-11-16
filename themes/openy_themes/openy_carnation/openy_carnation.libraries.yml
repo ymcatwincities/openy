@@ -2,7 +2,7 @@ global-styling:
   version: 1.x
   css:
     base:
-      //use.fontawesome.com/releases/v5.1.0/css/all.css: {type: external, attributes: { defer: true, async: true} }
+      //use.fontawesome.com/releases/v5.1.0/css/all.css: {type: external}
       dist/css/style.css: {}
   js:
     dist/main.js: {}
