@@ -99,7 +99,7 @@
 }
 
 /* Prevent iphone from zooming in when filling out a form. */
-@media screen and (-webkit-min-device-pixel-ratio:0) and (max-device-width : 999px)  {
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width : 999px)  {
   select,
   input,
   textarea {

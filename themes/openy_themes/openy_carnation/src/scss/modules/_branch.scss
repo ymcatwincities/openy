@@ -392,10 +392,6 @@ html.js {
 #branch-sessions-form-wrapper {
   .container {
     padding: 0;
-
-    @include media-breakpoint-up(sm) {
-      padding: auto;
-    }
   }
 }
 

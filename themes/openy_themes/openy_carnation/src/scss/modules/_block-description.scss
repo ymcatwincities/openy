@@ -26,14 +26,12 @@
     h4 {
       @include cachet();
       font-size: 26px;
-      line-height: lh(30, 26);
       color: $purple;
       margin: 0 0 10px;
       vertical-align: middle;
 
       @include media-breakpoint-up(md) {
         font-size: 36px;
-        line-height: lh(40, 36);
       }
     }
 
@@ -85,12 +83,10 @@
 
     p {
       font-size: 13px;
-      line-height: lh(20, 13);
       margin: 0;
 
       @include media-breakpoint-up(md) {
         font-size: 15px;
-        line-height: lh(22, 15);
       }
     }
 
@@ -105,7 +101,6 @@
     .field-sb-body {
       @include media-breakpoint-up(md) {
         font-size: 15px;
-        line-height: lh(22, 15);
       }
     }
   }
