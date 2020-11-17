@@ -47,18 +47,18 @@ set classes = [
 <div{{ attributes.addClass(classes) }} data-mh="grid-col-group">
   <div class="content p-5"{{ content_attributes }}>
     <div class="inner">
-      {% if content.field_prgf_clm_class|render|trim %}
-        <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
+      {% if paragraph.field_prgf_clm_class.isEmpty() %}
+        <h2 class="with-icon">{{- paragraph.field_prgf_clm_headline.value -}}</h2>
         <span class="d-block py-4">
           <i class="fa fa-{{ paragraph.field_prgf_clm_class.value }}"></i>
         </span>
-      {% elseif content.field_prgf_clm_icon|render|trim %}
-        <h2 class="with-icon">{{ content.field_prgf_clm_headline }}</h2>
+      {% elseif paragraph.field_prgf_clm_icon.isEmpty() %}
+        <h2 class="with-icon">{{- paragraph.field_prgf_clm_headline.value -}}</h2>
         <span class="d-block py-4">
           {{ content.field_prgf_clm_icon }}
         </span>
       {% else %}
-        <h2>{{ content.field_prgf_clm_headline }}</h2>
+        <h2>{{- paragraph.field_prgf_clm_headline.value -}}</h2>
       {% endif %}
       <div class="text pb-5" data-mh="grid-col-group-text">{{ content.field_prgf_grid_clm_description }}</div>
       <div class="image-prgf-grid">{{ content.field_image }}</div>
