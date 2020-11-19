@@ -25,5 +25,10 @@ To modify the preset configuration you can use `drush config-set`
 ([docs](https://drushcommands.com/drush-8x/config/config-set/)).
 
 For example:
-- `drush cset openy_hf.settings header_replacements.selector ".page-middle .lead-copy"`
-- `drush cset openy_hf.settings footer_replacements.selector "#page-footer"`
+- `drush cset openy_hf.settings header_replacements.0.selector ".page-middle .lead-copy"`
+- `drush cset openy_hf.settings footer_replacements.0.selector "#page-footer"`
+
+You can use any valid CSS, which means you can specify multiple selectors too:
+- `drush cset openy_hf.settings header_replacements.0.selector "#page-head, .header-region-content, .breadcrumbs-wrapper.d-lg-block"`
+
+If CSS/JS aggregation is enabled, **you will need to `drush cr` for the changes to take effect**.
