@@ -21,6 +21,9 @@
 #}
 <div class="container">
     <div class="row branch-header-row">
+        <div class="d-flex align-items-center col-lg-12 back-link">
+             <i class="fa fa-arrow-circle-left mr-2" aria-hidden="true"></i>{{ link('Back to All Locations', 'internal:/locations' ) }}
+        </div>
         {% if address_title is not empty %}
             <div class="col-sm-12 col-md-4 col-lg-3">
                 <div class="header-address">
