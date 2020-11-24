@@ -22,6 +22,11 @@
 <div{{ attributes.addClass('branch-header') }}>
   <section class="hidden-xs desktop">
     <div class="container">
+      <div class="row back-link">
+        <i class="fa fa-arrow-circle-left mr-2" aria-hidden="true"></i>
+        {{ link('Back to All Locations', 'internal:/locations' ) }}
+      </div>
+
       <address class="row branch-header-inner branch-info" data-branch-name="{{ node.label }}">
         <div class="column col-sm-3 col-md-2 branch-header__item">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
@@ -60,6 +65,10 @@
   <blockquote class="hidden-sm hidden-md hidden-lg mobile">
     <address class="container">
       <div class="row">
+        <div class="col-xs-12 back-link">
+          <i class="fa fa-arrow-circle-left mr-2" aria-hidden="true"></i>
+          {{ link('Back to All Locations', 'internal:/locations' ) }}
+        </div>
         <div class="col-xs-12">
           <h4>{{ 'WELCOME TO THE'|t }}</h4>
           <p>{{ branch_title }}</p>
