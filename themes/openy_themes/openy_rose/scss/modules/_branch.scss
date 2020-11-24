@@ -1,4 +1,18 @@
 .branch-header {
+  .back-link {
+    margin-bottom: 15px;
+    text-transform: uppercase;
+
+    a {
+      margin-left: 5px;
+    }
+  }
+
+  @media (max-width: 767px){
+    .back-link {
+      font-size: 12px;
+    }
+  }
   .ajax-progress-throbber {
     display: none;
   }

@@ -13428,12 +13428,6 @@ a.sports-icon.floor-hockey {
   }
 }
 
-@media (min-width: 0) and (max-width: 47.9375em) {
-  .location-camp-header .hours {
-    display: none !important;
-  }
-}
-
 .node--type-branch .container-fluid.featured-highlights,
 .node--type-camp .container-fluid.featured-highlights {
   padding: 0;

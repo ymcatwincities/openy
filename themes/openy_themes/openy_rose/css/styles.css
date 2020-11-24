@@ -3135,6 +3135,18 @@ body {
   color: #c6168d;
 }
 
+.branch-header .back-link {
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+.branch-header .back-link a {
+  margin-left: 5px;
+}
+@media (max-width: 767px) {
+  .branch-header .back-link {
+    font-size: 12px;
+  }
+}
 .branch-header .ajax-progress-throbber {
   display: none;
 }
