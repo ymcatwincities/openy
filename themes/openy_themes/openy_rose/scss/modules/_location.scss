@@ -101,8 +101,9 @@
   }
   .field_location_state {
     float: right;
-    margin-right: -20px;
-    margin-top: -20px;
+    top: 0;
+    right: 0;
+    position: absolute;
     padding: 5px;
     font-size: 10px;
     color: #231f20;

@@ -464,14 +464,6 @@
   }
 }
 
-.location-camp-header {
-  .hours {
-    @include breakpoint(0 767px) {
-      display: none !important;
-    }
-  }
-}
-
 .node--type-branch,
 .node--type-camp {
   .container-fluid {

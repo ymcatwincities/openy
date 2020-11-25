@@ -3135,6 +3135,18 @@ body {
   color: #c6168d;
 }
 
+.branch-header .back-link {
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+.branch-header .back-link a {
+  margin-left: 5px;
+}
+@media (max-width: 767px) {
+  .branch-header .back-link {
+    font-size: 12px;
+  }
+}
 .branch-header .ajax-progress-throbber {
   display: none;
 }
@@ -7569,8 +7581,9 @@ article .node--view-mode-flexible-content h2 a span, article .node--view-mode-fl
 }
 .locations-list .field_location_state {
   float: right;
-  margin-right: -20px;
-  margin-top: -20px;
+  top: 0;
+  right: 0;
+  position: absolute;
   padding: 5px;
   font-size: 10px;
   color: #231f20;
@@ -8728,13 +8741,11 @@ input[type="checkbox"]:focus {
   background-color: #fff;
   border: 1px solid #a3a4a6;
   border-radius: 4px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .paragraph--type--faq-item .field-question {
   color: #fff;

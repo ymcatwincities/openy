@@ -8,16 +8,15 @@
       $( context ).find( '.paragraph--type--faq-item' ).once( 'paragraphFaq' ).each( function () {
         // Q/A wrapper.
         var wrapper = $( this );
-
         // Question click event.
         $( '.field-question', wrapper ).on( 'click', function() {
           $( '.field-answer', wrapper ).toggle(200);
 
-          if (wrapper.hasClass('hide')) {
-            wrapper.removeClass('hide').addClass('show');
+          if (wrapper.hasClass('conceal')) {
+            wrapper.removeClass('conceal').addClass('show');
           }
           else {
-            wrapper.removeClass('show').addClass('hide');
+            wrapper.removeClass('show').addClass('conceal');
           }
         });
 

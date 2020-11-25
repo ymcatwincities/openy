@@ -59,9 +59,10 @@
     <div class="banner-cta-content container align-items-center m-auto py-4 py-lg-5 text-white">
       <div class="banner-cta-section">
 
-        {% if not content.field_prgf_headline.isEmpty() %}
+        {% if not paragraph.field_prgf_headline.isEmpty() %}
         <h1 class="banner-title text-uppercase m-0 text-white">
-          {{ content.field_prgf_headline }}
+          {# Use paragraph filed value for preventing using <div> inside h1 #}
+          {{- paragraph.field_prgf_headline.value -}}
         </h1>
           {{ content.field_prgf_description }}
         {% endif %}

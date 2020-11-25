@@ -215,7 +215,7 @@ source:
       id: give_simple
       parent_id: give
       description: |
-        <h2 class="h1"><div class="field-prgf-headline">Why Give to the Y</div></h2>
+        <h2 class="h1"><span class="field-prgf-headline">Why Give to the Y</span></h2>
         <div class="description">
         <div class="field-prgf-description"><p>
         Everyone knows the Y as a place to camp, swim, or exercise. Yet, the
@@ -234,7 +234,7 @@ source:
       id: accelerator_simple
       parent_id: accelerator
       description: |
-        <h2 class="h1"><div class="field-prgf-headline">About Accelerator YMCA</div></h2>
+        <h2 class="h1"><span class="field-prgf-headline">About Accelerator YMCA</span></h2>
         <div class="description">
         <div class="field-prgf-description"><p>
         At the Y, strengthening community is our cause. We provide crucial

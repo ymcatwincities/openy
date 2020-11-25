@@ -3874,8 +3874,9 @@ html.js .branch__updates_queue__button {
 }
 .locations-list .field_location_state {
   float: right;
-  margin-right: -20px;
-  margin-top: -20px;
+  top: 0;
+  right: 0;
+  position: absolute;
   padding: 5px;
   font-size: 10px;
   color: #231f20;
@@ -13427,12 +13428,6 @@ a.sports-icon.floor-hockey {
   }
 }
 
-@media (min-width: 0) and (max-width: 47.9375em) {
-  .location-camp-header .hours {
-    display: none !important;
-  }
-}
-
 .node--type-branch .container-fluid.featured-highlights,
 .node--type-camp .container-fluid.featured-highlights {
   padding: 0;
@@ -14295,13 +14290,11 @@ input[type="checkbox"]:focus {
   background-color: #fff;
   border: 1px solid #a3a4a6;
   border-radius: 4px;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) 0 0 #000;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -o-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -ms-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .paragraph--type--faq-item .field-question {
   color: #fff;
