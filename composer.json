@@ -38,7 +38,7 @@
         "drupal/entity": "^1",
         "drupal/entity_browser": "^2",
         "drupal/entity_clone": "^1.0",
-        "drupal/entity_embed": "^1",
+        "drupal/entity_embed": "1.1",
         "drupal/entity_reference_revisions": "^1.6",
         "drupal/features": "3.8 || ^3.11",
         "drupal/field_group": "^3.0",
@@ -160,7 +160,7 @@
                 "2845037 - Fixed the issue of Call to a member function getConfigDependencyKey() on null on [Widget view], and [SelectionDisplay view]": "https://www.drupal.org/files/issues/2845037_15.patch"
             },
             "drupal/entity_embed": {
-                "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
+                "Add BC layer for entity_embed 1.1 for https://www.drupal.org/project/entity_embed/issues/2511404#comment-12129724": "https://gist.githubusercontent.com/podarok/47b9e38df6570a31d1ea87fea250d6c2/raw/d1435211dffe31cb6206d360e1d99f44c0deddee/entity_embed_1_1_bc_link_to.patch"
             },
             "drupal/plugin": {
                 "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/2020-07-22/2647312-32.patch"
