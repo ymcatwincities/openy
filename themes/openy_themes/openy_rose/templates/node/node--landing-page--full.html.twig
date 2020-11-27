@@ -99,8 +99,8 @@
 %}
 
 {% if content.field_header_content|render|trim is not empty %}
-  <div{{ header_attributes.addClass(header_classes) }}>
-    <div{{ content_attributes }}>
+  <div{{ attributes.addClass(header_classes) }}>
+    <div{{ content_attributes.addClass(header_content_classes) }}>
       <div class="main">
         {{ content.field_header_content }}
       </div>

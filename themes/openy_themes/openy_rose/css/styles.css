@@ -6331,6 +6331,11 @@ body .branch-popup + .ui-widget-overlay {
   }
 }
 
+.embedded-entity img {
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
 .embedded-entity .media-image.view-mode-link {
   display: inline;
 }
