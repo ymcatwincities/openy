@@ -9654,6 +9654,17 @@ legend {
   }
 }
 
+.form-required:after {
+  background-image: url(../img/required.svg);
+  background-size: 10px 7px;
+  content: "";
+  display: inline-block;
+  line-height: 1;
+  height: 7px;
+  width: 10px;
+  vertical-align: text-top;
+}
+
 .pre-footer {
   margin-top: 30px;
 }
