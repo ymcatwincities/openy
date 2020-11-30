@@ -878,9 +878,13 @@
 
         this.tags = {};
         this.default_tags = drupalSettings.openyMapSettings.default_tags;
+        this.leaflet_clustering = drupalSettings.openyMapSettings.leaflet_clustering;
         this.init_map();
         this.init_tags();
         this.init_map_locations();
+        if (this.leaflet_clustering.enable) {
+          this.init_clustering();
+        }
         this.draw_map_controls();
         this.hookup_map_controls_events();
         this.update_tag_filters();
@@ -1437,10 +1441,18 @@
         }
 
         var bounds = L.latLngBounds([]);
+        if (this.leaflet_clustering.enable) {
+          this.cluster.clearLayers();
+        }
         for (var i = 0; i < locations.length; i++) {
           var loc = locations[i];
           bounds.extend(loc.point);
-          loc.marker.addTo(this.map);
+          if (this.leaflet_clustering.enable) {
+            this.cluster.addLayer(loc.marker);
+          }
+          else {
+            loc.marker.addTo(this.map);
+          }
         }
 
         // Don't zoom in too far on only one marker.
@@ -1539,7 +1551,32 @@
           loc.marker = marker;
         }
       },
+      init_clustering: function () {
+        var options = {
+          showCoverageOnHover: false,
+          zoomToBoundsOnClick: false,
+          disableClusteringAtZoom: null,
+        };
 
+        if (this.leaflet_clustering.zoomToBoundsOnClick !== 0) {
+          options.zoomToBoundsOnClick = true;
+        }
+        if (this.leaflet_clustering.showCoverageOnHover !== 0) {
+          options.showCoverageOnHover = true;
+        }
+        if (this.leaflet_clustering.disableClusteringAtZoom) {
+          options.disableClusteringAtZoom = this.leaflet_clustering.disableClusteringAtZoom;
+        }
+
+        this.cluster = L.markerClusterGroup(options);
+
+        for (var i = 0; i < this.locations.length; i++) {
+          var loc = this.locations[i];
+          loc.marker.removeFrom(this.map);
+          this.cluster.addLayer(loc.marker);
+        }
+        this.map.addLayer(this.cluster);
+      },
       draw_search_center: function () {
         if (this.search_center_point) {
           this.search_center_marker.setLatLng(this.search_center_point);

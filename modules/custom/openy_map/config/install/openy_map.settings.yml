@@ -6,6 +6,10 @@ leaflet:
   base_layer_override:
     enable: 0
     override: ''
+  clustering:
+    enable: 0
+    cluster_settings: {}
+    disable_clustering_at_zoom: ''
 default_tags:
   branch: 'YMCA'
   camp: 'Camps'
