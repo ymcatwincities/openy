@@ -1554,18 +1554,17 @@
       init_clustering: function () {
         var options = {
           showCoverageOnHover: false,
-          zoomToBoundsOnClick: false,
-          disableClusteringAtZoom: null,
+          zoomToBoundsOnClick: false
         };
 
-        if (this.leaflet_clustering.zoomToBoundsOnClick !== 0) {
+        if (this.leaflet_clustering.cluster_settings.zoom_to_bounds_on_click) {
           options.zoomToBoundsOnClick = true;
         }
-        if (this.leaflet_clustering.showCoverageOnHover !== 0) {
+        if (this.leaflet_clustering.cluster_settings.show_coverage_on_hover) {
           options.showCoverageOnHover = true;
         }
-        if (this.leaflet_clustering.disableClusteringAtZoom) {
-          options.disableClusteringAtZoom = this.leaflet_clustering.disableClusteringAtZoom;
+        if (this.leaflet_clustering.disable_clustering_at_zoom > 0) {
+          options.disableClusteringAtZoom = this.leaflet_clustering.disable_clustering_at_zoom;
         }
 
         this.cluster = L.markerClusterGroup(options);
