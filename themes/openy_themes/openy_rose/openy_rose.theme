@@ -344,12 +344,24 @@ function openy_rose_preprocess_page(array &$variables) {
   $variables['search_key'] = theme_get_setting('search_query_key');
   $search_alias = 'internal:/' . theme_get_setting('search_page_alias');
   $variables['search_results_path'] = Url::fromUri($search_alias)->toString();
-  $variables['page']['secondary_menu']['search'] = [
-    '#theme' => 'top_menu_search',
-    '#display_search' => $variables['display_search'],
-    '#search_key' => $variables['search_key'],
-    '#search_results_path' => $variables['search_results_path'],
-  ];
+  if (is_array($variables['page']['secondary_menu'])) {
+    $variables['page']['secondary_menu']['search'] = [
+      '#theme' => 'top_menu_search',
+      '#display_search' => $variables['display_search'],
+      '#search_key' => $variables['search_key'],
+      '#search_results_path' => $variables['search_results_path'],
+    ];
+  } else if (get_class($variables['page']['secondary_menu']) == "Drupal\Core\Render\Markup"){
+      $variables['page']['secondary_menu'] = [
+        'secondary_menu' => ['#markup' => $variables['secondary_menu']]
+      ];
+      $variables['page']['secondary_menu']['search'] = [
+        '#theme' => 'top_menu_search',
+        '#display_search' => $variables['display_search'],
+        '#search_key' => $variables['search_key'],
+        '#search_results_path' => $variables['search_results_path'],
+    ];
+  }
 }
 
 /**
