@@ -11514,7 +11514,7 @@ body.path-search #block-mainpagecontent li {
   z-index: 1;
 }
 .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-up .field-media-image {
-  height: 210px;
+  height: 100%;
 }
 .node--type-news.node--view-mode-teaser a .inner-wrapper .blog-up .default-img {
   height: 210px;
@@ -11610,7 +11610,7 @@ body.path-search #block-mainpagecontent li {
   z-index: 1;
 }
 .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-up .field-media-image {
-  height: 210px;
+  height: 100%;
 }
 .node--type-blog.node--view-mode-teaser.blog-photo a .inner-wrapper .blog-up .default-img {
   height: 210px;
