@@ -77,6 +77,14 @@ function openy_update_dependencies() {
       'system' => 8805,
     ],
   ];
+  
+  // Run jquery_colorpicker_update_8200 after colorapi enabled.
+  $dependencies['jquery_colorpicker'] = [
+    8200 => [
+      'openy_txnm_color' => 8005,
+    ],
+  ];
+  
   return $dependencies;
 }
 

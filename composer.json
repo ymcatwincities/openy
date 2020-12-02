@@ -15,6 +15,7 @@
         "drupal/captcha": "^1.0",
         "drupal/ckeditor_bootstrap_buttons": "^1.2 || ^2.0",
         "drupal/ckeditor_font": "^1.1",
+        "drupal/colorapi": "^1.1",
         "drupal/colorbutton": "1.1",
         "drupal/confi": "^1.4 || ^2.0",
         "drupal/config_update": "^1.6",
