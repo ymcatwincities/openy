@@ -26,7 +26,6 @@ settings:
   handler_settings:
     target_bundles:
       branch: branch
-      location: location
     sort:
       field: _none
     auto_create: false
