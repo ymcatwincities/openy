@@ -75,7 +75,6 @@ function openy_prgf_repeat_schedules_update_8004() {
   }
 }
 
-
 /**
  * Update Open Y Paragraph Repeat Schedules.
  */
