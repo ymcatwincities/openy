@@ -198,8 +198,7 @@ nav#block-footermenuright {
   display: none !important;
 }
 
-section.node--type-camp.content,
-section.node--type-location.content {
+section.node--type-camp.content {
   padding-top: 0;
 }
 
@@ -890,7 +889,7 @@ body .ajax-progress-throbber {
   max-height: 500px;
 }
 
-.program-header .content .image img { 
-  max-width: none; 
-  float: right; 
+.program-header .content .image img {
+  max-width: none;
+  float: right;
 }
