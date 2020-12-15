@@ -255,8 +255,11 @@ class AlertsRestResource extends ResourceBase {
           throw new \HttpException('Field configuration for alerts is wrong');
         }
       }
+      elseif ($this->checkVisibility($alert)) {
+          $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);
+      }
       else {
-        if ($this->checkVisibility($alert)) {
+        if ($alert->hasField('field_alert_location') && !$alert->field_alert_location->isEmpty()) {
           $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);
         }
       }
