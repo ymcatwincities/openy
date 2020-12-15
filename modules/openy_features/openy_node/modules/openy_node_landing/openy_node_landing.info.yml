@@ -19,3 +19,4 @@ dependencies:
   - 'paragraphs:paragraphs'
   - 'pathauto:pathauto'
   - 'scheduler:scheduler'
+  - 'openy_er:openy_er'

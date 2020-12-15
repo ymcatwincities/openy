@@ -14,3 +14,4 @@ dependencies:
   - pathauto:pathauto
   - drupal:taxonomy
   - drupal:telephone
+  - openy_er:openy_er
