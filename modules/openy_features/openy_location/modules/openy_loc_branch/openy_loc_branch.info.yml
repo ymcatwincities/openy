@@ -30,4 +30,5 @@ dependencies:
   - drupal:telephone
   - drupal:user
   - views_field_formatter:views_field_formatter
+  - openy_er:openy_er
 core_incompatible: false

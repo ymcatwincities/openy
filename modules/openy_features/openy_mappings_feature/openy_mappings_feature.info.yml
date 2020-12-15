@@ -11,4 +11,5 @@ dependencies:
   - openy_mappings:openy_mappings
   - drupal:user
   - drupal:views
+  - openy_er:openy_er
 version: 8.x-1.0

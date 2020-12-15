@@ -22,3 +22,4 @@ dependencies:
   - pathauto:pathauto
   - drupal:telephone
   - drupal:user
+  - openy_er:openy_er
