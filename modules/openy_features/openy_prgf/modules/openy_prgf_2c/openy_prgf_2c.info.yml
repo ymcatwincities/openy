@@ -14,3 +14,4 @@ dependencies:
   - openy_block_custom_simple:openy_block_custom_simple
   - openy_prgf:openy_prgf
   - paragraphs:paragraphs
+  - openy_er:openy_er

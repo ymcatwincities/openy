@@ -297,3 +297,25 @@ function openy_node_landing_update_8012() {
     }
   }
 }
+
+/**
+ * Fix location reference field to landing page.
+ */
+function openy_node_landing_update_8014() {
+  // Import new fields.
+  $config_dir = drupal_get_path('module', 'openy_node_landing') . '/config/install/';
+
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.landing_page.field_lp_location' => [
+      'settings'
+    ]
+  ];
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
