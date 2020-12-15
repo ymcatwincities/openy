@@ -17,3 +17,4 @@ dependencies:
   - openy_prgf:openy_prgf
   - paragraphs:paragraphs
   - drupal:text
+  - openy_er:openy_er

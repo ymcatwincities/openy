@@ -28,3 +28,4 @@ dependencies:
   - openy_node:openy_node
   - openy_txnm_blog_category:openy_txnm_blog_category
   - openy_txnm_color:openy_txnm_color
+  - openy_er:openy_er

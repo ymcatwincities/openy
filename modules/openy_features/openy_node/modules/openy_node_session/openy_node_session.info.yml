@@ -21,3 +21,4 @@ dependencies:
   - rabbit_hole:rabbit_hole
   - drupal:text
   - drupal:user
+  - openy_er:openy_er

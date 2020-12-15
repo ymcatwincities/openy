@@ -25,3 +25,4 @@ dependencies:
   - openy_media_image:openy_media_image
   - openy_node:openy_node
   - openy_txnm_news_category:openy_txnm_news_category
+  - openy_er:openy_er
