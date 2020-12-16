@@ -54,6 +54,7 @@
         "drupal/jquery_colorpicker": "^2 || ^2.0@RC",
         "drupal/jquery_ui_tabs": "^1.1",
         "drupal/jquery_ui_tooltip": "^1.1",
+        "drupal/libraries": "^3.0@alpha",
         "drupal/link_attributes": "^1",
         "drupal/media_directories": "^2",
         "drupal/media_entity_image": "^1.4@RC || ^1.4",
@@ -106,7 +107,6 @@
         "oomphinc/composer-installers-extender": "^1.1 || ^2.0.0",
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
-        "ymcatwincities/libraries": "*",
         "ymcatwincities/media_entity_document": "*",
         "ymcatwincities/openy_activity_finder": "^3.1 || ^4.0",
         "ymcatwincities/video": "*"
