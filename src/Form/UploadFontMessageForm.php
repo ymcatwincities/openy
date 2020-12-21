@@ -29,10 +29,10 @@ class UploadFontMessageForm extends FormBase {
 
     $form['updatefont']['markup'] = [
       '#type' => 'markup',
-      '#markup' => $this->t('By default free Verdana fonts are used. 
-      Y-USA is now licensing the web font version of Cachet for all YMCAs via the <a href=\'@brand_resource\'>Brand Resource Guide</a>. 
-      To use Cachet fonts on the Open Y website, download from the Brand Resource Guide then go to the <a href=\'@config_url\'>Open Y Font Settings page</a> and upload the font files there. 
-      Use <a href=\'@font_instructions\'>tutorial for how to do this</a>. 
+      '#markup' => $this->t('By default free Verdana fonts are used. <br/>
+      Y-USA is now licensing the web font version of Cachet for all YMCAs via the <a href=\'@brand_resource\'>Brand Resource Guide</a>. <br/>
+      To use Cachet fonts on the Open Y website, download from the Brand Resource Guide then go to the <a href=\'@config_url\'>Open Y Font Settings page</a> and upload the font files there. <br/> 
+      View <a href=\'@font_instructions\'>tutorial for how to do this</a>. <br/>
       <img src="../profiles/contrib/openy/src/Form/uploadfont.png">',
                             [
                               '@config_url' => "$base_url/admin/appearance/font/local_font_config_entity", 
