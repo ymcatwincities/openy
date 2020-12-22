@@ -49,7 +49,7 @@
      * Primary method for updating the today hours.
      */
     updateTodayHours: function () {
-      if (typeof drupalSettings.openy_hours_formatter != 'undefined') {
+      if (typeof drupalSettings.openy_hours_formatter === 'undefined') {
         drupalSettings.openy_hours_formatter = {};
       }
 
