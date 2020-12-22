@@ -130,3 +130,18 @@
     margin: 1em 0;
   }
 }
+
+
+// Use CSS/SVG image for required mark.
+// @see https://www.drupal.org/node/2152217
+// @see https://www.drupal.org/node/2274631
+.form-required:after {
+  background-image: url(../img/required.svg);
+  background-size: 10px 7px;
+  content:"";
+  display: inline-block;
+  line-height:1;
+  height: 7px;
+  width: 10px;
+  vertical-align: text-top;
+}

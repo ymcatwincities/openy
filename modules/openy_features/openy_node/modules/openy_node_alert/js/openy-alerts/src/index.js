@@ -34,6 +34,7 @@ if (typeof Drupal === 'undefined') {
   Drupal.behaviors.openy_alerts_app = {
     attach: context => {
       let header_placeholder = document.querySelector('#openy_alerts_header_placeholder');
+      let footer_placeholder = document.querySelector('#openy_alerts_footer_placeholder');
       // Do not start on admin urls.
       if (
         location.pathname.substring(1).startsWith('admin') ||
@@ -83,9 +84,20 @@ if (typeof Drupal === 'undefined') {
       if (document.getElementsByClassName('pre-footer').length !== 0) {
         // Lily theme...
         while (f.firstChild) {
-          document
-            .getElementsByClassName('pre-footer')[0]
-            .appendChild(f.firstChild);
+          if (footer_placeholder) {
+            footer_placeholder.appendChild(
+              f.firstChild,
+              document.getElementsByClassName('pre-footer')[0].nextSibling
+            );
+          }
+          else {
+            document
+              .getElementsByClassName('pre-footer')[0]
+              .parentNode.insertBefore(
+                e.firstChild,
+                document.getElementsByClassName('pre-footer')[0].nextSibling
+              );
+          }
         }
         console.log('OpenY Alerts footer Lily initialised...');
         ReactDOM.render(

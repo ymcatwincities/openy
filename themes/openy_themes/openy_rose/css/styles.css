@@ -1342,6 +1342,17 @@ body {
   margin: 1em 0;
 }
 
+.form-required:after {
+  background-image: url(../img/required.svg);
+  background-size: 10px 7px;
+  content: "";
+  display: inline-block;
+  line-height: 1;
+  height: 7px;
+  width: 10px;
+  vertical-align: text-top;
+}
+
 .styleguide .sg-color {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -6331,6 +6342,11 @@ body .branch-popup + .ui-widget-overlay {
   }
 }
 
+.embedded-entity img {
+  height: auto;
+  max-width: 100%;
+  width: auto;
+}
 .embedded-entity .media-image.view-mode-link {
   display: inline;
 }

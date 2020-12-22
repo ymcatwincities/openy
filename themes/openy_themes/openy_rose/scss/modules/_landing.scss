@@ -28,6 +28,11 @@
 }
 
 .embedded-entity {
+  img {
+    height: auto;
+    max-width: 100%;
+    width: auto;
+  }
   .media-image.view-mode-link {
     display: inline;
   }
