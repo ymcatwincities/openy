@@ -6,7 +6,6 @@ version: 8.x-1.0
 package: 'Open Y'
 dependencies:
   - drupal:block_content
-  - custom_formatters:custom_formatters
   - datalayer:datalayer
   - drupal:field
   - drupal:language

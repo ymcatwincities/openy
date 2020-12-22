@@ -1,7 +1,7 @@
 name: GroupEx Pro integration Program Events Framework
 type: module
 description: Provides a way to import GroupEx Pro classes and sessions.
-core: 8.x
+core_version_requirement: ^8 || ^9
 version: 8.x-1.0-rc1
 package: Open Y (Experimental)
 configure: openy_gxp.settings

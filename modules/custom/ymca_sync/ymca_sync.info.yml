@@ -1,6 +1,6 @@
 name: YMCA Sync suite
 type: module
 description: YMCA Sync services. Webservises.
-core: 8.x
+core_version_requirement: ^8 || ^9
 package: YMCA
 

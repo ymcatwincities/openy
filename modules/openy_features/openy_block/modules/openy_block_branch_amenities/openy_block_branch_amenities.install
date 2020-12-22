@@ -65,3 +65,26 @@ function openy_block_branch_amenities_update_8003() {
     }
   }
 }
+
+/**
+ * Update configs for remove custom formatters.
+ */
+function openy_block_branch_amenities_update_8004() {
+  $config_dir = drupal_get_path('module', 'openy_block_branch_amenities') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'core.entity_view_display.block_content.branch_amenities.default' => [
+      'dependencies.config',
+      'dependencies.module',
+      'content.field_branch_am',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
