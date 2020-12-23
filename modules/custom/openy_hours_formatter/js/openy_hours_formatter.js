@@ -35,7 +35,8 @@
      * @returns {string}
      */
     getDayOfWeek: function (tz) {
-      return moment().tz(tz).format('d');
+      // ISO day of week. returns a number of day of week from 1 to 7.
+      return moment().tz(tz).format('E');
     },
 
     /**
@@ -58,8 +59,9 @@
       var branchHours = drupalSettings.openy_hours_formatter.branch_hours || [];
       var tz = drupalSettings.openy_hours_formatter.tz || 'America/New York';
       tz = tz.replace(/ /g,"_");
+      var keys = drupalSettings.openy_hours_formatter.keys || ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'];
       // Prioritize these arbitrary hours names first.
-      ['branch_hours', 'center_hours', 'open_hours', 'before_school_enrichment'].reverse().forEach(function (name) {
+      keys.reverse().forEach(function (name) {
         if (typeof branchHours[name] != 'undefined') {
           hoursData = branchHours[name];
         }
@@ -72,6 +74,7 @@
       if (hoursData.length) {
         var todayString = Drupal.behaviors.today_hours.getDate(tz);
         var dayOfWeek = Drupal.behaviors.today_hours.getDayOfWeek(tz);
+        // got a value from 1..7, but in array keys 0..6
         dayOfWeek--;
         var hours = hoursData;
         var exceptions = []; // Holidays and other day exceptions will come later.
