@@ -16,7 +16,7 @@ entity_type: node
 bundle: camp
 label: 'Camp Coordinates'
 description: ''
-required: false
+required: true
 translatable: true
 default_value: {  }
 default_value_callback: ''

@@ -309,3 +309,24 @@ function openy_loc_camp_update_8012() {
     'core.entity_view_display.node.camp.teaser',
   ]);
 }
+
+/**
+ * Update Open Y Camp feature to set coordinates as required field.
+ */
+function openy_loc_camp_update_8014() {
+  $config_dir = drupal_get_path('module', 'openy_loc_camp') . '/config/install/';
+  // Update multiple configurations.
+  $configs = [
+    'field.field.node.camp.field_location_coordinates' =>[
+      'required',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
