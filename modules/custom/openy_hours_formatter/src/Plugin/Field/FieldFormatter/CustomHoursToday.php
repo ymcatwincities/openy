@@ -103,6 +103,7 @@ class CustomHoursToday extends CustomHoursFormatterDefault {
             'openy_hours_formatter' => [
               'branch_hours' => $js_settings,
               'tz' => \Drupal::config('system.date')->get('timezone')['default'],
+              'keys' => array_keys($js_settings),
             ]
           ]
         ],
