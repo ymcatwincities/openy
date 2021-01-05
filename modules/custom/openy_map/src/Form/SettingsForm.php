@@ -152,7 +152,7 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'radios',
       '#title' => $this->t('Base layer'),
       '#options' => $options,
-      '#default_value' => !empty($config->get('leaflet.base_layer')) ? $config->get('leaflet.base_layer') : 'Wikimedia',
+      '#default_value' => !empty($config->get('leaflet.base_layer')) ? $config->get('leaflet.base_layer') : 'OpenStreetMap.Mapnik',
     ];
     $form['leaflet']['base_layer_override'] = [
       '#type' => 'details',

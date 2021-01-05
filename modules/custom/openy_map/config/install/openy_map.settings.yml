@@ -1,6 +1,6 @@
 map_engine: leaflet
 leaflet:
-  base_layer: 'Wikimedia'
+  base_layer: 'OpenStreetMap.Mapnik'
   search_icon: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red.png'
   search_icon_retina: '/profiles/contrib/openy/modules/custom/openy_map/img/other/map_icon_red_x2.png'
   base_layer_override:
