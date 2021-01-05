@@ -54,7 +54,7 @@
         "drupal/jquery_colorpicker": "^2 || ^2.0@RC",
         "drupal/jquery_ui_tabs": "^1.1",
         "drupal/jquery_ui_tooltip": "^1.1",
-        "drupal/libraries": "^3.0@alpha",
+        "drupal/libraries": "^3.0@beta || ^3.0",
         "drupal/link_attributes": "^1",
         "drupal/media_directories": "^2",
         "drupal/media_entity_image": "^1.4@RC || ^1.4",
