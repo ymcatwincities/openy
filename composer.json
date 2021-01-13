@@ -150,7 +150,8 @@
                 "2511404 - Image entities/fields embedded using Entity Embed cannot be linked in CKEditor": "https://www.drupal.org/files/issues/entity_embed_links-2511404-31.patch"
             },
             "drupal/plugin": {
-                "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/plugin_2647312_20.patch"
+                "2647312 - Use SubFormState in plugin selectors #20": "https://www.drupal.org/files/issues/plugin_2647312_20.patch",
+                "2647312 - Use SubFormState in plugin selectors #32": "https://www.drupal.org/files/issues/2020-07-22/2647312-32.patch"
             },
             "drupal/core": {
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
