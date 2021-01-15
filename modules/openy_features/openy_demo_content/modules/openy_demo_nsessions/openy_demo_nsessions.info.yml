@@ -2,7 +2,7 @@ name: Open Y Demo Node Sessions
 description: Stores migrations to create demo session nodes.
 type: module
 core_version_requirement: ^8 || ^9
-version: 8.x-1.0
+version: 8.x-1.1
 package: Open Y
 dependencies:
   - drupal:migrate
@@ -13,6 +13,7 @@ dependencies:
   - openy_demo_nprogram:openy_demo_nprogram
   - openy_node_category:openy_node_category
   - openy_demo_nbranch:openy_demo_nbranch
+  - openy_demo_ncamp:openy_demo_ncamp
   - openy_node_session:openy_node_session
   - openy_session_instance:openy_session_instance
   - openy_prgf_schedule_search:openy_prgf_schedule_search
