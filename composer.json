@@ -100,7 +100,7 @@
         "library-jaypan/jquery_colorpicker": "1.0.1",
         "library-smonetti/btbutton": "1.0.2",
         "library-vakata/jstree": "^3.3",
-        "mpdf/mpdf": "^7",
+        "mpdf/mpdf": "^7 || v8.0.4 || ~v8.0.4",
         "npm-asset/blazy": "^1.8",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
