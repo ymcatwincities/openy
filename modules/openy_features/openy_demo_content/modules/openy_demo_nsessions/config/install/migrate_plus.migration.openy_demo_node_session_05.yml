@@ -35,7 +35,7 @@ source:
       activity_type: ''
     -
       id: sports_classes_and_workshops_youth_homezone_2
-      title: 'For camp For camp HomeZone'
+      title: 'For camp HomeZone'
       class: sports_classes_and_workshops_youth_homezone
       times:
         -
@@ -55,7 +55,7 @@ source:
       activity_type: ''
     -
       id: health_n_wellness_wrkshops_aoa_senior_health_and_fitness_day_2
-      title: 'For camp For camp AOA National Senior Health and Fitness Day'
+      title: 'For camp AOA National Senior Health and Fitness Day'
       class: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
       times:
         -
@@ -75,7 +75,7 @@ source:
       activity_type: ''
     -
       id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017_2
-      title: 'For camp For camp AOA Brain Agility - Class Fee, Spring 2017'
+      title: 'For camp AOA Brain Agility - Class Fee, Spring 2017'
       class: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
       times:
         -
@@ -94,7 +94,7 @@ source:
       activity_type: ''
     -
       id: health_n_wellness_wrkshps_aoa_brain_agility_mat_fee_spr_2017_2
-      title: 'For camp For camp AOA Brain Agility - Materials Fee, Spring 2017'
+      title: 'For camp AOA Brain Agility - Materials Fee, Spring 2017'
       class: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
       times:
         -
@@ -113,7 +113,7 @@ source:
       activity_type: ''
     -
       id: group_exercise_classes_hiit_2
-      title: 'For camp For camp HIIT'
+      title: 'For camp HIIT'
       class: group_exercise_classes_hiit
       times:
         -
@@ -129,7 +129,7 @@ source:
       activity_type: ''
     -
       id: group_exercise_classes_hiit_metabolic_conditioning_2
-      title: 'For camp For camp HIIT - Metabolic Conditioning'
+      title: 'For camp HIIT - Metabolic Conditioning'
       class: group_exercise_classes_hiit_metabolic_conditioning
       times:
         -
@@ -145,7 +145,7 @@ source:
       activity_type: ''
     -
       id: group_exercise_classes_moving_for_balance_spr_2017_2
-      title: 'For camp For camp Moving for Better Balance - Continuing Spring 2017'
+      title: 'For camp Moving for Better Balance - Continuing Spring 2017'
       class: group_exercise_classes_moving_for_balance_spr_2017
       times:
         -
@@ -161,7 +161,7 @@ source:
       activity_type: ''
     -
       id: smll_grp_training_youth_small_group_training_tween_girl_power_2
-      title: 'For camp For camp Small Group Training - Tween Girl Power!'
+      title: 'For camp Small Group Training - Tween Girl Power!'
       class: samll_group_training_youth_small_group_training_tween_girl_power
       times:
         -
@@ -181,7 +181,7 @@ source:
       activity_type: 'small group training'
     -
       id: samll_group_training_youth_small_group_training_tween_titans_2
-      title: 'For camp For camp Small Group Training - Tween Titans'
+      title: 'For camp Small Group Training - Tween Titans'
       class: samll_group_training_youth_small_group_training_tween_titans
       times:
         -
@@ -199,7 +199,7 @@ source:
       activity_type: 'small group training'
     -
       id: pilates_reformer_10_private_1hr_sessions_2
-      title: 'For camp For camp Pilates Reformer - 10, private 1 hr sessions'
+      title: 'For camp Pilates Reformer - 10, private 1 hr sessions'
       class: pilates_reformer_10_private_1hr_sessions
       times:
         -
@@ -219,7 +219,7 @@ source:
       activity_type: ''
     -
       id: private_yoga_10_1hour_sessions_2
-      title: 'For camp For camp Private Yoga - 10, 1-hour sessions'
+      title: 'For camp Private Yoga - 10, 1-hour sessions'
       class: private_yoga_10_1hour_sessions
       times:
         -
@@ -239,7 +239,7 @@ source:
       activity_type: ''
     -
       id: pilates_reformer_duet_10_1hour_sessions_2
-      title: 'For camp For camp Pilates Reformer - Duet - 10, 1 hour sessions'
+      title: 'For camp Pilates Reformer - Duet - 10, 1 hour sessions'
       class: pilates_reformer_duet_10_1hour_sessions
       times:
         -
@@ -259,7 +259,7 @@ source:
       activity_type: ''
     -
       id: partner_personal_training_1_session_2
-      title: 'For camp For camp Partner Personal Training - 1 session'
+      title: 'For camp Partner Personal Training - 1 session'
       class: partner_personal_training_1_session
       times:
         -
@@ -279,7 +279,7 @@ source:
       activity_type: personal
     -
       id: health_improvement_livestrong_at_the_y_2
-      title: 'For camp For camp LIVESTRONG at the YMCA'
+      title: 'For camp LIVESTRONG at the YMCA'
       class: health_improvement_livestrong_at_the_y
       times:
         -
@@ -299,7 +299,7 @@ source:
       activity_type: ''
     -
       id: health_improvement_nutrition_consultation_initial_2
-      title: 'For camp For camp Nutrition Consultation - Initial'
+      title: 'For camp Nutrition Consultation - Initial'
       class: health_improvement_nutrition_consultation_initial
       times:
         -
@@ -318,7 +318,7 @@ source:
       activity_type: ''
     -
       id: health_improvement_activly_changing_together_2
-      title: 'For camp For camp ACT! Actively Changing Together'
+      title: 'For camp ACT! Actively Changing Together'
       class: health_improvement_activly_changing_together
       times:
         -
@@ -337,7 +337,7 @@ source:
       activity_type: ''
     -
       id: climbing_adult_rock_climbing_sept_2
-      title: 'For camp For camp Climbing - Adult Rock Climbing - September'
+      title: 'For camp Climbing - Adult Rock Climbing - September'
       class: climbing_adult_rock_climbing_sept
       times:
         -
@@ -356,7 +356,7 @@ source:
       activity_type: ''
     -
       id: climbing_adult_rock_climbing_oct_2
-      title: 'For camp For camp Climbing - Adult Rock Climbing - October'
+      title: 'For camp Climbing - Adult Rock Climbing - October'
       class: climbing_adult_rock_climbing_oct
       times:
         -
@@ -375,7 +375,7 @@ source:
       activity_type: ''
     -
       id: climbing_adult_parent_child_sept_2
-      title: 'For camp For camp Climbing - Parent/Child Climbing - September'
+      title: 'For camp Climbing - Parent/Child Climbing - September'
       class: climbing_adult_parent_child_sept
       times:
         -
@@ -393,7 +393,7 @@ source:
       reg_title: 'Register Now'
     -
       id: climbing_adult_parent_child_oct_2
-      title: 'For camp For camp Climbing - Parent/Child Climbing - October'
+      title: 'For camp Climbing - Parent/Child Climbing - October'
       class: climbing_adult_parent_child_oct
       times:
         -
@@ -412,7 +412,7 @@ source:
       activity_type: ''
     -
       id: small_group_and_specialty_training_adaptive_yoga_2
-      title: 'For camp For camp Small Group Training - Adaptive Yoga'
+      title: 'For camp Small Group Training - Adaptive Yoga'
       class: small_group_and_specialty_training_adaptive_yoga
       times:
         -
@@ -431,7 +431,7 @@ source:
       activity_type: 'small group training'
     -
       id: smll_grp_and_specialty_training_pilates_reformer_level_1_2
-      title: 'For camp For camp Small Group Training - Pilates Reformer Level I'
+      title: 'For camp Small Group Training - Pilates Reformer Level I'
       class: small_group_and_specialty_training_pilates_reformer_level_1
       times:
         -
@@ -450,7 +450,7 @@ source:
       activity_type: 'small group training'
     -
       id: small_group_and_specialty_training_pilates_reformer_intro_2
-      title: 'For camp For camp Small Group Training - Pilates Reformer Intro'
+      title: 'For camp Small Group Training - Pilates Reformer Intro'
       class: small_group_and_specialty_training_pilates_reformer_intro
       times:
         -
@@ -469,7 +469,7 @@ source:
       activity_type: 'small group training'
     -
       id: small_group_and_specialty_training_pilates_reformer_level_1_2_2
-      title: 'For camp For camp Small Group Training - Pilates Reformer Level I/II'
+      title: 'For camp Small Group Training - Pilates Reformer Level I/II'
       class: small_group_and_specialty_training_pilates_reformer_level_1_2
       times:
         -
@@ -488,7 +488,7 @@ source:
       activity_type: 'small group training'
     -
       id: weight_loss_lose_to_win_men_2
-      title: 'For camp For camp Lose to Win for Men - Weight Loss Program'
+      title: 'For camp Lose to Win for Men - Weight Loss Program'
       class: weight_loss_lose_to_win_men
       times:
         -
@@ -507,7 +507,7 @@ source:
       activity_type: ''
     -
       id: weight_loss_lose_to_win_2
-      title: 'For camp For camp Lose to Win - Weight Loss Program'
+      title: 'For camp Lose to Win - Weight Loss Program'
       class: weight_loss_lose_to_win
       times:
         -
@@ -526,7 +526,7 @@ source:
       activity_type: ''
     -
       id: b4_after_school_child_care_2016_17_woodmoor_non_school_days_2
-      title: 'For camp For camp 2021/22 Woodmoor - (f) Non-School Days'
+      title: 'For camp 2021/22 Woodmoor - (f) Non-School Days'
       class: before_after_school_child_care_2016_17_woodmoor_non_school_days
       times:
         -
@@ -546,7 +546,7 @@ source:
       activity_type: ''
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_plus_2
-      title: 'For camp For camp 2021/22 Woodmoor - (b) After Plus Care'
+      title: 'For camp 2021/22 Woodmoor - (b) After Plus Care'
       class: before_after_school_child_care_2016_17_woodmoor_after_plus
       times:
         -
@@ -566,7 +566,7 @@ source:
       activity_type: ''
     -
       id: before_after_school_child_care_2016_17_woodmoor_after_2
-      title: 'For camp For camp 2021/22 Woodmoor - (c) After Care'
+      title: 'For camp 2021/22 Woodmoor - (c) After Care'
       class: before_after_school_child_care_2016_17_woodmoor_after
       times:
         -
@@ -586,7 +586,7 @@ source:
       activity_type: ''
     -
       id: before_after_school_child_care_2016_17_sunrise_before_after_2
-      title: 'For camp For camp 2021/22 Sunrise - (a) Before and After Care'
+      title: 'For camp 2021/22 Sunrise - (a) Before and After Care'
       class: before_after_school_child_care_2016_17_sunrise_before_after
       times:
         -
@@ -606,7 +606,7 @@ source:
       activity_type: ''
     -
       id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs_2
-      title: 'For camp For camp 2021/22 Northshore - Pre-K Child Care (4 - 5yrs)'
+      title: 'For camp 2021/22 Northshore - Pre-K Child Care (4 - 5yrs)'
       class: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
       times:
         -
@@ -626,7 +626,7 @@ source:
       activity_type: ''
     -
       id: preschool_child_care_2016_17_northshore_preschool_30m_4yr_2
-      title: 'For camp For camp 2021/22 Northshore- Preschool Child Care (30m-4yr)'
+      title: 'For camp 2021/22 Northshore- Preschool Child Care (30m-4yr)'
       class: preschool_child_care_2016_17_northshore_preschool_30m_4yr
       times:
         -
@@ -646,7 +646,7 @@ source:
       activity_type: ''
     -
       id: discovery_day_camp_drop_off_carol_edwards_ctr_2017_2
-      title: 'For camp For camp Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
+      title: 'For camp Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
       class: discovery_day_camp_drop_off_carol_edwards_ctr_2017
       times:
         -
@@ -666,7 +666,7 @@ source:
       activity_type: ''
     -
       id: discovery_day_camp_drop_off_kenmore_elementary_2017_2
-      title: 'For camp For camp Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      title: 'For camp Discovery Camp: Drop-off - Kenmore Elementary 2017'
       class: discovery_day_camp_drop_off_kenmore_elementary_2017
       times:
         -
@@ -686,7 +686,7 @@ source:
       activity_type: ''
     -
       id: discovery_day_camp_drop_off_Northshore_ymca_2017_2
-      title: 'For camp For camp Discovery Camp: Drop-off - Northshore YMCA 2017'
+      title: 'For camp Discovery Camp: Drop-off - Northshore YMCA 2017'
       class: discovery_day_camp_drop_off_Northshore_ymca_2017
       times:
         -
@@ -706,7 +706,7 @@ source:
       activity_type: ''
     -
       id: bold_one_wk_expeditions_cascade_challenge_2
-      title: 'For camp For camp BOLD Cascade Challenge'
+      title: 'For camp BOLD Cascade Challenge'
       class: bold_one_wk_expeditions_cascade_challenge
       times:
         -
@@ -726,7 +726,7 @@ source:
       activity_type: ''
     -
       id: bld_1_wk_expeditions_backpacking_adventure_discovery_olympics_2
-      title: 'For camp For camp A BOLD Backpacking Adventure: Discovery in the Olympics'
+      title: 'For camp A BOLD Backpacking Adventure: Discovery in the Olympics'
       class: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
       times:
         -
@@ -744,7 +744,7 @@ source:
       activity_type: ''
     -
       id: bold_one_wk_expeditions_river_and_rocks_2
-      title: 'For camp For camp BOLD Rivers and Rocks'
+      title: 'For camp BOLD Rivers and Rocks'
       class: bold_one_wk_expeditions_river_and_rocks
       times:
         -
@@ -764,7 +764,7 @@ source:
       activity_type: ''
     -
       id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades_2
-      title: 'For camp For camp BOLD Fishing and Backpacking in the North Cascades'
+      title: 'For camp BOLD Fishing and Backpacking in the North Cascades'
       class: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
       times:
         -
@@ -784,7 +784,7 @@ source:
       activity_type: ''
     -
       id: earth_service_corps_about_yesc_2
-      title: 'For camp For camp Earth Service Corps About YESC'
+      title: 'For camp Earth Service Corps About YESC'
       class: earth_service_corps_about_yesc
       times:
         -
@@ -804,7 +804,7 @@ source:
       activity_type: ''
     -
       id: academic_success_2
-      title: 'For camp For camp Academic Success'
+      title: 'For camp Academic Success'
       class: academic_success
       times:
         -
