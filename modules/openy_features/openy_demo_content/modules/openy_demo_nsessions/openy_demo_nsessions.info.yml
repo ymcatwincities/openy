@@ -14,6 +14,7 @@ dependencies:
   - openy_node_category:openy_node_category
   - openy_demo_nbranch:openy_demo_nbranch
   - openy_demo_nfacility:openy_demo_nfacility
+  - openy_demo_ncamp:openy_demo_ncamp
   - openy_node_session:openy_node_session
   - openy_session_instance:openy_session_instance
   - openy_prgf_schedule_search:openy_prgf_schedule_search
