@@ -143,7 +143,7 @@ class AlertsRestResource extends ResourceBase {
     Request $request,
     RequestMatcherInterface $router,
     AlertManager $alert_manager
-) {
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
 
     $this->currentUser = $current_user;
@@ -204,15 +204,7 @@ class AlertsRestResource extends ResourceBase {
     $query->condition('dvs.view_display', 'page_1');
     $query->orderBy('dvs.weight');
     $weights = $query->execute()->fetchAll();
-
-    // If draggableviews_structure table is not pre-populated we load all nids with default sort.
     $loadByProperties = ['type' => 'alert', 'status' => 1];
-    if (!empty($weights)) {
-      foreach ($weights as $row) {
-        $nids[] = $row->entity_id;
-      }
-      $loadByProperties = ['type' => 'alert', 'nid' => $nids, 'status' => 1];
-    }
 
     $alerts_entities = $this->entityTypeManager
       ->getStorage('node')
@@ -227,9 +219,13 @@ class AlertsRestResource extends ResourceBase {
         if (!isset($alerts_entities[(int)$row->entity_id])) {
           continue;
         }
-        $alerts[(int)$row->entity_id] = $alerts_entities[(int)$row->entity_id];
+        $alerts[] = $alerts_entities[(int)$row->entity_id];
+        unset($alerts_entities[(int)$row->entity_id]);
       }
+      // Add items that was missed in draggableviews table.
+      $alerts = array_merge($alerts, $alerts_entities);
     }
+
     $service_alert_ids = $this->getServiceAlerts();
     $sendAlerts = [];
     /** @var \Drupal\node\Entity\Node $alert */
@@ -256,7 +252,7 @@ class AlertsRestResource extends ResourceBase {
         }
       }
       elseif ($this->checkVisibility($alert)) {
-          $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);
+        $sendAlerts[$alert->field_alert_place->value]['local'][] = self::formatAlert($alert);
       }
       else {
         if ($alert->hasField('field_alert_location') && !$alert->field_alert_location->isEmpty()) {
