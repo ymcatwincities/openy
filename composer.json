@@ -19,7 +19,7 @@
         "drupal/colorbutton": "^1",
         "drupal/confi": "^2.0@RC || ^2.0",
         "drupal/config_update": "^1.6",
-        "drupal/core": "~9.0.7",
+        "drupal/core": "~9.0.9 || ~9.1.0",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
         "drupal/core-recommended": "^9",
