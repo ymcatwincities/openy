@@ -111,13 +111,13 @@ source:
     -
       id: climbing_adult_parent_child_sept
       parent_id: climbing_adult_parent_child_sept
-      time: 5:00:00 pm
-      time_end: 6:00:00 pm
+      time: 3:00:00 pm
+      time_end: 4:00:00 pm
     -
       id: climbing_adult_parent_child_oct
       parent_id: climbing_adult_parent_child_oct
-      time: 6:00:00 pm
-      time_end: 7:00:00 pm
+      time: 3:00:00 pm
+      time_end: 4:00:00 pm
     -
       id: small_group_and_specialty_training_adaptive_yoga
       parent_id: small_group_and_specialty_training_adaptive_yoga
@@ -222,7 +222,7 @@ source:
       id: academic_success
       parent_id: academic_success
       time: 3:00:00 pm
-      time_end: 6:00:00 pm
+      time_end: 4:00:00 pm
   ids:
     id:
       type: string
