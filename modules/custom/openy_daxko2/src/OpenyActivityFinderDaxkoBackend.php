@@ -393,30 +393,37 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     return [
       [
         'label' => 'Mon',
+        'search_value' => 'monday',
         'value' => '1',
       ],
       [
         'label' => 'Tue',
+        'search_value' => 'tuesday',
         'value' => '2',
       ],
       [
         'label' => 'Wed',
+        'search_value' => 'wednesday',
         'value' => '3',
       ],
       [
         'label' => 'Thu',
+        'search_value' => 'thursday',
         'value' => '4',
       ],
       [
         'label' => 'Fri',
+        'search_value' => 'friday',
         'value' => '5',
       ],
       [
         'label' => 'Sat',
+        'search_value' => 'saturday',
         'value' => '6',
       ],
       [
         'label' => 'Sun',
+        'search_value' => 'sunday',
         'value' => '7',
       ],
     ];
