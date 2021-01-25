@@ -18,7 +18,7 @@ function openy_install() {
   // Set the default and admin theme.
   $config_factory
     ->getEditable('system.theme')
-    ->set('admin', 'seven')
+    ->set('admin', 'claro')
     ->save(TRUE);
 
   // Enable the admin theme.
@@ -1170,4 +1170,11 @@ function openy_update_8084() {
   if (count(array_intersect(['openy_lily', 'openy_rose', 'openy_campaign_theme'], $enabled_themes)) > 0) {
     \Drupal::service('module_installer')->install(['jquery_ui_tabs']);
   }
+}
+
+/**
+ * Uninstall openy_autocomplete_path module.
+ */
+function openy_update_8086() {
+    \Drupal::service('module_installer')->uninstall(['openy_autocomplete_path']);
 }

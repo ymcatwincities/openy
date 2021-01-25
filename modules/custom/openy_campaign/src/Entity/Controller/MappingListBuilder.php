@@ -43,7 +43,7 @@ class MappingListBuilder extends EntityListBuilder {
   public static function createInstance(ContainerInterface $container, EntityTypeInterface $entityType) {
     return new static(
       $entityType,
-      $container->get('entity.manager')->getStorage($entityType->id()),
+      $container->get('entity_type.manager')->getStorage($entityType->id()),
       $container->get('entity_type.manager')
     );
   }

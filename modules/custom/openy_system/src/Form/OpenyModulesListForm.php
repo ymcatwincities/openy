@@ -91,7 +91,7 @@ class OpenyModulesListForm extends ModulesListForm {
     $row['#requires'] = [];
     $row['#required_by'] = [];
 
-    $modules = system_rebuild_module_data();
+    $modules = \Drupal::service('extension.list.module')->reset()->getList();
     // Get human readable names and status of modules in package.
     $module_names = [];
     foreach ($package['modules'] as $name) {

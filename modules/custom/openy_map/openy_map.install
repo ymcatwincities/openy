@@ -107,3 +107,16 @@ function openy_map_update_8004() {
   $config_path = $config_dir . $config_name . '.yml';
   $config_updater->update($config_path, $config_name, 'leaflet.base_layer_override');
 }
+
+/**
+ * Migrate Wikimedia to OpenStreetMap.Mapnik.
+ */
+function openy_map_update_8006() {
+  $config_factory = \Drupal::configFactory();
+  $openy_map_config_leaflet_base_layer = $config_factory->getEditable('openy_map.settings')->get('leaflet.base_layer');
+  if ($openy_map_config_leaflet_base_layer == 'Wikimedia'){
+    $config_factory->getEditable('openy_map.settings')
+    ->set('leaflet.base_layer', 'OpenStreetMap.Mapnik')
+    ->save(TRUE);
+  }
+}
