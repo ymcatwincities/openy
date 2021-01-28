@@ -5,7 +5,6 @@ core_version_requirement: ^8 || ^9
 version: 8.x-1.0
 package: Open Y
 dependencies:
-  - drupal:entity_reference
   - drupal:views
   - openy_moderation_wrapper:openy_moderation_wrapper
   - openy_node_program:openy_node_program
