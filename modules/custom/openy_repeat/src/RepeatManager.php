@@ -196,7 +196,7 @@ class RepeatManager implements SessionInstanceManagerInterface {
           }
 
           // Program reference.
-          if ($program = $program_subcategory->field_category_program->referencedEntities()) {
+          if ($program_subcategory->field_category_program && $program = $program_subcategory->field_category_program->referencedEntities()) {
             $program = reset($program);
 
             // Some instances may require unpublished references.
