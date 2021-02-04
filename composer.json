@@ -201,7 +201,7 @@
         },
         {
             "type": "vcs",
-            "url":  "git@github.com:ymcatwintities/ymca_sync.git"
+            "url":  "git@github.com:ymcatwincities/ymca_sync.git"
         },
         {
             "type": "package",
