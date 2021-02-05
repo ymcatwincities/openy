@@ -200,10 +200,6 @@
             "url": "https://asset-packagist.org"
         },
         {
-            "type": "vcs",
-            "url":  "git@github.com:ymcatwincities/ymca_sync.git"
-        },
-        {
             "type": "package",
             "package": {
                 "name": "library-jaypan/jquery_colorpicker",
