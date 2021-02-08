@@ -1,5 +1,0 @@
-ymca_sync.settings:
-  title: YMCA Sync Settings
-  route_name: ymca_sync.settings
-  parent: system.admin_config_system
-  description: 'YMCA Sync configuration.'
