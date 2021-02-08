@@ -109,7 +109,7 @@
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
         "ymcatwincities/media_entity_document": "*",
-        "ymcatwincities/openy_activity_finder": "dev-4.x-demo"
+        "ymcatwincities/openy_activity_finder": "^3.1 || ^4.0"
     },
     "require-dev": {
         "consolidation/robo": "^1.1.5"
