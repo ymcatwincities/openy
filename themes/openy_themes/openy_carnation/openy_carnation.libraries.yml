@@ -6,7 +6,6 @@ global-styling:
       dist/css/style.css: {}
   js:
     dist/main.js: {}
-    dist/js/popper.min.js: {minified: true}
     https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js: {type: external, minified: true}
     dist/js/openy_carnation.js: {}
     dist/js/openy_carnation_branch.js: {}
