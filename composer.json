@@ -184,6 +184,9 @@
             "drupal/field_group": {
                 "3059614 - Fixed Undefined property: stdClass::$region in field_group_form_process()": "https://www.drupal.org/files/issues/2020-06-15/3059614-37.patch"
             },
+            "drupal/simple_sitemap": {
+                "Add empty checks to form fields. https://www.drupal.org/i/3070132": "https://git.drupalcode.org/project/simple_sitemap/-/merge_requests/3.diff"
+            },
             "drupal/colorapi": {
                 "3171235 - Add Value property": "https://www.drupal.org/files/issues/2020-09-16/3171235-2.patch",
                 "Update colorapi configs": "https://gist.githubusercontent.com/manachynskyi/a24c7898a0ed051bc077fc94cc2dc2e8/raw/9524fa2d630d2ee0e0e39316156612b33c854182/colorapi_config_patch.patch"
