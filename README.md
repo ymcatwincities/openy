@@ -5,7 +5,7 @@
 </p>
 
 <h3 align="center">
-  Open Y on Drupal 9 - release is planned on February 9 2021
+  Open Y on Drupal 9
 </h3>
 <p align="center">
   https://openy.org
@@ -39,8 +39,14 @@ You can always evaluate distribution by visiting demo website - http://sandboxes
 ### Installation of Open Y
 We are using [composer](https://getcomposer.org/) for initiating new project tree.
 
-```
+Development version of Open Y on Drupal 9
+```sh
 composer create-project ymcatwincities/openy-project:dev-9.2.x-development OPENY --no-interaction
+```
+
+Stable version of Open Y on Drupal 9
+```sh
+composer create-project ymcatwincities/openy-project OPENY --no-interaction
 ```
 
 In order to properly install Open Y Distribution, we have separate composer project - [openy-project](https://github.com/ymcatwincities/openy-project). Please read detailed installation instructions [here](https://github.com/ymcatwincities/openy-project).
@@ -56,6 +62,6 @@ Other development information you can find at [docs/Development](https://github.
 - [Documentation](https://github.com/ymcatwincities/openy/tree/9.x-2.x/docs)
 - [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
 - [Content structure](https://github.com/ymcatwincities/openy/tree/9.x-2.x/docs/Content%20structure)
-- [Technical documentation](https://github.com/ymcatwincities/openy/tree/8.x-1.x/docs/Development)
+- [Technical documentation](https://github.com/ymcatwincities/openy/tree/9.x-2.x/docs/Development)
 - [Terms of Use](https://github.com/ymcatwincities/openy/wiki/Open-Y-Terms-of-Use)
 - [Participation Agreement](https://github.com/ymcatwincities/openy/wiki/Open-Y-Participant-Agreement)
