@@ -46,7 +46,7 @@
         "drupal/fontyourface": "^3.3",
         "drupal/geolocation": "^3.0",
         "drupal/geysir": "^1.2",
-        "drupal/google_analytics": "^2.5",
+        "drupal/google_analytics": "^2.5 || ^3.1",
         "drupal/google_optimize": "^1.5",
         "drupal/google_tag": "^1.4",
         "drupal/image_widget_crop": "^2",
