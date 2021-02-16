@@ -5,3 +5,4 @@ package: Open Y
 core_version_requirement: ^8 || ^9
 dependencies:
   - ymca_sync:ymca_sync
+  - openy_mappings:openy_mappings
