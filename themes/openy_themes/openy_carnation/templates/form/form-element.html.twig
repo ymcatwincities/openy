@@ -75,6 +75,10 @@
     {{ label }}
   {% endif %}
 
+  {% if prefix is not empty %}
+    <span class="field-prefix">{{ prefix }}</span>
+  {% endif %}
+
   {% if description_display == 'before' and description.content %}
     <div{{ description.attributes }}>
       {{ description.content }}
@@ -82,6 +86,10 @@
   {% endif %}
 
   {{ children }}
+
+  {% if suffix is not empty %}
+    <span class="field-suffix">{{ suffix }}</span>
+  {% endif %}
 
   {% if label_display == 'after' %}
     {{ label }}

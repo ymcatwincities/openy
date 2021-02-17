@@ -109,7 +109,8 @@
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
         "ymcatwincities/media_entity_document": "*",
-        "ymcatwincities/openy_activity_finder": "^3.1 || ^4.0"
+        "ymcatwincities/openy_activity_finder": "^3.1 || ^4.0",
+        "ymcatwincities/ymca_sync": "^8 || ^10"
     },
     "require-dev": {
         "consolidation/robo": "^1.1.5"
@@ -182,6 +183,9 @@
             },
             "drupal/field_group": {
                 "3059614 - Fixed Undefined property: stdClass::$region in field_group_form_process()": "https://www.drupal.org/files/issues/2020-06-15/3059614-37.patch"
+            },
+            "drupal/simple_sitemap": {
+                "Add empty checks to form fields. https://www.drupal.org/i/3070132": "https://git.drupalcode.org/project/simple_sitemap/-/merge_requests/3.diff"
             },
             "drupal/colorapi": {
                 "3171235 - Add Value property": "https://www.drupal.org/files/issues/2020-09-16/3171235-2.patch",
