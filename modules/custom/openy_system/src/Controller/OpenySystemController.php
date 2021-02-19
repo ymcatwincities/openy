@@ -2,15 +2,15 @@
 
 namespace Drupal\openy_system\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Access\AccessResult;
 
 /**
  * Controller for openy_system access routines.
  */
-class OpenySystemController extends ControllerBase implements ContainerInjectionInterface  {
+class OpenySystemController implements ContainerInjectionInterface  {
 
     /**
    * The module handler service.
@@ -20,9 +20,9 @@ class OpenySystemController extends ControllerBase implements ContainerInjection
   protected $moduleHandler;
 
     /**
-   * TermsOfUseController constructor.
+   * OpenySystemController constructor.
    *
-   * @param \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
    */
   public function __construct(ModuleHandlerInterface $moduleHandler) {
     $this->moduleHandler = $moduleHandler;
@@ -42,10 +42,11 @@ class OpenySystemController extends ControllerBase implements ContainerInjection
     );
   }
 
-     /**
+  /**
    * Check user has permission.
    *
-   * @return \Drupal\Core\Access\AccessResult
+   * @return \Drupal\Core\Access\AccessResultInterface
+   *   The access result.
    */
   public function accessOpenyAdminMenuConfigPage() {
       $modules = [
@@ -60,7 +61,7 @@ class OpenySystemController extends ControllerBase implements ContainerInjection
           return AccessResult::allowed();
         }
       }
-      return AccessResult::forbidden();
+      return AccessResult::neutral();
 
   }
 }
