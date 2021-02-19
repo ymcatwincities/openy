@@ -63,6 +63,7 @@ openy_system.openy_integrations_groupexpro:
     _title: 'GroupEx Pro'
   requirements:
     _permission: 'administer site configuration'
+    _custom_access: '\Drupal\system\Controller\OpenySystemController::accessOpenyAdminMenuConfigPage'
 
 openy_system.openy_integrations_activenet:
   path: /admin/openy/integrations/activenet
