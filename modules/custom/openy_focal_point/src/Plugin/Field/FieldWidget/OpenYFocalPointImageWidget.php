@@ -126,6 +126,14 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
    */
   public static function process($element, FormStateInterface $form_state, $form) {
     $element = parent::process($element, $form_state, $form);
+    
+    $paragraph_type = \Drupal::request()->query->get('paragraph_type');
+    $field_name = \Drupal::request()->query->get('field_name');
+
+    // Return default Focal Point behavior if no paragraph type or field in query params.
+    if (!$paragraph_type || !$field_name) {
+      return $element;
+    }
 
     if (isset($element['focal_point'])) {
       // It is important to unset 'focal_point' so field doesn't have values
@@ -142,9 +150,6 @@ class OpenYFocalPointImageWidget extends FocalPointImageWidget {
         'focal_point' => 'focal-point-' . implode('-', $element['#parents']),
       ];
       $default_focal_point_value = isset($item['focal_point']) ? $item['focal_point'] : $element['#focal_point']['offsets'];
-
-      $paragraph_type = \Drupal::request()->query->get('paragraph_type');
-      $field_name = \Drupal::request()->query->get('field_name');
 
       $display_storage = \Drupal::entityTypeManager()->getStorage('entity_view_display');
       // We are assuming that only default view mode is used for paragraph
