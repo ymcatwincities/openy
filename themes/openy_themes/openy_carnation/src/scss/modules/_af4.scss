@@ -1,0 +1,8 @@
+.activity-details-modal-content {
+  .col-md-6 {
+    @include media-breakpoint-down(md) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}
