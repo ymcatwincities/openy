@@ -6,3 +6,13 @@
     }
   }
 }
+
+.select-path-component {
+  .path.btn {
+    .text-uppercase {
+      @include media-breakpoint-down(md) {
+        font-size: 14px;
+      }
+    }
+  }
+}
