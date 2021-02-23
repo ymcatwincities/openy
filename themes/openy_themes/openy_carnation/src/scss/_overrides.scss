@@ -56,7 +56,7 @@ p:last-child,
 }
 
 .btn:not(.btn-link) {
-  @include cachet();
+  @include cachet-book();
 }
 
 // Media fix for BS.
@@ -86,4 +86,8 @@ p:last-child,
 
 .block-description--text .fa {
   color: inherit;
+}
+
+.bookmarked-items-modal-content .cart-items .item .actions .register {
+  color: $white;
 }
