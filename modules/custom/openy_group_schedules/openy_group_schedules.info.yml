@@ -3,4 +3,6 @@ type: module
 description: Provides an integration with GroupEx Pro.
 core_version_requirement: ^8 || ^9
 version: 8.x-1.0
-package: Open Y
+package: Open Y Groupex PRO Integration
+dependencies:
+  - openy_gxp:openy_gxp

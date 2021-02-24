@@ -1,0 +1,14 @@
+<?php
+
+
+/**
+ * Enable openy_gxp if not enabled.
+ */
+function groupex_form_cache_update_8002() {
+    $module_handler = \Drupal::moduleHandler();;
+    if ($module_handler->moduleExists('openy_gxp')) {
+      return;
+    }
+    \Drupal::service('module_installer')->install(['openy_gxp'], FALSE);
+  }
+  
