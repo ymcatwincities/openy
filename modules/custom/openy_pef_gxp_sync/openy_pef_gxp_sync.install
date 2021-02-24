@@ -9,5 +9,4 @@ function openy_pef_gxp_sync_update_8002() {
       return;
     }
     \Drupal::service('module_installer')->install(['openy_gxp'], FALSE);
-  }
-  
+}

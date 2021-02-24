@@ -10,5 +10,4 @@ function groupex_form_cache_update_8002() {
       return;
     }
     \Drupal::service('module_installer')->install(['openy_gxp'], FALSE);
-  }
-  
+}
