@@ -7,6 +7,7 @@ dependencies:
     - field.field.media.image.field_media_image
     - field.field.media.image.field_media_in_library
     - field.field.media.image.field_media_tags
+    - image.style.paragraph_teaser_520_440
     - media.type.image
   module:
     - blazy
@@ -19,7 +20,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: prgf_teaser
+      image_style: paragraph_teaser_520_440
       thumbnail_style: ''
       media_switch: ''
       ratio: enforced

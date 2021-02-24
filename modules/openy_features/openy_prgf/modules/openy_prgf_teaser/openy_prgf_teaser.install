@@ -157,3 +157,39 @@ function openy_prgf_teaser_update_8007() {
     }
   }
 }
+
+/**
+ * Import new image style and crop type for image in opney_prgf_teaser.
+ */
+function openy_prgf_teaser_update_8008() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_teaser') . '/config/install/';
+  // Import configuration.
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'image.style.paragraph_teaser_520_440',
+    'crop.type.crop_520_440',
+  ]);
+}
+
+/**
+ * Update Open Y Paragraph teaser display for media image configs.
+ */
+function openy_prgf_teaser_update_8009() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_teaser') . '/config/install/';
+  // Update configuration.
+  $configs = [
+    'core.entity_view_display.media.image.prgf_teaser' => [
+      'dependencies',
+      'content',
+    ],
+  ];
+
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  foreach ($configs as $config_name => $params) {
+    $config = $config_dir . $config_name . '.yml';
+    foreach ($params as $param) {
+      $config_updater->update($config, $config_name, $param);
+    }
+  }
+}
