@@ -29,3 +29,14 @@ function openy_prgf_group_schedules_update_8001() {
   $settings['type'] = 'plugin_selector:plugin_autocomplete_list';
   $view_display->setComponent('field_prgf_schedules_ref', $settings)->save();
 }
+
+/**
+ * Enable openy_gxp if not enabled.
+ */
+function openy_prgf_group_schedules_update_8002() {
+  $module_handler = \Drupal::moduleHandler();;
+  if ($module_handler->moduleExists('openy_gxp')) {
+    return;
+  }
+  \Drupal::service('module_installer')->install(['openy_gxp'], FALSE);
+}

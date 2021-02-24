@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Enable openy_gxp if not enabled.
+ */
+function openy_pef_gxp_sync_update_8002() {
+  $module_handler = \Drupal::moduleHandler();;
+  if ($module_handler->moduleExists('openy_gxp')) {
+    return;
+  }
+  \Drupal::service('module_installer')->install(['openy_gxp'], FALSE);
+}
