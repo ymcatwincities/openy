@@ -12,6 +12,9 @@ import cookie from 'react-cookies';
 import { fetchAlerts } from './actions/backend';
 
 class App extends Component {
+
+  state = {activeSlide: 0};
+
   constructor(props) {
     super(props);
     this.next = this.next.bind(this);
@@ -45,7 +48,9 @@ class App extends Component {
       arrows: false,
       variableWidth: false,
       centerMode: true,
-      centerPadding: '0px'
+      centerPadding: '0px',
+      beforeChange: (current, next) =>
+        this.setState({ oldSlide: current, activeSlide: next })
     };
     let hil = null;
     const HeaderAlertItemList = () => {
@@ -84,6 +89,16 @@ class App extends Component {
         return null;
       }
     };
+    var prevArrowClasses = 'slick-prev slick-arrow',
+      nextArrowClasses = 'slick-next slick-arrow';
+
+    if (this.state.activeSlide === undefined || this.state.activeSlide === 0) {
+      prevArrowClasses += ' hidden';
+    }
+    if (this.props.header !== undefined
+      && this.state.activeSlide === (parseInt(this.props.header.local.length) - 1) ) {
+      nextArrowClasses += ' hidden';
+    }
     return (
       <div className="App">
         <div
@@ -101,7 +116,7 @@ class App extends Component {
                 <a
                   tabIndex="-1"
                   data-role="none"
-                  className="slick-prev slick-arrow"
+                  className={prevArrowClasses}
                   role="button"
                   aria-disabled="true"
                   aria-label="Previous alert message"
@@ -112,7 +127,7 @@ class App extends Component {
                 <a
                   tabIndex="-1"
                   data-role="none"
-                  className="slick-next slick-arrow"
+                  className={nextArrowClasses}
                   role="button"
                   aria-disabled="false"
                   aria-label="Next alert message"
