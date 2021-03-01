@@ -2,10 +2,10 @@ global-styling:
   version: 1.x
   css:
     base:
+      //use.fontawesome.com/releases/v5.1.0/css/all.css: {type: external}
       dist/css/style.css: {}
   js:
     dist/main.js: {}
-    https://use.fontawesome.com/95fd5fcc01.js: { type: external, attributes: { defer: true, async: true } }
     https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js: {type: external, minified: true}
     dist/js/openy_carnation.js: {}
     dist/js/openy_carnation_branch.js: {}
