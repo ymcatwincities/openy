@@ -52,3 +52,14 @@ The syncer consists of the next steps:
 ### Known issues in sync.
 
 1. There is an issue if class in Groupex has category set to "General" - it will not be synced and displayed at PEF.
+
+### Default Syncer behavior
+
+By default Syncer creates unpublished Session nodes.
+In order for them to become visible in Schedules application you'd need to set config variables to allow unpublished entities to be displayed
+
+- config `openy_repeat.settings` - variable `allow_unpublished_references: 1` - this is for unpublished Session, Program, Program Subcategory session nodes.
+- config `openy_session_instance.settings` - variable `allow_unpublished_references: 1` - this works only for unpublished Session nodes.
+
+At this moment we have no UI for setting these variables, so using `drush cset` or importing configs via Config Manager is recommended.
+
