@@ -5,7 +5,30 @@
   }
 
   .views-exposed-form {
-    display: none;
+    @include rem(padding-bottom, 20px);
+
+    .js-form-item-query {
+      padding: 2px;
+      position: relative;
+
+      &:before {
+        @include rem(left, 12px);
+        @include rem(top, 12px);
+        color: $blue;
+        content: "\f002";
+        font: normal normal normal 14px/1 FontAwesome;
+        position: absolute;
+      }
+
+      input {
+        @include border-radius(5px);
+        @include rem(padding-left, 30px);
+      }
+    }
+
+    .form-actions {
+      display: none;
+    }
   }
 
   .item-list {

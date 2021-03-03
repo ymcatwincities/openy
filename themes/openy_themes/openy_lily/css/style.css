@@ -6369,6 +6369,31 @@ a[href="#step2"] {
   font-weight: bold;
 }
 .global-search-results .views-exposed-form {
+  padding-bottom: 20px;
+  padding-bottom: 2rem;
+}
+.global-search-results .views-exposed-form .js-form-item-query {
+  padding: 2px;
+  position: relative;
+}
+.global-search-results .views-exposed-form .js-form-item-query:before {
+  left: 12px;
+  left: 1.2rem;
+  top: 12px;
+  top: 1.2rem;
+  color: #428bca;
+  content: "\f002";
+  font: normal normal normal 14px/1 FontAwesome;
+  position: absolute;
+}
+.global-search-results .views-exposed-form .js-form-item-query input {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding-left: 30px;
+  padding-left: 3rem;
+}
+.global-search-results .views-exposed-form .form-actions {
   display: none;
 }
 .global-search-results .item-list ul {
