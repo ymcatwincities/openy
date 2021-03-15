@@ -7662,6 +7662,7 @@ article .node--view-mode-flexible-content h2 a span, article .node--view-mode-fl
   padding: 20px;
 }
 .field-media-local-video video {
+  background-color: #000;
   width: 300px !important;
   height: 200px !important;
 }
