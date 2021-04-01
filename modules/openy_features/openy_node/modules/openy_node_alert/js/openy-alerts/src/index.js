@@ -94,7 +94,7 @@ if (typeof Drupal === 'undefined') {
             document
               .getElementsByClassName('pre-footer')[0]
               .parentNode.insertBefore(
-                e.firstChild,
+                f.firstChild,
                 document.getElementsByClassName('pre-footer')[0].nextSibling
               );
           }
