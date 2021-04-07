@@ -1,7 +1,0 @@
-services:
-  openy_pef_gxp_sync.commands:
-    class: \Drupal\openy_pef_gxp_sync\Commands\OpenyPefGxpSyncCommands
-    arguments:
-      - '@logger.factory'
-    tags:
-      - { name: drush.command }
