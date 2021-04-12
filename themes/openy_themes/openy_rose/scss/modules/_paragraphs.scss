@@ -440,8 +440,10 @@
   }
 }
 .paragraph--type--small-banner {
+  @include breakpoint($screen-sm) {
+    height: 250px;
+  }
   overflow: hidden;
-  max-height: 250px;
 
   .banner-image {
     top: 0;
@@ -453,8 +455,9 @@
       flex-direction: column;
 
       .field-prgf-image, .media-image, .field-media-image {
-        flex-grow: 1;
+        align-items: center;
         display: flex;
+        flex-grow: 1;
       }
 
       .field-media-image {
