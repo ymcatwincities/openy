@@ -1911,7 +1911,11 @@ body {
 
 .paragraph--type--small-banner {
   overflow: hidden;
-  max-height: 250px;
+}
+@media (min-width: 48em) {
+  .paragraph--type--small-banner {
+    height: 250px;
+  }
 }
 .paragraph--type--small-banner .banner-image {
   top: 0;
@@ -1923,8 +1927,9 @@ body {
   flex-direction: column;
 }
 .paragraph--type--small-banner .banner-image .banner-image-wrapper .field-prgf-image, .paragraph--type--small-banner .banner-image .banner-image-wrapper .media-image, .paragraph--type--small-banner .banner-image .banner-image-wrapper .field-media-image {
-  flex-grow: 1;
+  align-items: center;
   display: flex;
+  flex-grow: 1;
 }
 .paragraph--type--small-banner .banner-image .banner-image-wrapper .field-media-image .media--image {
   height: auto;
