@@ -1,4 +1,3 @@
-uuid: 422c07a9-2351-4c2b-b37f-efc749a66368
 langcode: en
 status: true
 dependencies:
@@ -13,8 +12,6 @@ dependencies:
     - user
     - verf
     - views_infinite_scroll
-_core:
-  default_config_hash: aWBfhdf0ZQ9f2R4OiQLWMmn8O_VSkLH8LCQqB-nj8uc
 id: listing_event_posts
 label: 'Listing Event Posts'
 module: views
