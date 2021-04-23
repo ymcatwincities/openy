@@ -114,7 +114,7 @@
         "ynorth-projects/openy_pef_gxp_sync": "1.0.0 || ^1.1.1",
         "open-y-subprojects/openy_daxko_gxp_syncer": "^1.0.0",
         "open-y-subprojects/ynorth_gxp_spots_proxy": "^1.0.1",
-        "ynorth-projects/openy_repeat": "^1.0.0 || ^2.0.2",
+        "ynorth-projects/openy_repeat": "^1.0.0 || ^2.0.3",
         "ynorth-projects/openy_node_session": "^0.9 || ^1.1.0"
     },
     "require-dev": {
