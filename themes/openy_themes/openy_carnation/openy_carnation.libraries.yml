@@ -16,6 +16,7 @@ global-styling:
     dist/js/openy_carnation_scroll.js: {}
     dist/js/openy_carnation_sticky_sidebar.js: {}
     dist/js/openy_carnation_user.js: {}
+    https://use.fontawesome.com/95fd5fcc01.js: {type: external, attributes: { defer: true, async: true} }
   dependencies:
     - core/jquery.once
     - core/jquery.ui.datepicker
