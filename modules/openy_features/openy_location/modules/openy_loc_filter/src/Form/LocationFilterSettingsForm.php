@@ -127,8 +127,6 @@ class LocationFilterSettingsForm extends ConfigFormBase {
     $config = $this->config(self::CONFIG_NAME);
     $locations = $form_state->getValue('locations');
 
-    $branches_list = $this->getBranchesList();
-
     foreach ($locations as $id => $status) {
       if ($id != 'All' && $status == $id) {
         $new_locations[$id] = $status;
