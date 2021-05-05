@@ -126,11 +126,15 @@ class LocationFilterSettingsForm extends ConfigFormBase {
     /** @var \Drupal\Core\Config\Config $config */
     $config = $this->config(self::CONFIG_NAME);
     $locations = $form_state->getValue('locations');
-    if (isset($locations['All'])) {
-      $branches_list = $this->getBranchesList();
-      $locations = $branches_list['branch'] + $branches_list['camp'];
+
+    foreach ($locations as $id => $status) {
+      if ($id != 'All' && $status == $id) {
+        $new_locations[$id] = $status;
+      }
     }
-    $config->set('locations', $locations)->save();
+
+    $config->set('locations', $new_locations)->save();
+
     Cache::invalidateTags(['rendered']);
 
     parent::submitForm($form, $form_state);
