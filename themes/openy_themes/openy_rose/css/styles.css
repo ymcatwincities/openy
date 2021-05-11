@@ -1212,6 +1212,10 @@ body {
 .page-head__main-menu .nav-level-2.open .fa-caret-down {
   display: none;
 }
+.page-head__main-menu .contextual-region {
+  float: left;
+  width: 100%;
+}
 
 .nav > li > a:hover {
   text-decoration: underline;
