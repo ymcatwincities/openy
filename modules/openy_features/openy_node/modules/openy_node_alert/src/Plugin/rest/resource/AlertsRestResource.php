@@ -319,7 +319,7 @@ class AlertsRestResource extends ResourceBase {
     }
 
     $visibility_paths = mb_strtolower($visibility_paths);
-    $pages = preg_split("(\r\n?|\n)", $visibility_paths);
+    $pages = array_filter(preg_split("(\r\n?|\n)", $visibility_paths));
 
     if (empty($pages)) {
       // Global alert.
