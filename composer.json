@@ -52,6 +52,7 @@
         "drupal/image_widget_crop": "^2",
         "drupal/inline_entity_form": "1.0-rc1 || ^1.0",
         "drupal/jquery_colorpicker": "^2 || ^2.0@RC",
+        "drupal/jquery_ui_touch_punch": "^1.0",
         "drupal/jquery_ui_tabs": "^1.1",
         "drupal/jquery_ui_tooltip": "^1.1",
         "drupal/libraries": "^3.0@beta || ^3.0",
