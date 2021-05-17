@@ -200,9 +200,6 @@
             },
             "drupal/search_api": {
                 "2898334 - Add a Role-based access processor": "https://www.drupal.org/files/issues/2021-01-31/2898334-30--role_based_access_check.patch"
-            },
-            "drupal/jquery_ui_touch_punch": {
-                "3159222 - jQuery UI Touch Punch library": "https://www.drupal.org/files/issues/2021-04-16/3159222-jquery_ui_touch_punch-update-libraries-path1a.patch"
             }
         }
     },
