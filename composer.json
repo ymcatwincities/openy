@@ -105,6 +105,7 @@
         "npm-asset/blazy": "^1.8",
         "npm-asset/dropzone": "^5.5",
         "npm-asset/jquery.easing": "^1.4",
+        "npm-asset/jquery-ui-touch-punch": "^0.2.3",
         "npm-asset/slick-carousel": "^1.8",
         "oomphinc/composer-installers-extender": "^1.1 || ^2.0.0",
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
