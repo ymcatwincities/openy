@@ -179,7 +179,7 @@ class SessionInstanceManager implements SessionInstanceManagerInterface {
         }
 
         // Program reference.
-        if ($program = $program_subcategory->field_category_program->referencedEntities()) {
+        if ($program_subcategory->field_category_program && $program = $program_subcategory->field_category_program->referencedEntities()) {
           $program = reset($program);
           if (!$moderation_wrapper->entity_moderation_status($program)) {
             // Skip activity due to unpublished program.

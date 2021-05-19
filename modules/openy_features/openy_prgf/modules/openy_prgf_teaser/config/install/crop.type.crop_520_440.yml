@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies: {  }
+id: crop_520_440
+label: 'Crop 520×440'
+description: 'Used in Teaser paragraph for bigger block (Rose and Carnation theme)'
+aspect_ratio: '520:440'
+soft_limit_width: null
+soft_limit_height: null
+hard_limit_width: 520
+hard_limit_height: 440

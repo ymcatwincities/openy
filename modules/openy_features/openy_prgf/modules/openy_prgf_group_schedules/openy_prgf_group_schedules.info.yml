@@ -2,10 +2,11 @@ name: Open Y Paragraph Group Schedules
 description: Provides a dynamic paragraph that renders the group schedules from GroupEx Pro.
 type: module
 core_version_requirement: ^8 || ^9
-package: Open Y
+package: Open Y Groupex PRO Integration
 dependencies:
   - drupal:field
   - openy_group_schedules:openy_group_schedules
   - paragraphs:paragraphs
   - plugin:plugin
+  - openy_gxp:openy_gxp
 version: 8.x-1.0

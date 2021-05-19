@@ -109,6 +109,7 @@ input:-moz-placeholder {
 // Form action buttons.
 .form-actions {
   .btn, .btn-group {
+    @include cachet-book();
     margin-left: 10px;
   }
 

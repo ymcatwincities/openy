@@ -2,7 +2,7 @@ name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core_version_requirement: ^8 || ^9
-version: '8.x-2.7.2'
+version: '9.x-2.9.1'
 distribution:
   name: Open Y
   install:
@@ -69,7 +69,6 @@ dependencies:
   - twig_tweak:twig_tweak
   # Open Y
   - advanced_help_block:advanced_help_block
-  - openy_autocomplete_path:openy_autocomplete_path
   - openy_block_custom_simple:openy_block_custom_simple
   - openy_datalayer:openy_datalayer
   - openy_editor:openy_editor

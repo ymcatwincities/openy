@@ -104,3 +104,31 @@ function openy_search_api_update_8001() {
     }
   }
 }
+
+/**
+ * Add content_access and role_access processors.
+ */
+function openy_search_api_update_8002() {
+  /** @var \Drupal\search_api\Entity\Index $search_api_index */
+  $search_api_index = \Drupal::entityTypeManager()->getStorage('search_api_index')
+    ->load('search_content');
+
+  $pluginHelper = \Drupal::getContainer()
+    ->get('search_api.plugin_helper');
+  $processors = ['content_access', 'role_access'];
+
+  $changed = FALSE;
+  foreach ($processors as $processor) {
+    if ($search_api_index->isValidProcessor($processor)) {
+      continue;
+    }
+    $search_api_index->addProcessor($pluginHelper
+      ->createProcessorPlugin($search_api_index, $processor));
+    $changed = TRUE;
+  }
+
+  if ($changed) {
+    $search_api_index->save();
+    $search_api_index->clear();
+  }
+}

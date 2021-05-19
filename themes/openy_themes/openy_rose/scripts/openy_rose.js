@@ -274,4 +274,35 @@
     }
   };
 
+  // Dynamic font size for Small banner text.
+  Drupal.behaviors.dynamic_font_size_small_banner = {
+    attach: function (context, settings) {
+      // The value that maximum fit in default font size.
+      const headlineMaxLength = 45
+      const  descriptionMaxLength = 325
+
+      let headline = $('.banner--small .field-prgf-headline'),
+          description =  $('.banner--small .field-prgf-description p'),
+          ww = $(window).width();
+
+      // Don't change for mobile and if small banner not present on the page.
+      if ( ww < 768 || headline === undefined || description === undefined) {
+        return
+      }
+      // Decrease font size if content is too long.
+      if (headline.text().length > headlineMaxLength) {
+        headline.css({
+          fontSize: ww < 991 ? '3.5vw' : '1.5vw',
+          lineHeight: 1.3
+        });
+      }
+      if (description.text().length > descriptionMaxLength) {
+        description.css({
+          fontSize: '1vw',
+          lineHeight: 1.3
+        });
+      }
+    }
+  };
+
 })(jQuery);

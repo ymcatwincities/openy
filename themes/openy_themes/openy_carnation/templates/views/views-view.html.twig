@@ -35,8 +35,7 @@
 {%
   set classes = [
     dom_id ? 'js-view-dom-id-' ~ dom_id,
-    css_name,
-    css_name == 'taxonomy-term' ? 'container',
+    css_name
   ]|merge(classes|default([]))
 %}
 <div{{ attributes.addClass(classes) }}>

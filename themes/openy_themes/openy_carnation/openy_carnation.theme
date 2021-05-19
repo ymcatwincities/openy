@@ -71,7 +71,11 @@ function openy_carnation_preprocess_html(array &$variables) {
         $variables['body_classes'][] = 'without-banner';
       }
     }
-  } else {
+  }
+  elseif (\Drupal::service('current_route_match')->getRouteName() == 'entity.taxonomy_term.canonical') {
+    $variables['body_classes'][] = 'with-banner';
+  }
+ else {
     $variables['body_classes'][] = 'without-banner';
   }
 }
@@ -267,7 +271,8 @@ function openy_carnation_preprocess_page(array &$variables) {
     // Fix hb_menu_selector plugin for Open Y Carnation theme.
     $variables['#attached']['library'][] = 'openy_carnation/hb_menu_selector_override';
   }
-
+  // Set title value for page.
+  $variables['title'] = $variables['page']['#title'];
   openy_carnation_preprocess_page_logo($variables);
 }
 

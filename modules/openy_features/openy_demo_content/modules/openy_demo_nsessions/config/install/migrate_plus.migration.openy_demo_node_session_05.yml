@@ -1,0 +1,1502 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - openy_demo_nsessions
+      - openy_demo_ncamp
+id: openy_demo_node_session_05
+migration_tags:
+  - openy_complete_installation
+migration_group: openy_demo_nsessions
+label: 'Create demo session nodes 5'
+source:
+  plugin: embedded_data
+  data_rows:
+    -
+      id: sports_classes_and_workshops_youth_fitness_challenge_2
+      title: 'For camp Youth Fitness Challenge'
+      class: sports_classes_and_workshops_youth_fitness_challenge
+      times:
+        -
+          time: sports_classes_and_workshops_youth_fitness_challenge_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: sports_classes_and_workshops_youth_homezone_2
+      title: 'For camp HomeZone'
+      class: sports_classes_and_workshops_youth_homezone
+      times:
+        -
+          time: sports_classes_and_workshops_youth_homezone_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: health_n_wellness_wrkshops_aoa_senior_health_and_fitness_day_2
+      title: 'For camp AOA National Senior Health and Fitness Day'
+      class: health_and_wellness_workshops_aoa_senior_health_and_fitness_day
+      times:
+        -
+          time: health_n_wellness_wrkshops_aoa_senior_health_and_fitness_day_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 144
+      age_max: 216
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017_2
+      title: 'For camp AOA Brain Agility - Class Fee, Spring 2017'
+      class: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017
+      times:
+        -
+          time: health_and_wellness_workshops_aoa_brain_agility_fee_spr_2017_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 600
+      availability: 5
+      price_member: 10
+      price_nonmember: 15
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: health_n_wellness_wrkshps_aoa_brain_agility_mat_fee_spr_2017_2
+      title: 'For camp AOA Brain Agility - Materials Fee, Spring 2017'
+      class: health_and_wellness_workshops_aoa_brain_agility_mat_fee_spr_2017
+      times:
+        -
+          time: health_n_wellness_wrkshps_aoa_brain_agility_mat_fee_spr_2017_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 600
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: group_exercise_classes_hiit_2
+      title: 'For camp HIIT'
+      class: group_exercise_classes_hiit
+      times:
+        -
+          time: group_exercise_classes_hiit_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: group_exercise_classes_hiit_metabolic_conditioning_2
+      title: 'For camp HIIT - Metabolic Conditioning'
+      class: group_exercise_classes_hiit_metabolic_conditioning
+      times:
+        -
+          time: group_exercise_classes_hiit_metabolic_conditioning_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: group_exercise_classes_moving_for_balance_spr_2017_2
+      title: 'For camp Moving for Better Balance - Continuing Spring 2017'
+      class: group_exercise_classes_moving_for_balance_spr_2017
+      times:
+        -
+          time: group_exercise_classes_moving_for_balance_spr_2017_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: smll_grp_training_youth_small_group_training_tween_girl_power_2
+      title: 'For camp Small Group Training - Tween Girl Power!'
+      class: samll_group_training_youth_small_group_training_tween_girl_power
+      times:
+        -
+          time: smll_grp_training_youth_small_group_training_tween_girl_power_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 120
+      age_max: 144
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: 'small group training'
+    -
+      id: samll_group_training_youth_small_group_training_tween_titans_2
+      title: 'For camp Small Group Training - Tween Titans'
+      class: samll_group_training_youth_small_group_training_tween_titans
+      times:
+        -
+          time: samll_group_training_youth_small_group_training_tween_titans_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 156
+      age_max: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      activity_type: 'small group training'
+    -
+      id: pilates_reformer_10_private_1hr_sessions_2
+      title: 'For camp Pilates Reformer - 10, private 1 hr sessions'
+      class: pilates_reformer_10_private_1hr_sessions
+      times:
+        -
+          time: pilates_reformer_10_private_1hr_sessions_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: private_yoga_10_1hour_sessions_2
+      title: 'For camp Private Yoga - 10, 1-hour sessions'
+      class: private_yoga_10_1hour_sessions
+      times:
+        -
+          time: private_yoga_10_1hour_sessions_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: pilates_reformer_duet_10_1hour_sessions_2
+      title: 'For camp Pilates Reformer - Duet - 10, 1 hour sessions'
+      class: pilates_reformer_duet_10_1hour_sessions
+      times:
+        -
+          time: pilates_reformer_duet_10_1hour_sessions_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 192
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: partner_personal_training_1_session_2
+      title: 'For camp Partner Personal Training - 1 session'
+      class: partner_personal_training_1_session
+      times:
+        -
+          time: partner_personal_training_1_session_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: personal
+    -
+      id: health_improvement_livestrong_at_the_y_2
+      title: 'For camp LIVESTRONG at the YMCA'
+      class: health_improvement_livestrong_at_the_y
+      times:
+        -
+          time: health_improvement_livestrong_at_the_y_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 156
+      age_max: 1200
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: health_improvement_nutrition_consultation_initial_2
+      title: 'For camp Nutrition Consultation - Initial'
+      class: health_improvement_nutrition_consultation_initial
+      times:
+        -
+          time: health_improvement_nutrition_consultation_initial_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: health_improvement_activly_changing_together_2
+      title: 'For camp ACT! Actively Changing Together'
+      class: health_improvement_activly_changing_together
+      times:
+        -
+          time: health_improvement_activly_changing_together_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: climbing_adult_rock_climbing_sept_2
+      title: 'For camp Climbing - Adult Rock Climbing - September'
+      class: climbing_adult_rock_climbing_sept
+      times:
+        -
+          time: climbing_adult_rock_climbing_sept_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: climbing_adult_rock_climbing_oct_2
+      title: 'For camp Climbing - Adult Rock Climbing - October'
+      class: climbing_adult_rock_climbing_oct
+      times:
+        -
+          time: climbing_adult_rock_climbing_oct_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: climbing_adult_parent_child_sept_2
+      title: 'For camp Climbing - Parent/Child Climbing - September'
+      class: climbing_adult_parent_child_sept
+      times:
+        -
+          time: climbing_adult_parent_child_sept_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+    -
+      id: climbing_adult_parent_child_oct_2
+      title: 'For camp Climbing - Parent/Child Climbing - October'
+      class: climbing_adult_parent_child_oct
+      times:
+        -
+          time: climbing_adult_parent_child_oct_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      availability: 8
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: small_group_and_specialty_training_adaptive_yoga_2
+      title: 'For camp Small Group Training - Adaptive Yoga'
+      class: small_group_and_specialty_training_adaptive_yoga
+      times:
+        -
+          time: small_group_and_specialty_training_adaptive_yoga_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: 'small group training'
+    -
+      id: smll_grp_and_specialty_training_pilates_reformer_level_1_2
+      title: 'For camp Small Group Training - Pilates Reformer Level I'
+      class: small_group_and_specialty_training_pilates_reformer_level_1
+      times:
+        -
+          time: smll_grp_and_specialty_training_pilates_reformer_level_1_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: 'small group training'
+    -
+      id: small_group_and_specialty_training_pilates_reformer_intro_2
+      title: 'For camp Small Group Training - Pilates Reformer Intro'
+      class: small_group_and_specialty_training_pilates_reformer_intro
+      times:
+        -
+          time: small_group_and_specialty_training_pilates_reformer_intro_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: true
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: 'small group training'
+    -
+      id: small_group_and_specialty_training_pilates_reformer_level_1_2_2
+      title: 'For camp Small Group Training - Pilates Reformer Level I/II'
+      class: small_group_and_specialty_training_pilates_reformer_level_1_2
+      times:
+        -
+          time: small_group_and_specialty_training_pilates_reformer_level_1_2_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: 'small group training'
+    -
+      id: weight_loss_lose_to_win_men_2
+      title: 'For camp Lose to Win for Men - Weight Loss Program'
+      class: weight_loss_lose_to_win_men
+      times:
+        -
+          time: weight_loss_lose_to_win_men_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: weight_loss_lose_to_win_2
+      title: 'For camp Lose to Win - Weight Loss Program'
+      class: weight_loss_lose_to_win
+      times:
+        -
+          time: weight_loss_lose_to_win_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: true
+      in_membership: true
+      age_min: 216
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: b4_after_school_child_care_2016_17_woodmoor_non_school_days_2
+      title: 'For camp 2021/22 Woodmoor - (f) Non-School Days'
+      class: before_after_school_child_care_2016_17_woodmoor_non_school_days
+      times:
+        -
+          time: b4_after_school_child_care_2016_17_woodmoor_non_school_days_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 156
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after_plus_2
+      title: 'For camp 2021/22 Woodmoor - (b) After Plus Care'
+      class: before_after_school_child_care_2016_17_woodmoor_after_plus
+      times:
+        -
+          time: before_after_school_child_care_2016_17_woodmoor_after_plus_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: before_after_school_child_care_2016_17_woodmoor_after_2
+      title: 'For camp 2021/22 Woodmoor - (c) After Care'
+      class: before_after_school_child_care_2016_17_woodmoor_after
+      times:
+        -
+          time: before_after_school_child_care_2016_17_woodmoor_after_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: before_after_school_child_care_2016_17_sunrise_before_after_2
+      title: 'For camp 2021/22 Sunrise - (a) Before and After Care'
+      class: before_after_school_child_care_2016_17_sunrise_before_after
+      times:
+        -
+          time: before_after_school_child_care_2016_17_sunrise_before_after_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: preschool_child_care_2016_17_northshore_pre_k_4_5yrs_2
+      title: 'For camp 2021/22 Northshore - Pre-K Child Care (4 - 5yrs)'
+      class: preschool_child_care_2016_17_northshore_pre_k_4_5yrs
+      times:
+        -
+          time: preschool_child_care_2016_17_northshore_pre_k_4_5yrs_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: preschool_child_care_2016_17_northshore_preschool_30m_4yr_2
+      title: 'For camp 2021/22 Northshore- Preschool Child Care (30m-4yr)'
+      class: preschool_child_care_2016_17_northshore_preschool_30m_4yr
+      times:
+        -
+          time: preschool_child_care_2016_17_northshore_preschool_30m_4yr_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: discovery_day_camp_drop_off_carol_edwards_ctr_2017_2
+      title: 'For camp Discovery Camp: Drop-off - Carol Edwards Ctr. 2017'
+      class: discovery_day_camp_drop_off_carol_edwards_ctr_2017
+      times:
+        -
+          time: discovery_day_camp_drop_off_carol_edwards_ctr_2017_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: discovery_day_camp_drop_off_kenmore_elementary_2017_2
+      title: 'For camp Discovery Camp: Drop-off - Kenmore Elementary 2017'
+      class: discovery_day_camp_drop_off_kenmore_elementary_2017
+      times:
+        -
+          time: discovery_day_camp_drop_off_kenmore_elementary_2017_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: discovery_day_camp_drop_off_Northshore_ymca_2017_2
+      title: 'For camp Discovery Camp: Drop-off - Northshore YMCA 2017'
+      class: discovery_day_camp_drop_off_Northshore_ymca_2017
+      times:
+        -
+          time: discovery_day_camp_drop_off_Northshore_ymca_2017_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: bold_one_wk_expeditions_cascade_challenge_2
+      title: 'For camp BOLD Cascade Challenge'
+      class: bold_one_wk_expeditions_cascade_challenge
+      times:
+        -
+          time: bold_one_wk_expeditions_cascade_challenge_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 144
+      age_max: 180
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: bld_1_wk_expeditions_backpacking_adventure_discovery_olympics_2
+      title: 'For camp A BOLD Backpacking Adventure: Discovery in the Olympics'
+      class: bold_one_wk_expeditions_backpacking_adventure_discovery_olympics
+      times:
+        -
+          time: bld_1_wk_expeditions_backpacking_adventure_discovery_olympics_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 132
+      age_max: 204
+      availability: 0
+      price_member: 32
+      price_nonmember: 65
+      activity_type: ''
+    -
+      id: bold_one_wk_expeditions_river_and_rocks_2
+      title: 'For camp BOLD Rivers and Rocks'
+      class: bold_one_wk_expeditions_river_and_rocks
+      times:
+        -
+          time: bold_one_wk_expeditions_river_and_rocks_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades_2
+      title: 'For camp BOLD Fishing and Backpacking in the North Cascades'
+      class: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades
+      times:
+        -
+          time: bold_one_wk_expeditions_fishing_and_backpacking_north_cascades_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 144
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: earth_service_corps_about_yesc_2
+      title: 'For camp Earth Service Corps About YESC'
+      class: earth_service_corps_about_yesc
+      times:
+        -
+          time: earth_service_corps_about_yesc_2
+      location: 2
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 156
+      age_max: 204
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: academic_success_2
+      title: 'For camp Academic Success'
+      class: academic_success
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_cardio
+      title: 'For camp Cardio'
+      class: class_cardio
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_strength
+      title: 'For camp Strength'
+      class: class_strength
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_forever_well
+      title: 'For camp Forever well'
+      class: class_forever_well
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_pa_1
+      title: 'For camp Climbing - Adult Rock Climbing - September'
+      class: class_climbing_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_pa_5
+      title: 'For camp Youth Cooking - Future Chefs'
+      class: class_cooking_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_pa_6
+      title: 'For camp AOA National Senior Health and Fitness Day'
+      class: class_aoa_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_pa_9
+      title: 'For camp LIVESTRONG at the YMCA'
+      class: class_hi_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_pa_12
+      title: 'For camp Lose to Win for Men - Weight Loss Program'
+      class: class_weight_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_training_1
+      title: 'For camp Pilates Reformer - 10, private 1 hr sessions'
+      class: class_personal_training_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_training_5
+      title: 'For camp Small Group Training - Pilates Reformer Level I/II'
+      class: class_small_group_specialty_training_1
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_training_9
+      title: 'For camp Small Group Training - Tween Girl Power!'
+      class: class_small_group_training_youth_1
+      times:
+       -
+         time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: 'small group training'
+    -
+      id: session_swim_1
+      title: 'For camp Swim Lessons - Parent/Child Stage A: Water Discov'
+      class: class_swim_lessons_child_with_adult_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_swim_3
+      title: 'For camp Swim Lessons - Preschool Stage 1: Water Acclimat'
+      class: class_swim_lessons_preschool_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_swim_7
+      title: 'For camp Swim Lesson - Private'
+      class: class_swim_lessons_private_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_swim_8
+      title: 'For camp Swim Lessons - Teen Advanced'
+      class: class_swim_lessons_teen_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_swim_12
+      title: 'For camp Swim Lessons - Youth Stage 4: Stroke Intro'
+      class: class_swim_lessons_youth_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_swim_18
+      title: 'For camp Swim Team - Interest List'
+      class: class_swim_team_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_swim_19
+      title: 'For camp Recreational Swim 3ft'
+      class: class_drop-in-swim_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_camp_1
+      title: 'For camp BOLD Cascade Challenge'
+      class: class_bold_one_week_expeditions_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_camp_5
+      title: 'For camp Discover Camp: Drop-off - Carol Edwards Ctr. 2017'
+      class: class_discovery_day_camp_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_1
+      title: 'For camp AM Fit & Fun'
+      class: class_academic_enrichment_youth_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_3
+      title: 'For camp May Crafternoon: Handprint Sunshines'
+      class: class_activity_arts_crafts_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 2
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_6
+      title: 'For camp 2021/22 Woodmoor - (f) Non-School Days'
+      class: class_before_after_school_child_care_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_10
+      title: 'For camp 2021/22 Bellevue: No School Days - Package Option'
+      class: class_before_after_school_programs_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_11
+      title: 'For camp Room Rental'
+      class: class_birthday_parties_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_12
+      title: 'For camp Birthday Party'
+      class: class_birthday_parties_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_13
+      title: 'For camp Earth Service Corps About YEST'
+      class: class_earth_service_corps_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_14
+      title: 'For camp Kids Zone 4 wks - 11 yrs'
+      class: class_kids_zone_activity_centers_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_15
+      title: 'For camp 2021/22 Northshore- Preschool Child Care (30m-4yr)'
+      class: class_preschool_child_care_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_16
+      title: 'For camp 2021/22 Northshore - Pre-K Child Care (4 - 5yrs)'
+      class: class_preschool_child_care_2
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+    -
+      id: session_kids_17
+      title: 'For camp HomeZone'
+      class: class_sports_classes_workshops_youth_1
+      times:
+        -
+          time: academic_success_2
+      location: 1
+      facility: 92
+      online_registration: false
+      ticket_required: false
+      in_membership: false
+      age_min: 60
+      age_max: 216
+      availability: 0
+      price_member: 132
+      price_nonmember: 265
+      reg_uri: 'http://www.openymca.org'
+      reg_title: 'Register Now'
+      activity_type: ''
+  ids:
+    id:
+      type: string
+process:
+  langcode:
+    plugin: default_value
+    source: language
+    default_value: en
+  status:
+    plugin: default_value
+    default_value: 1
+  uid:
+    plugin: default_value
+    default_value: 1
+  title: title
+  field_session_class:
+    plugin: migration_lookup
+    migration: openy_demo_node_class_02
+    no_stub: true
+    source: class
+  field_session_location:
+    plugin: migration_lookup
+    migration: openy_demo_node_camp
+    source: location
+  field_session_time:
+    plugin: sub_process
+    source: times
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: openy_demo_paragraph_session_time_04
+        no_stub: true
+        source: time
+      target_revision_id:
+        plugin: migration_lookup
+        migration: openy_demo_paragraph_session_time_04
+        no_stub: true
+        source: time
+  field_session_online: online_registration
+  field_session_ticket: ticket_required
+  field_session_in_mbrsh: in_membership
+  field_session_min_age: age_min
+  field_session_max_age: age_max
+  field_availability: availability
+  field_session_mbr_price: price_member
+  field_session_nmbr_price: price_nonmember
+  field_session_reg_link/uri: reg_uri
+  field_session_reg_link/title: reg_title
+  field_session_plocation: facility
+  field_activity_type: activity_type
+destination:
+  plugin: 'entity:node'
+  default_bundle: session
+migration_dependencies:
+  required:
+    - openy_demo_node_class_02
+    - openy_demo_node_camp
+    - openy_demo_paragraph_session_time_04

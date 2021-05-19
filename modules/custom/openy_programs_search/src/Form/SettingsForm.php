@@ -223,7 +223,7 @@ class SettingsForm extends ConfigFormBase {
 
     $form['pinned_programs_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Pinned programs by name for Doxko.'),
+      '#title' => $this->t('Pinned programs by name for Daxko.'),
       '#prefix' => '<div id="pinned-programs-fieldset-wrapper">',
       '#suffix' => '</div>',
     ];

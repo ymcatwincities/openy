@@ -1,8 +1,0 @@
-name: Open Y Repeat
-type: module
-description: Provides a framework for repeatable events.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0-rc1
-package: Open Y
-dependencies:
-  - openy_repeat_entity:openy_repeat_entity

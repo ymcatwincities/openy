@@ -1171,3 +1171,10 @@ function openy_update_8084() {
     \Drupal::service('module_installer')->install(['jquery_ui_tabs']);
   }
 }
+
+/**
+ * Uninstall openy_autocomplete_path module.
+ */
+function openy_update_8086() {
+    \Drupal::service('module_installer')->uninstall(['openy_autocomplete_path']);
+}

@@ -73,14 +73,6 @@
           </div>
         </form>
       {% endif %}
-
-      {% if ccc_logged_in %}
-        {{ ccc_logged_menu }}
-      {% elseif not ccc_logged_in and logged_in %}
-        {{ ccc_anonymous_menu }}
-      {% elseif logged_in %}
-        {{ logged_menu }}
-      {% endif %}
     </div>
     {% block mobile_menu %}
       {{ page.mobile_menu }}
