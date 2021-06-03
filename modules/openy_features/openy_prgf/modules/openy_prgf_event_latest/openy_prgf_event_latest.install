@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file
+ * Open Y Paragraph Latest Events install file.
+ */
+
+/**
+ * Update view latest event posts configs.
+ */
+function openy_prgf_event_latest_update_8001() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_event_latest') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'views.view.latest_event_posts'
+  ]);
+}
+
+/**
+ * Update view latest event posts configs.
+ */
+function openy_prgf_event_latest_update_8002() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_event_latest') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'views.view.latest_event_posts'
+  ]);
+}
