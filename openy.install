@@ -1178,3 +1178,21 @@ function openy_update_8084() {
 function openy_update_8086() {
     \Drupal::service('module_installer')->uninstall(['openy_autocomplete_path']);
 }
+
+/**
+ * Update themes settings with display_search_form.
+ */
+function openy_update_8087() {
+  $themes_list = [
+    'openy_lily',
+    'openy_rose',
+  ];
+  foreach ($themes_list as $theme) {
+    if (\Drupal::service('theme_handler')->themeExists($theme)) {
+      $config = drupal_get_path('theme', $theme) . '/config/install/' . $theme . '.settings.yml';
+      /** @var Drupal\openy_upgrade_tool\ConfigParamUpgradeTool $config_importer */
+      $config_importer = \Drupal::service('openy_upgrade_tool.param_updater');
+      $config_importer->update($config, $theme . '.settings', 'display_search_form');
+    }
+  }
+}

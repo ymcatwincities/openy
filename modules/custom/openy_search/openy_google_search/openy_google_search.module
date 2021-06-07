@@ -90,6 +90,5 @@ function openy_google_search_openy_search_theme_configuration_alter(&$overrides)
   $overrides = [
     'search_query_key' => $search_config->get('search_query_key'),
     'search_page_alias' => $search_helper->getSearchResultsPageAlias(),
-    'display_search_form' => 1,
   ];
 }

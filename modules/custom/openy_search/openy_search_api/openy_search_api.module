@@ -43,7 +43,6 @@ function openy_search_api_openy_search_theme_configuration_alter(&$overrides) {
   $overrides = [
     'search_query_key' => $search_config->get('search_query_key'),
     'search_page_alias' => ltrim($alias,'/'),
-    'display_search_form' => 1,
   ];
 }
 
