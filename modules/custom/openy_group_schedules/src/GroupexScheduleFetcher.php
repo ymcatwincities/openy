@@ -56,13 +56,6 @@ class GroupexScheduleFetcher {
   private $parameters = [];
 
   /**
-   * Cached schedule.
-   *
-   * @var array
-   */
-  private $schedule = [];
-
-  /**
    * Timezone.
    *
    * @var \DateTimeZone
@@ -123,10 +116,7 @@ class GroupexScheduleFetcher {
    *    - week: all classes grouped by day within days key
    */
   public function getSchedule() {
-    // Use cached schedule if already processed.
-    if ($this->schedule) {
-      return $this->schedule;
-    }
+
     $request_time = \Drupal::time()->getRequestTime();
     $conf = $this->configFactory->get('openy_group_schedules.settings');
     $days_range = is_numeric($conf->get('days_range')) ? $conf->get('days_range') : 14;
@@ -327,8 +317,7 @@ class GroupexScheduleFetcher {
         break;
     }
 
-    $this->schedule = $schedule;
-    return $this->schedule;
+    return $schedule;
   }
 
   /**
