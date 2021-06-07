@@ -56,13 +56,6 @@ class GroupexScheduleFetcher {
   private $parameters = [];
 
   /**
-   * Cached schedule.
-   *
-   * @var array
-   */
-  private $schedule = [];
-
-  /**
    * Timezone.
    *
    * @var \DateTimeZone
@@ -324,7 +317,6 @@ class GroupexScheduleFetcher {
         break;
     }
 
-    $this->schedule = $schedule;
     return $this->schedule;
   }
 
