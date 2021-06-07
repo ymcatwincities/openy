@@ -317,7 +317,7 @@ class GroupexScheduleFetcher {
         break;
     }
 
-    return $this->schedule;
+    return $schedule;
   }
 
   /**
