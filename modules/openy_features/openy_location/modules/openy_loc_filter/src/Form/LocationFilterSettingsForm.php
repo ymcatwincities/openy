@@ -134,6 +134,7 @@ class LocationFilterSettingsForm extends ConfigFormBase {
     }
 
     $config->set('locations', $new_locations)->save();
+    $config->set('changed_by_user', TRUE)->save();
 
     Cache::invalidateTags(['rendered']);
 
