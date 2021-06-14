@@ -22,6 +22,9 @@ function openy_update_get_projects(&$projects) {
   try {
     $response = $client->post(OPENY_UPDATE_PACKAGES_ENDPOINT, [
       'body' => json_encode($projects),
+      'connect_timeout' => 10,
+      'read_timeout' => 20,
+      'timeout' => 30
     ]);
     if ($response->getStatusCode() == 200) {
       $body = $response->getBody();
