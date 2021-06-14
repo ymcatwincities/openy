@@ -138,7 +138,6 @@ class CalcBlockForm extends FormBase {
           '#title' => $this->t('Which option best describes the type of membership you need?'),
           '#options' => $types_options,
           '#default_value' => isset($storage['type']) ? $storage['type'] : NULL,
-          '#required' => TRUE,
         ];
         break;
 
@@ -239,10 +238,14 @@ class CalcBlockForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $trigger = $form_state->getTriggeringElement();
-    if ($trigger['#name'] != 'step-3') {
-      return;
+    $storage = $form_state->getStorage();
+    if ($trigger['#name'] == 'step-2'
+      && empty($storage['type'])
+      && $form_state->isValueEmpty('type')) {
+      $form_state->setErrorByName('type', $this->t('Which option best describes the type of membership you need?'));
     }
-    if ($form_state->isValueEmpty('location')) {
+
+    if ($trigger['#name'] == 'step-3' && $form_state->isValueEmpty('location')) {
       $form_state->setErrorByName('location', $this->t('Please set location'));
     }
   }
