@@ -13,5 +13,5 @@ browser:
 blazy_ratio:
   version: 0.1
   css:
-    component:
+    theme:
       css/blazy.ratio.css: {}
