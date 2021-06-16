@@ -12,7 +12,7 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.0.0",
     "nuxt": "^2.0.0",
     "vue-cookie": "^1.1.4"
