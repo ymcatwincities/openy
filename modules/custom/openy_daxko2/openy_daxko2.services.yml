@@ -1,4 +1,4 @@
 services:
   openy_daxko2.openy_activity_finder_backend:
     class: Drupal\openy_daxko2\OpenyActivityFinderDaxkoBackend
-    arguments: ['@config.factory', '@entity_type.manager', '@cache.default', '@http_client']
+    arguments: ['@config.factory', '@entity_type.manager', '@cache.default', '@http_client', '@module_handler']

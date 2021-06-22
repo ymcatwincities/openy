@@ -5,6 +5,7 @@ namespace Drupal\openy_daxko2;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 use GuzzleHttp\Client;
 use Drupal\openy_activity_finder\OpenyActivityFinderBackend;
 
@@ -40,6 +41,13 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   protected $http;
 
   /**
+   * The module handler to invoke the alter hook.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
    * OpenyActivityFinderDaxkoBackend constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -50,13 +58,16 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    *   Cache default.
    * @param \GuzzleHttp\Client $http
    *   The http client.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   The module handler.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache, Client $http) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache, Client $http, ModuleHandlerInterface $module_handler) {
     parent::__construct($config_factory);
     $this->daxkoConfig = $config_factory->get('openy_daxko2.settings');
     $this->entityTypeManager = $entity_type_manager;
     $this->cache = $cache;
     $this->http = $http;
+    $this->moduleHandler = $module_handler;
   }
 
   /**
@@ -134,6 +145,8 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $get['registration_type'] = 'online';
 
     $get['limit'] = self::RESULTS_PER_PAGE;
+
+    $this->moduleHandler->alter('openy_daxko2_activity_finder_daxko_params', $get);
 
     $time_start = microtime(true);
     $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
@@ -532,7 +545,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
         $group_name = trim($row, '*');
         continue;
       }
-      list($id, $name, ) = explode(',', $row);
+      [$id, $name, ] = explode(',', $row);
       $id = trim($id);
       $name = trim($name);
       if (!empty($id) && !empty($name)) {
