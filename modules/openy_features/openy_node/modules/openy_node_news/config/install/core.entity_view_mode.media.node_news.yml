@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.node_news
-label: 'Node news'
-targetEntityType: media
-cache: true

@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: microsites_menu
-label: 'Microsites Menu'
-behavior_plugins: {  }

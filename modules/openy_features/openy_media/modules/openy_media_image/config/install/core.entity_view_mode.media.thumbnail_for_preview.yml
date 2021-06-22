@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.thumbnail_for_preview
-label: 'Thumbnail for preview'
-targetEntityType: media
-cache: true

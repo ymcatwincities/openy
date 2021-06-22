@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: teaser
-label: Teaser
-description : 'Paragraph to display teaser content.'
-icon_uuid : null
-behavior_plugins: {  }

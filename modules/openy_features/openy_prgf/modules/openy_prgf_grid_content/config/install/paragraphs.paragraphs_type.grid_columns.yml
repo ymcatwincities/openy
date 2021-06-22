@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: grid_columns
-label: 'Grid columns'
-icon_uuid: null
-description: 'Paragraph to display grid column for field_grid_columns in the Grid Content paragraph.'
-behavior_plugins: {  }

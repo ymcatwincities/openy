@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: banner_fixed
-label: Banner Fixed
-behavior_plugins: {  }

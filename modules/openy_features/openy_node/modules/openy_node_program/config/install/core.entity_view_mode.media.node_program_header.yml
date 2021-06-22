@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.node_program_header
-label: 'Node Program Header'
-targetEntityType: media
-cache: true

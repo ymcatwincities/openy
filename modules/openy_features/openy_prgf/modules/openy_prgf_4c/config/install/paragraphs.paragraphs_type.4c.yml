@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: 4c
-label: '4 columns'
-icon_uuid: null
-description: 'Paragraph with 4 columns.'
-behavior_plugins: {  }

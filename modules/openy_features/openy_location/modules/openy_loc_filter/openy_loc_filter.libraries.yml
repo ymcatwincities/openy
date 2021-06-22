@@ -1,9 +1,0 @@
-openy_location_filter:
-  version: 1.0.0
-  js:
-    js/location_filter.js: { minified: true }
-  dependencies:
-    - core/jquery
-    - core/jquery.once
-    - core/drupal
-    - core/drupalSettings

@@ -1,6 +1,0 @@
-openy_loc_filter.admin:
-  title: 'Open Y Location Filter settings'
-  description: 'Configure Open Y Location Filter settings.'
-  parent: openy_system.openy_settings
-  route_name: openy_loc_filter.location_filter_settings
-  weight: 101
