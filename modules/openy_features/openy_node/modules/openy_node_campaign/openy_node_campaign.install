@@ -1,7 +1,0 @@
-<?php
-
-/**
- * Implements hook_install().
- *
- * @see system_install()
- */

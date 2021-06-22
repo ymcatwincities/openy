@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: background_container
-label: 'Background container'
-behavior_plugins: {  }
