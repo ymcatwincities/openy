@@ -1,6 +1,0 @@
-services:
-  openy_node_alert.alert_manager:
-    class: 'Drupal\openy_node_alert\Service\AlertManager'
-    arguments: ['@entity_type.manager']
-    tags:
-      - { name: service_collector, tag: alert_builder, call: addBuilder }
