@@ -2,6 +2,7 @@
 
 use Drupal\Core\Database\Query\AlterableInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\NodeInterface;
 use Drupal\openy_loc_filter\Form\LocationFilterSettingsForm;
 
 /**
@@ -106,6 +107,16 @@ function openy_loc_filter_query_repeat_schedules_block_locations_alter(Alterable
 function openy_loc_filter_query_data_wrapper_locations_alter(AlterableInterface $query) {
   $allowed_locations = \Drupal::config(LocationFilterSettingsForm::CONFIG_NAME)
     ->get('locations');
+  // We always have this value in options, so let's remove it.
+  unset($allowed_locations['All']);
+  // If no one locations are selected we decide that all locations are selected.
+  if (empty($allowed_locations)) {
+    $allowed_locations = \Drupal::entityQuery('node')
+      ->condition('type', ['branch', 'camp'], 'IN')
+      ->condition('status', NodeInterface::PUBLISHED)
+      ->execute();
+  }
+  // This check in case we don't have any published locations.
   if (!empty($allowed_locations)) {
     $query->condition('node_field_data.nid', array_keys($allowed_locations), 'IN');
   }

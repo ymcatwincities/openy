@@ -6,7 +6,7 @@ openy_rose_image_fields:
   camp_favicon: openy_rose_camp_favicon
 css_enabled: 1
 css: ""
-display_search_form: 0
+display_search_form: 1
 search_query_key: q
 search_page_alias: search
 plaintext_enabled: 0

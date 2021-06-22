@@ -29,3 +29,15 @@ function openy_prgf_event_listing_update_8002() {
     'views.view.listing_event_posts'
   ]);
 }
+
+/**
+ * Update view listing event posts configs.
+ */
+function openy_prgf_event_listing_update_8003() {
+  $config_dir = drupal_get_path('module', 'openy_prgf_event_listing') . '/config/install/';
+  $config_importer = \Drupal::service('openy_upgrade_tool.importer');
+  $config_importer->setDirectory($config_dir);
+  $config_importer->importConfigs([
+    'views.view.listing_event_posts'
+  ]);
+}

@@ -15,7 +15,7 @@ openy_lily_image_fields:
   camp_favicon: openy_lily_camp_favicon
 css_enabled: 1
 css: ""
-display_search_form: 0
+display_search_form: 1
 search_query_key: search
 search_page_alias: search
 plaintext_enabled: 0
