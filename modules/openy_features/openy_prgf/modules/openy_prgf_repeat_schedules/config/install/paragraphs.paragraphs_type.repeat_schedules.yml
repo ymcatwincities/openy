@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: repeat_schedules
-label: 'Repeat Schedules'
-icon_uuid: null
-description: 'Paragraph to display Program Schedules'
-behavior_plugins: {  }

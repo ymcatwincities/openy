@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'News Category'
-vid: news_category
-description: 'News post categories.'
-hierarchy: 0
-weight: 0

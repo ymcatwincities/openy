@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.node_program_subcategory_teaser
-label: 'Node Program subcategory teaser'
-targetEntityType: media
-cache: true

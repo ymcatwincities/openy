@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: story_card
-label: 'Story Card'
-icon_uuid: null
-description: 'Paragraph to display Story Card.'
-behavior_plugins: {  }

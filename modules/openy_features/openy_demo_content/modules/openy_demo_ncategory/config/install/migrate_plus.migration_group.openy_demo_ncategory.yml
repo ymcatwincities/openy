@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: openy_demo_ncategory
-label: 'Demo program category'
-description: 'Imports program category demo content.'
-module: openy_demo_ncategory

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: lto
-label: 'Limited Time Offer'
-icon_uuid: null
-description: 'Paragraph to display limited time offer for Home Page based on Landing Page.'
-behavior_plugins: {  }

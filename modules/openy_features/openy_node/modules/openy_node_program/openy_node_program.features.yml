@@ -1,7 +1,0 @@
-excluded:
-  - taxonomy.vocabulary.color
-  - field.storage.node.field_category_program
-  - core.entity_form_display.node.program_subcategory.default
-  - core.entity_view_display.node.program_subcategory.default
-  - field.field.node.program_subcategory.field_category_program
-required: true

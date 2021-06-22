@@ -1,9 +1,0 @@
-name: Open Y Menu Footer
-description: Stores a footer navigation menus configuration.
-type: module
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - drupal:system
-  - openy_menu:openy_menu

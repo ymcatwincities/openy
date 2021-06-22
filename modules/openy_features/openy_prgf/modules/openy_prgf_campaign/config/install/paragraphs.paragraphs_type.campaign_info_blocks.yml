@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: campaign_info_blocks
-label: 'Campaign Info Blocks'
-icon_uuid: null
-description: 'Paragraph type to show Simple text, Visit Tracking, Activity count or Game blocks in 1 or 2 columns.'
-behavior_plugins: {  }

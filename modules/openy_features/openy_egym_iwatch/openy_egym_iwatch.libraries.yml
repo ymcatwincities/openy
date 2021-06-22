@@ -1,7 +1,0 @@
-openy_egym_iwatch:
-  version: 1.x
-
-  css:
-    theme:
-      dist/css/openy_egym_iwatch.css: { minified: true}
-

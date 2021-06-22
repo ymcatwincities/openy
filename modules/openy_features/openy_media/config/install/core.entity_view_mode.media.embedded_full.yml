@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.embedded_full
-label: Full
-targetEntityType: media
-cache: true

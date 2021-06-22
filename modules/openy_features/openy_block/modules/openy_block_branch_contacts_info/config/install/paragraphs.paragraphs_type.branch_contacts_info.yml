@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: branch_contacts_info
-label: 'Branch Contacts Info'
-icon_uuid: null
-description: ''
-behavior_plugins: {  }
