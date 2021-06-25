@@ -1,6 +1,0 @@
-services:
-  openy_map.manager:
-    class: Drupal\openy_map\OpenyMapManager
-    arguments:
-      - '@entity_type.manager'
-      - '@entity_field.manager'

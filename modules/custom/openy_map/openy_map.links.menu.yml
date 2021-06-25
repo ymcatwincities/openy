@@ -1,6 +1,0 @@
-openy_map.admin:
-  title: 'Map settings'
-  description: 'Configure map settings for location finder.'
-  parent: openy_system.openy_settings
-  route_name: openy_map.settings
-  weight: 130
