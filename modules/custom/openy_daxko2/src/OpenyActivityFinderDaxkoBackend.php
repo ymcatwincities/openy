@@ -453,7 +453,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   }
 
   /**
-   *
+   * The list of top level categories.
    */
   public function getCategoriesTopLevel() {
     $categories_config = $this->daxkoConfig->get('categories');
