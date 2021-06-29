@@ -2,13 +2,19 @@
 
 namespace Drupal\openy_daxko2;
 
+use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use GuzzleHttp\Client;
 use Drupal\openy_activity_finder\OpenyActivityFinderBackend;
+use Psr\Log\LoggerInterface;
+use Drupal\Core\Url;
 
+/**
+ * Daxko API back-end for Open Y Activity Finder.
+ */
 class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
   /**
@@ -24,11 +30,15 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   protected $daxkoConfig;
 
   /**
+   * The entity type manager.
+   *
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entityTypeManager;
 
   /**
+   * The cache backend.
+   *
    * @var \Drupal\Core\Cache\CacheBackendInterface
    */
   protected $cache;
@@ -48,6 +58,20 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   protected $moduleHandler;
 
   /**
+   * The time service.
+   *
+   * @var \Drupal\Component\Datetime\TimeInterface
+   */
+  protected $time;
+
+  /**
+   * The Logger service.
+   *
+   * @var \Psr\Log\LoggerInterface
+   */
+  protected $logger;
+
+  /**
    * OpenyActivityFinderDaxkoBackend constructor.
    *
    * @param \Drupal\Core\Entity\EntityTypeManager $entity_type_manager
@@ -60,20 +84,26 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    *   The http client.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
    *   The module handler.
+   * @param \Drupal\Component\Datetime\TimeInterface $time
+   *   The time service.
+   * @param \Psr\Log\LoggerInterface $logger
+   *   The logger.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache, Client $http, ModuleHandlerInterface $module_handler) {
+  public function __construct(ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager, CacheBackendInterface $cache, Client $http, ModuleHandlerInterface $module_handler, TimeInterface $time, LoggerInterface $logger) {
     parent::__construct($config_factory);
     $this->daxkoConfig = $config_factory->get('openy_daxko2.settings');
     $this->entityTypeManager = $entity_type_manager;
     $this->cache = $cache;
     $this->http = $http;
     $this->moduleHandler = $module_handler;
+    $this->time = $time;
+    $this->logger = $logger;
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
-  public function runProgramSearch($parameters, $log_id) {
+  public function runProgramSearch($parameters, $log_id): array {
     $parameters += [
       'locations' => '',
       'keywords' => '',
@@ -121,8 +151,8 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $ages = $parameters['ages'];
     if (!empty($ages)) {
       $ageGet = [];
-      foreach (explode(',', $ages) as $age) {
-        $ageGet[] = date('Y-m-d', strtotime('-' . $age . ' months'));
+      foreach (explode(',', $ages) as $age_value) {
+        $ageGet[] = date('Y-m-d', strtotime('-' . $age_value . ' months'));
       }
       $get['birth_dates'] = implode(',', $ageGet);
     }
@@ -159,7 +189,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       ]);
     $time_end = microtime(true);
     $time = $time_end - $time_start;
-    \Drupal::logger('openy_daxko2')->info('Daxko call. Time %times. URL %url', [
+    $this->logger->info('Daxko call. Time %times. URL %url', [
       '%time' => number_format($time, 2),
       '%url' => 'programs/offerings/search',
     ]);
@@ -167,8 +197,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     $programsResponse = json_decode((string) $response->getBody(), TRUE);
 
     $locationNodesData = $this->getLocationsInfoFromNodes();
-    $config = \Drupal::service('config.factory')->getEditable('openy_daxko2.settings');
-    $locations_config = $config->get('locations');
+    $locations_config = $this->daxkoConfig->get('locations');
     $locations_rows = explode("\n", $locations_config);
     foreach ($locations_rows as $locations_row) {
       if (substr($locations_row, 0, 1) == '*') {
@@ -236,7 +265,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
         // Cache the Price for one day.
         $cache_key = 'daxko-price-' . md5($row['id'] . $row['program']['id'] . $location_id);
-        $ttl = \Drupal::time()->getRequestTime() + 24 * 60 * 60;
+        $ttl = $this->time->getRequestTime() + 24 * 60 * 60;
         if ($cache = $this->cache->get($cache_key)) {
           $prices = $cache->data;
         }
@@ -276,11 +305,11 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
         // Build register link.
         $program_id = $row['program']['id'];
         $offering_id = $row['id'];
-        $register_link = 'https://ops1.operations.daxko.com/Online/' . $config->get(
+        $register_link = 'https://ops1.operations.daxko.com/Online/' . $this->daxkoConfig->get(
             'client_id'
           ) . '/ProgramsV2/OfferingDetails.mvc?program_id=' . $program_id . '&offering_id=' . $offering_id . '&location_id=' . $location_id;
 
-        $register_link_with_tracking = \Drupal\Core\Url::fromRoute(
+        $register_link_with_tracking = Url::fromRoute(
           'openy_activity_finder.register_redirect',
           ['log' => $log_id],
           [
@@ -336,8 +365,8 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
           'more_results' => '',
           'more_results_type' => 'keyword',
           'program_name' => '',
-          'gender' => isset($gender) ? $gender : '',
-          'ages' => isset($age) ? $age : '',
+          'gender' => $gender ?? '',
+          'ages' => $age ?? '',
         ];
       }
     }
@@ -347,10 +376,9 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       $pager = $programsResponse['after'];
     }
 
-    $group_counters = [];
     $facets = $programsResponse['facets'];
-    foreach ($facets as $facet_name => &$facet_data) {
-      foreach ($facet_data as $key => &$facet) {
+    foreach ($facets as &$facet_data) {
+      foreach ($facet_data as &$facet) {
         $facet = [
           'filter' => $facet['name'],
           'id' => $facet['id'],
@@ -365,8 +393,10 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       unset($facets['categories']);
     }
 
+    $locationsWithResults = [];
     $locations = $this->getLocations();
     foreach ($locations as $key => $group) {
+      $locations[$key]['count'] = 0;
       foreach ($group['value'] as $location) {
         foreach ($facets['locations'] as $fl) {
           if ($fl['id'] == $location['value']) {
@@ -377,7 +407,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       }
     }
 
-    foreach ($locations as $key => $group) {
+    foreach ($locations as $group) {
       foreach ($group['value'] as $location) {
         if (!in_array($location['value'], $locationsWithResults)) {
           $facets['locations'][] = [
@@ -400,65 +430,31 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   }
 
   /**
-   * Get the days of week.
-   */
-  public function getDaysOfWeek() {
-    return [
-      [
-        'label' => 'Mon',
-        'search_value' => 'monday',
-        'value' => '1',
-      ],
-      [
-        'label' => 'Tue',
-        'search_value' => 'tuesday',
-        'value' => '2',
-      ],
-      [
-        'label' => 'Wed',
-        'search_value' => 'wednesday',
-        'value' => '3',
-      ],
-      [
-        'label' => 'Thu',
-        'search_value' => 'thursday',
-        'value' => '4',
-      ],
-      [
-        'label' => 'Fri',
-        'search_value' => 'friday',
-        'value' => '5',
-      ],
-      [
-        'label' => 'Sat',
-        'search_value' => 'saturday',
-        'value' => '6',
-      ],
-      [
-        'label' => 'Sun',
-        'search_value' => 'sunday',
-        'value' => '7',
-      ],
-    ];
-  }
-
-  /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
   public function getLocations() {
-    // Need locations groupped to display in filter.
+    // Need locations grouped to display in filter.
     return $this->getDaxkoLocations(TRUE);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getCategories() {
-    // Need locations groupped to display in filter.
+    // Need locations grouped to display in filter.
     return $this->getDaxkoCategories(TRUE);
   }
 
+  /**
+   * {@inheritdoc}
+   */
   public function getCategoriesType() {
     return 'single';
   }
 
+  /**
+   * The list of top level categories.
+   */
   public function getCategoriesTopLevel() {
     $categories_config = $this->daxkoConfig->get('categories');
     $categories = $this->parseGrouppedSetting($categories_config, TRUE);
@@ -466,7 +462,16 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     return array_keys($categories);
   }
 
-  protected function getDaxkoCategories($group = FALSE) {
+  /**
+   * Loads the list of Daxko categories from the configuration.
+   *
+   * @param false $group
+   *   Groping flag.
+   *
+   * @return array
+   *   The array of categories,
+   */
+  protected function getDaxkoCategories(bool $group = FALSE): array {
     $categories_config = $this->daxkoConfig->get('categories');
     $categories = $this->parseGrouppedSetting($categories_config, $group);
     if (!$group) {
@@ -482,7 +487,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   }
 
   /**
-   * Run querty to Daxko to get the token.
+   * Run query to Daxko to get the token.
    */
   protected function getDaxkoToken() {
     $time_start = microtime(true);
@@ -500,7 +505,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       ]);
     $time_end = microtime(true);
     $time = $time_end - $time_start;
-    \Drupal::logger('openy_daxko2')->info('Daxko call. Time %times. URL %url', [
+    $this->logger->info('Daxko call. Time %times. URL %url', [
       '%time' => number_format($time, 2),
       '%url' => 'partners/oauth2/token',
     ]);
@@ -510,8 +515,14 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
   /**
    * Load locations from the configuration.
+   *
+   * @param false $group
+   *   The grouping flag.
+   *
+   * @return array
+   *   The array of locations.
    */
-  protected function getDaxkoLocations($group = FALSE) {
+  protected function getDaxkoLocations($group = FALSE): array {
     $locations_config = $this->daxkoConfig->get('locations');
     $locations = $this->parseGrouppedSetting($locations_config, $group);
 
@@ -527,7 +538,18 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     return $numericalKeyedLocations;
   }
 
-  protected function parseGrouppedSetting($config, $group) {
+  /**
+   * Parses the complex text configuration.
+   *
+   * @param string $config
+   *   Configuration string.
+   * @param bool $group
+   *   Groping flag.
+   *
+   * @return array
+   *   The array with the parsed data.
+   */
+  protected function parseGrouppedSetting(string $config, bool $group): array {
     $config_rows = explode("\n", $config);
 
     $result = [];
@@ -565,58 +587,69 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
    * Get detailed info about Location (aka branch).
    */
   protected function getLocationsInfoFromNodes() {
-    $data = [];
-    $tags = ['node_list'];
     $cid = 'openy_repeat:locations_info';
     if ($cache = $this->cache->get($cid)) {
-      $data = $cache->data;
+      return $cache->data;
     }
-    else {
-      $nids = $this->entityTypeManager->getStorage('node')->getQuery()
-        ->condition('type','branch')
-        ->execute();
-      $nids_chunked = array_chunk($nids, 20, TRUE);
-      foreach ($nids_chunked as $chunk) {
-        $branches = $this->entityTypeManager->getStorage('node')->loadMultiple($chunk);
-        if (!empty($branches)) {
-          foreach ($branches as $node) {
-            $days = $node->get('field_branch_hours')->getValue();
-            $locAddress = $node->get('field_location_address')->getValue();
-            if (!empty($locAddress[0])) {
-              $address = [];
-              if (!empty($locAddress[0]['address_line1'])) {
-                $address[] = $locAddress[0]['address_line1'];
-              }
-              if (!empty($locAddress[0]['locality'])) {
-                $address[] = $locAddress[0]['locality'];
-              }
-              if (!empty($locAddress[0]['administrative_area'])) {
-                $address[] = $locAddress[0]['administrative_area'];
-              }
-              if (!empty($locAddress[0]['postal_code'])) {
-                $address[] = $locAddress[0]['postal_code'];
-              }
-              $address = implode(', ', $address);
+
+    $data = [];
+    $tags = ['node_list'];
+
+    $storage = $this->entityTypeManager->getStorage('node');
+
+    $nids = $storage->getQuery()
+      ->condition('type','branch')
+      ->execute();
+    $nids_chunked = array_chunk($nids, 20, TRUE);
+    foreach ($nids_chunked as $chunk) {
+      $branches = $storage->loadMultiple($chunk);
+      if (!empty($branches)) {
+        foreach ($branches as $node) {
+          $days = $node->get('field_branch_hours')->getValue();
+          $locAddress = $node->get('field_location_address')->getValue();
+          if (!empty($locAddress[0])) {
+            $address = [];
+            if (!empty($locAddress[0]['address_line1'])) {
+              $address[] = $locAddress[0]['address_line1'];
             }
-            $data[$node->title->value] = [
-              'nid' => $node->nid->value,
-              'title' => $node->title->value,
-              'email' => $node->field_location_email->value,
-              'phone' => $node->field_location_phone->value,
-              'address' => $address,
-              'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
-            ];
-            $tags[] = 'node:' . $node->nid->value;
+            if (!empty($locAddress[0]['locality'])) {
+              $address[] = $locAddress[0]['locality'];
+            }
+            if (!empty($locAddress[0]['administrative_area'])) {
+              $address[] = $locAddress[0]['administrative_area'];
+            }
+            if (!empty($locAddress[0]['postal_code'])) {
+              $address[] = $locAddress[0]['postal_code'];
+            }
+            $address = implode(', ', $address);
           }
+          $data[$node->getTitle()] = [
+            'nid' => $node->id(),
+            'title' => $node->getTitle(),
+            'email' => $node->get('field_location_email')->value,
+            'phone' => $node->get('field_location_phone')->value,
+            'address' => $address,
+            'days' => !empty($days[0]) ? $this->getFormattedHours($days[0]) : [],
+          ];
+          $tags[] = 'node:' . $node->id();
         }
       }
-      $this->cache->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
     }
+    $this->cache->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, $tags);
 
     return $data;
   }
 
-  protected function getFormattedHours($data) {
+  /**
+   * Formats hours data.
+   *
+   * @param array $data
+   *   The array of hours data.
+   *
+   * @return array
+   *   The array with the formatted data.
+   */
+  protected function getFormattedHours(array $data): array {
     $lazy_hours = $groups = $rows = [];
     foreach ($data as $day => $value) {
       // Do not process label. Store it name for later usage.
@@ -653,34 +686,32 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
   }
 
   /**
-   * @inheritdoc
+   * {@inheritdoc}
    */
-  public function getProgramsMoreInfo($request) {
-    $config = \Drupal::configFactory()->get('openy_daxko2.settings');
-
+  public function getProgramsMoreInfo($request): array {
     $time_start = microtime(true);
-    $response = $this->http->request('POST', $config->get('base_uri') . 'partners/oauth2/token',
+    $response = $this->http->request('POST', $this->daxkoConfig->get('base_uri') . 'partners/oauth2/token',
       [
         'form_params' => [
-          'client_id' => $config->get('user'),
-          'client_secret' => $config->get('pass'),
+          'client_id' => $this->daxkoConfig->get('user'),
+          'client_secret' => $this->daxkoConfig->get('pass'),
           'grant_type' => 'client_credentials',
-          'scope' => 'client:' . $config->get('client_id'),
+          'scope' => 'client:' . $this->daxkoConfig->get('client_id'),
         ],
         'headers' => [
-          'Authorization' => "Bearer " . $config->get('referesh_token')
+          'Authorization' => "Bearer " . $this->daxkoConfig->get('referesh_token')
         ],
       ]);
     $time_end = microtime(true);
     $time = $time_end - $time_start;
-    \Drupal::logger('openy_daxko2')->info('Daxko call. Time %times. URL %url', [
+    $this->logger->info('Daxko call. Time %times. URL %url', [
       '%time' => number_format($time, 2),
       '%url' => 'partners/oauth2/token',
     ]);
 
     $access_token = json_decode((string) $response->getBody())->access_token;
 
-    $client = new Client(['base_uri' => $config->get('base_uri')]);
+    $client = new Client(['base_uri' => $this->daxkoConfig->get('base_uri')]);
 
     $offering_id = $request->get('offering');
     $program_id = $request->get('program');
@@ -697,7 +728,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       ]);
     $time_end = microtime(true);
     $time = $time_end - $time_start;
-    \Drupal::logger('openy_daxko2')->info('Daxko call. Time %times. URL %url', [
+    $this->logger->info('Daxko call. Time %times. URL %url', [
       '%time' => number_format($time, 2),
       '%url' => 'programs/' . $program_id . '/offerings/' . $offering_id,
     ]);
@@ -730,13 +761,13 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
 
     // Cache the Price for one day.
     $cache_key = 'daxko-price-' . md5($offering_id . $program_id . $location_id);
-    $ttl = \Drupal::time()->getRequestTime() + 24 * 60 * 60;
-    \Drupal::cache()->set($cache_key, implode(', ', $prices), $ttl);
+    $ttl = $this->time->getRequestTime() + 24 * 60 * 60;
+    $this->cache->set($cache_key, implode(', ', $prices), $ttl);
 
     // Cache the Availability for five minutes.
     $cache_key = 'daxko-availability-' . md5($offering_id . $program_id . $location_id);
-    $ttl = \Drupal::time()->getRequestTime() + 5 * 60 * 60;
-    \Drupal::cache()->set($cache_key, ['status' => $availability_status, 'note' => $availability_note, 'spots_available' => $spots_available], $ttl);
+    $ttl = $this->time->getRequestTime() + 5 * 60 * 60;
+    $this->cache->set($cache_key, ['status' => $availability_status, 'note' => $availability_note, 'spots_available' => $spots_available], $ttl);
 
     // We show gender restrictions if there are any. So if value is both
     // male and female we do not need to show it as restriction.
@@ -750,11 +781,11 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
     }
 
     // Build register link.
-    $register_link = 'https://ops1.operations.daxko.com/Online/' . $config->get(
+    $register_link = 'https://ops1.operations.daxko.com/Online/' . $this->daxkoConfig->get(
         'client_id'
       ) . '/ProgramsV2/OfferingDetails.mvc?program_id=' . $program_id . '&offering_id=' . $offering_id . '&location_id=' . $location_id;
 
-    $register_link_with_tracking = \Drupal\Core\Url::fromRoute(
+    $register_link_with_tracking = Url::fromRoute(
       'openy_activity_finder.register_redirect',
       ['log' => $log_id],
       [
@@ -765,7 +796,7 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       ]
     )->toString();
 
-    $result = [
+    return [
       'name' => $offeringResponse['name'] . ' ' . $offeringResponse['program']['name'],
       'program_name' => $offeringResponse['program']['name'],
       'description' =>  $offeringResponse['description'] . ' ' . $offeringResponse['program']['description'],
@@ -774,21 +805,25 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       'availability_note' => $availability_note,
       'activity_type' => '',
       'spots_available' => $spots_available,
-      'gender' => isset($gender) ? $gender : '',
-      'ages' => isset($age) ? $age : '',
+      'gender' => $gender ?? '',
+      'ages' => $age ?? '',
       'link' =>  $register_link_with_tracking,
     ];
-
-    return $result;
   }
 
-  public function getSortOptions() {
+  /**
+   * The list of Daxko sorting options.
+   *
+   * @return array
+   *   The array of sorting options.
+   */
+  public function getSortOptions(): array {
     return [
-      'DESC__score' => t('Sort by Relevance'),
-      'ASC__name' => t('Sort by Title (A-Z)'),
-      'DESC__name' => t('Sort by Title (Z-A)'),
-      'ASC__start_date' => t('Sort by Date (Soonest - Latest)'),
-      'DESC__start_date' => t('Sort by Date (Latest - Soonest)'),
+      'DESC__score' => $this->t('Sort by Relevance'),
+      'ASC__name' => $this->t('Sort by Title (A-Z)'),
+      'DESC__name' => $this->t('Sort by Title (Z-A)'),
+      'ASC__start_date' => $this->t('Sort by Date (Soonest - Latest)'),
+      'DESC__start_date' => $this->t('Sort by Date (Latest - Soonest)'),
     ];
   }
 
