@@ -51,7 +51,6 @@
         "drupal/google_tag": "^1.4",
         "drupal/image_widget_crop": "^2",
         "drupal/inline_entity_form": "1.0-rc1 || ^1.0",
-        "drupal/jquery_colorpicker": "^2 || ^2.0@RC",
         "drupal/jquery_ui_touch_punch": "^1.0",
         "drupal/jquery_ui_tabs": "^1.1",
         "drupal/jquery_ui_tooltip": "^1.1",
@@ -117,7 +116,7 @@
         "open-y-subprojects/openy_daxko_gxp_syncer": "^1.0.0",
         "open-y-subprojects/ynorth_gxp_spots_proxy": "^1.0.1",
         "open-y-subprojects/openy_hours_formatter": "^1.2.0",
-        "open-y-subprojects/openy_features": "^1.2",
+        "open-y-subprojects/openy_features": "^1.3",
         "ynorth-projects/openy_repeat": "^1.0.0 || ^2.0.3",
         "ynorth-projects/openy_node_session": "^0.9 || ^1.1.0"
     },
