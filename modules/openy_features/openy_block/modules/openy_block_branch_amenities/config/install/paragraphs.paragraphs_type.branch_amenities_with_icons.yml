@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: branch_amenities_with_icons
-label: 'Branch Amenities with Icons'
-icon_uuid: null
-description: 'Add this block if you want to display Amenities widget with attached icons. This paragraph display its content only at Branch pages.'
-behavior_plugins: {  }

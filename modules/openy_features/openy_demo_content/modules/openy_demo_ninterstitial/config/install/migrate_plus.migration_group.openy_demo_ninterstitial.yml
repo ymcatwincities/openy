@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: openy_demo_ninterstitial
-label: 'Interstitial page'
-description: 'Imports interstitial demo content.'
-module: openy_demo_ninterstitial

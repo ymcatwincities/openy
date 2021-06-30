@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: featured_highlights
-label: 'Featured Highlights'
-behavior_plugins: {  }

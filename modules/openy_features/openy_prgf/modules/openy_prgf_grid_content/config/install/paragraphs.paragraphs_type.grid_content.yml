@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: grid_content
-label: 'Grid Content'
-icon_uuid: null
-description: 'Paragraph to display grid content stories.'
-behavior_plugins: {  }

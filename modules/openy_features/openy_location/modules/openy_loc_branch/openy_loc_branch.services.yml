@@ -1,6 +1,0 @@
-services:
-  openy_loc_branch.branch_alert_builder:
-    class: Drupal\openy_loc_branch\BranchAlertBuilder
-    arguments: ['@entity_type.manager']
-    tags:
-      - { name: alert_builder, priority: 0 }

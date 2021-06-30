@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: small_banner
-label: 'Small Banner'
-behavior_plugins: {  }

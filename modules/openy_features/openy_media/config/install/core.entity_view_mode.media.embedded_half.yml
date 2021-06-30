@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.embedded_half
-label: Half
-targetEntityType: media
-cache: true

@@ -1,8 +1,0 @@
-name: Open Y User
-description: Stores configuration for user roles used in Open Y and related user settings.
-type: module
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - drupal:user

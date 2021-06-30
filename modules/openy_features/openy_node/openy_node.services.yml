@@ -1,6 +1,0 @@
-services:
-  openy_node.route_subscriber:
-    class: Drupal\openy_node\Routing\RouteSubscriber
-    arguments: ['@module_handler']
-    tags:
-      - { name: event_subscriber }

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Facility Type'
-vid: facility_type
-description: 'This vocabulary is used for adding facility type on the site for the Facility CT.'
-hierarchy: 0
-weight: 0

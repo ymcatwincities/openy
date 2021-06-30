@@ -1,4 +1,0 @@
-services:
-  openy_prgf_camp_menu.menu_handler:
-    class: Drupal\openy_prgf_camp_menu\CampMenuService
-    arguments: ['@entity_type.manager', '@service_container']

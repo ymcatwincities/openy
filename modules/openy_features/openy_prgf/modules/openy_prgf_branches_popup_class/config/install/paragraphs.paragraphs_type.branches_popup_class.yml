@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: branches_popup_class
-label: 'Branches popup (Class)'

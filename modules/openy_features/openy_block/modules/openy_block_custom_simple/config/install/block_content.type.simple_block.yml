@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: simple_block
-label: 'Simple Block'
-revision: 0
-description: 'A simple block with a body and title.'
