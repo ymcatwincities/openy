@@ -499,7 +499,10 @@ function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array
  * Implements hook_theme_suggestions_HOOK_alter().
  */
 function openy_carnation_theme_suggestions_views_view_unformatted_alter(array &$suggestions, array $variables) {
-  if ($variables['view']->id() == 'taxonomy_term' && isset($variables['rows'][0]['#node']) && $variables['rows'][0]['#node'] instanceof NodeInterface) {
+  if ($variables['view']->id() != 'taxonomy_term') {
+    return;
+  }
+  if (isset($variables['rows'][0]['#node']) && $variables['rows'][0]['#node'] instanceof NodeInterface) {
     $suggestions[] = 'views_view_unformatted__' . $variables['view']->id() . '__' . $variables['rows'][0]['#node']->getType();
   }
 }
