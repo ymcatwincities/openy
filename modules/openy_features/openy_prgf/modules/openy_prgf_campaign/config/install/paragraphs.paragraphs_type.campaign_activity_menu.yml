@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: campaign_activity_menu
-label: 'Campaign Activity Menu'
-behavior_plugins: {  }

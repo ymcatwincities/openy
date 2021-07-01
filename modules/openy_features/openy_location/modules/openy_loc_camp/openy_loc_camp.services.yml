@@ -1,9 +1,0 @@
-services:
-  openy_loc_camp.camp_service:
-    class: Drupal\openy_loc_camp\CampService
-    arguments: ['@entity_type.manager', '@database', '@config.factory']
-  openy_loc_camp.camp_alert_builder:
-    class: Drupal\openy_loc_camp\CampAlertBuilder
-    arguments: ['@entity_type.manager']
-    tags:
-      - { name: alert_builder, priority: 0 }

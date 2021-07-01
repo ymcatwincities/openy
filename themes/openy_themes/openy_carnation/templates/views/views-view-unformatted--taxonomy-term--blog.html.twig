@@ -17,13 +17,16 @@
  * @ingroup themeable
  */
 #}
+<div class="container">
+  <div class="taxonomy-term mt-5 row">
+    {% if title %}
+      <h3>{{ title }}</h3>
+    {% endif %}
 
-<div class="taxonomy-term container mt-5">
-  {% if title %}
-    <h3>{{ title }}</h3>
-  {% endif %}
-
-  {% for row in rows %}
-    {{ row.content }}
-  {% endfor %}
+    {% for row in rows %}
+      <div{{ row.attributes.addClass('col-12 col-md-6 col-lg-4') }}>
+        {{- row.content -}}
+      </div>
+    {% endfor %}
+  </div>
 </div>

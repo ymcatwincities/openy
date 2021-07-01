@@ -6369,6 +6369,31 @@ a[href="#step2"] {
   font-weight: bold;
 }
 .global-search-results .views-exposed-form {
+  padding-bottom: 20px;
+  padding-bottom: 2rem;
+}
+.global-search-results .views-exposed-form .js-form-item-query {
+  padding: 2px;
+  position: relative;
+}
+.global-search-results .views-exposed-form .js-form-item-query:before {
+  left: 12px;
+  left: 1.2rem;
+  top: 12px;
+  top: 1.2rem;
+  color: #428bca;
+  content: "\f002";
+  font: normal normal normal 14px/1 FontAwesome;
+  position: absolute;
+}
+.global-search-results .views-exposed-form .js-form-item-query input {
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding-left: 30px;
+  padding-left: 3rem;
+}
+.global-search-results .views-exposed-form .form-actions {
   display: none;
 }
 .global-search-results .item-list ul {
@@ -7632,6 +7657,52 @@ article .node--view-mode-flexible-content h2 a span, article .node--view-mode-fl
 }
 .paragraph.paragraph--type--google-search .gs-web-image-box, .paragraph.paragraph--type--google-search .gs-promotion-image-box {
   margin-right: 10px;
+}
+
+.field-media-local-video {
+  padding: 20px;
+}
+.field-media-local-video video {
+  background-color: #231f20;
+  width: 300px !important;
+  height: 200px !important;
+}
+@media (min-width: 30em) {
+  .field-media-local-video video {
+    width: 320px !important;
+    height: 240px !important;
+  }
+}
+@media (min-width: 48em) {
+  .field-media-local-video video {
+    width: 400px !important;
+    height: 300px !important;
+  }
+}
+@media (min-width: 62em) {
+  .field-media-local-video video {
+    width: 640px !important;
+    height: 480px !important;
+  }
+}
+
+.sidebar-region .field-media-local-video {
+  padding: 20px;
+}
+.sidebar-region .field-media-local-video video {
+  width: 300px !important;
+  height: 200px !important;
+}
+@media (min-width: 30em) and (max-width: 61.9375em) {
+  .sidebar-region .field-media-local-video video {
+    width: 180px !important;
+    height: 120px !important;
+  }
+}
+.sidebar-region .field-media-local-video .video-js.vjs-fullscreen {
+  width: 100% !important;
+  height: 100% !important;
+  padding-top: 0 !important;
 }
 
 .paragraph-1c-wrapper {

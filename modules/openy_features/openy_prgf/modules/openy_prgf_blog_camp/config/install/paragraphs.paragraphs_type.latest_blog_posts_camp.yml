@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: latest_blog_posts_camp
-label: 'Latest blog posts (camp)'

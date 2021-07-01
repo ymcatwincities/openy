@@ -15,6 +15,8 @@
         },
         elem
       );
+      var removePopup = document.getElementById('goog-gt-tt');
+      removePopup.parentNode.removeChild(removePopup);
     }
   };
 }(jQuery, Drupal, drupalSettings));

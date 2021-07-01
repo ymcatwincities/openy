@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: flexible_content
-label: 'Flexible Content'
-revision: 0
-description: 'Flexible content block with reference to node'

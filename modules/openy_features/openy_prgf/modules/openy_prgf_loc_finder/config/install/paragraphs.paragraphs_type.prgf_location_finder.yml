@@ -1,5 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: prgf_location_finder
-label: 'Location finder'

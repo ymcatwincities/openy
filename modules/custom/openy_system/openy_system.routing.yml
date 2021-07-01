@@ -56,14 +56,6 @@ openy_system.openy_integrations_daxko:
   requirements:
     _permission: 'administer daxko'
 
-openy_system.openy_integrations_groupexpro:
-  path: /admin/openy/integrations/groupex-pro
-  defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'GroupEx Pro'
-  requirements:
-    _permission: 'administer site configuration'
-
 openy_system.openy_integrations_activenet:
   path: /admin/openy/integrations/activenet
   defaults:

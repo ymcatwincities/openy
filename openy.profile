@@ -179,11 +179,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_bamenities',
       'openy_demo_tfitness',
       'openy_demo_taxonomy',
-      // @todo Uncomment this code when errors with Campaign demo content are fixed.
-      /*
-      'openy_demo_ncampaign',
-      'openy_demo_ninterstitial',
-      */
     ],
     'standard' => [
       'openy_demo_nalert',

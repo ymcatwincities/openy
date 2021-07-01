@@ -1,6 +1,0 @@
-services:
-  openy_prgf.overrider:
-    class: Drupal\openy_prgf\Config\OpenyParagraphOverrides
-    tags:
-      - {name: config.factory.override}
-    arguments: ['@module_handler']

@@ -1,0 +1,18 @@
+.activity-details-modal-content {
+  .col-md-6 {
+    @include media-breakpoint-down(md) {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+.select-path-component {
+  .path.btn {
+    .text-uppercase {
+      @include media-breakpoint-down(md) {
+        font-size: 14px;
+      }
+    }
+  }
+}

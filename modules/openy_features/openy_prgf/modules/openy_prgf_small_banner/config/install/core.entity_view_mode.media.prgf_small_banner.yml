@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.prgf_small_banner
-label: 'Paragraph small banner'
-targetEntityType: media
-cache: true

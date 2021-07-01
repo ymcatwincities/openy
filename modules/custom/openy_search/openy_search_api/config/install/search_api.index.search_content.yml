@@ -15,6 +15,20 @@ field_settings:
     label: URI
     property_path: search_api_url
     type: string
+  node_grants:
+    label: 'Node access information'
+    property_path: search_api_node_grants
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
+  role_access:
+    label: 'Role-based access information'
+    property_path: search_api_role_access
+    type: string
+    indexed_locked: true
+    type_locked: true
+    hidden: true
   rendered_item:
     label: 'Rendered HTML output'
     property_path: rendered_item
@@ -64,6 +78,7 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  content_access: {  }
   entity_status: {  }
   highlight:
     highlight: always
@@ -100,6 +115,7 @@ processor_settings:
       preprocess_index: -10
       preprocess_query: -10
   rendered_item: {  }
+  role_access: {  }
   tokenizer:
     all_fields: false
     fields:

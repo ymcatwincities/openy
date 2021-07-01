@@ -1,6 +1,0 @@
-services:
-  openy_node_news.news_alert_builder:
-    class: Drupal\openy_node_news\NewsAlertBuilder
-    arguments: ['@entity_type.manager']
-    tags:
-      - { name: alert_builder, priority: 0 }

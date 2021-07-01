@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: featured_highlights_block
-label: 'Featured Highlights Block'
-revision: 0
-description: 'The Featured Highlights Block.'

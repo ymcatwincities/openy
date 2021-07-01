@@ -1,7 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: campaign-footer-menu
-label: 'Campaign footer menu'
-description: ''
-locked: false

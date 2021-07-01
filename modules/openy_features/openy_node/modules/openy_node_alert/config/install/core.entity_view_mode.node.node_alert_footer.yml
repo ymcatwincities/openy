@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.node_alert_footer
-label: Footer
-targetEntityType: node
-cache: true

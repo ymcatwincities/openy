@@ -71,7 +71,11 @@ function openy_carnation_preprocess_html(array &$variables) {
         $variables['body_classes'][] = 'without-banner';
       }
     }
-  } else {
+  }
+  elseif (\Drupal::service('current_route_match')->getRouteName() == 'entity.taxonomy_term.canonical') {
+    $variables['body_classes'][] = 'with-banner';
+  }
+ else {
     $variables['body_classes'][] = 'without-banner';
   }
 }
@@ -267,7 +271,8 @@ function openy_carnation_preprocess_page(array &$variables) {
     // Fix hb_menu_selector plugin for Open Y Carnation theme.
     $variables['#attached']['library'][] = 'openy_carnation/hb_menu_selector_override';
   }
-
+  // Set title value for page.
+  $variables['title'] = $variables['page']['#title'];
   openy_carnation_preprocess_page_logo($variables);
 }
 
@@ -487,6 +492,18 @@ function openy_carnation_theme_suggestions_radios_alter(array &$suggestions, arr
 function openy_carnation_theme_suggestions_form_alter(array &$suggestions, array $variables) {
   if (isset($variables['element']['#form_id'])) {
     array_push($suggestions, 'form__' . $variables['element']['#form_id']);
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function openy_carnation_theme_suggestions_views_view_unformatted_alter(array &$suggestions, array $variables) {
+  if ($variables['view']->id() != 'taxonomy_term') {
+    return;
+  }
+  if (isset($variables['rows'][0]['#node']) && $variables['rows'][0]['#node'] instanceof NodeInterface) {
+    $suggestions[] = 'views_view_unformatted__' . $variables['view']->id() . '__' . $variables['rows'][0]['#node']->getType();
   }
 }
 

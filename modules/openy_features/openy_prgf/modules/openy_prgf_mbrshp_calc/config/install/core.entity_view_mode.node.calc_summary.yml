@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.calc_summary
-label: 'Calculator summary'
-targetEntityType: node
-cache: true

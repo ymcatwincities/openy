@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - node
-id: node.sidebar_teaser
-label: 'Sidebar teaser'
-targetEntityType: node
-cache: true
