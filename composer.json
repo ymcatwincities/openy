@@ -117,6 +117,7 @@
         "open-y-subprojects/ynorth_gxp_spots_proxy": "^1.0.1",
         "open-y-subprojects/openy_hours_formatter": "^1.2.0",
         "open-y-subprojects/openy_features": "^1.4",
+        "open-y-subprojects/openy_content_core": "*",
         "ynorth-projects/openy_repeat": "^1.0.0 || ^2.0.3"
     },
     "require-dev": {
