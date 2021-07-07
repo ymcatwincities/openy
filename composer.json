@@ -195,6 +195,9 @@
             },
             "drupal/search_api": {
                 "2898334 - Add a Role-based access processor": "https://www.drupal.org/files/issues/2021-01-31/2898334-30--role_based_access_check.patch"
+            },
+            "drupal/features": {
+                "Fix hook install": "https://gist.githubusercontent.com/podarok/3c14521da12ad73fa08fe3ec0a237a28/raw/cb569e57076fda693ecd7be94bdb4032e9d98ca4/features_hook.diff"
             }
         }
     },
