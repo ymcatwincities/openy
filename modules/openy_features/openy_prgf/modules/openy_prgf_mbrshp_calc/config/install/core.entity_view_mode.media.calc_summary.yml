@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.calc_summary
-label: 'Calc summary'
-targetEntityType: media
-cache: true

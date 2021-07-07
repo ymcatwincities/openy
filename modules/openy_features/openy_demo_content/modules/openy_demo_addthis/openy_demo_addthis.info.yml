@@ -1,8 +1,0 @@
-name: Open Y Demo AddThis
-description: Enables AddThis service demo functionality.
-type: module
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - openy_addthis:openy_addthis

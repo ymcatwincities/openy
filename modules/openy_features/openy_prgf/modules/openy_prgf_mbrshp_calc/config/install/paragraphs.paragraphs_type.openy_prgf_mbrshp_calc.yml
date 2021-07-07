@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: openy_prgf_mbrshp_calc
-label: 'Membership calculator'
-behavior_plugins: {  }

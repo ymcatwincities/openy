@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: group_schedules
-label: 'Group Schedules (GroupEx Pro)'
-behavior_plugins: {  }

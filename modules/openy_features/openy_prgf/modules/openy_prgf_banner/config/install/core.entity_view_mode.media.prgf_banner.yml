@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.prgf_banner
-label: 'Paragraph banner'
-targetEntityType: media
-cache: true

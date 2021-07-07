@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.prgf_gallery
-label: 'Paragraph gallery'
-targetEntityType: media
-cache: true

@@ -1,8 +1,0 @@
-name: Open Y Demo Menu Main
-description: Stores migrations to import demo Main menu.
-type: module
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - openy_demo_menu:openy_demo_menu

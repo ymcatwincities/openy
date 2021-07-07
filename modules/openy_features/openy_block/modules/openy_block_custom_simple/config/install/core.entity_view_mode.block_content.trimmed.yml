@@ -1,9 +1,0 @@
-langcode: en
-status: false
-dependencies:
-  module:
-    - block_content
-id: block_content.trimmed
-label: Trimmed
-targetEntityType: block_content
-cache: true

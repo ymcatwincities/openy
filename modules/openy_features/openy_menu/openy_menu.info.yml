@@ -1,8 +1,0 @@
-name: Open Y Menu Package
-description: Bundle of menus modules for Open Y, and their common configuration.
-type: module
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - drupal:menu_ui

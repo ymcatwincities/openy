@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: location_filter_by_amenities
-label: 'Location filter by amenities'
-behavior_plugins: {  }

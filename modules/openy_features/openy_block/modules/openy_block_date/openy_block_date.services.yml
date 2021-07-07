@@ -1,7 +1,0 @@
-services:
-  http_middleware.block_date_cache_invalidator:
-    class: Drupal\openy_block_date\StackMiddleware\BlockDateCacheInvalidator
-    arguments:
-      - '@cache_tags.invalidator'
-    tags:
-      - { name: http_middleware, priority: 210, responder: true }

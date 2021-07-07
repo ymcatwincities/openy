@@ -1,7 +1,0 @@
-openy_loc_filter.location_filter_settings:
-  path: '/admin/config/content/location-filter-settings'
-  defaults:
-    _form: '\Drupal\openy_loc_filter\Form\LocationFilterSettingsForm'
-    _title: 'Locations filter settings'
-  requirements:
-    _permission: 'administer site configuration'

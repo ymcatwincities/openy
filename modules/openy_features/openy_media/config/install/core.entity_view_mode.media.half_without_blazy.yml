@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.half_without_blazy
-label: 'Half without Blazy'
-targetEntityType: media
-cache: true

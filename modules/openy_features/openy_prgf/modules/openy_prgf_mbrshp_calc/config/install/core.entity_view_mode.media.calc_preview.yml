@@ -1,9 +1,0 @@
-langcode: en
-status: true
-dependencies:
-  module:
-    - media
-id: media.calc_preview
-label: 'Calc preview'
-targetEntityType: media
-cache: true

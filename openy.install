@@ -1167,7 +1167,7 @@ function openy_update_8083() {
  */
 function openy_update_8084() {
   $enabled_themes = array_keys(\Drupal::service('theme_handler')->listInfo());
-  if (count(array_intersect(['openy_lily', 'openy_rose', 'openy_campaign_theme'], $enabled_themes)) > 0) {
+  if (count(array_intersect(['openy_lily', 'openy_rose'], $enabled_themes)) > 0) {
     \Drupal::service('module_installer')->install(['jquery_ui_tabs']);
   }
 }

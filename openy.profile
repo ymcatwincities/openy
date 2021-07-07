@@ -146,6 +146,10 @@ function openy_gtranslate_place_blocks(array &$install_state) {
 function openy_demo_content_configs_map($key = NULL) {
   // Maps installation presets to demo content.
   $map = [
+    'core' => [
+      'openy_demo_taxonomy',
+      'openy_demo_tcolor',
+    ],
     'complete' => [
       'openy_demo_nalert',
       'openy_demo_nbranch',
@@ -166,7 +170,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_webform',
       'openy_demo_ahb',
       'openy_demo_nsocial_post',
-      'openy_demo_tcolor',
       'openy_demo_tarea',
       'openy_demo_tblog',
       'openy_demo_tnews',
@@ -178,12 +181,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_bsimple',
       'openy_demo_bamenities',
       'openy_demo_tfitness',
-      'openy_demo_taxonomy',
-      // @todo Uncomment this code when errors with Campaign demo content are fixed.
-      /*
-      'openy_demo_ncampaign',
-      'openy_demo_ninterstitial',
-      */
     ],
     'standard' => [
       'openy_demo_nalert',
@@ -348,10 +345,13 @@ function openy_import_content(array &$install_state) {
     'complete' => 'openy_complete_installation',
   ];
   $migration_tag = $preset_tags[$preset];
+  // Add core demo content.
+  _openy_import_content_helper($module_operations, 'core', 'enable');
+  $migrate_operations[] = ['openy_import_migration', ['openy_core_installation']];
 
   if ($install_state['openy']['content']) {
     // If option has been selected build demo modules installation operations array.
-    _openy_import_content_helper($module_operations, $preset);
+    _openy_import_content_helper($module_operations, $preset, 'enable');
     // Add migration import by tag to migration operations array.
     $migrate_operations[] = ['openy_import_migration', (array) $migration_tag];
     if ($preset == 'complete') {
@@ -363,7 +363,7 @@ function openy_import_content(array &$install_state) {
       $migrate_operations[] = ['openy_demo_nlanding_af_pages', []];
     }
     // Build demo modules uninstall array to disable migrations with demo content.
-    _openy_remove_migrations_helper($uninstall_operations, $preset);
+    _openy_import_content_helper($uninstall_operations, $preset, 'uninstall');
     if (function_exists('drush_print')) {
       drush_print(dt('Demo content enabled'));
     }
@@ -375,6 +375,8 @@ function openy_import_content(array &$install_state) {
     $uninstall_operations[] = ['openy_uninstall_module', (array) 'openy_demo_home_alt'];
   }
 
+  // Uninstall core demo content modules.
+  _openy_import_content_helper($uninstall_operations, 'core', 'uninstall');
   // Combine operations module enable before of migrations.
   return ['operations' => array_merge($module_operations, $migrate_operations, $uninstall_operations)];
 }
@@ -540,32 +542,16 @@ function openy_install_finish(array &$install_state) {
  *   List of module operations.
  * @param string $key
  *   Key of the section in the mapping.
+ * @param string $action
+ *   Action for demo content modules: enable|uninstall.
  */
-function _openy_import_content_helper(array &$module_operations, $key) {
+function _openy_import_content_helper(array &$module_operations, string $key, string $action) {
   $modules = openy_demo_content_configs_map($key);
   if (empty($modules)) {
     return;
   }
   foreach ($modules as $module) {
-    $module_operations[] = ['openy_enable_module', (array) $module];
-  }
-}
-
-/**
- * Demo content migrations remove helper.
- *
- * @param array $module_operations
- *   List of module operations.
- * @param string $key
- *   Key of the section in the mapping.
- */
-function _openy_remove_migrations_helper(array &$module_operations, $key) {
-  $modules = openy_demo_content_configs_map($key);
-  if (empty($modules)) {
-    return;
-  }
-  foreach ($modules as $module) {
-    $module_operations[] = ['openy_uninstall_module', (array) $module];
+    $module_operations[] = ['openy_' . $action . '_module', (array) $module];
   }
 }
 

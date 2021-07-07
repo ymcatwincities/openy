@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-name: 'Fitness Category'
-vid: fitness_category
-description: 'Fitness categories.'
-hierarchy: 1
-weight: 0

@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: campaign_activity_menu_ah
-label: 'Campaign Activity Game and Text Block'
-icon_uuid: null
-description: ''
-behavior_plugins: {  }

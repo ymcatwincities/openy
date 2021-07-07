@@ -1,6 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: campaign_winners
-label: 'Campaign winners'
-behavior_plugins: {  }

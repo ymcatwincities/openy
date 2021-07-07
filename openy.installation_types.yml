@@ -49,8 +49,6 @@ complete:
     - optimize
     - popups
     - programs
-#    @todo Uncomment this code when errors with Retention Campaign modules will be fixed.
-#    - retention_campaign
     - search
     - seo
     - social
