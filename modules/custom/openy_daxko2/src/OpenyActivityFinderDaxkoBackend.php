@@ -714,6 +714,13 @@ class OpenyActivityFinderDaxkoBackend extends OpenyActivityFinderBackend {
       }
       $availability_note = $offeringResponse['details'][0]['registration_summaries'][0]['description'];
       $spots_available = $offeringResponse['details'][0]['availability']['available'];
+      $limited = $offeringResponse['details'][0]['availability']['limited'];
+
+      // Daxko doesn't provide a number of available spots for unlimited offers.
+      // But they should be open for users.
+      if ($availability_status === 'open' && !$spots_available && !$limited) {
+        $spots_available = 100;
+      }
 
       // If online is closed but offline is open.
       if (!$online_open && isset($offeringResponse['details'][0]['registration_summaries'][1]) && $offeringResponse['details'][0]['registration_summaries'][1]['can_register']) {
