@@ -168,8 +168,7 @@
             "drupal/core": {
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
-                "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch",
-                "Fix hook_module_installed - language - https://gist.github.com/podarok/5effdad62fef588dab044f45c402d474": "https://gist.githubusercontent.com/podarok/5effdad62fef588dab044f45c402d474/raw/575c7ec16d68ec9f3c02b29ce28c1009ed8a5905/core_check_service_language.diff"
+                "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch"
             },
             "drupal/media_entity": {
                 "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
