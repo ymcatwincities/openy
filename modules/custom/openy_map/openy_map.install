@@ -107,3 +107,14 @@ function openy_map_update_8004() {
   $config_path = $config_dir . $config_name . '.yml';
   $config_updater->update($config_path, $config_name, 'leaflet.base_layer_override');
 }
+
+/**
+ * Add Leaflet clustering configuration.
+ */
+function openy_map_update_8005() {
+  $config_updater = \Drupal::service('openy_upgrade_tool.param_updater');
+  $config_dir = drupal_get_path('module', 'openy_map') . '/config/install/';
+  $config_name = 'openy_map.settings';
+  $config_path = $config_dir . $config_name . '.yml';
+  $config_updater->update($config_path, $config_name, 'leaflet.clustering');
+}

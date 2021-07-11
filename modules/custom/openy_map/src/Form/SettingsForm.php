@@ -175,6 +175,53 @@ class SettingsForm extends ConfigFormBase {
       '#description' => $this->t('Find the default pattern for the selected provider next to its name. The pattern must at least contain {x}, {y} and {z} masks.')
     ];
 
+    $clustering_settings = $config->get('leaflet.clustering');
+
+    $form['leaflet']['clustering'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Group markers'),
+      '#open' => !empty($clustering_settings['enable']),
+    ];
+
+    $form['leaflet']['clustering']['enable'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable clustering'),
+      '#description' => $this->t('Group close markers together on the map.'),
+      '#default_value' => !empty($clustering_settings['enable']),
+    ];
+
+    $options = [
+      'show_coverage_on_hover' => $this->t('Hovering over a cluster shows the bounds of its markers.'),
+      'zoom_to_bounds_on_click' => $this->t('Clicking a cluster zooms to the bounds.'),
+    ];
+    $visible = [
+      ':input[name="leaflet[clustering][enable]"]' => ['checked' => TRUE],
+    ];
+
+    $form['leaflet']['clustering']['cluster_settings'] = [
+      '#type' => 'checkboxes',
+      '#options' => $options,
+      '#title' => $this->t('Marker Cluster default settings'),
+      '#default_value' => array_keys(array_filter($clustering_settings['cluster_settings'])),
+      '#states' => [
+        'visible' => $visible,
+      ],
+    ];
+
+    $form['leaflet']['clustering']['disable_clustering_at_zoom'] = [
+      '#type' => 'number',
+      '#min' => 0,
+      '#max' => 20,
+      '#step' => 1,
+      '#size' => 2,
+      '#title' => $this->t('Disable clustering at zoom'),
+      '#description' => $this->t('If set, at this zoom level and below, markers will not be clustered.'),
+      '#default_value' => $clustering_settings['disable_clustering_at_zoom'],
+      '#states' => [
+        'visible' => $visible,
+      ],
+    ];
+
     $form['title'] = [
       '#markup' => '<h2>' . $this->t('Location list page settings') . '</h2>',
     ];
@@ -292,6 +339,7 @@ class SettingsForm extends ConfigFormBase {
     $config->set('leaflet.location', $form_state->getValue('leaflet')['location']);
     $config->set('leaflet.base_layer', $form_state->getValue('leaflet')['base_layer']);
     $config->set('leaflet.base_layer_override', $form_state->getValue('leaflet')['base_layer_override']);
+    $config->set('leaflet.clustering', $form_state->getValue('leaflet')['clustering']);
     $config->set('default_tags', $default_tags);
     $config->set('active_types', $active_types);
     $config->set('type_labels', $type_labels);

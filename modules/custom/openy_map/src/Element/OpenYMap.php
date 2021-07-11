@@ -53,6 +53,8 @@ class OpenYMap extends RenderElement {
         $mapSettings['search_icon_retina'] = $settings->get('leaflet.search_icon_retina');
         $mapSettings['base_layer'] = $settings->get('leaflet.base_layer');
         $mapSettings['base_layer_override'] = $settings->get('leaflet.base_layer_override');
+        $element['#attached']['drupalSettings']['openyMapSettings']['leaflet_clustering'] = $settings->get('leaflet.clustering');
+        $element['#attached']['library'][] = 'openy_map/leaflet.markercluster';
         break;
     }
     $element['#attached']['drupalSettings']['openyMap'] = $element['#element_variables'];
