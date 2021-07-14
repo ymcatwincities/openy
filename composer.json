@@ -169,8 +169,6 @@
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
                 "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch",
-                "Revert https://www.drupal.org/i/2160091": "https://gist.githubusercontent.com/podarok/e14c3d9ef86f8b6f5cf452dab4cd8e2f/raw/8545f552397e036a599ad56898423bf4ada37824/revert-2160091-6e84b57.diff",
-                "Apply https://www.drupal.org/i/2160091 back again": "https://gist.githubusercontent.com/podarok/1c68ac88cc988f223a09e47c3933e70d/raw/476431dad084cfb509c60187aeba5cdcc7afece7/2160091-6e84b57.diff",
                 "Apply suggestion https://drupal.slack.com/archives/C1BMUQ9U6/p1626267909357300?thread_ts=1626097881.298900&cid=C1BMUQ9U6": "https://gist.githubusercontent.com/podarok/41a0df40e3db2c809b7396bda8bc1c85/raw/f986ae5aa82eb313ab8c32f255f147fe7782a669/move_extension_list_reset.diff"
             },
             "drupal/media_entity": {
