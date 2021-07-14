@@ -10,5 +10,6 @@
  */
 function openy_home_branch_install() {
   // We need to clear all caches for correct module work after install.
-  drupal_flush_all_caches();
+  // see https://www.drupal.org/project/drupal/issues/3222577
+  // drupal_flush_all_caches();
 }
