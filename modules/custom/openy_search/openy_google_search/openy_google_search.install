@@ -43,7 +43,6 @@ function openy_google_search_install() {
       ->set('search_page_id', $page->id())
       ->save();
   }
-  drupal_flush_all_caches();
 }
 
 /**
