@@ -169,7 +169,7 @@
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
                 "2484693 - Telephone Link field formatter InvalidArgumentException with 5 digits or fewer in the number": "https://www.drupal.org/files/issues/2484693-54.patch",
                 "2862702 - PrepareModulesEntityUninstallForm::formTitle does not exist": "https://www.drupal.org/files/issues/2862702-3.patch",
-                "Revert https://www.drupal.org/i/2160091": "https://gist.githubusercontent.com/podarok/e14c3d9ef86f8b6f5cf452dab4cd8e2f/raw/8545f552397e036a599ad56898423bf4ada37824/revert-2160091-6e84b57.diff"
+                "Apply suggestion https://drupal.slack.com/archives/C1BMUQ9U6/p1626267909357300?thread_ts=1626097881.298900&cid=C1BMUQ9U6": "https://gist.githubusercontent.com/podarok/41a0df40e3db2c809b7396bda8bc1c85/raw/eb2741da648790e8f87b9544d86b8f2e86c0d555/move_extension_list_reset.diff"
             },
             "drupal/media_entity": {
                 "2918172 - Media Entity upgrade -> add revision fields": "https://www.drupal.org/files/issues/2918172-5.patch",
@@ -196,6 +196,9 @@
             },
             "drupal/search_api": {
                 "2898334 - Add a Role-based access processor": "https://www.drupal.org/files/issues/2021-01-31/2898334-30--role_based_access_check.patch"
+            },
+            "drupal/features": {
+                "Fix hook install https://gist.github.com/podarok/3c14521da12ad73fa08fe3ec0a237a28": "https://gist.githubusercontent.com/podarok/3c14521da12ad73fa08fe3ec0a237a28/raw/205ec76647bd9c5a0bec310c3666c95c901539d7/features_hook.diff"
             }
         }
     },
