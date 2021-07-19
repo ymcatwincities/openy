@@ -18,9 +18,14 @@ gmaps:
     https://maps.googleapis.com/maps/api/js: { type: external }
 
 leaflet:
-  version: 1.3.3
-  js:
-    https://unpkg.com/leaflet@1.3.3/dist/leaflet.js: { type: external }
+  remote: https://leafletjs.com/
+  version: '1.7.1'
+  license:
+    name: BSD 2-clause "Simplified" License
+    url: https://github.com/Leaflet/Leaflet/blob/master/LICENSE
+    gpl-compatible: true
   css:
     component:
-      https://unpkg.com/leaflet@1.3.3/dist/leaflet.css: { type: external }
+      'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css': { type: external, minified: true }
+  js:
+    'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js': { type: external, minified: true }
