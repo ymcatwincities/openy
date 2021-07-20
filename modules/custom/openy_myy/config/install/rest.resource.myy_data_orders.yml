@@ -1,9 +1,0 @@
-id: myy_data_orders
-plugin_id: myy_orders
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie

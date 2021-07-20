@@ -1,9 +1,0 @@
-id: myy_profile_membership_info
-plugin_id: myy_profile_membership_info
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie
