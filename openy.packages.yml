@@ -233,14 +233,6 @@ programs:
     - openy_prgf_classes_listing
     - openy_prgf_schedule_search
 
-retention_campaign:
-  name: 'Retention Campaign'
-  description: 'Retention Campaign package provides an ability to maintain and perform retention campaigns.'
-  help: 'Using Retention Campaign package you can enable and manage retention campaigns on the Open Y website.'
-  modules:
-    - openy_campaign
-    - openy_prgf_campaign
-
 scheduler:
   name: 'Scheduler'
   description: 'Scheduler package provides an ability to schedule publishing/unpublishing for the content.'
@@ -320,13 +312,11 @@ demo:
     - openy_demo_nblog
     - openy_demo_nbranch
     - openy_demo_ncamp
-    - openy_demo_ncampaign
     - openy_demo_ncategory
     - openy_demo_nclass
     - openy_demo_nevent
     - openy_demo_nfacility
     - openy_demo_nhome_alt
-    - openy_demo_ninterstitial
     - openy_demo_nlanding
     - openy_demo_nmbrshp
     - openy_demo_nnews

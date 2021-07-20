@@ -1,11 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.4.0)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     breakpoint (2.5.0)
       sass (~> 3.3)
       sassy-maps (< 1.0.0)
-    chunky_png (1.3.6)
+    chunky_png (1.4.0)
     color-schemer (0.2.8)
       compass-blend-modes (~> 0.0.2)
     compass (1.0.3)
@@ -33,12 +34,13 @@ GEM
       compass (>= 0.12.0)
     css_parser (1.3.7)
       addressable
-    ffi (1.9.10)
-    multi_json (1.12.1)
-    rb-fsevent (0.9.7)
-    rb-inotify (0.9.7)
-      ffi (>= 0.5.0)
-    sass (3.4.22)
+    ffi (1.15.3)
+    multi_json (1.15.0)
+    public_suffix (4.0.6)
+    rb-fsevent (0.11.0)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
+    sass (3.4.25)
     sassy-buttons (0.1.4)
       compass (>= 0.12.2)
       sass (>= 3.2.0)
@@ -61,13 +63,13 @@ PLATFORMS
 
 DEPENDENCIES
   breakpoint (~> 2.5.0)
-  compass-aurora (~> 3.0.0)
+  compass-aurora (~> 3.0.6)
   compass-normalize (~> 1.4.3)
-  css_parser (~> 1.3.4)
+  css_parser (~> 1.3.7)
   sass (~> 3.4.9)
   sassy-buttons (~> 0.1.4)
   singularitygs (~> 1.4.0)
   toolkit (~> 1.0.0)
 
 BUNDLED WITH
-   1.10.6
+   1.17.3
