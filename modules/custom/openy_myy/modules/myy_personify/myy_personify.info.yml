@@ -1,9 +1,0 @@
-name: OpenY MyY Personify
-type: module
-description: OpenY MyY Personify integration.
-core_version_requirement: ^8 || ^9
-version: 1.0
-package: OpenY
-dependencies:
- - personify:personify
- - openy_myy:openy_myy

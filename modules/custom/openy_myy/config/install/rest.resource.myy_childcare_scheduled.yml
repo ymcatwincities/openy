@@ -1,9 +1,0 @@
-id: myy_childcare_scheduled
-plugin_id: myy_childcare_scheduled
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie

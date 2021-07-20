@@ -1,7 +1,0 @@
-name: YMCA Personify
-type: module
-description: Implements Personify SSO
-core_version_requirement: ^8 || ^9
-package: YMCA
-dependencies:
-  - personify_sso:personify_sso

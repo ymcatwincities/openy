@@ -1,9 +1,0 @@
-id: myy_childcare_sessions_add
-plugin_id: myy_childcare_sessions_add
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie

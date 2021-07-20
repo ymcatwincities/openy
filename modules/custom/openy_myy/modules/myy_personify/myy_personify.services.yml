@@ -1,7 +1,0 @@
-services:
-  myy_personify_user_helper:
-    class: Drupal\myy_personify\PersonifyUserHelper
-    arguments: ['@personify.sso_client']
-  myy_personify_user_data:
-    class: Drupal\myy_personify\PersonifyUserData
-    arguments: ['@personify.sso_client', '@personify.client', '@myy_personify_user_helper', '@config.factory', '@logger.factory']
