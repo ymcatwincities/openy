@@ -389,14 +389,12 @@ function openy_carnation_preprocess_input(&$variables) {
     ], $variables['attributes']['class']))) {
       $variables['attributes']['class'][] = 'btn-primary';
     }
+    
+    // Add default btn class if it is absent at submit button.
     if (!in_array('btn', $variables['attributes']['class'])) {
       $variables['attributes']['class'][] = 'btn';
     }
-    else {
-      $variables['attributes']['class'][] = 'btn';
-      $variables['attributes']['class'][] = 'btn-primary';
-      $variables['attributes'] = new Attribute($variables['attributes']);
-    }
+    
   }
   if ($variables['element']['#type'] == 'textfield'
     || $variables['element']['#type'] == 'email'
