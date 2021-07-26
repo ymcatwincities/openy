@@ -1,7 +1,0 @@
-openy_focal_point:
-  version: 0.1
-  js:
-      js/openy_focal_point.js: {}
-  css:
-    theme:
-      css/openy_focal_point.css: {}
