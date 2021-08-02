@@ -48,6 +48,8 @@ $module: 'site-alert';
       text-align: center;
       &:hover {
         text-decoration: underline;
+        background-color: $white;
+        color: $black !important;
       }
     }
   }
@@ -140,6 +142,9 @@ $module: 'site-alert';
     .slick-slide {
       display: flex;
       height: auto;
+      .site-alert {
+        height: 100% !important;
+      }
     }
   }
 

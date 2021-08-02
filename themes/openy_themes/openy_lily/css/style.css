@@ -188,6 +188,7 @@ h6, .h6 {
 
 body {
   padding-top: 70px !important;
+  top: 0 !important;
 }
 @media (min-width: 62em) {
   body {
@@ -2286,6 +2287,8 @@ body {
 }
 .site-alert__cta .field-alert-link a:hover {
   text-decoration: underline;
+  background-color: #fff;
+  color: #000 !important;
 }
 .site-alert__dismiss {
   color: #fff;
@@ -2365,6 +2368,10 @@ body {
 .footer-alerts-list .slick-track .slick-slide {
   display: flex;
   height: auto;
+}
+.header-alerts-list .slick-track .slick-slide .site-alert,
+.footer-alerts-list .slick-track .slick-slide .site-alert {
+  height: 100% !important;
 }
 .header-alerts-list .slick__arrow,
 .footer-alerts-list .slick__arrow {
@@ -14347,7 +14354,6 @@ textarea:focus,
 .btn.active.focus,
 .active.focus.button,
 .form-control:focus,
-.slick-arrow:focus:before,
 .navbar-toggle:focus {
   outline: none;
   box-shadow: inset 0 0 0 2px #69ff00;
