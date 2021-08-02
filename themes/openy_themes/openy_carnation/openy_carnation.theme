@@ -651,3 +651,13 @@ function openy_carnation_entity_file_uri_by_fid($fid_array) {
 
   return '';
 }
+
+/**
+ * Implements hook_preprocess_video_embed_iframe().
+ */
+function openy_carnation_preprocess_video_embed_iframe(array &$variables) {
+  if ($attr = $variables['attributes']) {
+    /** @var \Drupal\Core\Template\Attribute $attr */
+    $attr->setAttribute('frameborder', 1);
+  }
+}

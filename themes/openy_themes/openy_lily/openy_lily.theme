@@ -945,3 +945,13 @@ function openy_lily_preprocess_paragraph_social_list(&$variables) {
       ->render(views_embed_view($block[0]['#name'], $block[0]['#display_id']));
   }
 }
+
+/**
+ * Implements hook_preprocess_video_embed_iframe().
+ */
+function openy_lily_preprocess_video_embed_iframe(array &$variables) {
+  if ($attr = $variables['attributes']) {
+    /** @var \Drupal\Core\Template\Attribute $attr */
+    $attr->setAttribute('frameborder', 1);
+  }
+}
