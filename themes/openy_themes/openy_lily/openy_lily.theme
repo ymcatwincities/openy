@@ -952,6 +952,12 @@ function openy_lily_preprocess_paragraph_social_list(&$variables) {
 function openy_lily_preprocess_video_embed_iframe(array &$variables) {
   if ($attr = $variables['attributes']) {
     /** @var \Drupal\Core\Template\Attribute $attr */
-    $attr->setAttribute('frameborder', 1);
+    $attr = $variables['attributes'] ?? NULL;
+    if (!$attr || !$attr instanceof Attribute) {
+      return;
+    }
+    if (!$attr->hasAttribute('frameborder')) {
+      $attr->setAttribute('frameborder', 1);
+    }
   }
 }

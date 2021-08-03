@@ -658,6 +658,12 @@ function openy_carnation_entity_file_uri_by_fid($fid_array) {
 function openy_carnation_preprocess_video_embed_iframe(array &$variables) {
   if ($attr = $variables['attributes']) {
     /** @var \Drupal\Core\Template\Attribute $attr */
-    $attr->setAttribute('frameborder', 1);
+    $attr = $variables['attributes'] ?? NULL;
+    if (!$attr || !$attr instanceof Attribute) {
+      return;
+    }
+    if (!$attr->hasAttribute('frameborder')) {
+      $attr->setAttribute('frameborder', 1);
+    }
   }
 }

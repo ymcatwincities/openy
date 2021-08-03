@@ -9,6 +9,7 @@ use Drupal\Component\Utility\Html;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
@@ -503,6 +504,12 @@ function openy_rose_preprocess(array &$variables) {
 function openy_rose_preprocess_video_embed_iframe(array &$variables) {
   if ($attr = $variables['attributes']) {
     /** @var \Drupal\Core\Template\Attribute $attr */
-    $attr->setAttribute('frameborder', 1);
+    $attr = $variables['attributes'] ?? NULL;
+    if (!$attr || !$attr instanceof Attribute) {
+      return;
+    }
+    if (!$attr->hasAttribute('frameborder')) {
+      $attr->setAttribute('frameborder', 1);
+    }
   }
 }
