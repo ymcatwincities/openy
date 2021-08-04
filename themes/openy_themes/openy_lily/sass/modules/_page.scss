@@ -1,5 +1,6 @@
 body {
   padding-top: 70px !important;
+  top: 0 !important;
 
   @include breakpoint($screen-desktop) {
     padding-top: $top-nav-height !important;
