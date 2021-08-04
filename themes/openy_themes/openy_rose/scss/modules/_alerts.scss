@@ -48,8 +48,7 @@ $module: 'site-alert';
       text-align: center;
       &:hover {
         text-decoration: underline;
-        background-color: $white;
-        color: $black !important;
+        opacity: 0.6;
       }
     }
   }

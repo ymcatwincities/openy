@@ -2488,8 +2488,7 @@ body {
 }
 .site-alert__cta .field-alert-link a:hover {
   text-decoration: underline;
-  background-color: #fff;
-  color: #000 !important;
+  opacity: 0.6;
 }
 .site-alert__dismiss {
   color: #fff;
