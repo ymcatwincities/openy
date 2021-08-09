@@ -15,3 +15,7 @@
 .embedded-entity.align-right {
     margin-left: 30px
 }
+
+.media.media--ratio {
+  height: auto !important;
+}
