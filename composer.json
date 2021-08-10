@@ -181,7 +181,8 @@
                 "3149789 - Add a 3.x branch with an update path to the video source in core.": "https://www.drupal.org/files/issues/2020-06-11/3149789-4.patch"
             },
             "drupal/geysir": {
-                "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch"
+                "Adds a feature for reload a page after success paragraph add or edit": "https://raw.githubusercontent.com/ymcatwincities/openy/8.x-2.x/patches/geysir/add-reload-page.patch",
+                "Geysir throws while node Preview for content types with entity reference revisions - https://www.drupal.org/project/geysir/issues/3226195": "https://www.drupal.org/files/issues/2021-08-01/3226195-geysir-node-preview-issue.patch"
             },
             "drupal/jquery_colorpicker": {
                 "Use library directory instead vendor": "https://gist.githubusercontent.com/manachynskyi/3b059456ce97dd4380ff0c0e85f41696/raw/4cf7103c75849b2b474424fe9d8ad969192dd779/library_path_update.patch"
