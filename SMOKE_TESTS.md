@@ -158,3 +158,85 @@ Administrator
 1. There are settings to configure who should receive email confirmation 
 2. Forms for adding settings work correctnly without any issues
 3. Emails are sending  after form submission
+
+# Scheduler
+
+## Content types
+
+### User
+
+Administrator
+
+### Steps
+
+1. Login as Admin 
+2. Go to Content page 
+3. Verify while creating pages schedules is enabled for the following content types: 
+- Alert
+- Blog Post
+- Class
+- Event
+- Landing page 
+- News Post 
+- Program 
+- Program Subcategory 
+- Social Post
+
+### Expected results
+
+The following Open Y Content types support the ability to schedule page publishing: 
+- Alert
+- Blog Post
+- Class
+- Event
+- Landing page 
+- News Post 
+- Program 
+- Program Subcategory 
+- Social Post
+
+## Scheduler Editing
+
+### User
+
+Administrator
+
+### Steps
+
+1. Login as Admin 
+2. Go to Content 
+3. Start create a new content (any supported content type)
+4. Verify on the right sidebar there are scheduling options with two fields: 
+- publish on (date and time)
+- unpublish on (date and time)
+
+### Expected results
+
+All supported by Scheduler content types provide the ability specify publish/unpublish date and time 
+
+## Scheduler Publishing
+
+### User
+
+Administrator
+
+### Steps
+
+1. Login as Admin 
+2. Verify user timezone is the same as timezone where you do tests, if not change it and save user profile. 
+3. Go to Content 
+4. Create a new Alert 
+5. Fill the form 
+6. In the Scheduling options specify publish/unpublish on date and time 
+7. Go to the page Content -> Scheduled (tab) or /admin/content/scheduled
+8. Verify you can see just created alert in the list 
+9. Verify alert published on specified date and time 
+10. Verify alert unpublished on specified date and time 
+
+*Note: While testing you can specify the current date and time +5 minutes and run cron manually on the page (/admin/config/system/cron).*
+
+### Expected results
+
+1. Scheduled to be published on a specific date and time page is published.
+2. Scheduled to be unpublished on a specific date and time page is unpublished.
+
