@@ -1,6 +1,6 @@
-# Welcome to Grid Content smoke tests documentation
+# Welcome to OpenY Search smoke tests documentation
 
-In order for Open Y Grid Content being tested in a short timeframe, please follow steps below
+In order for OpenY Search being tested in a short timeframe, please follow steps below
 
 # Component: Open Y Search								
 
