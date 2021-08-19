@@ -72,7 +72,7 @@ Administrator / Anonymous
 2. Verify there is a search icon that opens search form when you click on it 
 3. Enter some keywords,  for example: ymca; Swim Lessons, etc
 4. Verify you see results on the page 
-5. Fin any landing page with some text on it and try to search by keywords from that landing page 
+5. Find any landing page with some text on it and try to search by keywords from that landing page 
 6. Verify search is working and show correct results
 
 ### Expected Results
