@@ -33,7 +33,6 @@ dependencies:
   - drupal:migrate
   - drupal:node
   - drupal:options
-  - drupal:page_cache
   - drupal:path
   - drupal:path_alias
   - drupal:quickedit
