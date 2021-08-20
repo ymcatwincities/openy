@@ -1196,3 +1196,11 @@ function openy_update_8087() {
     }
   }
 }
+
+/**
+ * Uninstall openy_analytics and openy_update modules.
+ */
+function openy_update_8090() {
+    \Drupal::service('module_installer')->uninstall(['openy_analytics']);
+    \Drupal::service('module_installer')->uninstall(['openy_update']);
+}
