@@ -92,6 +92,7 @@
         "drupal/webform": "^6.0",
         "drush/drush": "^10.5.0",
         "drupal/migrate_tools": "^5.0",
+        "drupal/upgrade_tool": "^2",
         "grt107/grt-youtube-popup": "^1.0",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
