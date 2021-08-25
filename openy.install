@@ -1201,7 +1201,7 @@ function openy_update_8087() {
  * Uninstall openy_analytics and openy_update modules.
  */
 function openy_update_8090() {
-    $config = \Drupal::service('config.factory)->getEditable('openy.terms_and_conditions.schema');
+    $config = \Drupal::service('config.factory')->getEditable('openy.terms_and_conditions.schema');
     $config->set('analytics', FALSE);
     $config->set('analytics_optin', FALSE);
     $config->save();
