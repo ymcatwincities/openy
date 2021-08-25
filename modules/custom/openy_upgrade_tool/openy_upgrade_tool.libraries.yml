@@ -1,5 +1,0 @@
-dashboard:
-  version: 1.x
-  css:
-    component:
-      css/dashboard.css: {}
