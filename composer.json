@@ -90,7 +90,7 @@
         "drupal/views_field_formatter": "^1.11",
         "drupal/views_infinite_scroll": "^1.7",
         "drupal/webform": "^6.0",
-        "drush/drush": "^10.5.0",
+        "drush/drush": "^9 || ^10 || ^10.5.0",
         "drupal/migrate_tools": "^5.0",
         "drupal/upgrade_tool": "^2",
         "grt107/grt-youtube-popup": "^1.0",
