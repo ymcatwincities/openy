@@ -15,4 +15,15 @@
     }
   };
 
+  /**
+   * To close the alert Modals dialog.
+   */
+  Drupal.behaviors.openyAlertModalsClose = {
+    attach: function (context, settings) {
+      $('.alert-modal .close').on('click', function (e) {
+        e.preventDefault();
+        $(this).closest('.alert-modal').remove();
+      });
+    }
+  };
 })(jQuery);
