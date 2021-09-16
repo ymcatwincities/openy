@@ -183,6 +183,7 @@ class CalcBlockForm extends FormBase {
         '#ajax' => $this->getAjaxDefaults(),
         '#attributes' => [
           'class' => ['btn', 'blue', 'pull-left'],
+          'translate' => 'no',
         ],
       ];
       $form['#attached']['library'][] = 'openy_calc/submit';
@@ -197,6 +198,7 @@ class CalcBlockForm extends FormBase {
         '#ajax' => $this->getAjaxDefaults(),
         '#attributes' => [
           'class' => ['btn', 'blue', 'pull-right'],
+          'translate' => 'no',
         ],
       ];
     }
@@ -210,6 +212,7 @@ class CalcBlockForm extends FormBase {
             'complete-registration',
             'pull-right',
           ],
+          'translate' => 'no',
         ],
       ];
     }
