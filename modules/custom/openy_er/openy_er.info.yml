@@ -1,9 +1,0 @@
-name: Open Y Entity Reference Tweaks
-description: Provides additional Entity Reference selection plugins.
-type: module
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.0
-dependencies:
-  - drupal:field
-  - plugin:plugin
