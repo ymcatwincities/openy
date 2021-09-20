@@ -1,7 +1,0 @@
-services:
-  personify.client:
-    class: Drupal\personify\PersonifyClient
-    arguments: ['@config.factory', '@http_client']
-  personify.sso_client:
-    class: Drupal\personify\PersonifySSO
-    arguments: ['@config.factory']
