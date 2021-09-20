@@ -1,7 +1,0 @@
-openy_mappings.openy_settings_mappings:
-  path: /admin/openy/settings/mappings
-  defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Mappings'
-  requirements:
-    _permission: 'administer site configuration'

@@ -1,7 +1,0 @@
-openy_daxko2.settings:
-  path: '/admin/config/services/daxko2'
-  defaults:
-    _form: '\Drupal\openy_daxko2\Form\SettingsForm'
-    _title: 'Daxko settings'
-  requirements:
-    _permission: 'administer daxko2'
