@@ -9,6 +9,7 @@
         "cweagans/composer-patches": "^1.5.0",
         "doctrine/inflector": "1.2.*",
         "drupal/address": "^1.8",
+        "drupal/activenet": "^1.0",
         "drupal/admin_toolbar": "^2 || ^3.0",
         "drupal/better_exposed_filters": "^5",
         "drupal/blazy": "^2.4",
