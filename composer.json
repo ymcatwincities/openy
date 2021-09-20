@@ -65,6 +65,7 @@
         "drupal/migrate_plus": "^5",
         "drupal/migrate_source_csv": "^3",
         "drupal/openy_daxko2": "^1.0",
+        "drupal/openy_er": "^1.0",
         "drupal/openy_mappings": "^1.0",
         "drupal/openy_socrates": "^1.0",
         "drupal/panelbutton": "^1.3",
