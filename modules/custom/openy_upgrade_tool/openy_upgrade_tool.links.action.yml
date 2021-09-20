@@ -1,5 +1,0 @@
-entity.openy_upgrade_log.add_form:
-  route_name: entity.openy_upgrade_log.add_form
-  title: 'Add Openy upgrade log item'
-  appears_on:
-    - entity.openy_upgrade_log.collection

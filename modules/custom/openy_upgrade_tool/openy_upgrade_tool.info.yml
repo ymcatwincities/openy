@@ -1,9 +1,0 @@
-name: Open Y Upgrade Tool
-type: module
-description: Provides an Upgrade Path tool.
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.2
-dependencies:
-  - features:features
-  - config_import:config_import

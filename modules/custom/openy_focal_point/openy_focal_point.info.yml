@@ -1,7 +1,0 @@
-name: OpenY Focal Point
-type: module
-description: Custom widget for Focal point.
-package: OpenY
-core_version_requirement: ^8 || ^9
-dependencies:
-  - image_widget_crop:image_widget_crop

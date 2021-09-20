@@ -123,7 +123,7 @@ class TermsOfUseForm extends FormBase {
 
     $form['analytics'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('We agree to share non-sensitive analytics information including, but not limited to, webpage URL, Open Y version number, enabled website components, with Open Y, LLC in order to improve the platform experience for all YMCA association users. This data will be for informational use only and will not be sold to any party, or distributed to any non-YMCA entity by Open Y, LLC.'),
+      '#title' => $this->t('DEPRECATED. To be removed in Q4 2021. We agree to share non-sensitive analytics information including, but not limited to, webpage URL, Open Y version number, enabled website components, with Open Y, LLC in order to improve the platform experience for all YMCA association users. This data will be for informational use only and will not be sold to any party, or distributed to any non-YMCA entity by Open Y, LLC.'),
       '#default_value' => ($analytics) ? 1 : 0,
       '#weight' => 7,
     ];

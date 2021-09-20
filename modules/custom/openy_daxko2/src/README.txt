@@ -1,1 +1,0 @@
-Integration with Daxko API https://api.daxko.com/v3/docs/api/index.html

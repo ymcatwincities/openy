@@ -2,7 +2,7 @@ name: Open Y Update Tool
 type: module
 description: Provides an Managed Update information for OpenY core and dependencies.
 core_version_requirement: ^8 || ^9
-package: Open Y
+package: Open Y (Deprecated)
 version: 8.x-1.0
 dependencies:
   - drupal:update

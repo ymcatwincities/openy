@@ -1,9 +1,0 @@
-id: myy_profile_family_list
-plugin_id: myy_profile_family_list
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie

@@ -1,6 +1,0 @@
-name: OpenY Theme Overrides
-type: module
-description: Adds ability of overriding templates for theme within the module.
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.0

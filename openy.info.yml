@@ -2,7 +2,7 @@ name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core_version_requirement: ^8 || ^9
-version: '9.x-2.10.0'
+version: '9.x-2.10.2'
 distribution:
   name: Open Y
   install:
@@ -33,7 +33,6 @@ dependencies:
   - drupal:migrate
   - drupal:node
   - drupal:options
-  - drupal:page_cache
   - drupal:path
   - drupal:path_alias
   - drupal:quickedit
@@ -85,7 +84,6 @@ dependencies:
   - openy_taxonomy:openy_taxonomy
   - openy_txnm_color:openy_txnm_color
   - openy_tour:openy_tour
-  - openy_update:openy_update
 themes:
   - openy_admin
   - seven

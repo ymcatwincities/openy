@@ -1,7 +1,0 @@
-personify.settings:
-  path: '/admin/openy/integrations/personify'
-  defaults:
-    _form: '\Drupal\personify\Form\PersonifySettingsForm'
-    _title: 'Personify settings'
-  requirements:
-    _permission: 'administer site configuration'

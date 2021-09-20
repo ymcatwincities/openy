@@ -1,9 +1,0 @@
-name: Daxko
-type: module
-description: Provides a basic Daxko integration.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - openy_socrates:openy_socrates
-  - openy_socrates:openy_mappings

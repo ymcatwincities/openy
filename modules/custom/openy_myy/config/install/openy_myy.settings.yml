@@ -1,7 +1,0 @@
-myy_authenticator: myy_personify_authenticator
-myy_data_profile: myy_personify_data_profile
-myy_data_visits: myy_personify_data_visits
-myy_data_childcare: myy_personify_data_childcare
-myy_data_orders: myy_personify_data_orders
-childcare_purchase_link_title: 'Purchase care'
-childcare_purchase_link_url: '/'

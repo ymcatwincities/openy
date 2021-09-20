@@ -1,6 +1,0 @@
-name: ActiveNet
-type: module
-description: Provides a basic ActiveNet integration
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y

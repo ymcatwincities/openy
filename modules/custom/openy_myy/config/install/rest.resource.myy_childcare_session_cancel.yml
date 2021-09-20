@@ -1,9 +1,0 @@
-id: myy_childcare_session_cancel
-plugin_id: myy_childcare_session_cancel
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie

@@ -1,5 +1,0 @@
-openy_daxko2.admin:
-  title: 'Activity Finder Daxko settings'
-  parent: openy_system.openy_integrations_daxko
-  route_name: openy_daxko2.settings
-  weight: 100
