@@ -1,7 +1,0 @@
-embeddedgroupexpro.settings:
-  path: /admin/openy/integrations/groupex-pro/groupexpro
-  defaults:
-    _form: '\Drupal\embedded_groupexpro_schedule\Form\EmbeddedGroupExProSettingsForm'
-    _title: 'GroupEx Pro Account Settings'
-  requirements:
-    _permission: 'administer site configuration'

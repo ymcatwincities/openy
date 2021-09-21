@@ -1,6 +1,0 @@
-openy_group_schedules.settings:
-  title: 'GroupEx Pro group schedules settings'
-  route_name: openy_group_schedules.settings
-  description: 'Configure GroupEx Pro settings'
-  parent: openy_system.openy_integrations_groupexpro
-  weight: 120

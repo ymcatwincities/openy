@@ -1,7 +1,0 @@
-embedded_groupexpro_schedule.settings:
-  type: config_object
-  label: "Settings"
-  mapping: 
-    account:
-      type: string
-      label: "GroupEx Pro Account"
