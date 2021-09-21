@@ -1,9 +1,0 @@
-name: Embedded GroupEx Pro Schedule
-type: module
-description: Provides an Embedded GroupEx Pro Schedule element and block.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y Groupex PRO Integration
-dependencies:
-  - drupal:block
-  - openy_gxp:openy_gxp
