@@ -1,9 +1,0 @@
-name: GroupEx Pro Form Cache
-type: module
-description: Provides a custom entity for caching of GroupEx Pro forms.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y Groupex PRO Integration
-dependencies:
-  - openy_group_schedules:openy_group_schedules
-  - openy_gxp:openy_gxp

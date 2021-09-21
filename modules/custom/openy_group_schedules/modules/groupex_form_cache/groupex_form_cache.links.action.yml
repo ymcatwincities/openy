@@ -1,5 +1,0 @@
-entity.groupex_form_cache.add_form:
-  route_name: entity.groupex_form_cache.add_form
-  title: 'Add GroupEx Pro Form Cache'
-  appears_on:
-    - entity.groupex_form_cache.collection
