@@ -29,7 +29,6 @@
         "drupal/ctools": "3.0 || ^3.4",
         "drupal/custom_formatters": "^3.0 || ^3.0@beta",
         "drupal/datalayer": "^1.0@beta || ^1.0",
-        "drupal/daxko": "^1.0",
         "drupal/domain": "^1.0@beta || ^1.0",
         "drupal/domain_theme_switch": "^1.5",
         "drupal/draggableviews": "^1",
