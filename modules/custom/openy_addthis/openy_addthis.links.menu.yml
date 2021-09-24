@@ -1,6 +1,0 @@
-openy_addthis.settings:
-  title: 'AddThis settings'
-  parent: openy_system.openy_settings
-  description: 'Configure Open Y AddThis settings.'
-  route_name: openy_addthis.settings
-  weight: 110

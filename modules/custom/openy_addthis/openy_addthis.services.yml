@@ -1,6 +1,0 @@
-services:
-  openy_addthis_uninstall_validator:
-    class: Drupal\openy_addthis\Entity\AddThisUninstallValidator
-    tags:
-      - { name: module_install.uninstall_validator }
-    arguments: ['@entity_type.manager', '@string_translation']
