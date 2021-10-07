@@ -137,3 +137,9 @@
     top: 117px;
   }
 }
+
+.mobile-menu {
+  &.menu-in .navbar-toggler-icon {
+    background-image: escape-svg($navbar-dark-toggler-icon-close);
+  }
+}
