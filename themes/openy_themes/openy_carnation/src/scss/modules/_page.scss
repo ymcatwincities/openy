@@ -65,14 +65,13 @@ main {
 }
 
 .two-columns-container,
-.user-login,
-.webform-submission-form {
+.user-login {
   padding-bottom: 20px;
   min-height: 600px;
 }
 
 .webform-submission-form {
-  padding-top: 136px;
+  margin: 15px 0;
 }
 
 .error-page {
