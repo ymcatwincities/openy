@@ -13,12 +13,9 @@
   }
 
   .field-prgf-1c-description {
-    color: $purple;
-    @include cachet();
-    font-size: 20px;
-    line-height: 1.45em;
     p {
-      margin: 0 0 5px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
     }
   }
 }
