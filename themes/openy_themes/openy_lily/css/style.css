@@ -2372,6 +2372,10 @@ body {
 .footer-alerts-list .slick-track .slick-slide .site-alert {
   height: 100% !important;
 }
+.header-alerts-list .slick-track .slick-slide .site-alert > div,
+.footer-alerts-list .slick-track .slick-slide .site-alert > div {
+  height: 100%;
+}
 .header-alerts-list .slick__arrow,
 .footer-alerts-list .slick__arrow {
   display: block;

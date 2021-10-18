@@ -143,6 +143,10 @@ $module: 'site-alert';
       height: auto;
       .site-alert {
         height: 100% !important;
+
+        & > div {
+          height: 100%;
+        }
       }
     }
   }
