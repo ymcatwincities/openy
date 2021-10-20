@@ -40,7 +40,7 @@
         "drupal/entity": "^1",
         "drupal/entity_browser": "^2",
         "drupal/entity_clone": "^1.0",
-        "drupal/entity_embed": "1.1",
+        "drupal/entity_embed": "^1.2",
         "drupal/entity_reference_revisions": "^1.6",
         "drupal/features": "3.8 || ^3.11",
         "drupal/field_group": "^3.0",
