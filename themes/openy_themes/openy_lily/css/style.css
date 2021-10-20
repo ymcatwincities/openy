@@ -7727,14 +7727,9 @@ article .node--view-mode-flexible-content h2 a span, article .node--view-mode-fl
     font-size: 40px;
   }
 }
-.paragraph-1c-wrapper .field-prgf-1c-description {
-  color: #92288d;
-  font-family: "Cachet", Verdana, Geneva, sans-serif;
-  font-size: 20px;
-  line-height: 1.45em;
-}
 .paragraph-1c-wrapper .field-prgf-1c-description p {
-  margin: 0 0 5px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 @media (min-width: 768px) {
