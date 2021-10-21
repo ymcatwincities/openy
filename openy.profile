@@ -654,7 +654,7 @@ function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form
       - .page-node-type-{node type};<br/>
       - .node-id-{node ID};<br/>
       - .path-frontpage.<br/><br/>
-      The existing node types are: ' . implode($css_node_selectors, ', ') .'.
+      The existing node types are: ' . implode(', ', $css_node_selectors) . '.
       '),
       '#suffix' => '</div>'
     ];
