@@ -1,5 +1,5 @@
 .paragraph--column-in-a-grid {
-  .col-12:first-child {
+  .col-12:nth-child(3n-2) {
     h2 {
       color: $cyan;
     }
@@ -8,7 +8,7 @@
     }
   }
 
-  .col-12:nth-child(2) {
+  .col-12:nth-child(3n-1) {
     h2 {
       color: $yellow;
     }
@@ -21,7 +21,7 @@
     }
   }
 
-  .col-12:last-child {
+  .col-12:nth-child(3n) {
     h2 {
       color: $orange;
     }
