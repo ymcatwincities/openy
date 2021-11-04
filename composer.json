@@ -76,6 +76,7 @@
         "drupal/paragraphs": "^1.12",
         "drupal/pathauto": "^1.6",
         "drupal/personify": "^1.0",
+        "drupal/program_search": "^1.0",
         "drupal/plugin": "2.5 || ^2.8",
         "drupal/rabbit_hole": "^1.0@beta || ^1.0",
         "drupal/recaptcha": "^3",
