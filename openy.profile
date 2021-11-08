@@ -308,6 +308,11 @@ function openy_google_search(array &$install_state) {
  *   Batch.
  */
 function openy_install_theme(array &$install_state) {
+  // Import blocks needed for themes.
+  $module_operations[] = ['openy_enable_module', (array) 'openy_demo_bfooter'];
+  $migrate_operations[] = ['openy_import_migration', (array) 'openy_demo_block_content_footer'];
+  $uninstall_operations[] = ['openy_uninstall_module', (array) 'openy_demo_bfooter'];
+
   $theme = $install_state['openy']['theme'];
   if (function_exists(  'drush_print')) {
     drush_print(dt('Theme: %theme', ['%theme' => $theme]));
@@ -319,7 +324,7 @@ function openy_install_theme(array &$install_state) {
     ->set('default', $theme)
     ->save(TRUE);
   $theme_operations[] = ['openy_enable_theme', (array) $theme];
-  return ['operations' => $theme_operations];
+  return ['operations' => array_merge($module_operations, $migrate_operations, $uninstall_operations, $theme_operations)];
 }
 
 /**
