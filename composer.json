@@ -322,7 +322,7 @@
             }
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
         "post-install-cmd": [
