@@ -124,7 +124,7 @@
         "ymcatwincities/openy_activity_finder": "^4.0",
         "ymcatwincities/ymca_sync": "^8 || ^10",
         "ynorth-projects/openy_pef_gxp_sync": "1.0.0 || ^1.1.1",
-        "open-y-subprojects/openy_daxko_gxp_syncer": "^1.0.0",
+        "open-y-subprojects/openy_daxko_gxp_syncer": "^1.1.1",
         "open-y-subprojects/ynorth_gxp_spots_proxy": "^1.0.1",
         "open-y-subprojects/openy_map": "^1.1",
         "open-y-subprojects/openy_focal_point": "^1.0",
