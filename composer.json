@@ -4,7 +4,7 @@
     "description": "Open Y distribution",
     "license": "GPL-2.0-or-later",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.4",
         "composer/installers": "^1.2 || ^1.9",
         "cweagans/composer-patches": "^1.5.0",
         "doctrine/inflector": "1.2.*",
@@ -75,6 +75,7 @@
         "drupal/paragraphs": "^1.12",
         "drupal/pathauto": "^1.6",
         "drupal/personify": "^1.0",
+        "drupal/program_search": "^1.0",
         "drupal/plugin": "2.5 || ^2.8",
         "drupal/rabbit_hole": "^1.0@beta || ^1.0",
         "drupal/recaptcha": "^3",
