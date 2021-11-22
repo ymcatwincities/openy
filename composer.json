@@ -127,7 +127,7 @@
         "ynorth-projects/openy_pef_gxp_sync": "1.0.0 || ^1.1.1",
         "open-y-subprojects/openy_daxko_gxp_syncer": "^1.1.1",
         "open-y-subprojects/ynorth_gxp_spots_proxy": "^1.0.1",
-        "open-y-subprojects/openy_map": "^1.1",
+        "open-y-subprojects/openy_map": "dev-patch-1 as 1.4.1",
         "open-y-subprojects/openy_focal_point": "^1.0",
         "ynorth-projects/openy_repeat": "^1 || ^2.0.6",
         "ynorth-projects/openy_node_session": "^0.9 || ^1.1.0",
@@ -321,6 +321,10 @@
                     "url": "https://github.com/vakata/jstree/archive/3.3.8.zip"
                 }
             }
+        },
+        {
+            "url": "https://github.com/froboy/openy_map.git",
+            "type": "git"
         }
     ],
     "minimum-stability": "dev",
