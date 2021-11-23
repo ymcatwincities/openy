@@ -1,9 +1,0 @@
-{% if content.field_content|render|trim is not empty %}
-  <article{{ attributes.removeClass(header_classes).addClass(content_classes) }}>
-    {{ content.field_content }}
-
-    {% if content.addthis is not empty %}
-      {{ content.addthis }}
-    {% endif %}
-  </article>
-{% endif %}
