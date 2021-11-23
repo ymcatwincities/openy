@@ -30,7 +30,7 @@ class HolidayHoursWidget extends WidgetBase {
       '#title' => t('Holiday title'),
       '#type' => 'textfield',
       '#default_value' => isset($item->holiday) ? $item->holiday : '',
-      '#description' => t('Example: Thanksgiving Day'),
+      '#description' => t('Example: Thanksgiving Day. To remove entire section clear this field and hit Save'),
     ];
 
     $element['hours'] = [
