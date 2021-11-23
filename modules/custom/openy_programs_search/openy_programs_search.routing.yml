@@ -1,7 +1,0 @@
-openy_programs_search.settings:
-  path: '/admin/openy/integrations/daxko/programs-search'
-  defaults:
-    _form: '\Drupal\openy_programs_search\Form\SettingsForm'
-    _title: 'Daxko Programs Search settings'
-  requirements:
-    _permission: 'administer programs search'

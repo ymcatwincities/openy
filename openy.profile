@@ -175,7 +175,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_tnews',
       'openy_demo_tfacility',
       'openy_demo_tamenities',
-      'openy_demo_bfooter',
       'openy_demo_bmicrosites_menu',
       'openy_demo_addthis',
       'openy_demo_bsimple',
@@ -193,7 +192,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_ahb',
       'openy_demo_tcolor',
       'openy_demo_tamenities',
-      'openy_demo_bfooter',
       'openy_demo_taxonomy',
     ],
     'extended' => [
@@ -212,7 +210,6 @@ function openy_demo_content_configs_map($key = NULL) {
       'openy_demo_tcolor',
       'openy_demo_tarea',
       'openy_demo_tamenities',
-      'openy_demo_bfooter',
       'openy_demo_addthis',
       'openy_demo_bsimple',
       'openy_demo_bamenities',
@@ -308,6 +305,11 @@ function openy_google_search(array &$install_state) {
  *   Batch.
  */
 function openy_install_theme(array &$install_state) {
+  // Import blocks needed for themes.
+  $module_operations[] = ['openy_enable_module', (array) 'openy_demo_bfooter'];
+  $migrate_operations[] = ['openy_import_migration', (array) 'openy_demo_block_content_footer'];
+  $uninstall_operations[] = ['openy_uninstall_module', (array) 'openy_demo_bfooter'];
+
   $theme = $install_state['openy']['theme'];
   if (function_exists(  'drush_print')) {
     drush_print(dt('Theme: %theme', ['%theme' => $theme]));
@@ -319,7 +321,7 @@ function openy_install_theme(array &$install_state) {
     ->set('default', $theme)
     ->save(TRUE);
   $theme_operations[] = ['openy_enable_theme', (array) $theme];
-  return ['operations' => $theme_operations];
+  return ['operations' => array_merge($module_operations, $migrate_operations, $uninstall_operations, $theme_operations)];
 }
 
 /**
@@ -654,7 +656,7 @@ function openy_form_system_theme_settings_alter(&$form, FormStateInterface $form
       - .page-node-type-{node type};<br/>
       - .node-id-{node ID};<br/>
       - .path-frontpage.<br/><br/>
-      The existing node types are: ' . implode($css_node_selectors, ', ') .'.
+      The existing node types are: ' . implode(', ', $css_node_selectors) . '.
       '),
       '#suffix' => '</div>'
     ];

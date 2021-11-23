@@ -2,12 +2,12 @@ name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core_version_requirement: ^8 || ^9
-version: '9.x-2.10.2'
+version: '9.x-2.11.1'
 distribution:
   name: Open Y
   install:
     theme: openy_admin
-php: 7.3
+php: 7.4
 # Required modules
 dependencies:
   # Core modules.
