@@ -1,6 +1,6 @@
 # Welcome to Open Y smoke tests documentation
 
-In order for Open Y dependencies being tested in a short timeframe, please follow steps below
+In order for Open Y dependencies being tested in a short timeframe, please follow steps below.
 
 # Webforms
 
