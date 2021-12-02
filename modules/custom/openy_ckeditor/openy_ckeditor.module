@@ -54,6 +54,7 @@ function openy_ckeditor_tokens($type, $tokens, array $data, array $options, Bubb
           if (empty($node = \Drupal::routeMatch()->getParameter('node'))) {
             return $replacements;
           }
+          $amenities_values = [];
           if ($node->hasField('field_location_amenities')) {
             if (empty($amenities_values = $node->field_location_amenities->getValue())) {
               return $replacements;
