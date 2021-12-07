@@ -101,7 +101,6 @@
         "drupal/views_field_formatter": "^1.11",
         "drupal/views_infinite_scroll": "^1.7",
         "drupal/webform": "^6.0",
-        "drush/drush": "^10.5.0",
         "drupal/migrate_tools": "^5.0",
         "drupal/upgrade_tool": "^2",
         "drupal/openy_lily": "^1.0.3",
@@ -139,7 +138,8 @@
         "open-y-subprojects/openy_content_core": "^1.1"
     },
     "require-dev": {
-        "consolidation/robo": "^1.1.5"
+        "consolidation/robo": "^1.1.5",
+        "drush/drush": "^10.5.0"
     },
     "config": {
         "bin-dir": "bin/",
