@@ -17,6 +17,7 @@ class RoboFile extends \Robo\Tasks {
       ->source('ymcatwincities/openy-project:9.2.x-init-dev')
       ->target($path . '/openy-project')
       ->ansi(TRUE)
+      ->dev()
       ->noInstall(TRUE)
       ->noInteraction()
       ->run();
