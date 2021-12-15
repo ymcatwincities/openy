@@ -54,6 +54,7 @@ class RoboFile extends \Robo\Tasks {
     $this->taskComposerRequire()
       ->dir($path . '/openy-project')
       ->dependency('ymcatwincities/openy', $branch)
+      ->dev()
       ->ansi(TRUE)
       ->run();
   }
@@ -68,6 +69,7 @@ class RoboFile extends \Robo\Tasks {
     $this->taskComposerInstall()
       ->dir($path . '/openy-project')
       ->noInteraction()
+      ->dev()
       ->ansi(TRUE)
       ->run();
   }
