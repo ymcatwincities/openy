@@ -36,7 +36,6 @@ class RoboFile extends \Robo\Tasks {
     $this->taskComposerConfig()
       ->dir($path . '/openy-project')
       ->repository(99, $repository, 'path')
-      ->dev()
       ->ansi(TRUE)
       ->run();
   }
