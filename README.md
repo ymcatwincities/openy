@@ -5,7 +5,7 @@
 </p>
 
 <h3 align="center">
-  Open Y on Drupal 9
+  Open Y on Drupal 9.2+
 </h3>
 <p align="center">
   https://openy.org
