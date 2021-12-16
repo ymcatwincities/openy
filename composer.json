@@ -140,7 +140,8 @@
     },
     "require-dev": {
         "consolidation/robo": "^1.1.5",
-        "drush/drush": "^10.5.0"
+        "drush/drush": "^10.5.0",
+        "drupal/openy_marketing_wiki": "^1"
     },
     "config": {
         "bin-dir": "bin/",
@@ -249,6 +250,18 @@
                 "dist": {
                     "type": "zip",
                     "url": "https://download.ckeditor.com/panelbutton/releases/panelbutton_4.10.1.zip"
+                }
+            }
+        },
+                {
+            "type": "package",
+            "package": {
+                "name": "drupal/openy_marketing_wiki",
+                "type": "library",
+                "version": "1.0.x",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://ftp.drupal.org/files/projects/openy_marketing_wiki-1.0.x-dev.zip"
                 }
             }
         },
