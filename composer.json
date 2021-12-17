@@ -141,7 +141,7 @@
     "require-dev": {
         "consolidation/robo": "^1.1.5",
         "drush/drush": "^10.5.0",
-        "drupal/openy_marketing_wiki": "^1"
+        "open-y-subprojects/openy_docs": "dev-main"
     },
     "config": {
         "bin-dir": "bin/",
@@ -156,6 +156,7 @@
                 "drupal/core"
             ]
         },
+        "installer-types": ["openy-docs"],
         "installer-paths": {
             "docroot/core": [
                 "type:drupal-core"
@@ -173,6 +174,9 @@
                 "type:drupal-library",
                 "type:bower-asset",
                 "type:npm-asset"
+            ],
+            "docs/": [
+                "open-y-subprojects/openy_docs"
             ]
         },
         "patches": {
@@ -253,17 +257,9 @@
                 }
             }
         },
-                {
-            "type": "package",
-            "package": {
-                "name": "drupal/openy_marketing_wiki",
-                "type": "library",
-                "version": "1.0.x",
-                "dist": {
-                    "type": "zip",
-                    "url": "https://ftp.drupal.org/files/projects/openy_marketing_wiki-1.0.x-dev.zip"
-                }
-            }
+        {
+            "type": "git",
+            "url": "https://github.com/open-y-subprojects/openy_docs"
         },
         {
             "type": "package",
