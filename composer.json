@@ -104,7 +104,7 @@
         "drupal/migrate_tools": "^5.0",
         "drupal/upgrade_tool": "^2",
         "drupal/openy_lily": "^1.1",
-        "drupal/openy_carnation": "^1.0.3",
+        "drupal/openy_carnation": "^1.1",
         "drupal/openy_rose": "^1.1",
         "grt107/grt-youtube-popup": "^1.0",
         "library-ckeditor/colorbutton": "4.10.1",
