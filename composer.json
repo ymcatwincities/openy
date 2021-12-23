@@ -87,7 +87,7 @@
         "drupal/simple_sitemap": "3.0.0 || ^3.7",
         "drupal/slick": "^2",
         "drupal/slick_views": "^2",
-        "drupal/social_feed_fetcher": "dev-3248950-not-compatible-with",
+        "issue/social_feed_fetcher-3248950": "dev-3248950-not-compatible-with",
         "drupal/token": "^1.5",
         "drupal/token_filter": "^1",
         "drupal/twig_tweak": "^2 || ^3.1",
@@ -226,7 +226,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://git.drupalcode.org/issue/social_feed_fetcher-3248950.git"
+            "url": "git@git.drupal.org:issue/social_feed_fetcher-3248950.git"
         },
         {
             "type": "composer",
