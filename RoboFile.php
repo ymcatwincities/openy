@@ -37,6 +37,7 @@ class RoboFile extends \Robo\Tasks {
       ->dir($path . '/openy-project')
       ->repository(99, $repository, 'path')
       ->ansi(TRUE)
+      ->set('canonical', FALSE)
       ->run();
   }
 
