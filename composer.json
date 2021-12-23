@@ -8,6 +8,7 @@
         "composer/installers": "^1.2 || ^1.9",
         "cweagans/composer-patches": "^1.5.0",
         "doctrine/inflector": "1.2.* || ^2",
+        "abraham/twitteroauth": "3.2.0 as 0.7.2",
         "drupal/address": "^1.8",
         "drupal/activenet": "^1.0",
         "drupal/admin_toolbar": "^2 || ^3.0",
