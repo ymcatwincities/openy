@@ -225,7 +225,7 @@
     },
     "repositories": [
         {
-            "type": "git",
+            "type": "vcs",
             "url": "https://git.drupalcode.org/issue/social_feed_fetcher-3248950.git"
         },
         {
