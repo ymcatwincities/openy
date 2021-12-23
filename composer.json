@@ -8,7 +8,6 @@
         "composer/installers": "^1.2 || ^1.9",
         "cweagans/composer-patches": "^1.5.0",
         "doctrine/inflector": "1.2.* || ^2",
-        "abraham/twitteroauth": "3.2.0 as 0.7.2",
         "drupal/address": "^1.8",
         "drupal/activenet": "^1.0",
         "drupal/admin_toolbar": "^2 || ^3.0",
@@ -88,7 +87,7 @@
         "drupal/simple_sitemap": "3.0.0 || ^3.7",
         "drupal/slick": "^2",
         "drupal/slick_views": "^2",
-        "drupal/social_feed_fetcher": "^2",
+        "drupal/social_feed_fetcher": "dev-3248950-not-compatible-with",
         "drupal/token": "^1.5",
         "drupal/token_filter": "^1",
         "drupal/twig_tweak": "^2 || ^3.1",
@@ -225,6 +224,10 @@
         }
     },
     "repositories": [
+        {
+            "type": "git",
+            "url": "https://git.drupalcode.org/issue/social_feed_fetcher-3248950.git"
+        },
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
