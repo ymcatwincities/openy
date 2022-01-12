@@ -87,7 +87,6 @@
         "drupal/simple_sitemap": "3.0.0 || ^3.7",
         "drupal/slick": "^2",
         "drupal/slick_views": "^2",
-        "drupal/social_feed_fetcher": "^2",
         "drupal/token": "^1.5",
         "drupal/token_filter": "^1",
         "drupal/twig_tweak": "^2 || ^3.1",
@@ -106,6 +105,7 @@
         "drupal/openy_lily": "^1.1",
         "drupal/openy_carnation": "^1.1",
         "drupal/openy_rose": "^1.1",
+        "drupal/social_feed_fetcher": "3.0.x-dev@dev",
         "grt107/grt-youtube-popup": "^1.0",
         "library-ckeditor/colorbutton": "4.10.1",
         "library-ckeditor/font": "4.12.1",
@@ -136,7 +136,8 @@
         "open-y-subprojects/openy_hours_formatter": "^1.2.0",
         "open-y-subprojects/openy_features": "^1.5.1",
         "open-y-subprojects/openy_content_core": "^1.1",
-        "open-y-subprojects/common_scss": "dev-main"
+        "open-y-subprojects/common_scss": "dev-main",
+        "symfony/console": "^4.4.30 || ^5"
     },
     "require-dev": {
         "consolidation/robo": "^1.1.5",
