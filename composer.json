@@ -134,7 +134,7 @@
         "ynorth-projects/openy_repeat": "^1 || ^2.0.6",
         "ynorth-projects/openy_node_session": "^0.9 || ^1.1.0",
         "open-y-subprojects/openy_hours_formatter": "^1.2.0",
-        "open-y-subprojects/openy_features": "^1.5.1",
+        "open-y-subprojects/openy_features": "^1.5.9",
         "open-y-subprojects/openy_content_core": "^1.1",
         "open-y-subprojects/common_scss": "dev-main",
         "symfony/console": "^4.4.30 || ^5"

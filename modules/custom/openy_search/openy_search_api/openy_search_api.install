@@ -48,12 +48,17 @@ function openy_search_api_install() {
   // Display message if Open Y installed.
   if (\Drupal::moduleHandler()->moduleExists('openy_system')) {
     $url = Url::fromRoute('search_api.overview');
+    $legacy = Url::fromRoute('system.modules_list', [], ['fragment' => 'module-search-api-solr-legacy']);
+
     $args = [
       ':search_api_overview' => $url->toString(),
+      ':legacy' => $legacy->toString(),
     ];
     $messenger = \Drupal::messenger();
     $messenger->addMessage(
-      t('Please check your search_api <a href=":search_api_overview">search settings page</a>', $args),
+      t('Please check your search_api <a href=":search_api_overview">search settings page</a>.
+      If you see errors there about your Solr version not being supported you may need to
+      <a href=":legacy">install the Search API Solr Legacy module</a>.', $args),
       'status'
     );
   }
