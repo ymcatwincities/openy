@@ -14,7 +14,7 @@ backend_config:
     host: solr
     port: 8983
     path: ''
-    core: collection1
+    core: user-owned
     timeout: 5
     index_timeout: 5
     optimize_timeout: 10
