@@ -54,7 +54,7 @@ In order to properly install Open Y Distribution, we have separate composer proj
 # Development
 For development environment please read documentation [openy-project](https://github.com/ymcatwincities/openy-project#development-environment).
 
-Other development information you can find at [docs/Development](https://github.com/ymcatwincities/openy/tree/9.x-2.x/docs/Development).
+Other development information you can find at [docs/Development](https://docs.openy.org/docs/development/).
 
 
 # Documentation
