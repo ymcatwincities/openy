@@ -58,10 +58,10 @@ Other development information you can find at [docs/Development](https://github.
 
 
 # Documentation
-- [Wiki](https://github.com/ymcatwincities/openy/wiki)
-- [Documentation](https://github.com/ymcatwincities/openy/tree/9.x-2.x/docs)
+- [Wiki](https://docs.openy.org/docs/wiki/)
+- [Documentation](https://docs.openy.org/docs/)
 - [Installation instructions](https://github.com/ymcatwincities/openy-project#installation)
-- [Content structure](https://github.com/ymcatwincities/openy/tree/9.x-2.x/docs/Content%20structure)
-- [Technical documentation](https://github.com/ymcatwincities/openy/tree/9.x-2.x/docs/Development)
-- [Terms of Use](https://github.com/ymcatwincities/openy/wiki/Open-Y-Terms-of-Use)
-- [Participation Agreement](https://github.com/ymcatwincities/openy/wiki/Open-Y-Participant-Agreement)
+- [Content structure](https://docs.openy.org/docs/content-structure/)
+- [Technical documentation](https://docs.openy.org/docs/development/)
+- [Terms of Use](https://docs.openy.org/docs/wiki/open-y-terms-of-use/)
+- [Participation Agreement](https://docs.openy.org/docs/wiki/open-y-participant-agreement/)
