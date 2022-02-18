@@ -1,8 +1,0 @@
-advanced_help_block.advanced_help_block_add:
-  route_name: entity.advanced_help_block.advanced_help_block_add
-  title: 'Add Advanced Help Block'
-
-  appears_on:
-    - entity.advanced_help_block.collection
-    - entity.advanced_help_block.canonical
-    - view.advanced_help_blocks.ahb_list
