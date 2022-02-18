@@ -1,6 +1,0 @@
-services:
-  openy_search.overrider:
-    class: Drupal\openy_search\Config\OpenySearchOverrides
-    tags:
-      - {name: config.factory.override, priority: 5}
-    arguments: ['@config.factory', '@module_handler']

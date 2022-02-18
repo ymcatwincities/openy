@@ -1,9 +1,0 @@
-openy_font.font_settings_form:
-  path: '/admin/config/user-interface/fonts'
-  defaults:
-    _form: '\Drupal\openy_font\Form\FontSettingsForm'
-    _title: 'Open Y font settings'
-  requirements:
-    _permission: 'access administration pages'
-  options:
-    _admin_route: TRUE

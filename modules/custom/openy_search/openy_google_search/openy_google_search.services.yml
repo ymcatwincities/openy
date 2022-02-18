@@ -1,4 +1,0 @@
-services:
-  openy_google_search.helper:
-    class: Drupal\openy_google_search\OpenyGoogleSearchHelperService
-    arguments: ['@language_manager', '@config.factory', '@path_alias.manager']

@@ -1,7 +1,0 @@
-name: Open Y FAQ
-type: module
-description: Provides a FAQ field type.
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.0
-dependencies: { }

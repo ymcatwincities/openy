@@ -1,7 +1,0 @@
-services:
-  analytics_cron:
-    class: Drupal\openy_analytics\AnalyticsCron
-    arguments: ['@entity_type.manager', '@database',
-                '@config.factory', '@extension.list.module',
-                '@entity_field.manager', '@http_client',
-                '@entity_type.bundle.info', '@logger.factory']

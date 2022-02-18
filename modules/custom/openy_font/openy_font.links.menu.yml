@@ -1,6 +1,0 @@
-openy_font.font_settings_form:
-  title: Open Y font settings
-  description: 'Open Y font settings.'
-  route_name: openy_font.font_settings_form
-  parent: system.admin_config_ui
-  weight: 10

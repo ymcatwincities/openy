@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: search_api
-label: 'Search API'
-icon_uuid: null
-description: 'Paragraph to display default Drupal search API results'
-behavior_plugins: {  }

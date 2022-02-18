@@ -1,9 +1,0 @@
-name: Open Y Home Branch override example
-type: module
-description: Provides examples how to override Home Branch plugins
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0-rc1
-package: Open Y
-dependencies:
-  - openy_home_branch:openy_home_branch
-

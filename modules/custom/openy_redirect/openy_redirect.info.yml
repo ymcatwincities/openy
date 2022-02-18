@@ -1,8 +1,0 @@
-name: Open Y Redirect
-type: module
-description: Allows user to add redirects directly from edit page.
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.0
-dependencies:
-  - redirect:redirect

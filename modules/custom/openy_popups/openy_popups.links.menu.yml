@@ -1,6 +1,0 @@
-openy_popups.admin:
-  title: 'Popups settings'
-  description: 'Configure Open Y popups settings.'
-  parent: openy_system.openy_settings
-  route_name: openy_popups.settings
-  weight: 100

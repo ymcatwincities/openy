@@ -1,4 +1,0 @@
-services:
-  plugin.manager.home_branch_library:
-    class: Drupal\openy_home_branch\HomeBranchLibraryManager
-    parent: default_plugin_manager

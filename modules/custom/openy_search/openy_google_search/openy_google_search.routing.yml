@@ -1,7 +1,0 @@
-openy_google_search.settings:
-  path: '/admin/openy/settings/google-search'
-  defaults:
-    _form: '\Drupal\openy_google_search\Form\SettingsForm'
-    _title: 'Google Search settings'
-  requirements:
-    _permission: 'administer google custom search'

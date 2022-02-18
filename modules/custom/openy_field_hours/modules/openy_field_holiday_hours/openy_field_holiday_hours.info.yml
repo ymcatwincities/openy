@@ -1,8 +1,0 @@
-name: Open Y Field Holiday Hours
-type: module
-description: Provides a custom field for holiday hours.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - openy_field_hours:openy_field_hours

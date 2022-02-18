@@ -1,6 +1,0 @@
-name: Open Y SVG formatter
-type: module
-description: Adds a SVG formatter to file field.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
