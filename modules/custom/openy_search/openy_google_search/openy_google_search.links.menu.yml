@@ -1,6 +1,0 @@
-openy_google_search.admin:
-  title: 'Google Search settings'
-  description: 'Configure Open Y Google Custom Search settings.'
-  parent: openy_system.openy_settings
-  route_name: openy_google_search.settings
-  weight: 100

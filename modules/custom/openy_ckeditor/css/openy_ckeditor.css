@@ -1,8 +1,0 @@
-.cke_button__listbranchamenities,
-.cke_button__listbranchamenities {
-  display: none !important;
-}
-.node-branch-form .cke_button__listbranchamenities,
-.node-branch-edit-form .cke_button__listbranchamenities {
-  display: inline-block !important;
-}

@@ -1,9 +1,0 @@
-services:
-  openy.modules_manager:
-    class: Drupal\openy_system\OpenyModulesManager
-    arguments: ['@entity_type.manager', '@config.factory', '@plugin.manager.migration', '@config.manager' ]
-  openy.terms_subscriber:
-    class: Drupal\openy_system\EventSubscriber\TermsSubscriber
-    arguments: ['@config.factory', '@current_user']
-    tags:
-      - {name: event_subscriber}

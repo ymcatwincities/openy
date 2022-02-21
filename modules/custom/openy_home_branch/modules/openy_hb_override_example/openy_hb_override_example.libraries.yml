@@ -1,7 +1,0 @@
-location_finder_override:
-  version: 0.1
-  js:
-    js/hb-loc-finder-override.js: {}
-  dependencies:
-    - core/drupalSettings
-    - openy_home_branch/location_finder

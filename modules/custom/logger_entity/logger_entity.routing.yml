@@ -1,7 +1,0 @@
-logger_entity.admin_config:
-  path: '/admin/config/logger-entity'
-  defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Logger Entity'
-  requirements:
-    _permission: 'access administration pages'

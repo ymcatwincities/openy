@@ -1,9 +1,0 @@
-cookie_lifetime: 28800
-header_replacements:
-  -
-    block_id: Disable Mobile Section Lead Copy
-    selector: '.page-middle .lead-copy'
-footer_replacements:
-  -
-    block_id: Disable Footer
-    selector: '#page-footer'

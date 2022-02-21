@@ -1,8 +1,0 @@
-name: Open Y Tour
-type: module
-description: Implements extended functionality for Tours.
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.0
-dependencies:
-  - drupal:tour

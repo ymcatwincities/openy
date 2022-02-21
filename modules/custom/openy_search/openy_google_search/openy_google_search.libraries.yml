@@ -1,7 +1,0 @@
-google_search:
-  version: 1.x
-  js:
-    js/google_search.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupalSettings

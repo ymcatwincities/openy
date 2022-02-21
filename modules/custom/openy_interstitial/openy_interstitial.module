@@ -1,8 +1,0 @@
-<?php
-
-/**
- * @file
- * Openy Interstitial Page module file.
- */
-
-define ('INTERSTITIAL_BLOCK_CACHE_TIME', 5 * 60);

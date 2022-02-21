@@ -1,8 +1,0 @@
-name: Open Y Home Branch
-type: module
-description: Provides a Home Branch personalization logic.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0-rc1
-package: Open Y
-dependencies:
-  - openy_loc_branch:openy_loc_branch

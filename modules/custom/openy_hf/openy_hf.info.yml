@@ -1,6 +1,0 @@
-name: Open Y Headerless Footerless HTML templating
-type: module
-description: Allows users to use query parameters for hiding predefined DOM elements to end users.
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.0

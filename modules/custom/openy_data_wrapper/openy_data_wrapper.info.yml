@@ -1,9 +1,0 @@
-name: Open Y Data Wrapper
-type: module
-description: Provide data for membership calculator and location finder.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0
-package: Open Y
-dependencies:
-  - openy_map:openy_map
-  - openy_socrates:openy_socrates

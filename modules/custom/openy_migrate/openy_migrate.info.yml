@@ -1,9 +1,0 @@
-name: Open Y Migrate
-type: module
-description: Provides various migration tools and helpers.
-core_version_requirement: ^8 || ^9
-package: Open Y
-version: 8.x-1.0
-dependencies:
-  - migrate_tools:migrate_tools
-  - migrate_plus:migrate_plus

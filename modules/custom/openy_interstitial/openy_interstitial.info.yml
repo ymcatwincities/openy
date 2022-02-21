@@ -1,9 +1,0 @@
-name: Open Y Interstitial Page
-type: module
-description: Provides a custom functionality for interstitial dialog block.
-core_version_requirement: ^8 || ^9
-version: 8.x-1.0-rc1
-package: Open Y (Experimental)
-dependencies:
-  - scheduler:scheduler
-  - openy_node_interstitial:openy_node_interstitial

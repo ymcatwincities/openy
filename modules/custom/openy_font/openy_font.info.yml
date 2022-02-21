@@ -1,6 +1,0 @@
-name: Open Y Font
-type: module
-description: Open Y Font Settings. This module is deprecated and will be removed in future versions. Use FontYourFace module instead.
-core_version_requirement: ^8 || ^9
-package: Open Y (Deprecated)
-version: 8.x-1.0
