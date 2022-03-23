@@ -96,7 +96,7 @@
         "drupal/verf": "1.0-beta7 || ^1.0",
         "drupal/video": "^1.5@alpha || ^1.5beta || ^1.5",
         "drupal/video_embed_field": "^2.0",
-        "drupal/views_block_filter_block": "^1.0",
+        "drupal/views_block_filter_block": "^1.2",
         "drupal/views_data_export": "1.0-rc1 || ^1.0",
         "drupal/views_field_formatter": "^1.11",
         "drupal/views_infinite_scroll": "^1.7",
