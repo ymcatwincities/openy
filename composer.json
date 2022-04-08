@@ -224,6 +224,9 @@
             },
             "drupal/search_api": {
                 "2898334 - Add a Role-based access processor": "https://www.drupal.org/files/issues/2021-01-31/2898334-30--role_based_access_check.patch"
+            },
+            "drupal/easy_breadcrumb": {
+                "Fix PHP 8.1 deprecations": "https://git.drupalcode.org/project/easy_breadcrumb/-/merge_requests/42.patch"
             }
         }
     },
