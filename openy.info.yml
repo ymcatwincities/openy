@@ -11,7 +11,7 @@ php: 7.4
 # Required modules
 dependencies:
   # Core modules.
-  - drupal:dblog
+  # - drupal:dblog
   - drupal:action
   - drupal:block_content
   - drupal:breakpoint
