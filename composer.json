@@ -83,7 +83,7 @@
         "drupal/redirect": "^1",
         "drupal/scheduler": "^1",
         "drupal/search_api": "1.17 || ^1.19",
-        "drupal/search_api_solr": "^4.1",
+        "drupal/search_api_solr": "^4.1 || ^4.2",
         "drupal/simple_menu_icons": "^2.2",
         "drupal/simple_sitemap": "3.0.0 || ^3.7",
         "drupal/slick": "^2",
