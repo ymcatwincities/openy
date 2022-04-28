@@ -83,7 +83,7 @@
         "drupal/redirect": "^1",
         "drupal/scheduler": "^1",
         "drupal/search_api": "1.17 || ^1.19",
-        "drupal/search_api_solr": "^4.1",
+        "drupal/search_api_solr": "^4.1 || ^4.2",
         "drupal/simple_menu_icons": "^2.2",
         "drupal/simple_sitemap": "3.0.0 || ^3.7",
         "drupal/slick": "^2",
@@ -96,7 +96,7 @@
         "drupal/verf": "1.0-beta7 || ^1.0",
         "drupal/video": "^1.5@alpha || ^1.5beta || ^1.5",
         "drupal/video_embed_field": "^2.0",
-        "drupal/views_block_filter_block": "^1.0",
+        "drupal/views_block_filter_block": "^1.2",
         "drupal/views_data_export": "1.0-rc1 || ^1.0",
         "drupal/views_field_formatter": "^1.11",
         "drupal/views_infinite_scroll": "^1.7",
@@ -125,7 +125,7 @@
         "symfony/dom-crawler": "~2.8 || ~3.0 || ~4.2",
         "symfony/process": "^4",
         "ymcatwincities/media_entity_document": "*",
-        "ymcatwincities/openy_activity_finder": "^4.0",
+        "ymcatwincities/openy_activity_finder": "^4.0 || ^4.1",
         "ymcatwincities/ymca_sync": "^8 || ^10",
         "ynorth-projects/openy_pef_gxp_sync": "1.0.0 || ^1.1.1",
         "open-y-subprojects/openy_daxko_gxp_syncer": "^1.1.1",
@@ -190,7 +190,8 @@
                 "Add BC layer for entity_embed 1.1 for https://www.drupal.org/project/entity_embed/issues/2511404#comment-12129724": "https://gist.githubusercontent.com/podarok/47b9e38df6570a31d1ea87fea250d6c2/raw/d1435211dffe31cb6206d360e1d99f44c0deddee/entity_embed_1_1_bc_link_to.patch"
             },
             "drupal/plugin": {
-                "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/2020-07-22/2647312-32.patch"
+                "2647312 - Use SubFormState in plugin selectors": "https://www.drupal.org/files/issues/2020-07-22/2647312-32.patch",
+                "PHP 8.1 deprecations": "https://git.drupalcode.org/project/plugin/-/merge_requests/2.patch"
             },
             "drupal/core": {
                 "1236098 - Notice: Undefined index in _color_rewrite_stylesheet()": "https://www.drupal.org/files/issues/undefined-index-in-_color_rewrite_stylesheet-1236098-37.patch",
@@ -223,6 +224,9 @@
             },
             "drupal/search_api": {
                 "2898334 - Add a Role-based access processor": "https://www.drupal.org/files/issues/2021-01-31/2898334-30--role_based_access_check.patch"
+            },
+            "drupal/easy_breadcrumb": {
+                "Fix PHP 8.1 deprecations": "https://git.drupalcode.org/project/easy_breadcrumb/-/merge_requests/42.patch"
             }
         }
     },

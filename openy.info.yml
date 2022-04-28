@@ -2,7 +2,7 @@ name: Open Y
 type: profile
 description: 'Open Y Drupal distribution.'
 core_version_requirement: ^8 || ^9 || ^10
-version: '9.x-2.11.3'
+version: '9.x-2.11.4'
 distribution:
   name: Open Y
   install:
@@ -11,6 +11,7 @@ php: 7.4
 # Required modules
 dependencies:
   # Core modules.
+  # - drupal:dblog
   - drupal:action
   - drupal:block_content
   - drupal:breakpoint
