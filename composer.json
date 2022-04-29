@@ -100,7 +100,7 @@
         "drupal/views_data_export": "1.0-rc1 || ^1.0",
         "drupal/views_field_formatter": "^1.11",
         "drupal/views_infinite_scroll": "^1.7",
-        "drupal/webform": "^6.0",
+        "drupal/webform": "^6",
         "drupal/migrate_tools": "^5.0",
         "drupal/upgrade_tool": "^2",
         "drupal/openy_lily": "^1.1",
