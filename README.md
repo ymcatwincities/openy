@@ -15,6 +15,10 @@
 </p>
 
 <p align="center">
+This code distribution is minimally maintained while primary code development transitions to Y USA. For more details visit https://openy.org and https://ycloud.y.org/
+</p>
+
+<p align="center">
   <a href="https://packagist.org/packages/ymcatwincities/openy"><img src="https://img.shields.io/packagist/v/ymcatwincities/openy.svg?style=flat-square"></a>
   <a href="https://packagist.org/packages/ymcatwincities/openy"><img src="https://img.shields.io/packagist/dm/ymcatwincities/openy.svg?style=flat-square"></a>
 </p>
