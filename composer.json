@@ -23,7 +23,7 @@
         "drupal/config_update": "^1.6",
         "drupal/core-composer-scaffold": "^9",
         "drupal/core-project-message": "^9",
-        "drupal/core-recommended": ">=9.3, <9.5, !=9.4.x-dev",
+        "drupal/core-recommended": ">=9.3, 9.4.0-beta1@beta, <9.5, !=9.4.x-dev",
         "drupal/crop": "^2",
         "drupal/css_editor": "^1.3 || ^2",
         "drupal/ctools": "3.0 || ^3.4",
