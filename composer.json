@@ -34,7 +34,7 @@
         "drupal/domain_theme_switch": "^1.5",
         "drupal/draggableviews": "^1",
         "drupal/dropzonejs": "2.1 || ^2.5",
-        "drupal/easy_breadcrumb": "^1 || ^2",
+        "drupal/easy_breadcrumb": "^2 || ^2.0.3",
         "drupal/editor_advanced_link": "^1",
         "drupal/embed": "^1",
         "drupal/entity": "^1",
@@ -222,9 +222,6 @@
             },
             "drupal/video_embed_field": {
                 "Issue #3215817: Presentational attributes such as 'border', 'align', or 'bgcolor' are used. CSS should be used for styling instead.": "https://git.drupalcode.org/project/video_embed_field/-/merge_requests/3.diff"
-            },
-            "drupal/easy_breadcrumb": {
-                "Fix PHP 8.1 deprecations": "https://git.drupalcode.org/project/easy_breadcrumb/-/merge_requests/42.patch"
             }
         }
     },
